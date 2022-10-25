@@ -1,26 +1,45 @@
 .top-bar {
-    background-color: #b7121f;
+    background-color: white;
     padding: 0px 10px;
-    color: white;
+    color: black;
     vertical-align: middle;
     height: 60px;
+    white-space: nowrap; 
+    overflow: hidden;
 }
 .product-logo {
     font-size: 36px;
     font-weight: 800;
     cursor: pointer;
 }
-.white-button {
+.product-icon {
+    color: #b7121f;
+}
+.icon-button {
+    color: #b7121f;
+    font-size: 36px;
+    font-weight: 800;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.icon-button:hover {
+    color: #444;
+}
+.login-button {
     background-color: white;
+    border: 1px solid #b7121f;
     color: black;
+}
+.login-button:hover {
+    background-color: #ccc;
 }
 .hamburger-menu {
     font-size: 32px;
-    color: white;
+    color: #b7121f;
     cursor: pointer;
 }
 .hamburger-menu:hover {
-    color: #ccc;
+    color: #444;
 }
 .profilePic {
     width: 44px;
@@ -78,6 +97,11 @@
 }
 @media screen and (max-width: 600px) {
     .hide-sm {
+        display: none;
+    }
+ }
+ @media screen and (max-width: 450px) {
+    .hide-xs {
         display: none;
     }
  }

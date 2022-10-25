@@ -4,6 +4,9 @@ $medium-brown: #260e04;
 $lite-blue-color: #d8e0e3;
 $dark-blue: #2a3a46;
 
+body {
+    background-color: #eee !important;
+}
 .title-highlight {
     background-color: $dark-red;
     color: white;
@@ -13,7 +16,7 @@ $dark-blue: #2a3a46;
 .standard-card {
     display: inline-block;
     background-color: white;
-    border: 1px solid gray;
+    box-shadow: 1px 1px 10px gray;
     border-radius: 5px;
     padding: 10px;
     width: 100%;
@@ -23,7 +26,7 @@ $dark-blue: #2a3a46;
     width: 175px;
     height: 250px;
     border-radius: 5px;
-    box-shadow: 2px 4px gray;
+    box-shadow: 2px 4px #999;
     object-fit: cover; 
     margin: 5px;
 }

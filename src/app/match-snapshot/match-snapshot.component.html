@@ -1,4 +1,4 @@
-<div class="match-card" *ngIf="matchUser">
+<div class="match-card" *ngIf="matchUser" style="text-align: left;">
     <div *ngIf="matchObj"
         style="font-size: 18px; background-color: #ccc; height: 40px; padding-left: 10px; line-height: 40px;">
         Picks for <b>{{user.firstName}}</b>&nbsp;
@@ -14,9 +14,8 @@
                     <img [src]="matchUser.imgSrc" class="profile-image">
                 </td>
                 <td valign="top">
-                    <div class="title-highlight">{{matchUser.firstName}}</div>
-                    <div class="tiny-text2">Age: <span class="text-highlight">{{matchUser.age}}</span></div>
-                    <div class="tiny-text2">City: <span class="text-highlight">{{matchUser.city}}</span></div>
+                    <div class="title-highlight">{{matchUser.firstName}}, {{matchUser.age}}</div>
+                    <div><b>{{matchUser.city}}</b></div>
                     <div class="small-box">
                         <div class="small-title">Relationship</div>
                         <app-green-check [label]="'Seeking'" [text1]="matchUser.desiredRelationship"
@@ -30,20 +29,18 @@
                     </div>
                     <div class="small-box">
                         <div class="small-title">Background</div>
-                        <app-green-check [label]="'Ed'" [text1]="matchUser.educationLevel"
-                            [text2]="user.matchEducation"></app-green-check>
-                        <app-green-check [label]="'In'" [text1]="matchUser.income" [text2]="user.matchIncome">
+                        <app-green-check [label]="'Education'" [text1]="matchUser.educationLevel"
+                            [text2]="user.matchEducation" [icon]="'fa fa-graduation-cap'"></app-green-check>
+                        <app-green-check [label]="'Income'" [text1]="matchUser.income" [text2]="user.matchIncome" [icon]="'fa fa-usd'">
                         </app-green-check>
-                        <app-green-check [label]="'Religion'" [text1]="matchUser.religion" [text2]="user.matchReligion">
+                        <app-green-check [label]="'Religion'" [text1]="matchUser.religion" [text2]="user.matchReligion" [icon]="'fa fa-book'">
                         </app-green-check>
                     </div>
                 </td>
             </tr>
         </table>
-        <div style="font-size: 12px; color: #999; font-weight: 700;">Motto: <span
-                class="text-highlight">{{matchUser.motto}}</span></div>
-        <div style="font-size: 12px; color: #999; font-weight: 700;">Looking For: <span
-                class="text-highlight">{{matchUser.story}}</span></div>
+        <div style="font-size: 12px; color: #777; font-weight: 700;">Motto: <b>{{matchUser.motto}}</b></div>
+        <div style="font-size: 12px; color: #777; font-weight: 700;">Looking For: <b>{{matchUser.story}}</b></div>
         <table width="100%">
             <tr>
                 <td>
