@@ -1,0 +1,25 @@
+
+
+
+.playerCard {
+    display: inline-block;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 150px;
+}
+.small-image {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+}
+.text-dark {
+    color: black;
+    opacity: 1;
+    transition: all 1s ease;
+}
+.text-lite {
+    color: black;
+    opacity: 0;
+    transition: all 1s ease;
+}

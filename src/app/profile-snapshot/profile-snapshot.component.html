@@ -1,0 +1,93 @@
+<div class="standard-card" *ngIf="user">
+
+    <table width="100%">
+        <tr>
+            <td>
+                <img [src]="user.imgSrc" class="profile-image">
+            </td>
+            <td valign="top">
+                <div class="title-highlight">{{user.firstName}}</div>
+                <div class="tiny-text2">Age: <span class="text-highlight">{{user.age}}</span></div>
+                <div class="tiny-text2">City: <span class="text-highlight">{{user.city}}</span></div>
+                <div class="tiny-text2">Relationship: <span class="text-highlight">{{user.desiredRelationship}}</span>
+                </div>
+                <div class="title-highlight">My Match</div>
+                <div class="tiny-text2">Gender: <span class="text-highlight">{{user.matchGender}}</span></div>
+                <div class="tiny-text2">Age: <span class="text-highlight">{{user.matchAge}}</span></div>
+                <div class="tiny-text2">Religion: <span class="text-highlight">{{user.matchReligion}}</span></div>
+                <div class="tiny-text2">Has Kids: <span class="text-highlight">{{user.matchHasKids}}</span></div>
+                <button [routerLink]="['/profile']" class="btn gray-button">Edit</button>
+            </td>
+        </tr>
+    </table>
+    <div style="font-size: 12px; color: #999; font-weight: 700;">Motto: <span
+            class="text-highlight">{{user.motto}}</span></div>
+    <div style="font-size: 12px; color: #999; font-weight: 700;">Looking For: <span
+            class="text-highlight">{{user.story}}</span></div>
+
+    <div *ngIf="user.status != 'Active'">
+        <div></div>You need to finish setting up your profile before you can start meeting people. This only takes a few
+        minutes.
+        <button [routerLink]="['/profile']" class="btn red-button">Profile</button>
+    </div>
+
+    <div *ngIf="user.status == 'Active'" style="text-align: center;">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button (mousedown)="changeMenuNum(1)" type="button" [ngClass]="ngClassButtonGroup(1)">My Matches</button>
+            <button (mousedown)="changeMenuNum(2)" type="button" [ngClass]="ngClassButtonGroup(2)">My Picks</button>
+            <button (mousedown)="changeMenuNum(3)" type="button" [ngClass]="ngClassButtonGroup(3)">Find New
+                Matches</button>
+        </div>
+    </div>
+
+    <div *ngIf="menuNum==1" class="beige-box">
+        <p>No matches yet!</p>
+        <p>Press "Find New Matches" to get going.</p>
+
+    </div>
+    <div *ngIf="menuNum==2" class="beige-box">
+        <p>No picks yet!</p>
+        <p>This means you have not pressed 'Yes' to any potential matches yet.</p>
+        <p>Press "Find New Matches" to get going.</p>
+    </div>
+
+
+    <div *ngIf="menuNum==3 && user.status == 'Active' && matchObj && matchObj.status != 'viewing'"
+        style="text-align: center; background-color: #eef; border-radius: 5px; padding: 5px;">
+        <div style="font-weight: 700; text-align: center;">Find potential Matches</div>
+        <div>
+            <span style="float: left;">Quantity</span><span style="float: right;">Quality</span>
+        </div>
+        <div class="range">
+            <input type="range" class="form-range" id="customRange1" />
+        </div>
+        <button *ngIf="responseJson && matchObj.status == 'not started'" (mousedown)="findMatches()"
+            class="btn red-button">Find</button>
+        <div style="font-size: 24px; text-align: center;" *ngIf="!responseJson">
+            <i class="fa fa-spinner fa-spin"></i> Loading data
+        </div>
+        <div *ngIf="responseJson" style="text-align: center;">Active Users: <span
+                class="text-highlight">{{responseJson.activeUsers}}</span></div>
+        <div *ngIf="matchObj.status == 'started'">
+            <div style="font-size: 24px; text-align: center;">
+                <i class="fa fa-spinner fa-spin"></i> Finding Profiles
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                    style="width: {{matchObj.progressPercent}}%" aria-valuenow="50" aria-valuemin="0"
+                    aria-valuemax="100"></div>
+            </div>
+        </div>
+        <div *ngIf="matchObj.status == 'started' || matchObj.status == 'completed'"
+            style="text-align: center; font-size: 24px;">Singles Found: <span
+                class="text-highlight">{{matchObj.matchesFound}}</span></div>
+        <div *ngIf="matchObj.status == 'completed'">
+            <div *ngIf="matchObj.matchesFound==0">Sorry, no profiles found. Please try again tomorrow.</div>
+            <button (mousedown)="seeMyMatches()" *ngIf="matchObj.matchesFound>0" class="btn red-button">See the
+                Profiles!</button>
+        </div>
+    </div>
+
+
+
+</div>

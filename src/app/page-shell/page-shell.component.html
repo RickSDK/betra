@@ -1,0 +1,36 @@
+
+<div class="top-bar">
+    <table width="100%" border="0">
+        <tr>
+            <td>
+                <span class="product-logo" [routerLink]="['']"><i class="fa fa-heart"></i>Betra</span>&nbsp;
+                <span class="hide-sm">The better way to meet!</span>
+            </td>
+            <td align="center" style="font-size: 24px; font-weight: 700; text-shadow: 2px 2px black;">
+                {{pageTitle}} 
+            </td>
+            <td align="right" valign="middle" *ngIf="userId==0 || !userId">
+                <button class="btn white-button" (mousedown)="loginPressed()">
+                    Login
+                </button>
+            </td>
+            <td *ngIf="userId>0" align="right">
+                <img [routerLink]="['/profile']" [src]="imgSrcFile" class="profilePic" alt="Profile Picture" [title]="firstName">
+            </td>
+            <td align="right" valign="middle" *ngIf="userId>0" width="44">
+               <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu"></i>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<ng-content></ng-content>
+
+<div class="menu-darkener" *ngIf="showMainMenuFlg" (mousedown)="showMainMenuFlg=false"></div>
+<div [ngClass]="ngClassToggleMenu()">
+    <div [routerLink]="['']" class="main-menu-item">Home</div>
+    <div [routerLink]="['/profile']" class="main-menu-item">My Profile</div>
+    <div [routerLink]="['/about']" class="main-menu-item">About</div>
+    <div [routerLink]="['/users']" class="main-menu-item">Users</div>
+    <div (mousedown)="logout()" class="main-menu-item">Log Out</div>
+</div>

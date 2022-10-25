@@ -1,0 +1,6 @@
+<div style="font-size: 24px; text-align: center;" *ngIf="loadingFlg">
+    <i class="fa fa-spinner fa-spin"></i> Please Wait
+</div>
+<div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
+<div *ngIf="successFlg" style="color: green; font-size: 24px; text-align: center;">Success!</div>
+

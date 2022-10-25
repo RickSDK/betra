@@ -1,0 +1,108 @@
+.profile-popup {
+    margin-top: 5px;
+    background-color: white;
+    display: inline-block;
+    top: 120px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;  
+}
+.profile-image2 {
+    display: inline-block;
+    border: 1px solid gray;
+    width: 175px;
+    height: 250px;
+    border-radius: 5px;
+    box-shadow: 2px 4px gray;
+    object-fit: cover; 
+    margin: 5px;
+}
+.info-box {
+    background-color: #ffffc0; 
+    border: 1px solid black; 
+    text-align: left; 
+    padding: 5px; 
+    margin: 5px; 
+    border-radius: 5px;
+}
+.btn-quiz {
+    border: 3px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    max-width: 220px;
+    min-height: 120px;
+}
+.btn-quiz:hover {
+    border: 3px solid red;
+}
+.btn-betra {
+    border: 3px solid #ccc;
+    padding: 10px;
+    height: 58px;
+    min-width: 80px;
+}
+.button-active {
+    border: 3px solid red;
+}
+.btn-betra:hover {
+    border: 3px solid red;
+}
+.tiny-text {
+    font-size: 12px;
+    color: black;
+    text-align: left;
+    margin-top: 20px;
+}
+.red-button {
+    background-color: #b7121f;
+    color: white;
+    width: 100%;
+    height: 60px;
+}
+.red-button:hover {
+    background-color: red;
+}
+.gray-button {
+    background-color: #ccc;
+    color: black;
+}
+.profile-main-menu {
+    padding: 10px;
+    font-size: 24px;
+    background-color: #b7121f;
+    color: white;
+   
+}
+.profile-menu-item {
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.profile-menu-item:hover {
+    background-color: #b7121f;
+    color: white;
+}
+.menu-section {
+    border: 1px solid #b7121f;
+    border-radius: 5px;
+    padding: 10px;
+}
+.menu-active {
+    background-color: #ccc;
+}
+.highlited-field {
+    background-color: #ccccff; 
+    padding: 5px; 
+    font-weight: 700; 
+    margin: 10px;
+}
+input {
+    padding: 15px;
+    border: 2px solid #ccc;
+    height: 60px;
+}
+.box-card {
+    padding: 10px;
+}

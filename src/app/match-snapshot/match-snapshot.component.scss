@@ -1,0 +1,38 @@
+.match-card {
+    display: inline-block;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+}
+.small-title {
+    font-size: 10px;
+    text-align: center;
+    font-weight: 700;
+    color: #770000;
+}
+.small-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
+}
+.yellow-button {
+    width: 100%;
+    font-size: 20px;
+    padding: 10px;
+    background-color: orange;
+}
+.yellow-button:hover {
+    background-color: #ffcc00;
+}
+.green-button {
+    width: 100%;
+    font-size: 20px;
+    padding: 10px;
+    background-color: #77ff77;
+}
+.green-button:hover {
+    background-color: #ccffcc;
+}

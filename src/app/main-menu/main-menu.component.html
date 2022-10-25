@@ -1,0 +1,31 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile">
+    <img class="background-img" src="assets/images/coffeeShop.jpg" alt="Coffee Shop">
+
+    <div *ngFor="let player of playerlist" class="playerCard">
+        <div style="text-align: center;">{{player.firstName}}</div>
+        <img [src]="player.imgSrc" alt="profile pic" class="small-image">
+        <div style="text-align: center;">{{player.status}}</div>
+    </div>
+    <div>
+
+        <app-profile-snapshot *ngIf="user && displayProfileFlg" [user]="user" [responseJson]="responseJson" [matchObj]="matchObj" (messageEvent)="snapshotButtonClicked ($event)"></app-profile-snapshot>
+        <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user" [matchUser]="matchUser"></app-match-snapshot>
+        <div (mousedown)="errorMessage=''" *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
+        <p>Version 0.23</p>
+    
+        <div class="standard-card" *ngIf="!user || user.status=='Pending'">
+            <p><b>Welcome to Betra!</b></p>
+             <p>Note: We are in the beginning stages of development! Right now, the only thing we are testing is user
+                creation and logging in. Hopefully in the next few days we will start adding new features. Stay tuned!
+            </p>
+            <p>Any feedback is appreciated! <a href="mailto:rickmedved@hotmail.com">rickmedved@hotmail.com</a></p>
+            <hr>
+        </div>
+
+    </div>
+
+</app-page-shell>
+
+<app-sign-up-popup *ngIf="popupNum==1" (messageEvent)="dismisLogin($event)"></app-sign-up-popup>
+<app-login-popup *ngIf="popupNum==2" (messageEvent)="dismisLogin($event)"></app-login-popup>
+<app-welcome-popup *ngIf="popupNum==3"></app-welcome-popup>

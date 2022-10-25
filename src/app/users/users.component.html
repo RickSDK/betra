@@ -1,0 +1,16 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Users'">
+    <img class="background-img" src="assets/images/coffeeShop.jpg" alt="Coffee Shop">
+
+    <div *ngFor="let player of playerlist" class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
+        <img [src]="player.imgSrc" alt="profile pic" class="small-image">
+        <div style="text-align: center; font-size: 16px;"><b>{{player.firstName}}</b></div>
+        <div style="text-align: center;"><i *ngIf="player.emailVerifyFlg" class="fa fa-check"
+                style="color: green;"></i>{{player.status}}</div>
+        <div style="text-align: center; font-size: 11px; color: green;">{{player.lastLoginText}}</div>
+        <div *ngIf="user && user.user_id==1" style="background-color: #eee;">
+            <div style="text-align: center;">{{player.adventureStableText}}</div>
+            <div style="text-align: center;">{{player.polyText}}</div>
+        </div>
+    </div>
+</app-page-shell>

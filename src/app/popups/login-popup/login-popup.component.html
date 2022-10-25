@@ -1,0 +1,26 @@
+<div class="betra-popup">
+    <div class="top-title">
+        User Login
+    </div>
+    <div class="inside-box" *ngIf="!loadingFlg">
+        <div class="tiny-text">Email Address</div>
+        <input type="email" name="email" id="email" placeholder="Email Address" (input)="valueChanged()">
+        <div class="tiny-text">Password</div>
+        <input type="password" name="password" id="password" placeholder="Password" (input)="valueChanged()">
+        <hr>
+        <div style="text-align: center;">
+            <button (mousedown)="loginPressed()" class="btn red-button"
+            [disabled]="submitDisabled">Log In</button>
+    
+            <button (mousedown)="cancelPressed()" class="btn gray-button"
+            >Cancel</button>
+        </div>
+        <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
+    </div>
+    <div class="inside-box" *ngIf="loadingFlg">
+        <div style="font-size: 24px; text-align: center;">
+            <i class="fa fa-spinner fa-spin"></i> Please Wait
+        </div>
+    </div>
+
+</div>

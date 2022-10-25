@@ -1,0 +1,21 @@
+.red-button {
+    background-color: #b7121f;
+    color: white;
+    width: 100%;
+    height: 60px;
+}
+.red-button:hover {
+    background-color: red;;
+}
+.gray-button {
+    background-color: #ccc;
+}
+.gray-button:hover {
+    background-color: #ddd;
+}
+.beige-box {
+    background-color: #ffffc0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
