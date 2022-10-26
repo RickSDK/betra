@@ -7,7 +7,7 @@
 
                 <div class="profile-main-menu">
                     <i [ngClass]="profileItemStatusClass(user.profileFlags[menuNum])"
-                        [style.color]="user.profileFlags[menuNum]?'green':'orange'"></i>
+                        [style.color]="user.profileFlags[menuNum]?'#7f7':'yellow'"></i>
                     {{menuTitles[menuNum]}}
                 </div>
                 <div *ngIf="!email">Error! No email: {{email}}</div>
