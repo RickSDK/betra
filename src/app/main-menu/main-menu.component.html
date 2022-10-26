@@ -11,7 +11,7 @@
         <app-profile-snapshot *ngIf="user && displayProfileFlg" [user]="user" [responseJson]="responseJson" [matchObj]="matchObj" (messageEvent)="snapshotButtonClicked ($event)"></app-profile-snapshot>
         <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user" [matchUser]="matchUser"></app-match-snapshot>
         <div (mousedown)="errorMessage=''" *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
-        <p>Version 0.24</p>
+        <p>Version 0.25</p>
     
         <div class="standard-card" *ngIf="!user || user.status=='Pending'">
             <p><b>Welcome to Betra!</b></p>

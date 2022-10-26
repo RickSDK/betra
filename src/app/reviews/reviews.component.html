@@ -1,0 +1,8 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Reviews'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile">
+
+    <div class="matches-card" *ngIf="user">
+        <div>No Reviews at this time.</div>
+    </div>
+
+</app-page-shell>

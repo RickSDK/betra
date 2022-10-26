@@ -1,0 +1,5 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Notifications'" [userId]="userId" [imgSrcFile]="imgSrcFile">
+    <div class="matches-card" *ngIf="user">
+        <div>No notifications at this time.</div>
+    </div>
+</app-page-shell>

@@ -22,6 +22,15 @@ body {
     width: 100%;
     max-width: 400px;
 }
+.matches-card {
+    display: inline-block;
+    background-color: white;
+    box-shadow: 1px 1px 10px gray;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    max-width: 500px;
+}
 .profile-image {
     width: 175px;
     height: 250px;

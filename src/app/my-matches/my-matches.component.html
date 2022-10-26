@@ -1,0 +1,13 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'My Matches'" [userId]="userId" [imgSrcFile]="imgSrcFile">
+
+    <div class="matches-card" *ngIf="user">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary">My Matches</button>
+            <button type="button" class="btn btn-secondary">People I Like</button>
+            <button type="button" class="btn btn-secondary">People Who Like Me</button>
+          </div>
+          <div>&nbsp;</div>
+          <div>Currently no matches. Click the search (<i class="fa fa-search"></i>) button above to find new singles!</div>
+    </div>
+
+</app-page-shell>

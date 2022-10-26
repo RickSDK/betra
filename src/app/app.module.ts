@@ -18,6 +18,10 @@ import { UsersComponent } from './users/users.component';
 import { ProfileSnapshotComponent } from './profile-snapshot/profile-snapshot.component';
 import { MatchSnapshotComponent } from './match-snapshot/match-snapshot.component';
 import { GreenCheckComponent } from './green-check/green-check.component';
+import { MyMatchesComponent } from './my-matches/my-matches.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { JournalComponent } from './journal/journal.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { GreenCheckComponent } from './green-check/green-check.component';
     UsersComponent,
     ProfileSnapshotComponent,
     MatchSnapshotComponent,
-    GreenCheckComponent
+    GreenCheckComponent,
+    MyMatchesComponent,
+    NotificationsComponent,
+    ReviewsComponent,
+    JournalComponent
   ],
   imports: [
     BrowserModule,
