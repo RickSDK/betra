@@ -16,9 +16,11 @@ export class User {
     public maritalStatus: string = '';
     public bodyType: string = '';
     public bodyHeight: string = '';
+    public bodyIcon: string = '';
     public desiredRelationship: string = '';
     public city: string = '';
     public longestRelationship: string = '';
+    public longestRelationshipText: string = '';
     public numTattoos: string = '';
     public numPiercings: string = '';
     public motto: string = '';
@@ -73,57 +75,62 @@ export class User {
 
 
     constructor(obj: any) {
-        this.user_id = obj.user_id;
-        this.firstName = obj.firstName;
-        this.birthdate = obj.birthdate;
-        this.birthYear = obj.birthYear;
-        this.gender = obj.gender;
-        this.findLoveFlg = obj.findLoveFlg == 'Y';
-        this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
-        this.makeMoneyFlg = obj.makeMoneyFlg == 'Y';
-        this.profilePic = obj.profilePic;
-        this.email = obj.email || '';
-        this.zipcode = obj.zipcode || '';
-        this.educationLevel = obj.educationLevel || '';
-        this.income = obj.income || '';
-        this.religion = obj.religion || '';
-        this.maritalStatus = obj.maritalStatus || '';
-        this.bodyType = obj.bodyType || '';
-        this.bodyHeight = obj.bodyHeight || '';
-        this.desiredRelationship = obj.desiredRelationship || '';
-        this.city = obj.city || '';
-        this.longestRelationship = obj.longestRelationship || '0';
-        this.numTattoos = obj.numTattoos || '0';
-        this.numPiercings = obj.numPiercings || '0';
+        if (obj) {
+            this.user_id = obj.user_id || 0;
+            this.firstName = obj.firstName;
+            this.birthdate = obj.birthdate;
+            this.birthYear = obj.birthYear;
+            this.gender = obj.gender;
+            this.bodyIcon = obj.gender == 'M' ? 'fa fa-male' : 'fa fa-female';
+            this.findLoveFlg = obj.findLoveFlg == 'Y';
+            this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
+            this.makeMoneyFlg = obj.makeMoneyFlg == 'Y';
+            this.profilePic = obj.profilePic;
+            this.email = obj.email || '';
+            this.zipcode = obj.zipcode || '';
+            this.educationLevel = obj.educationLevel || '';
+            this.income = obj.income || '';
+            this.religion = obj.religion || '';
+            this.maritalStatus = obj.maritalStatus || '';
+            this.bodyType = obj.bodyType || '';
+            this.bodyHeight = obj.bodyHeight || '';
+            this.desiredRelationship = obj.desiredRelationship || '';
+            this.city = obj.city || '';
+            this.longestRelationship = obj.longestRelationship || '0';
+            this.longestRelationshipText = this.longestRelationship + ' years';
+            this.numTattoos = obj.numTattoos || '0';
+            this.numPiercings = obj.numPiercings || '0';
 
-        this.personalityQuizAnswers = obj.personalityQuizAnswers || '';
-        this.politicalQuizAnswers = obj.politicalQuizAnswers || '';
-        this.stableScore = obj.stableScore || 0;
-        this.conScore = obj.conScore || 0;
+            this.personalityQuizAnswers = obj.personalityQuizAnswers || '';
+            this.politicalQuizAnswers = obj.politicalQuizAnswers || '';
+            this.stableScore = obj.stableScore || 0;
+            this.conScore = obj.conScore || 0;
 
-        this.marriageView = obj.marriageView;
-        this.numKids = obj.numKids || 0;
-        this.wantsKids = obj.wantsKids || '';
+            this.marriageView = obj.marriageView;
+            this.numKids = obj.numKids || 0;
+            this.wantsKids = obj.wantsKids || '';
 
-        //match
-        this.matchAge = obj.matchAge || 0;
-        this.matchBody = obj.matchBody || obj.bodyType;
-        this.matchHeight = obj.matchHeight || obj.bodyHeight;
-        this.matchMarriage = obj.matchMarriage || obj.marriageView;
-        this.matchRelationship = obj.matchRelationship || obj.desiredRelationship;
-        this.matchEducation = obj.matchEducation || obj.educationLevel;
-        this.matchIncome = obj.matchIncome || obj.income;
-        this.matchReligion = obj.matchReligion || obj.religion;
-        this.matchHasKids = obj.matchHasKids || '';
-        this.matchWantsKids = obj.matchWantsKids || obj.wantsKids;
+            //match
+            this.matchAge = obj.matchAge || 0;
+            this.matchBody = obj.matchBody || obj.bodyType;
+            this.matchHeight = obj.matchHeight || obj.bodyHeight;
+            this.matchMarriage = obj.matchMarriage || obj.marriageView;
+            this.matchRelationship = obj.matchRelationship || obj.desiredRelationship;
+            this.matchEducation = obj.matchEducation || obj.educationLevel;
+            this.matchIncome = obj.matchIncome || obj.income;
+            this.matchReligion = obj.matchReligion || obj.religion;
+            this.matchHasKids = obj.matchHasKids || '';
+            this.matchWantsKids = obj.matchWantsKids || obj.wantsKids;
 
-        this.motto = obj.motto || '';
-        this.story = obj.story || '';
-        this.status = obj.userStatus || 'Pending';
-        this.emailVerifyFlg = obj.emailVerifyFlg == 'Y';
-        this.lastLogin = obj.lastLogin;
-        this.lastLoginText = '-';
-        this.matchPreference = obj.matchPreference;
+            this.motto = obj.motto || '';
+            this.story = obj.story || '';
+            this.status = obj.userStatus || 'Pending';
+            this.emailVerifyFlg = obj.emailVerifyFlg == 'Y';
+            this.lastLogin = obj.lastLogin;
+            this.lastLoginText = '-';
+            this.matchPreference = obj.matchPreference;
+        }
+
 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
         if (this.matchPreference == 'A')
@@ -156,7 +163,7 @@ export class User {
             this.matchAge = this.age;
         }
 
-        this.imgSrc = (obj.gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
+        this.imgSrc = (obj && obj.gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
         if (this.profilePic > 0)
             this.imgSrc = 'https://www.appdigity.com/betraPhp/profileImages/profile' + this.user_id + '_' + this.profilePic + '.jpg';
 
@@ -170,16 +177,19 @@ export class User {
                 else
                     num--;
             });
-            this.adventureStableText = "Moderate";
+            if (num == 0 || num == 1)
+                this.adventureStableText = "Easy Going";
             if (num > 1)
-                this.adventureStableText = "Leans Stable";
+                this.adventureStableText = "Mellow";
             if (num >= 5)
-                this.adventureStableText = "Extremely Stable";
+                this.adventureStableText = "Stable";
 
+            if (num == -1)
+                this.adventureStableText = "Bold";
             if (num < -1)
-                this.adventureStableText = "Leans Adventurous";
+                this.adventureStableText = "Adventurous";
             if (num <= -5)
-                this.adventureStableText = "Extremely Adventurous";
+                this.adventureStableText = "Wild";
 
             this.personalityNum = num;
         }
@@ -283,7 +293,7 @@ export class User {
         if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {
             this.status = 'Ready';
         }
-        this.profileFlags = [basicsFlg, verifyFlg, detailsFlg, quizFlg, politicsFlg, matchFlg, profilePicFlg, additionalPicsFlg, true];
+        this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, matchFlg, profilePicFlg, additionalPicsFlg, true];
     }
     userObjFromText(line: string) {
         var obj = {};

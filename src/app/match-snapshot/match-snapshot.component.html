@@ -1,55 +1,18 @@
 <div class="match-card" *ngIf="matchUser" style="text-align: left;">
-    <div *ngIf="matchObj"
-        style="font-size: 18px; background-color: #ccc; height: 40px; padding-left: 10px; line-height: 40px;">
-        Picks for <b>{{user.firstName}}</b>&nbsp;
-        <span style="color: #700;">({{matchObj.currentMatch}} of {{matchObj.matchesFound}})</span>
-        <button (mousedown)="cancelMatches()" style="float: right;" class="btn btn-primary"><i
-                class="fa fa-times"></i></button>
-    </div>
+
+    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="cancelMatches()"></app-profile-top>
+
     <div style="padding: 5px;">
 
         <table width="100%">
             <tr>
                 <td>
-                    <img [src]="matchUser.imgSrc" class="profile-image">
-                </td>
-                <td valign="top">
-                    <div class="title-highlight">{{matchUser.firstName}}, {{matchUser.age}}</div>
-                    <div><b>{{matchUser.city}}</b></div>
-                    <div class="small-box">
-                        <div class="small-title">Relationship</div>
-                        <app-green-check [label]="'Seeking'" [text1]="matchUser.desiredRelationship"
-                            [text2]="user.matchRelationship"></app-green-check>
-                        <app-green-check [label]="'Marriage'" [text1]="matchUser.marriageView"
-                            [text2]="user.marriageView"></app-green-check>
-                        <app-green-check [label]="'Longest Rel'" [text1]="matchUser.longestRelationshipText">
-                        </app-green-check>
-                        <app-green-check [label]="'Kids'" [text1]="matchUser.numKids" [text2]="user.kidsNum">
-                        </app-green-check>
-                    </div>
-                    <div class="small-box">
-                        <div class="small-title">Background</div>
-                        <app-green-check [label]="'Education'" [text1]="matchUser.educationLevel"
-                            [text2]="user.matchEducation" [icon]="'fa fa-graduation-cap'"></app-green-check>
-                        <app-green-check [label]="'Income'" [text1]="matchUser.income" [text2]="user.matchIncome" [icon]="'fa fa-usd'">
-                        </app-green-check>
-                        <app-green-check [label]="'Religion'" [text1]="matchUser.religion" [text2]="user.matchReligion" [icon]="'fa fa-book'">
-                        </app-green-check>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div style="font-size: 12px; color: #777; font-weight: 700;" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp; <b>{{matchUser.motto}}</b></div>
-        <div style="font-size: 12px; color: #777; font-weight: 700;" title="Looking for"><i class="fa fa-eye"></i>&nbsp; <b>{{matchUser.story}}</b></div>
-        <table width="100%">
-            <tr>
-                <td>
                     <div class="small-box">
                         <div class="small-title">Personality</div>
-                        <app-green-check [label]="'Type'" [text1]="matchUser.adventureStableText"
-                            [text2]="user.adventureStableText">
+                        <app-green-check [label]="'Personality Quiz Type'" [text1]="matchUser.adventureStableText"
+                            [text2]="user.adventureStableText" [icon]="'fa fa-question-circle'">
                         </app-green-check>
-                        <app-green-check [label]="'Politics'" [text1]="matchUser.polyText" [text2]="user.polyText">
+                        <app-green-check [label]="'Politics'" [text1]="matchUser.polyText" [text2]="user.polyText" [icon]="'fa fa-university'">
                         </app-green-check>
                         <app-green-check [label]="'Wants Kids?'" [text1]="matchUser.wantsKids" [text2]="user.wantsKids">
                         </app-green-check>
@@ -58,7 +21,7 @@
                 <td>
                     <div class="small-box">
                         <div class="small-title">Body</div>
-                        <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc">
+                        <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc" [icon]="user.bodyIcon">
                         </app-green-check>
                         <app-green-check [label]="'Tattoos'" [text1]="matchUser.numTattoos" [text2]="user.bodyDesc">
                         </app-green-check>

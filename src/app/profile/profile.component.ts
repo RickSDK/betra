@@ -16,9 +16,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public fileToUpload: any;
   public inputFieldObj: any;
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Your Match', 'Done'];
-  public educationLevels = ['Not finished HS', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
+  public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
-  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islam', 'Atheist', 'Agnostic', 'Hindu', 'Other', 'No Preference'];
+  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islam', 'Atheist', 'None/Agnostic', 'Hindu', 'Other Religion', 'No Preference'];
   public maritalStatus = ['Single', 'Married', 'Divorced'];
   public bodyTypes = ['Thin', 'Average', 'Heavy'];
   public bodyHeights = ['Short', 'Average', 'Tall'];
@@ -29,12 +29,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public email: string = localStorage['email'];
   public infoScreenNum: number = 0;
   public personalityQuiz = [
-    { question: 'Which would you rather have?', option1: 'New Car', option2: 'Paid-off Car', answer: '' },
+    { question: 'Which would you rather have?', option1: 'New Car', option2: 'Paid-off older Car', answer: '' },
     { question: 'What is a better Friday night plan?', option1: 'Clubbing', option2: 'Dinner & Movie', answer: '' },
     { question: 'How many kids is best to have?', option1: 'Less than 2', option2: '2 or More', answer: '' },
     { question: 'Would you rather live in a condo in the city, or house in the suburbs?', option1: 'Condo', option2: 'House', answer: '' },
     { question: 'Where would you rather eat dinner?', option1: 'Nice Restaurant', option2: 'Home Cooked', answer: '' },
-    { question: 'What would you rather do?', option1: 'Watch TV', option2: 'Gardening', answer: '' },
+    { question: 'What would you rather do alone?', option1: 'Watch TV', option2: 'Gardening', answer: '' },
     { question: 'What sounds like more fun?', option1: 'Spring Break Party', option2: 'Camping Trip', answer: '' },
   ];
   public politicalQuiz = [

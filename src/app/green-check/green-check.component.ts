@@ -10,6 +10,7 @@ export class GreenCheckComponent implements OnInit {
   @Input('text1') text1: string = '';
   @Input('text2') text2: string = '';
   @Input('icon') icon: string = '';
+  @Input('img') img: string = '';
 
   constructor() { }
 

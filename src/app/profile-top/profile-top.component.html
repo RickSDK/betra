@@ -1,0 +1,47 @@
+<div *ngIf="user" style="padding: 5px;">
+    <table width="100%">
+        <tr>
+            <td width="190">
+                <img [src]="user.imgSrc" class="profile-image">
+            </td>
+            <td valign="top" style="text-align: left;">
+                <div class="title-highlight">{{user.firstName}}, {{user.age}}
+                    <i *ngIf="myUser.user_id == 0" [routerLink]="['/profile']" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-edit"></i>
+                    <i *ngIf="myUser.user_id > 0" (mousedown)="cancelMatches()" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
+                </div>
+                <div><b>{{user.city}}</b></div>
+                <div class="small-box">
+                    <div class="small-title">Relationship</div>
+                    
+                    <app-green-check [label]="'Status'" [text1]="user.maritalStatus"
+                    [text2]="myUser.maritalStatus" [icon]="user.bodyIcon"></app-green-check>
+
+                    <app-green-check [label]="'Seeking'" [text1]="user.desiredRelationship"
+                        [text2]="myUser.matchRelationship" [icon]="'fa fa-eye'"></app-green-check>
+                    <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView" [text2]="myUser.marriageView"
+                        [img]="'assets/images/marriage.jpg'"></app-green-check>
+                    <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText" [icon]="'fa fa-exchange'">
+                    </app-green-check>
+                    <app-green-check [label]="'Number of Kids'" [text1]="user.numKids" [text2]="myUser.kidsNum"
+                        [icon]="'fa fa-street-view'">
+                    </app-green-check>
+                </div>
+                <div class="small-box">
+                    <div class="small-title">Background</div>
+                    <app-green-check [label]="'Education'" [text1]="user.educationLevel" [text2]="myUser.matchEducation"
+                        [icon]="'fa fa-graduation-cap'"></app-green-check>
+                    <app-green-check [label]="'Income'" [text1]="user.income" [text2]="myUser.matchIncome"
+                        [icon]="'fa fa-money'">
+                    </app-green-check>
+                    <app-green-check [label]="'Religion'" [text1]="user.religion" [text2]="myUser.matchReligion"
+                        [icon]="''" [img]="'assets/images/church.jpeg'">
+                    </app-green-check>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div style="font-size: 12px; color: #777; font-weight: 700;" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp;
+        <b>{{user.motto}}</b></div>
+    <div style="font-size: 12px; color: #777; font-weight: 700;" title="Looking for"><i class="fa fa-eye"></i>&nbsp;
+        <b>{{user.story}}</b></div>
+</div>

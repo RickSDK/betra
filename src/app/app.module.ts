@@ -22,6 +22,7 @@ import { MyMatchesComponent } from './my-matches/my-matches.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { JournalComponent } from './journal/journal.component';
+import { ProfileTopComponent } from './profile-top/profile-top.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { JournalComponent } from './journal/journal.component';
     MyMatchesComponent,
     NotificationsComponent,
     ReviewsComponent,
-    JournalComponent
+    JournalComponent,
+    ProfileTopComponent
   ],
   imports: [
     BrowserModule,

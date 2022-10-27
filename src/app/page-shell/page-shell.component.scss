@@ -95,6 +95,14 @@
     z-index: 99;
     opacity: .5;
 }
+.outer-frame {
+    text-align: center;
+}
+.inner-frame {
+    display: inline-block;
+    width: 100%;
+    max-width: 900px;
+}
 @media screen and (max-width: 600px) {
     .hide-sm {
         display: none;

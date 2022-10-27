@@ -9,6 +9,7 @@ export class ProfileSnapshotComponent implements OnInit {
   @Input('user') user: any = null;
   @Input('responseJson') responseJson: any = null;
   @Input('matchObj') matchObj: any = null;
+  
   @Output() messageEvent = new EventEmitter<string>();
   public menuNum = 0;
 
@@ -30,6 +31,12 @@ export class ProfileSnapshotComponent implements OnInit {
       return 'btn btn-primary';
     else
       return 'btn btn-secondary';
+  }
+  ngClassProfileCard() {
+   if (this.matchObj.status == 'viewing')
+      return 'standard-card hidden-sm';
+    else
+      return 'standard-card';
   }
 
 }

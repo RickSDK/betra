@@ -1,68 +1,6 @@
-<div class="standard-card" *ngIf="user">
+<div [ngClass]="ngClassProfileCard()" *ngIf="user">
+     <app-profile-top [user]="user"></app-profile-top>
 
-    <table width="100%">
-        <tr>
-            <td>
-                <img [src]="user.imgSrc" class="profile-image">
-            </td>
-
-            <td valign="top" style="text-align: left;">
-                <div class="title-highlight">{{user.firstName}}, {{user.age}}</div>
-                <div class="tiny-text2"><b>{{user.city}}</b></div>
-
-                <div>&nbsp;</div>
-                <table style="font-size: 14px;">
-                    <tr title="Body Size">
-                        <td width="30" align="center">
-                            <i *ngIf="user.gender=='M'" class="fa fa-male"></i><i
-                                *ngIf="user.gender=='F'" class="fa fa-female"></i>
-                        </td>
-                        <td>
-                            {{user.bodyDesc}}
-                        </td>
-                     </tr>
-                     <tr title="Education">
-                        <td align="center">
-                            <i class="fa fa-graduation-cap"></i>
-                        </td>
-                        <td>
-                            {{user.educationLevel}}
-                        </td>
-                     </tr>
-                     <tr title="Income">
-                        <td align="center">
-                            <i class="fa fa-usd"></i>
-                        </td>
-                        <td>
-                            {{user.income}}
-                        </td>
-                     </tr>
-                     <tr title="Religion">
-                        <td align="center">
-                            <i class="fa fa-book"></i>
-                        </td>
-                        <td>
-                            {{user.religion}}
-                        </td>
-                     </tr>
-                     <tr title="Number Kids">
-                        <td align="center">
-                            <i class="fa fa-street-view"></i>
-                        </td>
-                        <td>
-                            {{user.numKids}}
-                        </td>
-                     </tr>
-                </table>
-                <button [routerLink]="['/profile']" class="btn gray-button">Edit</button>
-
-            </td>
-        </tr>
-    </table>
-    <div style="font-size: 12px; color: #777; font-weight: 700;" title="My Motto"><i class="fa fa-bullhorn"></i> &nbsp;<span
-            ><b>{{user.motto}}</b></span></div>
-    <div style="font-size: 12px; color: #777; font-weight: 700;" title="Looking for"><i class="fa fa-eye"></i> &nbsp;<span
-            ><b>{{user.story}}</b></span></div>
 
     <div *ngIf="user.status != 'Active'">
         <div></div>You need to finish setting up your profile before you can start meeting people. This only takes a few
@@ -79,9 +17,9 @@
         <div class="range">
             <input type="range" class="form-range" id="customRange1" />
         </div>
-        <button *ngIf="responseJson && matchObj.status == 'not started'" (mousedown)="findMatches()"
-            class="btn red-button">Find</button>
-        <div style="font-size: 24px; text-align: center;" *ngIf="!responseJson">
+        <button *ngIf="matchObj.status == 'not started'" (mousedown)="findMatches()" class="btn red-button">Browse
+            Singles</button>
+        <div style="font-size: 24px; text-align: center;" *ngIf="0 && !responseJson">
             <i class="fa fa-spinner fa-spin"></i> Loading data
         </div>
         <div *ngIf="responseJson" style="text-align: center;">Active Users: <span

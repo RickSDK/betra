@@ -16,7 +16,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public matchUser: any = null;
   public displayProfileFlg = true;
-
+ 
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -28,6 +28,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.matchObj.matchesFound = 3;
       this.matchObj.currentMatch = 1;
       this.displayProfileFlg = false;
+      this.matchObj.status = 'viewing'
 
       setTimeout(() => {
         this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
@@ -37,7 +38,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     //this.loadPlayers();
   }
   matchSnapshotEvent(action: string) {
-    console.log('xxx', action);
+    console.log('xxx matchSnapshotEvent', action);
     if (action == 'cancel') {
       this.cancelMatches();
     } else {
@@ -45,7 +46,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     }
   }
   cancelMatches() {
-    this.displayProfileFlg = true;
+    //this.displayProfileFlg = true;
     this.matchUser = null;
     this.matchObj.status = 'not started';
   }
@@ -94,10 +95,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       });
     }
     if (responseJson.action == "findMatches") {
-
-      setTimeout(() => {
-        this.firstMatchFound();
-      }, 1000);
+      this.firstMatchFound();
     }
   }
   ngClassToggle() {
@@ -158,22 +156,14 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (this.responseJson && this.responseJson.playerList && this.responseJson.playerList.length > 0)
       this.matchObj.matchesFound = 1;
 
-
-    setTimeout(() => {
-      this.lastMatchFound();
-    }, 2000);
-  }
-  lastMatchFound() {
     this.matchObj.progressPercent = 100;
     if (this.responseJson && this.responseJson.playerList)
       this.matchObj.matchesFound = this.responseJson.playerList.length;
 
-    setTimeout(() => {
-      this.displayMatches();
-    }, 1000);
-  }
-  displayMatches() {
     this.matchObj.status = 'completed';
+    this.matchObj.currentMatch = 0;
+    this.displayNextMatch();
 
   }
+
 }

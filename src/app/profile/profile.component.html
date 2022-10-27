@@ -21,15 +21,15 @@
                         <div class="row">
                             <div class="col-md">
                                 <div class="tiny-text">First Name</div>
-                                <input name="firstName" [style.background-color]="user.firstName?'#eee':'yellow'"
+                                <input name="firstName" [style.background-color]="user.firstName?'#eee':'#ffffc0'"
                                     id="firstName" type="text" [value]="user.firstName" placeholder="First Name"
                                     (input)="menuValueChanged()">
                                 <div class="tiny-text">Email Address</div>
-                                <input name="email" [style.background-color]="user.email?'#eee':'yellow'"
+                                <input name="email" [style.background-color]="user.email?'#eee':'#ffffc0'"
                                     [disabled]="true" id="email" type="email" [value]="user.email"
                                     placeholder="Email Address" (input)="menuValueChanged()">
                                 <div class="tiny-text">Zipcode</div>
-                                <input name="zipcode" [style.background-color]="user.zipcode?'#eee':'yellow'"
+                                <input name="zipcode" [style.background-color]="user.zipcode?'#eee':'#ffffc0'"
                                     id="zipcode" type="number" [value]="user.zipcode" placeholder="Zipcode"
                                     maxlength="5" (input)="menuValueChanged()">
 
@@ -88,19 +88,19 @@
                                     <tr>
                                         <td>
                                             <input name="birthMonth"
-                                                [style.background-color]="user.birthMonth?'#eee':'yellow'"
+                                                [style.background-color]="user.birthMonth?'#eee':'#ffffc0'"
                                                 [disabled]="true" id="birthMonth" type="number"
                                                 [value]="user.birthMonth" maxlength="5" (input)="menuValueChanged()">
                                         </td>
                                         <td>
                                             <input name="birthDay"
-                                                [style.background-color]="user.birthDay?'#eee':'yellow'" id="birthDay"
+                                                [style.background-color]="user.birthDay?'#eee':'#ffffc0'" id="birthDay"
                                                 type="number" [value]="user.birthDay" maxlength="5" [disabled]="true"
                                                 (input)="menuValueChanged()">
                                         </td>
                                         <td>
                                             <input name="birthYear"
-                                                [style.background-color]="user.birthYear?'#eee':'yellow'" id="birthYear"
+                                                [style.background-color]="user.birthYear?'#eee':'#ffffc0'" id="birthYear"
                                                 type="number" [value]="user.birthYear" maxlength="5" [disabled]="true"
                                                 (input)="menuValueChanged()">
                                         </td>
@@ -192,7 +192,7 @@
                             <div class="col-md" style="text-align: left;">
                                 <div class="tiny-text">Marital Status</div>
                                 <select name="maritalStatus" id="maritalStatus" (change)="menuValueChanged()"
-                                    [style.background-color]="user.maritalStatus?'#eee':'yellow'">
+                                    [style.background-color]="user.maritalStatus?'#eee':'#ffffc0'">
                                     <option disabled selected>Select</option>
                                     <option *ngFor="let option of maritalStatus"
                                         [selected]="option == user.maritalStatus">{{option}}
@@ -202,14 +202,14 @@
 
                                     <div class="tiny-text">Education Level</div>
                                     <select name="educationLevel" id="educationLevel" (change)="menuValueChanged()"
-                                        [style.background-color]="user.educationLevel?'#eee':'yellow'">
+                                        [style.background-color]="user.educationLevel?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of educationLevels"
                                             [selected]="option == user.educationLevel">{{option}}</option>
                                     </select>
                                     <div class="tiny-text">Income</div>
                                     <select name="income" id="income" (change)="menuValueChanged()"
-                                        [style.background-color]="user.income?'#eee':'yellow'">
+                                        [style.background-color]="user.income?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of incomes" [selected]="option == user.income">
                                             {{option}}
@@ -217,7 +217,7 @@
                                     </select>
                                     <div class="tiny-text">Religion</div>
                                     <select name="religion" id="religion" (change)="menuValueChanged()"
-                                        [style.background-color]="user.religion?'#eee':'yellow'">
+                                        [style.background-color]="user.religion?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of religions" [selected]="option == user.religion">
                                             {{option}}
@@ -228,7 +228,7 @@
                                             <td>
                                                 <div class="tiny-text">Body Type</div>
                                                 <select name="bodyType" id="bodyType" (change)="menuValueChanged()"
-                                                    [style.background-color]="user.bodyType?'#eee':'yellow'">
+                                                    [style.background-color]="user.bodyType?'#eee':'#ffffc0'">
                                                     <option disabled selected>Select</option>
                                                     <option *ngFor="let option of bodyTypes"
                                                         [selected]="option == user.bodyType">
@@ -240,7 +240,7 @@
                                             <td>
                                                 <div class="tiny-text">Height</div>
                                                 <select name="bodyHeight" id="bodyHeight" (change)="menuValueChanged()"
-                                                    [style.background-color]="user.bodyHeight?'#eee':'yellow'">
+                                                    [style.background-color]="user.bodyHeight?'#eee':'#ffffc0'">
                                                     <option disabled selected>Select</option>
                                                     <option *ngFor="let option of bodyHeights"
                                                         [selected]="option == user.bodyHeight">
@@ -253,7 +253,7 @@
                                     </table>
                                     <div class="tiny-text">Wants Kids?</div>
                                     <select name="wantsKids" id="wantsKids"
-                                        [style.background-color]="user.wantsKids?'#eee':'yellow'"
+                                        [style.background-color]="user.wantsKids?'#eee':'#ffffc0'"
                                         (change)="menuValueChanged()">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of kidsOptions"
@@ -267,7 +267,7 @@
                             </div>
                             <div class="col-md" style="text-align: left;">
                                 <div class="tiny-text">City</div>
-                                <input name="city" [style.background-color]="user.city?'#eee':'yellow'" id="city"
+                                <input name="city" [style.background-color]="user.city?'#eee':'#ffffc0'" id="city"
                                     maxlength="128" type="text" [value]="user.city" placeholder="City"
                                     (input)="menuValueChanged()">
 
@@ -277,7 +277,7 @@
                                             <td>
                                                 <div class="tiny-text">Longest relationship (years)</div>
                                                 <input name="longestRelationship"
-                                                    [style.background-color]="user.longestRelationship?'#eee':'yellow'"
+                                                    [style.background-color]="user.longestRelationship?'#eee':'#ffffc0'"
                                                     id="longestRelationship" type="number"
                                                     [value]="user.longestRelationship" (input)="menuValueChanged()">
                                             </td>
@@ -307,7 +307,7 @@
                                             <td>
                                                 <div class="tiny-text">Desired Relationship</div>
                                                 <select name="desiredRelationship" id="desiredRelationship"
-                                                    [style.background-color]="user.desiredRelationship?'#eee':'yellow'"
+                                                    [style.background-color]="user.desiredRelationship?'#eee':'#ffffc0'"
                                                     (change)="menuValueChanged()">
                                                     <option disabled selected>Select</option>
                                                     <option *ngFor="let option of desiredRelationships"
@@ -318,7 +318,7 @@
                                             <td>
                                                 <div class="tiny-text">View of Marriage</div>
                                                 <select name="marriageView" id="marriageView"
-                                                    [style.background-color]="user.marriageView?'#eee':'yellow'"
+                                                    [style.background-color]="user.marriageView?'#eee':'#ffffc0'"
                                                     (change)="menuValueChanged()">
                                                     <option disabled selected>Select</option>
                                                     <option *ngFor="let option of marriageOptions"
@@ -331,7 +331,7 @@
 
 
                                     <div class="tiny-text">Your motto</div>
-                                    <input name="motto" [style.background-color]="user.motto?'#eee':'yellow'" id="motto"
+                                    <input name="motto" [style.background-color]="user.motto?'#eee':'#ffffc0'" id="motto"
                                         maxlength="128" type="text" [value]="user.motto" placeholder="Motto"
                                         (input)="menuValueChanged()">
                                 </div>
@@ -428,7 +428,7 @@
                                         (input)="menuValueChanged()">
                                     <div class="tiny-text">Body Type</div>
                                     <select name="matchBody" id="matchBody" (change)="menuValueChanged()"
-                                        [style.background-color]="user.matchBody?'#eee':'yellow'">
+                                        [style.background-color]="user.matchBody?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of bodyTypes" [selected]="option == user.matchBody">
                                             {{option}}
@@ -436,7 +436,7 @@
                                     </select>
                                     <div class="tiny-text">Height</div>
                                     <select name="matchHeight" id="matchHeight" (change)="menuValueChanged()"
-                                        [style.background-color]="user.matchHeight?'#eee':'yellow'">
+                                        [style.background-color]="user.matchHeight?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of bodyHeights"
                                             [selected]="option == user.matchHeight">
@@ -445,7 +445,7 @@
                                     </select>
                                     <div class="tiny-text">View of Marriage</div>
                                     <select name="matchMarriage" id="matchMarriage"
-                                        [style.background-color]="user.matchMarriage?'#eee':'yellow'"
+                                        [style.background-color]="user.matchMarriage?'#eee':'#ffffc0'"
                                         (change)="menuValueChanged()">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of marriageOptions"
@@ -454,7 +454,7 @@
                                     </select>
                                     <div class="tiny-text">Desired Relationship</div>
                                     <select name="matchRelationship" id="matchRelationship"
-                                        [style.background-color]="user.matchRelationship?'#eee':'yellow'"
+                                        [style.background-color]="user.matchRelationship?'#eee':'#ffffc0'"
                                         (change)="menuValueChanged()">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of desiredRelationships"
@@ -467,14 +467,14 @@
                                 <div class="col-md" style="text-align: left;">
                                     <div class="tiny-text">Education Level</div>
                                     <select name="matchEducation" id="matchEducation" (change)="menuValueChanged()"
-                                        [style.background-color]="user.matchEducation?'#eee':'yellow'">
+                                        [style.background-color]="user.matchEducation?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of educationLevels"
                                             [selected]="option == user.matchEducation">{{option}}</option>
                                     </select>
                                     <div class="tiny-text">Income</div>
                                     <select name="matchIncome" id="matchIncome" (change)="menuValueChanged()"
-                                        [style.background-color]="user.matchIncome?'#eee':'yellow'">
+                                        [style.background-color]="user.matchIncome?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of incomes" [selected]="option == user.matchIncome">
                                             {{option}}
@@ -482,7 +482,7 @@
                                     </select>
                                     <div class="tiny-text">Religion</div>
                                     <select name="matchReligion" id="matchReligion" (change)="menuValueChanged()"
-                                        [style.background-color]="user.matchReligion?'#eee':'yellow'">
+                                        [style.background-color]="user.matchReligion?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of religions"
                                             [selected]="option == user.matchReligion">
@@ -491,7 +491,7 @@
                                     </select>
                                     <div class="tiny-text">Has Kids?</div>
                                     <select name="matchHasKids" id="matchHasKids"
-                                        [style.background-color]="user.matchHasKids?'#eee':'yellow'"
+                                        [style.background-color]="user.matchHasKids?'#eee':'#ffffc0'"
                                         (change)="menuValueChanged()">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of kidsOptions"
@@ -501,7 +501,7 @@
                                     </select>
                                     <div class="tiny-text">Wants Kids?</div>
                                     <select name="matchWantsKids" id="matchWantsKids"
-                                        [style.background-color]="user.matchWantsKids?'#eee':'yellow'"
+                                        [style.background-color]="user.matchWantsKids?'#eee':'#ffffc0'"
                                         (change)="menuValueChanged()">
                                         <option disabled selected>Select</option>
                                         <option *ngFor="let option of kidsOptions"
@@ -514,7 +514,7 @@
                         </div>
                         <div class="tiny-text">What are you looking for? (One sentence)</div>
                         <input name="story" id="story" type="text" [value]="user.story" maxlength="128"
-                            [style.background-color]="user.story?'#eee':'yellow'" (input)="menuValueChanged()">
+                            [style.background-color]="user.story?'#eee':'#ffffc0'" (input)="menuValueChanged()">
                     </div>
                 </div>
 

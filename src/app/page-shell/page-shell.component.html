@@ -13,7 +13,7 @@
                     Login
                 </button>
             </td>
-            <td align="right" style="white-space: nowrap; overflow: hidden;">
+            <td *ngIf="userId>0" align="right" style="white-space: nowrap; overflow: hidden;">
                 <i [routerLink]="['/reviews']" class="fa fa-comments icon-button hide-xs" title="Reviews"></i>
                 <i [routerLink]="['/journal']" class="fa fa-pencil icon-button" title="Journal"></i>
                 <i [routerLink]="['']" class="fa fa-search icon-button" title="Find Matches"></i>
@@ -32,9 +32,10 @@
         </tr>
     </table>
 </div>
-<div style="text-align: center;">
-    <div style="height: 44px;">&nbsp;</div>
-    <ng-content></ng-content>
+<div class="outer-frame">
+    <div class="inner-frame">
+        <ng-content></ng-content>
+    </div>
 </div>
 
 <div class="menu-darkener" *ngIf="showMainMenuFlg" (mousedown)="showMainMenuFlg=false"></div>

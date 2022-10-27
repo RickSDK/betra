@@ -1,6 +1,7 @@
-<div>
-    <span *ngIf="!icon">{{label}}:&nbsp;</span>
-    <span *ngIf="icon"><i [class]="icon" [title]="label"></i>&nbsp;</span>
+<div [title]="label">
+    <span *ngIf="label && !icon && !img">{{label}}:&nbsp;</span>
+    <img *ngIf="img" [src]="img" height="20" style="margin-right: 4px;">
+    <span *ngIf="icon"><i [class]="icon"></i>&nbsp;</span>
     <span style="font-weight: 700;">
         <sup *ngIf="text1==text2"><i class="fa fa-check" style="color: #00cc00;"></i></sup> 
         <span [ngClass]="ngClassText()">{{text1}}</span>
