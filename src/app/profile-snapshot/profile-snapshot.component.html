@@ -1,5 +1,5 @@
 <div [ngClass]="ngClassProfileCard()" *ngIf="user">
-     <app-profile-top [user]="user"></app-profile-top>
+    <app-profile-top [user]="user"></app-profile-top>
 
 
     <div *ngIf="user.status != 'Active'">
@@ -8,6 +8,8 @@
         <button [routerLink]="['/profile']" class="btn red-button">Profile</button>
     </div>
 
+    <app-dating-pool [user]="user"></app-dating-pool>
+    <!-------------------------Search---------------->
     <div *ngIf="user.status == 'Active' && matchObj && matchObj.status != 'viewing'"
         style="text-align: center; background-color: #eee; border-radius: 5px; padding: 5px;">
         <div style="font-weight: 700; text-align: center;">Find potential Matches</div>

@@ -73,6 +73,10 @@ export class User {
 
     public bodyDesc: string = 'Average';
 
+    public datingPool: any = [];
+    public users_interested: number = 0;
+    public notifications:number = 0;
+    public bigInterest:boolean = false;
 
     constructor(obj: any) {
         if (obj) {
@@ -128,9 +132,29 @@ export class User {
             this.emailVerifyFlg = obj.emailVerifyFlg == 'Y';
             this.lastLogin = obj.lastLogin;
             this.lastLoginText = '-';
+            this.datingPool = obj.datingPool;
             this.matchPreference = obj.matchPreference;
+
+            this.users_interested = obj.users_interested;
+            this.bigInterest = (obj.bigInterest>0);
+            
         }
 
+        var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
+
+        this.notifications = this.users_interested;
+
+        if (!this.datingPool)
+            this.datingPool = [
+                { name: 'Empty', src: poolImg },
+                { name: 'Empty', src: poolImg },
+                { name: 'Empty', src: poolImg },
+                { name: 'Empty', src: poolImg },
+                { name: 'Empty', src: poolImg },
+                { name: 'Empty', src: poolImg },
+                { name: 'Empty', src: poolImg },
+                { name: 'Empty', src: poolImg },
+            ];
 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
         if (this.matchPreference == 'A')

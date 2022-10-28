@@ -98,10 +98,49 @@
 .outer-frame {
     text-align: center;
 }
+.bottom-bar {
+    background-color: #2a3a46;
+    color: white;
+}
+.text-link {
+    font-size: 12px;
+    cursor: pointer;
+}
+.text-link:hover {
+    text-decoration: underline;
+}
 .inner-frame {
     display: inline-block;
     width: 100%;
     max-width: 900px;
+}
+.bottom-title {
+    font-size: 20px;
+}
+.title-highlighted {
+    color: rgb(255, 203, 74);
+}
+.text-small {
+    color: #ccc;
+    font-size: 12px;
+}
+.big-icon {
+    font-size: 32px;
+    margin: 5px;
+}
+.red-circle {
+    display: inline-block;
+    border: 1px solid white;
+    box-shadow: 1px 1px 3px black;
+    cursor: pointer;
+    min-width: 18px;
+    margin-left: -25px;
+    font-size: 12px;
+    padding-top: -5px;
+    text-align: center;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
 }
 @media screen and (max-width: 600px) {
     .hide-sm {

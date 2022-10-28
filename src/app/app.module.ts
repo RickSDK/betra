@@ -23,6 +23,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ReviewsComponent } from './reviews/reviews.component';
 import { JournalComponent } from './journal/journal.component';
 import { ProfileTopComponent } from './profile-top/profile-top.component';
+import { DatingPoolComponent } from './dating-pool/dating-pool.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProfileTopComponent } from './profile-top/profile-top.component';
     NotificationsComponent,
     ReviewsComponent,
     JournalComponent,
-    ProfileTopComponent
+    ProfileTopComponent,
+    DatingPoolComponent
   ],
   imports: [
     BrowserModule,

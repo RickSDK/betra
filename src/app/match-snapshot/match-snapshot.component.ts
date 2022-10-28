@@ -8,13 +8,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class MatchSnapshotComponent implements OnInit {
   @Input('matchUser') matchUser: any = null;
   @Input('user') user: any = null;
+  @Input('loadingFlg') loadingFlg:boolean = false;
+  @Input('errorMessage') errorMessage:string = '';
+
   @Output() messageEvent = new EventEmitter<string>();
 
   public personalityMatch = 0;
   public polyMatch = 0;
   public profileMatch = 0;
   public totalMatch = 0;
-  public showMessageFlg = false;
   public matchObj: any;
 
   constructor() { }
@@ -59,11 +61,9 @@ export class MatchSnapshotComponent implements OnInit {
     this.messageEvent.emit('cancel');
   }
   clickedYesButton() {
-    this.showMessageFlg = true;
     this.messageEvent.emit('yesToMatch');
   }
   clickedNoButton() {
-    this.showMessageFlg = true;
     this.messageEvent.emit('noToMatch');
   }
 

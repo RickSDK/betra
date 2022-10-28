@@ -39,7 +39,8 @@
                     class="text-highlight">{{totalMatch}}%</span></div>
         </div>
         <div style="text-align: center; font-size: 24px; font-weight: 700;">Interested?</div>
-        <table width="100%">
+        <div *ngIf="matchUser.bigInterest" style="background-color: #ffffc0; text-align: center; color: red;"><i class="fa fa-heart"></i> This person is interested in you! Click yes and you can begin to communicate.</div>
+        <table *ngIf="!loadingFlg" width="100%">
             <tr>
                 <td width="50%">
                     <button (mousedown)="clickedNoButton()" class="btn yellow-button">No Thanks</button>
@@ -49,8 +50,7 @@
                 </td>
             </tr>
         </table>
-        <div *ngIf="showMessageFlg" style="background-color: yellow;">Sorry, not working yet!</div>
-
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
     </div>
 </div>

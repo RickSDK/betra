@@ -35,18 +35,51 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       }, 500);
     }
 
-    //this.loadPlayers();
   }
   matchSnapshotEvent(action: string) {
-    console.log('xxx matchSnapshotEvent', action);
+    console.log('xxx matchSnapshotEvent xxx', action, this.matchUser);
+    this.errorMessage = '';
     if (action == 'cancel') {
       this.cancelMatches();
-    } else {
+    } 
+    if(action == 'yesToMatch') {
+      this.loadingFlg = true;
+      if(!this.matchUser || this.matchUser.user_id == this.user.user_id) {
+        console.log('error');
+        this.errorMessage = 'Error - invalid user';
+        this.loadingFlg = false;
+        return;
+      }
+      var params = {
+        userId: localStorage['user_id'],
+        code: localStorage['code'],
+        matchId: this.matchUser.user_id,
+        action: action
+      };
+      console.log('xxxparams', params);
+      this.executeApi('appApiCode2.php', params, true);
+      this.displayNextMatch();
+    }
+    if(action == 'noToMatch') {
+      this.loadingFlg = true;
+      if(!this.matchUser || this.matchUser.user_id == this.user.user_id) {
+        console.log('error');
+        this.errorMessage = 'Error - invalid user';
+        this.loadingFlg = false;
+        return;
+      }
+      var params = {
+        userId: localStorage['user_id'],
+        code: localStorage['code'],
+        matchId: this.matchUser.user_id,
+        action: action
+      };
+      this.executeApi('appApiCode2.php', params, true);
       this.displayNextMatch();
     }
   }
   cancelMatches() {
-    //this.displayProfileFlg = true;
+    this.playerlist = [];
     this.matchUser = null;
     this.matchObj.status = 'not started';
   }
@@ -76,18 +109,10 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
     }
   }
-  loadPlayers() {
-    var params = {
-      userId: localStorage['user_id'],
-      email: localStorage['email'],
-      code: localStorage['code'],
-      action: 'getPlayers'
-    };
-    this.executeApi('appApiCode.php', params, true);
-  }
+
   override postSuccessApi(file: string, responseJson: any) {
     console.log('xxx', this.responseJson);
-    if (responseJson.action == "getPlayers") {
+    if (responseJson.action == "getPlayers" || responseJson.action == "findMatches") {
       this.playerlist = [];
       responseJson.playerList.forEach((element: any) => {
         var player = new User(element);
@@ -95,7 +120,11 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       });
     }
     if (responseJson.action == "findMatches") {
-      this.firstMatchFound();
+      this.displayNextMatch();
+    }
+    if(responseJson.action == "logUser") {
+      this.user.notifications = responseJson.notifications;
+      localStorage['notifications'] = responseJson.notifications;
     }
   }
   ngClassToggle() {
@@ -125,10 +154,11 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   }
   displayNextMatch() {
     this.matchObj.currentMatch++;
-    if (this.responseJson.playerList.length >= this.matchObj.currentMatch) {
+    console.log('xxxdisplayNextMatch', this.matchObj.currentMatch, this.playerlist);
+    if (this.playerlist && this.playerlist.length >= this.matchObj.currentMatch) {
       this.matchObj.status = 'viewing';
       this.displayProfileFlg = false;
-      this.matchUser = new User(this.responseJson.playerList[this.matchObj.currentMatch - 1]);
+      this.matchUser = this.playerlist[this.matchObj.currentMatch - 1];
       setTimeout(() => {
         this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
       }, 500);
@@ -145,8 +175,11 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       userId: localStorage['user_id'],
       email: localStorage['email'],
       code: localStorage['code'],
+      gender: this.user.gender,
+      matchPreference: this.user.matchPreference,
       action: 'findMatches'
     };
+    console.log('params', params);
     this.executeApi('appApiCode.php', params, true);
 
 

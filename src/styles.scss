@@ -7,6 +7,25 @@ $dark-blue: #2a3a46;
 body {
     background-color: #eee !important;
 }
+.red-text {
+    color: $dark-red;
+    font-weight: 700;
+}
+.dark-red-box {
+    background-color: $dark-red;
+    color: white;
+    padding: 20px;
+}
+.dark-tan-box {
+    background-color: $medium-tan;
+    color: white;
+    padding: 20px;
+}
+.dark-blue-box {
+    background-color: $dark-blue;
+    color: white;
+    padding: 20px;
+}
 .title-highlight {
     background-color: $dark-red;
     color: white;
@@ -25,6 +44,7 @@ body {
 }
 .matches-card {
     display: inline-block;
+    min-height: 500px;
     background-color: white;
     box-shadow: 1px 1px 10px gray;
     border-radius: 5px;
@@ -46,6 +66,15 @@ body {
     padding-right: 5px;
     font-weight: 700;
 
+}
+.large-img {
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.large-img:hover {
+    box-shadow: 2px 2px 10px gray;
 }
 .brown-box {
     background-color: $lite-blue-color;

@@ -1,0 +1,13 @@
+<div *ngIf="user">
+    <div class="red-header" [routerLink]="['/matches']">My Dating Pool</div>
+    <div *ngIf="largeFlg">
+        <div *ngFor="let person of user.datingPool" class="pool-large">
+            <img [src]="person.src" class="large-img" [title]="person.name">
+        </div>
+    </div>
+    <div *ngIf="!largeFlg">
+        <div *ngFor="let person of user.datingPool" class="pool-snapshot">
+            <img [src]="person.src" class="snapshot-img" [title]="person.name">
+        </div>    
+    </div>
+</div>

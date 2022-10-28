@@ -1,6 +1,7 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile">
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [notifications]="user.notifications" [imgSrcFile]="imgSrcFile">
     <img *ngIf="!userId" class="background-img" src="assets/images/coffeeShop.jpg" alt="Coffee Shop">
 
+    
     <div class="container-fluid">
         <div class="row">
             <div class="col-md">
@@ -9,27 +10,31 @@
             </div>
             <div class="col-md" *ngIf="matchObj.status == 'viewing'">
                 <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
-                    [matchUser]="matchUser"></app-match-snapshot>
+                    [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-match-snapshot>
             </div>
         </div>
     </div>
 
     <div (mousedown)="errorMessage=''" *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
-    <p>Version 0.25</p>
+ 
+    <table width="100%" *ngIf="!user || user.status=='Pending'">
+        <tr>
+            <td>
+                <div style="height: 490px;">&nbsp;
+                </div>
+            </td>
+            <td width="310">
+                <app-sign-up-popup *ngIf="popupNum==1" (messageEvent)="dismisLogin($event)"></app-sign-up-popup>               
+            </td>
+        </tr>
+    </table>
+    <div >
 
-    <div class="standard-card" *ngIf="!user || user.status=='Pending'">
-        <p><b>Welcome to Betra!</b></p>
-        <p>Note: We are in the beginning stages of development! Right now, the only thing we are testing is user
-            creation and logging in. Hopefully in the next few days we will start adding new features. Stay tuned!
-        </p>
-        <p>Any feedback is appreciated! <a href="mailto:rickmedved@hotmail.com">rickmedved@hotmail.com</a></p>
-        <hr>
     </div>
-
 
 
 </app-page-shell>
 
-<app-sign-up-popup *ngIf="popupNum==1" (messageEvent)="dismisLogin($event)"></app-sign-up-popup>
+
 <app-login-popup *ngIf="popupNum==2" (messageEvent)="dismisLogin($event)"></app-login-popup>
 <app-welcome-popup *ngIf="popupNum==3"></app-welcome-popup>

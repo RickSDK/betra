@@ -13,8 +13,8 @@
                 <div class="small-box">
                     <div class="small-title">Relationship</div>
                     
-                    <app-green-check [label]="'Status'" [text1]="user.maritalStatus"
-                    [text2]="myUser.maritalStatus" [icon]="user.bodyIcon"></app-green-check>
+                    <div style="font-size: 14px; font-weight: 700"><i [class]="user.bodyIcon"></i> {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right" title="Looking for"></i> &nbsp;
+                    <i *ngIf="user.matchPreference != 'F'" class="fa fa-male" [title]="user.matchGender"></i> <i *ngIf="user.matchPreference != 'M'" class="fa fa-female" [title]="user.matchGender"></i></div>
 
                     <app-green-check [label]="'Seeking'" [text1]="user.desiredRelationship"
                         [text2]="myUser.matchRelationship" [icon]="'fa fa-eye'"></app-green-check>

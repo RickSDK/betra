@@ -1,0 +1,35 @@
+.pool-snapshot {
+    display: inline-block;
+    width: 43px;
+    margin: 2px;
+}
+
+.snapshot-img {
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: .5;
+}
+.snapshot-img:hover {
+    box-shadow: 2px 2px 10px gray;
+}
+.pool-large {
+    display: inline-block;
+    width: 150px;
+    margin: 2px;
+}
+
+.red-header {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    color: black;
+    font-size: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.red-header:hover {
+    border: 1px solid #b7121f;
+    color: #b7121f;
+}

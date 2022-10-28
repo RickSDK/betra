@@ -1,5 +1,14 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Notifications'" [userId]="userId" [imgSrcFile]="imgSrcFile">
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Notifications'" [notifications]="0" [userId]="userId" [imgSrcFile]="imgSrcFile">
     <div class="matches-card" *ngIf="user">
-        <div>No notifications at this time.</div>
+        <div style="background-color: #99c; color: white; border-radius: 5px; font-size: 24px; font-weight: 700;">Notification Center</div>
+        <p>&nbsp;</p>
+        <div *ngIf="notifications==0">No notifications at this time.</div>
+        <div *ngIf="notifications>0" style="border: 1px solid #ccc; padding: 20px;">
+            <div *ngIf="users_interested>0">
+                <p>You have {{users_interested}} new {{users_interested_text}} interested in you!</p>
+                <button [routerLink]="['/matches']" [queryParams]="{menu: 3}" class="btn red-button">Who Likes Me?</button>
+            </div>
+
+        </div>
     </div>
 </app-page-shell>
