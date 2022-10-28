@@ -8,6 +8,7 @@ import { MyMatchesComponent } from './my-matches/my-matches.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { JournalComponent } from './journal/journal.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationsComponent },
   { path: 'reviews', component: ReviewsComponent },
   { path: 'journal', component: JournalComponent },
+  { path: 'user-detail', component: UserDetailComponent },
 ];
 
 @NgModule({

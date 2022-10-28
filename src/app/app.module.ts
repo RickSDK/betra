@@ -24,6 +24,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { JournalComponent } from './journal/journal.component';
 import { ProfileTopComponent } from './profile-top/profile-top.component';
 import { DatingPoolComponent } from './dating-pool/dating-pool.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { DatingPoolComponent } from './dating-pool/dating-pool.component';
     ReviewsComponent,
     JournalComponent,
     ProfileTopComponent,
-    DatingPoolComponent
+    DatingPoolComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

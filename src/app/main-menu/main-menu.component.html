@@ -1,4 +1,4 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [notifications]="user.notifications" [imgSrcFile]="imgSrcFile">
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [notifications]="notifications" [imgSrcFile]="imgSrcFile">
     <img *ngIf="!userId" class="background-img" src="assets/images/coffeeShop.jpg" alt="Coffee Shop">
 
     
@@ -8,7 +8,7 @@
                 <app-profile-snapshot *ngIf="user" [user]="user" [responseJson]="responseJson" [matchObj]="matchObj"
                     (messageEvent)="snapshotButtonClicked ($event)"></app-profile-snapshot>
             </div>
-            <div class="col-md" *ngIf="matchObj.status == 'viewing'">
+            <div class="col-md" *ngIf="matchObj && matchObj.status == 'viewing'">
                 <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
                     [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-match-snapshot>
             </div>

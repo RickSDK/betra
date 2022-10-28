@@ -40,7 +40,7 @@
         </div>
         <div *ngIf="menuNum==3 && !loadingFlg">
             <div>
-                <div *ngFor="let person of playerList" class="person-box">
+                <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList" class="person-box">
                     <div class="name-title">{{person.name}}</div>
                     <img [src]="person.src" class="small-img">
                 </div>

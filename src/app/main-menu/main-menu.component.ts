@@ -16,11 +16,14 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public matchUser: any = null;
   public displayProfileFlg = true;
- 
+  public notifications: number = 0;
+
   constructor() { super(); }
 
   override ngOnInit(): void {
     this.loadUserObj();
+    if(this.user)
+      this.notifications = this.user.notifications;
     this.logUser();
     if (0) {
       //test match snapshot
@@ -41,10 +44,10 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
     if (action == 'cancel') {
       this.cancelMatches();
-    } 
-    if(action == 'yesToMatch') {
+    }
+    if (action == 'yesToMatch') {
       this.loadingFlg = true;
-      if(!this.matchUser || this.matchUser.user_id == this.user.user_id) {
+      if (!this.matchUser || this.matchUser.user_id == this.user.user_id) {
         console.log('error');
         this.errorMessage = 'Error - invalid user';
         this.loadingFlg = false;
@@ -60,9 +63,9 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.executeApi('appApiCode2.php', params, true);
       this.displayNextMatch();
     }
-    if(action == 'noToMatch') {
+    if (action == 'noToMatch') {
       this.loadingFlg = true;
-      if(!this.matchUser || this.matchUser.user_id == this.user.user_id) {
+      if (!this.matchUser || this.matchUser.user_id == this.user.user_id) {
         console.log('error');
         this.errorMessage = 'Error - invalid user';
         this.loadingFlg = false;
@@ -122,8 +125,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "findMatches") {
       this.displayNextMatch();
     }
-    if(responseJson.action == "logUser") {
-      this.user.notifications = responseJson.notifications;
+    if (responseJson.action == "logUser") {
+      this.notifications = responseJson.notifications;
       localStorage['notifications'] = responseJson.notifications;
     }
   }

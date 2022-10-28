@@ -53,7 +53,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     if (1 || responseJson.action == 'getMyLikes') {
       responseJson.playerList.forEach((element: { [x: string]: string; name: any; }) => {
         var src = this.getImageFile(element['user_id'], element['profilePic']);
-        this.playerList.push({ name: element['name'], src: src })
+        this.playerList.push({ name: element['name'], src: src, user_id: element['user_id'] })
       });
     }
   }
