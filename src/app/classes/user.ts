@@ -5,6 +5,7 @@ export class User {
     public birthdate: string = '';
     public birthYear: number = 0;
     public gender: string = '';
+    public genderIcon: string = '';
     public matchPreference: string = '';
     public findLoveFlg: boolean = false;
     public meetPeopleFlg: boolean = false;
@@ -16,7 +17,6 @@ export class User {
     public maritalStatus: string = '';
     public bodyType: string = '';
     public bodyHeight: string = '';
-    public bodyIcon: string = '';
     public desiredRelationship: string = '';
     public city: string = '';
     public longestRelationship: string = '';
@@ -75,8 +75,19 @@ export class User {
 
     public datingPool: any = [];
     public users_interested: number = 0;
-    public notifications:number = 0;
-    public bigInterest:boolean = false;
+    public users_matched: number = 0;
+    public questions_asked: number = 0;
+    public dates_requested: number = 0;
+    public messages_received: number = 0;
+    public info_requested: number = 0;
+    public dating_pool: string = '';
+
+    public notifications: number = 0;
+    public bigInterest: boolean = false;
+
+    public user1_interested: string = '';
+    public user2_interested: string = '';
+    public match_level: number = 0;
 
     constructor(obj: any) {
         if (obj) {
@@ -85,7 +96,7 @@ export class User {
             this.birthdate = obj.birthdate;
             this.birthYear = obj.birthYear;
             this.gender = obj.gender;
-            this.bodyIcon = obj.gender == 'M' ? 'fa fa-male' : 'fa fa-female';
+            this.genderIcon = (obj.gender == 'M') ? 'fa fa-male' : 'fa fa-female';
             this.findLoveFlg = obj.findLoveFlg == 'Y';
             this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
             this.makeMoneyFlg = obj.makeMoneyFlg == 'Y';
@@ -135,26 +146,43 @@ export class User {
             this.datingPool = obj.datingPool;
             this.matchPreference = obj.matchPreference;
 
-            this.users_interested = obj.users_interested;
-            this.bigInterest = (obj.bigInterest>0);
-            
+            this.users_interested = obj.users_interested || 0;
+            this.users_matched = obj.users_matched || 0;
+            this.questions_asked = obj.questions_asked || 0;
+            this.dates_requested = obj.dates_requested || 0;
+            this.messages_received = obj.messages_received || 0;
+            this.info_requested = obj.info_requested || 0;
+            this.dating_pool = obj.dating_pool || '';
+
+            this.bigInterest = (obj.bigInterest > 0);
+
+            this.user1_interested = obj.user1_interested || '';
+            this.user2_interested = obj.user2_interested || '';
+            this.match_level = obj.match_level || 0;
+
         }
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
 
         this.notifications = this.users_interested;
 
-        if (!this.datingPool)
-            this.datingPool = [
-                { name: 'Empty', src: poolImg },
-                { name: 'Empty', src: poolImg },
-                { name: 'Empty', src: poolImg },
-                { name: 'Empty', src: poolImg },
-                { name: 'Empty', src: poolImg },
-                { name: 'Empty', src: poolImg },
-                { name: 'Empty', src: poolImg },
-                { name: 'Empty', src: poolImg },
-            ];
+        var dpList = this.dating_pool.split('+');
+        var datingPool:any = [];
+        for(var i=1; i<=8; i++) {
+            var poolName = 'Empty'
+            var src = poolImg;
+            var user_id = 0;
+            if (dpList.length >= i) {
+                var items = dpList[i-1].split(':');
+                if(items.length==3) {
+                    poolName = items[1];
+                    user_id = parseInt(items[0]);
+                    src = betraImageFromId(user_id, parseInt(items[2]));
+                }
+            }
+             datingPool.push({ name: poolName, src: src, user_id: user_id });
+        }
+        this.datingPool = datingPool;
 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
         if (this.matchPreference == 'A')
@@ -187,9 +215,11 @@ export class User {
             this.matchAge = this.age;
         }
 
+
         this.imgSrc = (obj && obj.gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
         if (this.profilePic > 0)
-            this.imgSrc = 'https://www.appdigity.com/betraPhp/profileImages/profile' + this.user_id + '_' + this.profilePic + '.jpg';
+            this.imgSrc = betraImageFromId(this.user_id, this.profilePic);
+        //            this.imgSrc = 'https://www.appdigity.com/betraPhp/profileImages/profile' + this.user_id + '_' + this.profilePic + '.jpg';
 
         this.adventureStableText = "n/a";
         if (this.personalityQuizAnswers) {
@@ -323,4 +353,10 @@ export class User {
         var obj = {};
         return obj;
     }
+}
+function betraImageFromId(user_id: number, profilePic: number) {
+    if (user_id > 0 && profilePic > 0)
+        return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
+    else
+        return 'assets/images/theRock.png';
 }

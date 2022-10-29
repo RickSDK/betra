@@ -22,7 +22,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     this.loadUserObj();
-    if(this.user)
+
+    if (this.user)
       this.notifications = this.user.notifications;
     this.logUser();
     if (0) {
@@ -59,7 +60,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
         matchId: this.matchUser.user_id,
         action: action
       };
-      console.log('xxxparams', params);
       this.executeApi('appApiCode2.php', params, true);
       this.displayNextMatch();
     }
@@ -115,15 +115,23 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     console.log('xxx', this.responseJson);
+    if (responseJson.action == "yesToMatch" && responseJson.action2 == "match made") {
+      this.refreshUserObj(responseJson.user);
+    }
     if (responseJson.action == "getPlayers" || responseJson.action == "findMatches") {
       this.playerlist = [];
       responseJson.playerList.forEach((element: any) => {
         var player = new User(element);
         this.playerlist.push(player);
       });
+
     }
     if (responseJson.action == "findMatches") {
-      this.displayNextMatch();
+      this.matchObj.status = 'completed';
+      this.matchObj.currentMatch = 0;
+      this.matchObj.matchesFound = this.playerlist.length;
+      if (this.playerlist.length > 0)
+        this.displayNextMatch();
     }
     if (responseJson.action == "logUser") {
       this.notifications = responseJson.notifications;

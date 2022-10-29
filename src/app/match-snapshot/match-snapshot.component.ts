@@ -10,6 +10,7 @@ export class MatchSnapshotComponent implements OnInit {
   @Input('user') user: any = null;
   @Input('loadingFlg') loadingFlg:boolean = false;
   @Input('errorMessage') errorMessage:string = '';
+  @Input('returnFlg') returnFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
 

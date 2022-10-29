@@ -1,6 +1,6 @@
-<div class="match-card" *ngIf="matchUser" style="text-align: left;">
+<div class="match-card" *ngIf="matchUser">
 
-    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="cancelMatches()"></app-profile-top>
+    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="cancelMatches()" [returnFlg]="returnFlg"></app-profile-top>
 
     <div style="padding: 5px;">
 
@@ -12,7 +12,8 @@
                         <app-green-check [label]="'Personality Quiz Type'" [text1]="matchUser.adventureStableText"
                             [text2]="user.adventureStableText" [icon]="'fa fa-question-circle'">
                         </app-green-check>
-                        <app-green-check [label]="'Politics'" [text1]="matchUser.polyText" [text2]="user.polyText" [icon]="'fa fa-university'">
+                        <app-green-check [label]="'Politics'" [text1]="matchUser.polyText" [text2]="user.polyText"
+                            [icon]="'fa fa-university'">
                         </app-green-check>
                         <app-green-check [label]="'Wants Kids?'" [text1]="matchUser.wantsKids" [text2]="user.wantsKids">
                         </app-green-check>
@@ -21,7 +22,8 @@
                 <td>
                     <div class="small-box">
                         <div class="small-title">Body</div>
-                        <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc" [icon]="user.bodyIcon">
+                        <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc"
+                            [icon]="matchUser.genderIcon">
                         </app-green-check>
                         <app-green-check [label]="'Tattoos'" [text1]="matchUser.numTattoos" [text2]="user.bodyDesc">
                         </app-green-check>
@@ -38,19 +40,33 @@
             <div class="tiny-text2" style="font-size: 24px;">Overall Match: <span
                     class="text-highlight">{{totalMatch}}%</span></div>
         </div>
-        <div style="text-align: center; font-size: 24px; font-weight: 700;">Interested?</div>
-        <div *ngIf="matchUser.bigInterest" style="background-color: #ffffc0; text-align: center; color: red;"><i class="fa fa-heart"></i> This person is interested in you! Click yes and you can begin to communicate.</div>
-        <table *ngIf="!loadingFlg" width="100%">
-            <tr>
-                <td width="50%">
-                    <button (mousedown)="clickedNoButton()" class="btn yellow-button">No Thanks</button>
-                </td>
-                <td>
-                    <button (mousedown)="clickedYesButton()" class="btn green-button">Yes!</button>
-                </td>
-            </tr>
-        </table>
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="matchUser.user1_interested == 'Y' && matchUser.match_level == 1" style="text-align: center;">
+            <div class="dark-blue-box">You have already notified this person that you are interested.</div>
+        </div>
+        <div *ngIf="matchUser.user1_interested == 'Y' && matchUser.match_level > 1" style="text-align: center;">
+            <div class="dark-blue-box"><i
+                class="fa fa-heart" style="color: red;"></i> This person is in your dating pool.</div>
+        </div>
+        <div *ngIf="matchUser.user1_interested != 'Y'">
+
+            <div style="text-align: center; font-size: 24px; font-weight: 700;">Interested?</div>
+            <div *ngIf="matchUser.user2_interested == 'Y' && matchUser.match_level == 1" class="dark-blue-box" style="text-align: center;"><i
+                    class="fa fa-heart" style="color: red;"></i> This person is interested in you! Click yes and you can begin to
+                communicate.
+            </div>
+            <table *ngIf="!loadingFlg" width="100%">
+                <tr>
+                    <td width="50%">
+                        <button (mousedown)="clickedNoButton()" class="btn yellow-button">No Thanks</button>
+                    </td>
+                    <td>
+                        <button (mousedown)="clickedYesButton()" class="btn green-button">Yes!</button>
+                    </td>
+                </tr>
+            </table>
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        </div>
+
 
     </div>
 </div>

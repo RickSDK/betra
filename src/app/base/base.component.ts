@@ -23,11 +23,17 @@ export class BaseComponent implements OnInit {
   public imgSrcFile:string = 'assets/images/theRock.png';
   public apiSuccessFlg: boolean = false;
   public responseJson:any = null;
+  public profileCompleteFlg: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
     this.loadUserObj();
+  }
+  refreshUserObj(userObj: any) {
+    localStorage['User'] = JSON.stringify(userObj);
+    this.user = new User(userObj);
+    console.log('user refreshed!');
   }
   loadUserObj() {
     this.userId = localStorage['user_id'];
@@ -41,6 +47,8 @@ export class BaseComponent implements OnInit {
     this.figureOutPopupSituation();
   }
   figureOutPopupSituation() {
+    this.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
+
     this.popupNum = 0;
     if (!this.userId)
       this.popupNum = 1;

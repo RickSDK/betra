@@ -2,7 +2,7 @@
     <div class="matches-card" *ngIf="user">
         <div style="background-color: #99c; color: white; border-radius: 5px; font-size: 24px; font-weight: 700;">Notification Center</div>
         <p>&nbsp;</p>
-        <div *ngIf="notifications==0">No notifications at this time.</div>
+        <div *ngIf="!notifications || notifications==0">No notifications at this time.</div>
         <div *ngIf="notifications>0" style="border: 1px solid #ccc; padding: 20px;">
             <div *ngIf="users_interested>0">
                 <p>You have {{users_interested}} new {{users_interested_text}} interested in you!</p>

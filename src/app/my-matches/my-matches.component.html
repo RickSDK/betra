@@ -21,10 +21,7 @@
             </div>
         </div>
         <div *ngIf="menuNum==1 && !loadingFlg">
-            <div>No one on your back burner</div>
-        </div>
-        <div *ngIf="menuNum==2 && !loadingFlg">
-            <div *ngFor="let person of playerList" class="person-box">
+            <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList" class="person-box">
                 <div class="name-title">{{person.name}}</div>
                 <img [src]="person.src" class="small-img">
             </div>
@@ -38,7 +35,7 @@
                 to find you. Click <button [routerLink]="['']" class="btn red-small-button"><i class="fa fa-search"></i>
                     Search</button> to find new singles!</div>
         </div>
-        <div *ngIf="menuNum==3 && !loadingFlg">
+        <div *ngIf="menuNum==2 && !loadingFlg">
             <div>
                 <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList" class="person-box">
                     <div class="name-title">{{person.name}}</div>
@@ -50,7 +47,7 @@
                         communicating and see where this goes.</p>
                 </div>
                 <div *ngIf="playerList.length==0">
-                    <p>No one has liked you yet.</p>
+                    <p>No likes at the moment.</p>
                     <div style="text-align: left;">
                         <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
                         <div style="padding-left: 30px;">

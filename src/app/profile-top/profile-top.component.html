@@ -1,19 +1,20 @@
-<div *ngIf="user" style="padding: 5px;">
+<div *ngIf="user && myUser" style="padding: 5px;">
     <table width="100%">
         <tr>
-            <td width="190">
-                <img [src]="user.imgSrc" class="profile-image">
+            <td align="left">
+                <img (mousedown)="toggleImage()" [src]="user.imgSrc" [ngClass]="ngClassImage()">
             </td>
-            <td valign="top" style="text-align: left;">
+            <td *ngIf="!largeImageFlg" valign="top" style="text-align: left;" width="190">
                 <div class="title-highlight">{{user.firstName}}, {{user.age}}
                     <i *ngIf="myUser.user_id == 0" [routerLink]="['/profile']" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-edit"></i>
-                    <i *ngIf="myUser.user_id > 0" (mousedown)="cancelMatches()" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
+                    <i *ngIf="myUser.user_id > 0 && !returnFlg" (mousedown)="cancelMatches()" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
+                    <i *ngIf="myUser.user_id > 0 && returnFlg" [routerLink]="['']" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
                 </div>
                 <div><b>{{user.city}}</b></div>
                 <div class="small-box">
                     <div class="small-title">Relationship</div>
                     
-                    <div style="font-size: 14px; font-weight: 700"><i [class]="user.bodyIcon"></i> {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right" title="Looking for"></i> &nbsp;
+                    <div style="font-size: 14px; font-weight: 700"><i [class]="user.genderIcon"></i> {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right" title="Looking for"></i> &nbsp;
                     <i *ngIf="user.matchPreference != 'F'" class="fa fa-male" [title]="user.matchGender"></i> <i *ngIf="user.matchPreference != 'M'" class="fa fa-female" [title]="user.matchGender"></i></div>
 
                     <app-green-check [label]="'Seeking'" [text1]="user.desiredRelationship"
@@ -40,8 +41,8 @@
             </td>
         </tr>
     </table>
-    <div style="font-size: 12px; color: #777; font-weight: 700;" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp;
+    <div *ngIf="!largeImageFlg" class="motto-text" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp;
         <b>{{user.motto}}</b></div>
-    <div style="font-size: 12px; color: #777; font-weight: 700;" title="Looking for"><i class="fa fa-eye"></i>&nbsp;
+    <div *ngIf="!largeImageFlg" class="motto-text" title="Looking for"><i class="fa fa-eye"></i>&nbsp;
         <b>{{user.story}}</b></div>
 </div>

@@ -15,15 +15,27 @@ export class PageShellComponent implements OnInit {
   @Input('imgSrcFile') imgSrcFile: string = 'assets/images/theRock.png';
 
   public showMainMenuFlg: boolean = false;
+  public showPromotionalBoxesFlg: boolean = false;
+  public showAboutInfoFlg: boolean = false;
   public firstName: string = '';
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.showPromotionalBoxesFlg = true;
+    this.showAboutInfoFlg = true;
     if (localStorage['user_id'] > 0 && localStorage['User']) {
       var user = new User(JSON.parse(localStorage['User']));
       this.firstName = user.firstName;
       this.imgSrcFile = user.imgSrc;
+      this.showPromotionalBoxesFlg = false;
+      this.showAboutInfoFlg = false;
+    }
+    if (this.pageTitle == '')
+      this.showAboutInfoFlg = true;
+    if (this.pageTitle == 'About') {
+      this.showPromotionalBoxesFlg = true;
+      this.showAboutInfoFlg = true;
     }
   }
   ngClassToggleMenu() {

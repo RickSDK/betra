@@ -1,4 +1,9 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="'User Detail'">
-details!
+    [pageTitle]="pageTitle">
+
+    <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
+                    [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true"></app-match-snapshot>
+
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
 </app-page-shell>

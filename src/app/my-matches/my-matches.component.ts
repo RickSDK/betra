@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MyMatchesComponent extends BaseComponent implements OnInit {
   public menuNum: number = 0;
-  public menuButtons: any = ['My Matches', 'Back Burner', 'My Likes', 'Who Likes Me?'];
+  public menuButtons: any = ['My Matches', 'Who I Like', 'Who Likes Me?'];
   public playerList: any = [];
   constructor(private route: ActivatedRoute) { super(); }
 
@@ -24,7 +24,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   changeMenu(num: number) {
     this.menuNum = num;
 
-    if (num == 2) {
+    if (num == 1) {
       var params = {
         userId: localStorage['user_id'],
         code: localStorage['code'],
@@ -32,7 +32,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       };
       this.executeApi('appApiCode2.php', params, true);
     }
-    if (num == 3) {
+    if (num == 2) {
       var params = {
         userId: localStorage['user_id'],
         code: localStorage['code'],

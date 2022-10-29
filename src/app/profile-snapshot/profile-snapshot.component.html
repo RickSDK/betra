@@ -1,7 +1,6 @@
 <div [ngClass]="ngClassProfileCard()" *ngIf="user">
     <app-profile-top [user]="user"></app-profile-top>
 
-
     <div *ngIf="user.status != 'Active'">
         <div></div>You need to finish setting up your profile before you can start meeting people. This only takes a few
         minutes.
@@ -24,7 +23,7 @@
         <div style="font-size: 24px; text-align: center;" *ngIf="0 && !responseJson">
             <i class="fa fa-spinner fa-spin"></i> Loading data
         </div>
-        <div *ngIf="responseJson" style="text-align: center;">Active Users: <span
+        <div *ngIf="responseJson && responseJson.activeUsers && responseJson.activeUsers>0" style="text-align: center;">Active Users: <span
                 class="text-highlight">{{responseJson.activeUsers}}</span></div>
         <div *ngIf="matchObj.status == 'started'">
             <div style="font-size: 24px; text-align: center;">

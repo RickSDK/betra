@@ -9,7 +9,10 @@ import { User } from '../classes/user';
 export class ProfileTopComponent implements OnInit {
   @Input('user') user: any = new User(null);
   @Input('myUser') myUser: any = new User(null);
+  @Input('returnFlg') returnFlg: boolean = false;
+
   @Output() messageEvent = new EventEmitter<string>();
+  public largeImageFlg: boolean = false;
 
   constructor() { }
 
@@ -17,5 +20,14 @@ export class ProfileTopComponent implements OnInit {
   }
   cancelMatches() {
     this.messageEvent.emit('cancel');
+  }
+  toggleImage() {
+    this.largeImageFlg = !this.largeImageFlg;
+  }
+  ngClassImage() {
+    if (this.largeImageFlg)
+      return 'profile-image-large';
+    else
+      return 'profile-image';
   }
 }

@@ -9,9 +9,20 @@
     height: 41px;
     border-radius: 50%;
     object-fit: cover;
-    opacity: .5;
+    opacity: 1;
+    cursor: pointer;
 }
 .snapshot-img:hover {
+    box-shadow: 2px 2px 10px gray;
+}
+.snapshot-img2 {
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: .5;
+}
+.snapshot-img2:hover {
     box-shadow: 2px 2px 10px gray;
 }
 .pool-large {
