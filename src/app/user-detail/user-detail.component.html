@@ -2,7 +2,7 @@
     [pageTitle]="pageTitle">
 
     <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
-                    [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true"></app-match-snapshot>
+                    [matchUser]="matchUser" [loadingFlg]="calculatingStatsFlg" [errorMessage]="errorMessage" [returnFlg]="true"></app-match-snapshot>
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

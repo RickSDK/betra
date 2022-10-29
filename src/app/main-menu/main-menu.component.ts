@@ -136,6 +136,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "logUser") {
       this.notifications = responseJson.notifications;
       localStorage['notifications'] = responseJson.notifications;
+      if (responseJson.refreshFlg == 'Y')
+        this.refreshUserObj(responseJson.user);
     }
   }
   ngClassToggle() {

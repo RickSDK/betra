@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
 import { ActivatedRoute } from '@angular/router';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-detail',
@@ -15,9 +16,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public uid: number = 0;
   public pageTitle = 'User Detail';
   public matchUser: any = null;
+  public calculatingStatsFlg = true;
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
 
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -37,19 +39,44 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode2.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
-    this.matchUser = new User(responseJson.user);
-    this.pageTitle = this.matchUser.firstName;
-    console.log('this.matchUser', this.matchUser);
+    if (responseJson.action == 'removeThisUser') {
+      this.router.navigate(['']);
+    }
+    if (responseJson.action == 'getThisUser') {
+      this.matchUser = new User(responseJson.user);
+      this.pageTitle = this.matchUser.firstName;
+      this.calculatingStatsFlg = true;
+      //console.log('this.matchUser', this.matchUser);
 
-    setTimeout(() => {
-      this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
-    }, 500);
+      setTimeout(() => {
+        this.calculatingStatsFlg = false;
+        this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
+      }, 1500);
+    }
+
   }
   matchSnapshotEvent(action: string) {
-    if(action == 'cancel') {
+    if (action == 'cancel') {
 
     }
-    this.errorMessage = 'Not coded yet: '+action;
+    if (action == 'remove') {
+      var params = {
+        userId: localStorage['user_id'],
+        code: localStorage['code'],
+        uid: this.uid,
+        action: "removeThisUser"
+      };
+      this.executeApi('appApiCode2.php', params, true);
+    }
+    if (action == 'ban') {
+      var params = {
+        userId: localStorage['user_id'],
+        code: localStorage['code'],
+        uid: this.uid,
+        action: "banThisUser"
+      };
+      this.executeApi('appApiCode2.php', params, true);
+    }
   }
 
 }

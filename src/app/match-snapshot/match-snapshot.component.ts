@@ -8,8 +8,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class MatchSnapshotComponent implements OnInit {
   @Input('matchUser') matchUser: any = null;
   @Input('user') user: any = null;
-  @Input('loadingFlg') loadingFlg:boolean = false;
-  @Input('errorMessage') errorMessage:string = '';
+  @Input('loadingFlg') loadingFlg: boolean = false;
+  @Input('errorMessage') errorMessage: string = '';
   @Input('returnFlg') returnFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
@@ -19,10 +19,18 @@ export class MatchSnapshotComponent implements OnInit {
   public profileMatch = 0;
   public totalMatch = 0;
   public matchObj: any;
+  public showMoreOptionsFlg: boolean = false;
+  public showConfirmationFlg: boolean = false;
+  public action: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  buttonPressed(action: string) {
+    this.action = action;
+    this.showMoreOptionsFlg = false;
+    this.showConfirmationFlg = true;
   }
   calculateMatches(user: any, matchUser: any, matchObj: any) {
     this.matchObj = matchObj;
@@ -55,7 +63,7 @@ export class MatchSnapshotComponent implements OnInit {
       this.user.kidsNum = this.matchUser.numKids;
 
     this.matchUser.longestRelationshipText = this.matchUser.longestRelationship + ' years';
-    console.log('xxxcalculateMatches', this.matchUser);
+    //console.log('xxxcalculateMatches', this.matchUser);
 
   }
   cancelMatches() {
@@ -66,6 +74,11 @@ export class MatchSnapshotComponent implements OnInit {
   }
   clickedNoButton() {
     this.messageEvent.emit('noToMatch');
+  }
+  clickYesOption() {
+    this.showMoreOptionsFlg = false;
+    this.showConfirmationFlg = false;
+    this.messageEvent.emit(this.action);
   }
 
 }
