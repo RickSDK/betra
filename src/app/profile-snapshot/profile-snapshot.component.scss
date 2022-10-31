@@ -19,6 +19,13 @@
     padding: 10px;
     border-radius: 5px;
 }
+.red-small-button {
+    background-color: #b7121f;
+    color: white;
+}
+.red-small-button:hover {
+    background-color: red;
+}
 @media screen and (max-width: 767px) {
     .hidden-sm {
         display: none;

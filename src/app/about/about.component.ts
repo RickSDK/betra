@@ -10,6 +10,9 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
   constructor() { super(); }
 
-
+  override ngOnInit(): void {
+    super.ngOnInit();
+    window.scrollTo(0, 0);
+  }
 
 }

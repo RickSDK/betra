@@ -1,7 +1,7 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'My Matches'" [userId]="userId"
-    [imgSrcFile]="imgSrcFile">
+    [imgSrcFile]="imgSrcFile" [profileCompleteFlg]="profileCompleteFlg">
 
-    <div class="matches-card" style="min-height: 500px;" *ngIf="user">
+    <div class="matches-card" style="min-height: 500px; font-size: 14px; color: #444;" *ngIf="user">
         <div class="btn-group" role="group" aria-label="Menu">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)">{{button}}</button>
@@ -15,8 +15,8 @@
                 the extras to your Back Burner. This will help you organize your dating life and concentrate on your
                 best propects.</div>
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
-            <div>Currently no matches. Click <button [routerLink]="['']" class="btn red-small-button"><i
-                        class="fa fa-search"></i> Search</button>
+            <div *ngIf="!user.dating_pool">Currently no matches. Click <button [routerLink]="['/browse-singles']" class="btn red-small-button"><i
+                        class="fa fa-search"></i> Browse</button>
                 to find new singles!
             </div>
         </div>
@@ -32,8 +32,8 @@
             </div>
             <div *ngIf="playerList && playerList.length==0">You haven't liked anyone yet. Get out there and start
                 liking people! That is the best way for others
-                to find you. Click <button [routerLink]="['']" class="btn red-small-button"><i class="fa fa-search"></i>
-                    Search</button> to find new singles!</div>
+                to find you. Click <button [routerLink]="['/browse-singles']" class="btn red-small-button"><i class="fa fa-search"></i>
+                    Browse</button> to find new singles!</div>
         </div>
         <div *ngIf="menuNum==2 && !loadingFlg">
             <div>
@@ -59,8 +59,8 @@
 
                     </div>
                     <div>&nbsp;</div>
-                    <div>Click <button [routerLink]="['']" class="btn red-small-button"><i class="fa fa-search"></i>
-                            Search</button>
+                    <div>Click <button [routerLink]="['/browse-singles']" class="btn red-small-button"><i class="fa fa-search"></i>
+                            Browse</button>
                         to find new singles!
                     </div>
                 </div>

@@ -13,6 +13,8 @@ export class User {
 
     public educationLevel: string = '';
     public income: string = '';
+    public race: string = '';
+    public smokes: string = '';
     public religion: string = '';
     public maritalStatus: string = '';
     public bodyType: string = '';
@@ -105,6 +107,8 @@ export class User {
             this.zipcode = obj.zipcode || '';
             this.educationLevel = obj.educationLevel || '';
             this.income = obj.income || '';
+            this.race = obj.race || '';
+            this.smokes = obj.smokes || '';
             this.religion = obj.religion || '';
             this.maritalStatus = obj.maritalStatus || '';
             this.bodyType = obj.bodyType || '';
@@ -139,7 +143,7 @@ export class User {
 
             this.motto = obj.motto || '';
             this.story = obj.story || '';
-            this.status = obj.userStatus || 'Pending';
+            this.status = obj.userStatus || 'Active';
             this.emailVerifyFlg = obj.emailVerifyFlg == 'Y';
             this.lastLogin = obj.lastLogin;
             this.lastLoginText = '-';
@@ -164,7 +168,7 @@ export class User {
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
 
-        this.notifications = this.users_interested;
+        this.notifications = Math.round(this.users_interested) + Math.round(this.users_matched) + Math.round(this.questions_asked) + Math.round(this.dates_requested) + Math.round(this.messages_received) + Math.round(this.info_requested);
 
         var dpList = this.dating_pool.split('+');
         var datingPool:any = [];
@@ -211,6 +215,9 @@ export class User {
                 this.lastLoginText = 'Yesterday';
 
         }
+        if(!this.matchAge)
+            this.status = 'Pending';
+
         if (this.matchAge == 0) {
             this.matchAge = this.age;
         }
@@ -341,7 +348,7 @@ export class User {
 
         var profilePicFlg = this.profilePic > 0;
         var additionalPicsFlg = true;
-        var verifyFlg = this.emailVerifyFlg;
+        var verifyFlg = true;
         if (!basicsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg)
             this.status = 'Pending';
         if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {

@@ -16,15 +16,17 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public matchUser: any = null;
   public displayProfileFlg = true;
-  public notifications: number = 0;
+  public papgeTitle = '';
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     this.loadUserObj();
 
-    if (this.user)
+    if (this.user && this.user.status == 'Active') {
+      this.papgeTitle = 'My Profile';
       this.notifications = this.user.notifications;
+    }
     this.logUser();
     if (0) {
       //test match snapshot
@@ -103,13 +105,19 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
   }
   override loginClicked(action: string) {
+    console.log('login clicked!');
+    if(this.user)
+      this.notifications = this.user.notifications;
+
     if (!action)
       this.popupNum = 2;
     if (action == 'logout') {
       this.user = null;
       this.matchUser = null;
+      this.profileCompleteFlg = false;
+      this.papgeTitle = '';
+      this.notifications = 0;
       this.loadUserObj();
-
     }
   }
 
@@ -146,14 +154,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     else
       return 'text-dark';
   }
-  dismisLogin(value: string) {
-    console.log('dismisLogin');
-    if (value === 'login') {
-      this.loadUserObj();
-    } else {
-      this.popupNum = 1;
-    }
-  }
+
   snapshotButtonClicked(action: string) {
     if (action == 'search') {
       this.findMatches();

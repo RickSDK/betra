@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [pageTitle]="'Profile'"
-    [imgSrcFile]="imgSrcFile">
+    [imgSrcFile]="imgSrcFile" [profileCompleteFlg]="profileCompleteFlg">
 
     <div style="text-align: center;">
         <div class="profile-popup">
@@ -82,30 +82,7 @@
                                 </div>
                                 <div *ngIf="!user.findLoveFlg" class="info-box">Note: you have not selected "Find Love"
                                     so you will not be able to browse through single's profiles.</div>
-                                <!--
-                                <div class="tiny-text">Birth Date</div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <input name="birthMonth"
-                                                [style.background-color]="user.birthMonth?'#eee':'#ffffc0'"
-                                                [disabled]="true" id="birthMonth" type="number"
-                                                [value]="user.birthMonth" maxlength="5" (input)="menuValueChanged()">
-                                        </td>
-                                        <td>
-                                            <input name="birthDay"
-                                                [style.background-color]="user.birthDay?'#eee':'#ffffc0'" id="birthDay"
-                                                type="number" [value]="user.birthDay" maxlength="5" [disabled]="true"
-                                                (input)="menuValueChanged()">
-                                        </td>
-                                        <td>
-                                            <input name="birthYear"
-                                                [style.background-color]="user.birthYear?'#eee':'#ffffc0'" id="birthYear"
-                                                type="number" [value]="user.birthYear" maxlength="5" [disabled]="true"
-                                                (input)="menuValueChanged()">
-                                        </td>
-                                    </tr>
-                                </table>-->
+
                                 <div class="tiny-text">Gender</div>
                                 <table>
                                     <tr>
@@ -189,79 +166,87 @@
                     <div style="font-size: 22px;">Tell us about yourself</div>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md" style="text-align: left;">
-                                <div class="tiny-text">Marital Status</div>
-                                <select name="maritalStatus" id="maritalStatus" (change)="menuValueChanged()"
-                                    [style.background-color]="user.maritalStatus?'#eee':'#ffffc0'">
-                                    <option disabled selected>Select</option>
-                                    <option *ngFor="let option of maritalStatus"
-                                        [selected]="option == user.maritalStatus">{{option}}
-                                    </option>
-                                </select>
-                                <div *ngIf="user.findLoveFlg">
-
-                                    <div class="tiny-text">Education Level</div>
-                                    <select name="educationLevel" id="educationLevel" (change)="menuValueChanged()"
-                                        [style.background-color]="user.educationLevel?'#eee':'#ffffc0'">
+                            <div class="col-md" style="text-align: center;">
+                                <div style="text-align: left; display: inline-block;">
+                                    <div class="tiny-text">Marital Status</div>
+                                    <select name="maritalStatus" id="maritalStatus" (change)="menuValueChanged()"
+                                        [style.background-color]="user.maritalStatus?'#eee':'#ffffc0'">
                                         <option disabled selected>Select</option>
-                                        <option *ngFor="let option of educationLevels"
-                                            [selected]="option == user.educationLevel">{{option}}</option>
-                                    </select>
-                                    <div class="tiny-text">Income</div>
-                                    <select name="income" id="income" (change)="menuValueChanged()"
-                                        [style.background-color]="user.income?'#eee':'#ffffc0'">
-                                        <option disabled selected>Select</option>
-                                        <option *ngFor="let option of incomes" [selected]="option == user.income">
-                                            {{option}}
+                                        <option *ngFor="let option of maritalStatus"
+                                            [selected]="option == user.maritalStatus">{{option}}
                                         </option>
                                     </select>
-                                    <div class="tiny-text">Religion</div>
-                                    <select name="religion" id="religion" (change)="menuValueChanged()"
-                                        [style.background-color]="user.religion?'#eee':'#ffffc0'">
-                                        <option disabled selected>Select</option>
-                                        <option *ngFor="let option of religions" [selected]="option == user.religion">
-                                            {{option}}
-                                        </option>
-                                    </select>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <div class="tiny-text">Body Type</div>
-                                                <select name="bodyType" id="bodyType" (change)="menuValueChanged()"
-                                                    [style.background-color]="user.bodyType?'#eee':'#ffffc0'">
-                                                    <option disabled selected>Select</option>
-                                                    <option *ngFor="let option of bodyTypes"
-                                                        [selected]="option == user.bodyType">
-                                                        {{option}}
-                                                    </option>
-                                                </select>
+                                    <div *ngIf="user.findLoveFlg">
+                                        <div class="tiny-text">Race</div>
+                                        <select name="race" id="race" (change)="menuValueChanged()"
+                                            [style.background-color]="user.race?'#eee':'#ffffc0'">
+                                            <option disabled selected>Select</option>
+                                            <option *ngFor="let option of raceOptions" [selected]="option == user.race">
+                                                {{option}}</option>
+                                        </select>
+                                        <div class="tiny-text">Education Level</div>
+                                        <select name="educationLevel" id="educationLevel" (change)="menuValueChanged()"
+                                            [style.background-color]="user.educationLevel?'#eee':'#ffffc0'">
+                                            <option disabled selected>Select</option>
+                                            <option *ngFor="let option of educationLevels"
+                                                [selected]="option == user.educationLevel">{{option}}</option>
+                                        </select>
+                                        <div class="tiny-text">Income</div>
+                                        <select name="income" id="income" (change)="menuValueChanged()"
+                                            [style.background-color]="user.income?'#eee':'#ffffc0'">
+                                            <option disabled selected>Select</option>
+                                            <option *ngFor="let option of incomes" [selected]="option == user.income">
+                                                {{option}}
+                                            </option>
+                                        </select>
+                                        <div class="tiny-text">Religion</div>
+                                        <select name="religion" id="religion" (change)="menuValueChanged()"
+                                            [style.background-color]="user.religion?'#eee':'#ffffc0'">
+                                            <option disabled selected>Select</option>
+                                            <option *ngFor="let option of religions"
+                                                [selected]="option == user.religion">
+                                                {{option}}
+                                            </option>
+                                        </select>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="tiny-text">Body Type</div>
+                                                    <select name="bodyType" id="bodyType" (change)="menuValueChanged()"
+                                                        [style.background-color]="user.bodyType?'#eee':'#ffffc0'">
+                                                        <option disabled selected>Select</option>
+                                                        <option *ngFor="let option of bodyTypes"
+                                                            [selected]="option == user.bodyType">
+                                                            {{option}}
+                                                        </option>
+                                                    </select>
 
-                                            </td>
-                                            <td>
-                                                <div class="tiny-text">Height</div>
-                                                <select name="bodyHeight" id="bodyHeight" (change)="menuValueChanged()"
-                                                    [style.background-color]="user.bodyHeight?'#eee':'#ffffc0'">
-                                                    <option disabled selected>Select</option>
-                                                    <option *ngFor="let option of bodyHeights"
-                                                        [selected]="option == user.bodyHeight">
-                                                        {{option}}
-                                                    </option>
-                                                </select>
+                                                </td>
+                                                <td>
+                                                    <div class="tiny-text">Height</div>
+                                                    <select name="bodyHeight" id="bodyHeight"
+                                                        (change)="menuValueChanged()"
+                                                        [style.background-color]="user.bodyHeight?'#eee':'#ffffc0'">
+                                                        <option disabled selected>Select</option>
+                                                        <option *ngFor="let option of bodyHeights"
+                                                            [selected]="option == user.bodyHeight">
+                                                            {{option}}
+                                                        </option>
+                                                    </select>
 
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="tiny-text">Wants Kids?</div>
-                                    <select name="wantsKids" id="wantsKids"
-                                        [style.background-color]="user.wantsKids?'#eee':'#ffffc0'"
-                                        (change)="menuValueChanged()">
-                                        <option disabled selected>Select</option>
-                                        <option *ngFor="let option of kidsOptions"
-                                            [selected]="option == user.wantsKids">{{option}}
-                                        </option>
-                                    </select>
-
-
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="tiny-text">Smoker?</div>
+                                        <select name="smokes" id="smokes"
+                                            [style.background-color]="user.smokes?'#eee':'#ffffc0'"
+                                            (change)="menuValueChanged()">
+                                            <option disabled selected>Select</option>
+                                            <option *ngFor="let option of smokingOptions"
+                                                [selected]="option == user.smokes">{{option}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
 
                             </div>
@@ -328,11 +313,19 @@
                                             </td>
                                         </tr>
                                     </table>
-
+                                    <div class="tiny-text">Wants Kids?</div>
+                                    <select name="wantsKids" id="wantsKids"
+                                        [style.background-color]="user.wantsKids?'#eee':'#ffffc0'"
+                                        (change)="menuValueChanged()">
+                                        <option disabled selected>Select</option>
+                                        <option *ngFor="let option of kidsOptions"
+                                            [selected]="option == user.wantsKids">{{option}}
+                                        </option>
+                                    </select>
 
                                     <div class="tiny-text">Your motto</div>
-                                    <input name="motto" [style.background-color]="user.motto?'#eee':'#ffffc0'" id="motto"
-                                        maxlength="128" type="text" [value]="user.motto" placeholder="Motto"
+                                    <input name="motto" [style.background-color]="user.motto?'#eee':'#ffffc0'"
+                                        id="motto" maxlength="128" type="text" [value]="user.motto" placeholder="Motto"
                                         (input)="menuValueChanged()">
                                 </div>
 
@@ -363,7 +356,7 @@
                     <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this step
                     </div>
                     <div *ngIf="user.findLoveFlg">
-                        <div style="font-size: 22px;">Answer these questions by selecting the answer you most agree
+                        <div style="font-size: 18px;">Answer these questions by selecting the answer you most agree
                             with.</div>
                         <div class="box-card" *ngFor="let quiz of politicalQuiz; let i = index">
                             <div><b>{{i+1}}. {{quiz.subject}}</b></div>

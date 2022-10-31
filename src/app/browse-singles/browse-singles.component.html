@@ -1,0 +1,31 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Browse'" [profileCompleteFlg]="profileCompleteFlg">
+
+
+    <div class="matches-card" *ngIf="!matchUser">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="!loadingFlg">
+            <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 40px;"></i></div>
+            <p>Sorry, no more profiles found.</p>
+            <p>This is a new app and people are just starting to sign up. Check back soon.</p>
+            <p>Click <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
+                My Matches</button> to see what your dating situation looks like.</p>
+        </div>
+    </div>
+
+    <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
+        [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-match-snapshot>
+
+    <!--------------------
+    <div *ngIf="0 && user.status == 'Active'"
+        style="text-align: center; background-color: #eee; border-radius: 5px; padding: 5px;">
+        <div style="font-weight: 700; text-align: center;">Find potential Matches</div>
+        <div>
+            <span style="float: left;">Quantity</span><span style="float: right;">Quality</span>
+        </div>
+        <div class="range">
+            <input type="range" class="form-range" id="customRange1" />
+        </div>
+    </div>-----Search---------------->
+
+</app-page-shell>

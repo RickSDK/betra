@@ -19,11 +19,13 @@ export class BaseComponent implements OnInit {
   public displayYear = new Date().getFullYear();
   public popupNum: number = 1;
   public user: any;
-  public imgSrc:string = 'assets/images/theRock.png';
-  public imgSrcFile:string = 'assets/images/theRock.png';
+  public imgSrc: string = 'assets/images/theRock.png';
+  public imgSrcFile: string = 'assets/images/theRock.png';
   public apiSuccessFlg: boolean = false;
-  public responseJson:any = null;
+  public responseJson: any = null;
   public profileCompleteFlg: boolean = false;
+  public userStatus: string = '';
+  public notifications: number = 0;
 
   constructor() { }
 
@@ -33,14 +35,15 @@ export class BaseComponent implements OnInit {
   refreshUserObj(userObj: any) {
     localStorage['User'] = JSON.stringify(userObj);
     this.user = new User(userObj);
-    console.log('user refreshed!');
+    console.log('user refreshed!', this.user);
   }
   loadUserObj() {
-    this.userId = localStorage['user_id'];
+    this.userId = localStorage['user_id'] || 0;
     if (this.userId > 0) {
       var userObj = JSON.parse(localStorage['User']);
       this.user = new User(userObj);
       this.imgSrcFile = this.user.imgSrc;
+      this.userStatus = this.user.status;
       console.log('user', this.user);
     }
 
@@ -52,7 +55,7 @@ export class BaseComponent implements OnInit {
     this.popupNum = 0;
     if (!this.userId)
       this.popupNum = 1;
-    else if (this.user && this.user.status == 'Pending')
+    else if (this.user && this.user.status != 'Active')
       this.popupNum = 3;
   }
   loginClicked(event: any) {
@@ -61,6 +64,15 @@ export class BaseComponent implements OnInit {
       this.popupNum = 2;
     if (event == 'logout')
       this.loadUserObj();
+  }
+  dismisLogin(value: string) {
+    console.log('dismisLogin');
+    if (value === 'login') {
+      this.loadUserObj();
+      this.notifications = this.user.notifications;
+    } else {
+      this.popupNum = 1;
+    }
   }
   getHostname() {
     return 'https://www.appdigity.com/betraPhp/';
@@ -99,16 +111,16 @@ export class BaseComponent implements OnInit {
           this.responseJson = null;
           try {
             this.responseJson = JSON.parse(data);
-          } catch(e) {
+          } catch (e) {
             console.log('error!', e);
           }
-          
+
           console.log('responseJson', this.responseJson);
           if (this.responseJson && this.responseJson.status == 'Success') {
             this.postSuccessApi(file, this.responseJson);
           } else {
             console.log('Error!!', this.responseJson);
-            var error = (this.responseJson && this.responseJson.error)?this.responseJson.error:'No Success status received from '+file;
+            var error = (this.responseJson && this.responseJson.error) ? this.responseJson.error : 'No Success status received from ' + file;
             this.postErrorApi(file, error);
           }
         }
@@ -133,7 +145,7 @@ export class BaseComponent implements OnInit {
     this.loadingFlg = false;
     if (error == '')
       error = 'No success message returned';
-    this.errorMessage = 'Error: ' + error;
+    this.errorMessage = error;
     console.log('postErrorApi', error);
   }
   ngClassBox(flag: boolean) {

@@ -18,13 +18,16 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Your Match', 'Done'];
   public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
-  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islam', 'Atheist', 'None/Agnostic', 'Hindu', 'Other Religion', 'No Preference'];
+  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Other Religion'];
   public maritalStatus = ['Single', 'Married', 'Divorced'];
   public bodyTypes = ['Thin', 'Average', 'Heavy'];
   public bodyHeights = ['Short', 'Average', 'Tall'];
   public desiredRelationships = ['Serious', 'Casual', 'Any Type'];
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
+  public smokingOptions = ['Yes', 'No'];
+  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'Asian-Indian','Other'];
+
   public code: string = localStorage['code'];
   public email: string = localStorage['email'];
   public infoScreenNum: number = 0;
@@ -218,7 +221,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     if (file == 'login.php') {
-      localStorage['User'] = JSON.stringify(responseJson);
+      localStorage['User'] = JSON.stringify(responseJson.user);
       this.loadUserObj();
       this.imgSrc = '';
       console.log('xxx', this.imgSrc);
@@ -291,6 +294,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     }
     if (this.menuNum == 2) {
       this.user.maritalStatus = $('#maritalStatus').val();
+      this.user.race = $('#race').val();
+      this.user.smokes = $('#smokes').val();
       this.user.educationLevel = $('#educationLevel').val();
       this.user.income = $('#income').val();
       this.user.religion = $('#religion').val();
@@ -329,7 +334,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.profileFlags[this.menuNum] = (this.user.story && this.user.matchHasKids);
 
     }
-    console.log('xxxmenuValueChanged', this.menuNum, this.user);
   }
   profileSubmitPress() {
     this.loadingFlg = true;
@@ -354,6 +358,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       makeMoneyFlg: this.user.makeMoneyFlg ? 'Y' : 'N',
       educationLevel: this.user.educationLevel,
       income: this.user.income,
+      race: this.user.race,
+      smokes: this.user.smokes,
       religion: this.user.religion,
       maritalStatus: this.user.maritalStatus,
       bodyType: this.user.bodyType,

@@ -1,0 +1,11 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Settings'" [profileCompleteFlg]="profileCompleteFlg">
+
+     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+     <div class="matches-card" *ngIf="user">
+        <div>- Settings -</div>
+        <button (mousedown)="logout()" class="btn red-small-button"><i class="fa fa-sign-out"></i>
+            Logout</button>
+    </div>
+
+</app-page-shell>

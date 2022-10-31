@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="pageTitle">
+    [pageTitle]="pageTitle" [profileCompleteFlg]="profileCompleteFlg">
 
     <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
                     [matchUser]="matchUser" [loadingFlg]="calculatingStatsFlg" [errorMessage]="errorMessage" [returnFlg]="true"></app-match-snapshot>

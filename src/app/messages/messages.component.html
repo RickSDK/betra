@@ -1,0 +1,9 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Messages'" [profileCompleteFlg]="profileCompleteFlg">
+
+     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+     <div class="matches-card" *ngIf="user">
+        <div>No Messages at this time.</div>
+    </div>
+
+</app-page-shell>

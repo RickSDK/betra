@@ -15,7 +15,7 @@
             <button (mousedown)="cancelPressed()" class="btn gray-button"
             >Cancel</button>
         </div>
-        <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
+        <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
     </div>
     <div class="inside-box" *ngIf="loadingFlg">
         <div style="font-size: 24px; text-align: center;">

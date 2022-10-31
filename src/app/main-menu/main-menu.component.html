@@ -1,33 +1,25 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [notifications]="notifications" [imgSrcFile]="imgSrcFile">
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [notifications]="notifications"
+    [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle" [profileCompleteFlg]="profileCompleteFlg">
     <img *ngIf="!profileCompleteFlg" class="background-img" src="assets/images/coffeeShop.jpg" alt="Coffee Shop">
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md" style="padding: 0;">
-                <app-profile-snapshot *ngIf="profileCompleteFlg && user" [user]="user" [responseJson]="responseJson" [matchObj]="matchObj"
-                    (messageEvent)="snapshotButtonClicked ($event)"></app-profile-snapshot>
-            </div>
-            <div class="col-md" *ngIf="matchObj && matchObj.status == 'viewing'" style="padding: 0;">
-                <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
-                    [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-match-snapshot>
-            </div>
-        </div>
-    </div>
+
+    <app-profile-snapshot *ngIf="profileCompleteFlg && user" [user]="user" [responseJson]="responseJson"
+        [matchObj]="matchObj" (messageEvent)="snapshotButtonClicked ($event)"></app-profile-snapshot>
 
     <div (mousedown)="errorMessage=''" *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
- 
-    <table width="100%" *ngIf="!user || user.status=='Pending'">
+
+    <table width="100%" *ngIf="!profileCompleteFlg">
         <tr>
             <td>
-                <div style="height: 490px;">&nbsp;
+                <div style="height: 400px;">&nbsp;
                 </div>
             </td>
             <td width="310">
-                <app-sign-up-popup *ngIf="popupNum==1" (messageEvent)="dismisLogin($event)"></app-sign-up-popup>               
+                <app-sign-up-popup *ngIf="popupNum==1" (messageEvent)="dismisLogin($event)"></app-sign-up-popup>
             </td>
         </tr>
     </table>
-    <div >
+    <div>
 
     </div>
 

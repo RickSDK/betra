@@ -16,7 +16,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
     this.route.queryParams.subscribe(params => {
-      var menu = params['menu'] || 0;
+      var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
     })
   }

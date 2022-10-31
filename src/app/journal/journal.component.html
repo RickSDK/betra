@@ -1,4 +1,5 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId" [imgSrcFile]="imgSrcFile">
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId" [imgSrcFile]="imgSrcFile"
+[profileCompleteFlg]="profileCompleteFlg">
 
     <div class="matches-card" *ngIf="user">
         <div>No Journal entries at this time.</div>

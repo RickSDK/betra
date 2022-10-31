@@ -25,6 +25,10 @@ import { JournalComponent } from './journal/journal.component';
 import { ProfileTopComponent } from './profile-top/profile-top.component';
 import { DatingPoolComponent } from './dating-pool/dating-pool.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
+import { SettingsComponent } from './settings/settings.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     JournalComponent,
     ProfileTopComponent,
     DatingPoolComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    SideMenuComponent,
+    BrowseSinglesComponent,
+    SettingsComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

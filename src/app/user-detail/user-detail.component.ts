@@ -53,30 +53,27 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
       }, 1500);
     }
+    if (responseJson.action == "yesToMatch" && responseJson.action2 == "match made") {
+      console.log('xxx refresh made!');
+      this.refreshUserObj(responseJson.user);
+      this.loadThisUser();
+    }
 
   }
   matchSnapshotEvent(action: string) {
-    if (action == 'cancel') {
+    if (action == 'remove')
+      action = 'removeThisUser';
+    if (action == 'ban')
+      action = 'banThisUser';
+    console.log('matchSnapshotEvent', action);
 
-    }
-    if (action == 'remove') {
-      var params = {
-        userId: localStorage['user_id'],
-        code: localStorage['code'],
-        uid: this.uid,
-        action: "removeThisUser"
-      };
-      this.executeApi('appApiCode2.php', params, true);
-    }
-    if (action == 'ban') {
-      var params = {
-        userId: localStorage['user_id'],
-        code: localStorage['code'],
-        uid: this.uid,
-        action: "banThisUser"
-      };
-      this.executeApi('appApiCode2.php', params, true);
-    }
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      matchId: this.matchUser.user_id,
+      action: action
+    };
+    this.executeApi('appApiCode2.php', params, true);
   }
 
 }

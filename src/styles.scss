@@ -41,9 +41,17 @@ body {
     width: 100%;
     max-width: 420px;
 }
+.error-message {
+    text-align: center;
+    background-color: #ffffc0;
+    color: #b7121f;
+    border-radius: 5px;
+    font-weight: 700;;
+    padding: 10px;
+}
 .matches-card {
     display: inline-block;
-    min-height: 500px;
+    min-height: 380px;
     background-color: white;
     box-shadow: 1px 1px 10px gray;
     border-radius: 5px;
@@ -55,7 +63,7 @@ body {
     width: 175px;
     height: 250px;
     border-radius: 5px;
-    box-shadow: 2px 4px #999;
+    box-shadow: 2px 2px 4px #999;
     object-fit: cover; 
     margin: 5px;
     cursor: pointer;
@@ -152,3 +160,24 @@ select {
     transition: all 1s ease;
     z-index: -1;
 }
+@media screen and (max-width: 800px) {
+    .hide-md {
+        display: none;
+    }
+ }
+ @media screen and (min-width: 801px) {
+    .show-md {
+        display: none;
+    }
+ }
+ 
+ @media screen and (max-width: 600px) {
+    .hide-sm {
+        display: none;
+    }
+ }
+ @media screen and (max-width: 540px) {
+    .hide-xs {
+        display: none;
+    }
+ }

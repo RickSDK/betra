@@ -11,6 +11,7 @@ export class PageShellComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
   @Input('notifications') notifications: number = localStorage['notifications'];
   @Input('userId') userId: number = 0;
+  @Input('profileCompleteFlg') profileCompleteFlg: boolean = false;
   @Input('pageTitle') pageTitle: string = '';
   @Input('imgSrcFile') imgSrcFile: string = 'assets/images/theRock.png';
 

@@ -3,32 +3,35 @@
         <tr>
             <td>
                 <span class="product-logo" [routerLink]="['']"><i class="fa fa-heart product-icon"></i>Betra</span>
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Version 0.28</div>
+                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Version 0.29</div>
             </td>
             <td align="center" style="font-size: 20px; font-weight: 700;">
                 <span class="hide-xs">{{pageTitle}}</span>
             </td>
+
             <td align="right" valign="middle" *ngIf="userId==0 || !userId">
                 <button class="btn login-button" (mousedown)="loginPressed()">
                     Login
                 </button>
             </td>
-            <td *ngIf="userId>0" align="right" style="white-space: nowrap; overflow: hidden;">
-                <i [routerLink]="['']" class="fa fa-search icon-button" title="Find Matches"></i>
+            <td *ngIf="userId==0 && pageTitle" width="44">
+                <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
+            </td>
+            <td *ngIf="userId>0 && profileCompleteFlg" align="right"
+                style="white-space: nowrap; overflow: hidden;">
+                <i [routerLink]="['/browse-singles']" class="fa fa-search icon-button" title="Find Matches"></i>
                 <i [routerLink]="['/matches']" class="fa fa-users icon-button" title="My Matches"></i>
                 <i [routerLink]="['/notifications']" class="fa fa-bell icon-button" title="Notifications"></i><span
                     [routerLink]="['/notifications']" *ngIf="notifications>0"
                     class="red-circle">{{notifications}}</span>
-                <i [routerLink]="['/reviews']" class="fa fa-comments icon-button hide-xs" title="Reviews"></i>
-                <i [routerLink]="['/journal']" class="fa fa-pencil icon-button hide-xs" title="Journal"></i>
             </td>
             <td *ngIf="userId>0" align="right" width="60">
 
-                <img [routerLink]="['/profile']" [src]="imgSrcFile" class="profilePic" alt="Profile Picture"
+                <img [routerLink]="['']" [src]="imgSrcFile" class="profilePic" alt="Profile Picture"
                     [title]="firstName">
 
             </td>
-            <td align="right" valign="middle" *ngIf="userId>0" width="44">
+            <td align="right" valign="middle" *ngIf="userId>0" width="44" class="show-md">
                 <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu"></i>
             </td>
         </tr>
@@ -36,7 +39,18 @@
 </div>
 <div class="outer-frame">
     <div class="inner-frame">
-        <ng-content></ng-content>
+        <div class="container-fluid">
+            <div class="row">
+                <div *ngIf="userId>0 && profileCompleteFlg && pageTitle != 'Profile'" class="col-md-4 hide-md">
+                    <app-side-menu [pageTitle]="pageTitle"></app-side-menu>
+                </div>
+                <div class="col-md" style="padding: 0; text-align: center;">
+                    <ng-content></ng-content>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <div class="container-fluid" *ngIf="showPromotionalBoxesFlg">
@@ -59,12 +73,12 @@
             </div>
         </div>
     </div>
-    <div *ngIf="showAboutInfoFlg" style="background-color: #ccc; padding: 40px; text-align: center;">
+    <div  *ngIf="showAboutInfoFlg" style="background-color: #ccc; padding: 40px; text-align: center;">
         <div style="display: inline-block; width: 100%; max-width: 600px; text-align: left;">
 
             <div style="text-align: center;">
                 <div
-                    style="border: 1px solid gray; padding: 10px; text-align: center; display: inline-block; width: 320px; margin: 10px;">
+                    style="border: 1px solid gray; padding: 10px; text-align: center; display: inline-block; margin: 10px;">
                     <p><i class="fa fa-exclamation-circle"></i> Note this app is in early development and has not
                         launched yet. The only profiles in the database
                         are a small handfull of test accounts.</p>
@@ -76,13 +90,13 @@
             <p>Welcome to <span class="red-text">Betra</span>, the most fun you'll ever have dating. Browse through our
                 incredible pool of local singles and simply indicate which ones you are interested in.
                 If they also pick you, the dating game begins.</p>
-            <p>What makes Betra unique is you can are limited to just 8 people in your active dating pool at a time.
+            <p>What makes Betra unique is you are limited to just 8 people in your active dating pool at a time.
                 Which means when you find a new interest, you must move someone else to your <span class="red-text">back
                     burner</span>.
                 Its fun, and it helps you sort out your dating life.</p>
             <p>The goal is to find the one person you want to experience true love with.</p>
             <div style="font-size: 18px;"><b>Additional Unique Features:</b></div>
-            <ul style="width: 320px;">
+            <ul>
                 <li>The best <span class="red-text">filters</span> in the industry.</li>
                 <li>Personality <span class="red-text">quizes</span> to help you find the perfect match.</li>
                 <li>Read and write <span class="red-text">reviews</span> about your dates.</li>
@@ -95,7 +109,7 @@
     </div>
     <div class="bottom-bar">
         <div>
-            <span class="text-link">About us</span> |
+            <span [routerLink]="['/about']" class="text-link">About us</span> |
             <span class="text-link">Terms & Conditions</span> |
             <span class="text-link">Privacy Policy</span>
         </div>
@@ -106,9 +120,8 @@
 
 <div class="menu-darkener" *ngIf="showMainMenuFlg" (mousedown)="showMainMenuFlg=false"></div>
 <div [ngClass]="ngClassToggleMenu()">
-    <div [routerLink]="['']" class="main-menu-item">Home</div>
-    <div [routerLink]="['/profile']" class="main-menu-item">My Profile</div>
-    <div [routerLink]="['/about']" class="main-menu-item">About</div>
-    <div *ngIf="userId == 1" [routerLink]="['/users']" class="main-menu-item">Users</div>
+    <div style="padding: 10px;">
+        <app-side-menu [pageTitle]="pageTitle"></app-side-menu>
+    </div>
     <div (mousedown)="logout()" class="main-menu-item">Log Out</div>
 </div>

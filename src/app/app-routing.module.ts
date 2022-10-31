@@ -9,6 +9,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ReviewsComponent } from './reviews/reviews.component';
 import { JournalComponent } from './journal/journal.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
+import { SettingsComponent } from './settings/settings.component';
+import { MessagesComponent } from './messages/messages.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -20,6 +23,9 @@ const routes: Routes = [
   { path: 'reviews', component: ReviewsComponent },
   { path: 'journal', component: JournalComponent },
   { path: 'user-detail', component: UserDetailComponent },
+  { path: 'browse-singles', component: BrowseSinglesComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'messages', component: MessagesComponent },
 ];
 
 @NgModule({
