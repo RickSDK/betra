@@ -22,7 +22,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public maritalStatus = ['Single', 'Married', 'Divorced'];
   public bodyTypes = ['Thin', 'Average', 'Heavy'];
   public bodyHeights = ['Short', 'Average', 'Tall'];
-  public desiredRelationships = ['Serious', 'Casual', 'Any Type'];
+  public desiredRelationships = ['Serious', 'Casual', 'Serious or Casual'];
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
   public smokingOptions = ['Yes', 'No'];

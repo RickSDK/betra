@@ -9,7 +9,7 @@
 
     <app-dating-pool [user]="user"></app-dating-pool>
 
-    <button *ngIf="user && !user.dating_pool" [routerLink]="['/browse-singles']" class="btn red-small-button"
+    <button *ngIf="user && !user.dating_pool" [routerLink]="['/user-detail']" class="btn red-small-button"
         style="margin-top: 20px;"><i class="fa fa-search"></i>
         Browse Singles</button>
 

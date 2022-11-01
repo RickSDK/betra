@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="'Browse'" [profileCompleteFlg]="profileCompleteFlg">
+    [pageTitle]="'Browse'" [headerObj]="headerObj">
 
 
     <div class="matches-card" *ngIf="!matchUser">
@@ -8,8 +8,9 @@
             <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 40px;"></i></div>
             <p>Sorry, no more profiles found.</p>
             <p>This is a new app and people are just starting to sign up. Check back soon.</p>
-            <p>Click <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
-                My Matches</button> to see what your dating situation looks like.</p>
+            <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
+                My Matches</button>
+            <p class="small-gray-text">Click My Matches button to see what your dating situation looks like.</p>
         </div>
     </div>
 

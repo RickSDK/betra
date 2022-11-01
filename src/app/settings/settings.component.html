@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="'Settings'" [profileCompleteFlg]="profileCompleteFlg">
+    [pageTitle]="'Settings'" [headerObj]="headerObj">
 
      <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
      <div class="matches-card" *ngIf="user">

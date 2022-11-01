@@ -34,11 +34,10 @@
             </tr>
         </table>
         <div class="small-box" style="text-align: center;">
-            <div class="tiny-text2">Personality Match: <i *ngIf="loadingFlg" class="fa fa-spinner fa-spin"></i> <span *ngIf="!loadingFlg" class="text-highlight">{{personalityMatch}}%</span></div>
-            <div class="tiny-text2">Politics Match: <i *ngIf="loadingFlg" class="fa fa-spinner fa-spin"></i><span *ngIf="!loadingFlg" class="text-highlight">{{polyMatch}}%</span></div>
-            <div class="tiny-text2">Profile Match: <i *ngIf="loadingFlg" class="fa fa-spinner fa-spin"></i><span *ngIf="!loadingFlg" class="text-highlight">{{profileMatch}}%</span></div>
-            <div class="tiny-text2" style="font-size: 24px;">Overall Match: <i *ngIf="loadingFlg" class="fa fa-spinner fa-spin"></i><span *ngIf="!loadingFlg"
-                    class="text-highlight">{{totalMatch}}%</span></div>
+            <app-percent-text [label]="'Personality Match'" [amount]="personalityMatch" [loadingFlg]="loadingFlg"></app-percent-text>
+            <app-percent-text [label]="'Politics Match'" [amount]="polyMatch" [loadingFlg]="loadingFlg"></app-percent-text>
+            <app-percent-text [label]="'Profile Match'" [amount]="profileMatch" [loadingFlg]="loadingFlg"></app-percent-text>
+            <app-percent-text style="font-size: 24px;" [label]="'Overall Match'" [amount]="totalMatch" [loadingFlg]="loadingFlg"></app-percent-text>
         </div>
         <div *ngIf="matchUser.user1_interested == 'Y' && matchUser.match_level == 1" style="text-align: center;">
             <div class="dark-blue-box">You have already notified this person that you are interested.</div>
@@ -63,7 +62,7 @@
             </div>
         </div>
         <div *ngIf="matchUser.user1_interested == 'N'" class="dark-blue-box">You are not interested in this person.</div>
-
+<button class="btn btn-primary" (mousedown)="nextProfile()">Next Profile</button>
         <div *ngIf="matchUser.user1_interested == ''">
 
             <div style="text-align: center; font-size: 24px; font-weight: 700;">Interested?</div>

@@ -1,9 +1,9 @@
-<div class="top-bar">
+<div class="top-bar" *ngIf="headerObj">
     <table width="100%" border="0">
         <tr>
             <td>
                 <span class="product-logo" [routerLink]="['']"><i class="fa fa-heart product-icon"></i>Betra</span>
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Version 0.29</div>
+                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Version 0.30</div>
             </td>
             <td align="center" style="font-size: 20px; font-weight: 700;">
                 <span class="hide-xs">{{pageTitle}}</span>
@@ -17,9 +17,9 @@
             <td *ngIf="userId==0 && pageTitle" width="44">
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
-            <td *ngIf="userId>0 && profileCompleteFlg" align="right"
+            <td *ngIf="userId>0 && headerObj.profileCompleteFlg" align="right"
                 style="white-space: nowrap; overflow: hidden;">
-                <i [routerLink]="['/browse-singles']" class="fa fa-search icon-button" title="Find Matches"></i>
+                <i [routerLink]="['/user-detail']" class="fa fa-search icon-button" title="Find Matches"></i>
                 <i [routerLink]="['/matches']" class="fa fa-users icon-button" title="My Matches"></i>
                 <i [routerLink]="['/notifications']" class="fa fa-bell icon-button" title="Notifications"></i><span
                     [routerLink]="['/notifications']" *ngIf="notifications>0"
@@ -41,8 +41,8 @@
     <div class="inner-frame">
         <div class="container-fluid">
             <div class="row">
-                <div *ngIf="userId>0 && profileCompleteFlg && pageTitle != 'Profile'" class="col-md-4 hide-md">
-                    <app-side-menu [pageTitle]="pageTitle"></app-side-menu>
+                <div *ngIf="userId>0 && headerObj.profileCompleteFlg && pageTitle != 'Profile'" class="col-md-4 hide-md">
+                    <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [admirerCount]="headerObj.admirerCount"></app-side-menu>
                 </div>
                 <div class="col-md" style="padding: 0; text-align: center;">
                     <ng-content></ng-content>
@@ -121,7 +121,7 @@
 <div class="menu-darkener" *ngIf="showMainMenuFlg" (mousedown)="showMainMenuFlg=false"></div>
 <div [ngClass]="ngClassToggleMenu()">
     <div style="padding: 10px;">
-        <app-side-menu [pageTitle]="pageTitle"></app-side-menu>
+        <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [admirerCount]="headerObj.admirerCount"></app-side-menu>
     </div>
     <div (mousedown)="logout()" class="main-menu-item">Log Out</div>
 </div>

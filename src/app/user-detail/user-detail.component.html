@@ -1,8 +1,40 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="pageTitle" [profileCompleteFlg]="profileCompleteFlg">
+    [pageTitle]="pageTitle" [headerObj]="headerObj">
 
+    <div class="matches-card" *ngIf="!matchUser">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="!loadingFlg && id != 4">
+            <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 40px;"></i></div>
+            <p>Sorry, no more profiles found.</p>
+            <p>This is a new app and people are just starting to sign up. Check back soon.</p>
+            <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
+                My Matches</button>
+            <p class="small-gray-text">Click My Matches button to see what your dating situation looks like.</p>
+        </div>
+        <div *ngIf="!loadingFlg && id == 4">
+            <p>&nbsp;</p>
+            <p>No admirers at the moment.</p>
+            <div style="text-align: left;" class="small-gray-text">
+                <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
+                <div style="padding-left: 30px;">
+                    <li>Have a nice, well lit photo of your face on your profile.</li>
+                    <li>Have a fun or interesting motto.</li>
+                    <li>Start liking lots of people. That's the fastest way for others to find you.</li>
+                    <li>Boost your profile.</li>
+                </div>
+
+            </div>
+            <div>&nbsp;</div>
+            <div>Click <button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i>
+                    Browse</button>
+                to find new singles!
+            </div>
+        </div>
+
+    </div>
+    
     <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
-                    [matchUser]="matchUser" [loadingFlg]="calculatingStatsFlg" [errorMessage]="errorMessage" [returnFlg]="true"></app-match-snapshot>
+                    [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true"></app-match-snapshot>
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

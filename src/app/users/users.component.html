@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="'Users'" [profileCompleteFlg]="profileCompleteFlg">
+    [pageTitle]="'Users'" [headerObj]="headerObj">
     <img class="background-img" src="assets/images/coffeeShop.jpg" alt="Coffee Shop">
 
     <div *ngFor="let player of playerlist" class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">

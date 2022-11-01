@@ -23,9 +23,10 @@ export class BaseComponent implements OnInit {
   public imgSrcFile: string = 'assets/images/theRock.png';
   public apiSuccessFlg: boolean = false;
   public responseJson: any = null;
-  public profileCompleteFlg: boolean = false;
   public userStatus: string = '';
   public notifications: number = 0;
+  public headerObj:any = {userId: 0, imgSrcFile: this.imgSrcFile, pageTitle: '', profileCompleteFlg: false, 
+  notifications: localStorage['notifications'] || 0, admirerCount: localStorage['admirerCount'] || 0};
 
   constructor() { }
 
@@ -50,7 +51,7 @@ export class BaseComponent implements OnInit {
     this.figureOutPopupSituation();
   }
   figureOutPopupSituation() {
-    this.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
+    this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
 
     this.popupNum = 0;
     if (!this.userId)
@@ -70,6 +71,7 @@ export class BaseComponent implements OnInit {
     if (value === 'login') {
       this.loadUserObj();
       this.notifications = this.user.notifications;
+      this.headerObj.admirerCount = localStorage['admirerCount'];
     } else {
       this.popupNum = 1;
     }

@@ -354,7 +354,7 @@ export class User {
         if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {
             this.status = 'Ready';
         }
-        this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, matchFlg, profilePicFlg, additionalPicsFlg, true];
+        this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, profilePicFlg, additionalPicsFlg, matchFlg, true];
     }
     userObjFromText(line: string) {
         var obj = {};

@@ -35,11 +35,12 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('XXX postSuccessApi', file, responseJson);
+    console.log('XXX login!!', file, responseJson);
     localStorage['user_id'] = responseJson.user.user_id;
+    localStorage['admirerCount'] = responseJson.admirerCount;
     localStorage['User'] = JSON.stringify(responseJson.user);
     var userTemp = new User(responseJson.user);
-    console.log('hey! notifications!!!', userTemp.notifications);
+    console.log('hey! notifications!!!', userTemp.notifications, localStorage['admirerCount']);
     localStorage['notifications'] = userTemp.notifications;
     this.messageEvent.emit('login');
   }

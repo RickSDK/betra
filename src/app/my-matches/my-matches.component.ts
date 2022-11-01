@@ -24,6 +24,15 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   changeMenu(num: number) {
     this.menuNum = num;
 
+    if (num == 0) {
+      var params0 = {
+        userId: localStorage['user_id'],
+        email: localStorage['email'],
+        code: localStorage['code'],
+        action: 'logUser'
+      };
+      this.executeApi('appApiCode.php', params0, true);
+    }
     if (num == 1) {
       var params = {
         userId: localStorage['user_id'],
@@ -49,8 +58,12 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       return 'btn btn-secondary';
   }
   override postSuccessApi(file: string, responseJson: any) {
-    this.playerList = [];
-    if (1 || responseJson.action == 'getMyLikes') {
+    if (responseJson.action == 'logUser' && responseJson.refreshFlg == 'Y') {
+      console.log('refreshUser!');
+      this.refreshUserObj(responseJson.user);
+    }
+    if (responseJson.action == 'getMyLikes') {
+      this.playerList = [];
       responseJson.playerList.forEach((element: { [x: string]: string; name: any; }) => {
         var src = this.getImageFile(element['user_id'], element['profilePic']);
         this.playerList.push({ name: element['name'], src: src, user_id: element['user_id'] })

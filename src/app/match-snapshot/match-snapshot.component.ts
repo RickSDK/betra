@@ -75,6 +75,9 @@ export class MatchSnapshotComponent implements OnInit {
   clickedNoButton() {
     this.messageEvent.emit('noToMatch');
   }
+  nextProfile() {
+    this.messageEvent.emit('nextProfile');
+  }
   clickYesOption() {
     this.showMoreOptionsFlg = false;
     this.showConfirmationFlg = false;

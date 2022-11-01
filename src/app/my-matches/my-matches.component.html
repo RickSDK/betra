@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'My Matches'" [userId]="userId"
-    [imgSrcFile]="imgSrcFile" [profileCompleteFlg]="profileCompleteFlg">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
 
     <div class="matches-card" style="min-height: 500px; font-size: 14px; color: #444;" *ngIf="user">
         <div class="btn-group" role="group" aria-label="Menu">
@@ -15,25 +15,29 @@
                 the extras to your Back Burner. This will help you organize your dating life and concentrate on your
                 best propects.</div>
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
-            <div *ngIf="!user.dating_pool">Currently no matches. Click <button [routerLink]="['/browse-singles']" class="btn red-small-button"><i
-                        class="fa fa-search"></i> Browse</button>
+            <button *ngIf="!user.dating_pool" [routerLink]="['/user-detail']" class="btn red-small-button"><i
+                class="fa fa-search"></i> Browse Singles</button>
+            <div *ngIf="!user.dating_pool" class="small-gray-text">Currently no matches. Click Browse button
                 to find new singles!
             </div>
         </div>
         <div *ngIf="menuNum==1 && !loadingFlg">
             <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList" class="person-box">
-                <div class="name-title">{{person.name}}</div>
                 <img [src]="person.src" class="small-img">
+                <div class="name-title">{{person.name}}</div>
             </div>
-            <div *ngIf="playerList && playerList.length>0">
+            <div *ngIf="playerList && playerList.length>0" class="small-gray-text">
                 <p>These people have already been notified of your interest, so check back soon to find out what
                     happens.</p>
                 <p>If they decline your invitation, they will disappear from this list. Cross your fingers!</p>
             </div>
             <div *ngIf="playerList && playerList.length==0">You haven't liked anyone yet. Get out there and start
                 liking people! That is the best way for others
-                to find you. Click <button [routerLink]="['/browse-singles']" class="btn red-small-button"><i class="fa fa-search"></i>
-                    Browse</button> to find new singles!</div>
+                to find you. Click Browse to find new singles!
+                <p>&nbsp;</p>
+                <div><button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i>
+                    Browse</button></div>
+            </div>
         </div>
         <div *ngIf="menuNum==2 && !loadingFlg">
             <div>
@@ -48,7 +52,7 @@
                 </div>
                 <div *ngIf="playerList.length==0">
                     <p>No likes at the moment.</p>
-                    <div style="text-align: left;">
+                    <div style="text-align: left;" class="small-gray-text">
                         <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
                         <div style="padding-left: 30px;">
                             <li>Have a nice, well lit photo of your face on your profile.</li>
@@ -59,7 +63,7 @@
 
                     </div>
                     <div>&nbsp;</div>
-                    <div>Click <button [routerLink]="['/browse-singles']" class="btn red-small-button"><i class="fa fa-search"></i>
+                    <div>Click <button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i>
                             Browse</button>
                         to find new singles!
                     </div>

@@ -1,8 +1,11 @@
 <div class="side-menu">
     <div style="font-size: 12px; border-bottom: 1px solid gray;">discover</div>
     <div *ngFor="let item of topItems">
-        <div [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
-            {{item.name}}</div>
+        <div *ngIf="item.id>0" [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
+            {{item.name}} <span *ngIf="item.id==4 && admirerCount>0" class="red-circle">{{admirerCount}}</span></div>
+        <div *ngIf="item.id==0" [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
+            {{item.name}} </div>
+        
     </div>
     <div style="font-size: 12px; border-bottom: 1px solid gray;">Interact</div>
     <div *ngFor="let item of middleItems">

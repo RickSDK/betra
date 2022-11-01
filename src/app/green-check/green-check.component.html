@@ -6,4 +6,7 @@
         <sup *ngIf="text1==text2"><i class="fa fa-check" style="color: #00cc00;"></i></sup> 
         <span [ngClass]="ngClassText()">{{text1}}</span>
     </span>
+    <span *ngIf="smokes" style="float: right;"><img *ngIf="smokes=='Yes'" src="assets/images/smoker.png" height="15" title="Smokes">
+        <img *ngIf="smokes=='No'" src="assets/images/nonSmoker.jpeg" height="20" title="non smoker">
+    </span>
 </div>

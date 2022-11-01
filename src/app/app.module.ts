@@ -29,6 +29,8 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
 import { SettingsComponent } from './settings/settings.component';
 import { MessagesComponent } from './messages/messages.component';
+import { AdmirersComponent } from './admirers/admirers.component';
+import { PercentTextComponent } from './percent-text/percent-text.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { MessagesComponent } from './messages/messages.component';
     SideMenuComponent,
     BrowseSinglesComponent,
     SettingsComponent,
-    MessagesComponent
+    MessagesComponent,
+    AdmirersComponent,
+    PercentTextComponent
   ],
   imports: [
     BrowserModule,
