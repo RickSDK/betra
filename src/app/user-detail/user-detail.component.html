@@ -1,17 +1,25 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="pageTitle" [headerObj]="headerObj">
+    [pageTitle]="pageTitle" [headerObj]="headerObj" [notifications]="notifications">
 
     <div class="matches-card" *ngIf="!matchUser">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="!loadingFlg && id != 4">
-            <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 40px;"></i></div>
-            <p>Sorry, no more profiles found.</p>
-            <p>This is a new app and people are just starting to sign up. Check back soon.</p>
+        <div *ngIf="exceededPoolSizeFlg">
+            <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
+            <p>Note: You are over your limit in your dating pool. Please drop someone.</p>
+            <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
+                My Matches</button>
+        </div>
+        <div *ngIf="!loadingFlg && id != 4 && !exceededPoolSizeFlg">
+            <div *ngIf="user.datingPool.length<=8">
+                <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 40px;"></i></div>
+                <p>Sorry, no more profiles found.</p>
+                <p>This is a new app and people are just starting to sign up. Check back soon.</p>    
+            </div>
             <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
                 My Matches</button>
             <p class="small-gray-text">Click My Matches button to see what your dating situation looks like.</p>
         </div>
-        <div *ngIf="!loadingFlg && id == 4">
+        <div *ngIf="!loadingFlg && id == 4 && !exceededPoolSizeFlg">
             <p>&nbsp;</p>
             <p>No admirers at the moment.</p>
             <div style="text-align: left;" class="small-gray-text">
@@ -32,9 +40,13 @@
         </div>
 
     </div>
-    
+
     <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
-                    [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true"></app-match-snapshot>
+        [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true">
+    </app-match-snapshot>
+
+    <app-user-communication *ngIf="matchUser && matchUser.match_level==2"></app-user-communication>
+
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

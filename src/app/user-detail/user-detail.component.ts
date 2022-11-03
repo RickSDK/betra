@@ -21,14 +21,18 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public playerList: any = [];
   public currentProfileIndex = 0;
+  public exceededPoolSizeFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.notifications = localStorage['notifications'];
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
+      this.exceededPoolSizeFlg = this.user.datingPool.length > 8;
+
       if (this.uid > 0)
         this.loadThisUser();
       else if (this.id == 4) {
@@ -44,6 +48,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     })
   }
   browseSingles(action: string) {
+    if (this.exceededPoolSizeFlg) {
+      return;
+    }
     this.matchUser = null;
     var params = {
       userId: localStorage['user_id'],
@@ -57,6 +64,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode.php', params, true);
   }
   loadThisUser() {
+    this.exceededPoolSizeFlg = false;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
@@ -69,7 +77,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
       console.log('hey!!', responseJson);
       localStorage['admirerCount'] = responseJson.admirerCount;
+      localStorage['notifications'] = responseJson.notifications;
       this.headerObj.admirerCount = responseJson.admirerCount;
+      this.notifications = responseJson.notifications;
       this.currentProfileIndex++;
       this.showCurrentProfile();
     }
@@ -101,9 +111,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       }, 1500);
     }
     if (responseJson.action == "yesToMatch" && responseJson.action2 == "match made") {
-     // console.log('xxx refresh made!');
-     // this.refreshUserObj(responseJson.user);
-     // this.loadThisUser();
+      // console.log('xxx refresh made!');
+      // this.refreshUserObj(responseJson.user);
+      // this.loadThisUser();
     }
   }
   showCurrentProfile() {
@@ -111,6 +121,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     if (this.playerList.length > this.currentProfileIndex) {
 
       this.matchUser = this.playerList[this.currentProfileIndex];
+      setTimeout(() => {
+        if (this.matchUser)
+          this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null, true);
+      }, 500);
       setTimeout(() => {
         if (this.matchUser)
           this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null);

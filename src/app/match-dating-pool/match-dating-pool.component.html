@@ -1,0 +1,7 @@
+<div class="small-box">
+    <div style="font-size: 12px; color: #b7121f;">{{firstName}}'s Dating Pool</div>
+    <div *ngFor="let person of datingPoolList" class="pool-snapshot">
+        <img *ngIf="person.user_id>0" [src]="person.src" class="snapshot-img" [title]="person.name">
+        <div class="small-name">{{person.name}}</div>
+    </div>
+</div>

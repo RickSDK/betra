@@ -1,15 +1,20 @@
 <div *ngIf="user">
     <div class="red-header" [routerLink]="['/matches']">My Dating Pool</div>
     <div *ngIf="largeFlg">
-        <div  *ngFor="let person of user.datingPool" class="pool-large">
-            <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" [src]="person.src" class="large-img" [title]="person.name">
+        <div *ngFor="let person of user.datingPool" class="pool-large">
+            <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+                [src]="person.src" class="large-img" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="large-img" [title]="person.name">
         </div>
     </div>
     <div *ngIf="!largeFlg">
         <div *ngFor="let person of user.datingPool" class="pool-snapshot">
-            <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" [src]="person.src" class="snapshot-img" [title]="person.name">
+            <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+                [src]="person.src" class="snapshot-img" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2" [title]="person.name">
-        </div>    
+        </div>
+    </div>
+    <div *ngIf="user.datingPool.length>8" style="color: red;">
+        <i class="fa fa-exclamation-triangle"></i> You are over your limit! Please remove someone from your dating pool.
     </div>
 </div>

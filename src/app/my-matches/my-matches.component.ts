@@ -11,6 +11,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public menuNum: number = 0;
   public menuButtons: any = ['My Matches', 'Who I Like', 'Who Likes Me?'];
   public playerList: any = [];
+  public showMoreFlg = false;
+
   constructor(private route: ActivatedRoute) { super(); }
 
   override ngOnInit(): void {
@@ -23,6 +25,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
   changeMenu(num: number) {
     this.menuNum = num;
+    this.playerList = [];
 
     if (num == 0) {
       var params0 = {
@@ -58,12 +61,12 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       return 'btn btn-secondary';
   }
   override postSuccessApi(file: string, responseJson: any) {
+    this.playerList = [];
     if (responseJson.action == 'logUser' && responseJson.refreshFlg == 'Y') {
       console.log('refreshUser!');
       this.refreshUserObj(responseJson.user);
     }
-    if (responseJson.action == 'getMyLikes') {
-      this.playerList = [];
+    if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {
       responseJson.playerList.forEach((element: { [x: string]: string; name: any; }) => {
         var src = this.getImageFile(element['user_id'], element['profilePic']);
         this.playerList.push({ name: element['name'], src: src, user_id: element['user_id'] })

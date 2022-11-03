@@ -2,18 +2,22 @@
     background-color: #b7121f;
     color: white;
 }
+
 .red-small-button:hover {
     background-color: red;
 }
+
 .small-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
 }
+
 .small-img:hover {
     box-shadow: 2px 2px 10px gray;
 }
+
 .person-box {
     display: inline-block;
     cursor: pointer;
@@ -22,6 +26,17 @@
     font-weight: 700;
     color: #444;
 }
+
 .person-box:hover {
     color: #b7121f;
+}
+
+.hyper-link {
+    cursor: pointer;
+    color: #66c;
+}
+
+.hyper-link:hover {
+    color: blue;
+    text-decoration: underline;
 }

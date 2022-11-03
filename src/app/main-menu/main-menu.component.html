@@ -1,7 +1,6 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [notifications]="notifications"
+<app-page-shell [userId]="userId" [notifications]="notifications" [popupNum]="popupNum"
     [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle" [headerObj]="headerObj">
     <img *ngIf="!headerObj.profileCompleteFlg" class="background-img" src="assets/images/coffeeShop.jpg" alt="Coffee Shop">
-
 
     <app-profile-snapshot *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [responseJson]="responseJson"
         [matchObj]="matchObj"></app-profile-snapshot>
@@ -15,7 +14,7 @@
                 </div>
             </td>
             <td width="310">
-                <app-sign-up-popup *ngIf="popupNum==1" (messageEvent)="dismisLogin($event)"></app-sign-up-popup>
+                <app-sign-up-popup *ngIf="popupNum==1" (messageEvent)="userIsLoggedIn($event)"></app-sign-up-popup>
             </td>
         </tr>
     </table>
@@ -23,5 +22,5 @@
 </app-page-shell>
 
 
-<app-login-popup *ngIf="popupNum==2" (messageEvent)="dismisLogin($event)"></app-login-popup>
+<app-login-popup *ngIf="popupNum==2" (messageEvent)="userIsLoggedIn($event)"></app-login-popup>
 <app-welcome-popup *ngIf="popupNum==3"></app-welcome-popup>

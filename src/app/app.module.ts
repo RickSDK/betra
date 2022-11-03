@@ -31,6 +31,10 @@ import { SettingsComponent } from './settings/settings.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AdmirersComponent } from './admirers/admirers.component';
 import { PercentTextComponent } from './percent-text/percent-text.component';
+import { UserCommunicationComponent } from './user-communication/user-communication.component';
+import { FirstNameInputComponent } from './input/first-name-input/first-name-input.component';
+import { PhoneInputComponent } from './input/phone-input/phone-input.component';
+import { MatchDatingPoolComponent } from './match-dating-pool/match-dating-pool.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +66,11 @@ import { PercentTextComponent } from './percent-text/percent-text.component';
     SettingsComponent,
     MessagesComponent,
     AdmirersComponent,
-    PercentTextComponent
+    PercentTextComponent,
+    UserCommunicationComponent,
+    FirstNameInputComponent,
+    PhoneInputComponent,
+    MatchDatingPoolComponent
   ],
   imports: [
     BrowserModule,

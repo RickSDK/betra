@@ -17,8 +17,6 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   loginPressed() {
-    console.log('loginPressed');
-
     var email:string = $('#email').val();
     var password:string = $('#password').val();
 
@@ -30,18 +28,14 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       action: 'login'
     };
     this.executeApi('login.php', params, true);
-
-
   }
 
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX login!!', file, responseJson);
     localStorage['user_id'] = responseJson.user.user_id;
     localStorage['admirerCount'] = responseJson.admirerCount;
+    localStorage['notifications'] = responseJson.notifications;
     localStorage['User'] = JSON.stringify(responseJson.user);
-    var userTemp = new User(responseJson.user);
-    console.log('hey! notifications!!!', userTemp.notifications, localStorage['admirerCount']);
-    localStorage['notifications'] = userTemp.notifications;
     this.messageEvent.emit('login');
   }
 
@@ -50,8 +44,5 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     var password:string = $('#password').val();
 
     this.submitDisabled = !email || !password;
-  }
-  cancelPressed() {
-    this.messageEvent.emit('cancel');
   }
 }

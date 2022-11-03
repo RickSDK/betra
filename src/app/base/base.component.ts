@@ -39,26 +39,21 @@ export class BaseComponent implements OnInit {
     console.log('user refreshed!', this.user);
   }
   loadUserObj() {
+    this.user = null;
     this.userId = localStorage['user_id'] || 0;
+    this.popupNum = 1;
+    console.log('+++ loading this user: ', this.userId);
     if (this.userId > 0) {
       var userObj = JSON.parse(localStorage['User']);
       this.user = new User(userObj);
       this.imgSrcFile = this.user.imgSrc;
       this.userStatus = this.user.status;
+      this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
+      this.popupNum = (this.user.status == 'Active')?0:3;
       console.log('user', this.user);
     }
+ }
 
-    this.figureOutPopupSituation();
-  }
-  figureOutPopupSituation() {
-    this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
-
-    this.popupNum = 0;
-    if (!this.userId)
-      this.popupNum = 1;
-    else if (this.user && this.user.status != 'Active')
-      this.popupNum = 3;
-  }
   loginClicked(event: any) {
     console.log('loginClicked!!', event);
     if (!event)
@@ -66,16 +61,7 @@ export class BaseComponent implements OnInit {
     if (event == 'logout')
       this.loadUserObj();
   }
-  dismisLogin(value: string) {
-    console.log('dismisLogin');
-    if (value === 'login') {
-      this.loadUserObj();
-      this.notifications = this.user.notifications;
-      this.headerObj.admirerCount = localStorage['admirerCount'];
-    } else {
-      this.popupNum = 1;
-    }
-  }
+
   getHostname() {
     return 'https://www.appdigity.com/betraPhp/';
   }

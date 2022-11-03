@@ -7,7 +7,6 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent extends BaseComponent implements OnInit {
-  public notificationFlg: boolean = false;
   public notificationsTypes = [
     {name: 'Users Interested', amount: 0, desc: 'You have someone interested in you!'},
     {name: 'Users Matched', amount: 0, desc: 'You have a new match!'},
@@ -40,9 +39,17 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
     this.notificationsTypes[3].amount = responseJson['dates_requested'];
     this.notificationsTypes[4].amount = responseJson['messages_received'];
     this.notificationsTypes[5].amount = responseJson['info_requested'];
-    				
-    this.notificationFlg = (this.notificationsTypes[0].amount>0 || this.notificationsTypes[1].amount>0 || this.notificationsTypes[2].amount>0 || this.notificationsTypes[3].amount>0 || this.notificationsTypes[4].amount>0 || this.notificationsTypes[5].amount>0) ;
-    localStorage['notifications'] = '';
+    
+    var users_interested = parseInt(responseJson['users_interested']) || 0;
+    var users_matched = parseInt(responseJson['users_matched']) || 0;
+    var questions_asked = parseInt(responseJson['questions_asked']) || 0;
+    var dates_requested = parseInt(responseJson['dates_requested']) || 0;
+    var messages_received = parseInt(responseJson['messages_received']) || 0;
+    var info_requested = parseInt(responseJson['info_requested']) || 0;
+
+    this.notifications = users_interested + users_matched + questions_asked + dates_requested + messages_received + info_requested;
+
+    localStorage['notifications'] = this.notifications;
   }
 
 }

@@ -4,6 +4,7 @@ export class User {
     public firstName: string = '';
     public birthdate: string = '';
     public birthYear: number = 0;
+    public phone: string = '';
     public gender: string = '';
     public genderIcon: string = '';
     public matchPreference: string = '';
@@ -95,6 +96,7 @@ export class User {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.firstName = obj.firstName;
+            this.phone = obj.phone || '';
             this.birthdate = obj.birthdate;
             this.birthYear = obj.birthYear;
             this.gender = obj.gender;
@@ -143,7 +145,7 @@ export class User {
 
             this.motto = obj.motto || '';
             this.story = obj.story || '';
-            this.status = obj.userStatus || 'Active';
+            this.status = obj.userStatus || '';
             this.emailVerifyFlg = obj.emailVerifyFlg == 'Y';
             this.lastLogin = obj.lastLogin;
             this.lastLoginText = '-';
@@ -171,21 +173,17 @@ export class User {
         this.notifications = Math.round(this.users_interested) + Math.round(this.users_matched) + Math.round(this.questions_asked) + Math.round(this.dates_requested) + Math.round(this.messages_received) + Math.round(this.info_requested);
 
         var dpList = this.dating_pool.split('+');
-        var datingPool:any = [];
-        for(var i=1; i<=8; i++) {
-            var poolName = 'Empty'
-            var src = poolImg;
-            var user_id = 0;
-            if (dpList.length >= i) {
-                var items = dpList[i-1].split(':');
-                if(items.length==3) {
-                    poolName = items[1];
-                    user_id = parseInt(items[0]);
-                    src = betraImageFromId(user_id, parseInt(items[2]));
-                }
+        var datingPool: any = [];
+        dpList.forEach(element => {
+            var items = element.split(':');
+            if (items.length == 3) {
+                var name = items[1];
+                var user_id = parseInt(items[0]);
+                var src = betraImageFromId(user_id, parseInt(items[2]));
+                datingPool.push({ name: name, src: src, user_id: user_id });
             }
-             datingPool.push({ name: poolName, src: src, user_id: user_id });
-        }
+
+        });
         this.datingPool = datingPool;
 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
@@ -215,7 +213,7 @@ export class User {
                 this.lastLoginText = 'Yesterday';
 
         }
-        if(!this.matchAge)
+        if (!this.matchAge)
             this.status = 'Pending';
 
         if (this.matchAge == 0) {
@@ -343,6 +341,9 @@ export class User {
             politicsFlg = false;
 
         var matchFlg = true;
+        if (this.status != 'Active')
+            matchFlg = false;
+
         if (this.findLoveFlg && !this.matchHasKids)
             matchFlg = false;
 

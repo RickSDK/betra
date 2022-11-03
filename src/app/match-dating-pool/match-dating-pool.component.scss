@@ -1,0 +1,26 @@
+.pool-snapshot {
+    display: inline-block;
+    width: 43px;
+    margin: 2px;
+}
+.snapshot-img {
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: 1;
+    cursor: pointer;
+}
+.snapshot-img:hover {
+    box-shadow: 2px 2px 10px gray;
+}
+.small-name {
+    font-size: 12px;
+    color: gray;
+}
+.small-box {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
+}

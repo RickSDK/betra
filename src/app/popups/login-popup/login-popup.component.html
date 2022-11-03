@@ -12,7 +12,7 @@
             <button (mousedown)="loginPressed()" class="btn red-button"
             [disabled]="submitDisabled">Log In</button>
     
-            <button (mousedown)="cancelPressed()" class="btn gray-button"
+            <button [routerLink]="['']" [queryParams]="{login: 3}" class="btn gray-button"
             >Cancel</button>
         </div>
         <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>

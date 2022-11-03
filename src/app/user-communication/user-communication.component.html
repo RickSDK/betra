@@ -1,0 +1,20 @@
+<p>&nbsp;</p>
+<div class="match-card">
+    <div *ngIf="!messageSentFlg">
+        <div>Break the ice with a question!</div>
+        <table width="100%">
+            <tr>
+                <td>
+                    <select (change)="disabledButtonFlg=false">
+                        <option disabled selected>Select</option>
+                        <option *ngFor="let option of questions">{{option}}</option>
+                    </select>
+                </td>
+                <td>
+                    <button (mousedown)="messageSentFlg=true" [disabled]="disabledButtonFlg" class="btn btn-primary">Send</button>
+                </td>
+            </tr>
+        </table>    
+    </div>
+    <div *ngIf="messageSentFlg">Message Sent!</div>
+</div>

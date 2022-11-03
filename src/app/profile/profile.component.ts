@@ -77,14 +77,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     }
   }
   loadTestAnswers() {
-    console.log('loadTestAnswers', this.user.politicalQuizAnswers)
     if (this.user.politicalQuizAnswers) {
       var answers = this.user.politicalQuizAnswers.split(':');
       var i = 0;
       if (answers.length == this.politicalQuiz.length) {
         this.politicalQuiz.forEach(element => {
           element.answer = answers[i++];
-          console.log(element);
         });
 
       }
@@ -285,6 +283,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     if (this.menuNum == 0) {
       this.user.email = $('#email').val();
       this.user.firstName = $('#firstName').val();
+      this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();
 
       var basicsFlg = (this.user.email && this.user.firstName && this.user.zipcode && this.user.gender && this.user.matchPreference);
@@ -386,6 +385,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       politicalQuizAnswers: this.user.politicalQuizAnswers,
       stableScore: this.user.stableScore,
       conScore: this.user.conScore,
+      phone: this.user.phone,
       action: 'updateProfile',
     };
     console.log('xxParamsxx', params);

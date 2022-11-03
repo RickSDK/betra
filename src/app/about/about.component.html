@@ -1,8 +1,8 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [pageTitle]="'About'" [headerObj]="headerObj">
+<app-page-shell [userId]="userId" [pageTitle]="'About'" [headerObj]="headerObj">
 
     <div class="matches-card" style="text-align: left;">
         <div style="text-align: center; padding: 20px;"><i class="fa fa-heart red-text" style="font-size: 32px;"></i></div>
-        <p><span class="red-text">Betra</span> a brand new dating app for the next generation. This will be the most fun
+        <p><span class="red-text">Betra</span> is a brand new dating app for the next generation. This will be the most fun
             you have ever had in the dating world.</p>
         <p>Some of the unique features include:</p>
         <ul>
@@ -20,4 +20,4 @@
     </div>
 
 </app-page-shell>
-<app-login-popup *ngIf="popupNum==2" (messageEvent)="dismisLogin($event)"></app-login-popup>
+

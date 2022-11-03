@@ -8,14 +8,13 @@ import { User } from '../classes/user';
   styleUrls: ['./page-shell.component.scss']
 })
 export class PageShellComponent implements OnInit {
-  @Output() messageEvent = new EventEmitter<string>();
+  //@Output() messageEvent = new EventEmitter<string>();
   @Input('notifications') notifications: number = localStorage['notifications'];
   @Input('userId') userId: number = 0;
   @Input('pageTitle') pageTitle: string = '';
   @Input('imgSrcFile') imgSrcFile: string = 'assets/images/theRock.png';
-  @Input('admirerCount') admirerCount: number = 0;
   @Input('headerObj') headerObj: any = null;
-  
+  @Input('popupNum') popupNum: number = 0;
 
   public showMainMenuFlg: boolean = false;
   public showPromotionalBoxesFlg: boolean = false;
@@ -53,20 +52,20 @@ export class PageShellComponent implements OnInit {
   }
   loginPressed() {
     console.log('loginPressed');
-    this.messageEvent.emit();
+   // this.messageEvent.emit();
   }
   loginTest() {
     console.log('loginTest!')
     this.userId = 1;
   }
   logout() {
+    console.log('+++logout');
     this.showMainMenuFlg = false;
     this.userId = 0;
     localStorage['user_id'] = '';
     localStorage['User'] = '';
     localStorage['email'] = '';
     localStorage['password'] = '';
-    this.messageEvent.emit('logout');
     this.router.navigate(['']);
   }
 }

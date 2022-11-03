@@ -11,18 +11,20 @@
 
         <div *ngIf="menuNum==0 && !loadingFlg">
             <div style="font-size: 12px; color: gray;">You can have a maximum of 8 people in your dating pool at any
-                time. Once you have been matched with more than 8 people, you will have to move
-                the extras to your Back Burner. This will help you organize your dating life and concentrate on your
+                time. [<span (mousedown)="showMoreFlg=!showMoreFlg" class="hyper-link">more info</span>]</div>
+            <div (mousedown)="showMoreFlg=false" *ngIf="showMoreFlg">Once you have been matched with more than 8 people, you will have to move
+                the extras to your back burner. This will help you organize your dating life and concentrate on your
                 best propects.</div>
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
             <button *ngIf="!user.dating_pool" [routerLink]="['/user-detail']" class="btn red-small-button"><i
-                class="fa fa-search"></i> Browse Singles</button>
+                    class="fa fa-search"></i> Browse Singles</button>
             <div *ngIf="!user.dating_pool" class="small-gray-text">Currently no matches. Click Browse button
                 to find new singles!
             </div>
         </div>
         <div *ngIf="menuNum==1 && !loadingFlg">
-            <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList" class="person-box">
+            <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList"
+                class="person-box">
                 <img [src]="person.src" class="small-img">
                 <div class="name-title">{{person.name}}</div>
             </div>
@@ -36,12 +38,13 @@
                 to find you. Click Browse to find new singles!
                 <p>&nbsp;</p>
                 <div><button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i>
-                    Browse</button></div>
+                        Browse</button></div>
             </div>
         </div>
         <div *ngIf="menuNum==2 && !loadingFlg">
             <div>
-                <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList" class="person-box">
+                <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+                    *ngFor="let person of playerList" class="person-box">
                     <div class="name-title">{{person.name}}</div>
                     <img [src]="person.src" class="small-img">
                 </div>
@@ -51,7 +54,7 @@
                         communicating and see where this goes.</p>
                 </div>
                 <div *ngIf="playerList.length==0">
-                    <p>No likes at the moment.</p>
+                    <p>No admirers at the moment.</p>
                     <div style="text-align: left;" class="small-gray-text">
                         <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
                         <div style="padding-left: 30px;">
@@ -63,7 +66,8 @@
 
                     </div>
                     <div>&nbsp;</div>
-                    <div>Click <button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i>
+                    <div>Click <button [routerLink]="['/user-detail']" class="btn red-small-button"><i
+                                class="fa fa-search"></i>
                             Browse</button>
                         to find new singles!
                     </div>
