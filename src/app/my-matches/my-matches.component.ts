@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
 
+declare var $: any;
+
 @Component({
   selector: 'app-my-matches',
   templateUrl: './my-matches.component.html',
@@ -12,11 +14,14 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public menuButtons: any = ['My Matches', 'Who I Like', 'Who Likes Me?'];
   public playerList: any = [];
   public showMoreFlg = false;
+  public showHeartFormFlg: boolean = false;
+  public disableFormFlg: boolean = true;
 
   constructor(private route: ActivatedRoute) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.showHeartFormFlg = this.user.showHeartFormFlg;
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
@@ -26,6 +31,12 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   changeMenu(num: number) {
     this.menuNum = num;
     this.playerList = [];
+
+    if (num == 3) {
+      this.showHeartFormFlg = !this.showHeartFormFlg;
+      this.menuNum = 0;
+    } else
+      this.showHeartFormFlg = false;
 
     if (num == 0) {
       var params0 = {
@@ -54,6 +65,17 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     }
 
   }
+  assignHeart() {
+    this.showHeartFormFlg = false;
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      uid: $('#assignHeart').val(),
+      action: "assignHeart"
+    };
+    console.log(params);
+    this.executeApi('appApiCode2.php', params, true);
+  }
   ngClassButton(num: number) {
     if (num == this.menuNum)
       return 'btn btn-primary';
@@ -61,6 +83,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       return 'btn btn-secondary';
   }
   override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == 'assignHeart') {
+      this.refreshUserObj(responseJson.user);
+    }
     this.playerList = [];
     if (responseJson.action == 'logUser' && responseJson.refreshFlg == 'Y') {
       console.log('refreshUser!');

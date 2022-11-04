@@ -29,6 +29,12 @@
     display: inline-block;
     width: 150px;
     margin: 2px;
+    font-size: 14px; 
+    color: gray;
+}
+.pool-large:hover {
+    color: #b7121f;
+    font-weight: 700;
 }
 
 .red-header {

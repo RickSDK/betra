@@ -35,6 +35,8 @@ import { UserCommunicationComponent } from './user-communication/user-communicat
 import { FirstNameInputComponent } from './input/first-name-input/first-name-input.component';
 import { PhoneInputComponent } from './input/phone-input/phone-input.component';
 import { MatchDatingPoolComponent } from './match-dating-pool/match-dating-pool.component';
+import { UserMessagesComponent } from './user-messages/user-messages.component';
+import { MessageInputComponent } from './input/message-input/message-input.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { MatchDatingPoolComponent } from './match-dating-pool/match-dating-pool.
     UserCommunicationComponent,
     FirstNameInputComponent,
     PhoneInputComponent,
-    MatchDatingPoolComponent
+    MatchDatingPoolComponent,
+    UserMessagesComponent,
+    MessageInputComponent
   ],
   imports: [
     BrowserModule,

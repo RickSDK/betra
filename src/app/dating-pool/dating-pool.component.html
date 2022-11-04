@@ -5,12 +5,13 @@
             <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
                 [src]="person.src" class="large-img" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="large-img" [title]="person.name">
+            <div><i class="fa fa-heart red-text" *ngIf="person.heartFlg"></i> {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup></div>
         </div>
     </div>
     <div *ngIf="!largeFlg">
         <div *ngFor="let person of user.datingPool" class="pool-snapshot">
             <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
-                [src]="person.src" class="snapshot-img" [title]="person.name">
+                [src]="person.src" class="snapshot-img" [style.border]="person.heartFlg?'2px solid red':'none'" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2" [title]="person.name">
         </div>
     </div>

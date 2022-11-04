@@ -3,7 +3,21 @@
 
      <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
      <div class="matches-card" *ngIf="user">
-        <div>No Messages at this time.</div>
+        <p *ngIf="messageCount==0" style="padding-top: 60px;">No un-read messages.</p>
+        <div *ngIf="messageCount>0">
+            <div style="background-color: #ccc; font-size: 18px;">Your unread messages</div>
+            <p>&nbsp;</p>
+            <div *ngFor="let player of playerList">
+                <div *ngIf="player.messages.length>0" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">
+                    <img 
+                    [src]="player.src" class="large-img" [title]="player.name">
+                    <div>{{player.name}}</div>
+                    <div *ngFor="let message of player.messages" class="blue-blob">
+                        {{message}}
+                    </div>    
+                </div>
+            </div>
+        </div>
     </div>
 
 </app-page-shell>

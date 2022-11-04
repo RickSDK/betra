@@ -295,6 +295,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.maritalStatus = $('#maritalStatus').val();
       this.user.race = $('#race').val();
       this.user.smokes = $('#smokes').val();
+      this.user.drinks = $('#drinks').val();
+      this.user.cannabis = $('#cannabis').val();
       this.user.educationLevel = $('#educationLevel').val();
       this.user.income = $('#income').val();
       this.user.religion = $('#religion').val();
@@ -359,6 +361,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       income: this.user.income,
       race: this.user.race,
       smokes: this.user.smokes,
+      drinks: this.user.drinks,
+      cannabis: this.user.cannabis,
       religion: this.user.religion,
       maritalStatus: this.user.maritalStatus,
       bodyType: this.user.bodyType,

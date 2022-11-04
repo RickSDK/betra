@@ -8,17 +8,19 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SideMenuComponent implements OnInit {
   @Input('pageTitle') pageTitle: string = '';
   @Input('admirerCount') admirerCount: number = 0;
+  @Input('messageCount') messageCount: number = 0;
+  @Input('matchCount') matchCount: number = 0;
   
 
   public topItems = [
     { name: 'My Profile', routerLink: '', icon: 'fa fa-user', id: 0 },
     { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
-    { name: 'My Matches', routerLink: '/matches', icon: 'fa fa-users', id: 0 },
+    { name: 'My Matches', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
     { name: 'Admirers', routerLink: '/user-detail', icon: 'fa fa-heart', id: 4},
     { name: 'Online Now', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
   ];
   public middleItems = [
-    { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 0 },
+    { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
     { name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
   ];

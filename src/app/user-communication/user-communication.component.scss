@@ -1,11 +1,75 @@
 .match-card {
     display: inline-block;
-    background-color: white;
+    background-color: #eee;
     box-shadow: 1px 1px 10px gray;
     border-radius: 5px;
     width: 100%;
     max-width: 400px;
     font-size: 14px;
-    padding-top: 20px;
     padding-bottom: 20px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.text-window {
+    display: inline-block; 
+    background-color: white;
+    width: 95%;
+    border-radius: 5px;
+    margin: 5px;
+}
+.gray-title {
+    background-color: #444;
+    color: white;
+    font-weight: 700;
+    height: 30px;
+    line-height: 30px;
+}
+.pull-left {
+    display: block;
+    float: left;
+}
+.pull-right {
+    display: block;
+    float: right;
+}
+.gray-blob {
+    cursor: pointer;
+    min-width: 200px;
+    padding: 10px;
+    margin: 5px;
+    background-color: #ccc;
+    color: black;
+    border-radius: 10px;
+}
+.gray-blob:hover {
+    background-color: #ddd;
+}
+.blue-blob {
+    cursor: pointer;
+    min-width: 200px;
+    padding: 10px;
+    margin: 5px;
+    background-color: rgba(13, 119, 240, 0.959);
+    color: white;
+    border-radius: 10px;
+}
+.blue-blob:hover {
+    background-color: rgba(51, 139, 239, 0.959);
+}
+.top-text {
+    font-size: 8px;
+    color: gray;
+    margin-bottom: -5px;
+}
+.bottom-text {
+    font-size: 8px;
+    color: gray;
+    margin-top: -5px;
+}
+.new-message {
+    color: red;
+    font-weight: 700;
+    background-color: yellow;
+    border-radius: 5px;
+    padding: 5px;
 }

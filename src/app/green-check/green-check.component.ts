@@ -12,6 +12,8 @@ export class GreenCheckComponent implements OnInit {
   @Input('icon') icon: string = '';
   @Input('img') img: string = '';
   @Input('smokes') smokes: string = '';
+  @Input('cannabis') cannabis: string = '';
+  @Input('drinks') drinks: string = '';
 
   constructor() { }
 

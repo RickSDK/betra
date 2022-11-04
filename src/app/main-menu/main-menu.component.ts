@@ -66,6 +66,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.loadUserObj();
       this.notifications = localStorage['notifications'];
       this.headerObj.admirerCount = localStorage['admirerCount'];
+      this.headerObj.messageCount = localStorage['messageCount'];
       this.router.navigate([''], { queryParams: { 'login': '0' } });
     }
   }
@@ -95,11 +96,13 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == "logUser") {
-      this.notifications = responseJson.notifications;
-      this.headerObj.admirerCount = responseJson.admirerCount;
-      localStorage['notifications'] = responseJson.notifications;
-      localStorage['admirerCount'] = responseJson.admirerCount;
-      if (responseJson.refreshFlg == 'Y')
+      this.notifications = responseJson.infoObj.notifications;
+      this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
+      this.headerObj.messageCount = responseJson.infoObj.messageCount;
+      localStorage['notifications'] = this.notifications;
+      localStorage['admirerCount'] = this.headerObj.admirerCount;
+      localStorage['messageCount'] = this.headerObj.messageCount;
+      if (responseJson.infoObj.refreshFlg == 'Y')
         this.refreshUserObj(responseJson.user);
     }
   }

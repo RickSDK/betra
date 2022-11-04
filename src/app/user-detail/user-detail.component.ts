@@ -22,12 +22,22 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public playerList: any = [];
   public currentProfileIndex = 0;
   public exceededPoolSizeFlg: boolean = false;
+  public showMatchLevelInfoFlg: boolean = false;
+
+  public levels = [
+    'one person likes',
+    'match made',
+    'question asked',
+    'question replied',
+    '2nd question replied'
+  ]
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.notifications = localStorage['notifications'];
+    if (!this.user)
+      return;
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
@@ -48,7 +58,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     })
   }
   browseSingles(action: string) {
-    if (this.exceededPoolSizeFlg) {
+    if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
       return;
     }
     this.matchUser = null;
@@ -73,15 +83,17 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     };
     this.executeApi('appApiCode2.php', params, true);
   }
+  //--------------------------------------------
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
-      console.log('hey!!', responseJson);
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['notifications'] = responseJson.notifications;
       this.headerObj.admirerCount = responseJson.admirerCount;
       this.notifications = responseJson.notifications;
-      this.currentProfileIndex++;
-      this.showCurrentProfile();
+      if (this.uid == 0) {
+        this.currentProfileIndex++;
+        this.showCurrentProfile();
+      }
     }
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers') {
       if (this.responseJson.playerList) {
@@ -103,7 +115,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.matchUser = new User(responseJson.user);
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
-      //console.log('this.matchUser', this.matchUser);
+      console.log('this.matchUser', this.matchUser);
 
       setTimeout(() => {
         this.calculatingStatsFlg = false;

@@ -248,15 +248,44 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <div class="tiny-text">Smoker?</div>
-                                        <select name="smokes" id="smokes"
-                                            [style.background-color]="user.smokes?'#eee':'#ffffc0'"
-                                            (change)="menuValueChanged()">
-                                            <option disabled selected>Select</option>
-                                            <option *ngFor="let option of smokingOptions"
-                                                [selected]="option == user.smokes">{{option}}
-                                            </option>
-                                        </select>
+                                        <table width="100%">
+                                            <tr>
+                                                <td>
+                                                    <div class="tiny-text">Smokes?</div>
+                                                    <select name="smokes" id="smokes"
+                                                        [style.background-color]="user.smokes?'#eee':'#ffffc0'"
+                                                        (change)="menuValueChanged()">
+                                                        <option disabled selected>Select</option>
+                                                        <option *ngFor="let option of smokingOptions"
+                                                            [selected]="option == user.smokes">{{option}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="tiny-text">Drinks?</div>
+                                                    <select name="drinks" id="drinks"
+                                                        [style.background-color]="user.drinks?'#eee':'#ffffc0'"
+                                                        (change)="menuValueChanged()">
+                                                        <option disabled selected>Select</option>
+                                                        <option *ngFor="let option of smokingOptions"
+                                                            [selected]="option == user.drinks">{{option}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="tiny-text">Cannabis User?</div>
+                                                    <select name="cannabis" id="cannabis"
+                                                        [style.background-color]="user.cannabis?'#eee':'#ffffc0'"
+                                                        (change)="menuValueChanged()">
+                                                        <option disabled selected>Select</option>
+                                                        <option *ngFor="let option of smokingOptions"
+                                                            [selected]="option == user.cannabis">{{option}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
+
                                     </div>
                                 </div>
 

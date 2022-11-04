@@ -3,7 +3,7 @@
         <tr>
             <td>
                 <span class="product-logo" [routerLink]="['']"><i class="fa fa-heart product-icon"></i>Betra</span>
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Version 0.32</div>
+                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Version 0.33</div>
             </td>
             <td align="center" style="font-size: 20px; font-weight: 700;">
                 <span class="hide-xs">{{pageTitle}}</span>
@@ -42,7 +42,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div *ngIf="userId>0 && headerObj.profileCompleteFlg && pageTitle != 'Profile'" class="col-md-4 hide-md">
-                    <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [admirerCount]="headerObj.admirerCount"></app-side-menu>
+                    <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [admirerCount]="headerObj.admirerCount" [messageCount]="headerObj.messageCount" [matchCount]="headerObj.matchCount"></app-side-menu>
                 </div>
                 <div class="col-md" style="padding: 0; text-align: center;">
                     <ng-content></ng-content>

@@ -5,7 +5,7 @@
                 <img (mousedown)="toggleImage()" [src]="user.imgSrc" [ngClass]="ngClassImage()">
             </td>
             <td *ngIf="!largeImageFlg" valign="top" style="text-align: left;" width="190">
-                <div class="title-highlight" title="id: {{user.user_id}}">{{user.firstName}}, {{user.age}}
+                <div class="title-highlight" title="id: {{user.user_id}}"><i *ngIf="user.user_id == myUser.heartId" class="fa fa-heart"></i> {{user.firstName}}, {{user.age}}
                     <i *ngIf="myUser.user_id == 0" [routerLink]="['/profile']" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-edit"></i>
                     <i *ngIf="myUser.user_id > 0" [routerLink]="['']" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
                 </div>
@@ -23,7 +23,7 @@
                     <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText" [icon]="'fa fa-exchange'">
                     </app-green-check>
                     <app-green-check [label]="'Number of Kids'" [text1]="user.numKids" [text2]="myUser.kidsNum"
-                        [icon]="'fa fa-street-view'" [smokes]="user.smokes">
+                        [icon]="'fa fa-street-view'" [smokes]="user.smokes" [drinks]="user.drinks" [cannabis]="user.cannabis">
                     </app-green-check>
                 </div>
                 <div class="small-box">

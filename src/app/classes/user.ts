@@ -16,6 +16,8 @@ export class User {
     public income: string = '';
     public race: string = '';
     public smokes: string = '';
+    public drinks: string = '';
+    public cannabis: string = '';
     public religion: string = '';
     public maritalStatus: string = '';
     public bodyType: string = '';
@@ -91,6 +93,9 @@ export class User {
     public user1_interested: string = '';
     public user2_interested: string = '';
     public match_level: number = 0;
+    public heartId: number = 0;
+    public showHeartFormFlg: boolean = false;
+    public matchObj:any = {};
 
     constructor(obj: any) {
         if (obj) {
@@ -111,6 +116,8 @@ export class User {
             this.income = obj.income || '';
             this.race = obj.race || '';
             this.smokes = obj.smokes || '';
+            this.drinks = obj.drinks || '';
+            this.cannabis = obj.cannabis || '';
             this.religion = obj.religion || '';
             this.maritalStatus = obj.maritalStatus || '';
             this.bodyType = obj.bodyType || '';
@@ -165,6 +172,8 @@ export class User {
             this.user1_interested = obj.user1_interested || '';
             this.user2_interested = obj.user2_interested || '';
             this.match_level = obj.match_level || 0;
+            this.heartId = obj.heartId || 0;
+            this.matchObj = obj.matchObj;
 
         }
 
@@ -176,15 +185,18 @@ export class User {
         var datingPool: any = [];
         dpList.forEach(element => {
             var items = element.split(':');
-            if (items.length == 3) {
+            if (items.length >= 3) {
                 var name = items[1];
                 var user_id = parseInt(items[0]);
                 var src = betraImageFromId(user_id, parseInt(items[2]));
-                datingPool.push({ name: name, src: src, user_id: user_id });
+                var heartFlg = (items.length>=4 && items[3]=='Y');
+                var level = (items.length>=5)?items[4]:'0';
+                datingPool.push({ name: name, src: src, user_id: user_id, heartFlg: heartFlg, level: level });
             }
 
         });
         this.datingPool = datingPool;
+        this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
         if (this.matchPreference == 'A')

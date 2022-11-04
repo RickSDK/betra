@@ -5,16 +5,44 @@
         <div class="btn-group" role="group" aria-label="Menu">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)">{{button}}</button>
+            <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 5"
+                class="btn btn-danger"><i class="fa fa-heart"></i></button>
         </div>
+        <div *ngIf="showHeartFormFlg" class="tan-box">
+            <div><i class="fa fa-heart red-text" style="font-size: 32px;"></i></div>
+            <div style="font-size: 20px;">Give someone your heart!</div>
+            <table align="center" *ngIf="!loadingFlg">
+                <tr>
+                    <td>
+                        <select name="assignHeart" id="assignHeart"
+                            (change)="disableFormFlg=false">
+                            <option disabled selected>Select</option>
+                            <option *ngFor="let player of user.datingPool" [value]="player.user_id">{{player.name}}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <button (mousedown)="assignHeart()" class="btn btn-primary" style="padding: 10px;" [disabled]="disableFormFlg">Assign</button>
+                    </td>
+                </tr>
+            </table>
+ 
+            <div class="tiny-text">Pick one person from your dating pool to indicate they are someone special. Everyone
+                in your dating pool will be able to see who you have chosen.
+                Feel free to change this pick at any time.
+            </div>
+        </div>
+
         <div>&nbsp;</div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="menuNum==0 && !loadingFlg">
             <div style="font-size: 12px; color: gray;">You can have a maximum of 8 people in your dating pool at any
                 time. [<span (mousedown)="showMoreFlg=!showMoreFlg" class="hyper-link">more info</span>]</div>
-            <div (mousedown)="showMoreFlg=false" *ngIf="showMoreFlg">Once you have been matched with more than 8 people, you will have to move
+            <div (mousedown)="showMoreFlg=false" *ngIf="showMoreFlg"
+                style="background-color: #ffffc0; border-radius: 5px; padding: 5px;">If you have more than 8 matches, you will have to move
                 the extras to your back burner. This will help you organize your dating life and concentrate on your
-                best propects.</div>
+                best prospects.</div>
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
             <button *ngIf="!user.dating_pool" [routerLink]="['/user-detail']" class="btn red-small-button"><i
                     class="fa fa-search"></i> Browse Singles</button>
@@ -29,7 +57,7 @@
                 <div class="name-title">{{person.name}}</div>
             </div>
             <div *ngIf="playerList && playerList.length>0" class="small-gray-text">
-                <p>These people have already been notified of your interest, so check back soon to find out what
+                <p><span *ngIf="playerList.length>1">These people have</span><span *ngIf="playerList.length==1">This person has</span> already been notified of your interest. Check back soon to find out what
                     happens.</p>
                 <p>If they decline your invitation, they will disappear from this list. Cross your fingers!</p>
             </div>

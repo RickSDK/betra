@@ -1,7 +1,7 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="pageTitle" [headerObj]="headerObj" [notifications]="notifications">
 
-    <div class="matches-card" *ngIf="!matchUser">
+    <div class="matches-card" *ngIf="user && !matchUser">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngIf="exceededPoolSizeFlg">
             <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
@@ -9,17 +9,24 @@
             <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
                 My Matches</button>
         </div>
-        <div *ngIf="!loadingFlg && id != 4 && !exceededPoolSizeFlg">
+        <div *ngIf="user && user.showHeartFormFlg">
+            <div><i class="fa fa-heart red-text" style="font-size: 60px; padding: 40px;"></i></div>
+            <p>Note: You need to assign a heart to someone before proceeding.</p>
+            <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
+                My Matches</button>
+        </div>
+
+        <div *ngIf="!loadingFlg && id != 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">
             <div *ngIf="user.datingPool.length<=8">
                 <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 40px;"></i></div>
                 <p>Sorry, no more profiles found.</p>
-                <p>This is a new app and people are just starting to sign up. Check back soon.</p>    
+                <p>This is a new app and people are just starting to sign up. Check back soon.</p>
             </div>
             <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
                 My Matches</button>
             <p class="small-gray-text">Click My Matches button to see what your dating situation looks like.</p>
         </div>
-        <div *ngIf="!loadingFlg && id == 4 && !exceededPoolSizeFlg">
+        <div *ngIf="!loadingFlg && id == 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">
             <p>&nbsp;</p>
             <p>No admirers at the moment.</p>
             <div style="text-align: left;" class="small-gray-text">
@@ -41,12 +48,21 @@
 
     </div>
 
-    <app-match-snapshot *ngIf="matchUser" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
+    <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
         [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true">
     </app-match-snapshot>
 
-    <app-user-communication *ngIf="matchUser && matchUser.match_level==2"></app-user-communication>
+    <!--<div (mousedown)="showMatchLevelInfoFlg = !showMatchLevelInfoFlg">.</div>
+    <div class="tan-box" *ngIf="matchUser && showMatchLevelInfoFlg">
+        <div>match_level: <b>{{matchUser.match_level}}</b></div>
+        <div style="text-align: left;">0 = no connection</div>
 
+        <ol style="text-align: left;">
+            <li *ngFor="let level of levels">{{level}}</li>
+        </ol>
+    </div>-->
+    <app-user-communication [myUser]="user" [matchUser]="matchUser" *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=2">
+    </app-user-communication>
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

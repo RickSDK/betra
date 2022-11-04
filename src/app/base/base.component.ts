@@ -32,11 +32,17 @@ export class BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserObj();
+    this.notifications = localStorage['notifications'];
+
   }
   refreshUserObj(userObj: any) {
-    localStorage['User'] = JSON.stringify(userObj);
-    this.user = new User(userObj);
-    console.log('user refreshed!', this.user);
+    if(userObj && userObj.user_id > 0) {
+      localStorage['User'] = JSON.stringify(userObj);
+      this.user = new User(userObj);
+      console.log('user refreshed!', this.user);  
+    } else {
+      console.log('invalid object sent to refresh!!!');
+    }
   }
   loadUserObj() {
     this.user = null;
@@ -49,6 +55,8 @@ export class BaseComponent implements OnInit {
       this.imgSrcFile = this.user.imgSrc;
       this.userStatus = this.user.status;
       this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
+      this.headerObj.messageCount = localStorage['messageCount'];
+      this.headerObj.admirerCount = localStorage['admirerCount'];
       this.popupNum = (this.user.status == 'Active')?0:3;
       console.log('user', this.user);
     }
