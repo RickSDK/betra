@@ -1,0 +1,46 @@
+<div class="match-card" *ngIf="myUser && matchUser && matchUser.matchObj">
+    <div class="gray-title" style="position: relative;"> User reviews
+        <i (mousedown)="openReviewPanel()" class="fa fa-chevron-circle-right more-options"></i>
+    </div>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="showReviewsFlg">
+        <button *ngIf="matchUser.matchObj.match_level>=4" (mousedown)="writeReview()" class="btn btn-primary">Write Review</button>
+        <div>&nbsp;</div>
+        <div *ngIf="reviewList.length==0 && !loadingFlg">No reviews yet.</div>
+        <div *ngFor="let review of reviewList" style="text-align: left;">
+            <img [src]="review.src" height="40" align="left" style="padding-right: 5px;">
+            <i *ngIf="review.rating==1" class="fa fa-thumbs-o-up" style="color: blue; font-weight: 700;"></i>
+            <i *ngIf="review.rating==2" class="fa fa-thumbs-o-down" style="color: blue; font-weight: 700;"></i>
+            : {{review.message}}
+            <div><b>- {{review.firstName}}</b></div>
+        </div>
+    </div>
+    <div *ngIf="showDetailsFlg" class="small-box">
+        <div><b>Write a review</b></div>
+        <div>Overall Experience (select one)</div>
+        <div>
+            <button (mousedown)="selectRating(1)" [ngClass]="ngClassRating(1)"><i style="font-size: 32px;"
+                    class="fa fa-thumbs-o-up"></i></button>&nbsp;
+            <button (mousedown)="selectRating(2)" [ngClass]="ngClassRating(2)"><i style="font-size: 32px;"
+                    class="fa fa-thumbs-o-down"></i></button>
+        </div>
+
+
+        <div *ngIf="experienceRating>0">
+            <div class="gray-text">Describe your expierence meeting {{matchUser.firstName}}. Please do not be too
+                critical
+                in your review,
+                and do not give out any sensitive, personal or embarassing details about the person. Simply mention one
+                or
+                two things you liked about this
+                person and maybe one or two things you think they should work on.
+            </div>
+
+            <app-text-area-input [id]="'reviewText'" [value]="reviewText"></app-text-area-input>
+            <div>
+                <button (mousedown)="submitButtonPressed()" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div style="font-size: 10px; text-align: center; color: gray;">You must be intimacy level 2 to see reviews and level 4 to write reviews.</div>
+</div>

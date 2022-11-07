@@ -1,0 +1,23 @@
+.match-card {
+    display: inline-block;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px gray;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 14px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.gray-title {
+    background-color: #444;
+    color: white;
+    font-weight: 700;
+    height: 30px;
+    line-height: 30px;
+}
+textarea {
+    width: 100%;
+    border: 2px solid #ccc;
+    height: 100px;
+}

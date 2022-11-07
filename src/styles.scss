@@ -11,6 +11,16 @@ body {
     color: $dark-red;
     font-weight: 700;
 }
+.gray-text {
+    color: gray;
+    font-size: 12px;
+}
+.small-box {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
+}
 .dark-red-box {
     background-color: $dark-red;
     color: white;

@@ -61,6 +61,9 @@
             <li *ngFor="let level of levels">{{level}}</li>
         </ol>
     </div>-->
+
+    <app-user-reviews *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=2" [myUser]="user" [matchUser]="matchUser"></app-user-reviews>
+
     <app-user-communication [myUser]="user" [matchUser]="matchUser" *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=2">
     </app-user-communication>
 

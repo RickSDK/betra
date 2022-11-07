@@ -1,14 +1,19 @@
 .match-card {
     display: inline-block;
-    background-color: white;
+    background-color: #eee;
     box-shadow: 1px 1px 10px gray;
     border-radius: 5px;
     width: 100%;
     max-width: 400px;
     font-size: 14px;
     padding-bottom: 20px;
+    overflow: hidden;
+    margin-top: 20px;
+    padding: 10px;
 }
-.gray-title {
-    background-color: #ccc;
-    font-weight: 700;
+input {
+    padding: 15px;
+    border: 2px solid #ccc;
+    margin: 5px;
+    height: 60px;
 }

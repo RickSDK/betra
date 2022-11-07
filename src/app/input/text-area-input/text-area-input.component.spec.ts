@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BrowseSinglesComponent } from './browse-singles.component';
+import { TextAreaInputComponent } from './text-area-input.component';
 
-describe('BrowseSinglesComponent', () => {
-  let component: BrowseSinglesComponent;
-  let fixture: ComponentFixture<BrowseSinglesComponent>;
+describe('TextAreaInputComponent', () => {
+  let component: TextAreaInputComponent;
+  let fixture: ComponentFixture<TextAreaInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BrowseSinglesComponent ]
+      declarations: [ TextAreaInputComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BrowseSinglesComponent);
+    fixture = TestBed.createComponent(TextAreaInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

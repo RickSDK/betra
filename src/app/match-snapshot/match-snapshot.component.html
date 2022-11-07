@@ -1,4 +1,4 @@
-<div class="match-card" *ngIf="matchUser">
+<div class="match-card" *ngIf="matchUser && user">
 
     <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked('cancel')"
         [returnFlg]="returnFlg">
@@ -54,8 +54,8 @@
 
         <div *ngIf="matchUser.matchObj.you_interested == 'Y' && matchUser.matchObj.match_level > 1" style="text-align: center;">
             <div class="dark-blue-box" style="position: relative;">
-                <div>
-                    <i class="fa fa-heart" style="color: red;"></i> {{matchUser.firstName}} is in your dating pool.
+                <div *ngIf="matchUser.matchObj">
+                    <i class="fa fa-heart" style="color: red;"></i> {{matchUser.firstName}}<sup style="color: gray;">{{matchUser.matchObj.match_level}}</sup> is in your dating pool.
                 </div>
                 <i *ngIf="!showConfirmationFlg" class="fa fa-chevron-circle-right more-options"
                     (mousedown)="showMoreOptionsFlg = !showMoreOptionsFlg"></i>
@@ -89,7 +89,8 @@
         <div *ngIf="matchUser.matchObj.you_interested == 'N'" class="dark-blue-box">You are not interested in {{matchUser.firstName}}.
         </div>
         <button *ngIf="0" class="btn btn-primary" (mousedown)="actionButtonClicked('nextProfile')">Next Profile</button>
-        <div *ngIf="matchUser.matchObj.you_interested == ''">
+
+        <div *ngIf="(!matchUser.matchObj || !matchUser.matchObj.you_interested) && matchUser.user_id != user.user_id">
 
             <div style="text-align: center; font-size: 24px; font-weight: 700;">Interested?</div>
             <div *ngIf="matchUser.matchObj.match_interested == 'Y' && matchUser.matchObj.match_level == 1" class="dark-blue-box"

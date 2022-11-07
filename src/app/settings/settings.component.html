@@ -6,6 +6,9 @@
         <div>- Settings -</div>
         <button (mousedown)="logout()" class="btn red-small-button"><i class="fa fa-sign-out"></i>
             Logout</button>
+
+        <div *ngIf="userId==1">        <button [routerLink]="['/users']" class="btn btn-primary"><i class="fa fa-sign-out"></i>
+            Users</button></div>
     </div>
 
 </app-page-shell>

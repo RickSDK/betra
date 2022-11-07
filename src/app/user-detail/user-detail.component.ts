@@ -29,7 +29,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     'match made',
     'question asked',
     'question replied',
-    '2nd question replied'
+    '2nd question replied',
+    'Exchanged info',
+    'Exchanged picture',
+    'Went on date'
   ]
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }

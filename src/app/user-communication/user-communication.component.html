@@ -1,6 +1,11 @@
+
+
+<app-user-request-info *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=5" [myUser]="myUser" [matchUser]="matchUser"></app-user-request-info>
+
+
 <div class="match-card" *ngIf="matchUser && matchUser.matchObj">
     <div class="gray-title" style="position: relative;">Messages
-        <i (mousedown)="showDetailsFlg=!showDetailsFlg" class="fa fa-info-circle more-options"></i>
+        <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg" class="fa fa-info-circle more-options"></i>
     </div>
 
     <div class="text-window">

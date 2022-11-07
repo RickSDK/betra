@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserMessagesComponent } from './user-messages.component';
+import { UserRequestInfoComponent } from './user-request-info.component';
 
-describe('UserMessagesComponent', () => {
-  let component: UserMessagesComponent;
-  let fixture: ComponentFixture<UserMessagesComponent>;
+describe('UserRequestInfoComponent', () => {
+  let component: UserRequestInfoComponent;
+  let fixture: ComponentFixture<UserRequestInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserMessagesComponent ]
+      declarations: [ UserRequestInfoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserMessagesComponent);
+    fixture = TestBed.createComponent(UserRequestInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

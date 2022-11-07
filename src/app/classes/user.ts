@@ -41,6 +41,8 @@ export class User {
     public emailVerifyFlg: boolean = false;
     public lastLogin: string = '';
     public lastLoginText: string = '';
+    public lastLoginNum: number = 0;
+    public lastLoginSrc: string = '';
 
     public story: string = '';
     public birthDay: number = 0;
@@ -95,7 +97,7 @@ export class User {
     public match_level: number = 0;
     public heartId: number = 0;
     public showHeartFormFlg: boolean = false;
-    public matchObj:any = {};
+    public matchObj: any = {};
 
     constructor(obj: any) {
         if (obj) {
@@ -189,8 +191,8 @@ export class User {
                 var name = items[1];
                 var user_id = parseInt(items[0]);
                 var src = betraImageFromId(user_id, parseInt(items[2]));
-                var heartFlg = (items.length>=4 && items[3]=='Y');
-                var level = (items.length>=5)?items[4]:'0';
+                var heartFlg = (items.length >= 4 && items[3] == 'Y');
+                var level = (items.length >= 5) ? items[4] : '0';
                 datingPool.push({ name: name, src: src, user_id: user_id, heartFlg: heartFlg, level: level });
             }
 
@@ -216,6 +218,8 @@ export class User {
             }
             this.age = year - this.birthYear;
         }
+
+        this.lastLoginSrc = 'assets/images/blackCircle.png';
         if (this.lastLogin) {
             var dateObj = getDateObjFromJSDate(this.lastLogin);
             this.lastLoginText = dateObj.daysAgo + ' Days ago';
@@ -224,6 +228,16 @@ export class User {
             if (dateObj.daysAgo == 1)
                 this.lastLoginText = 'Yesterday';
 
+            if (dateObj.daysAgo <= 14)
+                this.lastLoginSrc = 'assets/images/redCircle.png';
+            if (dateObj.daysAgo <= 7)
+                this.lastLoginSrc = 'assets/images/yellowCircle.png';
+            if (dateObj.daysAgo == 0)
+                this.lastLoginSrc = 'assets/images/blueCircle.png';
+            if (dateObj.secondsAgo <= 15 * 60) {
+                this.lastLoginSrc = 'assets/images/greenCircle.png';
+                this.lastLoginText = 'Online Now!';
+            }
         }
         if (!this.matchAge)
             this.status = 'Pending';

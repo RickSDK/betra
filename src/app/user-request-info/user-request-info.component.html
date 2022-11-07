@@ -1,0 +1,98 @@
+<div class="match-card" *ngIf="myUser && matchUser && matchUser.matchObj">
+    <button (mousedown)=changeNum(1) class="btn btn-primary">
+        <div style="font-size: 10px;">Request</div><i class="fa fa-phone"></i> Info
+    </button>&nbsp;
+    <button (mousedown)=changeNum(2) class="btn btn-primary">
+        <div style="font-size: 10px;">Request</div><i class="fa fa-coffee"></i> Date
+    </button>&nbsp;
+    <button (mousedown)=changeNum(3) class="btn btn-primary">
+        <div style="font-size: 10px;">Request</div><i class="fa fa-picture-o"></i> Picture
+    </button>&nbsp;
+
+    <div class="tan-box" *ngIf="requestNum>0">
+        <div *ngIf="requestNum==1">
+            <div class="red-text"><b>Request Info</b></div>
+            <div *ngIf="matchUser.matchObj.you_info_request=='X'">Sorry, but {{matchUser.firstName}} has rejected your request.</div>
+            <div *ngIf="matchUser.matchObj.you_info_request=='A'">Info has been delivered. Check your messages.</div>
+            <div *ngIf="!matchUser.matchObj.you_info_request" class="gray-text">If your request is accepted, you will receive {{matchUser.firstName}}'s' email and
+                phone contact info.</div>
+            <div *ngIf="matchUser.matchObj.you_info_request == 'Y'">You have already requested info. Awaiting Reply.
+            </div>
+            <div *ngIf="!loadingFlg && !messageSentFlg && !matchUser.matchObj.you_info_request">
+                <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
+                <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-success" style="height: 60px;">Send
+                    Request</button>
+            </div>
+        </div>
+        <div *ngIf="requestNum==2">
+            <div class="red-text"><b>Request Date</b></div>
+            <div class="gray-text">Ask {{matchUser.firstName}} out on a date with one click!</div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <div class="tiny-text">Date</div>
+                        <input type="date">
+                    </td>
+                    <td>
+                        <div class="tiny-text">Time</div>
+                        <input type="time">
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <app-message-input [placeHolder]="'Location'"></app-message-input>
+            </div>
+            <div>
+                <app-message-input [placeHolder]="'Address'"></app-message-input>
+            </div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <app-message-input [placeHolder]="'City'"></app-message-input>
+                    </td>
+                    <td>
+                        <app-message-input [placeHolder]="'State'"></app-message-input>
+                    </td>
+                    <td>
+                        <app-message-input [placeHolder]="'Zip'"></app-message-input>
+                    </td>
+                </tr>
+            </table>
+            <div>&nbsp;</div>
+            <div class="gray-text">Keep in mind the person asking the date is expected to pay.</div>
+            <div>&nbsp;</div>
+            <div>
+                <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
+                <button (mousedown)="requestNum=0" class="btn btn-success" style="height: 60px;">Send Request</button>
+            </div>
+
+        </div>
+        <div *ngIf="requestNum==3">
+            <div class="red-text"><b>Request Picture</b></div>
+            <div class="gray-text">Ask {{matchUser.firstName}} to send you a special picture, taken today, just for you.
+            </div>
+            <div>Picture Type:</div>
+            <select (change)="selectValueChanged()" name="pictureType" id="pictureType">
+                <option disabled selected>Select</option>
+                <option *ngFor="let option of pictureTypes">{{option}}</option>
+            </select>
+            <div>&nbsp;</div>
+            <div>
+                <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
+                <button (mousedown)="requestNum=0" class="btn btn-success" style="height: 60px;">Send Request</button>
+            </div>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg"></app-spinner>
+        <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
+    </div>
+
+    <div *ngIf="matchUser.matchObj.match_info_request == 'Y'" class="tan-box">
+        <div>{{matchUser.firstName}} has requested to receive your email address and phone number.</div>
+        <div *ngIf="!loadingFlg && !sendMessage">
+            <button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-danger">Reject</button>&nbsp;
+            <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-success">Approve</button>    
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
+    </div>
+</div>

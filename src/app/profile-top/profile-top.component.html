@@ -5,11 +5,16 @@
                 <img (mousedown)="toggleImage()" [src]="user.imgSrc" [ngClass]="ngClassImage()">
             </td>
             <td *ngIf="!largeImageFlg" valign="top" style="text-align: left;" width="190">
-                <div class="title-highlight" title="id: {{user.user_id}}"><i *ngIf="user.user_id == myUser.heartId" class="fa fa-heart"></i> {{user.firstName}}, {{user.age}}
+                <div class="title-highlight" title="id: {{user.user_id}}">
+                    <i *ngIf="user.user_id == myUser.heartId" class="fa fa-heart"></i> {{user.firstName}}, {{user.age}}
                     <i *ngIf="myUser.user_id == 0" [routerLink]="['/profile']" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-edit"></i>
                     <i *ngIf="myUser.user_id > 0" [routerLink]="['']" style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
                 </div>
                 <div><b>{{user.city}}</b><span style="font-size: 10px; color: gray; float: right;" title="Race">{{user.race}}</span></div>
+                <div style="font-size: 8px; color: gray;">
+                    <img [src]="user.lastLoginSrc" height="12" [title]="user.lastLoginText"> 
+                      {{user.lastLoginText}}
+                </div>
                 <div class="small-box">
                     <div class="small-title">Relationship</div>
                     

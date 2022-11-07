@@ -73,7 +73,9 @@ export class BaseComponent implements OnInit {
   getHostname() {
     return 'https://www.appdigity.com/betraPhp/';
   }
-
+  selectValueChanged() {
+    this.changesMadeFlg = true;
+  }
   getAPIData(user: any, action: string, noCacheFlg: boolean) {
     var params = {
       userId: user.id,

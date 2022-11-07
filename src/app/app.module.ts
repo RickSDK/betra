@@ -26,17 +26,17 @@ import { ProfileTopComponent } from './profile-top/profile-top.component';
 import { DatingPoolComponent } from './dating-pool/dating-pool.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
 import { SettingsComponent } from './settings/settings.component';
 import { MessagesComponent } from './messages/messages.component';
-import { AdmirersComponent } from './admirers/admirers.component';
 import { PercentTextComponent } from './percent-text/percent-text.component';
 import { UserCommunicationComponent } from './user-communication/user-communication.component';
 import { FirstNameInputComponent } from './input/first-name-input/first-name-input.component';
 import { PhoneInputComponent } from './input/phone-input/phone-input.component';
 import { MatchDatingPoolComponent } from './match-dating-pool/match-dating-pool.component';
-import { UserMessagesComponent } from './user-messages/user-messages.component';
 import { MessageInputComponent } from './input/message-input/message-input.component';
+import { UserRequestInfoComponent } from './user-request-info/user-request-info.component';
+import { UserReviewsComponent } from './user-reviews/user-reviews.component';
+import { TextAreaInputComponent } from './input/text-area-input/text-area-input.component';
 
 @NgModule({
   declarations: [
@@ -64,17 +64,17 @@ import { MessageInputComponent } from './input/message-input/message-input.compo
     DatingPoolComponent,
     UserDetailComponent,
     SideMenuComponent,
-    BrowseSinglesComponent,
     SettingsComponent,
     MessagesComponent,
-    AdmirersComponent,
     PercentTextComponent,
     UserCommunicationComponent,
     FirstNameInputComponent,
     PhoneInputComponent,
     MatchDatingPoolComponent,
-    UserMessagesComponent,
-    MessageInputComponent
+    MessageInputComponent,
+    UserRequestInfoComponent,
+    UserReviewsComponent,
+    TextAreaInputComponent
   ],
   imports: [
     BrowserModule,
