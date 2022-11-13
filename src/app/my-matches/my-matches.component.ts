@@ -21,11 +21,20 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.showHeartFormFlg = this.user.showHeartFormFlg;
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
+      this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
     })
+  }
+  refreshDatingPool() {
+    var params = {
+      userId: localStorage['user_id'],
+      email: localStorage['email'],
+      code: localStorage['code'],
+      action: 'refreshDatingPool'
+    };
+    this.executeApi('appApiCode.php', params, true);
   }
 
   changeMenu(num: number) {
@@ -43,7 +52,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         userId: localStorage['user_id'],
         email: localStorage['email'],
         code: localStorage['code'],
-        action: 'logUser'
+        action: 'refreshDatingPool'
       };
       this.executeApi('appApiCode.php', params0, true);
     }
@@ -83,13 +92,18 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       return 'btn btn-secondary';
   }
   override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == "logUser") {
+      this.syncUserWithLocalStorage(responseJson);
+    }
     if (responseJson.action == 'assignHeart') {
       this.refreshUserObj(responseJson.user);
     }
     this.playerList = [];
-    if (responseJson.action == 'logUser' && responseJson.refreshFlg == 'Y') {
-      console.log('refreshUser!');
-      this.refreshUserObj(responseJson.user);
+    if (responseJson.action == 'refreshDatingPool') {
+      console.log('xxx', responseJson);
+     this.refreshUserObj(responseJson.user);
+     this.updateMatches();
+     this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {
       responseJson.playerList.forEach((element: { [x: string]: string; name: any; }) => {
@@ -100,6 +114,15 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   }
   getImageFile(user_id: string, profilePic: string) {
     return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id + '_' + profilePic + '.jpg';
+  }
+  updateMatches() {
+    this.user.datingPool.forEach((element: any) => {
+      this.responseJson.matches.forEach((match: any) => {
+        if(match.uid == element.user_id) {
+          element.match = match;
+        }
+      });
+    });
   }
 
 }

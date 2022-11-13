@@ -48,7 +48,7 @@
     </div>
 
     <div *ngIf="matchUser.matchObj.match_level==2 && !messageSentFlg">
-        <div style="background-color: #ffffc0; padding: 5px; border-radius: 5px; display: inline-block;">Break the ice with a question!</div>
+        <div class="gray-text">Break the ice with a question! Here is your chance to start the conversation.</div>
         <table width="100%">
             <tr>
                 <td>
@@ -74,4 +74,6 @@
     <div *ngIf="messageSentFlg">Message Sent!</div>
 
     <app-spinner [loadingFlg]="loadingFlg"></app-spinner>
+    <div *ngIf="matchUser.matchObj && matchUser.matchObj.match_level == 3" class="purple-text">Getting a response back from {{matchUser.firstName}} will allow you two to communicate freely.</div>
+
 </div>

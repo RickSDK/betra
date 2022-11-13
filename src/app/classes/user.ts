@@ -7,6 +7,8 @@ export class User {
     public phone: string = '';
     public gender: string = '';
     public genderIcon: string = '';
+    public genderName: string = '';
+
     public matchPreference: string = '';
     public findLoveFlg: boolean = false;
     public meetPeopleFlg: boolean = false;
@@ -99,6 +101,17 @@ export class User {
     public showHeartFormFlg: boolean = false;
     public matchObj: any = {};
 
+    public reviewsCount: number = 0;
+
+    // geo info
+    public countryName: string = '';
+    public latitude: string = '';
+    public longitude: string = '';
+    public region: string = '';
+    public state: string = '';
+    public stateName: string = '';
+    public ip: string = '';
+
     constructor(obj: any) {
         if (obj) {
             this.user_id = obj.user_id || 0;
@@ -108,6 +121,7 @@ export class User {
             this.birthYear = obj.birthYear;
             this.gender = obj.gender;
             this.genderIcon = (obj.gender == 'M') ? 'fa fa-male' : 'fa fa-female';
+            this.genderName = (obj.gender == 'M') ? 'male' : 'female';
             this.findLoveFlg = obj.findLoveFlg == 'Y';
             this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
             this.makeMoneyFlg = obj.makeMoneyFlg == 'Y';
@@ -176,7 +190,16 @@ export class User {
             this.match_level = obj.match_level || 0;
             this.heartId = obj.heartId || 0;
             this.matchObj = obj.matchObj;
+            this.reviewsCount = obj.reviewsCount || 0;;
 
+            this.countryName = obj.countryName || '';
+            this.latitude = obj.latitude || '';
+            this.longitude = obj.longitude || '';
+            this.region = obj.region || '';
+            this.state = obj.state || '';
+            this.stateName = obj.stateName || '';
+            this.ip = obj.ip || '';
+ 
         }
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';

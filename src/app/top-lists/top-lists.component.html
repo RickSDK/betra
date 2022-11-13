@@ -1,0 +1,77 @@
+<app-page-shell [userId]="userId" [imgSrcFile]="imgSrcFile" [pageTitle]="'Top 10'" [headerObj]="headerObj">
+
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div class="matches-card" *ngIf="responseJson">
+
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="border-box" style="font-size: 12px;">
+                        <div class="tiny-text">Accounts</div>
+                        <div>Total: {{responseJson.accounts}}</div>
+                        <div>Completed: {{responseJson.activeAccounts}}</div>
+                        <div>Active: {{responseJson.recentLogins}} (past 7 days)</div>
+                        <div>New: {{responseJson.newThisWeek}} (past 7 days)</div>
+                    </div>
+                    <div class="border-box">
+                        <div class="tiny-text">Connections: {{responseJson.connections}}</div>
+                        <div class="tiny-text">Messages: {{responseJson.messages}}</div>
+                        <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="border-box">
+                        <div class="tiny-text">Countries</div>
+                        <div *ngFor="let country of responseJson.countryNames">
+                            <div>{{country.countryName}}: {{country.count}}</div>
+                        </div>
+                    </div>
+                    <div class="border-box">
+                        <div class="tiny-text">States</div>
+                        <div *ngFor="let state of responseJson.stateName">
+                            <div>{{state.stateName}}: {{state.count}}</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="tiny-text">Top Men</div>
+                    <table align="center" style="font-size: 12px;">
+                        <tr *ngFor="let person of responseJson.topMen; let i =index">
+                            <td>{{i+1}}</td>
+                            <td>
+                                <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic"
+                                    [size]="30"></app-profile-pic>
+                            </td>
+                            <td>
+                                <span> {{person.firstName}} <sup>{{person.usersLiked}}</sup></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="tiny-text">Top Women</div>
+                    <table align="center" style="font-size: 12px;">
+                        <tr *ngFor="let person of responseJson.topWomen; let i =index">
+                            <td>{{i+1}}</td>
+                            <td>
+                                <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic"
+                                    [size]="30"></app-profile-pic>
+                            </td>
+                            <td>
+                                <span> {{person.firstName}} <sup>{{person.usersLiked}}</sup></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+</app-page-shell>

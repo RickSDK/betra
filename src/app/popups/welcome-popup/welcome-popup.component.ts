@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 
 @Component({
@@ -7,9 +7,12 @@ import { BaseComponent } from '../../base/base.component';
   styleUrls: ['./welcome-popup.component.scss']
 })
 export class WelcomePopupComponent extends BaseComponent implements OnInit {
+  @Output() messageEvent = new EventEmitter<string>();
 
   constructor() { super(); }
 
 
-
+  logout() {
+    this.messageEvent.emit('logout');
+  }
 }

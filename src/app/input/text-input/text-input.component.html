@@ -1,0 +1,4 @@
+<input [name]="id" [id]="id" type="text" [placeholder]="placeHolder" (input)="inputValueChanged($event)"
+    (keyup.enter)="submitButtonPressed()" [maxLength]="maxLength"
+    [style.background-color]="highlightFlg?'yellow':'#eee'" [value]="value">
+<div style="font-size: 10px; color: gray; float: right; margin-top: -5px;">{{strlen}}/{{maxLength}}</div>

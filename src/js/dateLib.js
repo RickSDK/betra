@@ -23,6 +23,18 @@ function getDateObjFromJSDate(dateStr = '') {
         }
     }
     var timeDiff = now.getTime() - dt.getTime();
+    var daysAgo = parseInt(timeDiff / 1000 / 60 / 60 / 24);
+    var distanceAway = '-';
+    if (now.toLocaleDateString() == dt.toLocaleDateString())
+        distanceAway = 'Today';
+    else if (daysAgo == 1)
+        distanceAway = daysAgo + ' Yesterday';
+    else if (daysAgo == -1)
+        distanceAway = daysAgo + ' Tomorrow';
+    else if (daysAgo > 0)
+        distanceAway = daysAgo + ' days ago';
+    else
+        distanceAway = (daysAgo*-1).toString() + ' days from now';
     return {
         jsDate: dt.toString(),
         legacy: convertDateToString(dt),
@@ -30,6 +42,7 @@ function getDateObjFromJSDate(dateStr = '') {
         local: dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString(),
         localDate: dt.toLocaleDateString(),
         localTime: dt.toLocaleTimeString(),
+        localTime2: dt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
         getTime: dt.getTime(),
         mo: dt.getMonth() + 1,
         month: monthName(dt),
@@ -40,8 +53,11 @@ function getDateObjFromJSDate(dateStr = '') {
         getTime32: dt.getTime().toString(32),
         html5Date: dateComponentFromDateStamp(dt),
         html5Time: dateComponentFromDateStamp(dt, true),
-        secondsAgo: parseInt(timeDiff/1000),
-        daysAgo: parseInt(timeDiff/1000/60/60/24)
+        secondsAgo: parseInt(timeDiff / 1000),
+        daysAgo: daysAgo,
+        day: dt.getDay(),
+        dayOfWeek: dayOfWeek(dt.getDay()),
+        distanceAway: distanceAway
     }
 }
 function getDateObjFromHtml5Date(dateStr = '2019-06-15', timeStr = '00:00') {
@@ -134,8 +150,11 @@ function weekdayOfDate(dateStamp) {
         dateSt = new Date(dateStamp);
 
     var day = dateSt.getDay();
+    return dayOfWeek(day);
+}
+function dayOfWeek(number) {
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    return days[day];
+    return days[number];
 }
 function timeOfDayOfDate(dateStamp) {
     var dateSt = new Date();

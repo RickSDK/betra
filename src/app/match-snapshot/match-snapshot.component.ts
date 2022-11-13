@@ -22,6 +22,8 @@ export class MatchSnapshotComponent implements OnInit {
   public showMoreOptionsFlg: boolean = false;
   public showConfirmationFlg: boolean = false;
   public action: string = '';
+  public showInterestedButtonsFlg: boolean = false;
+  public matchMadeFlg: boolean = false;
 
 
   constructor() { }
@@ -38,6 +40,12 @@ export class MatchSnapshotComponent implements OnInit {
 
   calculateMatches(user: any, matchUser: any, matchObj: any, initflg: boolean = false) {
     this.matchObj = matchObj;
+    this.matchMadeFlg = (this.matchUser.matchObj && this.matchUser.matchObj.match_level == 2);
+    this.showInterestedButtonsFlg = (!matchUser.matchObj || !matchUser.matchObj.you_interested) && matchUser.user_id != user.user_id;
+    if (user.matchPreference == 'F' && matchUser.gender == 'M')
+      this.showInterestedButtonsFlg = false;
+    if (user.matchPreference == 'M' && matchUser.gender == 'F')
+      this.showInterestedButtonsFlg = false;
 
     var agePoints = Math.abs(user.matchAge - matchUser.age) <= 4 ? 1 : 0;
     var religionPoints = (user.matchReligion == matchUser.religion) ? 1 : 0;
@@ -89,6 +97,14 @@ export class MatchSnapshotComponent implements OnInit {
 
   }
   actionButtonClicked(action: string) {
+    if (action == 'yesToMatch' && this.matchUser.matchObj.match_interested == 'Y') {
+      this.matchMadeFlg = true;
+      this.showInterestedButtonsFlg = false;
+      setTimeout(() => {
+        this.messageEvent.emit(action);
+      }, 1500);
+      return;
+    }
     this.profileMatch = 0;
     this.polyMatch = 0;
     this.personalityMatch = 0;

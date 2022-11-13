@@ -52,16 +52,6 @@
         [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true">
     </app-match-snapshot>
 
-    <!--<div (mousedown)="showMatchLevelInfoFlg = !showMatchLevelInfoFlg">.</div>
-    <div class="tan-box" *ngIf="matchUser && showMatchLevelInfoFlg">
-        <div>match_level: <b>{{matchUser.match_level}}</b></div>
-        <div style="text-align: left;">0 = no connection</div>
-
-        <ol style="text-align: left;">
-            <li *ngFor="let level of levels">{{level}}</li>
-        </ol>
-    </div>-->
-
     <app-user-reviews *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=2" [myUser]="user" [matchUser]="matchUser"></app-user-reviews>
 
     <app-user-communication [myUser]="user" [matchUser]="matchUser" *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=2">

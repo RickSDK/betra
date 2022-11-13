@@ -4,7 +4,7 @@
     </div>
     <div class="inside-box">
         <div *ngIf="optionNum==0">
-            <div style="text-align: center;">What do you want?</div>
+            <div style="text-align: center;">The most fun you will ever have in a dating app!</div>
             <div class="main-option" (mousedown)="option1Flg = !option1Flg">
                 <div class="main-item">
                     <i [ngClass]="ngClassBox(option1Flg)"></i> Find Love
@@ -13,7 +13,7 @@
                     <i class="fa fa-heart"></i> Swipe profiles and get matched up with the person of your dreams.
                 </div>
             </div>
-            <div class="main-option" (mousedown)="option2Flg = !option2Flg">
+            <div *ngIf="0" class="main-option" (mousedown)="option2Flg = !option2Flg">
                 <div class="main-item">
                     <i [ngClass]="ngClassBox(option2Flg)"></i> Meet People
                 </div>
@@ -21,7 +21,7 @@
                     <i class="fa fa-user"></i> Option to meet someone any time, any place for a quick coffee date.
                 </div>
             </div>
-            <div class="main-option" (mousedown)="option3Flg = !option3Flg">
+            <div *ngIf="0" class="main-option" (mousedown)="option3Flg = !option3Flg">
                 <div class="main-item">
                     <i [ngClass]="ngClassBox(option3Flg)"></i> Make Money
                 </div>

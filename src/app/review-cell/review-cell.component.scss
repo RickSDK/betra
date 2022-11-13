@@ -1,0 +1,30 @@
+.profile-big {
+    width: 60px;
+    height: 88px;
+    border-radius: 5px;
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px gray;
+}
+.profile-big:hover {
+    box-shadow: 2px 2px 10px black;
+}
+.profile-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px gray;
+}
+.profile-circle:hover {
+    box-shadow: 2px 2px 10px black;
+}
+.betra-cell {
+    background-color: #eee; 
+    border-radius: 5px; 
+    padding: 5px; 
+    text-align: left;
+    border: 1px solid transparent;
+    margin: 2px;
+}

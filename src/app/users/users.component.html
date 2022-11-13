@@ -1,7 +1,7 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Users'" [headerObj]="headerObj">
 
-    <div *ngFor="let player of playerlist" class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
+    <div [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" *ngFor="let player of playerlist" class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
         <img [src]="player.imgSrc" alt="profile pic" class="small-image">
         <div style="text-align: center; font-size: 16px;"><b>{{player.firstName}}</b></div>
         <div style="text-align: center;"><i *ngIf="player.emailVerifyFlg" class="fa fa-check"

@@ -1,0 +1,9 @@
+.profile-circle {
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px gray;
+}
+.profile-circle:hover {
+    box-shadow: 2px 2px 10px black;
+}

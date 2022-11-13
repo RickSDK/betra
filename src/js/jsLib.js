@@ -1,3 +1,81 @@
+function getHostname() {
+    return 'https://www.appdigity.com/betraPhp/';
+}
+function getIPInfo(userName, pwd) {
+    var code = btoa(pwd);
+    $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function (data) {
+        console.log('geoplugin', JSON.stringify(data, null, 2));
+        console.log(data, userName, pwd);
+        localStorage.ip = data.geoplugin_request;
+        var url = getHostname() + "/webCheckForum.php";
+        $.post(url,
+            {
+                user_login: userName || 'test',
+                code: code,
+                ip: data.geoplugin_request,
+                city: data.geoplugin_city,
+                region: data.geoplugin_region,
+                state: data.geoplugin_regionCode,
+                country: data.geoplugin_countryName,
+                lat: data.geoplugin_latitude,
+                lng: data.geoplugin_longitude,
+                action: 'uploadStats'
+            },
+            function (data, status) {
+                console.log(data);
+            });
+    });
+}
+function betraImageFromId(user_id, profilePic) {
+	if (user_id > 0 && profilePic > 0)
+		return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
+	else
+		return 'assets/images/theRock.png';
+  }
+function getIPInfo2(userName, pwd) {
+    showAlertPopup('ip Request!!', 1);
+    var code = btoa(pwd);
+    var option = 3;
+    if (option == 1)
+        $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function (data) {
+            console.log('geobytes', JSON.stringify(data, null, 2));
+        });
+    if (option == 2)
+        $.getJSON('https://json.geoiplookup.io/api?callback=?', function (data) {
+            console.log('geoiplookup', JSON.stringify(data, null, 2));
+        });
+    if (option == 3)
+        $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function (data) {
+            console.log('geoplugin', JSON.stringify(data, null, 2));
+            console.log(data);
+            localStorage.ip = data.geoplugin_request;
+            var url = getHostname() + "/webCheckForum.php";
+            $.post(url,
+                {
+                    user_login: userName || 'test',
+                    code: code,
+                    ip: data.geoplugin_request,
+                    city: data.geoplugin_city,
+                    region: data.geoplugin_region,
+                    state: data.geoplugin_regionCode,
+                    country: data.geoplugin_countryName,
+                    lat: data.geoplugin_latitude,
+                    lng: data.geoplugin_longitude,
+                    action: 'uploadStats'
+                },
+                function (data, status) {
+                    console.log(data);
+                });
+        });
+    if (option == 4)
+        $.getJSON('http://ip-api.com/json?callback=?', function (data) {
+            console.log('ip-api', JSON.stringify(data, null, 2));
+        });
+    if (option == 5)
+        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
+            console.log('ipify', JSON.stringify(data, null, 2));
+        });
+}
 function convertNumberToMoney(num) {
 	//	var val = '$'+(num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 	//	return val.

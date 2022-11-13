@@ -24,16 +24,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public exceededPoolSizeFlg: boolean = false;
   public showMatchLevelInfoFlg: boolean = false;
 
-  public levels = [
-    'one person likes',
-    'match made',
-    'question asked',
-    'question replied',
-    '2nd question replied',
-    'Exchanged info',
-    'Exchanged picture',
-    'Went on date'
-  ]
+
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -52,7 +43,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.pageTitle = 'Admirers';
         this.browseSingles('getMyAdmirers');
       } else if (this.id == 5) {
-        this.pageTitle = 'Online Now';
+        this.pageTitle = 'Online Today';
         this.browseSingles('getOnlineSingles');
       } else {
         this.pageTitle = 'Browse';
@@ -91,11 +82,17 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['notifications'] = responseJson.notifications;
+      localStorage['matchesAlerts'] = responseJson.matchesAlerts;
       this.headerObj.admirerCount = responseJson.admirerCount;
+      this.headerObj.matchesAlerts = responseJson.matchesAlerts;
       this.notifications = responseJson.notifications;
       if (this.uid == 0) {
-        this.currentProfileIndex++;
-        this.showCurrentProfile();
+        if (this.id == 4 && responseJson.action == "yesToMatch") {
+          this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
+        } else {
+          this.currentProfileIndex++;
+          this.showCurrentProfile();
+        }
       }
     }
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers') {

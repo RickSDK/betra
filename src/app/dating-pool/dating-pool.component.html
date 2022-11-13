@@ -6,6 +6,15 @@
                 [src]="person.src" class="large-img" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="large-img" [title]="person.name">
             <div><i class="fa fa-heart red-text" *ngIf="person.heartFlg"></i> {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup></div>
+            <div *ngIf="person.match">
+                <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!</div>
+                <div *ngIf="person.match.match_date_request == 'Y'" class="big-flashy"><i class="fa fa-calendar"></i> Date Requested!</div>
+                <div *ngIf="person.match.you_date_request == 'M'" class="big-flashy"><i class="fa fa-calendar"></i> Date Modification!</div>
+                <div *ngIf="person.match.match_date_request == 'A' || person.match.you_date_request == 'A'" class="big-flashy"><i class="fa fa-calendar"></i> Upcoming Date!</div>
+                <div *ngIf="person.match.match_pic_request > 0" class="big-flashy"><i class="fa fa-picture-o"></i> Pic Requested!</div>
+                <div *ngIf="person.match.you_info_request == 'Y'" class="big-flashy"><i class="fa fa-info-circle"></i> Info Requested!</div>
+                <div *ngIf="person.match.unreadMessages > 0" class="big-flashy"><i class="fa fa-comment"></i> New messages!</div>
+            </div>
         </div>
     </div>
     <div *ngIf="!largeFlg">
@@ -13,9 +22,10 @@
             <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
                 [src]="person.src" class="snapshot-img" [style.border]="person.heartFlg?'2px solid red':'none'" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2" [title]="person.name">
+            <div style="font-size: 7px; color: gray;">{{person.name}}</div>
         </div>
     </div>
-    <div *ngIf="user.datingPool.length>8" style="color: red;">
+    <div *ngIf="user.datingPool.length>8" style="color: #900; font-size: 12px;">
         <i class="fa fa-exclamation-triangle"></i> You are over your limit! Please remove someone from your dating pool.
     </div>
 </div>

@@ -15,9 +15,12 @@ export class GreenCheckComponent implements OnInit {
   @Input('cannabis') cannabis: string = '';
   @Input('drinks') drinks: string = '';
 
+  public labelText: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
+    this.labelText = this.label + ': ' + this.text1;
   }
   ngClassText() {
     if (!this.text1 || this.label.length + this.text1.length <= 15)

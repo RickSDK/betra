@@ -69,6 +69,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.headerObj.messageCount = localStorage['messageCount'];
       this.router.navigate([''], { queryParams: { 'login': '0' } });
     }
+    if (value == 'logout')
+      this.logoutUser();
   }
   override loginClicked(action: string) {
     console.log('login clicked!');
@@ -79,31 +81,11 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.popupNum = 2;
 
   }
-  logUser() {
-    var uid = localStorage['user_id'];
-    var email = localStorage['email'];
-    var code = localStorage['code'];
 
-    if (uid > 0 && email && code) {
-      var params = {
-        userId: localStorage['user_id'],
-        email: localStorage['email'],
-        code: localStorage['code'],
-        action: 'logUser'
-      };
-      this.executeApi('appApiCode.php', params, true);
-    }
-  }
+
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == "logUser") {
-      this.notifications = responseJson.infoObj.notifications;
-      this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
-      this.headerObj.messageCount = responseJson.infoObj.messageCount;
-      localStorage['notifications'] = this.notifications;
-      localStorage['admirerCount'] = this.headerObj.admirerCount;
-      localStorage['messageCount'] = this.headerObj.messageCount;
-      if (responseJson.infoObj.refreshFlg == 'Y')
-        this.refreshUserObj(responseJson.user);
+      this.syncUserWithLocalStorage(responseJson);
     }
   }
 

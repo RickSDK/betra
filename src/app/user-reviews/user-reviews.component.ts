@@ -26,9 +26,14 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
   }
   openReviewPanel() {
     this.showReviewsFlg = !this.showReviewsFlg;
+    this.showDetailsFlg = false;
     this.reviewText = '';
     if (this.showReviewsFlg)
       this.processAPIRequest('getReviews');
+  }
+  cancelReview() {
+    this.showDetailsFlg = false;
+    this.showReviewsFlg = false;
   }
   writeReview() {
     this.showReviewsFlg = false;

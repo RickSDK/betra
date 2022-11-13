@@ -1,0 +1,48 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Documentation'" [headerObj]="headerObj">
+
+    <div class="matches-card" style="text-align: left;">
+
+
+        <div class="tan-box">
+            <div><b>MATCHES.match_level</b></div>
+            <div style="text-align: left;">0 = no connection</div>
+
+            <ol style="text-align: left;">
+                <li *ngFor="let level of levels">{{level}}</li>
+            </ol>
+            <div>New match: newMatchFlg = 'Y'</div>
+        </div>
+        <div class="tan-box">
+            <div><b>Request Pic</b></div>
+            <div>request: user1_pic_request = number</div>
+            <hr>
+            <div>accept: user1_pic_request = 0</div>
+            <div>reject: user1_pic_request = -1</div>
+        </div>
+        <div class="tan-box">
+            <div><b>Request Date</b></div>
+            <div>user1_date_request = 'Y'</div>
+            <hr>
+            <div>accept: user1_date_request = 'A'</div>
+            <div>reject: user1_date_request = 'X'</div>
+            <div>modify: user1_date_request = 'M'</div>
+            <div>cancel: user1_date_request = 'C'</div>
+        </div>
+        <div class="tan-box">
+            <div><b>Request Info</b></div>
+            <div>user1_request_info = 'Y'</div>
+            <hr>
+            <div>accept: user1_request_info = 'A'</div>
+            <div>reject: user1_request_info = 'X'</div>
+        </div>
+        <div class="tan-box">
+            <div><b>New messages</b></div>
+            <div>readDt is null</div>
+            <hr>
+
+        </div>
+        
+
+    </div>
+
+</app-page-shell>

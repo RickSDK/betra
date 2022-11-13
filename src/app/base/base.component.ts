@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../classes/user';
 
 declare var $: any;
+declare var betraImageFromId: any;
+declare var getDateObjFromJSDate: any;
 
 @Component({
   selector: 'app-base',
@@ -25,24 +27,39 @@ export class BaseComponent implements OnInit {
   public responseJson: any = null;
   public userStatus: string = '';
   public notifications: number = 0;
-  public headerObj:any = {userId: 0, imgSrcFile: this.imgSrcFile, pageTitle: '', profileCompleteFlg: false, 
-  notifications: localStorage['notifications'] || 0, admirerCount: localStorage['admirerCount'] || 0};
+  public headerObj: any = {
+    userId: 0, imgSrcFile: this.imgSrcFile, pageTitle: '', 
+    profileCompleteFlg: false,
+    notifications: localStorage['notifications'] || 0, 
+    admirerCount: localStorage['admirerCount'] || 0,
+    matchesAlerts: localStorage['matchesAlerts'] || 0
+  };
 
   constructor() { }
 
   ngOnInit(): void {
+    if (!localStorage['code']) {
+      this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
+    }
     this.loadUserObj();
     this.notifications = localStorage['notifications'];
 
   }
   refreshUserObj(userObj: any) {
-    if(userObj && userObj.user_id > 0) {
+    if (userObj && userObj.user_id > 0) {
       localStorage['User'] = JSON.stringify(userObj);
       this.user = new User(userObj);
-      console.log('user refreshed!', this.user);  
+      console.log('user refreshed!', this.user);
     } else {
       console.log('invalid object sent to refresh!!!');
     }
+  }
+  betraImageFromId(user_id: number, profilePic: number) {
+    return betraImageFromId(user_id, profilePic);
+  }
+  localDateFrommySqlDate(dt: string) {
+    var dtObj = getDateObjFromJSDate(dt);
+    return dtObj.localDate;
   }
   loadUserObj() {
     this.user = null;
@@ -57,11 +74,40 @@ export class BaseComponent implements OnInit {
       this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
       this.headerObj.messageCount = localStorage['messageCount'];
       this.headerObj.admirerCount = localStorage['admirerCount'];
-      this.popupNum = (this.user.status == 'Active')?0:3;
-      console.log('user', this.user);
+      this.headerObj.matchesAlerts = localStorage['matchesAlerts'];
+      this.popupNum = (this.user.status == 'Active') ? 0 : 3;
+      console.log('loadUserObjUser', this.user);
     }
- }
+  }
+  syncUserWithLocalStorage(responseJson: any) {
+    console.log('xxx user synced with database xxx', responseJson);
+    this.notifications = responseJson.infoObj.notifications;
+    this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
+    this.headerObj.messageCount = responseJson.infoObj.messageCount;
+    this.headerObj.matchesAlerts = responseJson.infoObj.matchesAlerts
+    localStorage['notifications'] = this.notifications;
+    localStorage['admirerCount'] = this.headerObj.admirerCount;
+    localStorage['messageCount'] = this.headerObj.messageCount;
+    localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
+    if (responseJson.infoObj.refreshFlg == 'Y')
+      this.refreshUserObj(responseJson.user);
+  }
 
+  logUser() {
+    var uid = localStorage['user_id'];
+    var email = localStorage['email'];
+    var code = localStorage['code'];
+
+    if (uid > 0 && email && code) {
+      var params = {
+        userId: localStorage['user_id'],
+        email: localStorage['email'],
+        code: localStorage['code'],
+        action: 'logUser'
+      };
+      this.executeApi('appApiCode.php', params, true);
+    }
+  }
   loginClicked(event: any) {
     console.log('loginClicked!!', event);
     if (!event)

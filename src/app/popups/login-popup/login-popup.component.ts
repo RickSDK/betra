@@ -37,6 +37,8 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     localStorage['messageCount'] = responseJson.infoObj.messageCount;
     localStorage['notifications'] = responseJson.notifications;
     localStorage['User'] = JSON.stringify(responseJson.user);
+
+    this.syncUserWithLocalStorage(responseJson);
     this.messageEvent.emit('login');
   }
 

@@ -14,6 +14,7 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
     { name: 'Dates Requested', amount: 0, desc: 'Someone has requested a date!' },
     { name: 'Messages Received', amount: 0, desc: 'You have received new messages!' },
     { name: 'Info Requested', amount: 0, desc: 'Someone has requested your info!' },
+    { name: 'Picture Requested', amount: 0, desc: 'Someone has requested your picture!' },
   ]
 
   constructor() { super(); }
@@ -38,7 +39,13 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
 
       this.notificationsTypes[0].amount = responseJson.infoObj.admirerCount;
       this.notificationsTypes[1].amount = responseJson.infoObj.users_matched;
+      this.notificationsTypes[3].amount = responseJson.infoObj.dateRequestCount;
       this.notificationsTypes[4].amount = responseJson.infoObj.messageCount;
+      this.notificationsTypes[5].amount = responseJson.infoObj.infoRequestCount;
+      this.notificationsTypes[6].amount = responseJson.infoObj.picRequestCount;
+      
+      
+      
     }
   }
 

@@ -1,0 +1,19 @@
+<table width="100%">
+    <tr>
+        <td align="left" width="70">
+            <img [routerLink]="['/user-detail']" [queryParams]="{uid: review.user_id}" [src]="review.src2" class="profile-big">
+        </td>
+        <td align="left">
+            <div class="betra-cell">
+                <div>
+                    <img [routerLink]="['/user-detail']" [queryParams]="{uid: review.uid}" [src]="review.src" class="profile-circle"> {{review.firstName}}
+                    &nbsp;<span style="font-size: 10px; color: #c6a009;">{{review.localDt}}</span>
+                    <i *ngIf="review.rating==1" class="fa fa-thumbs-o-up" style="color: green; font-weight: 700; float: right;" title="Thumbs up"></i>
+                    <i *ngIf="review.rating==2" class="fa fa-thumbs-o-down" style="color: #700; font-weight: 700; float: right;" title="Thumbs down"></i>    
+                </div>
+                <div class="gray-text">{{review.message}}</div>   
+    
+            </div>
+        </td>
+    </tr>
+</table>

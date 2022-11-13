@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 declare var $: any;
+declare var getIPInfo: any;
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +27,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
   public smokingOptions = ['Yes', 'No'];
-  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'Asian-Indian','Other'];
+  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'Asian-Indian', 'Other'];
 
   public code: string = localStorage['code'];
   public email: string = localStorage['email'];
@@ -54,15 +55,45 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   override ngOnInit(): void {
-    if (!this.code) {
-      this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
-    }
     super.ngOnInit();
     this.changesMadeFlg = false;
     this.loadQuizAnswers();
     this.loadTestAnswers();
-
+    this.checkIPAddress();
+      //getIPInfo('test', 'test');
     //this.refreshUser();
+  }
+  checkIPAddress() {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      action: "checkIPAddress"
+    };
+    this.executeApi('appApiCode.php', params, true);
+  }
+  populateGeoInfo() {
+    console.log('populateGeoInfo');
+    $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', (data: any) => {
+      var params = {
+        userId: localStorage['user_id'],
+        code: localStorage['code'],
+        city: data.geoplugin_city,
+        continentName: data.geoplugin_continentName,
+        countryCode: data.geoplugin_countryCode,
+        countryName: data.geoplugin_countryName,
+        currencyCode: data.geoplugin_currencyCode,
+        currencySymbol: data.geoplugin_currencySymbol,
+        latitude: data.geoplugin_latitude,
+        longitude: data.geoplugin_longitude,
+        region: data.geoplugin_region,
+        state: data.geoplugin_regionCode,
+        stateName: data.geoplugin_regionName,
+        ip: data.geoplugin_request,
+        action: "updateGeoInfo"
+      };
+      console.log('params', params);
+      this.executeApi('appApiCode.php', params, true);
+    });
   }
   loadQuizAnswers() {
     if (this.user.personalityQuizAnswers) {
@@ -218,21 +249,30 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
-    if (file == 'login.php') {
+    if (responseJson.action == 'login') {
       localStorage['User'] = JSON.stringify(responseJson.user);
       this.loadUserObj();
       this.imgSrc = '';
       console.log('xxx', this.imgSrc);
     }
-    if (file == 'appApiCode.php') {
+    if(responseJson.action == 'updateMainImage') {
+      this.user.profileFlags[this.menuNum] = true;
+      console.log('pic uploaded!');
+      this.menuNum++;
+      if (this.menuNum == 6 && !this.user.findLoveFlg)
+        this.menuNum = 8;
+    }
+    if (responseJson.action == 'activate' || responseJson.action == 'updateProfile' || responseJson.action == 'sendEmailCode') {
       this.apiSuccessFlg = true;
       this.changesMadeFlg = false;
       if (responseJson.action != "sendEmailCode") {
         this.menuNum++;
-        if (this.menuNum == 6 && !this.user.findLoveFlg)
-          this.menuNum = 8;
         this.refreshUser();
       }
+    }
+    if (responseJson.action == 'checkIPAddress') {
+      if (!responseJson.ip)
+        this.populateGeoInfo();
     }
   }
   selectMenu(num: number) {

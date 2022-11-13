@@ -38,6 +38,15 @@ body {
     border-radius: 5px;
     box-shadow: 1px 1px 10px gray;
 }
+.hyper-link {
+    text-align: center;
+    cursor: pointer;
+    padding-top: 10px;
+}
+
+.hyper-link:hover {
+    text-decoration: underline;
+}
 .dark-blue-box {
     background-color: $dark-blue;
     color: white;
@@ -65,6 +74,7 @@ body {
     border-radius: 5px;
     font-weight: 700;;
     padding: 10px;
+    box-shadow: 2px 2px 7px gray;
 }
 .matches-card {
     display: inline-block;
@@ -75,6 +85,16 @@ body {
     padding: 10px;
     width: 100%;
     max-width: 500px;
+}
+.border-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+.purple-text {
+    font-size: 10px; 
+    text-align: center; 
+    color: #88c;
 }
 .profile-image {
     width: 175px;

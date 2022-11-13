@@ -1,8 +1,36 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId" [imgSrcFile]="imgSrcFile"
- [headerObj]="headerObj">
-
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
     <div class="matches-card" *ngIf="user">
-        <div>No Journal entries at this time.</div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <button *ngIf="postId==0" (mousedown)="createNewEntry()"
+            class="btn btn-light bordered-button">Create journal entry</button>
+        <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
+            to top</button>
+ 
+        <div *ngIf="!selectedJournal">
+            <app-journal-cell (messageEvent)="replyButtonClicked($event)"
+                *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i"  [postId]="postId"></app-journal-cell>
+        </div>
+        <div *ngIf="selectedJournal">
+            <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId">
+            </app-journal-cell>
+        </div>
+
+        <div *ngIf="showFormFlg">
+            <div *ngIf="postId==0" class="gray-text">Create a journal entry about any aspect of your dating life.
+                Just keep in mind all users are free the read your journal and offer comments and advice.</div>
+            <div *ngIf="postId>0" class="gray-text">Reply with your best encouragement, advice, suggestions or
+                encouragement. Please nothing disrespectful.</div>
+            <app-text-area-input [id]="'journalText'"></app-text-area-input>
+            <div>
+                <button (mousedown)="cancelButtonPressed()" class="btn btn-warning">Cancel</button>&nbsp;
+                <button *ngIf="postId==0" (mousedown)="submitButtonPressed()"
+                    class="btn btn-primary">Submit</button>
+                <button *ngIf="postId>0" (mousedown)="replyButtonPressed()"
+                    class="btn btn-primary">Reply</button> 
+            </div>
+        </div>
+
     </div>
 
 </app-page-shell>

@@ -11,6 +11,8 @@ import { JournalComponent } from './journal/journal.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { SettingsComponent } from './settings/settings.component';
 import { MessagesComponent } from './messages/messages.component';
+import { TopListsComponent } from './top-lists/top-lists.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'user-detail', component: UserDetailComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'messages', component: MessagesComponent },
+  { path: 'top-lists', component: TopListsComponent },
+  { path: 'documentation', component: DocumentationComponent },
 ];
 
 @NgModule({

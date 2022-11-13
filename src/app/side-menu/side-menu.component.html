@@ -4,8 +4,8 @@
         <div *ngIf="item.id>0" [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}"
             [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
             {{item.name}}
-            <span *ngIf="item.id==4 && admirerCount>0" class="red-circle">{{admirerCount}}</span>
-            <span *ngIf="item.id==3 && matchCount>0" class="red-circle">{{matchCount}}</span>
+            <span *ngIf="item.id==3 && headerObj && headerObj.matchesAlerts>0" class="red-circle">{{headerObj.matchesAlerts}}</span>
+            <span *ngIf="item.id==4 && headerObj && headerObj.admirerCount>0" class="red-circle">{{headerObj.admirerCount}}</span>
         </div>
         <div *ngIf="item.id==0" [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i
                 [class]="item.icon"></i> &nbsp;

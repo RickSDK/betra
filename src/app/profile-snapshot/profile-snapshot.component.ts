@@ -38,5 +38,4 @@ export class ProfileSnapshotComponent implements OnInit {
     else
       return 'standard-card';
   }
-
 }

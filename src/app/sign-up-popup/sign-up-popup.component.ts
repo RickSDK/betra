@@ -12,7 +12,7 @@ declare var getDateObjFromJSDate: any;
 export class SignUpPopupComponent extends BaseComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
 
-  public option1Flg: boolean = false;
+  public option1Flg: boolean = true;
   public option2Flg: boolean = false;
   public option3Flg: boolean = false;
   public submitFlg: boolean = false;

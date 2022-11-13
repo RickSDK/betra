@@ -37,6 +37,13 @@ import { MessageInputComponent } from './input/message-input/message-input.compo
 import { UserRequestInfoComponent } from './user-request-info/user-request-info.component';
 import { UserReviewsComponent } from './user-reviews/user-reviews.component';
 import { TextAreaInputComponent } from './input/text-area-input/text-area-input.component';
+import { ReviewCellComponent } from './review-cell/review-cell.component';
+import { JournalCellComponent } from './journal-cell/journal-cell.component';
+import { TopListsComponent } from './top-lists/top-lists.component';
+import { ProfilePicComponent } from './profile-pic/profile-pic.component';
+import { TextInputComponent } from './input/text-input/text-input.component';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { DateLocalComponent } from './date-local/date-local.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +81,14 @@ import { TextAreaInputComponent } from './input/text-area-input/text-area-input.
     MessageInputComponent,
     UserRequestInfoComponent,
     UserReviewsComponent,
-    TextAreaInputComponent
+    TextAreaInputComponent,
+    ReviewCellComponent,
+    JournalCellComponent,
+    TopListsComponent,
+    ProfilePicComponent,
+    TextInputComponent,
+    DocumentationComponent,
+    DateLocalComponent
   ],
   imports: [
     BrowserModule,

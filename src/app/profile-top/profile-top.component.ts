@@ -13,10 +13,12 @@ export class ProfileTopComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
   public largeImageFlg: boolean = false;
+  public lookingForTitle: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
+    this.lookingForTitle = this.user.maritalStatus + ' ' + this.user.genderName + ' ' + 'looking for ' + this.user.matchGender;
   }
   cancelMatches() {
     this.messageEvent.emit('cancel');

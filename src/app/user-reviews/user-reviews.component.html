@@ -1,19 +1,13 @@
-<div class="match-card" *ngIf="myUser && matchUser && matchUser.matchObj">
-    <div class="gray-title" style="position: relative;"> User reviews
+<div class="match-card" *ngIf="myUser && matchUser">
+    <div class="gray-title" style="position: relative;"> User reviews <sup>{{matchUser.reviewsCount}}</sup>
         <i (mousedown)="openReviewPanel()" class="fa fa-chevron-circle-right more-options"></i>
     </div>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="showReviewsFlg">
-        <button *ngIf="matchUser.matchObj.match_level>=4" (mousedown)="writeReview()" class="btn btn-primary">Write Review</button>
+        <button *ngIf="matchUser.matchObj && matchUser.matchObj.match_level>=4" (mousedown)="writeReview()" class="btn btn-light bordered-button">Write a date review</button>
         <div>&nbsp;</div>
         <div *ngIf="reviewList.length==0 && !loadingFlg">No reviews yet.</div>
-        <div *ngFor="let review of reviewList" style="text-align: left;">
-            <img [src]="review.src" height="40" align="left" style="padding-right: 5px;">
-            <i *ngIf="review.rating==1" class="fa fa-thumbs-o-up" style="color: blue; font-weight: 700;"></i>
-            <i *ngIf="review.rating==2" class="fa fa-thumbs-o-down" style="color: blue; font-weight: 700;"></i>
-            : {{review.message}}
-            <div><b>- {{review.firstName}}</b></div>
-        </div>
+        <app-review-cell *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i"></app-review-cell>
     </div>
     <div *ngIf="showDetailsFlg" class="small-box">
         <div><b>Write a review</b></div>
@@ -27,7 +21,7 @@
 
 
         <div *ngIf="experienceRating>0">
-            <div class="gray-text">Describe your expierence meeting {{matchUser.firstName}}. Please do not be too
+            <div class="gray-text" style="text-align: left;">Describe your expierence meeting {{matchUser.firstName}}. Please do not be too
                 critical
                 in your review,
                 and do not give out any sensitive, personal or embarassing details about the person. Simply mention one
@@ -38,9 +32,10 @@
 
             <app-text-area-input [id]="'reviewText'" [value]="reviewText"></app-text-area-input>
             <div>
+                <button (mousedown)="cancelReview()" class="btn btn-warning">Cancel</button>&nbsp;
                 <button (mousedown)="submitButtonPressed()" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
-    <div style="font-size: 10px; text-align: center; color: gray;">You must be intimacy level 2 to see reviews and level 4 to write reviews.</div>
+    <div *ngIf="myUser.user_id != matchUser.user_id && matchUser.matchObj && matchUser.matchObj.match_level < 4" class="purple-text">You must be intimacy level 2 to see reviews and level 4 to write reviews.</div>
 </div>

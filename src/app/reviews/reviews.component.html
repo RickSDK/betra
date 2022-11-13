@@ -2,7 +2,10 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
 
     <div class="matches-card" *ngIf="user">
-        <div>No Reviews at this time.</div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="reviewList.length==0">No Reviews at this time.</div>
+
+        <app-review-cell *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i"></app-review-cell>
     </div>
 
 </app-page-shell>
