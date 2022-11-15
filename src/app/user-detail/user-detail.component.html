@@ -2,7 +2,6 @@
     [pageTitle]="pageTitle" [headerObj]="headerObj" [notifications]="notifications">
 
     <div class="matches-card" *ngIf="user && !matchUser">
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngIf="exceededPoolSizeFlg">
             <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
             <p>Note: You are over your limit in your dating pool. Please drop someone.</p>
@@ -49,13 +48,25 @@
     </div>
 
     <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
-        [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true">
+        [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true" [singleProfileFlg]="uid>0">
     </app-match-snapshot>
 
-    <app-user-reviews *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=2" [myUser]="user" [matchUser]="matchUser"></app-user-reviews>
+    <div *ngIf="matchUser && matchUser.matchObj">
 
-    <app-user-communication [myUser]="user" [matchUser]="matchUser" *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=2">
-    </app-user-communication>
+        <app-user-reviews *ngIf="matchUser.matchObj.match_level >= 2" [myUser]="user" [matchUser]="matchUser">
+        </app-user-reviews>
+
+        <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
+        </app-user-private-pics>
+
+        <app-user-request-info *ngIf="matchUser.matchObj.match_level>=5" [myUser]="user" [matchUser]="matchUser">
+        </app-user-request-info>
+
+        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2" [myUser]="user" [matchUser]="matchUser">
+        </app-user-communication>
+
+    </div>
+
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

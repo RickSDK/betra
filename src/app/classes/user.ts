@@ -122,7 +122,8 @@ export class User {
             this.gender = obj.gender;
             this.genderIcon = (obj.gender == 'M') ? 'fa fa-male' : 'fa fa-female';
             this.genderName = (obj.gender == 'M') ? 'male' : 'female';
-            this.findLoveFlg = obj.findLoveFlg == 'Y';
+            //this.findLoveFlg = obj.findLoveFlg == 'Y';
+            this.findLoveFlg = true; // always true for this version
             this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
             this.makeMoneyFlg = obj.makeMoneyFlg == 'Y';
             this.profilePic = obj.profilePic;
@@ -370,9 +371,9 @@ export class User {
 
 
         //----Basics
-        var basicsFlg = !!(this.firstName && this.zipcode && this.gender);
-        if (basicsFlg && this.findLoveFlg && !this.matchPreference)
-            basicsFlg = false;
+        var basicsFlg = !!(this.firstName && this.zipcode && this.gender && this.matchPreference && this.phone);
+        //if (basicsFlg && this.findLoveFlg && !this.matchPreference)
+          //  basicsFlg = false;
 
         //----Details
         var detailsFlg = true;

@@ -1,0 +1,11 @@
+<div>
+<div *ngIf="dateObj" style="display: inline-block; border: 1px solid #ccc; border-radius: 5px; padding: 5px; margin: 5px;">
+    <div><i class="fa fa-calendar" style="font-size: 32px;"></i></div>
+    <app-date-local [date]="dateObj.eventDate" [time]="dateObj.eventTime">
+    </app-date-local>
+    <div>{{dateObj.location}}</div>
+    <div>{{dateObj.address}}</div>
+    <div>{{dateObj.city}}, {{dateObj.state}}
+        {{dateObj.zip}}</div>
+</div>
+</div>

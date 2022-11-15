@@ -100,10 +100,10 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     }
     this.playerList = [];
     if (responseJson.action == 'refreshDatingPool') {
-      console.log('xxx', responseJson);
-     this.refreshUserObj(responseJson.user);
-     this.updateMatches();
-     this.logUser();
+      console.log('xxxrefreshDatingPool', responseJson);
+      this.refreshUserObj(responseJson.user);
+      this.updateMatches();
+      this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {
       responseJson.playerList.forEach((element: { [x: string]: string; name: any; }) => {
@@ -118,8 +118,23 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   updateMatches() {
     this.user.datingPool.forEach((element: any) => {
       this.responseJson.matches.forEach((match: any) => {
-        if(match.uid == element.user_id) {
+        if (match.uid == element.user_id) {
           element.match = match;
+          console.log('+++M!+++', match);
+          var alerts = 0;
+          if (match.newMatchFlg == 'Y')
+            alerts++;
+          if (match.unreadMessages > 0)
+            alerts++;
+          if (match.you_date_request == 'M' || match.match_date_request == 'M' || match.match_date_request == 'A' || match.match_date_request == 'Y' || match.you_date_request == 'Y')
+            alerts++;
+          if (match.match_pic_request > 0)
+            alerts++;
+          if (match.you_info_request == 'Y')
+            alerts++;
+          if (match.newPics > 0)
+            alerts++;
+          element.alerts = alerts;
         }
       });
     });

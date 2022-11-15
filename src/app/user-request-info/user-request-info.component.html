@@ -1,180 +1,48 @@
-<div class="match-card" *ngIf="myUser && matchUser && matchUser.matchObj">
+<div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
+    <div class="gray-title" style="position: relative;"> <i class="fa fa-smile-o"></i> Requests
+        <i (mousedown)="openPanel()"
+            [ngClass]="openPanelFlg?'fa fa-chevron-circle-down more-options':'fa fa-chevron-circle-right more-options'"></i>
+    </div>
 
-    <div
-        *ngIf="matchUser.matchObj.match_date_request != 'M' && matchUser.matchObj.you_date_request != 'Y' && matchUser.matchObj.you_pic_request <= 0">
-        <button (mousedown)=changeNum(1) class="btn btn-primary">
-            <div style="font-size: 10px;">Request</div><i class="fa fa-phone"></i> Info
+    <div *ngIf="openPanelFlg" style="padding-bottom: 10px;">&nbsp;
+        <button (mousedown)=changeNum(1) [ngClass]="requestNum==1?'btn btn-warning request':'btn btn-primary request'"
+            [disabled]="buttonsDisabledFlg">
+            <div style="font-size: 20px;"><i class="fa fa-phone"></i></div>
+            <div style="font-size: 10px;">Info</div>
         </button>&nbsp;
-        <button (mousedown)=changeNum(2) class="btn btn-primary">
-            <div style="font-size: 10px;">Request</div><i class="fa fa-coffee"></i> Date
+        <button (mousedown)=changeNum(2) [ngClass]="requestNum==2?'btn btn-warning request':'btn btn-primary request'"
+            [disabled]="buttonsDisabledFlg">
+            <div style="font-size: 20px;"><i class="fa fa-coffee"></i></div>
+            <div style="font-size: 10px;">Date</div>
         </button>&nbsp;
-        <button (mousedown)=changeNum(3) class="btn btn-primary">
-            <div style="font-size: 10px;">Request</div><i class="fa fa-picture-o"></i> Picture
+        <button (mousedown)=changeNum(3) [ngClass]="requestNum==3?'btn btn-warning request':'btn btn-primary request'"
+            [disabled]="buttonsDisabledFlg">
+            <div style="font-size: 20px;"><i class="fa fa-picture-o"></i></div>
+            <div style="font-size: 10px;">Picture</div>
         </button>&nbsp;
     </div>
+
+    <app-user-request-date [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
+        (messageEvent)="dateTriggered($event)"></app-user-request-date>
+    <app-user-request-pic [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
+        (messageEvent)="picUploadTriggered($event)"></app-user-request-pic>
+
+
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-    <div *ngIf="matchUser.matchObj.match_date_request == 'M' && matchUser.matchObj.dateObj" class="tan-box">
-        <div>You have a date modification request from {{matchUser.firstName}}:
-            <span
-                style="background-color: #cef; padding: 5px; border-radius: 5px;">"{{matchUser.matchObj.dateObj.comment}}"</span>
-        </div>
-
-        <div *ngIf="!loadingFlg && !dateMessageSentFlg">
-            <table width="100%" *ngIf="matchUser.matchObj.dateObj">
-                <tr>
-                    <td>
-                        <div class="tiny-text">Date</div>
-                        <input type="date" id="date" name="date" [value]="matchUser.matchObj.dateObj.eventDate">
-                    </td>
-                    <td>
-                        <div class="tiny-text">Time</div>
-                        <input type="time" id="time" name="time" [value]="matchUser.matchObj.dateObj.eventTime">
-                    </td>
-                </tr>
-            </table>
-            <div>
-                <div class="tiny-text">Location</div>
-                <app-text-input [placeHolder]="'Location'" [maxLength]="30" [id]="'location'"
-                    [highlightFlg]="!requestObj.location" [value]="matchUser.matchObj.dateObj.location">
-                </app-text-input>
-            </div>
-            <div>
-                <div class="tiny-text">Address</div>
-                <app-text-input [placeHolder]="'Address'" [maxLength]="60" [id]="'address'"
-                    [highlightFlg]="!requestObj.address" [value]="matchUser.matchObj.dateObj.address"></app-text-input>
-            </div>
-            <table width="100%">
-                <tr>
-                    <td>
-                        <div class="tiny-text">City</div>
-                        <app-text-input [placeHolder]="'City'" [maxLength]="20" [id]="'city'"
-                            [highlightFlg]="!requestObj.city" [value]="matchUser.matchObj.dateObj.city">
-                        </app-text-input>
-                    </td>
-                    <td>
-                        <div class="tiny-text">State</div>
-                        <app-text-input [placeHolder]="'State'" [maxLength]="2" [id]="'state'"
-                            [highlightFlg]="!requestObj.state" [value]="matchUser.matchObj.dateObj.state">
-                        </app-text-input>
-                    </td>
-                    <td>
-                        <div class="tiny-text">Zip</div>
-                        <app-text-input [placeHolder]="'Zip'" [maxLength]="5" [id]="'zip'"
-                            [highlightFlg]="!requestObj.zip" [value]="matchUser.matchObj.dateObj.zip">
-                        </app-text-input>
-                    </td>
-                </tr>
-            </table>
-            <div>&nbsp;</div>
-            <div>
-                <button (mousedown)="processRequestsRequest('cancelDate')" class="btn btn-danger">Cancel
-                    Date</button>&nbsp;
-                <button (mousedown)="sendDateRequest()" class="btn btn-success">Send Update</button>
-            </div>
-        </div>
-        <div *ngIf="!loadingFlg && dateMessageSentFlg">
-            Update sent!
-        </div>
 
 
-    </div>
-    <div *ngIf="matchUser.matchObj.you_date_request == 'A' || matchUser.matchObj.match_date_request == 'A' || matchUser.matchObj.match_date_request == 'C'" class="tan-box">
-        <div style="font-size: 32px;"><i class="fa fa-calendar"></i></div>
-        <div *ngIf="matchUser.matchObj.you_date_request == 'A'">You have an upcoming date with {{matchUser.firstName}}!</div>
-        <div *ngIf="matchUser.matchObj.you_date_request == 'C'">
-            <div>Your date with {{matchUser.firstName}} has been cancelled.</div>
-            <div *ngIf="matchUser.matchObj.dateObj" class="error-message">Reason: {{matchUser.matchObj.dateObj.comment}}</div>
-        </div>
-        <div *ngIf="matchUser.matchObj.dateObj && !dateMessageSentFlg">
-            <div
-                style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; display: inline-block; margin: 10px;">
-                <app-date-local [date]="matchUser.matchObj.dateObj.eventDate"
-                    [time]="matchUser.matchObj.dateObj.eventTime"></app-date-local>
-                <div>{{matchUser.matchObj.dateObj.location}}</div>
-                <div>{{matchUser.matchObj.dateObj.address}}</div>
-                <div>{{matchUser.matchObj.dateObj.city}}, {{matchUser.matchObj.dateObj.state}}
-                    {{matchUser.matchObj.dateObj.zip}}</div>
-            </div>
-            <div *ngIf="matchUser.matchObj.you_date_request == 'C' && matchUser.matchObj.dateObj.cancelledBy != this.user.user_id">
-                <button (mousedown)="processRequestsRequest('removeDate')" class="btn btn-primary">Remove from calendar</button>
-            </div>
-            <div *ngIf="!modifyFlg && matchUser.matchObj.you_date_request == 'A'">
-                <button (mousedown)="modifyFlg=true" class="btn btn-warning">cancel</button>&nbsp;
-            </div>
-            <div *ngIf="modifyFlg">
-                <div>Reason:</div>
-                <app-text-input [id]="'comment'" [maxLength]="200"></app-text-input>
-                <button (mousedown)="processRequestsRequest('cancelDate')" class="btn btn-danger">cancel date</button>&nbsp;
-            </div>
-        </div>
-        <div *ngIf="dateMessageSentFlg">Date Cancelled</div>
-
-    </div>
-    <div *ngIf="matchUser.matchObj.you_date_request == 'Y'" class="tan-box">
-        <div style="font-size: 32px;"><i class="fa fa-calendar"></i></div>
-        <div *ngIf="!dateMessageSentFlg">You have a new date request from {{matchUser.firstName}}!</div>
-        <div *ngIf="matchUser.matchObj.dateObj">
-            <div
-                style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; display: inline-block; margin: 10px;">
-                <app-date-local [date]="matchUser.matchObj.dateObj.eventDate"
-                    [time]="matchUser.matchObj.dateObj.eventTime"></app-date-local>
-                <div>{{matchUser.matchObj.dateObj.location}}</div>
-                <div>{{matchUser.matchObj.dateObj.address}}</div>
-                <div>{{matchUser.matchObj.dateObj.city}}, {{matchUser.matchObj.dateObj.state}}
-                    {{matchUser.matchObj.dateObj.zip}}</div>
-            </div>
-        </div>
-        <div *ngIf="!dateMessageSentFlg">
-            <div *ngIf="!loadingFlg && !modifyFlg && !declineDateFlg">
-                <button (mousedown)="declineDateFlg=true" class="btn btn-danger">Decline</button>&nbsp;
-                <button (mousedown)="modifyFlg=true" class="btn btn-warning">Modify</button>&nbsp;
-                <button (mousedown)="processRequestsRequest('acceptDate')" class="btn btn-success">Accept!</button>
-            </div>
-            <div *ngIf="!loadingFlg && declineDateFlg">
-                <div>What reason for declining?</div>
-                <app-text-input [id]="'comment'" [maxLength]="200"></app-text-input>
-                <button (mousedown)="declineDateFlg=false" class="btn btn-warning">cancel</button>&nbsp;
-                <button (mousedown)="processRequestsRequest('rejectDate')" class="btn btn-success">Send</button>
-            </div>
-            <div *ngIf="!loadingFlg && modifyFlg">
-                <div>What changes would you like to request?</div>
-                <app-text-input [id]="'comment'" [maxLength]="200"></app-text-input>
-                <button (mousedown)="modifyFlg=false" class="btn btn-warning">cancel</button>&nbsp;
-                <button (mousedown)="processRequestsRequest('modifyDate')" class="btn btn-success">Send</button>
-            </div>
-        </div>
-        <div *ngIf="dateMessageSentFlg">Message Sent</div>
-    </div>
-
-
-    <div *ngIf="matchUser.matchObj.you_pic_request > 0" class="tan-box">
-        <div style="font-size: 32px;"><i class="fa fa-picture-o"></i></div>
-        <p>You have a new picture request from {{matchUser.firstName}}!</p>
-        <div class="gray-text">{{matchUser.firstName}} has requested that you take and share a new
-            <b>"{{pictureTypes[matchUser.matchObj.you_pic_request].name}}"</b> photo. This should be a new photo taken
-            today, as opposed to an older photo.
-        </div>
-        <div *ngIf="!loadingFlg && !messageSentFlg && !takePicFlg">
-            <button (mousedown)="processRequestsRequest('rejectPic')" class="btn btn-danger">Decline</button>&nbsp;
-            <button (mousedown)="takePicFlg=true" class="btn btn-success">Accept!</button>
-        </div>
-        <div *ngIf="!loadingFlg && !messageSentFlg && takePicFlg">
-            <div>Select picture</div>
-        </div>
-        <div *ngIf="messageSentFlg">Message Sent</div>
-    </div>
-
-    <div class="tan-box" *ngIf="requestNum>0">
+    <div class="tan-box" *ngIf="requestNum==1">
         <div *ngIf="messageSentFlg">Message Sent.</div>
         <div *ngIf="requestNum==1">
-            <div class="red-text"><b>Request Info</b></div>
             <div *ngIf="matchUser.matchObj.you_info_request=='X'">Sorry, but {{matchUser.firstName}} has rejected your
                 request.</div>
-            <div *ngIf="matchUser.matchObj.you_info_request=='A'">Info has been delivered. Check your messages.</div>
+            <div *ngIf="matchUser.matchObj.you_info_request=='A'"><i class="fa fa-envelope"></i> Info has been
+                delivered. Check your messages.</div>
             <div *ngIf="!matchUser.matchObj.you_info_request" class="gray-text">If your request is accepted, you will
                 receive {{matchUser.firstName}}'s' email and
                 phone contact info.</div>
-            <div *ngIf="matchUser.matchObj.you_info_request == 'Y'">You have already requested info. Awaiting Reply.
+            <div *ngIf="matchUser.matchObj.you_info_request == 'Y'"><i class="fa fa-paper-plane"></i> You have already
+                requested info. Awaiting Reply.
             </div>
             <div *ngIf="!loadingFlg && !messageSentFlg && !matchUser.matchObj.you_info_request">
                 <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
@@ -183,100 +51,6 @@
                     Request</button>
             </div>
         </div>
-        <div *ngIf="requestNum==2 && !messageSentFlg">
-            <div class="red-text"><b>Request Date</b></div>
-            <div *ngIf="matchUser.matchObj.match_date_request=='X'">
-                <div>Sorry, your offer was declined.</div>
-                <div *ngIf="matchUser.matchObj.dateObj">Reason: {{matchUser.matchObj.dateObj.comment}}</div>
-            </div>
-            <div *ngIf="matchUser.matchObj.match_date_request=='Y'">Date request sent. Awaiting reply.</div>
-            <div *ngIf="matchUser.matchObj.match_date_request=='A'">You already have a date set up.</div>
-            <div *ngIf="!matchUser.matchObj.match_date_request">
-                <div class="gray-text">Ask {{matchUser.firstName}} out on a date with one click!</div>
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <div class="tiny-text">Date</div>
-                            <input type="date" id="date" name="date"
-                                [style.background-color]="requestObj.date?'#eee':'yellow'">
-                        </td>
-                        <td>
-                            <div class="tiny-text">Time</div>
-                            <input type="time" id="time" name="time"
-                                [style.background-color]="requestObj.time?'#eee':'yellow'">
-                        </td>
-                    </tr>
-                </table>
-                <div>
-                    <div class="tiny-text">Location</div>
-                    <app-text-input [placeHolder]="'Location'" [maxLength]="30" [id]="'location'"
-                        [highlightFlg]="!requestObj.location"></app-text-input>
-                </div>
-                <div>
-                    <div class="tiny-text">Address</div>
-                    <app-text-input [placeHolder]="'Address'" [maxLength]="60" [id]="'address'"
-                        [highlightFlg]="!requestObj.address"></app-text-input>
-                </div>
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <div class="tiny-text">City</div>
-                            <app-text-input [placeHolder]="'City'" [maxLength]="20" [id]="'city'"
-                                [highlightFlg]="!requestObj.city"></app-text-input>
-                        </td>
-                        <td>
-                            <div class="tiny-text">State</div>
-                            <app-text-input [placeHolder]="'State'" [maxLength]="2" [id]="'state'"
-                                [highlightFlg]="!requestObj.state"></app-text-input>
-                        </td>
-                        <td>
-                            <div class="tiny-text">Zip</div>
-                            <app-text-input [placeHolder]="'Zip'" [maxLength]="5" [id]="'zip'"
-                                [highlightFlg]="!requestObj.zip"></app-text-input>
-                        </td>
-                    </tr>
-                </table>
-                <div>&nbsp;</div>
-                <div class="gray-text">Keep in mind the person asking the date is expected to pay.</div>
-                <div>&nbsp;</div>
-                <div>
-                    <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
-                    <button (mousedown)="sendDateRequest()" class="btn btn-success" style="height: 60px;">Send
-                        Request</button>
-                </div>
-                <app-spinner *ngIf="0" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-            </div>
-
-        </div>
-        <div *ngIf="requestNum==3">
-            <div class="red-text"><b>Request Picture</b></div>
-            <div *ngIf="matchUser.matchObj.match_pic_request > 0">
-                Request has been sent.
-            </div>
-            <div *ngIf="matchUser.matchObj.match_pic_request < 0">
-                Sorry, your request has been denied.
-            </div>
-            <div *ngIf="!matchUser.matchObj.match_pic_request && !messageSentFlg">
-                <div class="gray-text">Ask {{matchUser.firstName}} to send you a special picture, taken today, just for
-                    you.
-                </div>
-                <div>Picture Type:</div>
-                <select (change)="selectValueChanged()" name="pictureType" id="pictureType">
-                    <option disabled selected>Select</option>
-                    <option *ngFor="let option of pictureTypes" [value]="option.id">{{option.name}}</option>
-                </select>
-                <div>&nbsp;</div>
-                <div>
-                    <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
-                    <button (mousedown)="sendPictureRequest()" class="btn btn-success" style="height: 60px;">Send
-                        Request</button>
-                </div>
-            </div>
-            <div *ngIf="messageSentFlg">
-                Message sent!
-            </div>
-        </div>
-        <app-spinner [loadingFlg]="loadingFlg"></app-spinner>
         <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
     </div>
 
@@ -286,7 +60,6 @@
             <button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-danger">Reject</button>&nbsp;
             <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-success">Approve</button>
         </div>
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
     </div>
 </div>

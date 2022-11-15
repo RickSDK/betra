@@ -1,0 +1,25 @@
+
+.form-input input {
+    display:none;
+  }
+  
+  .form-input label {
+    display:block;
+    width:45%;
+    height:45px;
+    margin-left: 25%;
+    line-height:50px;
+    text-align:center;
+    background:#1172c2;
+    color:#fff;
+    font-size:15px;
+    font-family:"Open Sans",sans-serif;
+    text-transform:Uppercase;
+    font-weight:600;
+    border-radius:5px;
+    cursor:pointer;
+  }
+  .form-input label:hover {
+    background:#053c69;
+    box-shadow: 2px 2px 6px gray;
+  }

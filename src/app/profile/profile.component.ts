@@ -60,7 +60,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.loadQuizAnswers();
     this.loadTestAnswers();
     this.checkIPAddress();
-      //getIPInfo('test', 'test');
+    this.logUser('Y');
+    //getIPInfo('test', 'test');
     //this.refreshUser();
   }
   checkIPAddress() {
@@ -247,15 +248,18 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     console.log(params);
     this.executeApi('appApiCode.php', params, true);
   }
+
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
+    if (responseJson.action == "logUser") {
+      this.syncUserWithLocalStorage(responseJson);
+    }
     if (responseJson.action == 'login') {
       localStorage['User'] = JSON.stringify(responseJson.user);
       this.loadUserObj();
       this.imgSrc = '';
-      console.log('xxx', this.imgSrc);
     }
-    if(responseJson.action == 'updateMainImage') {
+    if (responseJson.action == 'updateMainImage') {
       this.user.profileFlags[this.menuNum] = true;
       console.log('pic uploaded!');
       this.menuNum++;
@@ -326,9 +330,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();
 
-      var basicsFlg = (this.user.email && this.user.firstName && this.user.zipcode && this.user.gender && this.user.matchPreference);
-      if (!this.user.findLoveFlg && !this.user.meetPeopleFlg && !this.user.makeMoneyFlg)
-        basicsFlg = false;
+      var basicsFlg = (this.user.email && this.user.firstName && this.user.zipcode && this.user.gender && this.user.matchPreference && this.user.phone);
+
       this.user.profileFlags[this.menuNum] = basicsFlg;
     }
     if (this.menuNum == 2) {
@@ -344,7 +347,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.bodyHeight = $('#bodyHeight').val();
       this.user.wantsKids = $('#wantsKids').val();
 
-      this.user.city = $('#city').val();
+      //this.user.city = $('#city').val();
       this.user.longestRelationship = $('#longestRelationship').val();
       this.user.numKids = $('#numKids').val();
       this.user.numTattoos = $('#numTattoos').val();
@@ -355,9 +358,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.motto = $('#motto').val();
 
       if (this.user.findLoveFlg)
-        this.user.profileFlags[this.menuNum] = (this.user.maritalStatus && this.user.city && this.user.educationLevel && this.user.income && this.user.religion && this.user.bodyType && this.user.bodyHeight && this.user.wantsKids && this.user.desiredRelationship && this.user.marriageView && this.user.motto);
+        this.user.profileFlags[this.menuNum] = (this.user.maritalStatus && this.user.educationLevel && this.user.income && this.user.religion && this.user.bodyType && this.user.bodyHeight && this.user.wantsKids && this.user.desiredRelationship && this.user.marriageView && this.user.motto);
       else
-        this.user.profileFlags[this.menuNum] = (this.user.maritalStatus && this.user.city);
+        this.user.profileFlags[this.menuNum] = (this.user.maritalStatus);
     }
     if (this.menuNum == 7) {
       this.user.matchAge = $('#matchAge').val();
@@ -408,7 +411,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       bodyType: this.user.bodyType,
       bodyHeight: this.user.bodyHeight,
       desiredRelationship: this.user.desiredRelationship,
-      city: this.user.city,
       longestRelationship: this.user.longestRelationship,
       numTattoos: this.user.numTattoos,
       numPiercings: this.user.numPiercings,
@@ -435,19 +437,19 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
   }
-
-  handleFileInput(event: any) {
-    this.errorMessage = '';
-    this.showSubmitButtonFlg = false;
-    this.apiSuccessFlg = false;
-    var files: FileList = event.target.files;
-    this.fileToUpload = files.item(0);
-    var reader = new FileReader();
-    reader.onload = imageIsLoaded;
-
-    reader.readAsDataURL(this.fileToUpload);
-    this.showSubmitButtonFlg = true;
-  }
+  /*
+    handleFileInput(event: any) {
+      this.errorMessage = '';
+      this.showSubmitButtonFlg = false;
+      this.apiSuccessFlg = false;
+      var files: FileList = event.target.files;
+      this.fileToUpload = files.item(0);
+      var reader = new FileReader();
+      reader.onload = imageIsLoaded;
+  
+      reader.readAsDataURL(this.fileToUpload);
+      this.showSubmitButtonFlg = true;
+    }*/
 
   updateImageButtonClicked() {
     this.showSubmitButtonFlg = false;
@@ -462,7 +464,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
 }
-function imageIsLoaded(e: any) {
+/*function imageIsLoaded(e: any) {
   $('#myImg').attr('src', e.target.result);
   var image = new Image();
   image.src = e.target.result.toString();
@@ -523,4 +525,4 @@ function imageToDataUri(img: any) {
   //in database quality looks pretty good can adjust
   //quality values are 1.0 to 0.1
   return canvas.toDataURL('image/jpeg', 0.8);
-}
+}*/

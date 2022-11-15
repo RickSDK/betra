@@ -11,6 +11,7 @@ export class MatchSnapshotComponent implements OnInit {
   @Input('loadingFlg') loadingFlg: boolean = false;
   @Input('errorMessage') errorMessage: string = '';
   @Input('returnFlg') returnFlg: boolean = false;
+  @Input('singleProfileFlg') singleProfileFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -23,6 +24,7 @@ export class MatchSnapshotComponent implements OnInit {
   public showConfirmationFlg: boolean = false;
   public action: string = '';
   public showInterestedButtonsFlg: boolean = false;
+  public youAreInterestedFlg: boolean = false;
   public matchMadeFlg: boolean = false;
 
 
@@ -41,11 +43,13 @@ export class MatchSnapshotComponent implements OnInit {
   calculateMatches(user: any, matchUser: any, matchObj: any, initflg: boolean = false) {
     this.matchObj = matchObj;
     this.matchMadeFlg = (this.matchUser.matchObj && this.matchUser.matchObj.match_level == 2);
-    this.showInterestedButtonsFlg = (!matchUser.matchObj || !matchUser.matchObj.you_interested) && matchUser.user_id != user.user_id;
+    this.showInterestedButtonsFlg = matchUser.user_id != user.user_id;
     if (user.matchPreference == 'F' && matchUser.gender == 'M')
       this.showInterestedButtonsFlg = false;
     if (user.matchPreference == 'M' && matchUser.gender == 'F')
       this.showInterestedButtonsFlg = false;
+
+    this.youAreInterestedFlg = !!(this.matchUser.matchObj && this.matchUser.matchObj.you_interested);
 
     var agePoints = Math.abs(user.matchAge - matchUser.age) <= 4 ? 1 : 0;
     var religionPoints = (user.matchReligion == matchUser.religion) ? 1 : 0;

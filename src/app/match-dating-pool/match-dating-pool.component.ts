@@ -16,6 +16,7 @@ export class MatchDatingPoolComponent implements OnInit {
 
   ngOnInit(): void {
     var dpList = this.datingPool.split('+');
+    console.log('++++', this.datingPool);
     var datingPool: any = [];
     dpList.forEach((element: string) => {
       var items = element.split(':');
@@ -23,9 +24,9 @@ export class MatchDatingPoolComponent implements OnInit {
         var name = items[1];
         var user_id = parseInt(items[0]);
         var src = betraImageFromId(user_id, parseInt(items[2]));
-        var heardFlg = (items.length >= 4 && items[3] == this.uid);
+        var heartFlg = (items.length >= 4 && items[3] == 'Y');
         var level = (items.length >= 5) ? items[4] : '0';
-        datingPool.push({ name: name, src: src, user_id: user_id, heardFlg: heardFlg, level: level });
+        datingPool.push({ name: name, src: src, user_id: user_id, heartFlg: heartFlg, level: level });
       }
 
     });

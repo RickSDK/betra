@@ -1,0 +1,22 @@
+<div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
+    <div class="gray-title" style="position: relative;"> <i class="fa fa-picture-o"></i> Private Pics
+        <sup *ngIf="matchUser.matchObj">{{matchUser.matchObj.numPics}}</sup> &nbsp;
+        <span *ngIf="matchUser.matchObj.newPics>0" style="color: yellow; font-weight: 700;">New pic!</span>
+        <i (mousedown)="openPanel()" [style.color]="matchUser.matchObj.newPics>0?'yellow':'white'"
+            [ngClass]="openPanelFlg?'fa fa-chevron-circle-down more-options':'fa fa-chevron-circle-right more-options'"></i>
+    </div>
+
+    <div *ngIf="openPanelFlg">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div>{{myUser.firstName}}'s pictures</div>
+ 
+        <img *ngFor="let img of myPics" (mousedown)="mySrc=img" [src]="img" class="picture-tiny">
+
+        <img *ngIf="mySrc" [src]="mySrc" class="picture">
+
+        <div>{{matchUser.firstName}}'s pictures</div>
+        <img *ngFor="let img of matchPics" (mousedown)="yourSrc=img" [src]="img" class="picture-tiny">
+        <img *ngIf="yourSrc" [src]="yourSrc" class="picture">
+
+    </div>
+</div>

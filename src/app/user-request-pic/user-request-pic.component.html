@@ -1,0 +1,51 @@
+<div *ngIf="matchUser.matchObj.you_pic_request > 0" class="tan-box">
+    <div style="font-size: 32px;"><i class="fa fa-picture-o"></i></div>
+    <p>You have a new picture request from {{matchUser.firstName}}!</p>
+    <div class="gray-text">{{matchUser.firstName}} has requested that you take and share a new
+        <b>"{{pictureType}}"</b> photo. This should be a new photo taken
+        today, as opposed to an older photo.
+    </div>
+    <div *ngIf="!loadingFlg && !messageSentFlg && !takePicFlg">
+        <button (mousedown)="processRequestsRequest('rejectPic')" class="btn btn-danger">Decline</button>&nbsp;
+        <button (mousedown)="takePicFlg=true" class="btn btn-success">Accept!</button>
+    </div>
+    <div *ngIf="!loadingFlg && !messageSentFlg && takePicFlg">
+
+        <app-upload-image *ngIf="!loadingFlg" (messageEvent)="uploadImage($event)"></app-upload-image>
+
+    </div>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+</div>
+
+
+<div *ngIf="requestNum==3" class="tan-box">
+    <div>&nbsp;</div>
+    <div *ngIf="matchUser.matchObj.match_pic_request > 0">
+        <i class="fa fa-paper-plane"></i> Request has been sent.
+    </div>
+    <div *ngIf="matchUser.matchObj.match_pic_request < 0">
+        <i class="fa fa-ban"></i> Sorry, your request has been denied.
+    </div>
+    <div *ngIf="matchUser.matchObj.match_pic_request==0 && !messageSentFlg">
+        <div class="gray-text">Ask {{matchUser.firstName}} to send you a special picture, taken today, just for
+            you.
+        </div>
+        <div>Picture Type:</div>
+        <select (change)="selectValueChanged()" name="pictureType" id="pictureType">
+            <option disabled selected>Select</option>
+            <option *ngFor="let option of pictureTypes" [value]="option.id">{{option.name}}</option>
+        </select>
+        <div>&nbsp;</div>
+        <div>
+            <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
+            <button (mousedown)="processRequestsRequest('sendPicRequest')" class="btn btn-success"
+                style="height: 60px;">Send
+                Request</button>
+        </div>
+    </div>
+    <div *ngIf="messageSentFlg">
+        Message sent!
+    </div>
+    <div>&nbsp;</div>
+</div>

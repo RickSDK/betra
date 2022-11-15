@@ -44,6 +44,11 @@ import { ProfilePicComponent } from './profile-pic/profile-pic.component';
 import { TextInputComponent } from './input/text-input/text-input.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { DateLocalComponent } from './date-local/date-local.component';
+import { UserRequestPicComponent } from './user-request-pic/user-request-pic.component';
+import { UserRequestDateComponent } from './user-request-date/user-request-date.component';
+import { UploadImageComponent } from './upload-image/upload-image.component';
+import { UserPrivatePicsComponent } from './user-private-pics/user-private-pics.component';
+import { DateDisplayComponent } from './date-display/date-display.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +93,12 @@ import { DateLocalComponent } from './date-local/date-local.component';
     ProfilePicComponent,
     TextInputComponent,
     DocumentationComponent,
-    DateLocalComponent
+    DateLocalComponent,
+    UserRequestPicComponent,
+    UserRequestDateComponent,
+    UploadImageComponent,
+    UserPrivatePicsComponent,
+    DateDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -28,9 +28,9 @@ export class BaseComponent implements OnInit {
   public userStatus: string = '';
   public notifications: number = 0;
   public headerObj: any = {
-    userId: 0, imgSrcFile: this.imgSrcFile, pageTitle: '', 
+    userId: 0, imgSrcFile: this.imgSrcFile, pageTitle: '',
     profileCompleteFlg: false,
-    notifications: localStorage['notifications'] || 0, 
+    notifications: localStorage['notifications'] || 0,
     admirerCount: localStorage['admirerCount'] || 0,
     matchesAlerts: localStorage['matchesAlerts'] || 0
   };
@@ -89,11 +89,11 @@ export class BaseComponent implements OnInit {
     localStorage['admirerCount'] = this.headerObj.admirerCount;
     localStorage['messageCount'] = this.headerObj.messageCount;
     localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
-    if (responseJson.infoObj.refreshFlg == 'Y')
+    if (responseJson.infoObj.refreshFlg == 'Y' && responseJson.user)
       this.refreshUserObj(responseJson.user);
   }
 
-  logUser() {
+  logUser(refreshFlg:string = '') {
     var uid = localStorage['user_id'];
     var email = localStorage['email'];
     var code = localStorage['code'];
@@ -103,7 +103,8 @@ export class BaseComponent implements OnInit {
         userId: localStorage['user_id'],
         email: localStorage['email'],
         code: localStorage['code'],
-        action: 'logUser'
+        action: 'logUser',
+        refreshFlg: refreshFlg
       };
       this.executeApi('appApiCode.php', params, true);
     }

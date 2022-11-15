@@ -1,10 +1,7 @@
 
 
-<app-user-request-info *ngIf="matchUser && matchUser.matchObj && matchUser.matchObj.match_level>=5" [myUser]="myUser" [matchUser]="matchUser"></app-user-request-info>
-
-
 <div class="match-card" *ngIf="matchUser && matchUser.matchObj">
-    <div class="gray-title" style="position: relative;">Messages
+    <div class="gray-title" style="position: relative;"><i class="fa fa-comment"></i> Messages
         <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg" class="fa fa-info-circle more-options"></i>
     </div>
 
@@ -70,6 +67,7 @@
                 </td>
             </tr>
         </table>
+        <div>&nbsp;</div>
     </div>
     <div *ngIf="messageSentFlg">Message Sent!</div>
 

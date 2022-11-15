@@ -1,9 +1,14 @@
-<div class="match-card" *ngIf="myUser && matchUser">
-    <div class="gray-title" style="position: relative;"> User reviews <sup>{{matchUser.reviewsCount}}</sup>
-        <i (mousedown)="openReviewPanel()" class="fa fa-chevron-circle-right more-options"></i>
+
+
+<div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
+    <div class="gray-title" style="position: relative;"> <i class="fa fa-user"></i> User reviews
+        <sup>{{matchUser.reviewsCount}}</sup>
+        <i (mousedown)="openReviewPanel()"
+            [ngClass]="openPanelFlg?'fa fa-chevron-circle-down more-options':'fa fa-chevron-circle-right more-options'"></i>
     </div>
+
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-    <div *ngIf="showReviewsFlg">
+    <div *ngIf="openPanelFlg">
         <button *ngIf="matchUser.matchObj && matchUser.matchObj.match_level>=4" (mousedown)="writeReview()" class="btn btn-light bordered-button">Write a date review</button>
         <div>&nbsp;</div>
         <div *ngIf="reviewList.length==0 && !loadingFlg">No reviews yet.</div>

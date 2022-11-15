@@ -1,0 +1,219 @@
+<div *ngIf="requestNum==2 && !messageSentFlg" class="tan-box">
+    <div>&nbsp;</div>
+    <div *ngIf="matchUser.matchObj.match_date_request=='X'">
+        <div><i class="fa fa-ban"></i> Sorry, your date offer was declined.</div>
+        <div *ngIf="matchUser.matchObj.dateObj">Reason: {{matchUser.matchObj.dateObj.comment}}</div>
+        <div class="gray-text">You must wait 14 days before asking this person out again.</div>
+    </div>
+    <div *ngIf="matchUser.matchObj.match_date_request=='Y'"><i class="fa fa-paper-plane"></i> Date request sent.
+        Awaiting reply.</div>
+    <div *ngIf="matchUser.matchObj.match_date_request=='A'">You already have a date set up.</div>
+    <div *ngIf="matchUser.matchObj.you_date_request == 'M'"><i class="fa fa-paper-plane"></i> You have requested a
+        modification to your date.</div>
+    <div *ngIf="!matchUser.matchObj.match_date_request && !matchUser.matchObj.you_date_request">
+        <div class="gray-text">Ask {{matchUser.firstName}} out on a date with one click!</div>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="tiny-text">Date</div>
+                    <input type="date" id="date" name="date" [style.background-color]="requestObj.date?'#eee':'yellow'">
+                </td>
+                <td>
+                    <div class="tiny-text">Time</div>
+                    <input type="time" id="time" name="time" [style.background-color]="requestObj.time?'#eee':'yellow'">
+                </td>
+            </tr>
+        </table>
+        <div>
+            <div class="tiny-text">Location</div>
+            <app-text-input [placeHolder]="'Location'" [maxLength]="30" [id]="'location'"
+                [highlightFlg]="!requestObj.location"></app-text-input>
+        </div>
+        <div>
+            <div class="tiny-text">Address</div>
+            <app-text-input [placeHolder]="'Address'" [maxLength]="60" [id]="'address'"
+                [highlightFlg]="!requestObj.address"></app-text-input>
+        </div>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="tiny-text">City</div>
+                    <app-text-input [placeHolder]="'City'" [maxLength]="20" [id]="'city'"
+                        [highlightFlg]="!requestObj.city"></app-text-input>
+                </td>
+                <td>
+                    <div class="tiny-text">State</div>
+                    <app-text-input [placeHolder]="'State'" [maxLength]="2" [id]="'state'"
+                        [highlightFlg]="!requestObj.state"></app-text-input>
+                </td>
+                <td>
+                    <div class="tiny-text">Zip</div>
+                    <app-text-input [placeHolder]="'Zip'" [maxLength]="5" [id]="'zip'" [highlightFlg]="!requestObj.zip">
+                    </app-text-input>
+                </td>
+            </tr>
+        </table>
+        <div>&nbsp;</div>
+        <div class="gray-text">Keep in mind the person asking the date is expected to pay.</div>
+        <div>&nbsp;</div>
+        <div>
+            <button (mousedown)="sendDateRequest()" class="btn btn-success" style="height: 60px;">Send
+                Request</button>
+        </div>
+    </div>
+    <app-spinner *ngIf="1" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div>&nbsp;</div>
+    <div *ngIf="messageSentFlg">Message sent.</div>
+</div>
+
+
+<div *ngIf="requestNum == 0 && matchUser.matchObj.match_date_request=='Y'" class="tan-box">
+    <div><i class="fa fa-exclamation-triangle" style="color: #900;"></i> You have requested a date, awaiting response.</div>
+    <app-date-display [dateObj]="matchUser.matchObj.dateObj"></app-date-display>
+</div>
+
+<div *ngIf="requestNum == 0 && matchUser.matchObj.you_date_request && matchUser.matchObj.dateObj" class="tan-box">
+    <div><i class="fa fa-exclamation-triangle" style="color: #900;"></i> You have requested a date modification ({{matchUser.matchObj.dateObj.comment}}), awaiting response.</div>
+    <app-date-display [dateObj]="matchUser.matchObj.dateObj"></app-date-display>
+    <div>
+        <button (mousedown)="modifyFlg=!modifyFlg" class="btn btn-warning">cancel</button>&nbsp;
+    </div>
+    <div *ngIf="modifyFlg">
+        <div>Reason:</div>
+        <app-text-input [id]="'comment'" [maxLength]="200"></app-text-input>
+        <div>&nbsp;</div>
+        <div>
+            <button (mousedown)="processRequestsRequest('cancelDate')" class="btn btn-danger">cancel date</button>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="requestNum == 0 && matchUser.matchObj.match_date_request == 'M' && matchUser.matchObj.dateObj" class="tan-box">
+    <div>You have a date modification request from {{matchUser.firstName}}:
+        <span
+            style="background-color: #cef; padding: 5px; border-radius: 5px;">"{{matchUser.matchObj.dateObj.comment}}"</span>
+    </div>
+
+    <div *ngIf="!loadingFlg && !messageSentFlg">
+        <table width="100%" *ngIf="matchUser.matchObj.dateObj">
+            <tr>
+                <td>
+                    <div class="tiny-text">Date</div>
+                    <input type="date" id="date" name="date" [value]="matchUser.matchObj.dateObj.eventDate">
+                </td>
+                <td>
+                    <div class="tiny-text">Time</div>
+                    <input type="time" id="time" name="time" [value]="matchUser.matchObj.dateObj.eventTime">
+                </td>
+            </tr>
+        </table>
+        <div>
+            <div class="tiny-text">Location</div>
+            <app-text-input [placeHolder]="'Location'" [maxLength]="30" [id]="'location'"
+                [highlightFlg]="!requestObj.location" [value]="matchUser.matchObj.dateObj.location">
+            </app-text-input>
+        </div>
+        <div>
+            <div class="tiny-text">Address</div>
+            <app-text-input [placeHolder]="'Address'" [maxLength]="60" [id]="'address'"
+                [highlightFlg]="!requestObj.address" [value]="matchUser.matchObj.dateObj.address"></app-text-input>
+        </div>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="tiny-text">City</div>
+                    <app-text-input [placeHolder]="'City'" [maxLength]="20" [id]="'city'"
+                        [highlightFlg]="!requestObj.city" [value]="matchUser.matchObj.dateObj.city">
+                    </app-text-input>
+                </td>
+                <td>
+                    <div class="tiny-text">State</div>
+                    <app-text-input [placeHolder]="'State'" [maxLength]="2" [id]="'state'"
+                        [highlightFlg]="!requestObj.state" [value]="matchUser.matchObj.dateObj.state">
+                    </app-text-input>
+                </td>
+                <td>
+                    <div class="tiny-text">Zip</div>
+                    <app-text-input [placeHolder]="'Zip'" [maxLength]="5" [id]="'zip'" [highlightFlg]="!requestObj.zip"
+                        [value]="matchUser.matchObj.dateObj.zip">
+                    </app-text-input>
+                </td>
+            </tr>
+        </table>
+        <div>&nbsp;</div>
+        <div>
+            <button (mousedown)="processRequestsRequest('cancelDate')" class="btn btn-danger">Cancel
+                Date</button>&nbsp;
+            <button (mousedown)="sendDateRequest()" class="btn btn-success">Send Update</button>
+        </div>
+    </div>
+    <div *ngIf="!loadingFlg && messageSentFlg">
+        Update sent!
+    </div>
+
+
+</div>
+<div *ngIf="matchUser.matchObj.you_date_request == 'A' || matchUser.matchObj.match_date_request == 'A' || matchUser.matchObj.match_date_request == 'C'"
+    class="tan-box">
+    <div style="font-size: 32px;"><i class="fa fa-calendar"></i></div>
+    <div *ngIf="matchUser.matchObj.you_date_request == 'A'">You have an upcoming date with {{matchUser.firstName}}!
+    </div>
+    <div *ngIf="matchUser.matchObj.you_date_request == 'C'">
+        <div>Your date with {{matchUser.firstName}} has been cancelled.</div>
+        <div *ngIf="matchUser.matchObj.dateObj" class="error-message">Reason: {{matchUser.matchObj.dateObj.comment}}
+        </div>
+    </div>
+    <div *ngIf="matchUser.matchObj.dateObj && !messageSentFlg">
+        <app-date-display [dateObj]="matchUser.matchObj.dateObj"></app-date-display>
+        <div
+            *ngIf="matchUser.matchObj.you_date_request == 'C' && matchUser.matchObj.dateObj.cancelledBy != this.user.user_id">
+            <button (mousedown)="processRequestsRequest('removeDate')" class="btn btn-primary">Remove from
+                calendar</button>
+        </div>
+        <div *ngIf="!modifyFlg && matchUser.matchObj.you_date_request == 'A'">
+            <button (mousedown)="modifyFlg=true" class="btn btn-warning">cancel</button>&nbsp;
+        </div>
+        <div *ngIf="modifyFlg">
+            <div>Reason:</div>
+            <app-text-input [id]="'comment'" [maxLength]="200"></app-text-input>
+            <button (mousedown)="processRequestsRequest('cancelDate')" class="btn btn-danger">cancel date</button>&nbsp;
+        </div>
+    </div>
+    <div *ngIf="messageSentFlg">Date Cancelled</div>
+
+</div>
+<div *ngIf="matchUser.matchObj.you_date_request == 'Y'" class="tan-box">
+    <div style="font-size: 32px;"><i class="fa fa-calendar"></i></div>
+    <div *ngIf="!messageSentFlg">You have a new date request from {{matchUser.firstName}}!</div>
+    <div *ngIf="matchUser.matchObj.dateObj">
+        <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; display: inline-block; margin: 10px;">
+            <app-date-local [date]="matchUser.matchObj.dateObj.eventDate" [time]="matchUser.matchObj.dateObj.eventTime">
+            </app-date-local>
+            <div>{{matchUser.matchObj.dateObj.location}}</div>
+            <div>{{matchUser.matchObj.dateObj.address}}</div>
+            <div>{{matchUser.matchObj.dateObj.city}}, {{matchUser.matchObj.dateObj.state}}
+                {{matchUser.matchObj.dateObj.zip}}</div>
+        </div>
+    </div>
+    <div *ngIf="!messageSentFlg">
+        <div *ngIf="!loadingFlg && !modifyFlg && !declineDateFlg">
+            <button (mousedown)="declineDateFlg=true" class="btn btn-danger">Decline</button>&nbsp;
+            <button (mousedown)="modifyFlg=true" class="btn btn-warning">Modify</button>&nbsp;
+            <button (mousedown)="processRequestsRequest('acceptDate')" class="btn btn-success">Accept!</button>
+        </div>
+        <div *ngIf="!loadingFlg && declineDateFlg">
+            <div>What reason for declining?</div>
+            <app-text-input [id]="'comment'" [maxLength]="200"></app-text-input>
+            <button (mousedown)="declineDateFlg=false" class="btn btn-warning">cancel</button>&nbsp;
+            <button (mousedown)="processRequestsRequest('rejectDate')" class="btn btn-success">Send</button>
+        </div>
+        <div *ngIf="!loadingFlg && modifyFlg">
+            <div>What changes would you like to request?</div>
+            <app-text-input [id]="'comment'" [maxLength]="200"></app-text-input>
+            <button (mousedown)="modifyFlg=false" class="btn btn-warning">cancel</button>&nbsp;
+            <button (mousedown)="processRequestsRequest('modifyDate')" class="btn btn-success">Send</button>
+        </div>
+    </div>
+    <div *ngIf="messageSentFlg">Message Sent</div>
+</div>

@@ -17,12 +17,12 @@ export class SideMenuComponent implements OnInit {
     { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
     { name: 'My Matches', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
     { name: 'Admirers', routerLink: '/user-detail', icon: 'fa fa-heart', id: 4},
-    { name: 'Online Today', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
+//    { name: 'Online Today', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
     { name: 'Top 10', routerLink: '/top-lists', icon: 'fa fa-list-ol', id: 6 },
     
   ];
   public middleItems = [
-    { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
+//    { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
     { name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
   ];

@@ -14,19 +14,24 @@
                 <div *ngIf="!code" style="background-color: yellow;">App is out of sync. Try logging out and logging
                     back in.</div>
                 <!-------------------------0------------------------->
-
                 <div class="menu-section" *ngIf="menuNum==0">
 
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md">
+                                <div class="tiny-text">First Name</div>
+                                <app-first-name-input (messageEvent)="menuValueChanged()" [firstName]="user.firstName">
+                                </app-first-name-input>
+
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <div class="tiny-text">First Name</div>
-                                            <app-first-name-input (messageEvent)="menuValueChanged()"
-                                                [firstName]="user.firstName">
-                                            </app-first-name-input>
+                                            <div class="tiny-text">Zipcode</div>
+                                            <input name="zipcode"
+                                                [style.background-color]="user.zipcode?'#eee':'#ffffc0'" id="zipcode"
+                                                type="number" [value]="user.zipcode" placeholder="Zipcode" maxlength="5"
+                                                (input)="menuValueChanged()">
+
                                         </td>
                                         <td width="55%">
                                             <div class="tiny-text">Phone</div>
@@ -39,14 +44,56 @@
                                 <input name="email" [style.background-color]="user.email?'#eee':'#ffffc0'"
                                     [disabled]="true" id="email" type="email" [value]="user.email"
                                     placeholder="Email Address" (input)="menuValueChanged()">
-                                <div class="tiny-text">Zipcode</div>
-                                <input name="zipcode" [style.background-color]="user.zipcode?'#eee':'#ffffc0'"
-                                    id="zipcode" type="number" [value]="user.zipcode" placeholder="Zipcode"
-                                    maxlength="5" (input)="menuValueChanged()">
+
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <div class="tiny-text">My Gender</div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <button (mousedown)="selectGender('M')"
+                                                            [ngClass]="ngClassButton(user.gender=='M')">Male</button>
+                                                    </td>
+                                                    <td>
+                                                        <button (mousedown)="selectGender('F')"
+                                                            [ngClass]="ngClassButton(user.gender=='F')">Female</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="user.findLoveFlg">
+                                                <div class="tiny-text">Show Me (I want to date)</div>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <button (mousedown)="selectMatches('M')"
+                                                                [ngClass]="ngClassButton(user.matchPreference=='M')">Men</button>
+                                                        </td>
+                                                        <td>
+                                                            <button (mousedown)="selectMatches('F')"
+                                                                [ngClass]="ngClassButton(user.matchPreference=='F')">Women</button>
+                                                        </td>
+                                                        <td>
+                                                            <button (mousedown)="selectMatches('A')"
+                                                                [ngClass]="ngClassButton(user.matchPreference=='A')">Everyone</button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div *ngIf="!user.matchPreference && errorMessage"
+                                                    style="background-color: yellow;">Select an
+                                                    option
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
 
 
                             </div>
-                            <div class="col-md">
+                            <div class="col-md" *ngIf="0">
                                 <div class="brown-box">
                                     <div style="font-size: 12px;"><b>Services this app provides</b></div>
                                     <table width="100%">
@@ -94,53 +141,19 @@
                                 <div *ngIf="!user.findLoveFlg" class="info-box">Note: you have not selected "Find Love"
                                     so you will not be able to browse through single's profiles.</div>
 
-                                <div class="tiny-text">Gender</div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <button (mousedown)="selectGender('M')"
-                                                [ngClass]="ngClassButton(user.gender=='M')">Male</button>
-                                        </td>
-                                        <td>
-                                            <button (mousedown)="selectGender('F')"
-                                                [ngClass]="ngClassButton(user.gender=='F')">Female</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div *ngIf="user.findLoveFlg">
-                                    <div class="tiny-text">Show Me</div>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <button (mousedown)="selectMatches('M')"
-                                                    [ngClass]="ngClassButton(user.matchPreference=='M')">Men</button>
-                                            </td>
-                                            <td>
-                                                <button (mousedown)="selectMatches('F')"
-                                                    [ngClass]="ngClassButton(user.matchPreference=='F')">Women</button>
-                                            </td>
-                                            <td>
-                                                <button (mousedown)="selectMatches('A')"
-                                                    [ngClass]="ngClassButton(user.matchPreference=='A')">Everyone</button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div *ngIf="!user.matchPreference" style="background-color: yellow;">Select an
-                                        option
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <!--------------------------7------------------->
                 <div class="menu-section" *ngIf="menuNum==1">
                     <div *ngIf="user.emailVerifyFlg">Your email address has been verified!</div>
                     <div *ngIf="!user.emailVerifyFlg">
-                        <div>Your email address needs to be verified. You should have received an email from us. Check
-                            your spam folder. To generate a new email, click the button below.</div>
-                        <div
+                        <div>Check your email & spam folder to verify your email address, or click 'Continue' to skip
+                            for now.</div>
+                        <div *ngIf="0"
                             style="background-color: #ffffc0; padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
                             Your email address:
                             <span class="highlited-field">{{user.email}}</span>
@@ -164,9 +177,6 @@
                                 </tr>
                             </table>
                         </div>
-
-                        <app-spinner [loadingFlg]="loadingFlg" [successFlg]="apiSuccessFlg"
-                            [errorMessage]="errorMessage"></app-spinner>
                         <div *ngIf="!menuDisableFlg && apiSuccessFlg">Code has been sent! Check your email.</div>
                     </div>
                 </div>
@@ -248,54 +258,13 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <table width="100%">
-                                            <tr>
-                                                <td>
-                                                    <div class="tiny-text">Smokes?</div>
-                                                    <select name="smokes" id="smokes"
-                                                        [style.background-color]="user.smokes?'#eee':'#ffffc0'"
-                                                        (change)="menuValueChanged()">
-                                                        <option disabled selected>Select</option>
-                                                        <option *ngFor="let option of smokingOptions"
-                                                            [selected]="option == user.smokes">{{option}}
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <div class="tiny-text">Drinks?</div>
-                                                    <select name="drinks" id="drinks"
-                                                        [style.background-color]="user.drinks?'#eee':'#ffffc0'"
-                                                        (change)="menuValueChanged()">
-                                                        <option disabled selected>Select</option>
-                                                        <option *ngFor="let option of smokingOptions"
-                                                            [selected]="option == user.drinks">{{option}}
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <div class="tiny-text">Cannabis User?</div>
-                                                    <select name="cannabis" id="cannabis"
-                                                        [style.background-color]="user.cannabis?'#eee':'#ffffc0'"
-                                                        (change)="menuValueChanged()">
-                                                        <option disabled selected>Select</option>
-                                                        <option *ngFor="let option of smokingOptions"
-                                                            [selected]="option == user.cannabis">{{option}}
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </table>
+
 
                                     </div>
                                 </div>
 
                             </div>
                             <div class="col-md" style="text-align: left;">
-                                <div class="tiny-text">City</div>
-                                <input name="city" [style.background-color]="user.city?'#eee':'#ffffc0'" id="city"
-                                    maxlength="128" type="text" [value]="user.city" placeholder="City"
-                                    (input)="menuValueChanged()">
-
                                 <div *ngIf="user.findLoveFlg">
                                     <table>
                                         <tr>
@@ -307,7 +276,7 @@
                                                     [value]="user.longestRelationship" (input)="menuValueChanged()">
                                             </td>
                                             <td>
-                                                <div class="tiny-text">Number of kids (minors)</div>
+                                                <div class="tiny-text"># kids living with you</div>
                                                 <input name="numKids" id="numKids" type="number" [value]="user.numKids"
                                                     (input)="menuValueChanged()">
                                             </td>
@@ -363,15 +332,54 @@
                                         </option>
                                     </select>
 
-                                    <div class="tiny-text">Your motto</div>
-                                    <input name="motto" [style.background-color]="user.motto?'#eee':'#ffffc0'"
-                                        id="motto" maxlength="128" type="text" [value]="user.motto" placeholder="Motto"
-                                        (input)="menuValueChanged()">
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                <div class="tiny-text">Smokes?</div>
+                                                <select name="smokes" id="smokes"
+                                                    [style.background-color]="user.smokes?'#eee':'#ffffc0'"
+                                                    (change)="menuValueChanged()">
+                                                    <option disabled selected>Select</option>
+                                                    <option *ngFor="let option of smokingOptions"
+                                                        [selected]="option == user.smokes">{{option}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="tiny-text">Drinks?</div>
+                                                <select name="drinks" id="drinks"
+                                                    [style.background-color]="user.drinks?'#eee':'#ffffc0'"
+                                                    (change)="menuValueChanged()">
+                                                    <option disabled selected>Select</option>
+                                                    <option *ngFor="let option of smokingOptions"
+                                                        [selected]="option == user.drinks">{{option}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="tiny-text">Cannabis User?</div>
+                                                <select name="cannabis" id="cannabis"
+                                                    [style.background-color]="user.cannabis?'#eee':'#ffffc0'"
+                                                    (change)="menuValueChanged()">
+                                                    <option disabled selected>Select</option>
+                                                    <option *ngFor="let option of smokingOptions"
+                                                        [selected]="option == user.cannabis">{{option}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                    <div class="tiny-text">Your motto</div>
+                    <app-text-input [placeHolder]="'Motto'" [id]="'motto'" [value]="user.motto"
+                        [highlightFlg]="user.motto==''" [maxLength]="128" (messageEvent)="menuValueChanged()">
+                    </app-text-input>
 
                 </div>
 
@@ -413,21 +421,16 @@
 
                 <!-----------------------------5-------------------------->
                 <div class="menu-section" *ngIf="menuNum==5">
-                    <img *ngIf="user.profilePic>0" [src]="user.imgSrc" class="profile-image" alt="profile Image">
-                    <img *ngIf="showSubmitButtonFlg" id="myImg" class="profile-image"
-                        style="width: 175px; height: 250px;">
-                    <input type="file" accept="image/*" id="file" (change)="handleFileInput($event)">
-                    <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
 
-                    <button *ngIf="showSubmitButtonFlg" class="btn red-button"
-                        (mousedown)="updateImageButtonClicked()">Upload</button>
-                    <button *ngIf="showSubmitButtonFlg" (mousedown)="showSubmitButtonFlg=false"
-                        class="btn gray-button">Cancel</button>
-                    <div *ngIf="loadingFlg">
-                        <div style="font-size: 24px; text-align: center;">
-                            <i class="fa fa-spinner fa-spin"></i> Uploading, Please Wait
-                        </div>
+                    <p>Upload a photo of yourself.</p>
+                    <img *ngIf="user.profilePic>0" [src]="user.imgSrc" class="profile-image" alt="profile Image">
+                    <div
+                        style="border: 5px dashed gray; border-radius: 5px; height:400px; width: 300px; display: inline-block; padding-top: 50px;">
+                        <app-upload-image *ngIf="!loadingFlg" (messageEvent)="updateImageButtonClicked()">
+                        </app-upload-image>
                     </div>
+
+
                     <div *ngIf="apiSuccessFlg" style="background-color: #cfc; height: 44px;">
                         Success!
                     </div>

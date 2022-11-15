@@ -16,6 +16,7 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
   public experienceRating: number = 0;
   public reviewText: string = '';
   public reviewList: any = [];
+  public openPanelFlg: boolean = false;
 
   constructor() { super(); }
 
@@ -25,6 +26,7 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
       return;
   }
   openReviewPanel() {
+    this.openPanelFlg = !this.openPanelFlg;
     this.showReviewsFlg = !this.showReviewsFlg;
     this.showDetailsFlg = false;
     this.reviewText = '';

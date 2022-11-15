@@ -5,8 +5,9 @@
             <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
                 [src]="person.src" class="large-img" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="large-img" [title]="person.name">
+            <span *ngIf="person.alerts>0" class="red-circle-large">{{person.alerts}}</span>
             <div><i class="fa fa-heart red-text" *ngIf="person.heartFlg"></i> {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup></div>
-            <div *ngIf="person.match">
+            <div *ngIf="0 && person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!</div>
                 <div *ngIf="person.match.match_date_request == 'Y'" class="big-flashy"><i class="fa fa-calendar"></i> Date Requested!</div>
                 <div *ngIf="person.match.you_date_request == 'M'" class="big-flashy"><i class="fa fa-calendar"></i> Date Modification!</div>

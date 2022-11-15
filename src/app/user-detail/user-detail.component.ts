@@ -127,6 +127,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       // this.refreshUserObj(responseJson.user);
       // this.loadThisUser();
     }
+
   }
   showCurrentProfile() {
     console.log('showCurrentProfile', this.playerList.length, this.currentProfileIndex);

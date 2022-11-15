@@ -1,15 +1,4 @@
-.match-card {
-    display: inline-block;
-    background-color: #eee;
-    box-shadow: 1px 1px 10px gray;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 400px;
-    font-size: 14px;
-    padding-bottom: 20px;
-    overflow: hidden;
-    margin-top: 20px;
-}
+
 .text-window {
     display: inline-block; 
     background-color: white;
@@ -17,13 +6,7 @@
     border-radius: 5px;
     margin: 5px;
 }
-.gray-title {
-    background-color: #444;
-    color: white;
-    font-weight: 700;
-    height: 30px;
-    line-height: 30px;
-}
+
 .pull-left {
     display: block;
     float: left;
