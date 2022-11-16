@@ -15,7 +15,8 @@
                         <div>New: {{responseJson.newThisWeek}} (past 7 days)</div>
                     </div>
                     <div class="border-box">
-                        <div class="tiny-text">Connections: {{responseJson.connections}}</div>
+                        <div class="tiny-text">Likes: {{responseJson.likes}}</div>
+                        <div class="tiny-text">Matches: {{responseJson.matches}}</div>
                         <div class="tiny-text">Messages: {{responseJson.messages}}</div>
                         <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
                     </div>
@@ -39,7 +40,7 @@
         <table width="100%">
             <tr>
                 <td>
-                    <div class="tiny-text">Top Men</div>
+                    <div class="tiny-text">Most liked Men</div>
                     <table align="center" style="font-size: 12px;">
                         <tr *ngFor="let person of responseJson.topMen; let i =index">
                             <td>{{i+1}}</td>
@@ -54,7 +55,7 @@
                     </table>
                 </td>
                 <td>
-                    <div class="tiny-text">Top Women</div>
+                    <div class="tiny-text">Most Liked Women</div>
                     <table align="center" style="font-size: 12px;">
                         <tr *ngFor="let person of responseJson.topWomen; let i =index">
                             <td>{{i+1}}</td>

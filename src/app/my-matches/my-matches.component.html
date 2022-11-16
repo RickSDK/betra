@@ -37,7 +37,9 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="menuNum==0 && !loadingFlg">
-            <div *ngIf="user.datingPool && user.datingPool.length>8" class="error-message">Over your limit! Select someone to drop from your dating pool. You are only allowed 8 people at a time in your dating pool.</div>
+            <div *ngIf="user.datingPool && user.datingPool.length>8" class="error-message">Over your limit! Select
+                someone to drop from your dating pool. You are only allowed 8 people at a time in your dating pool.
+            </div>
             <div style="font-size: 12px; color: gray;">You can have a maximum of 8 people in your dating pool at any
                 time. [<span (mousedown)="showMoreFlg=!showMoreFlg" class="hyper-link">more info</span>]</div>
             <div (mousedown)="showMoreFlg=false" *ngIf="showMoreFlg"
@@ -46,11 +48,18 @@
                 the extras to your back burner. This will help you organize your dating life and concentrate on your
                 best prospects.</div>
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
-            <button *ngIf="!user.dating_pool" [routerLink]="['/user-detail']" class="btn red-small-button"><i
-                    class="fa fa-search"></i> Browse Singles</button>
-            <div *ngIf="!user.dating_pool" class="small-gray-text">Currently no matches. Click Browse button
-                to find new singles!
+
+            <div *ngIf="!user.dating_pool">
+                <div>&nbsp;</div>
+                <button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i> Browse
+                    Singles</button>
+                <div>&nbsp;</div>
+                <div class="small-gray-text">Currently no matches, but don't worry. Start browsing singles and as soon as someone you like indicates they
+                    are also interested in you, they will show up here. Click Browse button above to get started!
+                </div>
             </div>
+
+
         </div>
         <div *ngIf="menuNum==1 && !loadingFlg">
             <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList"

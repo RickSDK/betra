@@ -117,6 +117,7 @@ export class User {
     public pic3: string = '';
     public pic4: string = '';
     public numPics: number = 0;
+    public mainImageSrc: string = '';
 
     constructor(obj: any) {
         if (obj) {
@@ -295,8 +296,8 @@ export class User {
         this.imgSrc = (obj && obj.gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
         if (this.profilePic > 0)
             this.imgSrc = betraImageFromId(this.user_id, this.profilePic);
-        //            this.imgSrc = 'https://www.appdigity.com/betraPhp/profileImages/profile' + this.user_id + '_' + this.profilePic + '.jpg';
-
+        this.mainImageSrc = this.imgSrc;
+        
         this.adventureStableText = "n/a";
         if (this.personalityQuizAnswers) {
             var items = this.personalityQuizAnswers.split(':');

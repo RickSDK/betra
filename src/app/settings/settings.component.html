@@ -13,13 +13,7 @@
                 Users</button>&nbsp;
             <button [routerLink]="['/documentation']" class="btn btn-primary"><i class="fa fa-file-text"></i>
                 Documentation</button>
-        </div>
-
-
-        <app-upload-image *ngIf="!loadingFlg" [src]="user.imgSrc" (messageEvent)="updateImageButtonClicked()"></app-upload-image>
- 
-
-        
+        </div>      
 
 
     </div>

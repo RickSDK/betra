@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/classes/user';
 import { BaseComponent } from '../../base/base.component';
+//import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 
 declare var $: any;
 
@@ -10,15 +11,16 @@ declare var $: any;
   styleUrls: ['./login-popup.component.scss']
 })
 export class LoginPopupComponent extends BaseComponent implements OnInit {
+
   @Output() messageEvent = new EventEmitter<string>();
 
-  public submitDisabled:boolean = true;
+  public submitDisabled: boolean = true;
 
   constructor() { super(); }
 
   loginPressed() {
-    var email:string = $('#email').val();
-    var password:string = $('#password').val();
+    var email: string = $('#email').val();
+    var password: string = $('#password').val();
 
     localStorage['email'] = email;
     localStorage['code'] = btoa(password);
@@ -43,8 +45,8 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   valueChanged() {
-    var email:string = $('#email').val();
-    var password:string = $('#password').val();
+    var email: string = $('#email').val();
+    var password: string = $('#password').val();
 
     this.submitDisabled = !email || !password;
   }

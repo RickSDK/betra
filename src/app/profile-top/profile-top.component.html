@@ -1,14 +1,14 @@
 <div *ngIf="user && myUser" style="padding: 5px;">
     <table width="100%">
         <tr>
-            <td align="left">
-                <img (mousedown)="toggleImage()" [src]="mainImageSrc" [ngClass]="ngClassImage()">
+            <td align="left" valign="top">
+                <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
                 <div *ngIf="user.numPics>0" style="text-align: center; font-size: 10px;"><i class="fa fa-picture-o"></i> plus {{user.numPics}} pics</div>
-                <img *ngIf="user.pic1" (mousedown)="mainImageSrc=user.imgSrc" [src]="user.imgSrc" class="tiny-pic">
-                <img *ngIf="user.pic1" (mousedown)="mainImageSrc=user.pic1" [src]="user.pic1" class="tiny-pic">
-                <img *ngIf="user.pic2" (mousedown)="mainImageSrc=user.pic2" [src]="user.pic2" class="tiny-pic">
-                <img *ngIf="user.pic3" (mousedown)="mainImageSrc=user.pic3" [src]="user.pic3" class="tiny-pic">
-                <img *ngIf="user.pic4" (mousedown)="mainImageSrc=user.pic4" [src]="user.pic4" class="tiny-pic">
+                <img *ngIf="user.pic1" (mousedown)="user.mainImageSrc=user.imgSrc" [src]="user.imgSrc" class="tiny-pic">
+                <img *ngIf="user.pic1" (mousedown)="user.mainImageSrc=user.pic1" [src]="user.pic1" class="tiny-pic">
+                <img *ngIf="user.pic2" (mousedown)="user.mainImageSrc=user.pic2" [src]="user.pic2" class="tiny-pic">
+                <img *ngIf="user.pic3" (mousedown)="user.mainImageSrc=user.pic3" [src]="user.pic3" class="tiny-pic">
+                <img *ngIf="user.pic4" (mousedown)="user.mainImageSrc=user.pic4" [src]="user.pic4" class="tiny-pic">
             </td>
             <td *ngIf="!largeImageFlg" valign="top" style="text-align: left;" width="190">
                 <div class="title-highlight" style="text-align: left; padding-left: 5px; padding-top: 3px; height: 30px;" title="id: {{user.user_id}}">
@@ -30,7 +30,7 @@
                     <app-green-check [label]="'Seeking'" [text1]="user.desiredRelationship"
                         [text2]="myUser.matchRelationship" [icon]="'fa fa-eye'"></app-green-check>
                     <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView" [text2]="myUser.marriageView"
-                        [img]="'assets/images/marriage.jpg'"></app-green-check>
+                        [img]="'assets/images/marriage.png'"></app-green-check>
                     <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText" [icon]="'fa fa-exchange'">
                     </app-green-check>
                     <app-green-check [label]="'Number of Kids'" [text1]="user.numKids" [text2]="myUser.kidsNum"
@@ -45,7 +45,7 @@
                         [icon]="'fa fa-money'">
                     </app-green-check>
                     <app-green-check [label]="'Religion'" [text1]="user.religion" [text2]="myUser.matchReligion"
-                        [icon]="''" [img]="'assets/images/church.jpeg'">
+                        [icon]="''" [img]="'assets/images/church.png'">
                     </app-green-check>
                 </div>
             </td>

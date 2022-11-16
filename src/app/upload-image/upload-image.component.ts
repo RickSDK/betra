@@ -1,7 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-//import { BaseComponent } from '../base/base.component';
-
-declare var $: any;
 
 @Component({
   selector: 'app-upload-image',
@@ -24,7 +21,6 @@ export class UploadImageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('+++', this.id);
   }
 
   handleFileInput(event: any, id:string) {
@@ -55,11 +51,6 @@ export class UploadImageComponent implements OnInit {
       };
     };
 
-
-    //reader.onload = this.imageIsLoaded;
-    //reader.onload = imageIsLoaded;
-    //reader.onload = () => this.imageIsLoaded;
-
     reader.readAsDataURL(this.fileToUpload);
     this.showSubmitButtonFlg = true;
     this.showImageFlg = true;
@@ -72,55 +63,8 @@ export class UploadImageComponent implements OnInit {
     this.showSubmitButtonFlg = false;
     this.messageEvent.emit('upload');
   }
-/*
-  imageIsLoaded(e: any) {
-    console.log('xxximageIsLoaded', this.id);
-    $('#myImg').attr('src', e.target.result);
-    var image = new Image();
-    image.src = e.target.result.toString();
-
-    image.onload = function () {
-      console.log('Full size: ', image.src.length, image.width, image.height);
-      var smallImgSrc = imageToDataUri(image);
-
-      var smallImage = new Image();
-      smallImage.src = smallImgSrc.toString();
-      smallImage.onload = function () {
-        $('#myImg').attr('src', smallImgSrc);
-        console.log('New Size: ', smallImage.src.length, smallImage.width, smallImage.height);
-      }
-    }
-  }
-  imageOnload(image: any) {
-    console.log('Full size: ', image.src.length, image.width, image.height);
-    var smallImgSrc = imageToDataUri(image);
-
-    var smallImage = new Image();
-    smallImage.src = smallImgSrc.toString();
-    smallImage.onload = function () {
-      $('#myImg').attr('src', smallImgSrc);
-      console.log('New Size: ', smallImage.src.length, smallImage.width, smallImage.height);
-    }
-  }*/
-
-
 }
-/*function imageIsLoaded(e: any) {
-  $('#myImg').attr('src', e.target.result);
-  var image = new Image();
-  image.src = e.target.result.toString();
-  image.onload = function () {
-    console.log('Full size: ', image.src.length, image.width, image.height);
-    var smallImgSrc = imageToDataUri(image);
 
-    var smallImage = new Image();
-    smallImage.src = smallImgSrc.toString();
-    smallImage.onload = function () {
-      $('#myImg').attr('src', smallImgSrc);
-      console.log('New Size: ', smallImage.src.length, smallImage.width, smallImage.height);
-    }
-  }
-};*/
 function imageToDataUri(img: any) {
   // create an off-screen canvas
   var canvas = document.createElement('canvas');

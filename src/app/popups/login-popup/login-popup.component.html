@@ -3,6 +3,11 @@
         User Login
     </div>
     <div class="inside-box" *ngIf="!loadingFlg">
+
+        <div style="text-align: center;">
+            <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+        </div>
+
         <div class="tiny-text">Email Address</div>
         <input type="email" name="email" id="email" placeholder="Email Address" (input)="valueChanged()">
         <div class="tiny-text">Password</div>
