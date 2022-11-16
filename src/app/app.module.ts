@@ -49,6 +49,8 @@ import { UserRequestDateComponent } from './user-request-date/user-request-date.
 import { UploadImageComponent } from './upload-image/upload-image.component';
 import { UserPrivatePicsComponent } from './user-private-pics/user-private-pics.component';
 import { DateDisplayComponent } from './date-display/date-display.component';
+import { UserRequestsComponent } from './user-requests/user-requests.component';
+import { DateFormComponent } from './date-form/date-form.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import { DateDisplayComponent } from './date-display/date-display.component';
     UserRequestDateComponent,
     UploadImageComponent,
     UserPrivatePicsComponent,
-    DateDisplayComponent
+    DateDisplayComponent,
+    UserRequestsComponent,
+    DateFormComponent
   ],
   imports: [
     BrowserModule,

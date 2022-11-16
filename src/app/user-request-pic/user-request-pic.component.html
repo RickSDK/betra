@@ -15,7 +15,7 @@
 
     </div>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-
+    <div *ngIf="messageSentFlg">Picture sent!</div>
 </div>
 
 
@@ -27,7 +27,7 @@
     <div *ngIf="matchUser.matchObj.match_pic_request < 0">
         <i class="fa fa-ban"></i> Sorry, your request has been denied.
     </div>
-    <div *ngIf="matchUser.matchObj.match_pic_request==0 && !messageSentFlg">
+    <div *ngIf="(!matchUser.matchObj.match_pic_request || matchUser.matchObj.match_pic_request==0) && !messageSentFlg">
         <div class="gray-text">Ask {{matchUser.firstName}} to send you a special picture, taken today, just for
             you.
         </div>

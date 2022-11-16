@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { Router } from '@angular/router';
 
 declare var $: any;
 declare var getIPInfo: any;
@@ -17,6 +18,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public fileToUpload: any;
   public inputFieldObj: any;
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Your Match', 'Done'];
+  public menuTitles2 = ['Basics', 'Email', 'Details', 'Test', 'Politics', 'Image', 'Pics', 'Match'];
   public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
   public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Other Religion'];
@@ -28,7 +30,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
   public smokingOptions = ['Yes', 'No'];
   public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'Asian-Indian', 'Other'];
-
+  public bonusImages = ['Image1', 'Image2', 'Image3', 'Image4'];
   public code: string = localStorage['code'];
   public email: string = localStorage['email'];
   public infoScreenNum: number = 0;
@@ -52,7 +54,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     { subject: 'Sex Workers', option1: 'Legalize prostitution everywhere.', option2: 'Let states set their own laws on prostitution and sex work.', option3: 'Pro traditional families, keep prostitution illegal.', answer: '' },
   ];
 
-  constructor() { super(); }
+  constructor(private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -216,6 +218,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     if (this.menuNum == 6 && !this.user.findLoveFlg)
       this.menuNum = 8;
+
+    if (this.menuNum == 8 && this.user.status == 'Active')
+      this.router.navigate(['']);
   }
   refreshUser() {
     var email = localStorage['email'];
@@ -434,22 +439,21 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       phone: this.user.phone,
       action: 'updateProfile',
     };
-    console.log('xxParamsxx', params);
+    //console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
   }
-  /*
-    handleFileInput(event: any) {
-      this.errorMessage = '';
-      this.showSubmitButtonFlg = false;
-      this.apiSuccessFlg = false;
-      var files: FileList = event.target.files;
-      this.fileToUpload = files.item(0);
-      var reader = new FileReader();
-      reader.onload = imageIsLoaded;
-  
-      reader.readAsDataURL(this.fileToUpload);
-      this.showSubmitButtonFlg = true;
-    }*/
+  uploadPicButtonClicked(num:number) {
+    this.loadingFlg = true;
+    var params = {
+      userId: this.user.user_id,
+      code: localStorage['code'],
+      action: 'updateBonusImage',
+      picNum: num+1,
+      image: $('#'+this.bonusImages[num]).attr('src')
+    };
+    //console.log('uploadPicButtonClicked', params);
+    this.executeApi('appApiCode.php', params, true);
+  }
 
   updateImageButtonClicked() {
     this.showSubmitButtonFlg = false;
@@ -464,65 +468,3 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
 }
-/*function imageIsLoaded(e: any) {
-  $('#myImg').attr('src', e.target.result);
-  var image = new Image();
-  image.src = e.target.result.toString();
-  image.onload = function () {
-    console.log('Full size: ', image.src.length, image.width, image.height);
-    var smallImgSrc = imageToDataUri(image);
-
-    var smallImage = new Image();
-    smallImage.src = smallImgSrc.toString();
-    smallImage.onload = function () {
-      $('#myImg').attr('src', smallImgSrc);
-      console.log('New Size: ', smallImage.src.length, smallImage.width, smallImage.height);
-    }
-  }
-};
-function imageToDataUri(img: any) {
-  // create an off-screen canvas
-  var canvas = document.createElement('canvas');
-  var ctx = canvas.getContext('2d');
-
-  var MAXSIZE = 600;
-  var pct;
-  if (img.width > img.height) {
-    if (img.width > MAXSIZE) {
-      pct = MAXSIZE / img.width;
-    } else {
-      return img.src;
-    }
-  } else {
-    if (img.height > MAXSIZE) {
-      pct = MAXSIZE / img.height;
-    } else {
-      return img.src;
-    }
-  }
-
-  var newHeight = img.height * pct;
-  var newWidth = img.width * pct;
-
-  if (newHeight < 200 || newWidth < 200) {
-    return img.src;
-  }
-
-  canvas.height = newHeight;
-  canvas.width = newWidth;
-
-  // set its dimension to target size
-  //canvas.width = width;
-  //canvas.height = height;
-
-  // draw source image into the off-screen canvas:
-  if (ctx)
-    ctx.drawImage(img, 0, 0, newWidth, newHeight);
-  // encode image to data-uri with base64 version of compressed image
-  //jw1945 so the default is png... from canvas
-  // we want to use jpeg and we will
-  //set the quality to .8 to save on space
-  //in database quality looks pretty good can adjust
-  //quality values are 1.0 to 0.1
-  return canvas.toDataURL('image/jpeg', 0.8);
-}*/

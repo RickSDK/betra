@@ -128,9 +128,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
             alerts++;
           if (match.you_date_request == 'M' || match.match_date_request == 'M' || match.match_date_request == 'A' || match.match_date_request == 'Y' || match.you_date_request == 'Y')
             alerts++;
-          if (match.match_pic_request > 0)
+          if (match.you_pic_request > 0)
             alerts++;
-          if (match.you_info_request == 'Y')
+          if (match.match_info_request == 'Y')
             alerts++;
           if (match.newPics > 0)
             alerts++;

@@ -59,8 +59,7 @@
         <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
         </app-user-private-pics>
 
-        <app-user-request-info *ngIf="matchUser.matchObj.match_level>=5" [myUser]="user" [matchUser]="matchUser">
-        </app-user-request-info>
+        <app-user-requests *ngIf="matchUser.matchObj.match_level>=5" [myUser]="user" [matchUser]="matchUser"></app-user-requests>
 
         <app-user-communication *ngIf="matchUser.matchObj.match_level>=2" [myUser]="user" [matchUser]="matchUser">
         </app-user-communication>

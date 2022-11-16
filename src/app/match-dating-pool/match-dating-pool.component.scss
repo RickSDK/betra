@@ -17,6 +17,9 @@
 .small-name {
     font-size: 10px;
     color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 60px;
 }
 .small-box {
     background-color: #f7f7f7;

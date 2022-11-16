@@ -11,41 +11,16 @@ declare var $: any;
 export class UserRequestInfoComponent extends BaseComponent implements OnInit {
   @Input('myUser') myUser: any = null;
   @Input('matchUser') matchUser: any = null;
+  @Input('requestNum') requestNum: number = 0;
 
-  public requestNum: number = 0;
   public messageSentFlg: boolean = false;
   public sendMessage: string = '';
-
-  public buttonsDisabledFlg: boolean = false;
-  public openPanelFlg: boolean = false;
-
 
   constructor() { super(); }
 
   override ngOnInit(): void {
-    super.ngOnInit();
-    if (!this.user)
-      return;
-
-
   }
-  openPanel() {
-    this.openPanelFlg = !this.openPanelFlg;
-    this.requestNum = 0;
-    if (this.openPanelFlg)
-      this.checkButtons();
-  }
-  checkButtons() {
-    this.buttonsDisabledFlg = this.matchUser.matchObj.match_date_request == 'M' || this.matchUser.matchObj.you_date_request == 'Y' || this.matchUser.matchObj.you_pic_request > 0;
-  }
-
-  changeNum(num: number) {
-    this.sendMessage = '';
-    if (num == this.requestNum)
-      this.requestNum = 0;
-    else
-      this.requestNum = num;
-  }
+  
   processAPIRequest(action: string) {
     var params = {
       userId: localStorage['user_id'],
@@ -68,16 +43,5 @@ export class UserRequestInfoComponent extends BaseComponent implements OnInit {
       this.sendMessage = 'Request Approved and sent!';
     }
   }
-  picUploadTriggered(action: string) {
-    if (action == 'uploadComplete') {
-      this.matchUser.matchObj.you_pic_request = 0;
-      this.checkButtons();
-    }
-  }
-  dateTriggered(action: string) {
-    this.checkButtons();
-  }
-
-
 
 }

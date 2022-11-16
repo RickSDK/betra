@@ -1,65 +1,32 @@
-<div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
-    <div class="gray-title" style="position: relative;"> <i class="fa fa-smile-o"></i> Requests
-        <i (mousedown)="openPanel()"
-            [ngClass]="openPanelFlg?'fa fa-chevron-circle-down more-options':'fa fa-chevron-circle-right more-options'"></i>
-    </div>
+<app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-    <div *ngIf="openPanelFlg" style="padding-bottom: 10px;">&nbsp;
-        <button (mousedown)=changeNum(1) [ngClass]="requestNum==1?'btn btn-warning request':'btn btn-primary request'"
-            [disabled]="buttonsDisabledFlg">
-            <div style="font-size: 20px;"><i class="fa fa-phone"></i></div>
-            <div style="font-size: 10px;">Info</div>
-        </button>&nbsp;
-        <button (mousedown)=changeNum(2) [ngClass]="requestNum==2?'btn btn-warning request':'btn btn-primary request'"
-            [disabled]="buttonsDisabledFlg">
-            <div style="font-size: 20px;"><i class="fa fa-coffee"></i></div>
-            <div style="font-size: 10px;">Date</div>
-        </button>&nbsp;
-        <button (mousedown)=changeNum(3) [ngClass]="requestNum==3?'btn btn-warning request':'btn btn-primary request'"
-            [disabled]="buttonsDisabledFlg">
-            <div style="font-size: 20px;"><i class="fa fa-picture-o"></i></div>
-            <div style="font-size: 10px;">Picture</div>
-        </button>&nbsp;
-    </div>
-
-    <app-user-request-date [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
-        (messageEvent)="dateTriggered($event)"></app-user-request-date>
-    <app-user-request-pic [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
-        (messageEvent)="picUploadTriggered($event)"></app-user-request-pic>
-
-
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-
-
-    <div class="tan-box" *ngIf="requestNum==1">
-        <div *ngIf="messageSentFlg">Message Sent.</div>
-        <div *ngIf="requestNum==1">
-            <div *ngIf="matchUser.matchObj.you_info_request=='X'">Sorry, but {{matchUser.firstName}} has rejected your
-                request.</div>
-            <div *ngIf="matchUser.matchObj.you_info_request=='A'"><i class="fa fa-envelope"></i> Info has been
-                delivered. Check your messages.</div>
-            <div *ngIf="!matchUser.matchObj.you_info_request" class="gray-text">If your request is accepted, you will
-                receive {{matchUser.firstName}}'s' email and
-                phone contact info.</div>
-            <div *ngIf="matchUser.matchObj.you_info_request == 'Y'"><i class="fa fa-paper-plane"></i> You have already
-                requested info. Awaiting Reply.
-            </div>
-            <div *ngIf="!loadingFlg && !messageSentFlg && !matchUser.matchObj.you_info_request">
-                <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
-                <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-success"
-                    style="height: 60px;">Send
-                    Request</button>
-            </div>
+<div class="tan-box" *ngIf="requestNum==1">
+    <div *ngIf="messageSentFlg">Message Sent.</div>
+    <div *ngIf="requestNum==1">
+        <div *ngIf="matchUser.matchObj.you_info_request=='X'">Sorry, but {{matchUser.firstName}} has rejected your
+            request.</div>
+        <div *ngIf="matchUser.matchObj.you_info_request=='A'"><i class="fa fa-envelope"></i> Info has been
+            delivered. Check your messages.</div>
+        <div *ngIf="!matchUser.matchObj.you_info_request" class="gray-text">If your request is accepted, you will
+            receive {{matchUser.firstName}}'s email and
+            phone contact info.</div>
+        <div *ngIf="matchUser.matchObj.you_info_request == 'Y'"><i class="fa fa-paper-plane"></i> You have already
+            requested info. Awaiting Reply.
         </div>
-        <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
-    </div>
-
-    <div *ngIf="matchUser.matchObj.match_info_request == 'Y'" class="tan-box">
-        <div>{{matchUser.firstName}} has requested to receive your email address and phone number.</div>
-        <div *ngIf="!loadingFlg && !sendMessage">
-            <button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-danger">Reject</button>&nbsp;
-            <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-success">Approve</button>
+        <div *ngIf="!loadingFlg && !messageSentFlg && !matchUser.matchObj.you_info_request">
+            <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
+            <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-success" style="height: 60px;">Send
+                Request</button>
         </div>
-        <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
     </div>
+    <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
+</div>
+
+<div *ngIf="matchUser.matchObj.match_info_request == 'Y'" class="tan-box">
+    <div>{{matchUser.firstName}} has requested to receive your email address and phone number.</div>
+    <div *ngIf="!loadingFlg && !sendMessage">
+        <button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-danger">Reject</button>&nbsp;
+        <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-success">Approve</button>
+    </div>
+    <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
 </div>

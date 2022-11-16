@@ -19,4 +19,8 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     localStorage['password'] = '';
     this.router.navigate(['']);
   }
+
+  updateImageButtonClicked() {
+    console.log('hey!!!');
+  }
 }

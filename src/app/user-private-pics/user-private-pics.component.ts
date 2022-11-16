@@ -19,6 +19,9 @@ export class UserPrivatePicsComponent extends BaseComponent implements OnInit {
 
   constructor() { super(); }
 
+  override ngOnInit(): void {
+  }
+
   openPanel() {
     this.openPanelFlg = !this.openPanelFlg;
     if (this.openPanelFlg)
@@ -40,7 +43,6 @@ export class UserPrivatePicsComponent extends BaseComponent implements OnInit {
     }
   }
   processPics(responseJson: any) {
-    console.log('hey!!!', responseJson);
     this.matchUser.matchObj.newPics = 0;
     if (this.matchUser.matchObj) {
       if (responseJson.myPicString) {

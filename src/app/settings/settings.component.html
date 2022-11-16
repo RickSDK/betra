@@ -1,14 +1,27 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Settings'" [headerObj]="headerObj">
 
-     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-     <div class="matches-card" *ngIf="user">
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div class="matches-card" *ngIf="user">
         <div>- Settings -</div>
         <button (mousedown)="logout()" class="btn red-small-button"><i class="fa fa-sign-out"></i>
             Logout</button>
 
-        <div *ngIf="userId==1">        <button [routerLink]="['/users']" class="btn btn-primary"><i class="fa fa-sign-out"></i>
-            Users</button></div>
+        <div *ngIf="userId==1">
+            <p>&nbsp;</p>
+            <button [routerLink]="['/users']" class="btn btn-primary"><i class="fa fa-users"></i>
+                Users</button>&nbsp;
+            <button [routerLink]="['/documentation']" class="btn btn-primary"><i class="fa fa-file-text"></i>
+                Documentation</button>
+        </div>
+
+
+        <app-upload-image *ngIf="!loadingFlg" [src]="user.imgSrc" (messageEvent)="updateImageButtonClicked()"></app-upload-image>
+ 
+
+        
+
+
     </div>
 
 </app-page-shell>

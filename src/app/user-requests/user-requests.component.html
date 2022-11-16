@@ -1,0 +1,32 @@
+<div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
+    <div class="gray-title" style="position: relative;"> <i class="fa fa-smile-o"></i> Requests
+        <i (mousedown)="openPanel()"
+            [ngClass]="openPanelFlg?'fa fa-chevron-circle-down more-options':'fa fa-chevron-circle-right more-options'"></i>
+    </div>
+
+    <div *ngIf="openPanelFlg" style="padding-bottom: 10px;">&nbsp;
+        <button (mousedown)=changeNum(1) [ngClass]="requestNum==1?'btn btn-warning request':'btn btn-primary request'"
+            [disabled]="buttonsDisabledFlg">
+            <div style="font-size: 20px;"><i class="fa fa-phone"></i></div>
+            <div style="font-size: 10px;">Info</div>
+        </button>&nbsp;
+        <button (mousedown)=changeNum(2) [ngClass]="requestNum==2?'btn btn-warning request':'btn btn-primary request'"
+            [disabled]="buttonsDisabledFlg">
+            <div style="font-size: 20px;"><i class="fa fa-coffee"></i></div>
+            <div style="font-size: 10px;">Date</div>
+        </button>&nbsp;
+        <button (mousedown)=changeNum(3) [ngClass]="requestNum==3?'btn btn-warning request':'btn btn-primary request'"
+            [disabled]="buttonsDisabledFlg">
+            <div style="font-size: 20px;"><i class="fa fa-picture-o"></i></div>
+            <div style="font-size: 10px;">Picture</div>
+        </button>&nbsp;
+    </div>
+
+    <app-user-request-date [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
+        (messageEvent)="dateTriggered($event)"></app-user-request-date>
+    <app-user-request-pic [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
+        (messageEvent)="picUploadTriggered($event)"></app-user-request-pic>
+    <app-user-request-info [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"></app-user-request-info>
+
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+</div>

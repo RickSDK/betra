@@ -1,20 +1,21 @@
-
-
 <div class="match-card" *ngIf="matchUser && matchUser.matchObj">
     <div class="gray-title" style="position: relative;"><i class="fa fa-comment"></i> Messages
-        <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg" class="fa fa-info-circle more-options"></i>
+        <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg"
+            class="fa fa-info-circle more-options"></i>
     </div>
 
     <div class="text-window">
         <div *ngFor="let message of messages">
-            
+
             <div [ngClass]="ngClassMessage(message.user_id)" (mousedown)="selectMessage(message.id)">
-                <button (mousedown)="deleteCurrentText()" class="btn btn-danger" *ngIf="message.id==selectedMessage"><i class="fa fa-trash"></i></button>
+                <button (mousedown)="deleteCurrentText()" class="btn btn-danger" *ngIf="message.id==selectedMessage"><i
+                        class="fa fa-trash"></i></button>
                 <div *ngIf="showDetailsFlg" class="top-text">{{message.name}}</div>
                 <div [ngClass]="ngClassMessageBlob(message.user_id)">{{message.message}}</div>
                 <div *ngIf="showDetailsFlg" class="bottom-text">{{message.local}}
                     <span *ngIf="message.user_id == myUser.user_id && !message.readDt" style="color: #700;">Not
                         Read</span>
+                    <span *ngIf="message.user_id == myUser.user_id && message.readDt">Read</span>
                     <span *ngIf="message.user_id == matchUser.user_id && !message.readDt"
                         class="new-message">New!</span>
                 </div>
@@ -23,18 +24,21 @@
     </div>
 
     <hr *ngIf="messages.length>0">
-    
-    <div *ngIf="matchUser.matchObj.match_level==3 && matchUser.matchObj.you_action=='message sent'">Awaiting response from {{matchUser.firstName}}.</div>
-    <div *ngIf="matchUser.matchObj.match_level==3 && matchUser.matchObj.you_action=='Interested'">Respond to {{matchUser.firstName}}!</div>
+
+    <div *ngIf="matchUser.matchObj.match_level==3 && matchUser.matchObj.you_action=='message sent'">Awaiting response
+        from {{matchUser.firstName}}.</div>
+    <div *ngIf="matchUser.matchObj.match_level==3 && matchUser.matchObj.you_action=='Interested'">Respond to
+        {{matchUser.firstName}}!</div>
     <div *ngIf="matchUser.matchObj.match_level==4 && matchUser.matchObj.you_action=='reply sent'">Awaiting response. If
         you get a response, the two of you can
         text freely.</div>
-    <div *ngIf="matchUser.matchObj.match_level==4 && matchUser.matchObj.you_action=='message sent'">You will be able to freely chat back and forth once this message is sent.</div>
+    <div *ngIf="matchUser.matchObj.match_level==4 && matchUser.matchObj.you_action=='message sent'">You will be able to
+        freely chat back and forth once this message is sent.</div>
     <div *ngIf="showTextInputFlg">
         <table width="100%">
             <tr>
                 <td>
-                    <app-message-input (messageEvent)="inputValueChanged($event)" [matchLevel]="matchUser.matchObj.match_level"></app-message-input>
+                    <app-message-input (messageEvent)="inputValueChanged($event)" [maxLength]="250"></app-message-input>
                 </td>
                 <td>
                     <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-primary"
@@ -62,8 +66,8 @@
                     </select>
                 </td>
                 <td>
-                    <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg"
-                        class="btn btn-primary" style="height: 60px;">Send</button>
+                    <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-primary"
+                        style="height: 60px;">Send</button>
                 </td>
             </tr>
         </table>
@@ -72,6 +76,7 @@
     <div *ngIf="messageSentFlg">Message Sent!</div>
 
     <app-spinner [loadingFlg]="loadingFlg"></app-spinner>
-    <div *ngIf="matchUser.matchObj && matchUser.matchObj.match_level == 3" class="purple-text">Getting a response back from {{matchUser.firstName}} will allow you two to communicate freely.</div>
+    <div *ngIf="matchUser.matchObj && matchUser.matchObj.match_level == 3" class="purple-text">Getting a response back
+        from {{matchUser.firstName}} will allow you two to communicate freely.</div>
 
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BaseComponent } from '../base/base.component';
+//import { BaseComponent } from '../base/base.component';
 
 declare var $: any;
 
@@ -8,34 +8,104 @@ declare var $: any;
   templateUrl: './upload-image.component.html',
   styleUrls: ['./upload-image.component.scss']
 })
-export class UploadImageComponent extends BaseComponent implements OnInit {
+export class UploadImageComponent implements OnInit {
+  @Input('src') src: string = '';
+  @Input('id') id: string = 'myImg';
+  @Input('loadingFlg') loadingFlg: boolean = false;
+  @Input('fileId') fileId: string = 'file';
+  
   @Output() messageEvent = new EventEmitter<string>();
 
   public showSubmitButtonFlg: boolean = false;
+  public showImageFlg: boolean = false;
   public fileToUpload: any = null;
+  public showSelectButtonFlg: boolean = true;
 
-  constructor() { super(); }
+  constructor() { }
 
-  handleFileInput(event: any) {
-    this.errorMessage = '';
+  ngOnInit(): void {
+    console.log('+++', this.id);
+  }
+
+  handleFileInput(event: any, id:string) {
+    console.log('+++', this.id, id);
     this.showSubmitButtonFlg = false;
-    this.apiSuccessFlg = false;
     var files: FileList = event.target.files;
     this.fileToUpload = files.item(0);
     var reader = new FileReader();
-    reader.onload = imageIsLoaded;
+    this.showSelectButtonFlg = false;
+
+    reader.onload = () => {
+      var imgFile = reader.result as string;
+      console.log('readerLoaded', this.id, imgFile.length);
+      this.src = imgFile;
+      //$('#' + this.id).attr('src', imgFile);
+      var image = new Image();
+      image.src = imgFile;
+      image.onload = () => {
+        console.log('Full size: ', image.src.length, image.width, image.height);
+        var smallImgSrc = imageToDataUri(image);
+        this.src = smallImgSrc;
+        var smallImage = new Image();
+        smallImage.src = smallImgSrc.toString();
+        smallImage.onload = () => {
+          //$('#' + this.id).attr('src', smallImgSrc);
+          console.log('New Size: ', this.id, smallImage.src.length, smallImage.width, smallImage.height);
+        };
+      };
+    };
+
+
+    //reader.onload = this.imageIsLoaded;
+    //reader.onload = imageIsLoaded;
+    //reader.onload = () => this.imageIsLoaded;
 
     reader.readAsDataURL(this.fileToUpload);
     this.showSubmitButtonFlg = true;
+    this.showImageFlg = true;
   }
-
-  updateImageButtonClicked() {
+  cancelUpload() {
+    this.showSubmitButtonFlg = false;
+    this.showSelectButtonFlg = true;
+  }
+  uploadImageButtonClicked() {
     this.showSubmitButtonFlg = false;
     this.messageEvent.emit('upload');
   }
+/*
+  imageIsLoaded(e: any) {
+    console.log('xxximageIsLoaded', this.id);
+    $('#myImg').attr('src', e.target.result);
+    var image = new Image();
+    image.src = e.target.result.toString();
+
+    image.onload = function () {
+      console.log('Full size: ', image.src.length, image.width, image.height);
+      var smallImgSrc = imageToDataUri(image);
+
+      var smallImage = new Image();
+      smallImage.src = smallImgSrc.toString();
+      smallImage.onload = function () {
+        $('#myImg').attr('src', smallImgSrc);
+        console.log('New Size: ', smallImage.src.length, smallImage.width, smallImage.height);
+      }
+    }
+  }
+  imageOnload(image: any) {
+    console.log('Full size: ', image.src.length, image.width, image.height);
+    var smallImgSrc = imageToDataUri(image);
+
+    var smallImage = new Image();
+    smallImage.src = smallImgSrc.toString();
+    smallImage.onload = function () {
+      $('#myImg').attr('src', smallImgSrc);
+      console.log('New Size: ', smallImage.src.length, smallImage.width, smallImage.height);
+    }
+  }*/
+
 
 }
-function imageIsLoaded(e: any) {
+/*function imageIsLoaded(e: any) {
   $('#myImg').attr('src', e.target.result);
   var image = new Image();
   image.src = e.target.result.toString();
@@ -50,7 +120,7 @@ function imageIsLoaded(e: any) {
       console.log('New Size: ', smallImage.src.length, smallImage.width, smallImage.height);
     }
   }
-};
+};*/
 function imageToDataUri(img: any) {
   // create an off-screen canvas
   var canvas = document.createElement('canvas');

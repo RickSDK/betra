@@ -1,0 +1,47 @@
+<table width="100%" *ngIf="dateObj && requestObj">
+    <tr>
+        <td>
+            <div class="tiny-text">Date</div>
+            <input type="date" id="date" name="date" [value]="dateObj.eventDate || ''">
+        </td>
+        <td>
+            <div class="tiny-text">Time</div>
+            <input type="time" id="time" name="time" [value]="dateObj.eventTime || ''">
+        </td>
+    </tr>
+</table>
+<div>
+    <div class="tiny-text">Location</div>
+    <app-text-input [placeHolder]="'Location'" [maxLength]="30" [id]="'location'"
+        [highlightFlg]="!requestObj.location" [value]="dateObj.location || ''">
+    </app-text-input>
+</div>
+<div>
+    <div class="tiny-text">Address</div>
+    <app-text-input [placeHolder]="'Address'" [maxLength]="60" [id]="'address'"
+        [highlightFlg]="!requestObj.address" [value]="dateObj.address || ''">
+    </app-text-input>
+</div>
+<table width="100%" *ngIf="dateObj && requestObj">
+    <tr>
+        <td>
+            <div class="tiny-text">City</div>
+            <app-text-input [placeHolder]="'City'" [maxLength]="20" [id]="'city'"
+                [highlightFlg]="!requestObj.city" [value]="dateObj.city || ''">
+            </app-text-input>
+        </td>
+        <td>
+            <div class="tiny-text">State</div>
+            <app-text-input [placeHolder]="'State'" [maxLength]="2" [id]="'state'"
+                [highlightFlg]="!requestObj.state" [value]="dateObj.state || ''">
+            </app-text-input>
+        </td>
+        <td>
+            <div class="tiny-text">Zip</div>
+            <app-text-input [placeHolder]="'Zip'" [maxLength]="5" [id]="'zip'"
+                [highlightFlg]="!requestObj.zip" [value]="dateObj.zip || ''">
+            </app-text-input>
+        </td>
+    </tr>
+</table>
+<div>&nbsp;</div>

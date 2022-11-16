@@ -7,16 +7,30 @@
     max-width: 400px;
     font-size: 14px;
 }
+
 .profile-image-large {
     width: 100%;
     max-width: 380px;
     height: 500px;
     border-radius: 5px;
     box-shadow: 2px 2px 4px #999;
-    object-fit: cover; 
+    object-fit: cover;
     margin: 5px;
     transition: all 1s ease;
     cursor: pointer;
+}
+.tiny-pic {
+    width: 100%;
+    max-width: 26px;
+    height: 40px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 4px #999;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+}
+.tiny-pic:hover {
+    box-shadow: 2px 2px 5px black;
 }
 .small-title {
     font-size: 10px;
@@ -24,6 +38,7 @@
     font-weight: 700;
     color: #770000;
 }
+
 .small-box {
     background-color: #f7f7f7;
     border-radius: 5px;
@@ -31,29 +46,42 @@
     margin: 2px;
     text-align: left;
 }
+
 .yellow-button {
     width: 100%;
     font-size: 20px;
     padding: 10px;
     background-color: orange;
 }
+
 .yellow-button:hover {
     background-color: #ffcc00;
 }
+
 .green-button {
     width: 100%;
     font-size: 20px;
     padding: 10px;
     background-color: #77ff77;
 }
+
 .green-button:hover {
     background-color: #ccffcc;
 }
+
 .motto-text {
-    font-size: 12px; 
-    color: #777; 
+    font-size: 12px;
+    color: #777;
     cursor: pointer;
 }
+
 .motto-text:hover {
     color: #b7121f;
+}
+
+.name-bar {
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
 }

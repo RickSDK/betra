@@ -31,9 +31,6 @@ export class UserRequestPicComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   override ngOnInit(): void {
-    super.ngOnInit();
-    if (!this.user)
-      return;
 
     if (this.matchUser.matchObj.you_pic_request && this.matchUser.matchObj.you_pic_request > 0)
       this.pictureType = this.pictureTypes[this.matchUser.matchObj.you_pic_request - 1].name;
@@ -41,7 +38,7 @@ export class UserRequestPicComponent extends BaseComponent implements OnInit {
 
   uploadImage(action: string) {
     var params = {
-      userId: this.user.user_id,
+      userId: localStorage['user_id'],
       code: localStorage['code'],
       matchId: this.matchUser.user_id,
       mid: this.matchUser.matchObj.row_id,
@@ -53,6 +50,7 @@ export class UserRequestPicComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'uploadSpecialImage') {
+      this.messageSentFlg = true;
       this.messageEvent.emit('uploadComplete');
     }
     if (responseJson.action == 'sendPicRequest') {

@@ -28,7 +28,7 @@ export class SideMenuComponent implements OnInit {
   ];
   public bottomItems = [
     { name: 'Settings', routerLink: '/settings', icon: 'fa fa-cog', id: 0 },
-    { name: 'Documentation', routerLink: '/documentation', icon: 'fa fa-file-text', id: 0 },
+ //   { name: 'Documentation', routerLink: '/documentation', icon: 'fa fa-file-text', id: 0 },
   ];
   constructor() { }
 

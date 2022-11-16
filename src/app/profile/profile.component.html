@@ -1,6 +1,11 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [pageTitle]="'Profile'"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
 
+    <div class="btn-group" *ngIf="user && user.status == 'Active'">
+        <button style="font-size: 10px; padding: 5px;" *ngFor="let title of menuTitles2; let i = index;"
+            (mousedown)="menuNum=i" type="button"
+            [ngClass]="menuNum==i?'btn btn-primary':'btn btn-secondary'">{{title}}</button>
+    </div>
     <div style="text-align: center;">
         <div class="profile-popup">
             <div class="inside-box">
@@ -45,9 +50,10 @@
                                     [disabled]="true" id="email" type="email" [value]="user.email"
                                     placeholder="Email Address" (input)="menuValueChanged()">
 
-                                <table width="100%">
-                                    <tr>
-                                        <td>
+                                <div class="container-fluid">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
                                             <div class="tiny-text">My Gender</div>
                                             <table>
                                                 <tr>
@@ -61,8 +67,8 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                        </td>
-                                        <td>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div *ngIf="user.findLoveFlg">
                                                 <div class="tiny-text">Show Me (I want to date)</div>
                                                 <table>
@@ -77,7 +83,7 @@
                                                         </td>
                                                         <td>
                                                             <button (mousedown)="selectMatches('A')"
-                                                                [ngClass]="ngClassButton(user.matchPreference=='A')">Everyone</button>
+                                                                [ngClass]="ngClassButton(user.matchPreference=='A')">All</button>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -86,12 +92,9 @@
                                                     option
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                </table>
-
-
-
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md" *ngIf="0">
                                 <div class="brown-box">
@@ -423,13 +426,9 @@
                 <div class="menu-section" *ngIf="menuNum==5">
 
                     <p>Upload a photo of yourself.</p>
-                    <img *ngIf="user.profilePic>0" [src]="user.imgSrc" class="profile-image" alt="profile Image">
-                    <div
-                        style="border: 5px dashed gray; border-radius: 5px; height:400px; width: 300px; display: inline-block; padding-top: 50px;">
-                        <app-upload-image *ngIf="!loadingFlg" (messageEvent)="updateImageButtonClicked()">
-                        </app-upload-image>
-                    </div>
-
+                    <app-upload-image *ngIf="!loadingFlg" [src]="user.imgSrc"
+                        (messageEvent)="updateImageButtonClicked()">
+                    </app-upload-image>
 
                     <div *ngIf="apiSuccessFlg" style="background-color: #cfc; height: 44px;">
                         Success!
@@ -438,12 +437,13 @@
 
                 <!--------------------------6------------------->
                 <div class="menu-section" *ngIf="menuNum==6">
-                    <div class="profile-image2"></div>
-                    <div class="profile-image2"></div>
-                    <div class="profile-image2"></div>
-                    <div class="profile-image2"></div>
-                    <div>Feature coming soon...</div>
-                </div>
+                    <p>Optionally, you can upload up to 4 additional photos of yourself.</p>
+                    <div class="gray-text">Having additional photos increases the chances of people being interested in you.</div>
+                    <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'" [src]="user.pic1" (messageEvent)="uploadPicButtonClicked(0)"></app-upload-image>
+                    <app-upload-image [fileId]="'file2'" [loadingFlg]="loadingFlg" [id]="'Image2'" [src]="user.pic2" (messageEvent)="uploadPicButtonClicked(1)"></app-upload-image>
+                    <app-upload-image [fileId]="'file3'" [loadingFlg]="loadingFlg" [id]="'Image3'" [src]="user.pic3" (messageEvent)="uploadPicButtonClicked(2)"></app-upload-image>
+                    <app-upload-image [fileId]="'file4'" [loadingFlg]="loadingFlg" [id]="'Image4'" [src]="user.pic4" (messageEvent)="uploadPicButtonClicked(3)"></app-upload-image>
+                 </div>
 
                 <!-----------------------------4--Your match------------------------>
                 <div class="menu-section" *ngIf="user && menuNum==7">
@@ -549,8 +549,9 @@
                             </div>
                         </div>
                         <div class="tiny-text">What are you looking for? (One sentence)</div>
-                        <input name="story" id="story" type="text" [value]="user.story" maxlength="128"
-                            [style.background-color]="user.story?'#eee':'#ffffc0'" (input)="menuValueChanged()">
+                        <app-text-input [placeHolder]="'What are you looking for?'" [id]="'story'" [value]="user.story"
+                            [highlightFlg]="user.story==''" [maxLength]="128" (messageEvent)="menuValueChanged()">
+                        </app-text-input>
                     </div>
                 </div>
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 declare var $: any;
+declare var getDateObjFromJSDate: any;
 
 @Component({
   selector: 'app-user-request-date',
@@ -16,6 +17,8 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
   @Input('requestNum') requestNum: number = 0;
   public messageSentFlg: boolean = false;
   public modifyFlg: boolean = false;
+  public modifyDateNum: number = 0;
+  public daysAgo: number = 0;
   public declineDateFlg: boolean = false;
 
   public requestObj = {
@@ -28,6 +31,14 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
     zip: 'empty',
   }
   constructor() { super(); }
+
+  override ngOnInit(): void {
+    if (this.matchUser.matchObj.dateObj) {
+      var dt = getDateObjFromJSDate(this.matchUser.matchObj.dateObj.eventDate + ' ' + this.matchUser.matchObj.dateObj.eventTime);
+      if (dt)
+        this.daysAgo = dt.daysAgo;
+    }
+  }
 
   sendDateRequest() {
     this.errorMessage = '';
@@ -43,8 +54,21 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
     //console.log(this.requestObj);
     if (!this.requestObj.date || !this.requestObj.time || !this.requestObj.location || !this.requestObj.address || !this.requestObj.city || !this.requestObj.state || !this.requestObj.zip) {
       this.errorMessage = 'Fill out all required fields';
+
+      if (!this.requestObj.date)
+        this.errorMessage = 'choose a valid date, in the future.';
+
+      if (!this.requestObj.time)
+        this.errorMessage = 'choose a valid time, including AM or PM.';
+
       return;
     }
+    var dt = getDateObjFromJSDate(this.requestObj.date + ' ' + this.requestObj.time);
+    if (dt && dt.daysAgo > 0) {
+      this.errorMessage = 'date must be in the future.';
+      return;
+    }
+
     this.messageSentFlg = true;
     var params = {
       userId: localStorage['user_id'],
@@ -77,6 +101,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     this.messageSentFlg = true;
+    this.messageEvent.emit(responseJson.action);
   }
 
 }

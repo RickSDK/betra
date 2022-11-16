@@ -6,7 +6,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./message-input.component.scss']
 })
 export class MessageInputComponent implements OnInit {
-  @Input('matchLevel') matchLevel: number = 0;
   @Input('placeHolder') placeHolder: string = 'Type message';
   @Input('maxLength') maxLength: number = 500;
 

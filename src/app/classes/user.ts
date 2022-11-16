@@ -112,6 +112,12 @@ export class User {
     public stateName: string = '';
     public ip: string = '';
 
+    public pic1: string = '';
+    public pic2: string = '';
+    public pic3: string = '';
+    public pic4: string = '';
+    public numPics: number = 0;
+
     constructor(obj: any) {
         if (obj) {
             this.user_id = obj.user_id || 0;
@@ -200,7 +206,22 @@ export class User {
             this.state = obj.state || '';
             this.stateName = obj.stateName || '';
             this.ip = obj.ip || '';
- 
+
+            this.pic1 = bonusImageFromNum(obj.user_id, obj.pic1);
+            this.pic2 = bonusImageFromNum(obj.user_id, obj.pic2);
+            this.pic3 = bonusImageFromNum(obj.user_id, obj.pic3);
+            this.pic4 = bonusImageFromNum(obj.user_id, obj.pic4);
+
+            this.numPics = 0;
+            if (obj.pic1 > 0)
+                this.numPics++;
+            if (obj.pic2 > 0)
+                this.numPics++;
+            if (obj.pic3 > 0)
+                this.numPics++;
+            if (obj.pic4 > 0)
+                this.numPics++;
+
         }
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
@@ -373,7 +394,7 @@ export class User {
         //----Basics
         var basicsFlg = !!(this.firstName && this.zipcode && this.gender && this.matchPreference && this.phone);
         //if (basicsFlg && this.findLoveFlg && !this.matchPreference)
-          //  basicsFlg = false;
+        //  basicsFlg = false;
 
         //----Details
         var detailsFlg = true;
@@ -417,4 +438,11 @@ function betraImageFromId(user_id: number, profilePic: number) {
         return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
     else
         return 'assets/images/theRock.png';
+}
+function bonusImageFromNum(user_id: number, profilePic: number) {
+    if (user_id > 0 && profilePic > 0)
+        return 'https://www.appdigity.com/betraPhp/bonusPics/pic' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
+    else
+        return '';
+
 }

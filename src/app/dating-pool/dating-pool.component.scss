@@ -36,6 +36,13 @@
     color: #b7121f;
     font-weight: 700;
 }
+.small-name-text {
+    font-size: 7px; 
+    color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 50px;
+}
 
 .red-header {
     background-color: #ccc;
