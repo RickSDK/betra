@@ -30,44 +30,50 @@
                     Get paid to meet people for coffee. Not a romantic date, just interesting conversation.
                 </div>
             </div>
-            <button (mousedown)="optionNum=1" class="btn red-button"
+            <button (mousedown)="pressGetStartedButton()" class="btn red-button"
                 [disabled]="!option1Flg && !option2Flg && !option3Flg">Get Started!</button>
         </div>
         <div *ngIf="optionNum==1">
-            <div class="tiny-text">Birth Date</div>
             <div style="text-align: center;">
-                <select name="month" id="month">
-                    <option *ngFor="let option of monthOptions">{{option}}</option>
-                </select>
-                <select name="day" id="day">
-                    <option *ngFor="let option of dayOptions">{{option}}</option>
-                </select>
-                <select name="year" id="year" (input)="valueChanged()">
-                    <option *ngFor="let option of yearOptions">{{option}}</option>
-                </select>
+                <button *ngIf="showLoginButtonFlg" class="btn btn-primary" (click)="facebookSignin()"><i class="fa fa-facebook-square"></i> Continue with Facebook</button>
             </div>
-            <div *ngIf="tooYoungFlg" style="background-color: yellow; text-align: center;">Must be 18 to use this app!
-            </div>
+            <div *ngIf="0">
+                <div class="tiny-text">Birth Date</div>
+                <div style="text-align: center;">
+                    <select name="month" id="month">
+                        <option *ngFor="let option of monthOptions">{{option}}</option>
+                    </select>
+                    <select name="day" id="day">
+                        <option *ngFor="let option of dayOptions">{{option}}</option>
+                    </select>
+                    <select name="year" id="year" (input)="valueChanged()">
+                        <option *ngFor="let option of yearOptions">{{option}}</option>
+                    </select>
+                </div>
+                <div *ngIf="tooYoungFlg" style="background-color: yellow; text-align: center;">Must be 18 to use this
+                    app!
+                </div>
 
-            <table width="100%">
-                <tr>
-                    <td>
-                        <div class="tiny-text">Gender</div>
-                        <div style="text-align: center;">
-                            <select (change)="selectGender($event)">>
-                                <option>Select</option>
-                                <option>I am a male</option>
-                                <option>I am a female</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="tiny-text">Zip Code</div>
-                        <input name="zipcode" id="zipcode" type="number" placeholder="Zipcode" maxlength="5"
-                            (input)="valueChanged()">
-                    </td>
-                </tr>
-            </table>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div class="tiny-text">Gender</div>
+                            <div style="text-align: center;">
+                                <select (change)="selectGender($event)">>
+                                    <option>Select</option>
+                                    <option>I am a male</option>
+                                    <option>I am a female</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="tiny-text">Zip Code</div>
+                            <input name="zipcode" id="zipcode" type="number" placeholder="Zipcode" maxlength="5"
+                                (input)="valueChanged()">
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
             <div class="tiny-text">First Name</div>
             <input name="firstName" id="firstName" type="text" placeholder="First Name" (input)="valueChanged()"
@@ -85,7 +91,7 @@
                     </td>
                     <td>
                         <button (mousedown)="signupPressed()" class="btn red-button"
-                            [disabled]="submitDisabled || tooYoungFlg || !gender">Sign Up!</button>
+                            [disabled]="submitDisabled">Sign Up!</button>
                     </td>
                 </tr>
             </table>

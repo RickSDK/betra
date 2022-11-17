@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { Router } from '@angular/router';
 
 declare var $: any;
 declare var getDateObjFromJSDate: any;
@@ -28,10 +30,17 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
   public gender: string = '';
   public birthDate: string = '';
   public birthYear: string = '';
+  public showLoginButtonFlg: boolean = true;
 
-  constructor() { super(); }
+  constructor(private socialAuthService: SocialAuthService, private router: Router) { super(); }
 
   override ngOnInit(): void {
+
+    this.socialAuthService.authState.subscribe((user) => {
+      if (!this.showLoginButtonFlg)
+        this.facebookToBetraLogin(user);
+    });
+    /*
     for (var i = 1; i <= 31; i++)
       this.dayOptions.push(i);
 
@@ -39,8 +48,12 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
     for (var i = 1; i <= 100; i++) {
       year--;
       this.yearOptions.push(year);
-    }
+    }*/
 
+  }
+  pressGetStartedButton() {
+    this.optionNum = 1;
+    this.showLoginButtonFlg = true;
   }
   signupPressed() {
     var email: string = $('#email').val();
@@ -59,10 +72,10 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
       gender: this.gender,
       birthDate: this.birthDate,
       birthYear: this.birthYear,
-      firstName: firstName,
-      findLoveFlg: this.option1Flg?'Y':'',
-      meetPeopleFlg: this.option2Flg?'Y':'',
-      makeMoneyFlg: this.option3Flg?'Y':'',
+      firstName: firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1),
+      findLoveFlg: this.option1Flg ? 'Y' : '',
+      meetPeopleFlg: this.option2Flg ? 'Y' : '',
+      makeMoneyFlg: this.option3Flg ? 'Y' : '',
       zipcode: zipcode,
       action: 'createAccount'
     };
@@ -74,11 +87,42 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
 
-    localStorage['user_id'] = responseJson.user_id;
-    localStorage['User'] = JSON.stringify(responseJson);
+    localStorage['user_id'] = responseJson.user.user_id;
+    localStorage['User'] = JSON.stringify(responseJson.user);
+    this.syncUserWithLocalStorage(responseJson);
+    this.router.navigate(['/profile']);
   }
   okPressed() {
     this.messageEvent.emit('login');
+  }
+
+  facebookSignin(): void {
+    this.showLoginButtonFlg = false;
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  logOut(): void {
+    this.socialAuthService.signOut();
+  }
+
+  facebookToBetraLogin(user: any) {
+    console.log('here is my user!', user);
+
+    localStorage['email'] = user.email;
+    localStorage['code'] = btoa(user.id);
+    localStorage['facebookId'] = user.id;
+
+    var params = {
+      email: user.email,
+      code: localStorage['code'],
+      firstName: user.firstName,
+      facebookId: user.id,
+      provider: user.provider,
+      action: 'facebookLogin'
+    };
+    console.log('params', params);
+    this.executeApi('login.php', params, true);
+
   }
 
   selectGender(event: any) {
@@ -95,6 +139,7 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
     var email: string = $('#email').val();
     var password: string = $('#password').val();
     this.submitDisabled = !firstName || !email || !password;
+    /*
     var month: string = $('#month').val();
     var day: string = $('#day').val();
     var year: string = $('#year').val();
@@ -120,6 +165,7 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
     this.tooYoungFlg = (age < 18);
 
     console.log(age, this.birthDate, d, month, monNum, day, year, firstName, email, password);
+    */
   }
 
 }

@@ -262,6 +262,7 @@ export class User {
                 this.birthDay = dt.getDate();
                 this.birthMonth = dt.getMonth() + 1;
             }
+            this.birthdate = items[0];
             this.age = year - this.birthYear;
         }
 
@@ -297,7 +298,7 @@ export class User {
         if (this.profilePic > 0)
             this.imgSrc = betraImageFromId(this.user_id, this.profilePic);
         this.mainImageSrc = this.imgSrc;
-        
+
         this.adventureStableText = "n/a";
         if (this.personalityQuizAnswers) {
             var items = this.personalityQuizAnswers.split(':');

@@ -24,9 +24,22 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md">
-                                <div class="tiny-text">First Name</div>
-                                <app-first-name-input (messageEvent)="menuValueChanged()" [firstName]="user.firstName">
-                                </app-first-name-input>
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <div class="tiny-text">First Name</div>
+                                            <app-first-name-input (messageEvent)="menuValueChanged()"
+                                                [firstName]="user.firstName">
+                                            </app-first-name-input>
+                                        </td>
+                                        <td>
+                                            <div class="tiny-text">Birthdate</div>
+                                            <app-birthday-input (messageEvent)="menuValueChanged()"
+                                                [birthdate]="user.birthdate"></app-birthday-input>
+                                        </td>
+                                    </tr>
+                                </table>
+
 
                                 <table width="100%">
                                     <tr>
@@ -47,7 +60,7 @@
                                 </table>
                                 <div class="tiny-text">Email Address</div>
                                 <input name="email" [style.background-color]="user.email?'#eee':'#ffffc0'"
-                                    [disabled]="true" id="email" type="email" [value]="user.email"
+                                    [disabled]="!!user.email" id="email" type="email" [value]="user.email"
                                     placeholder="Email Address" (input)="menuValueChanged()">
 
                                 <div class="container-fluid">
@@ -67,6 +80,10 @@
                                                     </td>
                                                 </tr>
                                             </table>
+                                            <div *ngIf="!user.gender && errorMessage" style="background-color: yellow;">
+                                                Select an
+                                                gender
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div *ngIf="user.findLoveFlg">
@@ -438,12 +455,17 @@
                 <!--------------------------6------------------->
                 <div class="menu-section" *ngIf="menuNum==6">
                     <p>Optionally, you can upload up to 4 additional photos of yourself.</p>
-                    <div class="gray-text">Having additional photos increases the chances of people being interested in you.</div>
-                    <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'" [src]="user.pic1" (messageEvent)="uploadPicButtonClicked(0)"></app-upload-image>
-                    <app-upload-image [fileId]="'file2'" [loadingFlg]="loadingFlg" [id]="'Image2'" [src]="user.pic2" (messageEvent)="uploadPicButtonClicked(1)"></app-upload-image>
-                    <app-upload-image [fileId]="'file3'" [loadingFlg]="loadingFlg" [id]="'Image3'" [src]="user.pic3" (messageEvent)="uploadPicButtonClicked(2)"></app-upload-image>
-                    <app-upload-image [fileId]="'file4'" [loadingFlg]="loadingFlg" [id]="'Image4'" [src]="user.pic4" (messageEvent)="uploadPicButtonClicked(3)"></app-upload-image>
-                 </div>
+                    <div class="gray-text">Having additional photos increases the chances of people being interested in
+                        you.</div>
+                    <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'" [src]="user.pic1"
+                        (messageEvent)="uploadPicButtonClicked(0)"></app-upload-image>
+                    <app-upload-image [fileId]="'file2'" [loadingFlg]="loadingFlg" [id]="'Image2'" [src]="user.pic2"
+                        (messageEvent)="uploadPicButtonClicked(1)"></app-upload-image>
+                    <app-upload-image [fileId]="'file3'" [loadingFlg]="loadingFlg" [id]="'Image3'" [src]="user.pic3"
+                        (messageEvent)="uploadPicButtonClicked(2)"></app-upload-image>
+                    <app-upload-image [fileId]="'file4'" [loadingFlg]="loadingFlg" [id]="'Image4'" [src]="user.pic4"
+                        (messageEvent)="uploadPicButtonClicked(3)"></app-upload-image>
+                </div>
 
                 <!-----------------------------4--Your match------------------------>
                 <div class="menu-section" *ngIf="user && menuNum==7">

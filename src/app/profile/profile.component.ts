@@ -3,7 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { Router } from '@angular/router';
 
 declare var $: any;
-declare var getIPInfo: any;
+declare var getDateObjFromJSDate: any;
 
 @Component({
   selector: 'app-profile',
@@ -331,11 +331,22 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
     if (this.menuNum == 0) {
       this.user.email = $('#email').val();
+      this.user.birthdate = $('#birthdate').val();
       this.user.firstName = $('#firstName').val();
       this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();
 
       var basicsFlg = (this.user.email && this.user.firstName && this.user.zipcode && this.user.gender && this.user.matchPreference && this.user.phone);
+      var obj = getDateObjFromJSDate(this.user.birthdate);
+      this.user.birthYear = obj.year;
+      if (obj.daysAgo < 365 * 18) {
+        this.errorMessage = 'enter valid birthday';
+        basicsFlg = false;
+      }
+      if (obj.daysAgo > 365 * 100) {
+        this.errorMessage = 'enter valid birthday';
+        basicsFlg = false;
+      }
 
       this.user.profileFlags[this.menuNum] = basicsFlg;
     }
@@ -395,6 +406,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       userId: this.user.user_id,
       code: localStorage['code'],
       email: this.user.email,
+      birthdate: this.user.birthdate,
+      birthYear: this.user.birthYear,
       firstName: this.user.firstName,
       zipcode: this.user.zipcode,
       motto: this.user.motto,

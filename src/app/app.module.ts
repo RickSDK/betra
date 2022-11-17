@@ -51,6 +51,8 @@ import { UserPrivatePicsComponent } from './user-private-pics/user-private-pics.
 import { DateDisplayComponent } from './date-display/date-display.component';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
 import { DateFormComponent } from './date-form/date-form.component';
+import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { BirthdayInputComponent } from './birthday-input/birthday-input.component';
 
 @NgModule({
   declarations: [
@@ -102,13 +104,30 @@ import { DateFormComponent } from './date-form/date-form.component';
     UserPrivatePicsComponent,
     DateDisplayComponent,
     UserRequestsComponent,
-    DateFormComponent
+    DateFormComponent,
+    BirthdayInputComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider(
+              '3399067146824355'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

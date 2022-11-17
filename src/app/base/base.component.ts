@@ -66,31 +66,41 @@ export class BaseComponent implements OnInit {
     this.userId = localStorage['user_id'] || 0;
     this.popupNum = 1;
     console.log('+++ loading this user: ', this.userId);
-    if (this.userId > 0) {
-      var userObj = JSON.parse(localStorage['User']);
-      this.user = new User(userObj);
-      this.imgSrcFile = this.user.imgSrc;
-      this.userStatus = this.user.status;
-      this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
-      this.headerObj.messageCount = localStorage['messageCount'];
-      this.headerObj.admirerCount = localStorage['admirerCount'];
-      this.headerObj.matchesAlerts = localStorage['matchesAlerts'];
-      this.popupNum = (this.user.status == 'Active') ? 0 : 3;
-      console.log('loadUserObjUser', this.user);
+    if (this.userId > 0 ) {
+      var userLocalStorage = localStorage['User'];
+      if(userLocalStorage) {
+        var userObj = JSON.parse(localStorage['User']);
+        this.user = new User(userObj);
+        this.imgSrcFile = this.user.imgSrc;
+        this.userStatus = this.user.status;
+        this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
+        this.headerObj.messageCount = localStorage['messageCount'];
+        this.headerObj.admirerCount = localStorage['admirerCount'];
+        this.headerObj.matchesAlerts = localStorage['matchesAlerts'];
+        this.popupNum = (this.user.status == 'Active') ? 0 : 3;
+        console.log('loadUserObjUser', this.user);  
+      } else {
+        console.log('Error - no localstorage!!!');
+        this.userId = 0;
+        localStorage['user_id'] = 0;
+      }
     }
   }
   syncUserWithLocalStorage(responseJson: any) {
     console.log('xxx user synced with database xxx', responseJson);
-    this.notifications = responseJson.infoObj.notifications;
-    this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
-    this.headerObj.messageCount = responseJson.infoObj.messageCount;
-    this.headerObj.matchesAlerts = responseJson.infoObj.matchesAlerts
-    localStorage['notifications'] = this.notifications;
-    localStorage['admirerCount'] = this.headerObj.admirerCount;
-    localStorage['messageCount'] = this.headerObj.messageCount;
-    localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
-    if (responseJson.infoObj.refreshFlg == 'Y' && responseJson.user)
-      this.refreshUserObj(responseJson.user);
+    if(responseJson.infoObj) {
+      this.notifications = responseJson.infoObj.notifications;
+      this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
+      this.headerObj.messageCount = responseJson.infoObj.messageCount;
+      this.headerObj.matchesAlerts = responseJson.infoObj.matchesAlerts
+      localStorage['notifications'] = this.notifications;
+      localStorage['admirerCount'] = this.headerObj.admirerCount;
+      localStorage['messageCount'] = this.headerObj.messageCount;
+      localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
+      if (responseJson.infoObj.refreshFlg == 'Y' && responseJson.user)
+        this.refreshUserObj(responseJson.user);
+    }
+
   }
 
   logUser(refreshFlg:string = '') {

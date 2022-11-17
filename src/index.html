@@ -10,55 +10,11 @@
 	<link rel="apple-touch-icon-precomposed" sizes="128x128" href="assets/icon128.png">
 	<link rel="shortcut icon" sizes="196x196" href="assets/icon.png">
 	<link rel="shortcut icon" sizes="128x128" href="assets/icon128.png">
-
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=3399067146824355&autoLogAppEvents=1" nonce="4OzHSfgB"></script>
-
-  <fb:login-button 
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
-
   <app-root></app-root>
 </body>
 </html>
 
-<script>
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '3399067146824355',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v15.0'
-    });
-      
-    FB.AppEvents.logPageView();   
-    
-    FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-});
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-   
-   
-function statusChangeCallback(response) {
-	console.log('statusChangeCallback', response);
-}
-
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    console.log('checkLoginState', response);
-  });
-}
-</script>

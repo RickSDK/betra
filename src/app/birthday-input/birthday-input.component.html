@@ -1,0 +1,2 @@
+<input type="date" name="birthdate" id="birthdate" (input)="verifyBirthday()" [value]="birthdate" [style.background-color]="tooYoungFlg?'#ffffc0':'white'">
+<div class="error-message" *ngIf="tooYoungFlg" style="font-size: 10px;">Must be 18 years old.</div>
