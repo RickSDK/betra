@@ -1,5 +1,5 @@
 <div [ngClass]="ngClassProfileCard()" *ngIf="user">
-    <app-profile-top [user]="user"></app-profile-top>
+    <app-profile-top [user]="user" [myUser]="myUser"></app-profile-top>
 
     <div *ngIf="user.status != 'Active'">
         <div></div>You need to finish setting up your profile before you can start meeting people. This only takes a few

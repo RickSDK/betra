@@ -5,29 +5,38 @@
         <div class="btn-group" role="group" aria-label="Menu">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)">{{button}}</button>
-            <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 5" class="btn btn-danger"><i
-                    class="fa fa-heart"></i></button>
+            <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 5" class="btn btn-light">
+                <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
+            </button>
         </div>
         <div *ngIf="showHeartFormFlg && menuNum==0" class="tan-box">
-            <div><i class="fa fa-heart red-text" style="font-size: 32px;"></i></div>
-            <div style="font-size: 20px;">Give someone your heart!</div>
-            <table align="center" *ngIf="!loadingFlg">
+            <table align="center">
                 <tr>
                     <td>
-                        <select name="assignHeart" id="assignHeart" (change)="disableFormFlg=false">
-                            <option disabled selected>Select</option>
-                            <option *ngFor="let player of user.datingPool" [value]="player.user_id">{{player.name}}
-                            </option>
-                        </select>
+                        <img src="assets/images/rose6.png" height="150" alt="Rose" title="Rose">
                     </td>
                     <td>
-                        <button (mousedown)="assignHeart()" class="btn btn-primary" style="padding: 10px;"
-                            [disabled]="disableFormFlg">Assign</button>
+                        <div style="font-size: 20px;">Give someone a rose!</div>
+                        <table align="center" *ngIf="!loadingFlg">
+                            <tr>
+                                <td>
+                                    <select name="assignHeart" id="assignHeart" (change)="disableFormFlg=false">
+                                        <option disabled selected>Select</option>
+                                        <option *ngFor="let player of user.datingPool" [value]="player.user_id">{{player.name}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button (mousedown)="assignHeart()" class="btn btn-primary" style="padding: 10px;"
+                                        [disabled]="disableFormFlg">Assign</button>
+                                </td>
+                            </tr>
+                        </table>            
                     </td>
                 </tr>
             </table>
 
-            <div class="tiny-text">Pick one person from your dating pool to indicate they are someone special. Everyone
+            <div class="tiny-text">Pick one person to indicate they are someone special. Everyone
                 in your dating pool will be able to see who you have chosen.
                 Feel free to change this pick at any time.
             </div>

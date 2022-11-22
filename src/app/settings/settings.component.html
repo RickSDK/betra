@@ -1,11 +1,68 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Settings'" [headerObj]="headerObj">
 
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div class="matches-card" *ngIf="user">
         <div>- Settings -</div>
-        <button (mousedown)="logout()" class="btn red-small-button"><i class="fa fa-sign-out"></i>
-            Logout</button>
+        <button (mousedown)="logout()" class="btn btn-danger"><i class="fa fa-sign-out"></i>
+            Logout</button>&nbsp;
+        <button (mousedown)="showStats()" class="btn btn-primary"><i class="fa fa-line-chart"></i>
+            stats</button>&nbsp;
+        <button (mousedown)="showLocation()" class="btn btn-success"><i class="fa fa-globe"></i>
+            location</button>&nbsp;
+        <button [routerLink]="'/upgrade-member'" class="btn btn-warning"><i class="fa fa-arrow-up"></i>
+            Upgrade</button>&nbsp;
+
+        <div *ngIf="showLocationFlg && !loadingFlg" class="border-box">
+            <div class="gray-text">Location</div>
+            <div>City: <span class="text-highlight">{{user.city}}</span></div>
+            <div>State: <span class="text-highlight">{{user.state}}</span></div>
+            <div>Country: <span class="text-highlight">{{user.countryName}}</span></div>
+            <button (mousedown)="updateLocation()" class="btn btn-success" style="height: 60px;"><i
+                    class="fa fa-map-pin"></i>
+                Update Location</button>&nbsp;
+        </div>
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <table width="100%" *ngIf="showStatsFlg && responseJson && !loadingFlg">
+            <tr>
+                <td>
+                    <div class="border-box" style="font-size: 12px;">
+                        <div class="tiny-text">Accounts</div>
+                        <div>Total: {{responseJson.accounts}}</div>
+                        <div>Completed: {{responseJson.activeAccounts}}</div>
+                        <div>Active: {{responseJson.recentLogins}} (past 7 days)</div>
+                        <div>New: {{responseJson.newThisWeek}} (past 7 days)</div>
+                    </div>
+                    <div class="border-box">
+                        <div class="tiny-text">Likes: {{responseJson.likes}}</div>
+                        <div class="tiny-text">Matches: {{responseJson.matches}}</div>
+                        <div class="tiny-text">Messages: {{responseJson.messages}}</div>
+                        <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="border-box">
+                        <div class="tiny-text">Countries</div>
+                        <div *ngFor="let country of responseJson.countryNames">
+                            <div>{{country.countryName}}: {{country.count}}</div>
+                        </div>
+                    </div>
+                    <div class="border-box">
+                        <div class="tiny-text">States</div>
+                        <div *ngFor="let state of responseJson.stateName">
+                            <div>{{state.stateName}}: {{state.count}}</div>
+                        </div>
+                    </div>
+                    <div class="border-box">
+                        <div class="tiny-text">Cities</div>
+                        <div *ngFor="let city of responseJson.cities">
+                            <div>{{city.name}}: {{city.count}}</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
 
         <div *ngIf="userId==1">
             <p>&nbsp;</p>
@@ -13,7 +70,7 @@
                 Users</button>&nbsp;
             <button [routerLink]="['/documentation']" class="btn btn-primary"><i class="fa fa-file-text"></i>
                 Documentation</button>
-        </div>      
+        </div>
 
 
     </div>

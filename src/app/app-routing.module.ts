@@ -13,6 +13,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { MessagesComponent } from './messages/messages.component';
 import { TopListsComponent } from './top-lists/top-lists.component';
 import { DocumentationComponent } from './documentation/documentation.component';
+import { UpgradeMemberComponent } from './upgrade-member/upgrade-member.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent },
   { path: 'top-lists', component: TopListsComponent },
   { path: 'documentation', component: DocumentationComponent },
+  { path: 'upgrade-member', component: UpgradeMemberComponent },
 ];
 
 @NgModule({

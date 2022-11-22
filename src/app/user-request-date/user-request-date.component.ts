@@ -18,7 +18,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
   public messageSentFlg: boolean = false;
   public modifyFlg: boolean = false;
   public modifyDateNum: number = 0;
-  public daysAgo: number = 0;
+  public secondsAgo: number = 0;
   public declineDateFlg: boolean = false;
 
   public requestObj = {
@@ -36,7 +36,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
     if (this.matchUser.matchObj.dateObj) {
       var dt = getDateObjFromJSDate(this.matchUser.matchObj.dateObj.eventDate + ' ' + this.matchUser.matchObj.dateObj.eventTime);
       if (dt)
-        this.daysAgo = dt.daysAgo;
+        this.secondsAgo = dt.secondsAgo;
     }
   }
 

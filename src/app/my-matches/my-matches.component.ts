@@ -120,7 +120,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.responseJson.matches.forEach((match: any) => {
         if (match.uid == element.user_id) {
           element.match = match;
-          console.log('+++M!+++', match);
+          //console.log('+++M!+++', match);
           var alerts = 0;
           if (match.newMatchFlg == 'Y')
             alerts++;

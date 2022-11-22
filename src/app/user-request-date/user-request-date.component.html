@@ -60,7 +60,7 @@
     </div>
     <div *ngIf="matchUser.matchObj.you_date_request == 'C' && matchUser.matchObj.dateObj">
         <div><i class="fa fa-ban" style="color: #900;"></i> Your date
-            with {{matchUser.firstName}} has been cancelled by 
+            with {{matchUser.firstName}} has been cancelled by
             <span *ngIf="matchUser.matchObj.dateObj.cancelledBy == myUser.user_id">{{myUser.firstName}}</span>
             <span *ngIf="matchUser.matchObj.dateObj.cancelledBy == matchUser.user_id">{{matchUser.firstName}}</span>
         </div>
@@ -99,8 +99,9 @@
         </div>
         <div *ngIf="matchUser.matchObj.you_date_request != 'Y'">
             <div *ngIf="modifyDateNum==0">
-                <button *ngIf="matchUser.matchObj.you_date_request != 'C'" (mousedown)="modifyDateNum=1" class="btn btn-warning">cancel</button>&nbsp;
-                <button *ngIf="daysAgo>0" (mousedown)="processRequestsRequest('removeDate')"
+                <button *ngIf="matchUser.matchObj.you_date_request != 'C' && secondsAgo<=0" (mousedown)="modifyDateNum=1"
+                    class="btn btn-warning">cancel</button>&nbsp;
+                <button *ngIf="secondsAgo>0" (mousedown)="processRequestsRequest('removeDate')"
                     class="btn btn-primary">Remove Date</button>&nbsp;
 
                 <button (mousedown)="modifyDateNum=2" *ngIf="matchUser.matchObj.match_date_request == 'M'"

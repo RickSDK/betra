@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../classes/user';
+//import { AdsenseModule } from 'ng2-adsense';
 
 @Component({
   selector: 'app-page-shell',

@@ -285,6 +285,11 @@
 
                             </div>
                             <div class="col-md" style="text-align: left;">
+                                <div class="tiny-text">City</div>
+                                <app-text-input [placeHolder]="'City'" [id]="'city'" [value]="user.city"
+                                    [highlightFlg]="user.city==''" [maxLength]="25" [disabled]="cityDisabledFlg"
+                                    (messageEvent)="menuValueChanged()">
+                                </app-text-input>
                                 <div *ngIf="user.findLoveFlg">
                                     <table>
                                         <tr>

@@ -24,13 +24,20 @@
                 <td>
                     <div class="small-box">
                         <div class="small-title">Body</div>
+                        <div style="font-size: 10px;">{{matchUser.race}} {{matchUser.genderName}}</div>
                         <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc"
                             [icon]="matchUser.genderIcon">
                         </app-green-check>
-                        <app-green-check [label]="'Tattoos'" [text1]="matchUser.numTattoos" [text2]="user.bodyDesc">
-                        </app-green-check>
-                        <app-green-check [label]="'Piercings'" [text1]="matchUser.numPiercings" [text2]="user.bodyDesc">
-                        </app-green-check>
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    Tattoos: <b>{{matchUser.numTattoos}}</b>
+                                </td>
+                                <td>
+                                    Piercings: <b>{{matchUser.numPiercings}}</b>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </td>
             </tr>

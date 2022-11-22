@@ -7,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ProfileSnapshotComponent implements OnInit {
   @Input('user') user: any = null;
+  @Input('myUser') myUser: any = null;
   @Input('responseJson') responseJson: any = null;
   @Input('matchObj') matchObj: any = null;
   

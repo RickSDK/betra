@@ -8,6 +8,35 @@
     font-size: 14px;
 }
 
+.top-name-bar-red {
+    background-color: #b7121f;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    text-align: left;
+    padding-left: 5px;
+    padding-top: 3px;
+    height: 30px;
+}
+
+.top-name-bar-gold {
+    background-color: orange;
+    box-shadow: 2px 2px 3px gray;
+    color: black;
+    border-radius: 5px;
+    text-align: center;
+    text-align: left;
+    padding-left: 5px;
+    padding-top: 3px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.top-name-bar-gold:hover {
+    background-color: gold;
+    box-shadow: 2px 2px 5px black;
+}
+
 .profile-image-large {
     width: 100%;
     max-width: 380px;
@@ -19,6 +48,7 @@
     transition: all 1s ease;
     cursor: pointer;
 }
+
 .tiny-pic {
     width: 100%;
     max-width: 26px;
@@ -29,9 +59,23 @@
     margin: 5px;
     cursor: pointer;
 }
+.tiny-pic-blur {
+    width: 100%;
+    max-width: 26px;
+    height: 40px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 4px #999;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+}
+
 .tiny-pic:hover {
     box-shadow: 2px 2px 5px black;
 }
+
 .small-title {
     font-size: 10px;
     text-align: center;

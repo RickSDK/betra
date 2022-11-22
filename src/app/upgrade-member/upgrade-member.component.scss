@@ -1,0 +1,20 @@
+.small-border-box {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 10px;
+    color: gray;
+}
+.payment-plan-box {
+    display: inline-block;
+    margin: 5px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px gray;
+    border-radius: 5px;
+    border: 1px solid transparent;
+}
+
+.payment-plan-box:hover {
+    border: 1px solid rgb(119, 119, 244);
+}

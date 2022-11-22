@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent extends BaseComponent implements OnInit {
+  public showStatsFlg: boolean = false;
+  public showLocationFlg: boolean = false;
+  public showUpgradeFlg: boolean = false;
 
   constructor(private router: Router) { super(); }
 
@@ -20,7 +23,33 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  updateImageButtonClicked() {
-    console.log('hey!!!');
+  showStats() {
+    this.showStatsFlg = true;
+    this.getStats();
+  }
+  getStats() {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      action: "getStats"
+    };
+    console.log(params);
+    this.executeApi('appApiCode2.php', params, true);
+  }
+  updateLocation() {
+    this.loadingFlg = true;
+    this.populateGeoInfo();
+  }
+  showLocation() {
+    this.showLocationFlg = !this.showLocationFlg;
+  }
+  override postSuccessApi(file: string, responseJson: any) {
+    console.log('XXX postSuccessApi', file, responseJson);
+    if (responseJson.action == 'updateGeoInfo') {
+      this.user.city = responseJson.user.city;
+      this.user.state = responseJson.user.state;
+      this.user.countryName = responseJson.user.countryName;
+      this.syncUserWithLocalStorage(responseJson);
+    }
   }
 }

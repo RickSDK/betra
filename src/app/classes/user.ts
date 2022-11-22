@@ -118,6 +118,8 @@ export class User {
     public pic4: string = '';
     public numPics: number = 0;
     public mainImageSrc: string = '';
+    public memberFlg: boolean = false;
+
 
     constructor(obj: any) {
         if (obj) {
@@ -223,6 +225,7 @@ export class User {
             if (obj.pic4 > 0)
                 this.numPics++;
 
+            this.memberFlg = obj.memberFlg == 'Y';
         }
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
@@ -401,7 +404,7 @@ export class User {
         //----Details
         var detailsFlg = true;
         if (this.findLoveFlg) {
-            detailsFlg = !!(this.educationLevel && this.income && this.religion && this.bodyHeight && this.bodyType);
+            detailsFlg = !!(this.educationLevel && this.income && this.religion && this.bodyHeight && this.bodyType && this.city);
         }
 
         //---Quiz
@@ -423,7 +426,7 @@ export class User {
         var profilePicFlg = this.profilePic > 0;
         var additionalPicsFlg = true;
         var verifyFlg = true;
-        if (!basicsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg)
+        if (!basicsFlg || !detailsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg)
             this.status = 'Pending';
         if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {
             this.status = 'Ready';

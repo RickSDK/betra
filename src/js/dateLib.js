@@ -34,7 +34,17 @@ function getDateObjFromJSDate(dateStr = '') {
     else if (daysAgo > 0)
         distanceAway = daysAgo + ' days ago';
     else
-        distanceAway = (daysAgo*-1).toString() + ' days from now';
+        distanceAway = (daysAgo * -1).toString() + ' days from now';
+
+    var nowLocal = now.toLocaleDateString();
+    var tomorrowLocal = new Date(now.getTime() + (3600000 * 24)).toLocaleDateString();
+    var yesterdayLocal = new Date(now.getTime() - (3600000 * 24)).toLocaleDateString();
+    if (dt.toLocaleDateString() == nowLocal)
+        distanceAway = 'Today';
+    if (dt.toLocaleDateString() == yesterdayLocal)
+        distanceAway = 'Yesterday';
+    if (dt.toLocaleDateString() == tomorrowLocal)
+        distanceAway = 'Tomorrow';
     return {
         jsDate: dt.toString(),
         legacy: convertDateToString(dt),

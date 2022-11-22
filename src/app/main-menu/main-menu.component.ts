@@ -82,9 +82,14 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
   }
 
-
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == "logUser") {
+      if (this.user && this.user.ip == '')
+        this.populateGeoInfo();
+      else
+        this.syncUserWithLocalStorage(responseJson);
+    }
+    if (responseJson.action == 'updateGeoInfo') {
       this.syncUserWithLocalStorage(responseJson);
     }
   }

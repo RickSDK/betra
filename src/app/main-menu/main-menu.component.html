@@ -2,7 +2,7 @@
     [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle" [headerObj]="headerObj">
     <img *ngIf="!headerObj.profileCompleteFlg" class="background-img" src="assets/images/MainScreen.jpg" alt="Dating Couple">
 
-    <app-profile-snapshot *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [responseJson]="responseJson"
+    <app-profile-snapshot *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [myUser]="user" [responseJson]="responseJson"
         [matchObj]="matchObj"></app-profile-snapshot>
 
     <div (mousedown)="errorMessage=''" *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>

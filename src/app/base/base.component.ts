@@ -102,7 +102,32 @@ export class BaseComponent implements OnInit {
     }
 
   }
-
+  populateGeoInfo() {
+    console.log('populateGeoInfo');
+    //https://ssl.geoplugin.net/json.gp?k=cee1887eb4490f28
+    //http://www.geoplugin.net/json.gp?jsoncallback=?
+    $.getJSON('https://ssl.geoplugin.net/json.gp?k=cee1887eb4490f28', (data: any) => {
+      var params = {
+        userId: localStorage['user_id'],
+        code: localStorage['code'],
+        city: data.geoplugin_city,
+        continentName: data.geoplugin_continentName,
+        countryCode: data.geoplugin_countryCode,
+        countryName: data.geoplugin_countryName,
+        currencyCode: data.geoplugin_currencyCode,
+        currencySymbol: data.geoplugin_currencySymbol,
+        latitude: data.geoplugin_latitude,
+        longitude: data.geoplugin_longitude,
+        region: data.geoplugin_region,
+        state: data.geoplugin_regionCode,
+        stateName: data.geoplugin_regionName,
+        ip: data.geoplugin_request,
+        action: "updateGeoInfo"
+      };
+      console.log('populateGeoInfo', params);
+      this.executeApi('appApiCode.php', params, true);
+    });
+  }
   logUser(refreshFlg:string = '') {
     var uid = localStorage['user_id'];
     var email = localStorage['email'];

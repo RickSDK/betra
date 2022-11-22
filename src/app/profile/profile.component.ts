@@ -29,7 +29,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
   public smokingOptions = ['Yes', 'No'];
-  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'Asian-Indian', 'Other'];
+  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'Asian-Indian', 'Hispanic', 'Middle Eastern', 'Other'];
   public bonusImages = ['Image1', 'Image2', 'Image3', 'Image4'];
   public code: string = localStorage['code'];
   public email: string = localStorage['email'];
@@ -53,6 +53,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     { subject: 'Drugs', option1: 'Legalize all drugs', option2: 'Marijuana  is OK but other hard drugs should remain illegal.', option3: 'Opposed to marijuana and drugs in general.', answer: '' },
     { subject: 'Sex Workers', option1: 'Legalize prostitution everywhere.', option2: 'Let states set their own laws on prostitution and sex work.', option3: 'Pro traditional families, keep prostitution illegal.', answer: '' },
   ];
+  public cityDisabledFlg = false;
 
   constructor(private router: Router) { super(); }
 
@@ -63,6 +64,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.loadTestAnswers();
     this.checkIPAddress();
     this.logUser('Y');
+
+    this.cityDisabledFlg = this.user.city && this.user.city.length > 0;
     //getIPInfo('test', 'test');
     //this.refreshUser();
   }
@@ -74,30 +77,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     };
     this.executeApi('appApiCode.php', params, true);
   }
-  populateGeoInfo() {
-    console.log('populateGeoInfo');
-    $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', (data: any) => {
-      var params = {
-        userId: localStorage['user_id'],
-        code: localStorage['code'],
-        city: data.geoplugin_city,
-        continentName: data.geoplugin_continentName,
-        countryCode: data.geoplugin_countryCode,
-        countryName: data.geoplugin_countryName,
-        currencyCode: data.geoplugin_currencyCode,
-        currencySymbol: data.geoplugin_currencySymbol,
-        latitude: data.geoplugin_latitude,
-        longitude: data.geoplugin_longitude,
-        region: data.geoplugin_region,
-        state: data.geoplugin_regionCode,
-        stateName: data.geoplugin_regionName,
-        ip: data.geoplugin_request,
-        action: "updateGeoInfo"
-      };
-      console.log('params', params);
-      this.executeApi('appApiCode.php', params, true);
-    });
-  }
+
   loadQuizAnswers() {
     if (this.user.personalityQuizAnswers) {
       var answers = this.user.personalityQuizAnswers.split(':');
@@ -363,7 +343,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.bodyHeight = $('#bodyHeight').val();
       this.user.wantsKids = $('#wantsKids').val();
 
-      //this.user.city = $('#city').val();
+      this.user.city = $('#city').val();
       this.user.longestRelationship = $('#longestRelationship').val();
       this.user.numKids = $('#numKids').val();
       this.user.numTattoos = $('#numTattoos').val();
@@ -418,6 +398,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       findLoveFlg: this.user.findLoveFlg ? 'Y' : 'N',
       meetPeopleFlg: this.user.meetPeopleFlg ? 'Y' : 'N',
       makeMoneyFlg: this.user.makeMoneyFlg ? 'Y' : 'N',
+      city: this.user.city,
       educationLevel: this.user.educationLevel,
       income: this.user.income,
       race: this.user.race,
@@ -455,14 +436,14 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     //console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
   }
-  uploadPicButtonClicked(num:number) {
+  uploadPicButtonClicked(num: number) {
     this.loadingFlg = true;
     var params = {
       userId: this.user.user_id,
       code: localStorage['code'],
       action: 'updateBonusImage',
-      picNum: num+1,
-      image: $('#'+this.bonusImages[num]).attr('src')
+      picNum: num + 1,
+      image: $('#' + this.bonusImages[num]).attr('src')
     };
     //console.log('uploadPicButtonClicked', params);
     this.executeApi('appApiCode.php', params, true);

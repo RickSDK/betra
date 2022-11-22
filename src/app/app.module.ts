@@ -53,6 +53,8 @@ import { UserRequestsComponent } from './user-requests/user-requests.component';
 import { DateFormComponent } from './date-form/date-form.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { BirthdayInputComponent } from './birthday-input/birthday-input.component';
+import { UpgradeMemberComponent } from './upgrade-member/upgrade-member.component';
+//import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
   declarations: [
@@ -105,12 +107,14 @@ import { BirthdayInputComponent } from './birthday-input/birthday-input.componen
     DateDisplayComponent,
     UserRequestsComponent,
     DateFormComponent,
-    BirthdayInputComponent
+    BirthdayInputComponent,
+    UpgradeMemberComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SocialLoginModule
+    SocialLoginModule,
+  //  AdsenseModule.forRoot()
   ],
   providers: [
     {

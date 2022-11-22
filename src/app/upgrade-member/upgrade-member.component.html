@@ -1,0 +1,31 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Upgrade'" [headerObj]="headerObj">
+
+    <div class="matches-card" *ngIf="user">
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+        <div *ngIf="showUpgradeFlg">
+            <div style="font-size: 24px;">Become a Gold Member!</div>
+            <div class="red-text">What is more important than love? Maximize your chances today.</div>
+            <div class="small-border-box" style="padding: 15px;">
+                <div style="text-align: center; color: black;"><b>Benefits</b></div>
+                <li>Gold Member badge on your profile</li>
+                <li>Show up first when users are browsing</li>
+                <li>Able to see member's photos</li>
+                <li>Access to advanced search filters</li>
+                <li>Dating pool expanded to 12</li>
+                <li>Full access to user reviews</li>
+            </div>
+            <hr>
+            <div *ngFor="let plan of plans" class="payment-plan-box">
+                <div style="font-size: 30px;"><b>{{plan.name}}</b></div>
+                <div style="font-size: 22px;">{{plan.cost}}</div>
+                <div style="font-size: 12px; color: gray;">Payment: {{plan.payment}}</div>
+                <div>&nbsp;</div>
+                <button class="btn btn-primary">Select Plan</button>
+            </div>
+        </div>
+    </div>
+
+</app-page-shell>

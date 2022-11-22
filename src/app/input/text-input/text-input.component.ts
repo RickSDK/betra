@@ -12,7 +12,8 @@ export class TextInputComponent implements OnInit {
   @Input('maxLength') maxLength: number = 150;
   @Input('highlightFlg') highlightFlg: boolean = false;
   @Input('value') value: string = '';
-
+  @Input('disabled') disabled: boolean = false;
+  
 
   @Output() messageEvent = new EventEmitter<string>();
 
