@@ -77,6 +77,7 @@ export class BaseComponent implements OnInit {
         this.headerObj.messageCount = localStorage['messageCount'];
         this.headerObj.admirerCount = localStorage['admirerCount'];
         this.headerObj.matchesAlerts = localStorage['matchesAlerts'];
+        this.headerObj.ownerFlg = this.user.ownerFlg;
         this.popupNum = (this.user.status == 'Active') ? 0 : 3;
         console.log('loadUserObjUser', this.user);  
       } else {
@@ -125,7 +126,7 @@ export class BaseComponent implements OnInit {
         action: "updateGeoInfo"
       };
       console.log('populateGeoInfo', params);
-      this.executeApi('appApiCode.php', params, true);
+      this.executeApi('geoScript.php', params, true);
     });
   }
   logUser(refreshFlg:string = '') {

@@ -120,6 +120,17 @@ export class User {
     public mainImageSrc: string = '';
     public memberFlg: boolean = false;
 
+    public regionCode: string = '';
+    public division: number = 0;
+    public zone: number = 0;
+    public adminRegionCode: string = '';
+    public adminDivision: number = 0;
+    public adminZone: number = 0;
+    public ownerFlg: boolean = false;
+    public ownerLevel: number = 0;
+    public ownerPercent: string = '';
+    public monthlyPayout: string = '';
+
 
     constructor(obj: any) {
         if (obj) {
@@ -210,6 +221,15 @@ export class User {
             this.stateName = obj.stateName || '';
             this.ip = obj.ip || '';
 
+            this.regionCode = obj.regionCode  || '';
+            this.division = obj.division  || 0;
+            this.zone = obj.zone  || 0;
+            this.adminRegionCode = obj.adminRegionCode  || '';
+            this.adminDivision = obj.adminDivision  || 0;
+            this.adminZone = obj.adminZone  || 0;
+            this.ownerFlg = obj.ownerFlg  && obj.ownerFlg == 'Y';
+            this.ownerLevel = obj.ownerLevel  || 0;
+
             this.pic1 = bonusImageFromNum(obj.user_id, obj.pic1);
             this.pic2 = bonusImageFromNum(obj.user_id, obj.pic2);
             this.pic3 = bonusImageFromNum(obj.user_id, obj.pic3);
@@ -226,6 +246,12 @@ export class User {
                 this.numPics++;
 
             this.memberFlg = obj.memberFlg == 'Y';
+
+            var ownerPercents = ['0%', '0.5%', '1%', '2%', '4%', '6%', '7%']
+            this.ownerPercent = ownerPercents[this.ownerLevel];
+            var monthlyPayouts = ['$0', '$5,000', '$10,000', '$20,000', '$40,000', '$60,000', '$70,000']
+            this.monthlyPayout = monthlyPayouts[this.ownerLevel];
+        
         }
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';

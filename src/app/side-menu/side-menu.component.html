@@ -21,7 +21,7 @@
     </div>
     <div style="font-size: 12px; border-bottom: 1px solid gray;"></div>
     <div *ngFor="let item of bottomItems">
-        <div [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
+        <div [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
             {{item.name}}</div>
     </div>
 </div>

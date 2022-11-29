@@ -14,6 +14,11 @@ import { MessagesComponent } from './messages/messages.component';
 import { TopListsComponent } from './top-lists/top-lists.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { UpgradeMemberComponent } from './upgrade-member/upgrade-member.component';
+import { JoinTeamComponent } from './join-team/join-team.component';
+import { RegionsComponent } from './regions/regions.component';
+import { OwnersComponent } from './owners/owners.component';
+import { OwnerUsersComponent } from './owner-users/owner-users.component';
+import { OwnerStatsComponent } from './owner-stats/owner-stats.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -30,6 +35,11 @@ const routes: Routes = [
   { path: 'top-lists', component: TopListsComponent },
   { path: 'documentation', component: DocumentationComponent },
   { path: 'upgrade-member', component: UpgradeMemberComponent },
+  { path: 'join-team', component: JoinTeamComponent },
+  { path: 'regions', component: RegionsComponent },
+  { path: 'owners', component: OwnersComponent },
+  { path: 'owner-users', component: OwnerUsersComponent },
+  { path: 'owner-stats', component: OwnerStatsComponent },
 ];
 
 @NgModule({

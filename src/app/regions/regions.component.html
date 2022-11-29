@@ -1,0 +1,37 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Regions'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+
+    <app-owners-menu [pageTitle]="'Regions'"></app-owners-menu>
+
+    <p class="gray-text">These are the following US regions</p>
+
+    <button *ngFor="let region of regions; let i = index" (mousedown)="regionIdx = i"
+        [ngClass]="ngClassButton(regionIdx, i)" class="btn btn-primary">{{region.name}}</button>
+
+    <div *ngFor="let region of regions">
+        <div *ngIf="regionIdx == region.number">
+            <div class="shaded-border-box">
+                <div class="title-bar">{{region.name}} Region</div>
+                <div class="inside-box">
+
+                    <table align="center">
+                        <tr style="background-color: #ffffc0; font-weight: 700;">
+                            <td>Division</td>
+                            <td>Zones</td>
+                        </tr>
+                        <tr *ngFor="let division of region.divisions"
+                            [style.background-color]="division.name%2==0?'#eef':'white'">
+                            <td align="center">{{division.name}}</td>
+                            <td align="left">
+                                <div *ngFor="let zone of division.zones">
+                                    <b>{{zone.name}}:</b>
+                                    {{zone.areas}}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-page-shell>

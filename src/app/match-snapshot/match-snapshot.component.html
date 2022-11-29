@@ -12,7 +12,7 @@
                     <div class="small-box">
                         <div class="small-title">Personality</div>
                         <app-green-check [label]="'Personality Quiz Type'" [text1]="matchUser.adventureStableText"
-                            [text2]="user.adventureStableText" [icon]="'fa fa-question-circle'">
+                            [text2]="user.adventureStableText" [icon]="'fa fa-user'">
                         </app-green-check>
                         <app-green-check [label]="'Politics'" [text1]="matchUser.polyText" [text2]="user.polyText"
                             [icon]="'fa fa-university'">
@@ -47,15 +47,15 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <app-percent-text [label]="'Personality Match'" [amount]="personalityMatch" [loadingFlg]="loadingFlg">
+                            <app-percent-text [icon]="'fa fa-user'" [label]="'Personality Match'" [amount]="personalityMatch" [loadingFlg]="loadingFlg">
                             </app-percent-text>
-                            <app-percent-text [label]="'Politics Match'" [amount]="polyMatch" [loadingFlg]="loadingFlg">
+                            <app-percent-text [icon]="'fa fa-university'" [label]="'Politics Match'" [amount]="polyMatch" [loadingFlg]="loadingFlg">
                             </app-percent-text>                                        
                         </td>
                         <td>
-                            <app-percent-text [label]="'Profile Match'" [amount]="profileMatch" [loadingFlg]="loadingFlg">
+                            <app-percent-text [icon]="'fa fa-star'" [label]="'Profile Match'" [amount]="profileMatch" [loadingFlg]="loadingFlg">
                             </app-percent-text>
-                            <app-percent-text [label]="'Overall Match'" [amount]="totalMatch"
+                            <app-percent-text [icon]="'fa fa-heart'" [label]="'Overall Match'" [amount]="totalMatch"
                                 [loadingFlg]="loadingFlg"></app-percent-text>                                          
                         </td>
                     </tr>

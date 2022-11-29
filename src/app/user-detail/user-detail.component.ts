@@ -45,6 +45,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       } else if (this.id == 5) {
         this.pageTitle = 'Online Today';
         this.browseSingles('getOnlineSingles');
+      } else if (this.id == 7) {
+        this.pageTitle = 'Verify Pic';
+        this.browseSingles('verifyPictures');
       } else {
         this.pageTitle = 'Browse';
         this.browseSingles('findMatches');

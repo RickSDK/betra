@@ -1,0 +1,54 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Stats'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-owners-menu [pageTitle]="'Stats'"></app-owners-menu>
+
+        <hr>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+        <div class="shaded-border-box">
+            <div class="title-bar">Overall Stats</div>
+            <div class="inside-box">
+                <table width="100%" *ngIf="responseJson && !loadingFlg">
+                    <tr>
+                        <td>
+                            <div class="border-box" style="font-size: 12px;">
+                                <div class="tiny-text">Accounts</div>
+                                <div>Total: {{responseJson.accounts}}</div>
+                                <div>Completed: {{responseJson.activeAccounts}}</div>
+                                <div>Active: {{responseJson.recentLogins}} (past 7 days)</div>
+                                <div>New: {{responseJson.newThisWeek}} (past 7 days)</div>
+                            </div>
+                            <div class="border-box">
+                                <div class="tiny-text">Likes: {{responseJson.likes}}</div>
+                                <div class="tiny-text">Matches: {{responseJson.matches}}</div>
+                                <div class="tiny-text">Messages: {{responseJson.messages}}</div>
+                                <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="border-box">
+                                <div class="tiny-text">Countries</div>
+                                <div *ngFor="let country of responseJson.countryNames">
+                                    <div>{{country.countryName}}: {{country.count}}</div>
+                                </div>
+                            </div>
+                            <div class="border-box">
+                                <div class="tiny-text">States</div>
+                                <div *ngFor="let state of responseJson.stateName">
+                                    <div>{{state.stateName}}: {{state.count}}</div>
+                                </div>
+                            </div>
+                            <div class="border-box">
+                                <div class="tiny-text">Cities</div>
+                                <div *ngFor="let city of responseJson.cities">
+                                    <div>{{city.name}}: {{city.count}}</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</app-page-shell>

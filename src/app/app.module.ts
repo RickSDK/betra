@@ -54,6 +54,12 @@ import { DateFormComponent } from './date-form/date-form.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { BirthdayInputComponent } from './birthday-input/birthday-input.component';
 import { UpgradeMemberComponent } from './upgrade-member/upgrade-member.component';
+import { JoinTeamComponent } from './join-team/join-team.component';
+import { RegionsComponent } from './regions/regions.component';
+import { OwnersComponent } from './owners/owners.component';
+import { OwnersMenuComponent } from './owners-menu/owners-menu.component';
+import { OwnerUsersComponent } from './owner-users/owner-users.component';
+import { OwnerStatsComponent } from './owner-stats/owner-stats.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -108,7 +114,13 @@ import { UpgradeMemberComponent } from './upgrade-member/upgrade-member.componen
     UserRequestsComponent,
     DateFormComponent,
     BirthdayInputComponent,
-    UpgradeMemberComponent
+    UpgradeMemberComponent,
+    JoinTeamComponent,
+    RegionsComponent,
+    OwnersComponent,
+    OwnersMenuComponent,
+    OwnerUsersComponent,
+    OwnerStatsComponent
   ],
   imports: [
     BrowserModule,

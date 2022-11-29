@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 declare var getDateObjFromJSDate: any;
@@ -55,7 +55,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   ];
   public cityDisabledFlg = false;
 
-  constructor(private router: Router) { super(); }
+  constructor(private router: Router, private route: ActivatedRoute) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -66,6 +66,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.logUser('Y');
 
     this.cityDisabledFlg = this.user.city && this.user.city.length > 0;
+
+    this.route.queryParams.subscribe(params => {
+      this.menuNum = params['num'] || 0;
+    });
     //getIPInfo('test', 'test');
     //this.refreshUser();
   }

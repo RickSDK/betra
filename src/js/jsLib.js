@@ -5,7 +5,6 @@ function getIPInfo(userName, pwd) {
     var code = btoa(pwd);
     $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function (data) {
         console.log('geoplugin', JSON.stringify(data, null, 2));
-        console.log(data, userName, pwd);
         localStorage.ip = data.geoplugin_request;
         var url = getHostname() + "/webCheckForum.php";
         $.post(url,

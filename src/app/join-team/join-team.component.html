@@ -1,0 +1,104 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Join the Team'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    <div class="matches-card">
+        <div *ngIf="user && user.ownerFlg">
+            <app-owners-menu [pageTitle]="'Overview'"></app-owners-menu>
+        </div>
+
+        <p class="gray-text" style="text-align: left;">Join the Betra team and let's try to grow this app into one of
+            the top dating sites in the world.
+            The most popular dating sites currently generate about $1 million income per day.</p>
+        <p class="gray-text" style="text-align: left;">
+            Our initial goal is to grow Betra to the point where it is generating $1 million per month, so this goal is
+            very achievable.
+            If we reach that goal, entry-level team members will be generating $5,000 per month.
+            Moving up through the ranks will increase your monthly payouts.
+        </p>
+        <div class="shaded-border-box">
+            <div class="title-bar">Benefits</div>
+            <div class="inside-box">
+                <li>Free lifetime gold member</li>
+                <li>Site admin</li>
+                <li>*monthly cash payments</li>
+            </div>
+        </div>
+        <div class="gray-text">*Provided we get enough people signed up</div>
+        <div class="shaded-border-box">
+            <div class="title-bar">Ownership Positions</div>
+            <div class="inside-box">
+                <table align="center">
+                    <tr>
+                        <th>Position</th>
+                        <th>Rank</th>
+                        <th align="center">%</th>
+                        <th># spots</th>
+                        <th>Monthly Income</th>
+                    </tr>
+                    <tr *ngFor="let row of levels">
+                        <td align="center">{{row.number}}</td>
+                        <td>{{row.name}}</td>
+                        <td align="center">{{row.percent}}</td>
+                        <td align="center">{{row.spots}}</td>
+                        <td align="center">{{row.payouts}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="gray-text">* Amounts are based on $1M per month revenue</div>
+        <div class="shaded-border-box">
+            <div class="title-bar">Your responsibilities</div>
+            <div class="inside-box">
+                <li>Promote the app</li>
+                <li>Test the app and report errors</li>
+                <li>Suggest improvements</li>
+                <li>Approve user submitted pictures.</li>
+            </div>
+        </div>
+        <p class="gray-text" style="text-align: left;">That's about it! Everything can be done from home. Also, once you
+            begin making money, you will be expected to use some of the money to advertise.
+            The amount you use is completely up to you, but those people who are seeing the best growth will move up in
+            ranks the fastest.</p>
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <div>Spots Remaining</div>
+                    <div class="spots-remaining" *ngIf="ownerCount>0"> {{71 - ownerCount}}</div>
+                </td>
+                <td>
+                    <div>Monthly Income</div>
+                    <div class="spots-remaining">$0</div>
+                </td>
+            </tr>
+        </table>
+        <div *ngIf="user && user.ownerFlg">
+            You are an owner!
+        </div>
+        <div *ngIf="!user || !user.ownerFlg">
+            <hr>
+            <div class="shaded-border-box">
+                <div class="title-bar">How to sign up</div>
+                <div class="inside-box">
+
+                    <div *ngIf="!loadingFlg"
+                        style="border: 1px solid gray; border-radius: 5px; display: inline-block; text-align: left; padding: 10px;">
+                        <li><b>Step 1:</b> <a [routerLink]="'/'">Create</a> an account <i
+                                *ngIf="user && user.user_id > 0" class="fa fa-check"
+                                style="color: green; font-size: 32px;"></i></li>
+                        <li><b>Step 2:</b> Complete your profile <i *ngIf="user && user.status == 'Active'"
+                                class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
+                        <li><b>Step 3:</b> Verify your <a [routerLink]="'/profile'" [queryParams]="{num: 1}">email address</a> <i *ngIf="user && user.emailVerifyFlg"
+                                class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
+                        <li><b>Step 4:</b> Press <button (mousedown)="signupPressed()" class="btn btn-primary"
+                                [disabled]="signupDisabledFlg">Sign up</button><i *ngIf="user && 0" class="fa fa-check"
+                                style="color: green; font-size: 32px;"></i></li>
+                    </div>
+                </div>
+            </div>
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            <p class="gray-text" style="text-align: left;">That's it! No investment needed. once you press the Sign-up
+                button, you will be a 0.5% owner!
+                You will then be assigned a region to start promoting.</p>
+        </div>
+    </div>
+</app-page-shell>

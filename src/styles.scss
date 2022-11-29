@@ -92,6 +92,19 @@ body {
     margin-bottom: 20px;
     transition: all 1s ease;
 }
+.title-bar {
+    background-color: #ccc;
+    font-weight: 800;
+    text-align: center;
+}
+.shaded-border-box {
+    background-color: #ffffc0;
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: inline-block; 
+    text-align: left;
+    overflow: hidden;
+}
 .border-box {
     border: 1px solid #ccc;
     border-radius: 5px;

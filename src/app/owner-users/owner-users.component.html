@@ -1,0 +1,40 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Users'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-owners-menu [pageTitle]="'Users'"></app-owners-menu>
+        <hr>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+        <div class="shaded-border-box">
+            <div class="title-bar">Owners</div>
+            <div class="inside-box">
+                <table style="font-size: 12px;">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Level</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Region</th>
+                        <th>District</th>
+                        <th>Zone</th>
+                        <th>Last Login</th>
+                    </tr>
+                    <tr *ngFor="let player of players; let i = index;">
+                        <td>{{i+1}}</td>
+                        <td>{{player.firstName}}</td>
+                        <td>{{player.ownerLevel}}</td>
+                        <td>{{player.city}}</td>
+                        <td>{{player.state}}</td>
+                        <td>{{player.adminRegionCode}}</td>
+                        <td>{{player.adminDivision}}</td>
+                        <td>{{player.adminZone}}</td>
+                        <td>{{player.lastLogin}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</app-page-shell>

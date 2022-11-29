@@ -40,15 +40,6 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
       if (!this.showLoginButtonFlg)
         this.facebookToBetraLogin(user);
     });
-    /*
-    for (var i = 1; i <= 31; i++)
-      this.dayOptions.push(i);
-
-    let year = 2022;
-    for (var i = 1; i <= 100; i++) {
-      year--;
-      this.yearOptions.push(year);
-    }*/
 
   }
   pressGetStartedButton() {

@@ -173,7 +173,7 @@
                     <div *ngIf="!user.emailVerifyFlg">
                         <div>Check your email & spam folder to verify your email address, or click 'Continue' to skip
                             for now.</div>
-                        <div *ngIf="0"
+                        <div *ngIf="user.status=='Active'"
                             style="background-color: #ffffc0; padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
                             Your email address:
                             <span class="highlited-field">{{user.email}}</span>

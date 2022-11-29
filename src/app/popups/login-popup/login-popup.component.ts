@@ -16,6 +16,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
   public submitDisabled: boolean = true;
   public showLoginButtonFlg: boolean = true;
+  public forgotPasswordFlg: boolean = false;
 
   constructor(private socialAuthService: SocialAuthService) { super(); }
 
@@ -66,6 +67,15 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       email: email,
       code: localStorage['code'],
       action: 'login'
+    };
+    this.executeApi('login.php', params, true);
+  }
+  forgotPasswordPressed() {
+    var email: string = $('#email').val();
+
+    var params = {
+      email: email,
+      action: 'forgotPassword'
     };
     this.executeApi('login.php', params, true);
   }

@@ -1,0 +1,3 @@
+<div class="btn-group">
+    <button *ngFor="let button of buttons" [routerLink]="button.routerLink" [ngClass]="ngClassButton(button.name)" style="font-size: 12px; margin-right: 2px;">{{button.name}}</button>
+</div>

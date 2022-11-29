@@ -2,6 +2,8 @@
     [pageTitle]="pageTitle" [headerObj]="headerObj" [notifications]="notifications">
 
     <div class="matches-card" *ngIf="user && !matchUser">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
         <div *ngIf="exceededPoolSizeFlg">
             <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
             <p>Note: You are over your limit in your dating pool. Please drop someone.</p>
@@ -67,6 +69,5 @@
     </div>
 
 
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-
+ 
 </app-page-shell>

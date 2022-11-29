@@ -49,6 +49,9 @@ export class MatchSnapshotComponent implements OnInit {
     if (user.matchPreference == 'M' && matchUser.gender == 'F')
       this.showInterestedButtonsFlg = false;
 
+    if (this.matchUser.matchObj.match_interested == 'Y')
+      this.showInterestedButtonsFlg = true; // handle out of sync
+
     this.youAreInterestedFlg = !!(this.matchUser.matchObj && this.matchUser.matchObj.you_interested);
 
     var agePoints = Math.abs(user.matchAge - matchUser.age) <= 4 ? 1 : 0;

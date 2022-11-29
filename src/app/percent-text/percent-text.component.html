@@ -1,2 +1,2 @@
-<div class="tiny-text2">{{label}}: <i *ngIf="amount==0" class="fa fa-spinner fa-spin"></i> <span [ngClass]="ngclassPercent(amount)" *ngIf="amount>0"
+<div class="tiny-text2"><i *ngIf="icon" [class]="icon"></i> {{label}}: <i *ngIf="amount==0" class="fa fa-spinner fa-spin"></i> <span [ngClass]="ngclassPercent(amount)" *ngIf="amount>0"
         >{{amount}}%</span></div>

@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PercentTextComponent implements OnInit {
   @Input('label') label: string = '';
   @Input('amount') amount: number = 0;
+  @Input('icon') icon: string = '';
   @Input('loadingFlg') loadingFlg: boolean = false;
 
   constructor() { }
@@ -15,12 +16,12 @@ export class PercentTextComponent implements OnInit {
   ngOnInit(): void {
   }
   ngclassPercent(amount: number) {
-    if (amount >= 85)
+    if (amount >= 80)
       return 'green-value';
-    if (amount >= 50)
+    else if (amount >= 50)
       return 'yellow-value';
-
-    return 'red-value';
+    else
+      return 'red-value';
 
   }
 }
