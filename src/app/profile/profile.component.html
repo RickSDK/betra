@@ -285,11 +285,28 @@
 
                             </div>
                             <div class="col-md" style="text-align: left;">
-                                <div class="tiny-text">City</div>
-                                <app-text-input [placeHolder]="'City'" [id]="'city'" [value]="user.city"
-                                    [highlightFlg]="user.city==''" [maxLength]="25" [disabled]="cityDisabledFlg"
-                                    (messageEvent)="menuValueChanged()">
-                                </app-text-input>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="tiny-text">City</div>
+                                            <app-text-input [placeHolder]="'City'" [id]="'city'" [value]="user.city"
+                                                [highlightFlg]="user.city==''" [maxLength]="25" [disabled]="cityDisabledFlg"
+                                                (messageEvent)="menuValueChanged()">
+                                            </app-text-input>                                                        
+                                        </td>
+                                        <td valign="top" style="padding-left: 10px;" *ngIf="!user.stateName">
+                                            <div class="tiny-text">State</div>
+                                            <select name="state" id="state" [disabled]="!!user.stateName"
+                                                [style.background-color]="user.stateName?'#eee':'#ffffc0'"
+                                                (change)="menuValueChanged()">
+                                                <option disabled selected>Select</option>
+                                                <option *ngFor="let option of stateOptions"
+                                                    [selected]="option == user.stateName">{{option}}
+                                                </option>
+                                            </select>                                                        
+                                        </td>
+                                    </tr>
+                                </table>
                                 <div *ngIf="user.findLoveFlg">
                                     <table>
                                         <tr>
@@ -347,7 +364,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <div class="tiny-text">Wants Kids?</div>
+                                    <div class="tiny-text">Wants Kids? (more than you already have)</div>
                                     <select name="wantsKids" id="wantsKids"
                                         [style.background-color]="user.wantsKids?'#eee':'#ffffc0'"
                                         (change)="menuValueChanged()">
@@ -394,10 +411,7 @@
                                             </td>
                                         </tr>
                                     </table>
-
-
                                 </div>
-
                             </div>
                         </div>
                     </div>

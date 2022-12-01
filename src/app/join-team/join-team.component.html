@@ -90,7 +90,7 @@
                         <li><b>Step 3:</b> Verify your <a [routerLink]="'/profile'" [queryParams]="{num: 1}">email address</a> <i *ngIf="user && user.emailVerifyFlg"
                                 class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
                         <li><b>Step 4:</b> Press <button (mousedown)="signupPressed()" class="btn btn-primary"
-                                [disabled]="signupDisabledFlg">Sign up</button><i *ngIf="user && 0" class="fa fa-check"
+                                [disabled]="signupDisabledFlg">Join!</button><i *ngIf="user && 0" class="fa fa-check"
                                 style="color: green; font-size: 32px;"></i></li>
                     </div>
                 </div>

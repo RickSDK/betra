@@ -60,6 +60,8 @@ export class User {
 
     //Match
     public matchAge: number = 0;
+    public matchAgeRange: number = 0;
+    public matchAgeYear: number = 0;
     public matchBody: string = '';
     public matchHeight: string = '';
     public matchMarriage: string = '';
@@ -130,6 +132,8 @@ export class User {
     public ownerLevel: number = 0;
     public ownerPercent: string = '';
     public monthlyPayout: string = '';
+
+    public picFlagged: number = 0;
 
 
     constructor(obj: any) {
@@ -221,14 +225,19 @@ export class User {
             this.stateName = obj.stateName || '';
             this.ip = obj.ip || '';
 
-            this.regionCode = obj.regionCode  || '';
-            this.division = obj.division  || 0;
-            this.zone = obj.zone  || 0;
-            this.adminRegionCode = obj.adminRegionCode  || '';
-            this.adminDivision = obj.adminDivision  || 0;
-            this.adminZone = obj.adminZone  || 0;
-            this.ownerFlg = obj.ownerFlg  && obj.ownerFlg == 'Y';
-            this.ownerLevel = obj.ownerLevel  || 0;
+            this.regionCode = obj.regionCode || '';
+            this.division = obj.division || 0;
+            this.zone = obj.zone || 0;
+            this.adminRegionCode = obj.adminRegionCode || '';
+            this.adminDivision = obj.adminDivision || 0;
+            this.adminZone = obj.adminZone || 0;
+            this.ownerFlg = obj.ownerFlg && obj.ownerFlg == 'Y';
+            this.ownerLevel = obj.ownerLevel || 0;
+            this.picFlagged = obj.picFlagged || 0;
+
+
+            if (this.picFlagged > 0)
+                this.profilePic = 0;
 
             this.pic1 = bonusImageFromNum(obj.user_id, obj.pic1);
             this.pic2 = bonusImageFromNum(obj.user_id, obj.pic2);
@@ -251,7 +260,7 @@ export class User {
             this.ownerPercent = ownerPercents[this.ownerLevel];
             var monthlyPayouts = ['$0', '$5,000', '$10,000', '$20,000', '$40,000', '$60,000', '$70,000']
             this.monthlyPayout = monthlyPayouts[this.ownerLevel];
-        
+
         }
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
@@ -265,7 +274,7 @@ export class User {
             if (items.length >= 3) {
                 var name = items[1];
                 var user_id = parseInt(items[0]);
-                var src = betraImageFromId(user_id, parseInt(items[2]));
+                var src = betraImageFromId(user_id, parseInt(items[2]), '', 0);
                 var heartFlg = (items.length >= 4 && items[3] == 'Y');
                 var level = (items.length >= 5) ? items[4] : '0';
                 datingPool.push({ name: name, src: src, user_id: user_id, heartFlg: heartFlg, level: level });
@@ -280,6 +289,14 @@ export class User {
             this.matchGender = "All";
         var now = new Date();
         var year = now.getFullYear();
+
+        this.matchAgeYear = this.birthYear;
+        if (this.matchAge > 0) {
+            this.matchAgeYear = year - this.matchAge;
+            this.matchAgeRange = Math.round((this.matchAge - 18) / 2);
+            if (this.matchAgeRange < 4)
+                this.matchAgeRange = 4;
+        }
         if (this.birthYear > 0) {
             var items = this.birthdate.split(' ');
             var items2 = items[0].split('-');
@@ -323,9 +340,7 @@ export class User {
         }
 
 
-        this.imgSrc = (obj && obj.gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
-        if (this.profilePic > 0)
-            this.imgSrc = betraImageFromId(this.user_id, this.profilePic);
+        this.imgSrc = betraImageFromId(this.user_id, this.profilePic, this.gender, this.picFlagged);
         this.mainImageSrc = this.imgSrc;
 
         this.adventureStableText = "n/a";
@@ -450,9 +465,10 @@ export class User {
             matchFlg = false;
 
         var profilePicFlg = this.profilePic > 0;
+
         var additionalPicsFlg = true;
         var verifyFlg = true;
-        if (!basicsFlg || !detailsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg)
+        if (!basicsFlg || !detailsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg || !profilePicFlg)
             this.status = 'Pending';
         if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {
             this.status = 'Ready';
@@ -464,11 +480,16 @@ export class User {
         return obj;
     }
 }
-function betraImageFromId(user_id: number, profilePic: number) {
+function betraImageFromId(user_id: number, profilePic: number, gender: string, picFlagged: number) {
+    var imgSrc = (gender && gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
+
     if (user_id > 0 && profilePic > 0)
-        return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
-    else
-        return 'assets/images/theRock.png';
+        imgSrc = 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
+
+    if (picFlagged > 0)
+        imgSrc = 'assets/images/picFlagged' + picFlagged.toString() + '.png';
+
+    return imgSrc;
 }
 function bonusImageFromNum(user_id: number, profilePic: number) {
     if (user_id > 0 && profilePic > 0)

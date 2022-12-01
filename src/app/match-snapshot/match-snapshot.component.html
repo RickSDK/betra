@@ -1,7 +1,7 @@
 <div class="match-card" *ngIf="matchUser && user">
 
     <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked('cancel')"
-        [returnFlg]="returnFlg">
+        [returnFlg]="returnFlg" [distance]="distance">
     </app-profile-top>
 
     <div style="padding: 5px;" *ngIf="matchUser.matchObj">
@@ -116,14 +116,16 @@
         <div *ngIf="matchMadeFlg" [routerLink]="['/matches']" class="dark-red-box" style="background-image: url('assets/images/love.jpg'); cursor: pointer;">
             <div style="font-size: 40px;"><i class="fa fa-heart"></i>&nbsp;<b>Match Made!</b></div>
         </div>
-
+        <div *ngIf="matchUser.matchObj.match_interested == 'B'" class="dark-blue-box">
+            You are on this person's back burner. You will not be able to communicated unless you get upgraded to the person's dating pool.
+        </div>
         <div *ngIf="showInterestedButtonsFlg && !youAreInterestedFlg">
             <div style="text-align: center; font-size: 24px; font-weight: 700;">Interested?</div>
             <div class="gray-text">If both of you show interest in each other, you will be able to further communicate.</div>
             <div *ngIf="matchUser.matchObj.match_interested == 'Y' && matchUser.matchObj.match_level == 1"
                 class="dark-blue-box" style="text-align: center;"><i class="fa fa-heart" style="color: red;"></i>
                 {{matchUser.firstName}} is interested in
-                you! Click yes and you can begin to
+                you! Click 'Yes' and you can begin to
                 communicate.
             </div>
             <table *ngIf="!loadingFlg" width="100%">

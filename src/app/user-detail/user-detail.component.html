@@ -49,9 +49,29 @@
 
     </div>
 
-    <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
+    <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id"
         [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true" [singleProfileFlg]="uid>0">
     </app-match-snapshot>
+
+    <div *ngIf="id==7 && matchUser && user" class="match-card">
+        <div>Does the main profile image look legit?</div>
+        <div *ngIf="!showFakePicOptionsFlg">
+            <button (mousedown)="confirmPic()" class="btn btn-success large-button"><i class="fa fa-check"></i> Yes</button>
+            <button (mousedown)="showFakePicOptionsFlg=!showFakePicOptionsFlg" class="btn btn-danger large-button"><i class="fa fa-times"></i> No</button>
+        </div>
+        <div *ngIf="showFakePicOptionsFlg">
+            <div>Choose Reason</div>
+            <button (mousedown)="showFakePicOptionsFlg=false" class="btn btn-warning">Cancel</button>&nbsp;
+            <select name="picOption" id="picOption">
+                <option value="0" disabled selected>Select</option>
+                <option value="1">Nudity</option>
+                <option value="2">Can't see face</option>
+                <option value="3">Looks fake</option>
+            </select>
+            <button (mousedown)="rejectPic()" class="btn btn-danger large-button">Submit</button>
+          
+        </div>
+    </div>
 
     <div *ngIf="matchUser && matchUser.matchObj">
 

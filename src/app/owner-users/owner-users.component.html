@@ -18,6 +18,7 @@
                         <th>Region</th>
                         <th>District</th>
                         <th>Zone</th>
+                        <th>*Users</th>
                         <th>Last Login</th>
                     </tr>
                     <tr *ngFor="let player of players; let i = index;">
@@ -29,12 +30,39 @@
                         <td>{{player.adminRegionCode}}</td>
                         <td>{{player.adminDivision}}</td>
                         <td>{{player.adminZone}}</td>
-                        <td>{{player.lastLogin}}</td>
+                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">{{player.userCount}}</td>
+                        <td><span class="gray-text">{{player.lastDay}}</span></td>
+                        <td *ngIf="user.user_id==1 && !player.adminRegionCode"><button class="btn btn-primary" (mousedown)="assignRegion(player)"><i class="fa fa-globe"></i></button></td>
                     </tr>
                 </table>
+                <div>*Users indicates the number of active users in that region.</div>
             </div>
         </div>
-
+        <div *ngIf="selectedPlayer">
+            <div>{{selectedPlayer.firstName}}</div>
+            <div>Region</div>
+            <select name="region" id="region">
+                <option>NW</option>
+                <option>SW</option>
+                <option>NE</option>
+                <option>SE</option>
+            </select>
+            <div>District</div>
+            <select name="division" id="division">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+            <div>Zone</div>
+            <select name="zone" id="zone">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <hr>
+            <button (mousedown)="updateUserRegion()" class="btn btn-primary">Update</button>
+        </div>
 
     </div>
 </app-page-shell>

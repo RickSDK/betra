@@ -53,6 +53,58 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     { subject: 'Drugs', option1: 'Legalize all drugs', option2: 'Marijuana  is OK but other hard drugs should remain illegal.', option3: 'Opposed to marijuana and drugs in general.', answer: '' },
     { subject: 'Sex Workers', option1: 'Legalize prostitution everywhere.', option2: 'Let states set their own laws on prostitution and sex work.', option3: 'Pro traditional families, keep prostitution illegal.', answer: '' },
   ];
+  public stateOptions = [
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming',
+  ]
   public cityDisabledFlg = false;
 
   constructor(private router: Router, private route: ActivatedRoute) { super(); }
@@ -315,23 +367,34 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
     if (this.menuNum == 0) {
       this.user.email = $('#email').val();
-      this.user.birthdate = $('#birthdate').val();
+
+      var day = $('#day').val();
+      var month = $('#month').val();
+      var year = $('#year').val();
+
+      var now = getDateObjFromJSDate();
+      this.user.birthdate = year + '-' + month + '-' + day + ' ' + now.localTime;;
       this.user.firstName = $('#firstName').val();
       this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();
 
       var basicsFlg = (this.user.email && this.user.firstName && this.user.zipcode && this.user.gender && this.user.matchPreference && this.user.phone);
       var obj = getDateObjFromJSDate(this.user.birthdate);
-      this.user.birthYear = obj.year;
-      if (obj.daysAgo < 365 * 18) {
+   
+      if(obj.jsDate == 'Invalid Date') {
         this.errorMessage = 'enter valid birthday';
         basicsFlg = false;
+      } else {
+        this.user.birthYear = obj.year;
+        if (obj.daysAgo < 365 * 18) {
+          this.errorMessage = 'enter valid birthday';
+          basicsFlg = false;
+        }
+        if (obj.daysAgo > 365 * 100) {
+          this.errorMessage = 'enter valid birthday';
+          basicsFlg = false;
+        }  
       }
-      if (obj.daysAgo > 365 * 100) {
-        this.errorMessage = 'enter valid birthday';
-        basicsFlg = false;
-      }
-
       this.user.profileFlags[this.menuNum] = basicsFlg;
     }
     if (this.menuNum == 2) {
@@ -348,6 +411,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.wantsKids = $('#wantsKids').val();
 
       this.user.city = $('#city').val();
+      this.user.state = $('#state').val();
       this.user.longestRelationship = $('#longestRelationship').val();
       this.user.numKids = $('#numKids').val();
       this.user.numTattoos = $('#numTattoos').val();
@@ -403,6 +467,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       meetPeopleFlg: this.user.meetPeopleFlg ? 'Y' : 'N',
       makeMoneyFlg: this.user.makeMoneyFlg ? 'Y' : 'N',
       city: this.user.city,
+      state: this.user.state,
       educationLevel: this.user.educationLevel,
       income: this.user.income,
       race: this.user.race,
@@ -437,7 +502,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       phone: this.user.phone,
       action: 'updateProfile',
     };
-    //console.log('xxParamsxx', params);
+    console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
   }
   uploadPicButtonClicked(num: number) {

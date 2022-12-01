@@ -1,2 +1,20 @@
-<input type="date" name="birthdate" id="birthdate" (input)="verifyBirthday()" [value]="birthdate" [style.background-color]="tooYoungFlg?'#ffffc0':'white'">
-<div class="error-message" *ngIf="tooYoungFlg" style="font-size: 10px;">Must be 18 years old.</div>
+<table>
+    <tr>
+        <td>
+            <input (input)="verifyMonth()" type="text" name="month" id="month" [value]="month" size="3" maxLength="2"
+                placeholder="mm">
+        </td>
+        <td>
+            <input (input)="verifyDay()" type="text" name="day" id="day" [value]="day" size="3" maxLength="2"
+                placeholder="dd">
+        </td>
+        <td>
+            <input (input)="verifyYear()" type="text" name="year" id="year" [value]="year" size="5" maxLength="4"
+                placeholder="yyyy">
+        </td>
+        <td align="center">
+            <div class="gray-text" *ngIf="!errorMessage">age: {{age}}</div>
+        </td>
+    </tr>
+</table>
+<div class="error-message" *ngIf="errorMessage" style="font-size: 10px;">{{errorMessage}}</div>

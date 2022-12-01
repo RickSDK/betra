@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { Router } from '@angular/router';
 
+declare var $: any;
+
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -23,6 +25,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public currentProfileIndex = 0;
   public exceededPoolSizeFlg: boolean = false;
   public showMatchLevelInfoFlg: boolean = false;
+  public showFakePicOptionsFlg: boolean = false;
 
 
 
@@ -47,7 +50,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.browseSingles('getOnlineSingles');
       } else if (this.id == 7) {
         this.pageTitle = 'Verify Pic';
-        this.browseSingles('verifyPictures');
+        this.verifyPictures();
       } else {
         this.pageTitle = 'Browse';
         this.browseSingles('findMatches');
@@ -65,10 +68,46 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       code: localStorage['code'],
       gender: this.user.gender,
       matchPreference: this.user.matchPreference,
+      lat: Math.round(this.user.latitude),
+      lng: Math.round(this.user.longitude),
+      matchAgeYear: this.user.matchAgeYear,
+      matchAgeRange: this.user.matchAgeRange,
       action: action
     };
     console.log('params', params);
+    this.executeApi('findMatches.php', params, true);
+  }
+  verifyPictures() {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      action: 'verifyPictures'
+    };
+    console.log('params', params);
     this.executeApi('appApiCode.php', params, true);
+  }
+  confirmPic() {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      uid: this.matchUser.user_id,
+      action: 'confirmPic'
+    };
+    console.log('params', params);
+    this.executeApi('appApiCode.php', params, true);
+  }
+  rejectPic() {
+    var reason = $('#picOption').val();
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      uid: this.matchUser.user_id,
+      reason: reason,
+      action: 'rejectPic'
+    };
+    console.log('params', params);
+    if (reason > 0)
+      this.executeApi('appApiCode.php', params, true);
   }
   loadThisUser() {
     this.exceededPoolSizeFlg = false;
@@ -98,7 +137,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         }
       }
     }
-    if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers') {
+    if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
       if (this.responseJson.playerList) {
 
         this.playerList = [];
@@ -129,6 +168,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       // console.log('xxx refresh made!');
       // this.refreshUserObj(responseJson.user);
       // this.loadThisUser();
+    }
+    if (responseJson.action == 'confirmPic' || responseJson.action == 'rejectPic') {
+      this.showFakePicOptionsFlg = false;
+      this.currentProfileIndex++;
+      this.showCurrentProfile();
     }
 
   }

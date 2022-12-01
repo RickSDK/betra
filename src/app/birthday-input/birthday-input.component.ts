@@ -11,21 +11,89 @@ export class BirthdayInputComponent implements OnInit {
   @Input('birthdate') birthdate: string = '';
   @Output() messageEvent = new EventEmitter<string>();
 
-  public tooYoungFlg: boolean = false;
+  public errorMessage: string = '';
+  public month: string = '';
+  public day: string = '';
+  public year: string = '';
+  public age: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
-    //var obj = getDateObjFromJSDate(this.birthdate);
-    //this.tooYoungFlg = (obj.jsDate == "Invalid Date" || obj.daysAgo < 365 * 18);
+    if (this.birthdate && this.birthdate.length > 0) {
+      var parts = this.birthdate.split('-');
+      if (parts.length == 3 && parts[2].length <= 2) {
+        this.year = parts[0];
+        this.month = parts[1];
+        this.day = parts[2];
+        this.verifyBirthday();
+//        var dt = getDateObjFromJSDate(this.birthdate);
+  //      if (dt.jsDate == 'Invalid Date')
+    //      this.errorMessage = 'Invalid Date';
+      }
+    }
+  }
+  verifyMonth() {
+    if (this.errorMessage == "invalid month")
+      this.errorMessage = "";
+    var e = (document.getElementById('month') as HTMLInputElement);
+    if (e) {
+      this.month = e.value;
+      if (parseInt(e.value) > 12)
+        this.errorMessage = "invalid month";
+
+      if (e.value.length == 2) {
+        var d = (document.getElementById('day') as HTMLInputElement);
+        d.focus();
+      }
+      this.verifyBirthday();
+    }
+    this.messageEvent.emit('change');
+  }
+  verifyDay() {
+    if (this.errorMessage == "invalid day")
+      this.errorMessage = "";
+    var e = (document.getElementById('day') as HTMLInputElement);
+    if (e) {
+      this.day = e.value;
+      if (parseInt(e.value) > 31 || parseInt(e.value) < 1)
+        this.errorMessage = "invalid day";
+
+      if (e.value.length == 2) {
+        var d = (document.getElementById('year') as HTMLInputElement);
+        d.focus();
+      }
+      this.verifyBirthday();
+
+    }
+    this.messageEvent.emit('change');
+  }
+  verifyYear() {
+    this.errorMessage = "";
+    var e = (document.getElementById('year') as HTMLInputElement);
+    if (e) {
+      this.year = e.value;
+      //      if (e.value.length == 4) {
+      this.verifyBirthday();
+      //      }
+    }
+    this.messageEvent.emit('change');
   }
   verifyBirthday() {
-    var e = (document.getElementById('birthdate') as HTMLInputElement);
-    if (e) {
-      this.birthdate = e.value;
-      var obj = getDateObjFromJSDate(e.value);
-      this.tooYoungFlg = (obj.daysAgo < 365 * 18);
-      this.messageEvent.emit('change');
+    this.errorMessage = '';
+    var now = getDateObjFromJSDate();
+    var birthdate = this.year + '-' + this.month + '-' + this.day + ' ' + now.localTime;
+    var obj = getDateObjFromJSDate(birthdate);
+    if (obj.jsDate == 'Invalid Date')
+      this.errorMessage = 'Invalid Date';
+    else {
+      var age = Math.round(obj.daysAgo / 365);
+      this.age = age.toString();
+      if (age < 18)
+        this.errorMessage = 'Too young. Must be 18 years old.';
+      if (age > 100)
+        this.errorMessage = 'Enter a valid date.';
+
     }
   }
 }
