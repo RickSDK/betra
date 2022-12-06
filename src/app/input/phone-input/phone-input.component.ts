@@ -20,12 +20,12 @@ export class PhoneInputComponent implements OnInit {
     if (e) {
       if (numbers.length >= 3) {
         var areaCode = numbers.substring(0, 3);
-        if (areaCode.length == 3)
+        if (numbers.length > 3)
           areaCode = '(' + areaCode + ') ';
         var prefix = numbers.substring(3, 6);
-        if (prefix.length == 3)
-        prefix = prefix + '-';
-     
+        if (numbers.length > 6)
+          prefix = prefix + '-';
+
         var num = numbers.substring(6, 10)
         e.value = areaCode.toString() + prefix.toString() + num.toString();
         this.phone = e.value;

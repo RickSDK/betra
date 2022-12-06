@@ -2,6 +2,10 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
     <div class="matches-card" *ngIf="user">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div class="border-box">
+            Part of the vision of <span class="red-text">Betra</span> is about people helping people. Feel free to journal here about your dating experiences, hopes or expectations.
+            Others can comment or give advice. It's fun and it's helpful because we are all in this together.
+        </div>
         <button *ngIf="postId==0" (mousedown)="createNewEntry()"
             class="btn btn-light bordered-button">Create journal entry</button>
         <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
@@ -18,7 +22,7 @@
 
         <div *ngIf="showFormFlg">
             <div *ngIf="postId==0" class="gray-text">Create a journal entry about any aspect of your dating life.
-                Just keep in mind all users are free the read your journal and offer comments and advice.</div>
+                Just keep in mind all users are free to read your journal and offer comments and advice.</div>
             <div *ngIf="postId>0" class="gray-text">Reply with your best encouragement, advice, suggestions or
                 encouragement. Please nothing disrespectful.</div>
             <app-text-area-input [id]="'journalText'"></app-text-area-input>

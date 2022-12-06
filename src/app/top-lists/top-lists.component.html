@@ -1,14 +1,15 @@
 <app-page-shell [userId]="userId" [imgSrcFile]="imgSrcFile" [pageTitle]="'Top 10'" [headerObj]="headerObj">
 
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-    <div class="matches-card" *ngIf="responseJson">
-
-
-
-        <table width="100%">
+   <app-dating-pool [user]="user" [largeFlg]="false"></app-dating-pool>
+    <div class="matches-card">
+        <div class="btn-group">
+            <button (mousedown)="selectMenu(i)" *ngFor="let button of topButtons; let i = index;" [ngClass]="ngClassMenuButton(i, menuNum)" style="font-size: 12px; margin-right: 2px;">{{button}}</button>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <table width="100%" *ngIf="responseJson">
             <tr>
                 <td>
-                    <div class="tiny-text" style="text-align: center;"><b>Most liked Men</b></div>
+                    <div class="tiny-text" style="text-align: center;"><b *ngIf="menuNum==0">Most liked Men</b><b *ngIf="menuNum==1">Newest Men</b></div>
                     <table align="center" style="font-size: 12px;">
                         <tr *ngFor="let person of responseJson.topMen; let i =index">
                             <td style="color: #ccc;">{{i+1}}</td>
@@ -23,7 +24,7 @@
                     </table>
                 </td>
                 <td>
-                    <div class="tiny-text" style="text-align: center;"><b>Most Liked Women</b></div>
+                    <div class="tiny-text" style="text-align: center;"><b *ngIf="menuNum==0">Most Liked Women</b><b *ngIf="menuNum==1">Newest Women</b></div>
                     <table align="center" style="font-size: 12px;">
                         <tr *ngFor="let person of responseJson.topWomen; let i =index">
                             <td style="color: #ccc;">{{i+1}}</td>
@@ -39,8 +40,6 @@
                 </td>
             </tr>
         </table>
-
-
     </div>
 
 </app-page-shell>

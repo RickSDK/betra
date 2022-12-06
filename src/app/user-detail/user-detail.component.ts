@@ -4,6 +4,7 @@ import { User } from '../classes/user';
 import { ActivatedRoute } from '@angular/router';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { Router } from '@angular/router';
+import { UserCommunicationComponent } from '../user-communication/user-communication.component';
 
 declare var $: any;
 
@@ -14,6 +15,7 @@ declare var $: any;
 })
 export class UserDetailComponent extends BaseComponent implements OnInit {
   @ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = new (MatchSnapshotComponent);
+  @ViewChild(UserCommunicationComponent) messagesModal: UserCommunicationComponent = new (UserCommunicationComponent);
 
   public uid: number = 0;
   public id: number = 0;
@@ -158,6 +160,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
       console.log('this.matchUser', this.matchUser);
+      console.log('here!');
+      this.messagesModal.loadMessages(this.matchUser);
+
 
       setTimeout(() => {
         this.calculatingStatsFlg = false;

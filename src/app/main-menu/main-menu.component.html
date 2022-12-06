@@ -1,11 +1,62 @@
-<app-page-shell [userId]="userId" [notifications]="notifications" [popupNum]="popupNum"
-    [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle" [headerObj]="headerObj">
-    <img *ngIf="!headerObj.profileCompleteFlg" class="background-img" src="assets/images/MainScreen.jpg" alt="Dating Couple">
+<app-page-shell [userId]="userId" [notifications]="notifications" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="papgeTitle" [headerObj]="headerObj">
+    <img *ngIf="!headerObj.profileCompleteFlg" class="background-img" src="assets/images/bachelor.jpg"
+        alt="Dating Couple">
 
-    <app-profile-snapshot *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [myUser]="user" [responseJson]="responseJson"
-        [matchObj]="matchObj"></app-profile-snapshot>
+    <app-dating-pool [user]="user" [largeFlg]="false"></app-dating-pool>
+    <div *ngIf="headerObj.profileCompleteFlg && user" class="match-card"
+        style="padding: 10px; width: 100%; max-width: none;">
+        <div style="color: #900; font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to Betra!</div>
+        <div style="text-align: left;" class="gray-text">
+            <p>This is designed to be the "next generation" in dating, and guaranteed to be the most fun you will ever
+                have with a dating app.</p>
+            <p>Betra is inspired by the Bachelor/Bachelorette TV Shows. Fill up your dating pool with interesting
+                people,
+                then begin narrowing your prospects, giving out roses along the way.
+                Its fun and its exciting.
+            </p>
+        </div>
+        <img src="assets/images/bachelor.jpg" style="width: 100%;">
+        <hr>
+        <p style="font-size: 18px; font-weight: 700;">Officially launches on Feb 14th, 2023!</p>
+        <p class="gray-text">This is the fully functioning beta version. Feel free to test it out with other real users.
+            We currently have
+            users in the following countries and states:</p>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-    <div (mousedown)="errorMessage=''" *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
+        <div *ngIf="states" class="red-text" style="font-size: 10px; padding-bottom: 10px;">
+            <div class="gray-box">
+                <div style="color: gray; font-size: 8px;">Countries with active users</div>
+                <span *ngFor="let country of countries">{{country.name}}<sup>{{country.count}}</sup>&nbsp;
+                </span>
+            </div>
+            <div class="gray-box">
+                <div style="color: gray; font-size: 8px;">States with active users</div>
+                <span *ngFor="let state of states">{{state.stateName}}<sup>{{state.count}}</sup>&nbsp;
+                </span>
+            </div>
+
+        </div>
+        <p class="gray-text">Help us spread to every city in the world!</p>
+        <div class="hidden-sm">
+            <hr>
+            <p class="red-text">What can you do now?</p>
+            <button class="btn btn-success" [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}">
+                <div style="font-size: 24px;"><i class="fa fa-user"></i></div>
+                <div style="font-size: 10px;">Profile</div>
+            </button>&nbsp;
+            <button [routerLink]="['/user-detail']" class="btn btn-success">
+                <div style="font-size: 24px;"><i class="fa fa-search"></i></div>
+                <div style="font-size: 10px;">Browse</div>
+            </button>&nbsp;
+            <button [routerLink]="['/journal']" class="btn btn-success">
+                <div style="font-size: 24px;"><i class="fa fa-book"></i></div>
+                <div style="font-size: 10px;">Journal</div>
+            </button>
+        </div>
+    </div>
+    <app-profile-snapshot *ngIf="0" [user]="user" [myUser]="user" [responseJson]="responseJson" [matchObj]="matchObj">
+    </app-profile-snapshot>
 
     <table width="100%" *ngIf="!headerObj.profileCompleteFlg">
         <tr>

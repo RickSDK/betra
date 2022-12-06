@@ -134,6 +134,8 @@ export class User {
     public monthlyPayout: string = '';
 
     public picFlagged: number = 0;
+    public statsObj: any = null;
+    public location: string = '';
 
 
     constructor(obj: any) {
@@ -143,6 +145,7 @@ export class User {
             this.phone = obj.phone || '';
             this.birthdate = obj.birthdate;
             this.birthYear = obj.birthYear;
+            this.statsObj = obj.statsObj;
             this.gender = obj.gender;
             this.genderIcon = (obj.gender == 'M') ? 'fa fa-male' : 'fa fa-female';
             this.genderName = (obj.gender == 'M') ? 'male' : 'female';
@@ -167,6 +170,8 @@ export class User {
             this.city = obj.city || '';
             this.longestRelationship = obj.longestRelationship || '0';
             this.longestRelationshipText = this.longestRelationship + ' years';
+            if (this.longestRelationship == '1')
+                this.longestRelationshipText = '1 year';
             this.numTattoos = obj.numTattoos || '0';
             this.numPiercings = obj.numPiercings || '0';
 
@@ -193,7 +198,7 @@ export class User {
 
             this.motto = obj.motto || '';
             this.story = obj.story || '';
-            this.status = obj.userStatus || '';
+            this.status = obj.userStatus || 'Started';
             this.emailVerifyFlg = obj.emailVerifyFlg == 'Y';
             this.lastLogin = obj.lastLogin;
             this.lastLoginText = '-';
@@ -283,6 +288,7 @@ export class User {
         });
         this.datingPool = datingPool;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
+        this.location = this.city;
 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
         if (this.matchPreference == 'A')
@@ -332,7 +338,7 @@ export class User {
                 this.lastLoginText = 'Online Now!';
             }
         }
-        if (!this.matchAge)
+        if (this.status == 'Active' && !this.matchAge)
             this.status = 'Pending';
 
         if (this.matchAge == 0) {
@@ -438,7 +444,7 @@ export class User {
 
 
         //----Basics
-        var basicsFlg = !!(this.firstName && this.zipcode && this.gender && this.matchPreference && this.phone);
+        var basicsFlg = !!(this.firstName && this.gender && this.matchPreference && this.phone);
         //if (basicsFlg && this.findLoveFlg && !this.matchPreference)
         //  basicsFlg = false;
 
@@ -468,11 +474,14 @@ export class User {
 
         var additionalPicsFlg = true;
         var verifyFlg = true;
-        if (!basicsFlg || !detailsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg || !profilePicFlg)
-            this.status = 'Pending';
-        if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {
-            this.status = 'Ready';
+        if (this.status == 'Active') {
+            if (!basicsFlg || !detailsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg || !profilePicFlg)
+                this.status = 'Pending';
         }
+
+        //       if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {
+        //            this.status = 'Ready';
+        //        }
         this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, profilePicFlg, additionalPicsFlg, matchFlg, true];
     }
     userObjFromText(line: string) {

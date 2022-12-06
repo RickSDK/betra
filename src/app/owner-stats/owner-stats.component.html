@@ -11,7 +11,7 @@
             <div class="inside-box">
                 <table width="100%" *ngIf="responseJson && !loadingFlg">
                     <tr>
-                        <td>
+                        <td valign="top">
                             <div class="border-box" style="font-size: 12px;">
                                 <div class="tiny-text">Accounts</div>
                                 <div>Total: {{responseJson.accounts}}</div>
@@ -26,7 +26,7 @@
                                 <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
                             </div>
                         </td>
-                        <td>
+                        <td valign="top">
                             <div class="border-box">
                                 <div class="tiny-text">Countries</div>
                                 <div *ngFor="let country of responseJson.countryNames">
@@ -39,11 +39,13 @@
                                     <div>{{state.stateName}}: {{state.count}}</div>
                                 </div>
                             </div>
-                            <div class="border-box">
+                        </td>
+                        <td valign="top">
+                            <div class="border-box" style="font-size: 8px; max-width: 150px;">
                                 <div class="tiny-text">Cities</div>
-                                <div *ngFor="let city of responseJson.cities">
-                                    <div>{{city.name}}: {{city.count}}</div>
-                                </div>
+                                <span *ngFor="let city of responseJson.cities">
+                                    {{city.name}}<sup>{{city.count}}</sup>
+                                </span>
                             </div>
                         </td>
                     </tr>

@@ -23,8 +23,7 @@ export class ProfileTopComponent implements OnInit {
   ngOnInit(): void {
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.user.mainImageSrc = this.user.imgSrc;
-    this.lookingForTitle = this.user.maritalStatus + ' ' + this.user.genderName + ' ' + 'looking for ' + this.user.matchGender;
-    //this.calculateDistance();
+    this.lookingForTitle = this.user.maritalStatus + ' ' + this.user.genderName + ' ' + 'seeking ' + this.user.matchGender;
   }
 
   cancelMatches() {

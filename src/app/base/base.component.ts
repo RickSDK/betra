@@ -27,6 +27,10 @@ export class BaseComponent implements OnInit {
   public responseJson: any = null;
   public userStatus: string = '';
   public notifications: number = 0;
+  public menuNum: number = 0;
+  public topButtons:any = ['one', 'two', 'three'];
+
+
   public headerObj: any = {
     userId: 0, imgSrcFile: this.imgSrcFile, pageTitle: '',
     profileCompleteFlg: false,
@@ -86,6 +90,12 @@ export class BaseComponent implements OnInit {
         localStorage['user_id'] = 0;
       }
     }
+  }
+  ngClassMenuButton(num: number, menuNum: number) {
+    if (num == menuNum)
+      return 'btn btn-primary';
+    else
+      return 'btn btn-secondary';
   }
   syncUserWithLocalStorage(responseJson: any) {
     console.log('xxx user synced with database xxx', responseJson);

@@ -162,7 +162,7 @@ body {
     display: inline-block;
     position: fixed;
     top: 120px;
-    right: 50px;
+    right: 20px;
     width: 100%;
     max-width: 300px;
     border-radius: 10px;
@@ -262,10 +262,22 @@ select {
     color: white;
     border-radius: 50%;
 }
+.variable-text {
+    font-size: 16px;
+}
 
 @media screen and (max-width: 800px) {
+    .large-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
     .hide-md {
         display: none;
+    }
+    .variable-text {
+        font-size: 10px;
     }
  }
  @media screen and (min-width: 801px) {
@@ -273,7 +285,11 @@ select {
         display: none;
     }
  }
- 
+ @media screen and (max-width: 767px) {
+    .hidden-sm {
+        display: none;
+    }
+ }
  @media screen and (max-width: 600px) {
     .hide-sm {
         display: none;

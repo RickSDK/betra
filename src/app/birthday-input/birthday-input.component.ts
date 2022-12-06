@@ -87,7 +87,7 @@ export class BirthdayInputComponent implements OnInit {
     if (obj.jsDate == 'Invalid Date')
       this.errorMessage = 'Invalid Date';
     else {
-      var age = Math.round(obj.daysAgo / 365);
+      var age = Math.floor(obj.daysAgo / 365);
       this.age = age.toString();
       if (age < 18)
         this.errorMessage = 'Too young. Must be 18 years old.';

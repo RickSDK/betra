@@ -52,8 +52,11 @@ export class UploadImageComponent implements OnInit {
     };
 
     reader.readAsDataURL(this.fileToUpload);
-    this.showSubmitButtonFlg = true;
+    //this.showSubmitButtonFlg = true;
     this.showImageFlg = true;
+    setTimeout(() => {
+      this.messageEvent.emit('upload');      
+    }, 500);
   }
   cancelUpload() {
     this.showSubmitButtonFlg = false;

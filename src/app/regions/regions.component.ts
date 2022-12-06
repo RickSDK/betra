@@ -54,21 +54,21 @@ export class RegionsComponent extends BaseComponent implements OnInit {
           name: 2, zones: [
             { name: 1, areas: ['N Texas'] },
             { name: 2, areas: ['Arizona'] },
-            { name: 3, areas: ['New Mexico'] },
+            { name: 3, areas: ['S Texas'] },
           ]
         },
         {
           name: 3, zones: [
             { name: 1, areas: ['S California'] },
             { name: 2, areas: ['Los Angelos'] },
-            { name: 3, areas: ['San Diego'] },
+            { name: 3, areas: ['New Mexico'] },
           ]
         },
         {
           name: 4, zones: [
-            { name: 1, areas: ['S. Texas'] },
-            { name: 2, areas: ['Houston'] },
-            { name: 3, areas: ['San Antonio'] },
+            { name: 1, areas: ['International'] },
+            { name: 2, areas: ['International'] },
+            { name: 3, areas: ['International'] },
           ]
         },
       ]
@@ -118,21 +118,21 @@ export class RegionsComponent extends BaseComponent implements OnInit {
           name: 2, zones: [
             { name: 1, areas: ['Virginia'] },
             { name: 2, areas: ['Tennessee'] },
-            { name: 3, areas: ['Kentucky'] },
+            { name: 3, areas: ['Kentucky', 'West Virginia'] },
           ]
         },
         {
           name: 3, zones: [
             { name: 1, areas: ['North Carolina'] },
             { name: 2, areas: ['South Carolina'] },
-            { name: 3, areas: ['West Virginia'] },
+            { name: 3, areas: ['Florida'] },
           ]
         },
         {
           name: 4, zones: [
-            { name: 1, areas: ['N. Florida'] },
-            { name: 2, areas: ['C. Florida'] },
-            { name: 3, areas: ['S. Florida'] },
+            { name: 1, areas: ['International (N. India)'] },
+            { name: 2, areas: ['International (C. India)'] },
+            { name: 3, areas: ['International (S. India)'] },
           ]
         },
       ]

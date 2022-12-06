@@ -82,21 +82,29 @@
 
                     <div *ngIf="!loadingFlg"
                         style="border: 1px solid gray; border-radius: 5px; display: inline-block; text-align: left; padding: 10px;">
-                        <li><b>Step 1:</b> <a [routerLink]="'/'">Create</a> an account <i
-                                *ngIf="user && user.user_id > 0" class="fa fa-check"
-                                style="color: green; font-size: 32px;"></i></li>
-                        <li><b>Step 2:</b> Complete your profile <i *ngIf="user && user.status == 'Active'"
-                                class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
-                        <li><b>Step 3:</b> Verify your <a [routerLink]="'/profile'" [queryParams]="{num: 1}">email address</a> <i *ngIf="user && user.emailVerifyFlg"
-                                class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
-                        <li><b>Step 4:</b> Press <button (mousedown)="signupPressed()" class="btn btn-primary"
-                                [disabled]="signupDisabledFlg">Join!</button><i *ngIf="user && 0" class="fa fa-check"
-                                style="color: green; font-size: 32px;"></i></li>
+                        <ol>
+
+                            <li *ngIf="!user"><a [routerLink]="['']">Create a Betra account</a> <i
+                                    *ngIf="user && user.user_id > 0" class="fa fa-check"
+                                    style="color: green; font-size: 32px;"></i></li>
+                            <li *ngIf="!user || user && user.status != 'Active'"> Complete your <a
+                                    [routerLink]="'/profile'">profile</a> <i *ngIf="user && user.status == 'Active'"
+                                    class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
+                            <li *ngIf="!user || (user && !user.emailVerifyFlg)"> Verify your <a [routerLink]="'/profile'"
+                                    [queryParams]="{num: 1}">email address</a> <i *ngIf="user && user.emailVerifyFlg"
+                                    class="fa fa-check" style="color: green; font-size: 32px;"></i> (check your junk
+                                email address)</li>
+                            <li>Click Join button below</li>
+                            <div style="text-align: center">
+                                <button (mousedown)="signupPressed()" class="btn btn-primary"
+                                    [disabled]="signupDisabledFlg" style="padding: 10px; width: 120px;">Join!</button>
+                            </div>
+                        </ol>
                     </div>
                 </div>
             </div>
             <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-            <p class="gray-text" style="text-align: left;">That's it! No investment needed. once you press the Sign-up
+            <p class="gray-text" style="text-align: left;">That's it! No investment needed. once you press the Join
                 button, you will be a 0.5% owner!
                 You will then be assigned a region to start promoting.</p>
         </div>

@@ -12,7 +12,7 @@ export class OwnersMenuComponent implements OnInit {
     { name: 'Details', routerLink: '/owners' },
     { name: 'Overview', routerLink: '/join-team' },
     { name: 'Regions', routerLink: '/regions' },
-    { name: 'Users', routerLink: '/owner-users' },
+    { name: 'Owners', routerLink: '/owner-users' },
     { name: 'Stats', routerLink: '/owner-stats' },
   ]
 

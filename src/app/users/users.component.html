@@ -1,15 +1,35 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="'Users'" [headerObj]="headerObj">
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile" [pageTitle]="'Users'"
+    [headerObj]="headerObj">
 
-    <div [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" *ngFor="let player of playerlist" class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
-        <img [src]="player.imgSrc" alt="profile pic" class="small-image">
+    <div class="btn-group" role="group" aria-label="Menu">
+        <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
+            [ngClass]="ngClassMenuButton(i, menuNum)">{{button}}</button>
+    </div>
+    <hr>
+    <div *ngFor="let player of sortedlist"
+        class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
+        <img [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" [src]="player.imgSrc" alt="profile pic" class="small-image">
         <div style="text-align: center; font-size: 16px;"><b>{{player.firstName}}</b></div>
         <div style="text-align: center;"><i *ngIf="player.emailVerifyFlg" class="fa fa-check"
                 style="color: green;"></i>{{player.status}}</div>
         <div style="text-align: center; font-size: 11px; color: green;">{{player.lastLoginText}}</div>
+        <button class="btn btn-danger" (mousedown)="deleteUser(player)">Delete</button>
         <div *ngIf="user && user.user_id==1" style="background-color: #eee;">
             <div style="text-align: center;">{{player.adventureStableText}}</div>
             <div style="text-align: center;">{{player.polyText}}</div>
+        </div>
+        <div *ngIf="player.statsObj" style="font-size: 10px;">
+            <div>{{player.phone}}</div>
+            <div>Clicks: Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup></div>
+            <div>matches: {{player.statsObj.matchLevel2}}</div>
+            <button class="btn btn-primary" (mousedown)="selectedId = (selectedId==player.user_id)?0:player.user_id">Stats</button>
+            <div *ngIf="selectedId == player.user_id">
+                <div *ngIf="player.statsObj.messages>0">messages: {{player.statsObj.messages}}</div>
+                <div *ngIf="player.statsObj.reviewed>0">reviewed: {{player.statsObj.reviewed}}</div>
+                <div *ngIf="player.statsObj.reviews>0">reviews: {{player.statsObj.reviews}}</div>
+                <div *ngIf="player.statsObj.journals>0">journals: {{player.statsObj.journals}}</div>
+                <div *ngIf="player.statsObj.dates>0">dates: {{player.statsObj.dates}}</div>    
+            </div>
         </div>
     </div>
 </app-page-shell>

@@ -17,13 +17,18 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public matchUser: any = null;
   public displayProfileFlg = true;
-  public papgeTitle = '';
+  public papgeTitle = 'Home';
+  public states:any = [];
+  public countries:any = [];
 
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
   override ngOnInit(): void {
+    window.scrollTo(0, 0);
+
     this.loadUserObj();
+    this.getStateCounts();
 
     this.route.queryParams.subscribe(params => {
       if (!localStorage['user_id']) {
@@ -42,10 +47,17 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     })
 
     if (this.user && this.user.status == 'Active') {
-      this.papgeTitle = 'My Profile';
       this.notifications = this.user.notifications;
-      this.logUser();
+      //this.logUser();
     }
+  }
+  getStateCounts() {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      action: "getStateCounts"
+    };
+    this.executeApi('appApiCode.php', params, true);
   }
 
   logoutUser() {
@@ -83,6 +95,11 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == "getStateCounts") {
+      this.states = responseJson.stateName;
+      this.countries = responseJson.countries;
+      this.logUser();
+    }
     if (responseJson.action == "logUser") {
       if (this.user && this.user.ip == '')
         this.populateGeoInfo();

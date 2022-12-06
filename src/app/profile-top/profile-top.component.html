@@ -32,7 +32,7 @@
                         style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
                 </div>
  
-                <div><b>{{user.city}}</b>
+                <div><b [style.font-size]="user.location.length>14?'10px':'14px'">{{user.location}}</b>
                     <span style="float: right; font-size: 8px; padding-top: 5px;">
                         <img [src]="user.lastLoginSrc" height="12" [title]="user.lastLoginText">
                         {{user.lastLoginText}}
@@ -52,7 +52,7 @@
                             *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
                     </div>
 
-                    <app-green-check [label]="'Seeking'" [text1]="user.desiredRelationship"
+                    <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
                         [text2]="myUser.matchRelationship" [icon]="'fa fa-eye'"></app-green-check>
                     <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
                         [text2]="myUser.marriageView" [img]="'assets/images/marriage.png'"></app-green-check>

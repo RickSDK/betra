@@ -1,6 +1,7 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owners'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
     <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <app-owners-menu [pageTitle]="'Details'"></app-owners-menu>
         <p>Welcome to the Betra owner's team!</p>
         <p>Our goal is to grow this app into one of the top dating sites in the world!</p>
@@ -29,22 +30,19 @@
             revenue generated.
             The figure listed is our estimate based on 500,000 users.</div>
         <hr>
-        <P>Note: Your region has not been assigned to you yet. Please wait a day or 2 for that to happen.</P>
         <div class="shaded-border-box">
-            <div class="title-bar">What do you need to do?</div>
+            <div class="title-bar">What do you can do to help</div>
             <div class="inside-box">
-                <li *ngIf="!user.adminRegionCode">Wait until your region is assigned</li>
-                <li *ngIf="user.adminRegionCode">Tell friends and family about the site.</li>
-                <li *ngIf="user.adminRegionCode">Create facebook and craigslist postings that target your region.</li>
-                <li *ngIf="user.adminRegionCode">Find other ways to get the word out.</li>
-                <li *ngIf="user.adminRegionCode">Check the stats page to see how many people are signing up.</li>
-                <li *ngIf="user.adminRegionCode">Verify new user's profile pics.</li>
+                <li>Click 'Broswe' button and click Yes to as many people as possible. Even if you aren't single, feel free to test out the features.</li>
+                <li>Click 'Verify Pic' button to verify user profile pics.</li>
+                <li>Invite friends and family to try out the site.</li>
+                <li>Report any bugs or suggestions that might make the app better.</li>
             </div>
         </div>
         <div class="shaded-border-box">
             <div class="title-bar">How do you get promoted?</div>
             <div class="inside-box">
-                <div class="gray-text">Those who are generating the most new users will be promoted to "Supervisor",
+                <div class="gray-text">Those who are interacting the most with the app and generating the most new users will be promoted to "Supervisor",
                     which
                     comes with a double percentage of ownership! You can further be promoted from there.</div>
             </div>

@@ -23,45 +23,52 @@
         </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <table width="100%" *ngIf="showStatsFlg && responseJson && !loadingFlg">
-            <tr>
-                <td>
-                    <div class="border-box" style="font-size: 12px;">
-                        <div class="tiny-text">Accounts</div>
-                        <div>Total: {{responseJson.accounts}}</div>
-                        <div>Completed: {{responseJson.activeAccounts}}</div>
-                        <div>Active: {{responseJson.recentLogins}} (past 7 days)</div>
-                        <div>New: {{responseJson.newThisWeek}} (past 7 days)</div>
-                    </div>
-                    <div class="border-box">
-                        <div class="tiny-text">Likes: {{responseJson.likes}}</div>
-                        <div class="tiny-text">Matches: {{responseJson.matches}}</div>
-                        <div class="tiny-text">Messages: {{responseJson.messages}}</div>
-                        <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="border-box">
-                        <div class="tiny-text">Countries</div>
-                        <div *ngFor="let country of responseJson.countryNames">
-                            <div>{{country.countryName}}: {{country.count}}</div>
+        <div *ngIf="showStatsFlg">
+            <div><b>Betra Stats</b></div>
+            <table width="100%" *ngIf="responseJson && !loadingFlg">
+                <tr>
+                    <td valign="top">
+                        <div class="border-box" style="font-size: 12px;">
+                            <div class="tiny-text">Accounts</div>
+                            <div>Total Created: {{responseJson.accounts}}</div>
+                            <div>*Newly Created: {{responseJson.newThisWeek}}</div>
+                            <div>Active Status: {{responseJson.activeAccounts}}</div>
+                            <div>*Recently Logged In: {{responseJson.recentLogins}}</div>
+                            <div style="font-size: 8px; color: gray;">* past 7 days</div>
                         </div>
-                    </div>
-                    <div class="border-box">
-                        <div class="tiny-text">States</div>
-                        <div *ngFor="let state of responseJson.stateName">
-                            <div>{{state.stateName}}: {{state.count}}</div>
+                        <div class="border-box">
+                            <div class="tiny-text">Likes: {{responseJson.likes}}</div>
+                            <div class="tiny-text">Matches: {{responseJson.matches}}</div>
+                            <div class="tiny-text">Messages: {{responseJson.messages}}</div>
+                            <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
                         </div>
-                    </div>
-                    <div class="border-box">
-                        <div class="tiny-text">Cities</div>
-                        <div *ngFor="let city of responseJson.cities">
-                            <div>{{city.name}}: {{city.count}}</div>
+                    </td>
+                    <td valign="top">
+                        <div class="border-box" style="font-size: 12px;">
+                            <div class="tiny-text">Countries</div>
+                            <div *ngFor="let country of responseJson.countryNames">
+                                <div>{{country.countryName}}<sup>{{country.count}}</sup></div>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
+                        <div class="border-box" style="font-size: 12px;">
+                            <div class="tiny-text">States</div>
+                            <div *ngFor="let state of responseJson.stateName">
+                                <div>{{state.stateName}}<sup>{{state.count}}</sup></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td valign="top">
+                        <div class="border-box" style="font-size: 8px; max-width: 200px;">
+                            <div class="tiny-text">Cities</div>
+                            <span *ngFor="let city of responseJson.cities">
+                                {{city.name}}<sup>{{city.count}}</sup>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
 
 
         <div *ngIf="userId==1">

@@ -7,28 +7,26 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./top-lists.component.scss']
 })
 export class TopListsComponent extends BaseComponent implements OnInit {
-
+  public override topButtons = ['Most Liked', 'Newest'];
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getStats();
+    this.getTop10List("getStats");
   }
-  getStats() {
+  getTop10List(action: string) {
+    this.responseJson = null;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      action: "getStats"
+      action: action
     };
-    console.log(params);
     this.executeApi('appApiCode2.php', params, true);
   }
-  override postSuccessApi(file: string, responseJson: any) {
-    this.responseJson = responseJson;
-    console.log('XXX postSuccessApi', file, responseJson);
-    if (responseJson.action == 'getReviews') {
-
-    }
+  selectMenu(num: number) {
+    this.menuNum = num;
+    var actions = ['getStats', 'getNewestUsers'];
+    this.getTop10List(actions[num]);
   }
 
 }

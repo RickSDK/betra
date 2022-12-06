@@ -115,8 +115,12 @@ export class MatchSnapshotComponent implements OnInit {
     if (this.user.matchHasKids == 'Yes' && this.matchUser.numKids > 0)
       this.user.kidsNum = this.matchUser.numKids;
 
-    this.matchUser.longestRelationshipText = this.matchUser.longestRelationship + ' years';
-
+    if(this.matchUser.state && this.user.state != this.matchUser.state) {
+      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
+    }
+    if(this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
+      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.countryName;
+    }
   }
   actionButtonClicked(action: string) {
     if (action == 'yesToMatch' && this.matchUser.matchObj.match_interested == 'Y') {

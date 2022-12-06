@@ -4,7 +4,7 @@
     <div class="matches-card" style="min-height: 500px; font-size: 14px; color: #444;" *ngIf="user">
         <div class="btn-group" role="group" aria-label="Menu">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
-                [ngClass]="ngClassButton(i)">{{button}}</button>
+                [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
             <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 5" class="btn btn-light">
                 <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
             </button>
@@ -99,7 +99,7 @@
                 </div>
                 <div *ngIf="playerList.length>0">
                     <p><i class="fa fa-heart" style="color: red;"></i> Someone is very interested in you!</p>
-                    <p>Click on the profile(s) above. If you decide you are interested as well, the two of you can begin
+                    <p class="gray-text">Click on the profile(s) above. If you decide you are interested as well, the two of you can begin
                         communicating and see where this goes.</p>
                 </div>
                 <div *ngIf="playerList.length==0">
@@ -107,18 +107,12 @@
                     <div style="text-align: left;" class="small-gray-text">
                         <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
                         <div style="padding-left: 30px;">
-                            <li>Have a nice, well lit photo of your face on your profile.</li>
-                            <li>Have a fun or interesting motto.</li>
-                            <li>Start liking lots of people. That's the fastest way for others to find you.</li>
-                            <li>Boost your profile.</li>
+                            <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your profile.</li>
+                            <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
+                            <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for others to find you.</li>
+                            <li><i class="fa fa-arrow-up"></i> <a [routerLink]="['/upgrade-member']">Upgrade</a> in order to maximize your exposure.</li>
                         </div>
 
-                    </div>
-                    <div>&nbsp;</div>
-                    <div>Click <button [routerLink]="['/user-detail']" class="btn red-small-button"><i
-                                class="fa fa-search"></i>
-                            Browse</button>
-                        to find new singles!
                     </div>
                 </div>
 

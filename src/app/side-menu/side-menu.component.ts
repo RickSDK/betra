@@ -13,7 +13,7 @@ export class SideMenuComponent implements OnInit {
 
 
   public topItems = [
-    { name: 'My Profile', routerLink: '', icon: 'fa fa-user', id: 0 },
+    { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
     { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
     { name: 'My Matches', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
     { name: 'Admirers', routerLink: '/user-detail', icon: 'fa fa-heart', id: 4 },

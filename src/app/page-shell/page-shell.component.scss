@@ -144,3 +144,35 @@
     color: white;
     border-radius: 50%;
 }
+.red-button2 {
+    background-color: #b7121f;
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+    margin: 2px;
+    min-width: 80px;
+}
+.red-button2:hover {
+    background-color: red;
+}
+.show-sm {
+    display: none;
+}
+@media screen and (max-width: 600px) {
+    .show-sm {
+        display: block;
+    }
+}
+@media screen and (max-width: 600px) {
+    .product-logo {
+        font-size: 30px;
+    }
+    .icon-button {
+        font-size: 28px;
+    }
+ }
+ @media screen and (min-width: 600px) {
+    .hidden-md {
+        display: none;
+    }
+ }

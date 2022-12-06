@@ -1,44 +1,124 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Users'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
-    <div class="matches-card" *ngIf="user && user.ownerFlg">
-        <app-owners-menu [pageTitle]="'Users'"></app-owners-menu>
+    <div class="matches-card2" *ngIf="user && user.ownerFlg">
+        <app-owners-menu [pageTitle]="'Owners'"></app-owners-menu>
         <hr>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div class="shaded-border-box">
             <div class="title-bar">Owners</div>
-            <div class="inside-box">
-                <table style="font-size: 12px;">
+            <div class="inside-box" style="text-align: center;">
+
+                <div class="btn-group" role="group" aria-label="Menu">
+                    <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
+                        [ngClass]="ngClassMenuButton(i, menuNum)">{{button}}</button>
+                </div>
+                <hr>
+
+                <table style="font-size: 12px;" *ngIf="menuNum==0">
                     <tr>
                         <th>#</th>
                         <th>Name</th>
                         <th>Level</th>
                         <th>City</th>
-                        <th>State</th>
-                        <th>Region</th>
-                        <th>District</th>
-                        <th>Zone</th>
+                        <th *ngIf="regionFlg">State</th>
+                        <th *ngIf="regionFlg">Region</th>
+                        <th *ngIf="regionFlg">District</th>
+                        <th *ngIf="regionFlg">Zone</th>
+                        <th>*Clicks</th>
+                        <th>*Pics</th>
                         <th>*Users</th>
                         <th>Last Login</th>
                     </tr>
-                    <tr *ngFor="let player of players; let i = index;">
-                        <td>{{i+1}}</td>
-                        <td>{{player.firstName}}</td>
+                    <tr *ngFor="let player of usList; let i = index;">
+                        <td [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">{{i+1}}</td>
+                        <td>
+                            <b>{{player.firstName}}</b>
+                            <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
+                            <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
+                        </td>
                         <td>{{player.ownerLevel}}</td>
                         <td>{{player.city}}</td>
-                        <td>{{player.state}}</td>
-                        <td>{{player.adminRegionCode}}</td>
-                        <td>{{player.adminDivision}}</td>
-                        <td>{{player.adminZone}}</td>
-                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">{{player.userCount}}</td>
+                        <td *ngIf="regionFlg">{{player.state}}</td>
+                        <td *ngIf="regionFlg">{{player.adminRegionCode}}</td>
+                        <td *ngIf="regionFlg">{{player.adminDivision}}</td>
+                        <td *ngIf="regionFlg">{{player.adminZone}}</td>
+                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">
+                            {{player.statsObj.clicks}}
+                        </td>
+                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">
+                            {{player.statsObj.picVerifiedCount}}
+                        </td>
+                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">
+                            {{player.statsObj.userCount}}
+                        </td>
                         <td><span class="gray-text">{{player.lastDay}}</span></td>
-                        <td *ngIf="user.user_id==1 && !player.adminRegionCode"><button class="btn btn-primary" (mousedown)="assignRegion(player)"><i class="fa fa-globe"></i></button></td>
+                        <td *ngIf="user.user_id==1">
+                            <button *ngIf="!player.adminZone" class="btn btn-primary"
+                                (mousedown)="choosePlayer(player, 1)"><i class="fa fa-globe"></i></button>
+                            <button *ngIf="!player.emailSentFlg" class="btn btn-primary"
+                                (mousedown)="choosePlayer(player, 2)"><i class="fa fa-envelope"></i></button>
+                        </td>
                     </tr>
                 </table>
-                <div>*Users indicates the number of active users in that region.</div>
+
+                <table style="font-size: 12px;" *ngIf="menuNum==1">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Level</th>
+                        <th>Country</th>
+                        <th *ngIf="regionFlg">Region</th>
+                        <th *ngIf="regionFlg">District</th>
+                        <th *ngIf="regionFlg">Zone</th>
+                        <th>*Clicks</th>
+                        <th>*Pics</th>
+                        <th>*Users</th>
+                        <th>Last Login</th>
+                    </tr>
+                    <tr *ngFor="let player of internationalList; let i = index;">
+                        <td [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">{{i+1}}</td>
+                        <td>
+                            <b>{{player.firstName}}</b>
+                            <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
+                            <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
+                        </td>
+                        <td>{{player.ownerLevel}}</td>
+                        <td>{{player.countryName}}</td>
+                        <td *ngIf="regionFlg">{{player.adminRegionCode}}</td>
+                        <td *ngIf="regionFlg">{{player.adminDivision}}</td>
+                        <td *ngIf="regionFlg">{{player.adminZone}}</td>
+                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">
+                            {{player.statsObj.clicks}}
+                        </td>
+                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">
+                            {{player.statsObj.picVerifiedCount}}
+                        </td>
+                        <td style="color: #900; font-weight: 700; font-size: 16px;" align="center">
+                            {{player.statsObj.userCount}}
+                        </td>
+                        <td><span class="gray-text">{{player.lastDay}}</span></td>
+                        <td *ngIf="user.user_id==1">
+                            <button *ngIf="!player.adminZone" class="btn btn-primary"
+                                (mousedown)="choosePlayer(player, 1)"><i class="fa fa-globe"></i></button>
+                            <button *ngIf="!player.emailSentFlg" class="btn btn-primary"
+                                (mousedown)="choosePlayer(player, 2)"><i class="fa fa-envelope"></i></button>
+                        </td>
+                    </tr>
+                </table>
+                <div style="font-size: 12px;">
+                    <div>*<b>Clicks</b> indicates the number of profiles you have browsed.</div>
+                    <div>*<b>Pics</b> indicates the number of profile pics you have verified.</div>
+                    <div>*<b>Users</b> indicates the number of active users in your region.</div>    
+                </div>
             </div>
         </div>
-        <div *ngIf="selectedPlayer">
+        <div *ngIf="selectedPlayer && option==2">
+            <div>{{selectedPlayer.firstName}}</div>
+            <div>Send initial Email</div>
+            <button (mousedown)="sendEmail()" class="btn btn-primary">Send</button>
+        </div>
+        <div *ngIf="selectedPlayer && option==1">
             <div>{{selectedPlayer.firstName}}</div>
             <div>Region</div>
             <select name="region" id="region">
@@ -62,6 +142,9 @@
             </select>
             <hr>
             <button (mousedown)="updateUserRegion()" class="btn btn-primary">Update</button>
+        </div>
+        <div>
+            <button (mousedown)="regionFlg = !regionFlg" class="btn btn-success">Region Info</button>
         </div>
 
     </div>

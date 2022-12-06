@@ -11,7 +11,6 @@ declare var getDateObjFromJSDate: any;
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
-  public menuNum = 0;
   public menuDisableFlg = true;
   public menuSubmitdisableFlg = true;
   public showSubmitButtonFlg: boolean = false;
@@ -21,15 +20,15 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public menuTitles2 = ['Basics', 'Email', 'Details', 'Test', 'Politics', 'Image', 'Pics', 'Match'];
   public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
-  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Other Religion'];
+  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Other Religion'];
   public maritalStatus = ['Single', 'Married', 'Divorced'];
   public bodyTypes = ['Thin', 'Average', 'Heavy'];
   public bodyHeights = ['Short', 'Average', 'Tall'];
   public desiredRelationships = ['Serious', 'Casual', 'Serious or Casual'];
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
-  public smokingOptions = ['Yes', 'No'];
-  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'Asian-Indian', 'Hispanic', 'Middle Eastern', 'Other'];
+  public smokingOptions = ['Yes', 'Occasional', 'No'];
+  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'South-Asian', 'Hispanic', 'Middle Eastern', 'Other'];
   public bonusImages = ['Image1', 'Image2', 'Image3', 'Image4'];
   public code: string = localStorage['code'];
   public email: string = localStorage['email'];
@@ -422,7 +421,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.motto = $('#motto').val();
 
       if (this.user.findLoveFlg)
-        this.user.profileFlags[this.menuNum] = (this.user.maritalStatus && this.user.educationLevel && this.user.income && this.user.religion && this.user.bodyType && this.user.bodyHeight && this.user.wantsKids && this.user.desiredRelationship && this.user.marriageView && this.user.motto);
+        this.user.profileFlags[this.menuNum] = (this.user.maritalStatus && this.user.educationLevel && this.user.income && this.user.religion && this.user.bodyType && this.user.bodyHeight && this.user.wantsKids && this.user.desiredRelationship && this.user.marriageView && this.user.motto && this.user.city);
       else
         this.user.profileFlags[this.menuNum] = (this.user.maritalStatus);
     }

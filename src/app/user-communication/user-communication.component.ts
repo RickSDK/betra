@@ -15,6 +15,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public showDetailsFlg: boolean = false;
   public showTextInputFlg = false;
   public selectedMessage: number = 0;
+  public firstName: string = '';
 
   public greetings = [
     'Hi!',
@@ -43,10 +44,12 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.firstName = this.matchUser.firstName;
+
     if (this.matchUser && this.matchUser.matchObj) {
       this.checkTextFlags();
       if (this.matchUser.matchObj.match_level > 2)
-        this.loadMessages();
+        this.loadMessages(this.matchUser);
     }
   }
   checkTextFlags() {
@@ -58,11 +61,13 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (this.matchUser.matchObj.match_level > 4)
       this.showTextInputFlg = true;
   }
-  loadMessages() {
+  loadMessages(matchUser: any) {
+    console.log('+++matchUser', matchUser);
+    this.firstName = matchUser.firstName;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      uid: this.matchUser.user_id,
+      uid: matchUser.user_id,
       action: "readMessages"
     };
     console.log(params);
@@ -102,6 +107,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
       message: this.messageStr,
       action: "sendMessage"
     };
+    console.log('params', params);
     this.executeApi('betraMessages.php', params, true);
   }
   ngClassMessage(user_id: number) {

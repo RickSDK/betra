@@ -128,11 +128,13 @@
                 you! Click 'Yes' and you can begin to
                 communicate.
             </div>
+            <div style="background-color: #ffffc0; color: #900; font-size: 12px;">Note: This app is in beta testing. Feel free to like everyone just to try out the features. You can always drop them later.</div>
             <table *ngIf="!loadingFlg" width="100%">
                 <tr>
                     <td width="50%">
-                        <button (mousedown)="actionButtonClicked('noToMatch')" class="btn yellow-button">No
-                            Thanks</button>
+                        <button (mousedown)="actionButtonClicked('noToMatch')" class="btn yellow-button">
+                            No Thanks
+                        </button>
                     </td>
                     <td>
                         <button (mousedown)="actionButtonClicked('yesToMatch')" class="btn green-button">Yes!</button>

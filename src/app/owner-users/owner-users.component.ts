@@ -11,12 +11,20 @@ declare var $: any;
 export class OwnerUsersComponent extends BaseComponent implements OnInit {
   public players: any = [];
   public selectedPlayer: any = null;
+  public option: number = 0;
+  public menuButtons: any = ['United States', 'International'];
+  public usList: any = [];
+  public internationalList: any = [];
+  public regionFlg: boolean = false;
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.getOwnerUsers();
+  }
+  changeMenu(num: number) {
+    this.menuNum = num;
   }
   getOwnerUsers() {
     var params = {
@@ -29,17 +37,25 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'getOwnerUsers') {
+      this.usList = [];
+      this.internationalList = [];
+
       this.players = responseJson.playerList;
       this.players.forEach((element: any) => {
         var parts = element.lastLogin.split(' ');
         element.lastDay = parts[0];
+        if (element.countryName == 'United States')
+          this.usList.push(element);
+        else
+          this.internationalList.push(element);
       });
     }
-    if (responseJson.action == 'updateUserRegion') {
+    if (responseJson.action == 'updateUserRegion' || responseJson.action == 'sendEmail') {
       this.getOwnerUsers();
     }
   }
-  assignRegion(player: any) {
+  choosePlayer(player: any, num: number) {
+    this.option = num;
     this.selectedPlayer = player;
   }
   updateUserRegion() {
@@ -51,6 +67,17 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
       division: $('#division').val(),
       zone: $('#zone').val(),
       action: "updateUserRegion"
+    };
+    console.log('params', params);
+    this.executeApi('owners.php', params, true);
+    this.selectedPlayer = null;
+  }
+  sendEmail() {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      uid: this.selectedPlayer.user_id,
+      action: "sendEmail"
     };
     console.log('params', params);
     this.executeApi('owners.php', params, true);

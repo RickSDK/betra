@@ -3,7 +3,8 @@
         <tr>
             <td>
                 <span class="product-logo" [routerLink]="['']"><i class="fa fa-heart product-icon"></i>Betra</span>
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Version 0.50</div>
+                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Beta Version 0.61
+                </div>
             </td>
             <td align="center" style="font-size: 20px; font-weight: 700;">
                 <span class="hide-xs">{{pageTitle}}</span>
@@ -27,11 +28,11 @@
             </td>
             <td *ngIf="userId>0" align="right" width="60">
 
-                <img [routerLink]="['']" [src]="imgSrcFile" class="profilePic" alt="Profile Picture"
-                    [title]="firstName">
+                <img [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" [src]="imgSrcFile" class="profilePic"
+                    alt="Profile Picture" [title]="firstName">
 
             </td>
-            <td align="right" valign="middle" *ngIf="userId>0" width="44" class="show-md">
+            <td align="right" valign="middle" *ngIf="userId>0" width="44" class="show-sm">
                 <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu"></i>
             </td>
         </tr>
@@ -39,18 +40,33 @@
 </div>
 <div class="outer-frame">
     <div class="inner-frame">
-        <div class="container-fluid">
+
+        <table width="100%">
+            <tr>
+                <td *ngIf="userId>0 && headerObj.profileCompleteFlg && pageTitle != 'Profile'" class="hide-sm" style="width: 200px;" valign="top">
+                    <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
+                        [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
+                </td>
+                <td  valign="top">
+                    <ng-content></ng-content>
+                </td>
+            </tr>
+        </table>
+
+        <!--<div *ngIf="0" class="container-md">
             <div class="row">
-                <div *ngIf="userId>0 && headerObj.profileCompleteFlg && pageTitle != 'Profile'" class="col-md-4 hide-md">
-                    <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount" [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
+                <div *ngIf="userId>0 && headerObj.profileCompleteFlg && pageTitle != 'Profile'"
+                    class="col-md-4 hide-md">
+                    <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
+                        [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
                 </div>
                 <div class="col-md" style="padding: 0; text-align: center;">
                     <ng-content></ng-content>
-                    <!--<ng-adsense [adClient]="'ca-pub-XXXXXXXXXX'" [pageLevelAds]="true"></ng-adsense>-->
+                    
                 </div>
             </div>
-        </div>
-
+        </div>-->
+        <!--<ng-adsense [adClient]="'ca-pub-XXXXXXXXXX'" [pageLevelAds]="true"></ng-adsense>-->
 
     </div>
 
@@ -74,20 +90,8 @@
             </div>
         </div>
     </div>
-    <div  *ngIf="showAboutInfoFlg" style="background-color: #ccc; padding: 40px; text-align: center;">
+    <div *ngIf="showAboutInfoFlg" style="background-color: #ccc; padding: 40px; text-align: center;">
         <div style="display: inline-block; width: 100%; max-width: 600px; text-align: left;">
-
-            <div style="text-align: center;">
-                <div
-                    style="border: 1px solid gray; padding: 10px; text-align: center; display: inline-block; margin: 10px;">
-                    <p><i class="fa fa-exclamation-circle"></i> Note this app is in early development and has not
-                        launched yet. The only profiles in the database
-                        are a small handfull of test accounts.</p>
-                    <p>Feel free to sign up and play around. Report any problems or suggestions to <a
-                            href="mailto:rickmedved@hotmail.com">rickmedved@hotmail.com</a></p>
-                </div>
-            </div>
-
             <p>Welcome to <span class="red-text">Betra</span>, the most fun you'll ever have dating. Browse through our
                 incredible pool of local singles and simply indicate which ones you are interested in.
                 If they also pick you, the dating game begins.</p>
@@ -107,6 +111,14 @@
             <p>Betra is not just a dating app, its a community of singles all pulling together to try to help everyone
                 get into solid relationships. So get started now, it's free!</p>
         </div>
+    </div>
+    <div *ngIf="userId>0" class="hidden-md">
+        <button [routerLink]="['/user-detail']" class="btn btn-danger red-button2"><i class="fa fa-search"></i>
+            Browse</button>
+        <button [routerLink]="['/matches']" class="btn btn-danger red-button2"><i class="fa fa-users"></i>
+            Matches</button>
+        <button [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="btn btn-danger red-button2"><i
+                class="fa fa-user"></i> Profile</button>
     </div>
     <div class="bottom-bar">
         <div>
