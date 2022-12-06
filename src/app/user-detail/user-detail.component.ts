@@ -123,13 +123,14 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
   //--------------------------------------------
   override postSuccessApi(file: string, responseJson: any) {
+    console.log('--postSuccessApi--', responseJson);
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['notifications'] = responseJson.notifications;
       localStorage['matchesAlerts'] = responseJson.matchesAlerts;
       this.headerObj.admirerCount = responseJson.admirerCount;
       this.headerObj.matchesAlerts = responseJson.matchesAlerts;
-      this.notifications = responseJson.notifications;
+      this.headerObj.notifications = responseJson.notifications;
       if (this.uid == 0) {
         if (this.id == 4 && responseJson.action == "yesToMatch") {
           this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
@@ -155,16 +156,23 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'removeThisUser') {
       this.router.navigate(['']);
     }
+    if (responseJson.action == 'logUser') {
+      this.syncUserWithLocalStorage(responseJson);
+    }
     if (responseJson.action == 'getThisUser') {
       this.matchUser = new User(responseJson.user);
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
-      console.log('this.matchUser', this.matchUser);
-      console.log('here!');
-      this.messagesModal.loadMessages(this.matchUser);
+
+      this.logUser();
+
+      if(this.messagesModal)
+        this.messagesModal.populateModal(this.matchUser);
 
 
       setTimeout(() => {
+        if(this.messagesModal)
+          this.messagesModal.populateModal(this.matchUser);
         this.calculatingStatsFlg = false;
         this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
       }, 1500);
@@ -187,12 +195,18 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
       this.matchUser = this.playerList[this.currentProfileIndex];
       setTimeout(() => {
-        if (this.matchUser)
+        if (this.matchUser) {
+          if(this.messagesModal)
+            this.messagesModal.populateModal(this.matchUser);
           this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null, true);
+        }
       }, 500);
       setTimeout(() => {
-        if (this.matchUser)
+        if (this.matchUser) {
           this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null);
+          if(this.messagesModal)
+            this.messagesModal.populateModal(this.matchUser);
+        }
       }, 1500);
     } else {
       this.matchUser = null;

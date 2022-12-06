@@ -9,6 +9,7 @@
     <div *ngFor="let player of sortedlist"
         class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
         <img [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" [src]="player.imgSrc" alt="profile pic" class="small-image">
+        <img *ngIf="player.picFlagged>0" [src]="player.flaggedImg" width="100%">
         <div style="text-align: center; font-size: 16px;"><b>{{player.firstName}}</b></div>
         <div style="text-align: center;"><i *ngIf="player.emailVerifyFlg" class="fa fa-check"
                 style="color: green;"></i>{{player.status}}</div>

@@ -1,11 +1,11 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Notifications'" [notifications]="notifications"
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Notifications'"
     [userId]="userId" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
     <div class="matches-card" *ngIf="user">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div style="background-color: #99c; color: white; border-radius: 5px; font-size: 24px; font-weight: 700;">
             Notification Center</div>
         <p>&nbsp;</p>
-        <div *ngIf="notifications==0">No notifications at this time.</div>
+        <div *ngIf="headerObj.notifications==0">No notifications at this time.</div>
 
         <div *ngFor="let notification of notificationsTypes; let i = index;">
             <div *ngIf="notification.amount>0" class="bordered-box">

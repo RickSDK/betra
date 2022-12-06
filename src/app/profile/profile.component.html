@@ -30,9 +30,7 @@
                                     <tr>
                                         <td>
                                             <div class="tiny-text">First Name</div>
-                                            <app-first-name-input (messageEvent)="menuValueChanged()"
-                                                [firstName]="user.firstName">
-                                            </app-first-name-input>
+                                            <input name="firstName" id="firstName" [value]="user.firstName" [disabled]="true" style="background-color: #eee;">
                                         </td>
                                         <td>
                                             <div class="tiny-text">Birthdate</div>

@@ -6,7 +6,8 @@
         <div *ngIf="optionNum==0">
             <div style="color: gray;">Beta Version</div>
             <div style="font-size: 12px;"><b>Officially launches Feb 14, 2023</b></div>
-            <p class="red-text" style="font-size: 12px; text-align: left;">Betra is inspired by the Bachelor/Bachelorette TV Shows. Fill up your dating pool with interesting people, 
+            <p class="red-text" style="font-size: 12px; text-align: left;">Betra is inspired by the
+                Bachelor/Bachelorette TV Shows. Fill up your dating pool with interesting people,
                 then begin narrowing your prospects, giving out roses along the way.
                 Its fun and its exciting.</p>
             <div *ngIf="0" class="main-option" (mousedown)="option1Flg = !option1Flg">
@@ -39,7 +40,8 @@
         </div>
         <div *ngIf="optionNum==1">
             <div style="text-align: center;">
-                <button *ngIf="showLoginButtonFlg" class="btn btn-primary" (click)="facebookSignin()"><i class="fa fa-facebook-square"></i> Continue with Facebook</button>
+                <button *ngIf="showLoginButtonFlg" class="btn btn-primary" (click)="facebookSignin()"><i
+                        class="fa fa-facebook-square"></i> Continue with Facebook</button>
             </div>
             <div *ngIf="0">
                 <div class="tiny-text">Birth Date</div>
@@ -80,8 +82,8 @@
             </div>
 
             <div class="tiny-text">First Name</div>
-            <input name="firstName" id="firstName" type="text" placeholder="First Name" (input)="valueChanged()"
-                maxlength="15">
+            <app-first-name-input (messageEvent)="valueChanged()">
+            </app-first-name-input>
             <div class="tiny-text">Email Address</div>
             <input name="email" id="email" type="email" placeholder="Email Address" (input)="valueChanged()">
             <div class="tiny-text">Password</div>
@@ -94,8 +96,8 @@
                         <button (mousedown)="optionNum=0" class="btn gray-button">Back</button>
                     </td>
                     <td>
-                        <button (mousedown)="signupPressed()" class="btn red-button"
-                            [disabled]="submitDisabled">Sign Up!</button>
+                        <button (mousedown)="signupPressed()" class="btn red-button" [disabled]="submitDisabled">Sign
+                            Up!</button>
                     </td>
                 </tr>
             </table>

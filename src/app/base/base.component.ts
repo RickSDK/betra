@@ -26,9 +26,9 @@ export class BaseComponent implements OnInit {
   public apiSuccessFlg: boolean = false;
   public responseJson: any = null;
   public userStatus: string = '';
-  public notifications: number = 0;
+//  public notifications: number = 0;
   public menuNum: number = 0;
-  public topButtons:any = ['one', 'two', 'three'];
+  public topButtons: any = ['one', 'two', 'three'];
 
 
   public headerObj: any = {
@@ -46,7 +46,7 @@ export class BaseComponent implements OnInit {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
     }
     this.loadUserObj();
-    this.notifications = localStorage['notifications'];
+    //this.notifications = localStorage['notifications'];
 
   }
   refreshUserObj(userObj: any) {
@@ -70,20 +70,21 @@ export class BaseComponent implements OnInit {
     this.userId = localStorage['user_id'] || 0;
     this.popupNum = 1;
     console.log('+++ loading this user: ', this.userId);
-    if (this.userId > 0 ) {
+    if (this.userId > 0) {
       var userLocalStorage = localStorage['User'];
-      if(userLocalStorage) {
+      if (userLocalStorage) {
         var userObj = JSON.parse(localStorage['User']);
         this.user = new User(userObj);
         this.imgSrcFile = this.user.imgSrc;
         this.userStatus = this.user.status;
         this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
+        this.headerObj.notifications = localStorage['notifications'];
         this.headerObj.messageCount = localStorage['messageCount'];
         this.headerObj.admirerCount = localStorage['admirerCount'];
         this.headerObj.matchesAlerts = localStorage['matchesAlerts'];
         this.headerObj.ownerFlg = this.user.ownerFlg;
         this.popupNum = (this.user.status == 'Active') ? 0 : 3;
-        console.log('loadUserObjUser', this.user);  
+        console.log('loadUserObjUser', this.user);
       } else {
         console.log('Error - no localstorage!!!');
         this.userId = 0;
@@ -98,20 +99,35 @@ export class BaseComponent implements OnInit {
       return 'btn btn-secondary';
   }
   syncUserWithLocalStorage(responseJson: any) {
+    var now = new Date();
     console.log('xxx user synced with database xxx', responseJson);
-    if(responseJson.infoObj) {
-      this.notifications = responseJson.infoObj.notifications;
+    if (responseJson.infoObj) {
+      localStorage['lastUpd'] = responseJson.infoObj.lastUpd;
+      localStorage['timeStamp'] = now.toString();
+      //this.notifications = responseJson.infoObj.notifications;
+      this.headerObj.notifications = responseJson.infoObj.notifications;
       this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
       this.headerObj.messageCount = responseJson.infoObj.messageCount;
       this.headerObj.matchesAlerts = responseJson.infoObj.matchesAlerts
-      localStorage['notifications'] = this.notifications;
+      localStorage['notifications'] = this.headerObj.notifications;
       localStorage['admirerCount'] = this.headerObj.admirerCount;
       localStorage['messageCount'] = this.headerObj.messageCount;
       localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
+      setTimeout(() => {
+        this.checkServerForChanges(now.toString());
+      }, 60 * 4 * 1000);
       if (responseJson.infoObj.refreshFlg == 'Y' && responseJson.user)
         this.refreshUserObj(responseJson.user);
     }
 
+  }
+  checkServerForChanges(lastUpd: string) {
+    var e = document.getElementById('logo');
+    if(e && lastUpd == localStorage['timeStamp']) {
+      this.logUser();
+    } else {
+      console.log('nolog');
+    }
   }
   populateGeoInfo() {
     console.log('populateGeoInfo');
@@ -139,7 +155,7 @@ export class BaseComponent implements OnInit {
       this.executeApi('geoScript.php', params, true);
     });
   }
-  logUser(refreshFlg:string = '') {
+  logUser(refreshFlg: string = '') {
     var uid = localStorage['user_id'];
     var email = localStorage['email'];
     var code = localStorage['code'];
@@ -150,6 +166,7 @@ export class BaseComponent implements OnInit {
         email: localStorage['email'],
         code: localStorage['code'],
         action: 'logUser',
+        lastUpd: localStorage['lastUpd'],
         refreshFlg: refreshFlg
       };
       this.executeApi('appApiCode.php', params, true);

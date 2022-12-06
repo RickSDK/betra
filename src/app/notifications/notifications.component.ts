@@ -35,7 +35,7 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'getNotifications' && responseJson.infoObj) {
-      this.notifications = responseJson.infoObj.notifications;
+      this.headerObj.notifications = responseJson.infoObj.notifications;
       localStorage['notifications'] = responseJson.infoObj.notifications;
 
       this.notificationsTypes[0].amount = responseJson.infoObj.admirerCount;

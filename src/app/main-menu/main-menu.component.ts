@@ -18,8 +18,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public matchUser: any = null;
   public displayProfileFlg = true;
   public papgeTitle = 'Home';
-  public states:any = [];
-  public countries:any = [];
+  public states: any = [];
+  public countries: any = [];
 
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
@@ -47,7 +47,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     })
 
     if (this.user && this.user.status == 'Active') {
-      this.notifications = this.user.notifications;
+      this.headerObj.notifications = this.user.notifications;
       //this.logUser();
     }
   }
@@ -76,7 +76,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     console.log('userIsLoggedIn', value);
     if (value === 'login') {
       this.loadUserObj();
-      this.notifications = localStorage['notifications'];
+      this.headerObj.notifications = localStorage['notifications'];
       this.headerObj.admirerCount = localStorage['admirerCount'];
       this.headerObj.messageCount = localStorage['messageCount'];
       this.router.navigate([''], { queryParams: { 'login': '0' } });
@@ -87,7 +87,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   override loginClicked(action: string) {
     console.log('login clicked!');
     if (this.user)
-      this.notifications = this.user.notifications;
+      this.headerObj.notifications = this.user.notifications;
 
     if (!action)
       this.popupNum = 2;

@@ -130,33 +130,6 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
     var email: string = $('#email').val();
     var password: string = $('#password').val();
     this.submitDisabled = !firstName || !email || !password;
-    /*
-    var month: string = $('#month').val();
-    var day: string = $('#day').val();
-    var year: string = $('#year').val();
-    this.birthYear = year;
-    var monNum = 0;
-    var i = 0;
-    for (var i = 0; i < 12; i++) {
-      if (this.monthOptions[i] == month)
-        monNum = i + 1;
-    }
-
-
-    const d = new Date(year+'/'+monNum+'/'+day); 
-    var obj = getDateObjFromJSDate(d);
-    this.birthDate = obj.oracle;
-
-    var now = new Date();
-    let seconds = Math.abs(now.getTime() - d.getTime())/1000;
-    var hours = seconds/3600;
-    var days = hours/24;
-    var age = days/365;
-
-    this.tooYoungFlg = (age < 18);
-
-    console.log(age, this.birthDate, d, month, monNum, day, year, firstName, email, password);
-    */
   }
 
 }

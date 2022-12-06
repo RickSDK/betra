@@ -134,6 +134,7 @@ export class User {
     public monthlyPayout: string = '';
 
     public picFlagged: number = 0;
+    public flaggedImg: string = '';
     public statsObj: any = null;
     public location: string = '';
 
@@ -240,6 +241,9 @@ export class User {
             this.ownerLevel = obj.ownerLevel || 0;
             this.picFlagged = obj.picFlagged || 0;
 
+            if(this.picFlagged > 0) {
+                this.flaggedImg = betraImageFromId(this.user_id, this.profilePic, '', 0);
+            }
 
             if (this.picFlagged > 0)
                 this.profilePic = 0;
@@ -267,6 +271,7 @@ export class User {
             this.monthlyPayout = monthlyPayouts[this.ownerLevel];
 
         }
+
 
         var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
 

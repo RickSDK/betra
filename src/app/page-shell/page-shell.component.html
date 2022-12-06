@@ -2,8 +2,8 @@
     <table width="100%" border="0">
         <tr>
             <td>
-                <span class="product-logo" [routerLink]="['']"><i class="fa fa-heart product-icon"></i>Betra</span>
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Beta Version 0.61
+                <span id="logo" class="product-logo" [routerLink]="['']"><i class="fa fa-heart product-icon"></i>Betra</span>
+                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Beta Version 0.63
                 </div>
             </td>
             <td align="center" style="font-size: 20px; font-weight: 700;">
@@ -23,8 +23,8 @@
                 <i [routerLink]="['/user-detail']" class="fa fa-search icon-button" title="Find Matches"></i>
                 <i [routerLink]="['/matches']" class="fa fa-users icon-button" title="My Matches"></i>
                 <i [routerLink]="['/notifications']" class="fa fa-bell icon-button" title="Notifications"></i><span
-                    [routerLink]="['/notifications']" *ngIf="notifications>0"
-                    class="red-circle">{{notifications}}</span>
+                    [routerLink]="['/notifications']" *ngIf="headerObj.notifications>0"
+                    class="red-circle">{{headerObj.notifications}}</span>
             </td>
             <td *ngIf="userId>0" align="right" width="60">
 

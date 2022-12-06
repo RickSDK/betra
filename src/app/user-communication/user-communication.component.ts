@@ -44,12 +44,17 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.populateModal(this.matchUser);
+  }
+  populateModal(matchUser: any) {
+    this.matchUser = matchUser;
+ 
     this.firstName = this.matchUser.firstName;
 
     if (this.matchUser && this.matchUser.matchObj) {
       this.checkTextFlags();
       if (this.matchUser.matchObj.match_level > 2)
-        this.loadMessages(this.matchUser);
+        this.loadMessages();
     }
   }
   checkTextFlags() {
@@ -61,13 +66,11 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (this.matchUser.matchObj.match_level > 4)
       this.showTextInputFlg = true;
   }
-  loadMessages(matchUser: any) {
-    console.log('+++matchUser', matchUser);
-    this.firstName = matchUser.firstName;
+  loadMessages() {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      uid: matchUser.user_id,
+      uid: this.matchUser.user_id,
       action: "readMessages"
     };
     console.log(params);

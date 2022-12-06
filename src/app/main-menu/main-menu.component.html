@@ -1,9 +1,9 @@
-<app-page-shell [userId]="userId" [notifications]="notifications" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile"
+<app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile"
     [pageTitle]="papgeTitle" [headerObj]="headerObj">
     <img *ngIf="!headerObj.profileCompleteFlg" class="background-img" src="assets/images/bachelor.jpg"
         alt="Dating Couple">
 
-    <app-dating-pool [user]="user" [largeFlg]="false"></app-dating-pool>
+    <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false"></app-dating-pool>
     <div *ngIf="headerObj.profileCompleteFlg && user" class="match-card"
         style="padding: 10px; width: 100%; max-width: none;">
         <div style="color: #900; font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to Betra!</div>

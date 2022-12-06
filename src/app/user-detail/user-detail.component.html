@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="pageTitle" [headerObj]="headerObj" [notifications]="notifications">
+    [pageTitle]="pageTitle" [headerObj]="headerObj">
     <app-dating-pool [user]="user" [largeFlg]="false"></app-dating-pool>
     <div class="matches-card" *ngIf="user && !matchUser">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>

@@ -6,7 +6,7 @@
                 [src]="person.src" class="large-img" [title]="person.name">
             <img *ngIf="person.user_id==0" [src]="person.src" class="large-img" [title]="person.name">
             <span *ngIf="person.alerts>0" class="red-circle-large">{{person.alerts}}</span>
-            <i class="fa fa-calendar alert-icon" *ngIf="person.match.match_date_request == 'A'"></i>
+            <i class="fa fa-calendar alert-icon" *ngIf="person.match && person.match.match_date_request == 'A'"></i>
             <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose"> {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup></div>
             <div *ngIf="0 && person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!</div>
