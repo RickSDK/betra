@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
 
 declare var $: any;
+declare var getDateObjFromJSDate: any;
 
 @Component({
   selector: 'app-my-matches',
@@ -118,6 +119,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.user.datingPool.forEach((element: any) => {
       this.responseJson.matches.forEach((match: any) => {
         if (match.uid == element.user_id) {
+          match.lastLoginText = this.lastLoginText(match.lastLogin);
           element.match = match;
           //console.log('+++M!+++', match);
           var alerts = 0;
@@ -137,6 +139,20 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         }
       });
     });
+  }
+  lastLoginText(lastLogin: string) {
+    var dateObj = getDateObjFromJSDate(lastLogin);
+    var lastLoginText = dateObj.daysAgo + ' Days ago';
+    if (dateObj.daysAgo == 0)
+      lastLoginText = 'Today';
+    if (dateObj.daysAgo == 1)
+      lastLoginText = 'Yesterday';
+
+    if (dateObj.secondsAgo <= 15 * 60) {
+
+      lastLoginText = 'Online Now!';
+    }
+    return lastLoginText;
   }
 
 }

@@ -131,7 +131,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.headerObj.admirerCount = responseJson.admirerCount;
       this.headerObj.matchesAlerts = responseJson.matchesAlerts;
       this.headerObj.notifications = responseJson.notifications;
-      if (this.uid == 0) {
+      if (1) {
         if (this.id == 4 && responseJson.action == "yesToMatch") {
           this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
         } else {

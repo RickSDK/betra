@@ -8,6 +8,7 @@
             <span *ngIf="person.alerts>0" class="red-circle-large">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon" *ngIf="person.match && person.match.match_date_request == 'A'"></i>
             <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose"> {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup></div>
+            <div *ngIf="person.match" style="font-size: 8px;">{{person.match.lastLoginText}}</div>
             <div *ngIf="0 && person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!</div>
                 <div *ngIf="person.match.match_date_request == 'Y'" class="big-flashy"><i class="fa fa-calendar"></i> Date Requested!</div>
