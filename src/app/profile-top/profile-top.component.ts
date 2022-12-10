@@ -11,7 +11,7 @@ export class ProfileTopComponent implements OnInit {
   @Input('myUser') myUser: any = new User(null);
   @Input('returnFlg') returnFlg: boolean = false;
   @Input('distance') distance: string = '';
-  
+
   @Output() messageEvent = new EventEmitter<string>();
   public largeImageFlg: boolean = false;
   public showSmallerPicsFlg: boolean = true;
@@ -24,10 +24,22 @@ export class ProfileTopComponent implements OnInit {
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.user.mainImageSrc = this.user.imgSrc;
     this.lookingForTitle = this.user.maritalStatus + ' ' + this.user.genderName + ' ' + 'seeking ' + this.user.matchGender;
+
+    console.log('hey!!', this.user)
   }
 
   cancelMatches() {
     this.messageEvent.emit('cancel');
+  }
+  showMoreClicked() {
+    this.messageEvent.emit('show-more');
+  }
+  likeButtonClicked(likedFlg: boolean) {
+    this.user.matchObj.showButtonsFlg = false;
+    if (likedFlg)
+      this.messageEvent.emit('yesToMatch');
+    else
+      this.messageEvent.emit('noToMatch');
   }
   toggleImage() {
     this.largeImageFlg = !this.largeImageFlg;
@@ -50,6 +62,6 @@ export class ProfileTopComponent implements OnInit {
     if (this.largeImageFlg)
       return 'profile-image-large';
     else
-      return 'profile-image';
+      return 'user-profile-image';
   }
 }

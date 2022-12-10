@@ -55,10 +55,8 @@
             </button>
         </div>
     </div>
-    <app-profile-snapshot *ngIf="0" [user]="user" [myUser]="user" [responseJson]="responseJson" [matchObj]="matchObj">
-    </app-profile-snapshot>
 
-    <table width="100%" *ngIf="!headerObj.profileCompleteFlg">
+    <table width="100%" *ngIf="popupNum==1 || !headerObj || !headerObj.profileCompleteFlg">
         <tr>
             <td>
                 <div style="height: 400px;">&nbsp;

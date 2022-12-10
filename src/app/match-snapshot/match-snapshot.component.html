@@ -1,149 +1,182 @@
-<div class="match-card" *ngIf="matchUser && user">
-
-    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked('cancel')"
+<div class="match-user-card" *ngIf="matchUser && user">
+    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)"
         [returnFlg]="returnFlg" [distance]="distance">
     </app-profile-top>
 
     <div style="padding: 5px;" *ngIf="matchUser.matchObj">
-
-        <table width="100%">
-            <tr>
-                <td>
-                    <div class="small-box">
-                        <div class="small-title">Personality</div>
-                        <app-green-check [label]="'Personality Quiz Type'" [text1]="matchUser.adventureStableText"
-                            [text2]="user.adventureStableText" [icon]="'fa fa-user'">
-                        </app-green-check>
-                        <app-green-check [label]="'Politics'" [text1]="matchUser.polyText" [text2]="user.polyText"
-                            [icon]="'fa fa-university'">
-                        </app-green-check>
-                        <app-green-check [label]="'Wants Kids?'" [text1]="matchUser.wantsKids" [text2]="user.wantsKids">
-                        </app-green-check>
-                    </div>
-                </td>
-                <td>
-                    <div class="small-box">
-                        <div class="small-title">Body</div>
-                        <div style="font-size: 10px;">{{matchUser.race}} {{matchUser.genderName}}</div>
-                        <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc"
-                            [icon]="matchUser.genderIcon">
-                        </app-green-check>
+        <div [ngClass]="expandBottomFlg?'bottom-expanded':'bottom-collpased'">
+            <div *ngIf="showMoreFlg">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div class="small-box">
+                                <div class="small-title">Personality</div>
+                                <app-green-check [label]="'Personality Quiz Type'"
+                                    [text1]="matchUser.adventureStableText" [text2]="user.adventureStableText"
+                                    [icon]="'fa fa-user'">
+                                </app-green-check>
+                                <app-green-check [label]="'Politics'" [text1]="matchUser.polyText"
+                                    [text2]="user.polyText" [icon]="'fa fa-university'">
+                                </app-green-check>
+                                <app-green-check [label]="'Wants Kids?'" [text1]="matchUser.wantsKids"
+                                    [text2]="user.wantsKids">
+                                </app-green-check>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="small-box">
+                                <div class="small-title">Body</div>
+                                <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc"
+                                    [icon]="matchUser.genderIcon">
+                                </app-green-check>
+                                <div style="font-size: 10px;"><b>Race:</b> {{matchUser.race}}</div>
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            Tattoos: <b>{{matchUser.numTattoos}}</b>
+                                        </td>
+                                        <td>
+                                            Piercings: <b>{{matchUser.numPiercings}}</b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div *ngIf="showInterestedButtonsFlg" class="small-box" style="text-align: center; font-size: 12px;">
+                    <div *ngIf="matchUser.matchObj">
                         <table width="100%">
                             <tr>
                                 <td>
-                                    Tattoos: <b>{{matchUser.numTattoos}}</b>
+                                    <app-percent-text [icon]="'fa fa-user'" [label]="'Personality Match'"
+                                        [amount]="personalityMatch" [loadingFlg]="loadingFlg">
+                                    </app-percent-text>
+                                    <app-percent-text [icon]="'fa fa-university'" [label]="'Politics Match'"
+                                        [amount]="polyMatch" [loadingFlg]="loadingFlg">
+                                    </app-percent-text>
                                 </td>
                                 <td>
-                                    Piercings: <b>{{matchUser.numPiercings}}</b>
+                                    <app-percent-text [icon]="'fa fa-star'" [label]="'Profile Match'"
+                                        [amount]="profileMatch" [loadingFlg]="loadingFlg">
+                                    </app-percent-text>
+                                    <app-percent-text [icon]="'fa fa-heart'" [label]="'Overall Match'"
+                                        [amount]="totalMatch" [loadingFlg]="loadingFlg"></app-percent-text>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                </td>
-            </tr>
-        </table>
-        <div *ngIf="showInterestedButtonsFlg" class="small-box" style="text-align: center; font-size: 12px;">
-            <div *ngIf="matchUser.matchObj">
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <app-percent-text [icon]="'fa fa-user'" [label]="'Personality Match'" [amount]="personalityMatch" [loadingFlg]="loadingFlg">
-                            </app-percent-text>
-                            <app-percent-text [icon]="'fa fa-university'" [label]="'Politics Match'" [amount]="polyMatch" [loadingFlg]="loadingFlg">
-                            </app-percent-text>                                        
-                        </td>
-                        <td>
-                            <app-percent-text [icon]="'fa fa-star'" [label]="'Profile Match'" [amount]="profileMatch" [loadingFlg]="loadingFlg">
-                            </app-percent-text>
-                            <app-percent-text [icon]="'fa fa-heart'" [label]="'Overall Match'" [amount]="totalMatch"
-                                [loadingFlg]="loadingFlg"></app-percent-text>                                          
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <app-match-dating-pool *ngIf="matchUser.matchObj && matchUser.matchObj.match_level > 1"
-            [firstName]="matchUser.firstName" [datingPool]="matchUser.dating_pool"></app-match-dating-pool>
-
-        <div *ngIf="matchUser.matchObj.you_interested == 'Y' && matchUser.matchObj.match_level == 1"
-            style="text-align: center;">
-            <div *ngIf="matchUser.matchObj.match_interested == 'N'" class="dark-blue-box">Sorry, but {{matchUser.firstName}} is not interested.</div>
-            <div *ngIf="!matchUser.matchObj.match_interested" class="dark-blue-box">{{matchUser.firstName}} has already been notified that you are interested.</div>
-        </div>
-
-        <div *ngIf="matchUser.matchObj.you_interested == 'Y' && matchUser.matchObj.match_level > 1"
-            style="text-align: center;">
-            <div class="dark-blue-box" style="position: relative;">
-                <div *ngIf="matchUser.matchObj">
-                    <i class="fa fa-heart" style="color: red;"></i> {{matchUser.firstName}}<sup
-                        style="color: gray;">{{matchUser.matchObj.match_level}}</sup> is in your dating pool.
                 </div>
-                <i *ngIf="!showConfirmationFlg" class="fa fa-chevron-circle-right more-options"
-                    (mousedown)="showMoreOptionsFlg = !showMoreOptionsFlg"></i>
-                <div *ngIf="showMoreOptionsFlg">
-                    <button (mousedown)="buttonPressed('remove')" class="btn btn-warning"><i
-                            class="fa fa-thumbs-o-down"></i> Remove</button>&nbsp;
-                    <button (mousedown)="buttonPressed('ban')" class="btn btn-danger"><i class="fa fa-ban"></i>
-                        Ban</button>
-                </div>
-                <div *ngIf="showConfirmationFlg" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
-                    <div>Are you sure you want to {{action}} {{matchUser.firstName}}?</div>
-                    <button (mousedown)="showConfirmationFlg=false" class="btn btn-danger">Cancel</button>&nbsp;
-                    <button (mousedown)="clickYesOption()" class="btn btn-success">Yes</button>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="matchUser.matchObj.you_action == 'message sent' && matchUser.matchObj.match_level == 3">
-            <i class="fa fa-paper-plane"></i> You have sent a message to {{matchUser.firstName}}. Hopefully you get a
-            reply back soon!
-        </div>
-        <div *ngIf="matchUser.matchObj.you_interested == 'B'" class="dark-blue-box">
-            <div>{{matchUser.firstName}} is on your back burner.</div>
-            <button (mousedown)="buttonPressed('ban')" class="btn btn-warning"><i class="fa fa-thumbs-o-down"></i>
-                Remove</button>&nbsp;
-            <button (mousedown)="actionButtonClicked('yesToMatch')" class="btn btn-success"><i
-                    class="fa fa-thumbs-o-up"></i>
-                Promote</button>&nbsp;
-            <button *ngIf="!singleProfileFlg" (mousedown)="actionButtonClicked('nextProfile')" class="btn btn-primary"><i
-                    class="fa fa-arrow-right"></i>
-                Skip</button>
-        </div>
-        <div *ngIf="matchUser.matchObj.you_interested == 'N' && matchUser.matchObj.match_level < 2" class="dark-blue-box">You are not interested in
-            {{matchUser.firstName}}.
-        </div>
-        <button *ngIf="0" class="btn btn-primary" (mousedown)="actionButtonClicked('nextProfile')">Next Profile</button>
-        <div *ngIf="matchMadeFlg" [routerLink]="['/matches']" class="dark-red-box" style="background-image: url('assets/images/love.jpg'); cursor: pointer;">
-            <div style="font-size: 40px;"><i class="fa fa-heart"></i>&nbsp;<b>Match Made!</b></div>
-        </div>
-        <div *ngIf="matchUser.matchObj.match_interested == 'B'" class="dark-blue-box">
-            You are on this person's back burner. You will not be able to communicated unless you get upgraded to the person's dating pool.
-        </div>
-        <div *ngIf="showInterestedButtonsFlg && !youAreInterestedFlg">
-            <div style="text-align: center; font-size: 24px; font-weight: 700;">Interested?</div>
-            <div class="gray-text">If both of you show interest in each other, you will be able to further communicate.</div>
-            <div *ngIf="matchUser.matchObj.match_interested == 'Y' && matchUser.matchObj.match_level == 1"
-                class="dark-blue-box" style="text-align: center;"><i class="fa fa-heart" style="color: red;"></i>
-                {{matchUser.firstName}} is interested in
-                you! Click 'Yes' and you can begin to
-                communicate.
-            </div>
-            <div style="background-color: #ffffc0; color: #900; font-size: 12px;">Note: This app is in beta testing. Feel free to like everyone just to try out the features. You can always drop them later.</div>
-            <table *ngIf="!loadingFlg" width="100%">
-                <tr>
-                    <td width="50%">
-                        <button (mousedown)="actionButtonClicked('noToMatch')" class="btn yellow-button">
-                            No Thanks
-                        </button>
-                    </td>
-                    <td>
-                        <button (mousedown)="actionButtonClicked('yesToMatch')" class="btn green-button">Yes!</button>
-                    </td>
-                </tr>
-            </table>
-            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        </div>
 
+
+
+                <app-match-dating-pool *ngIf="matchUser.matchObj && matchUser.matchObj.match_level > 1"
+                    [firstName]="matchUser.firstName" [datingPool]="matchUser.dating_pool"></app-match-dating-pool>
+
+                <div *ngIf="matchUser.matchObj.you_interested == 'Y' && matchUser.matchObj.match_level == 1"
+                    style="text-align: center;">
+                    <div *ngIf="matchUser.matchObj.match_interested == 'N'" class="dark-blue-box">Sorry, but
+                        {{matchUser.firstName}} is not interested.</div>
+                    <div *ngIf="!matchUser.matchObj.match_interested" class="dark-blue-box">{{matchUser.firstName}} has
+                        already
+                        been notified that you are interested.</div>
+                </div>
+
+                <div *ngIf="matchUser.matchObj.you_interested == 'Y' && matchUser.matchObj.match_level > 1"
+                    style="text-align: center;">
+                    <div class="dark-blue-box" style="position: relative;">
+                        <div *ngIf="matchUser.matchObj">
+                            <i class="fa fa-heart" style="color: red;"></i> {{matchUser.firstName}}<sup
+                                style="color: gray;">{{matchUser.matchObj.match_level}}</sup> is in your dating pool.
+                        </div>
+                        <i *ngIf="!showConfirmationFlg" class="fa fa-chevron-circle-right more-options"
+                            (mousedown)="showMoreOptionsFlg = !showMoreOptionsFlg"></i>
+                        <div *ngIf="showMoreOptionsFlg">
+                            <button (mousedown)="buttonPressed('remove')" class="btn btn-warning"><i
+                                    class="fa fa-thumbs-o-down"></i> Remove</button>&nbsp;
+                            <button (mousedown)="buttonPressed('ban')" class="btn btn-danger"><i class="fa fa-ban"></i>
+                                Ban</button>
+                        </div>
+                        <div *ngIf="showConfirmationFlg"
+                            style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                            <div>Are you sure you want to {{action}} {{matchUser.firstName}}?</div>
+                            <div *ngIf="action == 'remove'">This action will put {{matchUser.firstName}} on your back
+                                burner.
+                                Feel free to restore this person to your dating pool at any time.</div>
+                            <div *ngIf="action == 'ban'">Banning means this person is removed from your dating pool and
+                                is no
+                                longer able to see you or communicate with you.
+                            </div>
+                            <button (mousedown)="showConfirmationFlg=false" class="btn btn-danger">Cancel</button>&nbsp;
+                            <button (mousedown)="clickYesOption()" class="btn btn-success">Yes</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="matchUser.matchObj.you_action == 'message sent' && matchUser.matchObj.match_level == 3">
+                    <i class="fa fa-paper-plane"></i> You have sent a message to {{matchUser.firstName}}. Hopefully you
+                    get a
+                    reply back soon!
+                </div>
+                <div *ngIf="matchUser.matchObj.you_interested == 'B'" class="dark-blue-box">
+                    <div>{{matchUser.firstName}} is on your back burner.</div>
+                    <button (mousedown)="buttonPressed('ban')" class="btn btn-warning"><i
+                            class="fa fa-thumbs-o-down"></i>
+                        Remove</button>&nbsp;
+                    <button (mousedown)="actionButtonClicked('yesToMatch')" class="btn btn-success"><i
+                            class="fa fa-thumbs-o-up"></i>
+                        Promote</button>&nbsp;
+                    <button *ngIf="!singleProfileFlg" (mousedown)="actionButtonClicked('nextProfile')"
+                        class="btn btn-primary"><i class="fa fa-arrow-right"></i>
+                        Skip</button>
+                </div>
+                <div *ngIf="matchUser.matchObj.you_interested == 'N' && matchUser.matchObj.match_level < 2"
+                    class="dark-blue-box">You are not interested in
+                    {{matchUser.firstName}}.
+                </div>
+                <button *ngIf="0" class="btn btn-primary" (mousedown)="actionButtonClicked('nextProfile')">Next
+                    Profile</button>
+                <!--<div *ngIf="matchMadeFlg" [routerLink]="['/matches']" class="dark-red-box"
+                    style="background-image: url('assets/images/love.jpg'); cursor: pointer;">
+                    <div style="font-size: 40px;"><i class="fa fa-heart"></i>&nbsp;<b>Match Made!</b></div>
+                </div>-->
+                <div *ngIf="matchUser.matchObj.match_interested == 'B'" class="dark-blue-box">
+                    You are on this person's back burner. You will not be able to communicated unless you get upgraded
+                    to the
+                    person's dating pool.
+                </div>
+                <div *ngIf="showInterestedButtonsFlg && !youAreInterestedFlg && user.ownerFlg"
+                    style="background-color: #ccc; color: #900;">
+                    As an owner, it's important for you to say 'Yes' to a bunch of people to test out the features. Even
+                    if you
+                    are not currently single, go ahead and test out features.
+                    Feel free to send Rick your feedback about the dating pools once you have a full pool of matches.
+                </div>
+                <div *ngIf="showInterestedButtonsFlg && !youAreInterestedFlg">
+                    <div *ngIf="matchUser.matchObj.match_interested == 'Y' && matchUser.matchObj.match_level == 1"
+                        class="dark-blue-box" style="text-align: center;"><i class="fa fa-heart"
+                            style="color: red;"></i>
+                        {{matchUser.firstName}} is interested in
+                        you!
+                    </div>
+                    <!--<table *ngIf="!loadingFlg" width="100%">
+                        <tr>
+                            <td width="50%">
+                                <button (mousedown)="actionButtonClicked('noToMatch')" class="btn yellow-button">
+                                    No Thanks
+                                </button>
+                            </td>
+                            <td>
+                                <button (mousedown)="actionButtonClicked('yesToMatch')"
+                                    class="btn green-button glow-button">Yes!</button>
+                            </td>
+                        </tr>
+                    </table>-->
+                    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 </div>

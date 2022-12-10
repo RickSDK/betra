@@ -1,10 +1,9 @@
-.match-card {
+.match-user-card {
     display: inline-block;
     background-color: white;
     box-shadow: 1px 1px 10px gray;
     border-radius: 5px;
     width: 100%;
-    max-width: 400px;
     font-size: 14px;
 }
 .small-title {
@@ -13,6 +12,20 @@
     font-weight: 700;
     color: #770000;
 }
+
+.bottom-collpased {
+  overflow: hidden;
+  min-height: 0;
+  transition: ease-in-out all .4s;
+  height: 0px;
+}
+
+.bottom-expanded {
+  overflow: hidden;
+  min-height: 150px;
+  transition: ease-in-out all .4s;
+}
+
 .yellow-button {
     width: 100%;
     font-size: 20px;
@@ -31,6 +44,8 @@
 .green-button:hover {
     background-color: #00ff00;
 }
+
+
 input {
     background-color: #eee;
     border-radius: 10px;

@@ -1,8 +1,14 @@
-<div *ngIf="user && myUser" style="padding: 5px;">
-    <table width="100%">
+<div *ngIf="user && myUser">
+    <table width="100%" border="0">
         <tr>
-            <td align="center" valign="top">
+            <td align="center" valign="top" style="padding: 0;">
                 <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
+                <div *ngIf="user.matchObj && user.matchObj.showButtonsFlg">
+                    <i (mousedown)="likeButtonClicked(false)"
+                        class="fa fa-thumbs-o-down circle-button no-button"></i>&nbsp;
+                    <i (mousedown)="likeButtonClicked(true)"
+                        class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
+                </div>
                 <div *ngIf="user.numPics>0" style="text-align: center; font-size: 10px;"><i class="fa fa-picture-o"></i>
                     plus {{user.numPics}} pics</div>
                 <div *ngIf="showSmallerPicsFlg">
@@ -19,28 +25,23 @@
                 <div *ngIf="!showSmallerPicsFlg"><button [routerLink]="'/upgrade-member'"
                         class="btn btn-warning">Upgrade to see pics</button></div>
             </td>
-            <td *ngIf="!largeImageFlg" valign="top" style="text-align: left;" width="190">
-                <div title="id: {{user.user_id}}" [ngClass]="user.memberFlg?'top-name-bar-gold':'top-name-bar-red'">
+            <td *ngIf="!largeImageFlg" valign="top" style="text-align: left; padding: 5px; min-width: 150px;"
+                width="40%">
+                <div>&nbsp;</div>
+                <div title="id: {{user.user_id}}" style="font-size: 16px; font-weight: 800;">
                     <span class="name-bar"><img src="assets/images/rose5.png" height="20"
                             *ngIf="user.user_id == myUser.heartId" alt="Rose" title="Rose">
-                            <span><i class="fa fa-star-o" *ngIf="user.memberFlg" title="Gold Member"></i></span>
-                             {{user.firstName}},
-                        {{user.age}}</span>
+                        <span><i class="fa fa-star-o" *ngIf="user.memberFlg" title="Gold Member"></i></span>
+                        {{user.firstName}},
+                        {{user.age}}&nbsp;<i class="fa fa-clock-o" [title]="user.lastLoginText" style="font-size: 12px;"
+                            [style.color]="user.lastLoginColor"></i>
+                    </span>
                     <i *ngIf="myUser.user_id == user.user_id" [routerLink]="['/profile']"
                         style="float: right; cursor: pointer; margin: 3px;" class="fa fa-edit"></i>
-                    <i *ngIf="myUser.user_id != user.user_id" [routerLink]="['']"
-                        style="float: right; cursor: pointer; margin: 3px;" class="fa fa-times"></i>
                 </div>
- 
-                <div><b [style.font-size]="user.location.length>14?'10px':'14px'">{{user.location}}</b>
-                    <span style="float: right; font-size: 8px; padding-top: 5px;">
-                        <img [src]="user.lastLoginSrc" height="12" [title]="user.lastLoginText">
-                        {{user.lastLoginText}}
-                    </span>
-                    </div>
+                <div>{{user.location}}</div>
                 <div style="font-size: 8px; color: gray;">
                     <span>{{distance}}</span>
-
                 </div>
                 <div class="small-box">
                     <div class="small-title">Relationship</div>
@@ -78,10 +79,23 @@
             </td>
         </tr>
     </table>
-    <div *ngIf="!largeImageFlg" class="motto-text" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp;
-        <b>{{user.motto}}</b>
-    </div>
-    <div *ngIf="!largeImageFlg" class="motto-text" title="Looking for"><i class="fa fa-eye"></i>&nbsp;
-        <b>{{user.story}}</b>
+    <table>
+        <tr>
+            <td width="100%" style="text-align: center;">
+                <div *ngIf="!largeImageFlg" class="motto-text" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp;
+                    <b>{{user.motto}}</b>
+                </div>
+                <div *ngIf="!largeImageFlg" class="motto-text" title="Looking for"><i class="fa fa-eye"></i>&nbsp;
+                    <b>{{user.story}}</b>
+                </div>
+            </td>
+            <td style="padding-right: 10px;" *ngIf="user.matchObj">
+                <i (mousedown)="showMoreClicked()" class="fa fa-arrow-circle-down clickable"></i>
+            </td>
+        </tr>
+    </table>
+    <div *ngIf="user.matchObj && user.matchObj.matchMadeFlg" [routerLink]="['/matches']" class="dark-red-box"
+        style="background-image: url('assets/images/love.jpg'); cursor: pointer;">
+        <div style="font-size: 40px;"><i class="fa fa-heart"></i>&nbsp;<b>Match Made!</b></div>
     </div>
 </div>

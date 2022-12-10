@@ -29,12 +29,12 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
     this.loadUserObj();
     this.getStateCounts();
+    this.popupNum = 1;
 
     this.route.queryParams.subscribe(params => {
       if (!localStorage['user_id']) {
         this.userId = 0;
         this.user = null;
-        this.popupNum = 1;
         this.headerObj.profileCompleteFlg = false;
       }
       var login = params['login'] || 0;
@@ -47,6 +47,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     })
 
     if (this.user && this.user.status == 'Active') {
+      this.popupNum = 0;
       this.headerObj.notifications = this.user.notifications;
       //this.logUser();
     }

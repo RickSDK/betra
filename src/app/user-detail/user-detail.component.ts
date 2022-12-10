@@ -171,8 +171,6 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
 
       setTimeout(() => {
-        if(this.messagesModal)
-          this.messagesModal.populateModal(this.matchUser);
         this.calculatingStatsFlg = false;
         this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
       }, 1500);

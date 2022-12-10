@@ -17,7 +17,19 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public fileToUpload: any;
   public inputFieldObj: any;
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Your Match', 'Done'];
-  public menuTitles2 = ['Basics', 'Email', 'Details', 'Test', 'Politics', 'Image', 'Pics', 'Match'];
+  public menuDesc = [
+    'Ready to find love? Yes you are! Lets start with your basic infomation',
+    'We want to verify your email to know you are legit. Feel free to skip for now if you want. We trust you!',
+    'Details, details details! Yes this is a lot of stuff to fill out, but it will be worth it. Betra tells you more about a potential match than any other dating site!',
+    'How about a simple personality test? This is just to see how you stack up against potential matches.',
+    'You might not care about politics, but this is just one more tool you can use when looking at matches.',
+    'Take a selfie! And make it a good one. Make sure you show your beautiful face.',
+    'This is optional, but feel free to add up to 4 more pictures',
+    'Final Step! Tell us what you are looking for in a match. And don\'t worry, these are simply used to tell you how close each potential match is to your ideal.',
+    'That\'s it! You are ready to find love.',
+    'end'
+  ]
+  public menuTitles2 = ['Basics', 'Email', 'Details', 'Personality', 'Politics', 'Image', 'Pics', 'Match'];
   public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
   public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Other Religion'];
@@ -253,6 +265,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     if (this.menuNum == 6 && !this.user.findLoveFlg)
       this.menuNum = 8;
+
+      window.scrollTo(0, 0);
 
     if (this.menuNum == 8 && this.user.status == 'Active')
       this.router.navigate(['']);

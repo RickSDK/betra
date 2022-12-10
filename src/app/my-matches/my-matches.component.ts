@@ -3,7 +3,8 @@ import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
 
 declare var $: any;
-declare var getDateObjFromJSDate: any;
+declare var lastLoginText: any;
+declare var lastLoginColor: any;
 
 @Component({
   selector: 'app-my-matches',
@@ -11,11 +12,12 @@ declare var getDateObjFromJSDate: any;
   styleUrls: ['./my-matches.component.scss']
 })
 export class MyMatchesComponent extends BaseComponent implements OnInit {
-  public menuButtons: any = ['My Matches', 'Who I Like', 'Who Likes Me?'];
+  public menuButtons: any = ['My Dating Pool', 'Who I Like', 'Who Likes Me?'];
   public playerList: any = [];
   public showMoreFlg = false;
   public showHeartFormFlg: boolean = false;
   public disableFormFlg: boolean = true;
+  public showPopupFlg: boolean = false;
 
   constructor(private route: ActivatedRoute) { super(); }
 
@@ -103,6 +105,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       console.log('xxxrefreshDatingPool', responseJson);
       this.refreshUserObj(responseJson.user);
       this.updateMatches();
+      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length>8;
       this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {
@@ -119,8 +122,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.user.datingPool.forEach((element: any) => {
       this.responseJson.matches.forEach((match: any) => {
         if (match.uid == element.user_id) {
-          match.lastLoginText = this.lastLoginText(match.lastLogin);
           element.match = match;
+          element.lastLoginText = lastLoginText(match.lastLogin);
+          element.lastLoginColor = lastLoginColor(match.lastLogin);
           //console.log('+++M!+++', match);
           var alerts = 0;
           if (match.newMatchFlg == 'Y')
@@ -140,19 +144,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       });
     });
   }
-  lastLoginText(lastLogin: string) {
-    var dateObj = getDateObjFromJSDate(lastLogin);
-    var lastLoginText = dateObj.daysAgo + ' Days ago';
-    if (dateObj.daysAgo == 0)
-      lastLoginText = 'Today';
-    if (dateObj.daysAgo == 1)
-      lastLoginText = 'Yesterday';
 
-    if (dateObj.secondsAgo <= 15 * 60) {
-
-      lastLoginText = 'Online Now!';
-    }
-    return lastLoginText;
-  }
 
 }

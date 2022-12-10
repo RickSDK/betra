@@ -10,7 +10,7 @@ import { User } from '../classes/user';
 })
 export class PageShellComponent implements OnInit {
   //@Output() messageEvent = new EventEmitter<string>();
-//  @Input('notifications') notifications: number = localStorage['notifications'];
+  //  @Input('notifications') notifications: number = localStorage['notifications'];
   @Input('userId') userId: number = 0;
   @Input('pageTitle') pageTitle: string = '';
   @Input('imgSrcFile') imgSrcFile: string = 'assets/images/theRock.png';
@@ -31,7 +31,8 @@ export class PageShellComponent implements OnInit {
       var user = new User(JSON.parse(localStorage['User']));
       this.firstName = user.firstName;
       this.imgSrcFile = user.imgSrc;
-      this.showPromotionalBoxesFlg = false;
+      if (user.status == 'Active')
+        this.showPromotionalBoxesFlg = false;
       this.showAboutInfoFlg = false;
     }
     if (this.pageTitle == '')
@@ -53,7 +54,7 @@ export class PageShellComponent implements OnInit {
   }
   loginPressed() {
     console.log('loginPressed');
-   // this.messageEvent.emit();
+    // this.messageEvent.emit();
   }
   loginTest() {
     console.log('loginTest!')

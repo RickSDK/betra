@@ -7,6 +7,11 @@
     white-space: nowrap; 
     overflow: hidden;
 }
+.top-td {
+    height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+}
 .product-logo {
     font-size: 36px;
     font-weight: 800;
@@ -17,7 +22,10 @@
 }
 .icon-button {
     color: #b7121f;
-    font-size: 32px;
+    background-color: #ddd;
+    border-radius: 50%;
+    padding: 8px;
+    font-size: 28px;
     font-weight: 800;
     margin-right: 10px;
     cursor: pointer;
@@ -25,6 +33,7 @@
 .icon-button:hover {
     color: #444;
 }
+
 .login-button {
     background-color: white;
     border: 1px solid #b7121f;
@@ -95,9 +104,6 @@
     z-index: 99;
     opacity: .5;
 }
-.outer-frame {
-    text-align: center;
-}
 .bottom-bar {
     background-color: #2a3a46;
     color: white;
@@ -109,11 +115,15 @@
 .text-link:hover {
     text-decoration: underline;
 }
+.outer-frame {
+    text-align: center;
+    width: 100%;
+}
 .inner-frame {
     display: inline-block;
     width: 100%;
-    max-width: 900px;
-    padding-top: 30px;
+    max-width: 1200px;
+    padding-top: 10px;
     padding-bottom: 30px;
 }
 .bottom-title {
@@ -163,6 +173,12 @@
         display: block;
     }
 }
+@media screen and (min-width: 600px) {
+    .hide-md-up {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .product-logo {
         font-size: 30px;

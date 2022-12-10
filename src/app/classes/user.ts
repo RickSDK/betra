@@ -45,6 +45,7 @@ export class User {
     public lastLoginText: string = '';
     public lastLoginNum: number = 0;
     public lastLoginSrc: string = '';
+    public lastLoginColor: string = 'black';
 
     public story: string = '';
     public birthDay: number = 0;
@@ -241,7 +242,7 @@ export class User {
             this.ownerLevel = obj.ownerLevel || 0;
             this.picFlagged = obj.picFlagged || 0;
 
-            if(this.picFlagged > 0) {
+            if (this.picFlagged > 0) {
                 this.flaggedImg = betraImageFromId(this.user_id, this.profilePic, '', 0);
             }
 
@@ -326,6 +327,7 @@ export class User {
         this.lastLoginSrc = 'assets/images/blackCircle.png';
         if (this.lastLogin) {
             var dateObj = getDateObjFromJSDate(this.lastLogin);
+            this.lastLoginColor = dateObj.lastLoginColor;
             this.lastLoginText = dateObj.daysAgo + ' Days ago';
             if (dateObj.daysAgo == 0)
                 this.lastLoginText = 'Today';
@@ -439,11 +441,11 @@ export class User {
 
         }
 
-        this.bodyDesc = this.bodyHeight + ' ' + this.bodyType;
+        this.bodyDesc = this.bodyHeight + ' ' + this.bodyType + ' ' + this.genderName;
         if (this.bodyHeight == 'Average')
-            this.bodyDesc = this.bodyType;
+            this.bodyDesc = this.bodyType + ' ' + this.genderName;
         if (this.bodyType == 'Average')
-            this.bodyDesc = this.bodyHeight;
+            this.bodyDesc = this.bodyHeight + ' ' + this.genderName;
 
 
 

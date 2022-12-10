@@ -30,3 +30,14 @@
     margin: 2px;
     background-color: #eee;
 }
+.background-img {
+    position: fixed; 
+    left:0;
+    top: 50px; 
+    width: 100%;
+    min-width: 800px;
+    height: auto;
+    min-height: 350px;
+    opacity: 100;
+    z-index: -1;
+}

@@ -1,10 +1,10 @@
 <div class="match-card" *ngIf="matchUser && matchUser.matchObj">
-    <div class="gray-title" style="position: relative;"><i class="fa fa-comment"></i> Messages <span
+    <div class="gray-title" style="position: relative;" [style.color]="unreadMessagesFlg?'yellow':'white'"><i class="fa fa-comment"></i> <span *ngIf="unreadMessagesFlg">New</span> Messages <span
             style="font-size: 8px; font-weight: 200;">{{firstName}}</span>
         <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg"
             class="fa fa-info-circle more-options"></i>
     </div>
-
+    <div *ngIf="messages.length==6" (mousedown)="loadMessages(true)" class="text-link" style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">
         <div *ngFor="let message of messages">
 
@@ -41,7 +41,7 @@
                 <td>
                     <app-message-input (messageEvent)="inputValueChanged($event)" [maxLength]="250"></app-message-input>
                 </td>
-                <td>
+                <td>&nbsp;
                     <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-primary"
                         style="height: 50px;">Send</button>
                 </td>
@@ -49,7 +49,7 @@
         </table>
     </div>
 
-    <div *ngIf="matchUser.matchObj.match_level==2 && !messageSentFlg">
+    <div *ngIf="matchUser.matchObj.match_level==2 && !messageSentFlg" style="padding: 10px;">
         <div class="gray-text">Break the ice with a question! Here is your chance to start the conversation.</div>
         <table width="100%">
             <tr>
@@ -66,7 +66,7 @@
                         <option *ngFor="let option of questions">{{option}}</option>
                     </select>
                 </td>
-                <td>
+                <td>&nbsp;
                     <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-primary"
                         style="height: 60px;">Send</button>
                 </td>

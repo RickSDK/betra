@@ -19,10 +19,15 @@
 }
 
 .active-menu {
-    color: black;
+    color: #b7121f;
     font-weight: 700;
 }
 
+.group-heading {
+    font-size: 10px;
+    color: gray;
+    border-bottom: 1px solid gray;
+}
 .red-circle {
     display: inline-block;
     border: 1px solid white;

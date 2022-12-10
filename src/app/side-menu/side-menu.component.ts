@@ -15,7 +15,7 @@ export class SideMenuComponent implements OnInit {
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
     { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
-    { name: 'My Matches', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
+    { name: 'Dating Pool', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
     { name: 'Admirers', routerLink: '/user-detail', icon: 'fa fa-heart', id: 4 },
     //    { name: 'Online Today', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
     { name: 'Top 10', routerLink: '/top-lists', icon: 'fa fa-list-ol', id: 6 },

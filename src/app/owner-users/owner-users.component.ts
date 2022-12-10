@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 declare var $: any;
+declare var lastLoginText: any;
 
 @Component({
   selector: 'app-owner-users',
@@ -42,17 +43,21 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
 
       this.players = responseJson.playerList;
       this.players.forEach((element: any) => {
-        var parts = element.lastLogin.split(' ');
-        element.lastDay = parts[0];
-        if (element.countryName == 'United States')
-          this.usList.push(element);
-        else
-          this.internationalList.push(element);
+        element.lastDay = lastLoginText(element.lastLogin);
+        element.location = this.getUserLocation(element.city, element.state, element.countryName);
+        this.usList.push(element);
       });
     }
     if (responseJson.action == 'updateUserRegion' || responseJson.action == 'sendEmail') {
       this.getOwnerUsers();
     }
+  }
+  getUserLocation(city: string, state: string, countryName: string) {
+    if (countryName != 'United States')
+      return countryName;
+    else
+      return city + ', ' + state;
+
   }
   choosePlayer(player: any, num: number) {
     this.option = num;

@@ -2,14 +2,25 @@
     <div class="top-title">
         Sign up now!
     </div>
+    <div class="background-glow">
+        <div class="neon">
+            <span class="text" data-text="">Betra</span>
+            <span class="gradient"></span>
+            <span class="spotlight"></span>
+        </div>
+    </div>
+
+
     <div class="inside-box">
-        <div *ngIf="optionNum==0">
+        <div class="inside-box" *ngIf="optionNum==0">
+
+
+
             <div style="color: gray;">Beta Version</div>
             <div style="font-size: 12px;"><b>Officially launches Feb 14, 2023</b></div>
-            <p class="red-text" style="font-size: 12px; text-align: left;">Betra is inspired by the
-                Bachelor/Bachelorette TV Shows. Fill up your dating pool with interesting people,
-                then begin narrowing your prospects, giving out roses along the way.
-                Its fun and its exciting.</p>
+            <p style="font-size: 12px; text-align: left;">Betra is the next generation of dating apps
+                geared towards the internet generation. It's the
+                newest, smartest and most fun way to date.</p>
             <div *ngIf="0" class="main-option" (mousedown)="option1Flg = !option1Flg">
                 <div class="main-item">
                     <i [ngClass]="ngClassBox(option1Flg)"></i> Find Love

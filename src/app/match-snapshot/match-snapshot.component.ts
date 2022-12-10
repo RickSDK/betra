@@ -26,14 +26,18 @@ export class MatchSnapshotComponent implements OnInit {
   public action: string = '';
   public showInterestedButtonsFlg: boolean = false;
   public youAreInterestedFlg: boolean = false;
-  public matchMadeFlg: boolean = false;
+  //  public matchMadeFlg: boolean = false;
   public distance: string = '';
+  public showMoreFlg: boolean = false;
+  public expandBottomFlg: boolean = false;
 
 
   constructor() { }
 
   ngOnInit(): void {
     this.showMoreOptionsFlg = (this.user.datingPool.length > 8);
+    this.showMoreFlg = (this.user.datingPool.length > 8);
+    this.expandBottomFlg = (this.user.datingPool.length > 8);
   }
 
   buttonPressed(action: string) {
@@ -54,7 +58,7 @@ export class MatchSnapshotComponent implements OnInit {
     this.matchObj = matchObj;
     if (!this.matchUser.matchObj)
       return;
-    this.matchMadeFlg = (this.matchUser.matchObj && this.matchUser.matchObj.match_level == 2);
+
     this.showInterestedButtonsFlg = matchUser.user_id != user.user_id;
     if (user.matchPreference == 'F' && matchUser.gender == 'M')
       this.showInterestedButtonsFlg = false;
@@ -67,7 +71,13 @@ export class MatchSnapshotComponent implements OnInit {
     if (this.id == 7)
       this.showInterestedButtonsFlg = false; // verify pics
 
+
     this.youAreInterestedFlg = !!(this.matchUser.matchObj && this.matchUser.matchObj.you_interested);
+
+    //---------------------
+    this.matchUser.matchObj.showButtonsFlg = this.showInterestedButtonsFlg && !this.youAreInterestedFlg;
+    this.matchUser.matchObj.matchMadeFlg = (this.matchUser.matchObj && this.matchUser.matchObj.match_level == 2);
+    //---------------------
 
     var agePoints = Math.abs(user.matchAge - matchUser.age) <= 4 ? 1 : 0;
     var religionPoints = (user.matchReligion == matchUser.religion) ? 1 : 0;
@@ -115,16 +125,42 @@ export class MatchSnapshotComponent implements OnInit {
     if (this.user.matchHasKids == 'Yes' && this.matchUser.numKids > 0)
       this.user.kidsNum = this.matchUser.numKids;
 
-    if(this.matchUser.state && this.user.state != this.matchUser.state) {
+    if (this.matchUser.state && this.user.state != this.matchUser.state) {
       this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
     }
-    if(this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
+    if (this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
       this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.countryName;
     }
   }
+  expandBottom() {
+    this.expandBottomFlg = true;
+    this.profileMatch = 0;
+    this.polyMatch = 0;
+    this.personalityMatch = 0;
+    this.totalMatch = 0;
+    setTimeout(() => {
+      this.showMoreFlg = true;
+    }, 400);
+    setTimeout(() => {
+      this.calculateMatches(this.user, this.matchUser, this.matchObj);
+    }, 1500);
+  }
+  collpaseBottom() {
+    this.expandBottomFlg = false;
+    setTimeout(() => {
+      this.showMoreFlg = false;
+    }, 400);
+  }
   actionButtonClicked(action: string) {
+    if (action == "show-more") {
+      if (this.showMoreFlg)
+        this.collpaseBottom();
+      else
+        this.expandBottom();
+      return;
+    }
     if (action == 'yesToMatch' && this.matchUser.matchObj.match_interested == 'Y') {
-      this.matchMadeFlg = true;
+      this.matchUser.matchObj.matchMadeFlg = true;
       this.showInterestedButtonsFlg = false;
       setTimeout(() => {
         this.messageEvent.emit(action);

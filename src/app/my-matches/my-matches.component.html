@@ -1,4 +1,4 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'My Matches'" [userId]="userId"
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Dating Pool'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
 
     <div class="matches-card" style="min-height: 500px; font-size: 14px; color: #444;" *ngIf="user">
@@ -9,7 +9,7 @@
                 <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
             </button>
         </div>
-        <div *ngIf="showHeartFormFlg && menuNum==0" class="tan-box">
+        <div *ngIf="showHeartFormFlg && menuNum==0" style="padding: 20px;">
             <table align="center">
                 <tr>
                     <td>
@@ -22,16 +22,17 @@
                                 <td>
                                     <select name="assignHeart" id="assignHeart" (change)="disableFormFlg=false">
                                         <option disabled selected>Select</option>
-                                        <option *ngFor="let player of user.datingPool" [value]="player.user_id">{{player.name}}
+                                        <option *ngFor="let player of user.datingPool" [value]="player.user_id">
+                                            {{player.name}}
                                         </option>
                                     </select>
                                 </td>
-                                <td>
+                                <td>&nbsp;
                                     <button (mousedown)="assignHeart()" class="btn btn-primary" style="padding: 10px;"
                                         [disabled]="disableFormFlg">Assign</button>
                                 </td>
                             </tr>
-                        </table>            
+                        </table>
                     </td>
                 </tr>
             </table>
@@ -46,9 +47,6 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="menuNum==0 && !loadingFlg">
-            <div *ngIf="user.datingPool && user.datingPool.length>8" class="error-message">Over your limit! Select
-                someone to drop from your dating pool. You are only allowed 8 people at a time in your dating pool.
-            </div>
             <div style="font-size: 12px; color: gray;">You can have a maximum of 8 people in your dating pool at any
                 time. [<span (mousedown)="showMoreFlg=!showMoreFlg" class="hyper-link">more info</span>]</div>
             <div (mousedown)="showMoreFlg=false" *ngIf="showMoreFlg"
@@ -59,12 +57,14 @@
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
 
             <div *ngIf="!user.dating_pool">
+                <div [routerLink]="['/user-detail']" class="red-blob">
+                    <p style="font-size: 18px; font-weight: 700;">Your dating pool is empty!</p>
+                    <p>Click here to find singles</p>
+                </div>
                 <div>&nbsp;</div>
-                <button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i> Browse
-                    Singles</button>
-                <div>&nbsp;</div>
-                <div class="small-gray-text">Currently no matches, but don't worry. Start browsing singles and as soon as someone you like indicates they
-                    are also interested in you, they will show up here. Click Browse button above to get started!
+                <div class="small-gray-text">Currently no one in your dating pool, but don't worry. Start browsing
+                    singles to get your pool filled up.
+                    You can have up to 8 people in your dating pool and that is when the real fun begins!
                 </div>
             </div>
 
@@ -99,7 +99,8 @@
                 </div>
                 <div *ngIf="playerList.length>0">
                     <p><i class="fa fa-heart" style="color: red;"></i> Someone is very interested in you!</p>
-                    <p class="gray-text">Click on the profile(s) above. If you decide you are interested as well, the two of you can begin
+                    <p class="gray-text">Click on the profile(s) above. If you decide you are interested as well, the
+                        two of you can begin
                         communicating and see where this goes.</p>
                 </div>
                 <div *ngIf="playerList.length==0">
@@ -107,10 +108,13 @@
                     <div style="text-align: left;" class="small-gray-text">
                         <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
                         <div style="padding-left: 30px;">
-                            <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your profile.</li>
+                            <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your
+                                profile.</li>
                             <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
-                            <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for others to find you.</li>
-                            <li><i class="fa fa-arrow-up"></i> <a [routerLink]="['/upgrade-member']">Upgrade</a> in order to maximize your exposure.</li>
+                            <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for
+                                others to find you.</li>
+                            <li><i class="fa fa-arrow-up"></i> <a [routerLink]="['/upgrade-member']">Upgrade</a> in
+                                order to maximize your exposure.</li>
                         </div>
 
                     </div>
@@ -121,3 +125,20 @@
     </div>
 
 </app-page-shell>
+
+<div (mousedown)="showPopupFlg=false" *ngIf="showPopupFlg" class="over-limit-popup-outer">
+    <div>test</div>
+    <div class="over-limit-popup">
+        <div style="font-size: 22px;">Over your limit!</div>
+        <div style="text-align: left;">
+            <p>You are only allowed 8 people at a time in your dating pool. Select
+                someone to drop. </p>
+            <p style="font-size: 12px;">Why are you only allowed 8 people? This is to help you organize your dating life. Keep your top 8 pospects active
+                and move the rest to your back burner. Or, by upgrading to Gold Member, you can have 12 people in your pool.
+            </p>    
+        </div>
+        <button class="btn btn-warning">Got it!</button>&nbsp;
+        <button [routerLink]="['/upgrade-member']" class="btn btn-primary">Upgrade</button>
+
+    </div>
+</div>

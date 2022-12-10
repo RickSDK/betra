@@ -72,6 +72,10 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
   forgotPasswordPressed() {
     var email: string = $('#email').val();
+    if(!email || email.length==0) {
+      this.errorMessage = 'enter your email address';
+      return;
+    }
 
     var params = {
       email: email,

@@ -16,6 +16,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public showTextInputFlg = false;
   public selectedMessage: number = 0;
   public firstName: string = '';
+  public unreadMessagesFlg: boolean = false;
 
   public greetings = [
     'Hi!',
@@ -47,8 +48,9 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     this.populateModal(this.matchUser);
   }
   populateModal(matchUser: any) {
+    console.log('populate modal');
     this.matchUser = matchUser;
- 
+
     this.firstName = this.matchUser.firstName;
 
     if (this.matchUser && this.matchUser.matchObj) {
@@ -66,17 +68,20 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (this.matchUser.matchObj.match_level > 4)
       this.showTextInputFlg = true;
   }
-  loadMessages() {
+  loadMessages(loadMoreFlg:boolean = false) {
+    this.messages = [];
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
       uid: this.matchUser.user_id,
+      loadMoreFlg: (loadMoreFlg)?'Y':'',
       action: "readMessages"
     };
     console.log(params);
     this.executeApi('betraMessages.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
+    console.log('got messages');
     if (responseJson.action == "readMessages" || responseJson.action == "sendMessage" || responseJson.action == "deleteMessage") {
       var showDetailsFlg = false;
       this.messages = [];
@@ -84,6 +89,8 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         var dt = getDateObjFromJSDate(message.created);
         if (!message.readDt)
           showDetailsFlg = true;
+        if (message.uid == this.user.user_id && !message.readDt)
+          this.unreadMessagesFlg = true;
         message.name = (message.user_id == this.myUser.user_id) ? this.myUser.firstName : this.matchUser.firstName;
         message.local = dt.local;
         this.messages.push(message);
@@ -96,6 +103,10 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         localStorage['messageCount'] = responseJson.messageCount;
         this.headerObj.messageCount = responseJson.messageCount;
       }
+
+      this.messages.sort((a:any, b:any) => {
+        return a.id - b.id;
+      });
     }
   }
   sendMessage() {

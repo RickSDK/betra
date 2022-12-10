@@ -67,8 +67,57 @@ function getDateObjFromJSDate(dateStr = '') {
         daysAgo: daysAgo,
         day: dt.getDay(),
         dayOfWeek: dayOfWeek(dt.getDay()),
-        distanceAway: distanceAway
+        distanceAway: distanceAway,
+        lastLoginColor: lastLoginColorFromDaysAgo(daysAgo, parseInt(timeDiff / 1000))
     }
+}
+function lastLoginText(lastLogin) {
+    var dateObj = getDateObjFromJSDate(lastLogin);
+    var lastLoginText = dateObj.daysAgo + ' Days ago';
+    if (dateObj.daysAgo == 0)
+        lastLoginText = 'Today';
+    if (dateObj.daysAgo == 1)
+        lastLoginText = 'Yesterday';
+
+    if (dateObj.secondsAgo <= 15 * 60) {
+
+        lastLoginText = 'Online Now!';
+    }
+    return lastLoginText;
+}
+function lastLoginSrc(lastLogin) {
+    var dateObj = getDateObjFromJSDate(lastLogin);
+    var lastLoginSrc = 'assets/images/blackCircle.png';
+    if (dateObj.daysAgo <= 14)
+        lastLoginSrc = 'assets/images/redCircle.png';
+    if (dateObj.daysAgo <= 7)
+        lastLoginSrc = 'assets/images/yellowCircle.png';
+    if (dateObj.daysAgo == 0)
+        lastLoginSrc = 'assets/images/blueCircle.png';
+    if (dateObj.secondsAgo <= 15 * 60) {
+        lastLoginSrc = 'assets/images/greenCircle.png';
+    }
+    return lastLoginSrc;
+}
+function lastLoginColorFromDaysAgo(daysAgo, secondsAgo) {
+    var lastLoginColor = 'black';
+    if (daysAgo <= 14)
+        lastLoginColor = 'red';
+    if (daysAgo <= 7)
+        lastLoginColor = 'orange';
+    if (daysAgo <= 2)
+        lastLoginColor = 'yellow';
+    if (daysAgo == 0)
+        lastLoginColor = 'cyan';
+    if (secondsAgo <= 15 * 60) {
+        lastLoginColor = '#00CC00';
+    }
+    return lastLoginColor;
+}
+function lastLoginColor(lastLogin) {
+    var dateObj = getDateObjFromJSDate(lastLogin);
+
+    return lastLoginColorFromDaysAgo(dateObj.daysAgo, dateObj.secondsAgo);
 }
 function getDateObjFromHtml5Date(dateStr = '2019-06-15', timeStr = '00:00') {
     return getDateObjFromJSDate(dateFromHtml5Time(dateStr, timeStr));

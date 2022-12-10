@@ -1,7 +1,7 @@
 
 
 <div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
-    <div class="gray-title" style="position: relative;"> <i class="fa fa-user"></i> User reviews
+    <div class="gray-title" style="position: relative;"> <i class="fa fa-pencil"></i> Reviews
         <sup>{{matchUser.reviewsCount}}</sup>
         <i (mousedown)="openReviewPanel()"
             [ngClass]="openPanelFlg?'fa fa-chevron-circle-down more-options':'fa fa-chevron-circle-right more-options'"></i>
@@ -42,5 +42,5 @@
             </div>
         </div>
     </div>
-    <div *ngIf="myUser.user_id != matchUser.user_id && matchUser.matchObj && matchUser.matchObj.match_level < 4" class="purple-text">You must be intimacy level 2 to see reviews and level 4 to write reviews.</div>
+    <div *ngIf="myUser.user_id != matchUser.user_id && matchUser.matchObj && matchUser.matchObj.match_level < 4" class="purple-text">You must be intimacy level 4 to write reviews.</div>
 </div>

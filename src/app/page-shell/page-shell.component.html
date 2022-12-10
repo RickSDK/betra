@@ -2,12 +2,14 @@
     <table width="100%" border="0">
         <tr>
             <td>
-                <span id="logo" class="product-logo" [routerLink]="['']"><i class="fa fa-heart product-icon"></i>Betra</span>
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">Beta Version 0.64
+                <span id="logo" class="product-logo" [routerLink]="['']"><i
+                        class="fa fa-heart product-icon"></i>Betra</span>
+                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">
+                    Beta Version 0.69
                 </div>
             </td>
-            <td align="center" style="font-size: 20px; font-weight: 700;">
-                <span class="hide-xs">{{pageTitle}}</span>
+            <td align="center" width="100%" style="font-size: 14px; font-weight: 700;">
+                <span class="hide-xs" *ngIf="pageTitle != 'Home'">{{pageTitle}}</span>
             </td>
 
             <td align="right" valign="middle" *ngIf="userId==0 || !userId">
@@ -15,25 +17,35 @@
                     Login
                 </button>
             </td>
-            <td *ngIf="userId==0 && pageTitle" width="44">
+            <td *ngIf="userId==0 && pageTitle != 'Home'" width="44">
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
-            <td *ngIf="userId>0 && headerObj.profileCompleteFlg" align="right"
-                style="white-space: nowrap; overflow: hidden;">
-                <i [routerLink]="['/user-detail']" class="fa fa-search icon-button" title="Find Matches"></i>
-                <i [routerLink]="['/matches']" class="fa fa-users icon-button" title="My Matches"></i>
-                <i [routerLink]="['/notifications']" class="fa fa-bell icon-button" title="Notifications"></i><span
-                    [routerLink]="['/notifications']" *ngIf="headerObj.notifications>0"
-                    class="red-circle">{{headerObj.notifications}}</span>
+            <td *ngIf="userId>0 && headerObj.profileCompleteFlg">
+                <span class="menu-circle">
+                    <i [routerLink]="['/user-detail']" class="fa fa-search icon-button"></i>
+                    <span class="icon-label">Browse</span>
+                </span>
+                <span class="menu-circle">
+                    <i [routerLink]="['/matches']" class="fa fa-users icon-button"></i>
+                    <span class="icon-label">My Dating Pool</span>
+                </span>
+                <span class="menu-circle">
+                    <i [routerLink]="['/notifications']" class="fa fa-bell icon-button"></i><span
+                        [routerLink]="['/notifications']" *ngIf="headerObj.notifications>0"
+                        class="red-circle">{{headerObj.notifications}}</span>
+                    <span class="icon-label">Notifications</span>
+                </span>
             </td>
-            <td *ngIf="userId>0" align="right" width="60">
-
-                <img [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" [src]="imgSrcFile" class="profilePic"
-                    alt="Profile Picture" [title]="firstName">
+            <td *ngIf="userId>0">
+                <span class="menu-circle">
+                    <img [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" [src]="imgSrcFile"
+                        class="profilePic" alt="Profile Picture" [title]="firstName">
+                    <span class="icon-label">My Profile</span>
+                </span>
 
             </td>
-            <td align="right" valign="middle" *ngIf="userId>0" width="44" class="show-sm">
-                <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu"></i>
+            <td *ngIf="userId>0" class="hide-md-up">
+                <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars icon-button"></i>
             </td>
         </tr>
     </table>
@@ -41,14 +53,18 @@
 <div class="outer-frame">
     <div class="inner-frame">
 
-        <table width="100%">
+        <table width="100%" border="0">
             <tr>
-                <td *ngIf="userId>0 && headerObj.profileCompleteFlg && pageTitle != 'Profile'" class="hide-sm" style="width: 200px;" valign="top">
+                <td *ngIf="userId>0 && headerObj.profileCompleteFlg" class="hide-sm"
+                    style="width: 200px;" valign="top">
                     <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
                         [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
                 </td>
-                <td  valign="top">
+                <td valign="top" align="center" style="padding: 20px;">
                     <ng-content></ng-content>
+                </td>
+                <td *ngIf="userId>0 && headerObj.profileCompleteFlg" valign="top" align="center" class="hide-md" style="min-width: 200px;">
+                    <div style="color: gray;">Sponsored</div>
                 </td>
             </tr>
         </table>
@@ -107,18 +123,11 @@
                 <li>Read and write <span class="red-text">reviews</span> about your dates.</li>
                 <li>Tell the <span class="red-text">community</span> about your dating experiences, read what others
                     have to say.</li>
+                <li><span class="red-text">Dating Pools</span> to help you manage your dating life.</li>
             </ul>
             <p>Betra is not just a dating app, its a community of singles all pulling together to try to help everyone
                 get into solid relationships. So get started now, it's free!</p>
         </div>
-    </div>
-    <div *ngIf="userId>0" class="hidden-md">
-        <button [routerLink]="['/user-detail']" class="btn btn-danger red-button2"><i class="fa fa-search"></i>
-            Browse</button>
-        <button [routerLink]="['/matches']" class="btn btn-danger red-button2"><i class="fa fa-users"></i>
-            Matches</button>
-        <button [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="btn btn-danger red-button2"><i
-                class="fa fa-user"></i> Profile</button>
     </div>
     <div class="bottom-bar">
         <div>
