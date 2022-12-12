@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Users'" [userId]="userId"
-    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
     <div class="matches-card2" *ngIf="user && user.ownerFlg">
         <app-owners-menu [pageTitle]="'Owners'"></app-owners-menu>
         <hr>

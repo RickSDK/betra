@@ -9,9 +9,8 @@ import { User } from '../classes/user';
   styleUrls: ['./page-shell.component.scss']
 })
 export class PageShellComponent implements OnInit {
-  //@Output() messageEvent = new EventEmitter<string>();
-  //  @Input('notifications') notifications: number = localStorage['notifications'];
   @Input('userId') userId: number = 0;
+  @Input('userStatus') userStatus: string = '';
   @Input('pageTitle') pageTitle: string = '';
   @Input('imgSrcFile') imgSrcFile: string = 'assets/images/theRock.png';
   @Input('headerObj') headerObj: any = null;
@@ -29,6 +28,10 @@ export class PageShellComponent implements OnInit {
     this.showAboutInfoFlg = true;
     if (localStorage['user_id'] > 0 && localStorage['User']) {
       var user = new User(JSON.parse(localStorage['User']));
+      if(user.ip == "76.103.166.98") {
+        this.userId = 0;
+        return;
+      }
       this.firstName = user.firstName;
       this.imgSrcFile = user.imgSrc;
       if (user.status == 'Active')

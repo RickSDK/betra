@@ -7,7 +7,7 @@
     max-width: 800px;
     border-radius: 10px;
     overflow: hidden;
-    padding: 0;  
+    padding: 0;
 }
 .profile-image2 {
     display: inline-block;
@@ -107,3 +107,20 @@ input {
 .box-card {
     padding: 10px;
 }
+
+.small-btn-group {
+    font-size: 10px; 
+    padding: 5px;
+}
+@media screen and (max-width: 440px) {
+    .small-btn-group {
+        font-size: 9px;
+        padding: 4px;
+    }
+ }
+ @media screen and (max-width: 340px) {
+    .small-btn-group {
+        font-size: 7px;
+        padding: 2px;
+    }
+ }

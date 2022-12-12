@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId"
-    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
     <div class="matches-card" *ngIf="user">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div class="border-box">
@@ -11,10 +11,6 @@
         <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
             to top</button>
  
-        <div *ngIf="!selectedJournal">
-            <app-journal-cell (messageEvent)="replyButtonClicked($event)"
-                *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i"  [postId]="postId"></app-journal-cell>
-        </div>
         <div *ngIf="selectedJournal">
             <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId">
             </app-journal-cell>
@@ -35,6 +31,11 @@
             </div>
         </div>
 
+    </div>
+
+    <div *ngIf="!selectedJournal">
+        <app-journal-cell (messageEvent)="replyButtonClicked($event)"
+            *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i"  [postId]="postId" [imgSrc]="user.imgSrc"></app-journal-cell>
     </div>
 
 </app-page-shell>

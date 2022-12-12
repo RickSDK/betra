@@ -17,6 +17,8 @@ export class ProfileTopComponent implements OnInit {
   public showSmallerPicsFlg: boolean = true;
   public unblurPicsFlg: boolean = false;
   public lookingForTitle: string = '';
+  public showAdminButtonsFlg: boolean = false;
+  public showMoreFlg: boolean = false;
 
   constructor() { }
 
@@ -24,15 +26,18 @@ export class ProfileTopComponent implements OnInit {
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.user.mainImageSrc = this.user.imgSrc;
     this.lookingForTitle = this.user.maritalStatus + ' ' + this.user.genderName + ' ' + 'seeking ' + this.user.matchGender;
-
-    console.log('hey!!', this.user)
   }
 
   cancelMatches() {
     this.messageEvent.emit('cancel');
   }
   showMoreClicked() {
+    this.showMoreFlg = !this.showMoreFlg;
     this.messageEvent.emit('show-more');
+  }
+  sendClickEventUp(name: string) {
+    this.showAdminButtonsFlg = false;
+    this.messageEvent.emit(name);
   }
   likeButtonClicked(likedFlg: boolean) {
     this.user.matchObj.showButtonsFlg = false;

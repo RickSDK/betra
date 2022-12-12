@@ -1,16 +1,43 @@
-<table width="100%">
-    <tr>
-        <td align="right">
-            <img [routerLink]="['/user-detail']" [queryParams]="{uid: journal.user_id}" [src]="journal.src"
-                [ngClass]="ngClassPic(journal.replyTo)">
-        </td>
-        <td (mousedown)="replyTo(journal)" style="cursor: pointer;">
-            <div class="betra-cell">
-                <div>{{journal.firstName}} <span style="font-size: 10px; color: #c77;">{{journal.localDt}}</span>
-                    <span *ngIf="journal.replies>0" style="float: right; font-size: 8px;">Replies: <b>{{journal.replies}}</b></span>
+<div class="matches-card" *ngIf="journal">
+    <table width="100%">
+        <tr>
+            <td align="right">
+                <img [routerLink]="['/user-detail']" [queryParams]="{uid: journal.user_id}" [src]="journal.src"
+                    class="profile-circle-small">
+            </td>
+            <td width="100%">
+                <div>{{journal.firstName}}
+                    <span class="three-dots"><i class="fa fa-ellipsis-v"></i></span>
                 </div>
-                <div class="gray-text">{{journal.message}}</div>
-            </div>
-        </td>
-    </tr>
-</table>
+                <div style="font-size: 10px; color: gray;">{{journal.localDt}}</div>
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: left; font-size: 12px; color: gray;">
+        <i class="fa fa-thumbs-up" style="color: rgb(11, 98, 248);"></i>&nbsp;0
+        <span (mousedown)="replyTo(journal)" *ngIf="journal.replies==1" class="text-link"
+            style="color: gray; float: right;">{{journal.replies}} comment</span>
+        <span (mousedown)="replyTo(journal)" *ngIf="journal.replies>1" class="text-link"
+            style="color: gray; float: right;">{{journal.replies}} comments</span>
+    </div>
+    <div class="betra-cell">
+        <div [innerHTML]="journal.message"></div>
+    </div>
+    <div style="text-align: left; font-size: 12px; color: gray;">
+        <span class="text-link">Like</span>&nbsp;
+        <span class="text-link">Dislike</span>&nbsp;
+        <span (mousedown)="replyToFlg=!replyToFlg" class="text-link">Reply</span>&nbsp;
+    </div>
+    <table *ngIf="replyToFlg" width="100%">
+        <tr>
+            <td>&nbsp;&nbsp;</td>
+            <td>
+                <img [routerLink]="['/user-detail']" [queryParams]="{uid: journal.user_id}" [src]="imgSrc"
+                    class="profile-circle-small">
+            </td>
+            <td width="100%">
+                <input type="text">
+            </td>
+        </tr>
+    </table>
+</div>

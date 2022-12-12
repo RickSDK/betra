@@ -1,14 +1,14 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [pageTitle]="'Profile'"
-    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
 
     <div class="btn-group" *ngIf="user && user.status == 'Active'">
-        <button style="font-size: 10px; padding: 5px;" *ngFor="let title of menuTitles2; let i = index;"
+        <button *ngFor="let title of menuTitles2; let i = index;"
             (mousedown)="menuNum=i" type="button"
-            [ngClass]="menuNum==i?'btn btn-primary':'btn btn-secondary'">{{title}}</button>
+            [ngClass]="menuNum==i?'btn btn-primary small-btn-group':'btn btn-secondary small-btn-group'">{{title}}</button>
     </div>
-    <div style="text-align: center;">
+    <div *ngIf="1" style="text-align: center;">
         <div class="profile-popup">
-            <div class="inside-box">
+            <div class="inside-box2">
 
                 <div class="profile-main-menu">
                     <i [ngClass]="profileItemStatusClass(user.profileFlags[menuNum])"
@@ -23,10 +23,10 @@
                 <!-------------------------0------------------------->
                 <div class="menu-section" *ngIf="menuNum==0">
 
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="padding: 0;">
                         <div class="row">
                             <div class="col-md">
-                                <table width="100%">
+                                <table width="100%" border="0">
                                     <tr>
                                         <td>
                                             <div class="tiny-text">First Name</div>
@@ -63,7 +63,7 @@
                                     [disabled]="!!user.email" id="email" type="email" [value]="user.email"
                                     placeholder="Email Address" (input)="menuValueChanged()">
 
-                                <div class="container-fluid">
+                                <div class="container-fluid" style="padding: 0;">
                                     <div class="row">
 
                                         <div class="col-md-6">
@@ -206,7 +206,7 @@
                 <div class="menu-section" *ngIf="menuNum==2">
                     <div style="font-size: 22px;">Tell us about yourself</div>
                     <div *ngIf="!user.ip" style="background-color: yellow;">Note: your location information is not making it through. You may want to log in with another browser or adjust your settings.</div>
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="padding: 0;">
                         <div class="row">
                             <div class="col-md" style="text-align: center;">
                                 <div style="text-align: left; display: inline-block;">
@@ -386,7 +386,7 @@
                                         <tr>
                                             <td>
                                                 <div class="tiny-text">Smokes?</div>
-                                                <select name="smokes" id="smokes"
+                                                <select name="smokes" id="smokes" style="font-size: 12px;"
                                                     [style.background-color]="user.smokes?'#eee':'#ffffc0'"
                                                     (change)="menuValueChanged()">
                                                     <option disabled selected>Select</option>
@@ -397,7 +397,7 @@
                                             </td>
                                             <td>
                                                 <div class="tiny-text">Drinks?</div>
-                                                <select name="drinks" id="drinks"
+                                                <select name="drinks" id="drinks" style="font-size: 12px;"
                                                     [style.background-color]="user.drinks?'#eee':'#ffffc0'"
                                                     (change)="menuValueChanged()">
                                                     <option disabled selected>Select</option>
@@ -408,7 +408,7 @@
                                             </td>
                                             <td>
                                                 <div class="tiny-text">Cannabis User?</div>
-                                                <select name="cannabis" id="cannabis"
+                                                <select name="cannabis" id="cannabis" style="font-size: 12px;"
                                                     [style.background-color]="user.cannabis?'#eee':'#ffffc0'"
                                                     (change)="menuValueChanged()">
                                                     <option disabled selected>Select</option>
@@ -504,7 +504,7 @@
                             your
                             "Ideal" settings, but these are simply used to tell you how close to ideal the person is.
                         </div>
-                        <div class="container-fluid">
+                        <div class="container-fluid" style="padding: 0;">
                             <div class="row">
                                 <div class="col-md" style="text-align: left;">
 

@@ -3,9 +3,9 @@
         <tr>
             <td>
                 <span id="logo" class="product-logo" [routerLink]="['']"><i
-                        class="fa fa-heart product-icon"></i>Betra</span>
+                        class="fa fa-heart product-icon"></i><span class="hide-xxs">Betra</span></span>
                 <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">
-                    Beta Version 0.69
+                    Beta Version 0.74
                 </div>
             </td>
             <td align="center" width="100%" style="font-size: 14px; font-weight: 700;">
@@ -20,7 +20,7 @@
             <td *ngIf="userId==0 && pageTitle != 'Home'" width="44">
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
-            <td *ngIf="userId>0 && headerObj.profileCompleteFlg">
+            <td *ngIf="userId>0 && userStatus == 'Active'">
                 <span class="menu-circle">
                     <i [routerLink]="['/user-detail']" class="fa fa-search icon-button"></i>
                     <span class="icon-label">Browse</span>
@@ -55,15 +55,15 @@
 
         <table width="100%" border="0">
             <tr>
-                <td *ngIf="userId>0 && headerObj.profileCompleteFlg" class="hide-sm"
+                <td *ngIf="userId>0 && userStatus == 'Active'" class="hide-sm"
                     style="width: 200px;" valign="top">
                     <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
                         [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
                 </td>
-                <td valign="top" align="center" style="padding: 20px;">
+                <td valign="top" align="center" style="padding: 5px;">
                     <ng-content></ng-content>
                 </td>
-                <td *ngIf="userId>0 && headerObj.profileCompleteFlg" valign="top" align="center" class="hide-md" style="min-width: 200px;">
+                <td *ngIf="userId>0 && userStatus == 'Active'" valign="top" align="center" class="hide-md" style="min-width: 200px;">
                     <div style="color: gray;">Sponsored</div>
                 </td>
             </tr>

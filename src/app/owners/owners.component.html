@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owners'" [userId]="userId"
-    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
     <div class="matches-card" *ngIf="user && user.ownerFlg">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <app-owners-menu [pageTitle]="'Details'"></app-owners-menu>
@@ -44,7 +44,7 @@
             <div class="inside-box">
                 <div class="gray-text">Those who are interacting the most with the app and generating the most new users will be promoted to "Supervisor",
                     which
-                    comes with a double percentage of ownership! You can further be promoted from there.</div>
+                    comes with a double percentage of ownership. You can further be promoted from there.</div>
             </div>
         </div>
 

@@ -1,20 +1,26 @@
 .green-value {
     color: green;
-    background-color: #ccffcc;
+    background-color: #ccc;
+    border-bottom: 1px solid green;
+    border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
     font-weight: 700;
 }
 .yellow-value {
-    color: orange;
-    background-color: #ffffc0;
+    color: rgb(163, 106, 2);
+    background-color: #ccc;
+    border-bottom: 1px solid rgb(163, 106, 2);
+    border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
     font-weight: 700;
 }
 .red-value {
     color: red;
-    background-color: #ffcccc;
+    background-color: #ccc;
+    border-bottom: 1px solid red;
+    border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
     font-weight: 700;

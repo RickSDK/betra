@@ -56,7 +56,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   ];
   public politicalQuiz = [
     { subject: 'Gun Rights', option1: 'Pro Second Ammendment', option2: 'Guns should be allowed for hunting and personal protection, but heavily regulated and tracked.', option3: 'Guns are too dangerous and should be outlawed.', answer: '' },
-    { subject: 'Abortion Rights', option1: 'Pro Life', option2: 'Legal in first trimester, Illegal in 3rd trimester.', option3: 'Full access for everyone and government should pay for abortions.', answer: '' },
+    { subject: 'Abortion Rights', option1: 'Pro Life', option2: 'Pro Choice', option3: 'Abortion on demand and government should pay for them.', answer: '' },
     { subject: 'Education', option1: 'Pro School Choice', option2: 'More funds for better schools and better teachers.', option3: 'All education should be free. Opposed to charter schools, religious schools and home schooling.', answer: '' },
     { subject: 'Economy & Taxes', option1: 'Tea Party - Pro capitalism, free market enterprise and keep taxes low', option2: 'Moderate: Good balance of free markets, regulations and taxes.', option3: '99%er: Take money away from greedy corporations in order to fully fund saftey net programs.', answer: '' },
     { subject: 'Military', option1: 'Anti-military. No more bombs or war machines.', option2: 'Support military but would like to see it reduced in size.', option3: 'Stronger, better military.', answer: '' },

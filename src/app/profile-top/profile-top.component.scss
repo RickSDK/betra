@@ -38,17 +38,17 @@
 
 .user-profile-image {
     width: 100%;
-    max-height: 400px;
-    min-height: 300px;
+    height: 100%;
+    max-height: 350px;
     cursor: pointer;
     object-fit: cover;
     transition: all 1s ease;
+    border-radius: 0 0 15px 0;
 }
 
 .profile-image-large {
     width: 100%;
-    max-height: 600px;
-    min-height: 300px;
+    max-height: 1000px;
     object-fit: cover;
     transition: all 1s ease;
     cursor: pointer;
@@ -153,19 +153,49 @@
     background-color: #ccffcc;
 }
 
-.motto-text {
-    font-size: 12px;
-    color: #777;
-    cursor: pointer;
-}
-
-.motto-text:hover {
-    color: #b7121f;
-}
-
 .name-bar {
     max-width: 160px;
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
 }
+
+.glow-button {
+    -webkit-animation: glowing 1300ms infinite;
+    -moz-animation: glowing 1300ms infinite;
+    -o-animation: glowing 1300ms infinite;
+    animation: glowing 1300ms infinite;
+}
+$dark-green: #18b200;
+$light-green: #9df390;
+$green1: #197d0a;
+$green2: #18b200;
+
+@-webkit-keyframes glowing {
+    0% {
+      background-color: $light-green;
+      -webkit-box-shadow: 0 0 3px $light-green;
+    }
+    50% {
+      background-color: $dark-green;
+      -webkit-box-shadow: 0 0 15px $dark-green;
+    }
+    100% {
+      background-color: $light-green;
+      -webkit-box-shadow: 0 0 3px $light-green;
+    }
+  }
+  @keyframes glowing {
+    0% {
+      background-color: $light-green;
+      box-shadow: 0 0 3px $light-green;
+    }
+    50% {
+      background-color: $dark-green;
+      box-shadow: 0 0 15px $dark-green;
+    }
+    100% {
+      background-color: $light-green;
+      box-shadow: 0 0 3px $light-green;
+    }
+  }

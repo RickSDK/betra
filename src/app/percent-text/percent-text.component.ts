@@ -9,6 +9,7 @@ export class PercentTextComponent implements OnInit {
   @Input('label') label: string = '';
   @Input('amount') amount: number = 0;
   @Input('icon') icon: string = '';
+  @Input('img') img: string = '';
   @Input('loadingFlg') loadingFlg: boolean = false;
 
   constructor() { }

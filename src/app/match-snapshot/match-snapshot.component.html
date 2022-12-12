@@ -3,68 +3,95 @@
         [returnFlg]="returnFlg" [distance]="distance">
     </app-profile-top>
 
-    <div style="padding: 5px;" *ngIf="matchUser.matchObj">
+    <div *ngIf="matchUser.matchObj">
         <div [ngClass]="expandBottomFlg?'bottom-expanded':'bottom-collpased'">
             <div *ngIf="showMoreFlg">
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <div class="small-box">
-                                <div class="small-title">Personality</div>
-                                <app-green-check [label]="'Personality Quiz Type'"
-                                    [text1]="matchUser.adventureStableText" [text2]="user.adventureStableText"
-                                    [icon]="'fa fa-user'">
-                                </app-green-check>
-                                <app-green-check [label]="'Politics'" [text1]="matchUser.polyText"
-                                    [text2]="user.polyText" [icon]="'fa fa-university'">
-                                </app-green-check>
-                                <app-green-check [label]="'Wants Kids?'" [text1]="matchUser.wantsKids"
-                                    [text2]="user.wantsKids">
-                                </app-green-check>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="small-box">
-                                <div class="small-title">Body</div>
-                                <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc" [text2]="user.bodyDesc"
-                                    [icon]="matchUser.genderIcon">
-                                </app-green-check>
-                                <div style="font-size: 10px;"><b>Race:</b> {{matchUser.race}}</div>
-                                <table width="100%">
-                                    <tr>
-                                        <td>
-                                            Tattoos: <b>{{matchUser.numTattoos}}</b>
-                                        </td>
-                                        <td>
-                                            Piercings: <b>{{matchUser.numPiercings}}</b>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <div *ngIf="showInterestedButtonsFlg" class="small-box" style="text-align: center; font-size: 12px;">
-                    <div *ngIf="matchUser.matchObj">
-                        <table width="100%">
-                            <tr>
-                                <td>
-                                    <app-percent-text [icon]="'fa fa-user'" [label]="'Personality Match'"
-                                        [amount]="personalityMatch" [loadingFlg]="loadingFlg">
-                                    </app-percent-text>
-                                    <app-percent-text [icon]="'fa fa-university'" [label]="'Politics Match'"
-                                        [amount]="polyMatch" [loadingFlg]="loadingFlg">
-                                    </app-percent-text>
-                                </td>
-                                <td>
-                                    <app-percent-text [icon]="'fa fa-star'" [label]="'Profile Match'"
-                                        [amount]="profileMatch" [loadingFlg]="loadingFlg">
-                                    </app-percent-text>
-                                    <app-percent-text [icon]="'fa fa-heart'" [label]="'Overall Match'"
-                                        [amount]="totalMatch" [loadingFlg]="loadingFlg"></app-percent-text>
-                                </td>
-                            </tr>
-                        </table>
+                <div style="display: inline-block; width: 100%; max-width: 540px;">
+
+                    <table>
+                        <tr>
+                            <td width="100%" style="text-align: center;">
+                                <div class="motto-text" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp;
+                                    <b>{{user.motto}}</b>
+                                </div>
+                                <div class="motto-text" title="Looking for"><i class="fa fa-eye"></i>&nbsp;
+                                    <b>{{user.story}}</b>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <div class="small-box" style="font-size: 12px;">
+                                    <div class="small-title">Personality</div>
+                                    <app-green-check [label]="'Personality Quiz Type'"
+                                        [text1]="matchUser.adventureStableText" [text2]="user.adventureStableText"
+                                        [img]="'assets/images/personality.png'">
+                                    </app-green-check>
+                                    <app-green-check [label]="'Politics'" [text1]="matchUser.polyText"
+                                        [text2]="user.polyText" [icon]="'fa fa-university'">
+                                    </app-green-check>
+                                    <div title="Astrological Sign">
+                                        <span class="profile-icon"><i class="fa fa-star"></i></span>
+                                        <span class="profile-text"> {{matchUser.astrologicalSign}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="small-box" style="font-size: 12px;">
+                                    <div class="small-title">Body</div>
+                                    <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc"
+                                        [text2]="user.bodyDesc" [img]="'assets/images/bodyType.png'">
+                                    </app-green-check>
+                                    <!--[icon]="matchUser.genderIcon" -->
+                                    <div title="Race">
+                                        <span class="profile-icon"><i class="fa fa-user"></i></span>
+                                        <span class="profile-text"> {{matchUser.race}}</span>
+                                    </div>
+                                    <table width="100%">
+                                        <tr>
+                                            <td title="tattoos">
+                                                <span class="profile-icon"><img src="assets/images/tattoo.png"
+                                                        height="18"></span>
+                                                <span class="profile-text"> {{matchUser.numTattoos}}</span>
+                                            </td>
+                                            <td title="piercings">
+                                                <span class="profile-icon"><img src="assets/images/piercing.png"
+                                                        height="18"></span>
+                                                <span class="profile-text"> {{matchUser.numPiercings}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div *ngIf="showInterestedButtonsFlg" class="small-box"
+                        style="text-align: center; font-size: 12px;">
+                        <div *ngIf="matchUser.matchObj">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <app-percent-text [label]="'Personality Mt'" [amount]="personalityMatch"
+                                            [loadingFlg]="loadingFlg" [img]="'assets/images/personalityMatch.png'">
+                                        </app-percent-text>
+                                        <app-percent-text [img]="'assets/images/politicsMatch.png'"
+                                            [label]="'Politics Match'" [amount]="polyMatch" [loadingFlg]="loadingFlg">
+                                        </app-percent-text>
+                                    </td>
+                                    <td>
+                                        <app-percent-text [img]="'assets/images/profileMatch.png'"
+                                            [label]="'Profile Match'" [amount]="profileMatch" [loadingFlg]="loadingFlg">
+                                        </app-percent-text>
+                                        <app-percent-text [img]="'assets/images/totalMatch.png'"
+                                            [label]="'Overall Match'" [amount]="totalMatch" [loadingFlg]="loadingFlg">
+                                        </app-percent-text>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -144,13 +171,7 @@
                     to the
                     person's dating pool.
                 </div>
-                <div *ngIf="showInterestedButtonsFlg && !youAreInterestedFlg && user.ownerFlg"
-                    style="background-color: #ccc; color: #900;">
-                    As an owner, it's important for you to say 'Yes' to a bunch of people to test out the features. Even
-                    if you
-                    are not currently single, go ahead and test out features.
-                    Feel free to send Rick your feedback about the dating pools once you have a full pool of matches.
-                </div>
+
                 <div *ngIf="showInterestedButtonsFlg && !youAreInterestedFlg">
                     <div *ngIf="matchUser.matchObj.match_interested == 'Y' && matchUser.matchObj.match_level == 1"
                         class="dark-blue-box" style="text-align: center;"><i class="fa fa-heart"
@@ -171,12 +192,17 @@
                             </td>
                         </tr>
                     </table>-->
-                    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
                 </div>
-
             </div>
-
+            <div *ngIf="showMoreFlg && showInterestedButtonsFlg && !youAreInterestedFlg && user.ownerFlg"
+                style="background-color: #ccc; color: #900;">
+                As an owner, it's important for you to say 'Yes' to a bunch of people to test out the features. Even
+                if you
+                are not currently single, go ahead and test out features.
+                Feel free to send Rick your feedback about the dating pools once you have a full pool of matches.
+            </div>
         </div>
 
     </div>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>

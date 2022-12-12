@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile" [pageTitle]="'Users'"
-    [headerObj]="headerObj">
+    [headerObj]="headerObj" [userStatus]="userStatus">
 
     <div class="btn-group" role="group" aria-label="Menu">
         <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"

@@ -1,4 +1,4 @@
-<div class="signup-box" *ngIf="optionNum<=2">
+<div id="signup-box" class="signup-box" *ngIf="!optionNum || optionNum<=2" [style.top]="optionNum==1?'80px':'220px'">
     <div class="top-title">
         Sign up now!
     </div>
@@ -21,7 +21,7 @@
             <p style="font-size: 12px; text-align: left;">Betra is the next generation of dating apps
                 geared towards the internet generation. It's the
                 newest, smartest and most fun way to date.</p>
-            <div *ngIf="0" class="main-option" (mousedown)="option1Flg = !option1Flg">
+            <!--<div *ngIf="0" class="main-option" (mousedown)="option1Flg = !option1Flg">
                 <div class="main-item">
                     <i [ngClass]="ngClassBox(option1Flg)"></i> Find Love
                 </div>
@@ -45,7 +45,7 @@
                     <i class="fa fa-money"></i> Your new side gig! Are you friendly and like to talk?
                     Get paid to meet people for coffee. Not a romantic date, just interesting conversation.
                 </div>
-            </div>
+            </div>-->
             <button (mousedown)="pressGetStartedButton()" class="btn red-button"
                 [disabled]="!option1Flg && !option2Flg && !option3Flg">Get Started!</button>
         </div>
@@ -54,7 +54,7 @@
                 <button *ngIf="showLoginButtonFlg" class="btn btn-primary" (click)="facebookSignin()"><i
                         class="fa fa-facebook-square"></i> Continue with Facebook</button>
             </div>
-            <div *ngIf="0">
+            <!--<div *ngIf="0">
                 <div class="tiny-text">Birth Date</div>
                 <div style="text-align: center;">
                     <select name="month" id="month">
@@ -90,7 +90,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div>-->
 
             <div class="tiny-text">First Name</div>
             <app-first-name-input (messageEvent)="valueChanged()">
@@ -112,7 +112,9 @@
                     </td>
                 </tr>
             </table>
-
+            <div style="text-align: center;">
+                <a [routerLink]="['']" [queryParams]="{login: 1}" class="text-link">Already have an account?</a>
+            </div>
         </div>
 
         <div *ngIf="optionNum==2">
@@ -128,7 +130,6 @@
                 <div>Congratulations! You have started your journey. Click the button below to continue.</div>
                 <button (mousedown)="okPressed()" class="btn red-button" [disabled]="false">Continue!</button>
             </div>
-
         </div>
 
     </div>

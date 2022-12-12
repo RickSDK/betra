@@ -6,7 +6,7 @@
     </div>
     <div *ngIf="messages.length==6" (mousedown)="loadMessages(true)" class="text-link" style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">
-        <div *ngFor="let message of messages">
+        <div *ngFor="let message of messages" style="display: block; min-height: 40px;">&nbsp;
 
             <div [ngClass]="ngClassMessage(message.user_id)" (mousedown)="selectMessage(message.id)">
                 <button (mousedown)="deleteCurrentText()" class="btn btn-danger" *ngIf="message.id==selectedMessage"><i

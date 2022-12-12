@@ -66,6 +66,7 @@ function getDateObjFromJSDate(dateStr = '') {
         secondsAgo: parseInt(timeDiff / 1000),
         daysAgo: daysAgo,
         day: dt.getDay(),
+        dayOfMonth: dt.getDate(),
         dayOfWeek: dayOfWeek(dt.getDay()),
         distanceAway: distanceAway,
         lastLoginColor: lastLoginColorFromDaysAgo(daysAgo, parseInt(timeDiff / 1000))

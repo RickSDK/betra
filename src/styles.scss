@@ -7,30 +7,36 @@ $dark-blue: #2a3a46;
 body {
     background-color: #eee !important;
 }
+
 .red-text {
     color: $dark-red;
     font-weight: 700;
 }
+
 .gray-text {
     color: gray;
     font-size: 12px;
 }
+
 .small-box {
     background-color: #f7f7f7;
     border-radius: 5px;
     padding: 3px;
     margin: 2px;
 }
+
 .dark-red-box {
     background-color: $dark-red;
     color: white;
     padding: 20px;
 }
+
 .dark-tan-box {
     background-color: $medium-tan;
     color: white;
     padding: 20px;
 }
+
 .tan-box {
     background-color: #ffffc0;
     padding: 20px;
@@ -38,6 +44,7 @@ body {
     border-radius: 5px;
     box-shadow: 1px 1px 10px gray;
 }
+
 .hyper-link {
     text-align: center;
     cursor: pointer;
@@ -46,34 +53,39 @@ body {
 
 .icon-label {
     transition: ease-in-out all .4s;
-    position: absolute; 
-    margin-left: -70px; 
-    margin-top: 40px; 
-    width: 80px; 
-    background-color: #b7121f; 
-    color: white; 
-    text-align: center; 
-    font-size: 10px; 
+    position: absolute;
+    margin-left: -70px;
+    margin-top: 40px;
+    width: 80px;
+    background-color: #b7121f;
+    color: white;
+    text-align: center;
+    font-size: 10px;
     border-radius: 5px;
     opacity: 0;
 }
+
 .menu-circle:hover .icon-label {
     opacity: 1;
 }
+
 .hyper-link:hover {
     text-decoration: underline;
 }
+
 .dark-blue-box {
     background-color: $dark-blue;
     color: white;
     padding: 20px;
 }
+
 .title-highlight {
     background-color: $dark-red;
     color: white;
     border-radius: 5px;
     text-align: center;
 }
+
 .standard-card {
     display: inline-block;
     background-color: white;
@@ -83,15 +95,18 @@ body {
     width: 100%;
     max-width: 420px;
 }
+
 .error-message {
     text-align: center;
     background-color: #ffffc0;
     color: #b7121f;
     border-radius: 5px;
-    font-weight: 700;;
+    font-weight: 700;
+    ;
     padding: 10px;
     box-shadow: 2px 2px 7px gray;
 }
+
 .match-card {
     display: inline-block;
     background-color: #fff;
@@ -102,44 +117,51 @@ body {
     overflow: hidden;
     transition: all 1s ease;
 }
+
 .open-card {
     margin-top: 20px;
     margin-bottom: 20px;
     transition: all 1s ease;
 }
+
 .title-bar {
     background-color: #ccc;
     font-weight: 800;
     text-align: center;
 }
+
 .shaded-border-box {
     background-color: #ffffc0;
     border: 1px solid gray;
     border-radius: 5px;
-    display: inline-block; 
+    display: inline-block;
     text-align: left;
     overflow: hidden;
 }
+
 .border-box {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 5px;
 }
+
 .purple-text {
-    font-size: 10px; 
-    text-align: center; 
+    font-size: 10px;
+    text-align: center;
     color: #88c;
 }
+
 .profile-image {
     width: 100%;
     max-width: 190px;
     height: 280px;
     border-radius: 5px;
     box-shadow: 2px 2px 4px #999;
-    object-fit: cover; 
+    object-fit: cover;
     cursor: pointer;
     transition: all 1s ease;
 }
+
 .text-highlight {
     background-color: #fee;
     padding-left: 5px;
@@ -148,6 +170,7 @@ body {
     border-top: 1px solid #aaa;
     border-left: 1px solid #aaa;
 }
+
 .matches-card {
     background-color: #fff;
     box-shadow: 1px 1px 10px gray;
@@ -156,22 +179,26 @@ body {
     overflow: hidden;
     padding: 10px;
 }
+
 .large-img {
     width: 148px;
     height: 148px;
     border-radius: 50%;
     object-fit: cover;
 }
+
 .large-img:hover {
     box-shadow: 2px 2px 10px gray;
     cursor: pointer;
 }
+
 .brown-box {
     background-color: $lite-blue-color;
     border-radius: 5px;
     border: 1px solid black;
     padding: 5px;
 }
+
 .betra-popup {
     background-color: $lite-blue-color;
     display: inline-block;
@@ -185,40 +212,50 @@ body {
     border: 1px solid black;
     padding: 0;
 }
+
 .inside-box {
     padding: 10px;
 }
+
 .top-title {
     background-color: #b7121f;
     color: white;
     text-align: center;
 }
+
 .red-button {
     background-color: #b7121f;
     color: white;
     width: 100%;
     height: 60px;
 }
+
 .red-button:hover {
-    background-color: red;;
+    background-color: red;
+    ;
 }
+
 .tiny-text {
     font-size: 10px;
     color: black;
     text-align: left;
 }
+
 .small-gray-text {
     font-size: 12px;
     color: gray;
 }
+
 .betra-checkbox {
     font-size: 38px !important;
     color: black;
     cursor: pointer;
 }
+
 .betra-checkbox:hover {
     color: red;
 }
+
 .more-options {
     font-size: 24px !important;
     color: white;
@@ -227,9 +264,11 @@ body {
     top: 3px;
     right: 5px;
 }
+
 .more-options:hover {
     color: #ccc;
 }
+
 .gray-title {
     background-color: #2a3a46;
     color: white;
@@ -237,6 +276,7 @@ body {
     height: 30px;
     line-height: 30px;
 }
+
 input {
     width: 100%;
     border: 2px solid gray;
@@ -246,23 +286,37 @@ input {
     padding: 20px;
     border-radius: 5px;
 }
+
 select {
     height: 44px;
     background-color: #eee;
     border-radius: 5px;
 }
+
 .background-img {
-    position: fixed; 
-    left:0;
-    top: 0; 
-    width: auto; 
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: auto;
     height: auto;
     min-height: 100%;
-    min-width: 100%; 
+    min-width: 100%;
     opacity: 100;
     transition: all 1s ease;
     z-index: -1;
 }
+
+.profile-icon {
+    width: 25px; 
+    display: inline-block; 
+    text-align: center;
+    font-size: 14px;
+}
+
+.profile-text {
+    font-size: 12px;
+}
+
 .red-circle {
     display: inline-block;
     border: 1px solid white;
@@ -277,55 +331,19 @@ select {
     color: white;
     border-radius: 50%;
 }
+
 .variable-text {
     font-size: 16px;
 }
+
 .text-link {
     font-size: 12px;
     cursor: pointer;
 }
+
 .text-link:hover {
     text-decoration: underline;
 }
-.glow-button {
-    -webkit-animation: glowing 1300ms infinite;
-    -moz-animation: glowing 1300ms infinite;
-    -o-animation: glowing 1300ms infinite;
-    animation: glowing 1300ms infinite;
-}
-$dark-green: #18b200;
-$light-green: #9df390;
-$green1: #197d0a;
-$green2: #18b200;
-
-@-webkit-keyframes glowing {
-    0% {
-      background-color: $light-green;
-      -webkit-box-shadow: 0 0 3px $light-green;
-    }
-    50% {
-      background-color: $dark-green;
-      -webkit-box-shadow: 0 0 15px $dark-green;
-    }
-    100% {
-      background-color: $light-green;
-      -webkit-box-shadow: 0 0 3px $light-green;
-    }
-  }
-  @keyframes glowing {
-    0% {
-      background-color: $light-green;
-      box-shadow: 0 0 3px $light-green;
-    }
-    50% {
-      background-color: $dark-green;
-      box-shadow: 0 0 15px $dark-green;
-    }
-    100% {
-      background-color: $light-green;
-      box-shadow: 0 0 3px $light-green;
-    }
-  }
 
 @media screen and (max-width: 800px) {
     .large-img {
@@ -334,30 +352,41 @@ $green2: #18b200;
         border-radius: 50%;
         object-fit: cover;
     }
+
     .hide-md {
         display: none;
     }
+
     .variable-text {
         font-size: 10px;
     }
- }
- @media screen and (min-width: 801px) {
+}
+
+@media screen and (min-width: 801px) {
     .show-md {
         display: none;
     }
- }
- @media screen and (max-width: 767px) {
+}
+
+@media screen and (max-width: 767px) {
     .hidden-sm {
         display: none;
     }
- }
- @media screen and (max-width: 600px) {
+}
+
+@media screen and (max-width: 600px) {
     .hide-sm {
         display: none;
     }
- }
- @media screen and (max-width: 540px) {
+}
+
+@media screen and (max-width: 540px) {
     .hide-xs {
         display: none;
     }
- }
+}
+@media screen and (max-width: 440px) {
+    .hide-xxs {
+        display: none;
+    }
+}

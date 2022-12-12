@@ -20,6 +20,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public papgeTitle = 'Home';
   public states: any = [];
   public countries: any = [];
+  public login: number = 0;
 
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
@@ -37,13 +38,9 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
         this.user = null;
         this.headerObj.profileCompleteFlg = false;
       }
-      var login = params['login'] || 0;
-      if (login == 1)
-        this.popupNum = 2; // show login
-      if (login == 2)
+      this.login = params['login'] || 0;
+      if (this.login == 2)
         this.logoutUser();
-      if (login == 3)
-        this.popupNum = 1; // cancel login
     })
 
     if (this.user && this.user.status == 'Active') {

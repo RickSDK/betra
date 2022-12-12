@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Notifications'"
-    [userId]="userId" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj">
+    [userId]="userId" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
     <div class="matches-card" *ngIf="user">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div style="background-color: #99c; color: white; border-radius: 5px; font-size: 24px; font-weight: 700;">

@@ -43,6 +43,9 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
 
   }
   pressGetStartedButton() {
+    var e = document.getElementById("signup-box");
+    if(e)
+      e.style.top = "100px";
     this.optionNum = 1;
     this.showLoginButtonFlg = true;
   }

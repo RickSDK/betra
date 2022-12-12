@@ -138,6 +138,7 @@ export class User {
     public flaggedImg: string = '';
     public statsObj: any = null;
     public location: string = '';
+    public astrologicalSign: string = 'Aries';
 
 
     constructor(obj: any) {
@@ -274,7 +275,7 @@ export class User {
         }
 
 
-        var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
+        //var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
 
         this.notifications = Math.round(this.users_interested) + Math.round(this.users_matched) + Math.round(this.questions_asked) + Math.round(this.dates_requested) + Math.round(this.messages_received) + Math.round(this.info_requested);
 
@@ -322,7 +323,11 @@ export class User {
             }
             this.birthdate = items[0];
             this.age = year - this.birthYear;
+            this.astrologicalSign = this.getastrologicalSign(this.birthdate);
+
+            console.log('hey!!', dateObj);
         }
+
 
         this.lastLoginSrc = 'assets/images/blackCircle.png';
         if (this.lastLogin) {
@@ -494,6 +499,82 @@ export class User {
     userObjFromText(line: string) {
         var obj = {};
         return obj;
+    }
+    getastrologicalSign(birthdate: any) {
+        var dateObj = getDateObjFromJSDate(this.birthdate);
+        if (dateObj.mo == 1) {
+            if (dateObj.dayOfMonth < 20)
+                return 'Capricorn';
+            else
+                return 'Aquarius';
+        }
+        if (dateObj.mo == 2) {
+            if (dateObj.dayOfMonth < 19)
+                return 'Aquarius';
+            else
+                return 'Pisces';
+        }
+        if (dateObj.mo == 3) {
+            if (dateObj.dayOfMonth < 21)
+                return 'Pisces';
+            else
+                return 'Aries';
+        }
+        if (dateObj.mo == 4) {
+            if (dateObj.dayOfMonth < 20)
+                return 'Aries';
+            else
+                return 'Taurus';
+        }
+        if (dateObj.mo == 5) {
+            if (dateObj.dayOfMonth < 21)
+                return 'Taurus';
+            else
+                return 'Gemini';
+        }
+        if (dateObj.mo == 6) {
+            if (dateObj.dayOfMonth < 22)
+                return 'Gemini';
+            else
+                return 'Cancer';
+        }
+        if (dateObj.mo == 7) {
+            if (dateObj.dayOfMonth < 23)
+                return 'Cancer';
+            else
+                return 'Leo';
+        }
+        if (dateObj.mo == 8) {
+            if (dateObj.dayOfMonth < 23)
+                return 'Leo';
+            else
+                return 'Virgo';
+        }
+        if (dateObj.mo == 9) {
+            if (dateObj.dayOfMonth < 23)
+                return 'Virgo';
+            else
+                return 'Libra';
+        }
+        if (dateObj.mo == 10) {
+            if (dateObj.dayOfMonth < 23)
+                return 'Libra';
+            else
+                return 'Scorpio';
+        }
+        if (dateObj.mo == 11) {
+            if (dateObj.dayOfMonth < 23)
+                return 'Scorpio';
+            else
+                return 'Sagittarius';
+        }
+        if (dateObj.mo == 12) {
+            if (dateObj.dayOfMonth < 22)
+                return 'Sagittarius';
+            else
+                return 'Capricorn';
+        }
+        return 'Unknown';
     }
 }
 function betraImageFromId(user_id: number, profilePic: number, gender: string, picFlagged: number) {

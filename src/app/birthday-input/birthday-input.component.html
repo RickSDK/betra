@@ -12,7 +12,7 @@
             <input (input)="verifyYear()" type="text" name="year" id="year" [value]="year" size="5" maxLength="4"
                 placeholder="yyyy">
         </td>
-        <td align="center">
+        <td align="center" class="hide-md">
             <div class="gray-text" *ngIf="!errorMessage">age: {{age}}</div>
         </td>
     </tr>

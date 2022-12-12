@@ -68,6 +68,7 @@ export class BaseComponent implements OnInit {
   loadUserObj() {
     this.user = null;
     this.userId = localStorage['user_id'] || 0;
+    this.userStatus = '';
     this.popupNum = 1;
     console.log('+++ loading this user: ', this.userId);
     if (this.userId > 0) {

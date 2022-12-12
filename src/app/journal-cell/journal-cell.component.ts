@@ -9,8 +9,12 @@ export class JournalCellComponent implements OnInit {
   @Input('journal') journal: any = null;
   @Input('index') index: number = 0;
   @Input('postId') postId: number = 0;
+  @Input('imgSrc') imgSrc: string = '';
+  
 
   @Output() messageEvent = new EventEmitter<any>();
+
+  public replyToFlg: boolean = false;
 
   constructor() { }
 
