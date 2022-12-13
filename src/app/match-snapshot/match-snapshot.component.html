@@ -48,7 +48,7 @@
                                     <!--[icon]="matchUser.genderIcon" -->
                                     <div title="Race">
                                         <span class="profile-icon"><i class="fa fa-user"></i></span>
-                                        <span class="profile-text"> {{matchUser.race}}</span>
+                                        <span class="profile-text"><span *ngIf="matchUser.race == 'Other'">Race:</span> {{matchUser.race}}</span>
                                     </div>
                                     <table width="100%">
                                         <tr>
@@ -162,10 +162,7 @@
                 </div>
                 <button *ngIf="0" class="btn btn-primary" (mousedown)="actionButtonClicked('nextProfile')">Next
                     Profile</button>
-                <!--<div *ngIf="matchMadeFlg" [routerLink]="['/matches']" class="dark-red-box"
-                    style="background-image: url('assets/images/love.jpg'); cursor: pointer;">
-                    <div style="font-size: 40px;"><i class="fa fa-heart"></i>&nbsp;<b>Match Made!</b></div>
-                </div>-->
+
                 <div *ngIf="matchUser.matchObj.match_interested == 'B'" class="dark-blue-box">
                     You are on this person's back burner. You will not be able to communicated unless you get upgraded
                     to the
@@ -179,27 +176,8 @@
                         {{matchUser.firstName}} is interested in
                         you!
                     </div>
-                    <!--<table *ngIf="!loadingFlg" width="100%">
-                        <tr>
-                            <td width="50%">
-                                <button (mousedown)="actionButtonClicked('noToMatch')" class="btn yellow-button">
-                                    No Thanks
-                                </button>
-                            </td>
-                            <td>
-                                <button (mousedown)="actionButtonClicked('yesToMatch')"
-                                    class="btn green-button glow-button">Yes!</button>
-                            </td>
-                        </tr>
-                    </table>-->
+
                 </div>
-            </div>
-            <div *ngIf="showMoreFlg && showInterestedButtonsFlg && !youAreInterestedFlg && user.ownerFlg"
-                style="background-color: #ccc; color: #900;">
-                As an owner, it's important for you to say 'Yes' to a bunch of people to test out the features. Even
-                if you
-                are not currently single, go ahead and test out features.
-                Feel free to send Rick your feedback about the dating pools once you have a full pool of matches.
             </div>
         </div>
 

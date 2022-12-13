@@ -164,29 +164,31 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
 
-      this.logUser();
+      //this.logUser();
 
-      if(this.messagesModal)
+      if (this.messagesModal)
         this.messagesModal.populateModal(this.matchUser);
 
-
-      setTimeout(() => {
-        this.calculatingStatsFlg = false;
+      if (this.matchSnapshotModal) {
+        this.matchSnapshotModal.ngOnInit();
         this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
-      }, 1500);
+      } else {
+        console.log('no!!!');
+        /*setTimeout(() => {
+          this.calculatingStatsFlg = false;
+          this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
+        }, 1500);*/
+      }
     }
     if (responseJson.action == "yesToMatch" && responseJson.action2 == "match made") {
-      // console.log('xxx refresh made!');
-      // this.refreshUserObj(responseJson.user);
-      // this.loadThisUser();
     }
     if (responseJson.action == 'confirmPic' || responseJson.action == 'rejectPic') {
       this.showFakePicOptionsFlg = false;
       this.currentProfileIndex++;
       this.showCurrentProfile();
     }
-
   }
+
   showCurrentProfile() {
     console.log('showCurrentProfile', this.playerList.length, this.currentProfileIndex);
     if (this.playerList.length > this.currentProfileIndex) {
@@ -194,18 +196,22 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.matchUser = this.playerList[this.currentProfileIndex];
       setTimeout(() => {
         if (this.matchUser) {
-          if(this.messagesModal)
+          if (this.messagesModal)
             this.messagesModal.populateModal(this.matchUser);
-          this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null, true);
+          if (this.matchSnapshotModal) {
+            this.matchSnapshotModal.ngOnInit();
+            this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null, true);
+          }
         }
       }, 500);
+      /*
       setTimeout(() => {
         if (this.matchUser) {
           this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null);
           if(this.messagesModal)
             this.messagesModal.populateModal(this.matchUser);
         }
-      }, 1500);
+      }, 1500);*/
     } else {
       this.matchUser = null;
     }

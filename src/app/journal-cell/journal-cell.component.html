@@ -1,4 +1,4 @@
-<div class="matches-card" *ngIf="journal">
+<div [ngClass]="level==1?'matches-card':'reply-card'" *ngIf="journal">
     <table width="100%">
         <tr>
             <td align="right">
@@ -6,38 +6,55 @@
                     class="profile-circle-small">
             </td>
             <td width="100%">
-                <div>{{journal.firstName}}
-                    <span class="three-dots"><i class="fa fa-ellipsis-v"></i></span>
+                <div style="position: relative;">{{journal.firstName}}
+                    <span (mousedown)="showOptionsFlg=!showOptionsFlg" class="three-dots"><i
+                            class="fa fa-ellipsis-v"></i></span>
+                    <span *ngIf="showOptionsFlg" class="three-dots-menu">
+                        <div (mousedown)="menuOptionPressed('flagJournal')" class="three-dots-menu-option">Report</div>
+                        <div *ngIf="userId==1" (mousedown)="menuOptionPressed('deleteJournal')"
+                            class="three-dots-menu-option">Delete</div>
+                    </span>
                 </div>
                 <div style="font-size: 10px; color: gray;">{{journal.localDt}}</div>
             </td>
         </tr>
     </table>
     <div style="text-align: left; font-size: 12px; color: gray;">
-        <i class="fa fa-thumbs-up" style="color: rgb(11, 98, 248);"></i>&nbsp;0
-        <span (mousedown)="replyTo(journal)" *ngIf="journal.replies==1" class="text-link"
+        <i class="fa fa-thumbs-up" style="color: rgb(60, 158, 114);"></i>&nbsp;{{journal.likes}}&nbsp;
+        <i class="fa fa-thumbs-down" style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;
+        <i *ngIf="journal.postFlagged" class="fa fa-flag" style="color: orange;"></i>
+        <span (mousedown)="toggleReplies()" *ngIf="journal.replies==1" class="text-link"
             style="color: gray; float: right;">{{journal.replies}} comment</span>
-        <span (mousedown)="replyTo(journal)" *ngIf="journal.replies>1" class="text-link"
+        <span (mousedown)="toggleReplies()" *ngIf="journal.replies>1" class="text-link"
             style="color: gray; float: right;">{{journal.replies}} comments</span>
     </div>
-    <div class="betra-cell">
+    <div [ngClass]="level>1?'reply-post':'main-post'">
         <div [innerHTML]="journal.message"></div>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
-        <span class="text-link">Like</span>&nbsp;
-        <span class="text-link">Dislike</span>&nbsp;
-        <span (mousedown)="replyToFlg=!replyToFlg" class="text-link">Reply</span>&nbsp;
+        <span (mousedown)="menuOptionPressed('likePost')" class="text-link">Like</span>&nbsp;
+        <span (mousedown)="menuOptionPressed('dislikePost')" class="text-link">Dislike</span>&nbsp;
+        <span (mousedown)="toggleReply();" class="text-link">Reply</span>&nbsp;
     </div>
+
     <table *ngIf="replyToFlg" width="100%">
         <tr>
             <td>&nbsp;&nbsp;</td>
-            <td>
+            <td valign="top" style="padding-top: 8px;">
                 <img [routerLink]="['/user-detail']" [queryParams]="{uid: journal.user_id}" [src]="imgSrc"
                     class="profile-circle-small">
             </td>
-            <td width="100%">
-                <input type="text">
+            <td width="100%" valign="top">
+                <input id="replyInputText" name="replyInputText" type="text" (keyup.enter)="sumbitReply()"
+                    (input)="inputValueChanged($event)" maxLength="150">
+                <span style="font-size: 8px; color: gray; float: right;">{{strLength}}/150</span>
+            </td>
+            <td valign="top" style="padding-top: 3px;">
+                <button (mousedown)="sumbitReply()" class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
             </td>
         </tr>
     </table>
+    <app-journal-cell *ngFor="let reply of replies; let i = index;" [journal]="reply" [index]="i" [userId]="userId" [level]="level" [imgSrc]="imgSrc">
+    </app-journal-cell>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>

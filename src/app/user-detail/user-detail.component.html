@@ -70,8 +70,8 @@
     </div>
 
     <div *ngIf="matchUser && matchUser.matchObj">
- 
-        <app-user-reviews [myUser]="user" [matchUser]="matchUser">
+
+        <app-user-reviews *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user" [matchUser]="matchUser">
         </app-user-reviews>
 
         <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">

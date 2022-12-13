@@ -9,7 +9,7 @@
         <table width="100%" *ngIf="responseJson">
             <tr>
                 <td>
-                    <div class="tiny-text" style="text-align: center;"><b *ngIf="menuNum==0">Most liked Men</b><b *ngIf="menuNum==1">Newest Men</b></div>
+                    <div class="tiny-text" style="text-align: center;"><b>Men</b></div>
                     <table align="center" style="font-size: 12px;">
                         <tr *ngFor="let person of responseJson.topMen; let i =index">
                             <td style="color: #ccc;">{{i+1}}</td>
@@ -24,7 +24,7 @@
                     </table>
                 </td>
                 <td>
-                    <div class="tiny-text" style="text-align: center;"><b *ngIf="menuNum==0">Most Liked Women</b><b *ngIf="menuNum==1">Newest Women</b></div>
+                    <div class="tiny-text" style="text-align: center;"><b>Women</b></div>
                     <table align="center" style="font-size: 12px;">
                         <tr *ngFor="let person of responseJson.topWomen; let i =index">
                             <td style="color: #ccc;">{{i+1}}</td>

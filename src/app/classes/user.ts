@@ -139,6 +139,7 @@ export class User {
     public statsObj: any = null;
     public location: string = '';
     public astrologicalSign: string = 'Aries';
+    public numReviews: number = 0;
 
 
     constructor(obj: any) {
@@ -242,6 +243,7 @@ export class User {
             this.ownerFlg = obj.ownerFlg && obj.ownerFlg == 'Y';
             this.ownerLevel = obj.ownerLevel || 0;
             this.picFlagged = obj.picFlagged || 0;
+            this.numReviews = obj.numReviews || 0;
 
             if (this.picFlagged > 0) {
                 this.flaggedImg = betraImageFromId(this.user_id, this.profilePic, '', 0);
@@ -325,7 +327,6 @@ export class User {
             this.age = year - this.birthYear;
             this.astrologicalSign = this.getastrologicalSign(this.birthdate);
 
-            console.log('hey!!', dateObj);
         }
 
 

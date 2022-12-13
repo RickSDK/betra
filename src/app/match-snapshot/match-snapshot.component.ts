@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { ProfileTopComponent } from '../profile-top/profile-top.component';
 
 @Component({
   selector: 'app-match-snapshot',
@@ -6,6 +7,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./match-snapshot.component.scss']
 })
 export class MatchSnapshotComponent implements OnInit {
+  @ViewChild(ProfileTopComponent) profileTopComponent: ProfileTopComponent = new (ProfileTopComponent);
+
   @Input('matchUser') matchUser: any = null;
   @Input('user') user: any = null;
   @Input('loadingFlg') loadingFlg: boolean = false;
@@ -38,6 +41,10 @@ export class MatchSnapshotComponent implements OnInit {
     this.showMoreOptionsFlg = (this.user.datingPool.length > 8);
     this.showMoreFlg = (this.user.datingPool.length > 8);
     this.expandBottomFlg = (this.user.datingPool.length > 8);
+
+    if(this.profileTopComponent) {
+      this.profileTopComponent.ngOnInit();
+    }
   }
 
   buttonPressed(action: string) {
@@ -54,6 +61,8 @@ export class MatchSnapshotComponent implements OnInit {
     }
   }
   calculateMatches(user: any, matchUser: any, matchObj: any, initflg: boolean = false) {
+    console.log('+++calculateMatches+++');
+
     this.calculateDistance(matchUser, user);
     this.matchObj = matchObj;
     if (!this.matchUser.matchObj)

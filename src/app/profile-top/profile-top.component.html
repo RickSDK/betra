@@ -51,13 +51,13 @@
                                 <img [src]="'assets/images/kids.png'" height="15">
                             </span>
                             <span title="Has kids" class="profile-text">
-                                <sup *ngIf="0 && myUser.kidsNum==user.numKids"><i class="fa fa-check"
+                                <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i class="fa fa-check"
                                         style="color: #00cc00;"></i></sup>
                                 {{user.numKids}}
                             </span>&nbsp;
                             <img [src]="'assets/images/kids2.png'" title="Wants kids" height="15" style="margin-right: 4px;">
                             <span title="Wants kids">
-                                <sup *ngIf="myUser.wantsKids==user.wantsKids"><i class="fa fa-check"
+                                <sup *ngIf="myUser.wantsKids==user.wantsKids" class="hide-xs"><i class="fa fa-check"
                                         style="color: #00cc00;"></i></sup>
                                 <span *ngIf="user.wantsKids != 'Does Not Matter'" style="font-size: 10px;">{{user.wantsKids}}</span>
                                 <span *ngIf="user.wantsKids == 'Does Not Matter'"><i class="fa fa-question"></i></span>

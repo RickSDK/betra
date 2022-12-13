@@ -7,7 +7,7 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./top-lists.component.scss']
 })
 export class TopListsComponent extends BaseComponent implements OnInit {
-  public override topButtons = ['Most Liked', 'Newest'];
+  public override topButtons = ['Most Liked', 'Newest', 'Most Recent'];
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -25,7 +25,7 @@ export class TopListsComponent extends BaseComponent implements OnInit {
   }
   selectMenu(num: number) {
     this.menuNum = num;
-    var actions = ['getStats', 'getNewestUsers'];
+    var actions = ['getStats', 'getNewestUsers', 'getRecentUsers'];
     this.getTop10List(actions[num]);
   }
 

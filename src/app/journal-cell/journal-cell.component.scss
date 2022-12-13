@@ -3,6 +3,7 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: 50% 30%;
     cursor: pointer;
     box-shadow: 2px 2px 10px gray;
     float: left;
@@ -12,6 +13,26 @@
 .matches-card {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+.reply-card {
+    margin-left: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.main-post {
+    font-size: 12px;
+    text-align: left;
+    padding: 5px;
+}
+
+.reply-post {
+    font-size: 12px;
+    text-align: left;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 5px;;
 }
 
 .profile-circle:hover {
@@ -23,6 +44,7 @@
     height: 30px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: 50% 30%;
     cursor: pointer;
     box-shadow: 2px 2px 10px gray;
 }
@@ -41,6 +63,27 @@
 .three-dots:hover {
     background-color: #ccc;
     color: black;
+}
+
+.three-dots-menu {
+    display: inline-block;
+    position: absolute;
+    z-index: 200;
+    top: 25px;
+    right: 0;
+    color: gray;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px gray;
+    cursor: pointer;
+}
+
+.three-dots-menu-option {
+    padding: 8px;
+}
+
+.three-dots-menu-option:hover {
+    background-color: #ddd;
 }
 
 .profile-circle-small:hover {
@@ -84,4 +127,5 @@
 input {
     background-color: #eee;
     width: 100%;
+    border: 1px solid #ccc;
 }

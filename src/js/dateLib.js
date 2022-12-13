@@ -107,7 +107,7 @@ function lastLoginColorFromDaysAgo(daysAgo, secondsAgo) {
     if (daysAgo <= 7)
         lastLoginColor = 'orange';
     if (daysAgo <= 2)
-        lastLoginColor = 'yellow';
+        lastLoginColor = 'blue';
     if (daysAgo == 0)
         lastLoginColor = 'cyan';
     if (secondsAgo <= 15 * 60) {

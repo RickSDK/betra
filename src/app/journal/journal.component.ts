@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { Journal } from '../classes/journal';
 
 declare var $: any;
 
@@ -27,17 +28,18 @@ export class JournalComponent extends BaseComponent implements OnInit {
       action: "getJournals"
     };
     console.log(params);
-    this.executeApi('betraReviews.php', params, true);
+    this.executeApi('journal.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == 'getJournals' || responseJson.action == 'postJournalReply') {
       this.selectedJournal = null;
-      this.journalList = responseJson.itemArray;
-      this.journalList.forEach((element: any) => {
-        element.src = this.betraImageFromId(element.user_id, element.profilePic);
-        element.localDt = this.localDateFrommySqlDate(element.created);
+      this.journalList = [];
+      var journalList: any = [];
+      responseJson.itemArray.forEach((element: any) => {
+        journalList.push(new Journal(element));
       });
+      this.journalList = journalList;
     }
   }
   submitButtonPressed() {
@@ -51,7 +53,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
       action: "postJournal"
     };
     console.log(params);
-    this.executeApi('betraReviews.php', params, true);
+    this.executeApi('journal.php', params, true);
   }
   replyButtonPressed() {
     this.showFormFlg = false;
@@ -66,7 +68,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
       action: "postJournal"
     };
     console.log('replyButtonPressed', params);
-    this.executeApi('betraReviews.php', params, true);
+    this.executeApi('journal.php', params, true);
   }
   createNewEntry() {
     this.postId = 0;
@@ -95,7 +97,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
         action: "getJournals"
       };
       console.log(params);
-      this.executeApi('betraReviews.php', params, true);
+      this.executeApi('journal.php', params, true);
     }
   }
 }

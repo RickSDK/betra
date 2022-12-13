@@ -44,17 +44,19 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   constructor() { super(); }
 
   override ngOnInit(): void {
-    super.ngOnInit();
+    //super.ngOnInit();
     this.populateModal(this.matchUser);
   }
   populateModal(matchUser: any) {
     console.log('populate modal');
+    this.messages = [];
     this.matchUser = matchUser;
 
     this.firstName = this.matchUser.firstName;
 
     if (this.matchUser && this.matchUser.matchObj) {
       this.checkTextFlags();
+
       if (this.matchUser.matchObj.match_level > 2)
         this.loadMessages();
     }
@@ -68,13 +70,13 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (this.matchUser.matchObj.match_level > 4)
       this.showTextInputFlg = true;
   }
-  loadMessages(loadMoreFlg:boolean = false) {
+  loadMessages(loadMoreFlg: boolean = false) {
     this.messages = [];
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
       uid: this.matchUser.user_id,
-      loadMoreFlg: (loadMoreFlg)?'Y':'',
+      loadMoreFlg: (loadMoreFlg) ? 'Y' : '',
       action: "readMessages"
     };
     console.log(params);
@@ -89,7 +91,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         var dt = getDateObjFromJSDate(message.created);
         if (!message.readDt)
           showDetailsFlg = true;
-        if (message.uid == this.user.user_id && !message.readDt)
+        if (message.uid == this.myUser.user_id && !message.readDt)
           this.unreadMessagesFlg = true;
         message.name = (message.user_id == this.myUser.user_id) ? this.myUser.firstName : this.matchUser.firstName;
         message.local = dt.local;
@@ -104,7 +106,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         this.headerObj.messageCount = responseJson.messageCount;
       }
 
-      this.messages.sort((a:any, b:any) => {
+      this.messages.sort((a: any, b: any) => {
         return a.id - b.id;
       });
     }

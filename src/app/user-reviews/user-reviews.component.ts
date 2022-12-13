@@ -21,6 +21,7 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   override ngOnInit(): void {
+    this.reviewList = [];
   }
   
   openReviewPanel() {

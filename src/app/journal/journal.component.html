@@ -2,17 +2,19 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
     <div class="matches-card" *ngIf="user">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div class="border-box">
-            Part of the vision of <span class="red-text">Betra</span> is about people helping people. Feel free to journal here about your dating experiences, hopes or expectations.
+        <div class="border-box" style="font-size: 12px;">
+            Part of the vision of <span class="red-text">Betra</span> is about people helping people. Feel free to
+            journal here about your dating experiences, hopes or expectations.
             Others can comment or give advice. It's fun and it's helpful because we are all in this together.
         </div>
-        <button *ngIf="postId==0" (mousedown)="createNewEntry()"
-            class="btn btn-light bordered-button">Create journal entry</button>
+        <button *ngIf="postId==0" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create journal
+            entry</button>
         <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
             to top</button>
- 
+
         <div *ngIf="selectedJournal">
-            <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId">
+            <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"
+                [userId]="userId">
             </app-journal-cell>
         </div>
 
@@ -24,10 +26,8 @@
             <app-text-area-input [id]="'journalText'"></app-text-area-input>
             <div>
                 <button (mousedown)="cancelButtonPressed()" class="btn btn-warning">Cancel</button>&nbsp;
-                <button *ngIf="postId==0" (mousedown)="submitButtonPressed()"
-                    class="btn btn-primary">Submit</button>
-                <button *ngIf="postId>0" (mousedown)="replyButtonPressed()"
-                    class="btn btn-primary">Reply</button> 
+                <button *ngIf="postId==0" (mousedown)="submitButtonPressed()" class="btn btn-primary">Submit</button>
+                <button *ngIf="postId>0" (mousedown)="replyButtonPressed()" class="btn btn-primary">Reply</button>
             </div>
         </div>
 
@@ -35,7 +35,8 @@
 
     <div *ngIf="!selectedJournal">
         <app-journal-cell (messageEvent)="replyButtonClicked($event)"
-            *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i"  [postId]="postId" [imgSrc]="user.imgSrc"></app-journal-cell>
+            *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
+            [imgSrc]="user.imgSrc" [userId]="userId" [level]="0"></app-journal-cell>
     </div>
 
 </app-page-shell>
