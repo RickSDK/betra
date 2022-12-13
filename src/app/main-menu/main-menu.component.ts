@@ -96,13 +96,17 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "getStateCounts") {
       this.states = responseJson.stateName;
       this.countries = responseJson.countries;
-      this.logUser();
+      var refreshFlg = (this.user && this.user.status == 'Pending')?'Y':'';
+      this.logUser(refreshFlg);
     }
     if (responseJson.action == "logUser") {
       if (this.user && this.user.ip == '')
         this.populateGeoInfo();
-      else
+      else {
         this.syncUserWithLocalStorage(responseJson);
+        if(this.userStatus != 'Active')
+          this.userStatus = this.user.status;
+      }
     }
     if (responseJson.action == 'updateGeoInfo') {
       this.syncUserWithLocalStorage(responseJson);

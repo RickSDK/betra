@@ -4,22 +4,26 @@
     color: black;
     vertical-align: middle;
     height: 60px;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
 }
+
 .top-td {
     height: 60px;
     overflow: hidden;
     white-space: nowrap;
 }
+
 .product-logo {
     font-size: 36px;
     font-weight: 800;
     cursor: pointer;
 }
+
 .product-icon {
     color: #b7121f;
 }
+
 .icon-button {
     color: #b7121f;
     background-color: #ddd;
@@ -30,6 +34,7 @@
     margin-right: 10px;
     cursor: pointer;
 }
+
 .icon-button:hover {
     color: #444;
 }
@@ -39,17 +44,21 @@
     border: 1px solid #b7121f;
     color: black;
 }
+
 .login-button:hover {
     background-color: #ccc;
 }
+
 .hamburger-menu {
     font-size: 32px;
     color: #b7121f;
     cursor: pointer;
 }
+
 .hamburger-menu:hover {
     color: #444;
 }
+
 .profilePic {
     width: 44px;
     max-height: 44px;
@@ -57,15 +66,17 @@
     object-fit: cover;
     cursor: pointer;
 }
+
 .profilePic:hover {
     filter: grayscale(90%);
 }
+
 .main-menu-popup {
     background-color: white;
     display: inline-block;
     position: fixed;
     top: 60px;
-    
+
     width: 100%;
     max-width: 220px;
     border-radius: 10px;
@@ -75,24 +86,29 @@
     text-align: center;
     z-index: 100;
 }
+
 .popup-show {
     opacity: 1;
     right: 10px;
     transition: all 1s ease;
 }
+
 .popup-hide {
-     opacity: 0;
-     right: -220px;
+    opacity: 0;
+    right: -220px;
     transition: all 1s ease;
 }
+
 .main-menu-item {
     padding: 10px;
     cursor: pointer;
 }
+
 .main-menu-item:hover {
     background-color: #b7121f;
     color: white;
 }
+
 .menu-darkener {
     display: block;
     position: fixed;
@@ -104,21 +120,34 @@
     z-index: 99;
     opacity: .5;
 }
+
 .bottom-bar {
     background-color: #2a3a46;
     color: white;
 }
+
+.bottom-bar-sticky {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #2a3a46;
+    color: white; 
+}
+
 .text-link {
     font-size: 12px;
     cursor: pointer;
 }
+
 .text-link:hover {
     text-decoration: underline;
 }
+
 .outer-frame {
     text-align: center;
     width: 100%;
 }
+
 .inner-frame {
     display: inline-block;
     width: 100%;
@@ -126,20 +155,25 @@
     padding-top: 10px;
     padding-bottom: 30px;
 }
+
 .bottom-title {
     font-size: 20px;
 }
+
 .title-highlighted {
     color: rgb(255, 203, 74);
 }
+
 .text-small {
     color: #ccc;
     font-size: 12px;
 }
+
 .big-icon {
     font-size: 32px;
     margin: 5px;
 }
+
 .red-circle {
     display: inline-block;
     border: 1px solid white;
@@ -154,6 +188,7 @@
     color: white;
     border-radius: 50%;
 }
+
 .red-button2 {
     background-color: #b7121f;
     color: white;
@@ -162,17 +197,21 @@
     margin: 2px;
     min-width: 80px;
 }
+
 .red-button2:hover {
     background-color: red;
 }
+
 .show-sm {
     display: none;
 }
+
 @media screen and (max-width: 600px) {
     .show-sm {
         display: block;
     }
 }
+
 @media screen and (min-width: 600px) {
     .hide-md-up {
         display: none;
@@ -183,17 +222,20 @@
     .product-logo {
         font-size: 30px;
     }
+
     .icon-button {
         font-size: 24px;
     }
- }
- @media screen and (max-width: 500px) {
+}
+
+@media screen and (max-width: 500px) {
     .icon-button {
         font-size: 18px;
     }
- }
- @media screen and (min-width: 600px) {
+}
+
+@media screen and (min-width: 600px) {
     .hidden-md {
         display: none;
     }
- }
+}

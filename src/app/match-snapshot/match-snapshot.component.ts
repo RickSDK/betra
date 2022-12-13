@@ -13,8 +13,8 @@ export class MatchSnapshotComponent implements OnInit {
   @Input('user') user: any = null;
   @Input('loadingFlg') loadingFlg: boolean = false;
   @Input('errorMessage') errorMessage: string = '';
+  @Input('distance') distance: string = '';
   @Input('id') id: number = 0;
-  @Input('returnFlg') returnFlg: boolean = false;
   @Input('singleProfileFlg') singleProfileFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
@@ -29,8 +29,6 @@ export class MatchSnapshotComponent implements OnInit {
   public action: string = '';
   public showInterestedButtonsFlg: boolean = false;
   public youAreInterestedFlg: boolean = false;
-  //  public matchMadeFlg: boolean = false;
-  public distance: string = '';
   public showMoreFlg: boolean = false;
   public expandBottomFlg: boolean = false;
 
@@ -52,18 +50,10 @@ export class MatchSnapshotComponent implements OnInit {
     this.showMoreOptionsFlg = false;
     this.showConfirmationFlg = true;
   }
-  calculateDistance(matchUser: any, user: any) {
-    this.distance = '';
-    if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
-      var miles = distanceInKmBetweenEarthCoordinates(user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
-      //console.log('calculateDistance', miles, user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
-      this.distance = parseInt(miles.toString()) + ' miles';
-    }
-  }
+
   calculateMatches(user: any, matchUser: any, matchObj: any, initflg: boolean = false) {
     console.log('+++calculateMatches+++');
 
-    this.calculateDistance(matchUser, user);
     this.matchObj = matchObj;
     if (!this.matchUser.matchObj)
       return;
@@ -134,12 +124,7 @@ export class MatchSnapshotComponent implements OnInit {
     if (this.user.matchHasKids == 'Yes' && this.matchUser.numKids > 0)
       this.user.kidsNum = this.matchUser.numKids;
 
-    if (this.matchUser.state && this.user.state != this.matchUser.state) {
-      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
-    }
-    if (this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
-      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.countryName;
-    }
+
   }
   expandBottom() {
     this.expandBottomFlg = true;
@@ -190,22 +175,4 @@ export class MatchSnapshotComponent implements OnInit {
     this.messageEvent.emit(this.action);
   }
 
-}
-function degreesToRadians(degrees: number) {
-  return degrees * Math.PI / 180;
-}
-
-function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: number, lon2: number) {
-  var earthRadiusKm = 6371;
-
-  var dLat = degreesToRadians(lat2 - lat1);
-  var dLon = degreesToRadians(lon2 - lon1);
-
-  lat1 = degreesToRadians(lat1);
-  lat2 = degreesToRadians(lat2);
-
-  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return earthRadiusKm * c;
 }

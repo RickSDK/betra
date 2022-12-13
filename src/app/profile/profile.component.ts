@@ -131,7 +131,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.cityDisabledFlg = this.user.city && this.user.city.length > 0;
 
     this.route.queryParams.subscribe(params => {
-      this.menuNum = params['num'] || 0;
+      this.menuNum = parseInt(params['num']) || 0;
     });
     //getIPInfo('test', 'test');
     //this.refreshUser();

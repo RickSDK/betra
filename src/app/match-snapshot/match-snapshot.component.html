@@ -1,6 +1,6 @@
 <div class="match-user-card" *ngIf="matchUser && user">
-    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)"
-        [returnFlg]="returnFlg" [distance]="distance">
+
+    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)" [distance]="distance">
     </app-profile-top>
 
     <div *ngIf="matchUser.matchObj">

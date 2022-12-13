@@ -2,12 +2,13 @@
     <div class="top-title">
         <i class="fa fa-heart"></i> Betra - The better way to meet
     </div>
-    <div class="inside-box" *ngIf="user">
-        <div style="font-size: 24px; text-align: center;">Welcome {{user.firstName}}!</div>
+    <div class="inside-box" *ngIf="user" style="text-align: center;">
+        <div style="font-size: 24px;">Welcome {{user.firstName}}!</div>
         <hr>
-        <div>You need to finish setting up your profile before you can start meeting people. This only takes a few minutes.</div>
+        <p>You need to finish setting up your profile.</p>
+        <p><span class="text-highlight">{{user.pendingStatusReason}}</span></p>
         <hr>
-        <button [routerLink]="['/profile']" class="btn red-button">Profile</button>
+        <button [routerLink]="['/profile']" [queryParams]="{num: user.pendingStatusPage}" class="btn red-button">Profile</button>
         <div (mousedown)="logout()" class="hyper-link">logout</div>
     </div>
 

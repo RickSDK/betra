@@ -28,6 +28,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public exceededPoolSizeFlg: boolean = false;
   public showMatchLevelInfoFlg: boolean = false;
   public showFakePicOptionsFlg: boolean = false;
+  public distance: string = '99';
 
 
 
@@ -131,13 +132,12 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.headerObj.admirerCount = responseJson.admirerCount;
       this.headerObj.matchesAlerts = responseJson.matchesAlerts;
       this.headerObj.notifications = responseJson.notifications;
-      if (1) {
-        if (this.id == 4 && responseJson.action == "yesToMatch") {
-          this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
-        } else {
-          this.currentProfileIndex++;
-          this.showCurrentProfile();
-        }
+      if (this.id == 4 && responseJson.action == "yesToMatch") {
+        //--Admirers
+        this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
+      } else {
+        this.currentProfileIndex++;
+        this.showCurrentProfile();
       }
     }
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
@@ -165,20 +165,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.calculatingStatsFlg = true;
 
       //this.logUser();
+      this.displayThisProfile();
 
-      if (this.messagesModal)
-        this.messagesModal.populateModal(this.matchUser);
-
-      if (this.matchSnapshotModal) {
-        this.matchSnapshotModal.ngOnInit();
-        this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
-      } else {
-        console.log('no!!!');
-        /*setTimeout(() => {
-          this.calculatingStatsFlg = false;
-          this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
-        }, 1500);*/
-      }
     }
     if (responseJson.action == "yesToMatch" && responseJson.action2 == "match made") {
     }
@@ -189,33 +177,56 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
   }
 
+  displayThisProfile() {
+    this.calculateDistance(this.matchUser, this.user);
+
+    if (this.matchUser.state && this.user.state != this.matchUser.state) {
+      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
+    }
+    if (this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
+      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.countryName;
+    }
+
+    if (this.matchSnapshotModal)
+      this.populateViewChildren();
+    else {
+      setTimeout(() => {
+        this.populateViewChildren();
+      }, 1000);
+    }
+
+  }
+
+  populateViewChildren() {
+    if (this.messagesModal)
+      this.messagesModal.populateModal(this.matchUser);
+
+    if (this.matchSnapshotModal) {
+      this.matchSnapshotModal.ngOnInit();
+      this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
+    }
+  }
+
   showCurrentProfile() {
-    console.log('showCurrentProfile', this.playerList.length, this.currentProfileIndex);
+    console.log('++++showCurrentProfile', this.playerList.length, this.currentProfileIndex);
     if (this.playerList.length > this.currentProfileIndex) {
 
       this.matchUser = this.playerList[this.currentProfileIndex];
-      setTimeout(() => {
-        if (this.matchUser) {
-          if (this.messagesModal)
-            this.messagesModal.populateModal(this.matchUser);
-          if (this.matchSnapshotModal) {
-            this.matchSnapshotModal.ngOnInit();
-            this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null, true);
-          }
-        }
-      }, 500);
-      /*
-      setTimeout(() => {
-        if (this.matchUser) {
-          this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, null);
-          if(this.messagesModal)
-            this.messagesModal.populateModal(this.matchUser);
-        }
-      }, 1500);*/
+      this.displayThisProfile();
+
     } else {
       this.matchUser = null;
     }
   }
+
+  calculateDistance(matchUser: any, user: any) {
+    this.distance = '';
+    if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
+      var miles = distanceInKmBetweenEarthCoordinates(user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
+      this.distance = parseInt(miles.toString()) + ' miles';
+    }
+  }
+
   matchSnapshotEvent(action: string) {
     if (action == 'nextProfile') {
       this.currentProfileIndex++;
@@ -238,4 +249,22 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode2.php', params, true);
   }
 
+}
+function degreesToRadians(degrees: number) {
+  return degrees * Math.PI / 180;
+}
+
+function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: number, lon2: number) {
+  var earthRadiusKm = 6371;
+
+  var dLat = degreesToRadians(lat2 - lat1);
+  var dLon = degreesToRadians(lon2 - lon1);
+
+  lat1 = degreesToRadians(lat1);
+  lat2 = degreesToRadians(lat2);
+
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return earthRadiusKm * c;
 }

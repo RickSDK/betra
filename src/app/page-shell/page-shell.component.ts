@@ -15,6 +15,7 @@ export class PageShellComponent implements OnInit {
   @Input('imgSrcFile') imgSrcFile: string = 'assets/images/theRock.png';
   @Input('headerObj') headerObj: any = null;
   @Input('popupNum') popupNum: number = 0;
+  @Input('stickyBottomFlg') stickyBottomFlg: boolean = false;
 
   public showMainMenuFlg: boolean = false;
   public showPromotionalBoxesFlg: boolean = false;

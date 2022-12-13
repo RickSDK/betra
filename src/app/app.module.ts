@@ -15,7 +15,6 @@ import { AboutComponent } from './about/about.component';
 import { WelcomePopupComponent } from './popups/welcome-popup/welcome-popup.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { UsersComponent } from './users/users.component';
-import { ProfileSnapshotComponent } from './profile-snapshot/profile-snapshot.component';
 import { MatchSnapshotComponent } from './match-snapshot/match-snapshot.component';
 import { GreenCheckComponent } from './green-check/green-check.component';
 import { MyMatchesComponent } from './my-matches/my-matches.component';
@@ -77,7 +76,6 @@ import { OwnerStatsComponent } from './owner-stats/owner-stats.component';
     WelcomePopupComponent,
     SpinnerComponent,
     UsersComponent,
-    ProfileSnapshotComponent,
     MatchSnapshotComponent,
     GreenCheckComponent,
     MyMatchesComponent,

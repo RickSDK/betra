@@ -1,9 +1,12 @@
-<app-page-shell [userId]="userId" [imgSrcFile]="imgSrcFile" [pageTitle]="'Top 10'" [headerObj]="headerObj" [userStatus]="userStatus">
+<app-page-shell [userId]="userId" [imgSrcFile]="imgSrcFile" [pageTitle]="'Top 10'" [headerObj]="headerObj"
+    [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-   <app-dating-pool [user]="user" [largeFlg]="false"></app-dating-pool>
+    <app-dating-pool [user]="user" [largeFlg]="false"></app-dating-pool>
     <div class="matches-card">
         <div class="btn-group">
-            <button (mousedown)="selectMenu(i)" *ngFor="let button of topButtons; let i = index;" [ngClass]="ngClassMenuButton(i, menuNum)" style="font-size: 12px; margin-right: 2px;">{{button}}</button>
+            <button (mousedown)="selectMenu(i)" *ngFor="let button of topButtons; let i = index;"
+                [ngClass]="ngClassMenuButton(i, menuNum)"
+                style="font-size: 12px; margin-right: 2px;">{{button}}</button>
         </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <table width="100%" *ngIf="responseJson">

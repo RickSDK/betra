@@ -5,7 +5,7 @@
                 <span id="logo" class="product-logo" [routerLink]="['']"><i
                         class="fa fa-heart product-icon"></i><span class="hide-xxs">Betra</span></span>
                 <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">
-                    Beta Version 0.75
+                    Beta Version 0.76
                 </div>
             </td>
             <td align="center" width="100%" style="font-size: 14px; font-weight: 700;">
@@ -51,7 +51,7 @@
     </table>
 </div>
 <div class="outer-frame">
-    <div class="inner-frame">
+    <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'60px':'30px'">
 
         <table width="100%" border="0">
             <tr>
@@ -72,7 +72,6 @@
                 </td>
             </tr>
         </table>
-
     </div>
 
     <div class="container-fluid" *ngIf="showPromotionalBoxesFlg">
@@ -118,7 +117,7 @@
                 get into solid relationships. So get started now, it's free!</p>
         </div>
     </div>
-    <div class="bottom-bar">
+    <div [ngClass]="stickyBottomFlg?'bottom-bar-sticky':'bottom-bar'">
         <div>
             <span [routerLink]="['/about']" class="text-link">About us</span> |
             <span [routerLink]="['/join-team']" class="text-link">Join Our Team</span> |

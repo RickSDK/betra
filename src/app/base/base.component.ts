@@ -170,6 +170,7 @@ export class BaseComponent implements OnInit {
         lastUpd: localStorage['lastUpd'],
         refreshFlg: refreshFlg
       };
+      console.log('params', params);
       this.executeApi('appApiCode.php', params, true);
     }
   }

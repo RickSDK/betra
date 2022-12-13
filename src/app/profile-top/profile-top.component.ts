@@ -9,7 +9,6 @@ import { User } from '../classes/user';
 export class ProfileTopComponent implements OnInit {
   @Input('user') user: any = new User(null);
   @Input('myUser') myUser: any = new User(null);
-  @Input('returnFlg') returnFlg: boolean = false;
   @Input('distance') distance: string = '';
 
   @Output() messageEvent = new EventEmitter<string>();

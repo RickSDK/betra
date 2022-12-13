@@ -141,6 +141,10 @@ export class User {
     public astrologicalSign: string = 'Aries';
     public numReviews: number = 0;
 
+    public pendingStatusReason: string = '';
+    public pendingStatusPage: number = 0;
+    
+
 
     constructor(obj: any) {
         if (obj) {
@@ -351,8 +355,11 @@ export class User {
                 this.lastLoginText = 'Online Now!';
             }
         }
-        if (this.status == 'Active' && !this.matchAge)
+        if (this.status == 'Active' && !this.matchAge) {
+            this.pendingStatusReason = 'Enter your ideal match age';
+            this.pendingStatusPage = 7;
             this.status = 'Pending';
+        }
 
         if (this.matchAge == 0) {
             this.matchAge = this.age;
@@ -487,14 +494,37 @@ export class User {
 
         var additionalPicsFlg = true;
         var verifyFlg = true;
-        if (this.status == 'Active') {
-            if (!basicsFlg || !detailsFlg || !quizFlg || !matchFlg || !additionalPicsFlg || !verifyFlg || !profilePicFlg)
-                this.status = 'Pending';
+        if (this.status == 'Active' && !basicsFlg) {
+            this.pendingStatusReason = 'Complete Basic info screen';
+            this.pendingStatusPage = 0;
+            this.status = 'Pending';
+        }
+        if (this.status == 'Active' && !detailsFlg) {
+            this.pendingStatusReason = 'Complete Details info screen';
+            this.pendingStatusPage = 2;
+            this.status = 'Pending';
+        }
+        if (this.status == 'Active' && !quizFlg) {
+            this.pendingStatusReason = 'Complete Personality Test';
+            this.pendingStatusPage = 3;
+            this.status = 'Pending';
+        }
+        if (this.status == 'Active' && !politicsFlg) {
+            this.pendingStatusReason = 'Complete Politics Quiz ';
+            this.pendingStatusPage = 4;
+            this.status = 'Pending';
+        }
+        if (this.status == 'Active' && !profilePicFlg) {
+            this.pendingStatusReason = 'Upload a good photo of your face';
+            this.pendingStatusPage = 5;
+            this.status = 'Pending';
+        }
+        if (this.status == 'Active' && !matchFlg) {
+            this.pendingStatusReason = 'Complete your ideal-match info screen';
+            this.pendingStatusPage = 7;
+            this.status = 'Pending';
         }
 
-        //       if (this.status == 'Pending' && basicsFlg && quizFlg && matchFlg && additionalPicsFlg && verifyFlg) {
-        //            this.status = 'Ready';
-        //        }
         this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, profilePicFlg, additionalPicsFlg, matchFlg, true];
     }
     userObjFromText(line: string) {

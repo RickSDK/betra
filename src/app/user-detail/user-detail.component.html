@@ -1,8 +1,8 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [pageTitle]="pageTitle" [headerObj]="headerObj" [userStatus]="userStatus">
+    [pageTitle]="pageTitle" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <app-dating-pool [user]="user" [largeFlg]="false"></app-dating-pool>
-    
+
     <div class="matches-card" *ngIf="user && !matchUser">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
@@ -33,7 +33,8 @@
                 <div style="padding-left: 30px;">
                     <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your profile.</li>
                     <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
-                    <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for others to
+                    <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for others
+                        to
                         find you.</li>
                     <li><i class="fa fa-arrow-up"></i> <a [routerLink]="['/upgrade-member']">Upgrade</a> in order to
                         maximize your exposure.</li>
@@ -43,8 +44,8 @@
     </div>
 
     <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id"
-        [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [returnFlg]="true"
-        [singleProfileFlg]="uid>0">
+        [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
+        [singleProfileFlg]="uid>0" [distance]="distance">
     </app-match-snapshot>
 
     <div *ngIf="id==7 && matchUser && user" class="match-card">
@@ -71,7 +72,8 @@
 
     <div *ngIf="matchUser && matchUser.matchObj">
 
-        <app-user-reviews *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user" [matchUser]="matchUser">
+        <app-user-reviews *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user"
+            [matchUser]="matchUser">
         </app-user-reviews>
 
         <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
