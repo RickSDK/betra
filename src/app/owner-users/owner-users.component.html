@@ -5,75 +5,20 @@
         <hr>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-        <div class="shaded-border-box">
-            <div class="title-bar">Owners</div>
-            <div class="inside-box" style="text-align: center;">
+        <app-owners-table-cell [ownersList]="managmentTeam" [user]="user" [tableName]="'Management'"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="devTeam" [user]="user" [tableName]="'Dev Team'"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="promotionsTeam" [user]="user" [tableName]="'Promotions Team'"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="activityLeads" [user]="user" [tableName]="'Activity Leads'"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="activityReps" [user]="user" [tableName]="'Activity Reps'"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="usList" [user]="user" [tableName]="'Others'"></app-owners-table-cell>
 
-                <table style="font-size: 10px;" *ngIf="menuNum==0">
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Level</th>
-                        <th>Location</th>
-                        <th *ngIf="regionFlg">State</th>
-                        <th *ngIf="regionFlg">Region</th>
-                        <th *ngIf="regionFlg">District</th>
-                        <th *ngIf="regionFlg">Zone</th>
-                        <th>*Clicks</th>
-                        <th>*Matches</th>
-                        <th>*Messages</th>
-                        <th>*Pics</th>
-                        <th>*Users</th>
-                        <th>Last Login</th>
-                    </tr>
-                    <tr *ngFor="let player of usList; let i = index;">
-                        <td [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">{{i+1}}</td>
-                        <td>
-                            <b>{{player.firstName}}</b>
-                            <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
-                            <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
-                        </td>
-                        <td>{{player.ownerLevel}}</td>
-                        <td>{{player.location}}</td>
-                        <td *ngIf="regionFlg">{{player.state}}</td>
-                        <td *ngIf="regionFlg">{{player.adminRegionCode}}</td>
-                        <td *ngIf="regionFlg">{{player.adminDivision}}</td>
-                        <td *ngIf="regionFlg">{{player.adminZone}}</td>
-                        <td style="color: #900; font-weight: 700; font-size: 12px;" align="center">
-                            Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup> 
-                        </td>
-                        <td style="color: #900; font-weight: 800; font-size: 16px;" align="center">
-                            <span *ngIf="player.statsObj.matchLevel2>0">{{player.statsObj.matchLevel2}}</span>
-                        </td>
-                        <td style="color: gray; font-size: 14px;" align="center">
-                            {{player.statsObj.messages}}
-                        </td>
-                        <td style="color: #900; font-weight: 700; font-size: 14px;" align="center">
-                            {{player.statsObj.picVerifiedCount}}
-                        </td>
-                        <td style="color: #900; font-weight: 700; font-size: 14px;" align="center">
-                            {{player.statsObj.userCount}}
-                        </td>
-                        <td><span class="gray-text" style="font-size: 8px;">{{player.lastDay}}</span></td>
-                        <td *ngIf="user.user_id==1">
-                            <button *ngIf="!player.adminZone" class="btn btn-primary"
-                                (mousedown)="choosePlayer(player, 1)"><i class="fa fa-globe"></i></button>
-                            <button *ngIf="!player.emailSentFlg" class="btn btn-primary"
-                                (mousedown)="choosePlayer(player, 2)"><i class="fa fa-envelope"></i></button>
-                        </td>
-                    </tr>
-                </table>
-
- 
-                <div style="font-size: 10px;">
-                    <div>*<b>Clicks</b> indicates the number of profiles you have browsed.</div>
-                    <div>*<b>Matches</b> indicates the number of dating pool matches.</div>
-                    <div>*<b>Messages</b> indicates the number of text messages sent.</div>
-                    <div>*<b>Pics</b> indicates the number of profile pics you have verified.</div>
-                    <div>*<b>Users</b> indicates the number of active users in your region.</div>    
-                </div>
-            </div>
+        <div style="font-size: 10px;">
+            <div>*<b>Clicks</b> indicates the number of profiles you have browsed.</div>
+            <div>*<b>Matches</b> indicates the number of dating pool matches.</div>
+            <div>*<b>Messages</b> indicates the number of text messages sent.</div>
+            <div>*<b>Pics</b> indicates the number of profile pics you have verified.</div>
         </div>
+
         <div *ngIf="selectedPlayer && option==2">
             <div>{{selectedPlayer.firstName}}</div>
             <div>Send initial Email</div>

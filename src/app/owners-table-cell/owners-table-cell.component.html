@@ -1,0 +1,42 @@
+<div class="shaded-border-box">
+    <div class="title-bar">{{tableName}}</div>
+    <div class="inside-box" style="text-align: center;">
+
+        <table style="font-size: 10px;">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Location</th>
+                <th>*Clicks</th>
+                <th>*Matches</th>
+                <th>*Messages</th>
+                <th>*Pics</th>
+                <th>Last Login</th>
+            </tr>
+            <tr *ngFor="let player of ownersList; let i = index;">
+                <td [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">{{i+1}}</td>
+                <td [title]="player.user_id">
+                    <b>{{player.firstName}}</b>
+                    <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
+                    <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
+                </td>
+                <td>{{player.ownerLevel}}</td>
+                <td>{{player.location}}</td>
+                <td style="color: #900; font-weight: 700; font-size: 12px;" align="center">
+                    Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup> 
+                </td>
+                <td style="color: #900; font-weight: 800; font-size: 16px;" align="center">
+                    <span *ngIf="player.statsObj.matchLevel2>0">{{player.statsObj.matchLevel2}}</span>
+                </td>
+                <td style="color: gray; font-size: 14px;" align="center">
+                    {{player.statsObj.messages}}
+                </td>
+                <td style="color: #900; font-weight: 700; font-size: 14px;" align="center">
+                    {{player.statsObj.picVerifiedCount}}
+                </td>
+                <td><span class="gray-text" style="font-size: 8px;">{{player.lastDay}}</span></td>
+            </tr>
+        </table>
+    </div>
+</div>

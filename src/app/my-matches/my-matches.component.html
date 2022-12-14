@@ -138,7 +138,7 @@
             </p>    
         </div>
         <button class="btn btn-warning">Got it!</button>&nbsp;
-        <button [routerLink]="['/upgrade-member']" class="btn btn-primary">Upgrade</button>
+        <button *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']" class="btn btn-primary">Upgrade</button>
 
     </div>
 </div>

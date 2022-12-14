@@ -18,6 +18,12 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   public internationalList: any = [];
   public regionFlg: boolean = false;
 
+  public managmentTeam: any = [];
+  public devTeam: any = [];
+  public promotionsTeam: any = [];
+  public activityLeads: any = [];
+  public activityReps: any = [];
+
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -45,7 +51,25 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
       this.players.forEach((element: any) => {
         element.lastDay = lastLoginText(element.lastLogin);
         element.location = this.getUserLocation(element.city, element.state, element.countryName);
-        this.usList.push(element);
+
+        if (element.user_id == 1 || element.user_id == 122 || element.user_id == 118 || element.user_id == 156)
+          this.managmentTeam.push(element);
+        else if (element.user_id == 141 || element.user_id == 85 || element.user_id == 135 || element.user_id == 155 || element.user_id == 77 || element.user_id == 65 || element.user_id == 73 || element.user_id == 74 || element.user_id == 75)
+          this.devTeam.push(element);
+        else if (element.user_id == 53 || element.user_id == 1)
+          this.promotionsTeam.push(element);
+        else if (element.user_id == 10 || element.user_id == 109 || element.user_id == 119 || element.user_id == 80)
+          this.activityLeads.push(element);
+        else if (element.user_id == 66 || element.user_id == 97 || element.user_id == 134)
+          this.activityReps.push(element);
+        else if (element.user_id == 139 || element.user_id == 98 || element.user_id == 146)
+          this.activityReps.push(element);
+        else if (element.user_id == 112 || element.user_id == 92 || element.user_id == 87)
+          this.activityReps.push(element);
+        else if (element.user_id == 51 || element.user_id == 48 || element.user_id == 61)
+          this.activityReps.push(element);
+        else
+          this.usList.push(element);
       });
     }
     if (responseJson.action == 'updateUserRegion' || responseJson.action == 'sendEmail') {
