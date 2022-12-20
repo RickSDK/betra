@@ -17,7 +17,7 @@
         <p *ngIf="forgotPasswordFlg">Forgot password? Enter your email address above and press Submit.</p>
         <div style="text-align: center;">
             <button  *ngIf="!forgotPasswordFlg" (mousedown)="loginPressed()" class="btn red-button" [disabled]="submitDisabled">Log In</button>
-            <button  *ngIf="forgotPasswordFlg" (mousedown)="forgotPasswordPressed()" class="btn red-button">Submit</button>
+            <button  *ngIf="forgotPasswordFlg" (mousedown)="forgotPasswordPressed()" class="btn btn-main-color">Submit</button>
 
             <div style="margin-top: 10px;">
                 <span [routerLink]="['']" [queryParams]="{login: 3}" class="hyper-link">Create Account</span>&nbsp;

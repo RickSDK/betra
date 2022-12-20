@@ -3,9 +3,9 @@
         <tr>
             <td>
                 <span id="logo" class="product-logo" [routerLink]="['']"><i
-                        class="fa fa-heart product-icon"></i><span class="hide-xxs">Betra</span></span>
+                        class="fa fa-heart main-color"></i><span class="hide-xxs">Betra</span></span>
                 <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">
-                    Beta Version 0.76X7
+                    Beta Version {{appVersion}}
                 </div>
             </td>
             <td align="center" width="100%" style="font-size: 14px; font-weight: 700;">
@@ -22,25 +22,25 @@
             </td>
             <td *ngIf="userId>0 && userStatus == 'Active'">
                 <span class="menu-circle hide-xxs">
-                    <i [routerLink]="['/user-detail']" class="fa fa-search icon-button"></i>
-                    <span class="icon-label">Browse</span>
+                    <i [routerLink]="['/user-detail']" class="fa fa-search icon-button main-color"></i>
+                    <span class="icon-label main-color-bg">Browse</span>
                 </span>
                 <span class="menu-circle">
-                    <i [routerLink]="['/matches']" class="fa fa-users icon-button"></i>
-                    <span class="icon-label">My Dating Pool</span>
+                    <i [routerLink]="['/matches']" class="fa fa-users icon-button main-color"></i>
+                    <span class="icon-label main-color-bg">My Dating Pool</span>
                 </span>
                 <span class="menu-circle">
-                    <i [routerLink]="['/notifications']" class="fa fa-bell icon-button"></i><span
+                    <i [routerLink]="['/notifications']" class="fa fa-bell icon-button main-color"></i><span
                         [routerLink]="['/notifications']" *ngIf="headerObj.notifications>0"
                         class="red-circle">{{headerObj.notifications}}</span>
-                    <span class="icon-label">Notifications</span>
+                    <span class="icon-label main-color-bg">Notifications</span>
                 </span>
             </td>
             <td *ngIf="userId>0">
                 <span class="menu-circle">
                     <img [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" [src]="imgSrcFile"
                         class="profilePic" alt="Profile Picture" [title]="firstName">
-                    <span class="icon-label">My Profile</span>
+                    <span class="icon-label main-color-bg">My Profile</span>
                 </span>
 
             </td>
@@ -55,7 +55,7 @@
 
         <table width="100%" border="0">
             <tr>
-                <td *ngIf="userId>0 && userStatus == 'Active'" class="hide-sm"
+                <td *ngIf="userId>0 && userStatus == 'Active'" class="hide-sm" width="200"
                     style="width: 200px;" valign="top">
                     <div style="position: fixed; top: 60px; left: 0; width: 200px;">
                         <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
@@ -65,7 +65,7 @@
                 <td valign="top" align="center" style="padding: 5px;">
                     <ng-content></ng-content>
                 </td>
-                <td *ngIf="userId>0 && userStatus == 'Active'" valign="top" align="center" class="hide-md" style="min-width: 200px;">
+                <td *ngIf="userId>0 && userStatus == 'Active'" valign="top" align="center" width="200" class="hide-md" style="width: 200px;">
                     <div style="position: fixed; top: 60px; right: 0; width: 200px;">
                         <div style="color: gray;">Sponsored</div>
                     </div>

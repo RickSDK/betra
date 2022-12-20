@@ -28,6 +28,7 @@ export class PageShellComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.appVersion = getVersion();
     this.showPromotionalBoxesFlg = true;
     this.showAboutInfoFlg = true;
     if (localStorage['user_id'] > 0 && localStorage['User']) {
