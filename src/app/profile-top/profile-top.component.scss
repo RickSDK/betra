@@ -42,6 +42,7 @@
     max-height: 350px;
     cursor: pointer;
     object-fit: cover;
+    filter: sepia(100%);
     object-position: 50% 20%;
     transition: all 1s ease;
     border-radius: 0 0 15px 0;
@@ -83,13 +84,50 @@
     box-shadow: 2px 2px 5px black;
 }
 
-.clickable {
-    font-size: 32px;
+.icon-label {
+    margin-left: 40px;
+    margin-top: 20px;
+    z-index: 200;
+}
+
+.three-dots {
+    float: right; 
+    border-radius: 50%;
+    width: 30px;
+    font-size: 18px;
+    text-align: center;
+    color: gray; 
+    margin-right: 0;
     cursor: pointer;
 }
 
-.clickable:hover {
-    color: #b7121f;
+.three-dots:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.three-dots-menu {
+    display: inline-block;
+    position: absolute;
+    z-index: 200;
+    top: 25px;
+    right: 0;
+    color: gray;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px gray;
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.three-dots-menu-option {
+    padding: 3px;
+    font-size: 14px;
+}
+
+.three-dots-menu-option:hover {
+    background-color: #ddd;
 }
 
 .circle-button {
@@ -109,19 +147,19 @@
 .no-button {
     background-color: orange;
 }
+
 .yes-button:hover {
     background-color: #00ff00;
 }
 
 .no-button:hover {
-    background-color: #ffcc00;    
+    background-color: #ffcc00;
 }
 
 .small-title {
     font-size: 10px;
     text-align: center;
     font-weight: 700;
-    color: #770000;
 }
 
 .small-box {
@@ -161,12 +199,25 @@
     display: inline-block;
 }
 
+.dabauchery-icon {
+    float: right;
+    height: 20px;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+}
+
+.dabauchery-icon:hover {
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
 .glow-button {
     -webkit-animation: glowing 1300ms infinite;
     -moz-animation: glowing 1300ms infinite;
     -o-animation: glowing 1300ms infinite;
     animation: glowing 1300ms infinite;
 }
+
 $dark-green: #18b200;
 $light-green: #9df390;
 $green1: #197d0a;
@@ -174,29 +225,34 @@ $green2: #18b200;
 
 @-webkit-keyframes glowing {
     0% {
-      background-color: $light-green;
-      -webkit-box-shadow: 0 0 3px $light-green;
+        background-color: $light-green;
+        -webkit-box-shadow: 0 0 3px $light-green;
     }
+
     50% {
-      background-color: $dark-green;
-      -webkit-box-shadow: 0 0 15px $dark-green;
+        background-color: $dark-green;
+        -webkit-box-shadow: 0 0 15px $dark-green;
     }
+
     100% {
-      background-color: $light-green;
-      -webkit-box-shadow: 0 0 3px $light-green;
+        background-color: $light-green;
+        -webkit-box-shadow: 0 0 3px $light-green;
     }
-  }
-  @keyframes glowing {
+}
+
+@keyframes glowing {
     0% {
-      background-color: $light-green;
-      box-shadow: 0 0 3px $light-green;
+        background-color: $light-green;
+        box-shadow: 0 0 3px $light-green;
     }
+
     50% {
-      background-color: $dark-green;
-      box-shadow: 0 0 15px $dark-green;
+        background-color: $dark-green;
+        box-shadow: 0 0 15px $dark-green;
     }
+
     100% {
-      background-color: $light-green;
-      box-shadow: 0 0 3px $light-green;
+        background-color: $light-green;
+        box-shadow: 0 0 3px $light-green;
     }
-  }
+}

@@ -6,26 +6,45 @@
             </td>
             <td *ngIf="!largeImageFlg" valign="top" style="text-align: center; padding: 5px; min-width: 180px;"
                 width="40%">
-                <div style="display: inline-block; width: 100%; max-width: 200px; text-align: left;">
+                <div
+                    style="display: inline-block; width: 100%; max-width: 200px; text-align: left; position: relative; padding-top: 5px;">
 
-                    <div>&nbsp;</div>
+                    <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
+                        class="three-dots"><i class="fa fa-ellipsis-v"></i></span>
+                    <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
+                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
+                            (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
+                            Dating Pool</div>
+                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
+                            (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
+                            Add to Dating Pool</div>
+                        <div *ngIf="user.matchObj.you_interested != 'X'" (mousedown)="sendClickEventUp('ban')" class="three-dots-menu-option">
+                            Block</div>
+                        <div *ngIf="user.matchObj.you_interested == 'X'" (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
+                            Un-Block</div>
+                        <div (mousedown)="showOptionsFlg=false" class="three-dots-menu-option">Cancel</div>
+                    </span>
+                    <i *ngIf="myUser.user_id == user.user_id" [routerLink]="['/profile']" title="Edit Profile"
+                        style="float: right; cursor: pointer; margin: 3px; font-size: 18px;" class="fa fa-edit"></i>
+
                     <div title="id: {{user.user_id}}" style="font-size: 16px; font-weight: 800;">
                         <span class="name-bar"><img src="assets/images/rose5.png" height="20"
                                 *ngIf="user.user_id == myUser.heartId" alt="Rose" title="Rose">
                             <span><i class="fa fa-star-o" *ngIf="user.memberFlg" title="Gold Member"></i></span>
                             {{user.firstName}},
-                            {{user.age}}&nbsp;<i class="fa fa-clock-o" [title]="user.lastLoginText"
-                                style="font-size: 12px;" [style.color]="user.lastLoginColor"></i>
+                            {{user.age}}&nbsp;
                         </span>
-                        <i *ngIf="myUser.user_id == user.user_id" [routerLink]="['/profile']"
-                            style="float: right; cursor: pointer; margin: 3px;" class="fa fa-edit"></i>
+
                     </div>
+                    <span style="font-size: 7px; float: right;"><i class="fa fa-clock-o main-color"
+                            [title]="user.lastLoginText" style="font-size: 12px;"></i>
+                        {{user.lastLoginText}}</span>
                     <div>{{user.location}}</div>
                     <div style="font-size: 8px; color: gray;">
                         <span>{{distance}}</span>
                     </div>
                     <div class="small-box">
-                        <div class="small-title">Relationship</div>
+                        <div class="small-title main-color">Relationship</div>
 
                         <div [title]="lookingForTitle">
                             <span class="profile-icon">
@@ -34,14 +53,16 @@
                             <span class="profile-text">
                                 {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp;
                                 <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i
-                                    *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>    
+                                    *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
                             </span>
                         </div>
 
                         <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
-                            [text2]="myUser.matchRelationship" [img]="'assets/images/lookingFor.png'"></app-green-check>
+                            [showCheckFlg]="user.desiredRelationship == myUser.matchRelationship && myUser.user_id != user.user_id"
+                            [img]="'assets/images/lookingFor.png'"></app-green-check>
                         <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
-                            [text2]="myUser.marriageView" [img]="'assets/images/marriage.png'"></app-green-check>
+                            [showCheckFlg]="myUser.marriageView == user.marriageView && myUser.user_id != user.user_id"
+                            [img]="'assets/images/marriage.png'"></app-green-check>
                         <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText"
                             [icon]="'fa fa-exchange'">
                         </app-green-check>
@@ -51,46 +72,46 @@
                                 <img [src]="'assets/images/kids.png'" height="15">
                             </span>
                             <span title="Has kids" class="profile-text">
-                                <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i class="fa fa-check"
-                                        style="color: #00cc00;"></i></sup>
+                                <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
+                                        class="fa fa-check main-color"></i></sup>
                                 {{user.numKids}}
                             </span>&nbsp;
-                            <img [src]="'assets/images/kids2.png'" title="Wants kids" height="15" style="margin-right: 4px;">
+                            <img [src]="'assets/images/kids2.png'" title="Wants kids" height="15"
+                                style="margin-right: 4px;">
                             <span title="Wants kids">
-                                <sup *ngIf="myUser.wantsKids==user.wantsKids" class="hide-xs"><i class="fa fa-check"
-                                        style="color: #00cc00;"></i></sup>
-                                <span *ngIf="user.wantsKids != 'Does Not Matter'" style="font-size: 10px;">{{user.wantsKids}}</span>
+                                <span *ngIf="user.wantsKids != 'Does Not Matter'"
+                                    style="font-size: 10px;">{{user.wantsKids}}</span>
                                 <span *ngIf="user.wantsKids == 'Does Not Matter'"><i class="fa fa-question"></i></span>
+                                <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
+                                    class="hide-xs"><i class="fa fa-check main-color"></i></sup>
                             </span>
-                            <img *ngIf="user.cannabis=='Occasional'" src="assets/images/cannabis.png"
-                                style="float: right;" title="Occasional Cannabis User" height="20">
-                            <img *ngIf="user.cannabis=='Yes'" src="assets/images/cannabis.png" style="float: right;"
-                                title="Cannabis User" height="20">
-                            <img *ngIf="user.cannabis=='No'" src="assets/images/noDrugs.png" style="float: right;"
-                                title="No Drugs" height="20">
-                            <img *ngIf="user.smokes=='Occasional'" src="assets/images/smoker.png" style="float: right;"
-                                title="Occasional Smokes" height="18">
-                            <img *ngIf="user.smokes=='Yes'" src="assets/images/smoker.png" style="float: right;"
-                                title="Smokes" height="18">
-                            <img *ngIf="user.smokes=='No'" src="assets/images/nonSmoker.png" style="float: right;"
-                                title="Non Smoker" height="20">
-                            <img *ngIf="user.drinks=='Occasional'" src="assets/images/drinker.png" style="float: right;"
-                                title="Occasional Drinks" height="20">
-                            <img *ngIf="user.drinks=='Yes'" src="assets/images/drinker.png" style="float: right;"
-                                title="Drinks" height="20">
-                            <img *ngIf="user.drinks=='No'" src="assets/images/nonDrinker.png" style="float: right;"
-                                title="Non Drinker" height="20">
+
+                            <span class="menu-circle">
+                                <img [src]="user.potIcon" style="float: right;" height="20" class="dabauchery-icon">
+                                <span class="icon-label main-color-bg">{{user.potTitle}}</span>
+                            </span>
+                            <span class="menu-circle">
+                                <img [src]="user.smokesIcon" style="float: right;" height="20" class="dabauchery-icon">
+                                <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
+                            </span>
+                            <span class="menu-circle">
+                                <img [src]="user.drinksIcon" style="float: right;" height="20" class="dabauchery-icon">
+                                <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
+                            </span>
                         </div>
 
                     </div>
                     <div class="small-box">
-                        <div class="small-title">Background</div>
+                        <div class="small-title main-color">Background</div>
                         <app-green-check [label]="'Education'" [text1]="user.educationLevel"
-                            [text2]="myUser.matchEducation" [icon]="'fa fa-graduation-cap'"></app-green-check>
-                        <app-green-check [label]="'Income'" [text1]="user.income" [text2]="myUser.matchIncome"
+                            [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
+                            [icon]="'fa fa-graduation-cap'"></app-green-check>
+                        <app-green-check [label]="'Income'" [text1]="user.income"
+                            [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
                             [icon]="'fa fa-money'">
                         </app-green-check>
-                        <app-green-check [label]="'Religion'" [text1]="user.religion" [text2]="myUser.matchReligion"
+                        <app-green-check [label]="'Religion'" [text1]="user.religion"
+                            [showCheckFlg]="user.religion == myUser.matchReligion && myUser.user_id != user.user_id"
                             [icon]="''" [img]="'assets/images/religion.png'">
                         </app-green-check>
                     </div>
@@ -102,10 +123,12 @@
                     <div *ngIf="0 && !showSmallerPicsFlg"><button [routerLink]="'/upgrade-member'"
                             class="btn btn-warning">Upgrade to see pics</button></div>
                 </div>
-                <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock" *ngIf="myUser.user_id==1"
-                    style="cursor: pointer; float: left;"></i>
-                <div *ngIf="user.matchObj" style="padding-right: 10px; float: right;">
-                    <i (mousedown)="showMoreClicked()" class="fa fa-arrow-circle-down clickable"></i>
+                <div>
+                    <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
+                        *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
+                    <div style="padding-right: 10px; float: right; font-size: 32px;">
+                        <i (mousedown)="showMoreClicked()" class="fa fa-arrow-circle-down clickable"></i>
+                    </div>
                 </div>
 
             </td>
@@ -124,8 +147,8 @@
         <i (mousedown)="likeButtonClicked(true)" class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
     </div>
 
-    <div *ngIf="user.matchObj && user.matchObj.matchMadeFlg" [routerLink]="['/matches']" class="dark-red-box"
-        style="background-image: url('assets/images/love.jpg'); cursor: pointer;">
+    <div *ngIf="user.matchObj && user.matchObj.matchMadeFlg" [routerLink]="['/matches']" class="main-color-bg"
+        style="cursor: pointer;">
         <div style="font-size: 40px;"><i class="fa fa-heart"></i>&nbsp;<b>Match Made!</b></div>
     </div>
 
