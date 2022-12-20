@@ -83,3 +83,38 @@
     border: 1px solid white;
     box-shadow: 5px 5px 15px black;
 }
+
+.date-pool-bottom-bar {
+    background-color: #444;
+    color: white;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+}
+
+.bottom-details-panal-open {
+    min-height: 200px;
+    opacity: 1;
+    transition: ease-in-out all .4s;
+    border-top: 1px solid gray;
+}
+
+.bottom-details-panal-closed {
+    min-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: ease-in-out all .4s;
+}
+
+.question {
+    font-weight: 700;
+    color: green;
+}
+
+.answer {
+    margin-bottom: 10px;
+    padding-left: 20px;
+}

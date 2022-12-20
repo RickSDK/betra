@@ -22,7 +22,7 @@
         <div *ngIf="selectedPlayer && option==2">
             <div>{{selectedPlayer.firstName}}</div>
             <div>Send initial Email</div>
-            <button (mousedown)="sendEmail()" class="btn btn-primary">Send</button>
+            <button (mousedown)="sendEmail()" class="btn btn-main-color">Send</button>
         </div>
         <div *ngIf="selectedPlayer && option==1">
             <div>{{selectedPlayer.firstName}}</div>
@@ -48,9 +48,6 @@
             </select>
             <hr>
             <button (mousedown)="updateUserRegion()" class="btn btn-primary">Update</button>
-        </div>
-        <div>
-            <button (mousedown)="regionFlg = !regionFlg" class="btn btn-success">Region Info</button>
         </div>
 
     </div>

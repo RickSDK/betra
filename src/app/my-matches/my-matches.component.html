@@ -1,7 +1,8 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Dating Pool'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <div class="matches-card" style="min-height: 500px; font-size: 14px; color: #444;" *ngIf="user">
+    <div class="matches-card" style="font-size: 14px; color: #444; position: relative; padding-bottom: 50px;"
+        *ngIf="user">
         <div class="btn-group" role="group" aria-label="Menu">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
@@ -48,12 +49,8 @@
 
         <div *ngIf="menuNum==0 && !loadingFlg">
             <div style="font-size: 12px; color: gray;">You can have a maximum of 8 people in your dating pool at any
-                time. [<span (mousedown)="showMoreFlg=!showMoreFlg" class="hyper-link">more info</span>]</div>
-            <div (mousedown)="showMoreFlg=false" *ngIf="showMoreFlg"
-                style="background-color: #ffffc0; border-radius: 5px; padding: 5px;">If you have more than 8 matches,
-                you will have to move
-                the extras to your back burner. This will help you organize your dating life and concentrate on your
-                best prospects.</div>
+                time.</div>
+
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
 
             <div *ngIf="!user.dating_pool">
@@ -113,7 +110,7 @@
                             <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
                             <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for
                                 others to find you.</li>
-                            <li><i class="fa fa-arrow-up"></i> <a [routerLink]="['/upgrade-member']">Upgrade</a> in
+                            <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']" class="text-link">Upgrade</span> in
                                 order to maximize your exposure.</li>
                         </div>
 
@@ -122,20 +119,89 @@
 
             </div>
         </div>
+        <div *ngIf="menuNum==0"
+            [ngClass]="showDetailsNumber>0?'bottom-details-panal-open':'bottom-details-panal-closed'">
+            <div *ngIf="showDetailsNumber==1">
+                <div class="red-text">Dating Pool</div>
+                <div style="font-size: 12px; color: gray; text-align: left">
+                    <p>'Dating Pool' is a feature unique to Betra and makes this like no other dating app!</p>
+                    <p>You can actively be matched up with no more than 8 people at a time, which allows you to focus on your best prospects and helps you manage your dating life.</p>
+                    <p>Once you have 8 people, you can still actively search for new prospects, but as soon as you are matched with a 9th person, you have to move one of your current matches to your back burner.</p>
+                    <p>As soon as you have at least 5 people in your dating pool, you will need to indicate one of them as your 'Top Pick' by giving them a virtual rose. Everyone in your dating pool will get to see who you gave your rose to.
+                        Yes this creates drama, but it also creates a lot of fun, while at the same time being fully transparent with everyone about your true feelings.
+                        We believe Betra to be the most honest dating app ever created.
+                    </p>
+                    <p>One final note: Not only do all of your matches get to see who is in your dating pool, you also get to see who each of them is matched up with. Simply click on their profile icon to view thair dating pool.
+                        Let the fun begin!
+                    </p>
+                    <p>Good luck to everyone.</p>
+                </div>
+
+
+            </div>
+            <div *ngIf="showDetailsNumber==2">
+                <div class="red-text">Intimacy Level</div>
+                <div style="font-size: 12px; color: gray; text-align: left">
+                    <p>Intimacy Level indicates how far into the Betra app features you have made it with this match. It is simply a small indicator, letting everyone know how serious the relationship might be getting.</p>
+                    <p>Here are what the levels mean:</p>
+                    <ol>
+                        <li>One person is interested</li>
+                        <li>Match made</li>
+                        <li>Initial question asked</li>
+                        <li>Question replied to</li>
+                        <li>Open text exchange mode</li>
+                        <li>Contact Info exchanged</li>
+                        <li>Private picture exchanged</li>
+                        <li>Went on date</li>
+                        <li>Review written</li>
+                    </ol>
+                </div>
+            </div>
+            <div *ngIf="showDetailsNumber==3">
+                <div class="red-text">FAQ</div>
+                <div style="font-size: 12px; color: gray; text-align: left">
+                    <div class="red-text">Question: How do I get people added to my date pool?</div>
+                    <div class="answer">Answer: Click 'Browse' and begin liking profiles. As soon as one of the people you like, also likes you back, the two of you are matched up and in each other's dating pools.</div>
+            
+                    <div class="red-text">Question: How do I drop someone from my dating pool?</div>
+                    <div class="answer">Answer: Click on their profile, expand the header window. Click on the "expand" arrow in the black box which says that person "is in your dating pool". Click the "Remove" button.</div>
+
+                    <div class="red-text">Question: How do I send someone a text message?</div>
+                    <div class="answer">Answer: You must first be matched with someone in order to communicate with them. From there, the first communication can only be from a drop-down list of prepared questions. Once both people respond to each other's questions, you will be free to opening text back and forth.</div>
+
+                    <div class="red-text">Question: How do I write a review on someone?</div>
+                    <div class="answer">Answer: You must first reach intimacy level of 5 and then go on a date with them in order to write a review.</div>
+
+                    <div class="red-text">Question: Why did someone disappear from my dating pool?</div>
+                    <div class="answer">Answer: If someone removed you from their dating pool, they will also be removed from yours. Sorry, but they just aren't that into you. But don't worry, there are plenty of great singles still out there hoping to meet you. Get back in the game and fill up that dating pool!</div>
+
+                    <div class="red-text">Question: How do I restore someone to my dating pool?</div>
+                    <div class="answer">Answer: Click the 'Who Likes Me' button at the top of this page. If that person is still interested in you, their profile will show up. Click on it. Expand the top and then click the 'Promote' button to put them back into your dating pool.</div>
+
+
+                </div>
+            </div>
+        </div>
+        <div *ngIf="menuNum==0" class="date-pool-bottom-bar">
+            <button (mousedown)="toggleShowDetailsNumber(1)" class="btn btn-main-color">Dating Pool</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(2)" class="btn btn-main-color">Intimacy Level</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(3)" class="btn btn-main-color">FAQ</button>&nbsp;
+        </div>
     </div>
 
 </app-page-shell>
 
 <div (mousedown)="showPopupFlg=false" *ngIf="showPopupFlg" class="over-limit-popup-outer">
-    <div>test</div>
     <div class="over-limit-popup">
         <div style="font-size: 22px;">Over your limit!</div>
         <div style="text-align: left;">
             <p>You are only allowed 8 people at a time in your dating pool. Select
                 someone to drop. </p>
-            <p style="font-size: 12px;">Why are you only allowed 8 people? This is to help you organize your dating life. Keep your top 8 pospects active
-                and move the rest to your back burner. Or, by upgrading to Gold Member, you can have 12 people in your pool.
-            </p>    
+            <p style="font-size: 12px;">Why are you only allowed 8 people? This is to help you organize your dating
+                life. Keep your top 8 pospects active
+                and move the rest to your back burner. Or, by upgrading to Gold Member, you can have 12 people in your
+                pool.
+            </p>
         </div>
         <button class="btn btn-warning">Got it!</button>&nbsp;
         <button *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']" class="btn btn-primary">Upgrade</button>

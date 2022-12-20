@@ -13,30 +13,55 @@
                     <tr>
                         <td valign="top">
                             <div class="border-box" style="font-size: 12px;">
-                                <div class="tiny-text">Accounts</div>
-                                <div>Total: {{responseJson.accounts}}</div>
-                                <div>Completed: {{responseJson.activeAccounts}}</div>
-                                <div>Active: {{responseJson.recentLogins}} (past 7 days)</div>
-                                <div>New: {{responseJson.newThisWeek}} (past 7 days)</div>
+                                <div style="text-align: center;"><b>Accounts</b></div>
+                                <div class="red-text">Total</div>
+                                <div>Total Created: {{responseJson.accounts}}</div>
+                                <div>Total Completed: {{responseJson.activeAccounts}}</div>
+                                <hr>
+                                <div class="red-text">Recent (Last 7 days)</div>
+                                <div>Visited: {{responseJson.recentLogins}} (past 7 days)</div>
+                                <div>Created: {{responseJson.newThisWeek}} (past 7 days)</div>
+                                <hr>
+                                <div class="red-text">Today</div>
+                                <div>Visited: {{responseJson.activeToday}}</div>
+                                <div>Created: {{responseJson.newToday}}</div>
                             </div>
+                            <div>&nbsp;</div>
                             <div class="border-box">
+                                <div style="text-align: center;"><b>Interactions</b></div>
+                                <div class="red-text">Total</div>
                                 <div class="tiny-text">Likes: {{responseJson.likes}}</div>
                                 <div class="tiny-text">Matches: {{responseJson.matches}}</div>
                                 <div class="tiny-text">Messages: {{responseJson.messages}}</div>
                                 <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
+                                <div class="tiny-text">Journals: {{responseJson.journals}}</div>
+                                <hr>
+                                <div class="red-text">Recent (Last 7 days)</div>
+                                <div class="tiny-text">Likes: {{responseJson.likesRecent}}</div>
+                                <div class="tiny-text">Matches: {{responseJson.matchesRecent}}</div>
+                                <div class="tiny-text">Messages: {{responseJson.messagesRecent}}</div>
+                                <div class="tiny-text">Reviews: {{responseJson.reviewsRecent}}</div>
+                                <div class="tiny-text">Journals: {{responseJson.journalsRecent}}</div>
+                                <hr>
+                                <div class="red-text">Today</div>
+                                <div class="tiny-text">Likes Today: {{responseJson.likesToday}}</div>
+                                <div class="tiny-text">Matches Today: {{responseJson.matchesToday}}</div>
+                                <div class="tiny-text">Messages Today: {{responseJson.messagesToday}}</div>
+                                <div class="tiny-text">Reviews Today: {{responseJson.reviewsToday}}</div>
+                                <div class="tiny-text">Journals Today: {{responseJson.journalsToday}}</div>
                             </div>
                         </td>
                         <td valign="top">
                             <div class="border-box">
                                 <div class="tiny-text">Countries</div>
                                 <div *ngFor="let country of responseJson.countryNames">
-                                    <div>{{country.countryName}}: {{country.count}}</div>
+                                    <div>{{country.countryName}}<sup>{{country.count}}</sup></div>
                                 </div>
                             </div>
                             <div class="border-box">
                                 <div class="tiny-text">States</div>
                                 <div *ngFor="let state of responseJson.stateName">
-                                    <div>{{state.stateName}}: {{state.count}}</div>
+                                    <div>{{state.stateName}}<sup>{{state.count}}</sup></div>
                                 </div>
                             </div>
                         </td>

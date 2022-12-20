@@ -4,9 +4,8 @@
 
         <table style="font-size: 10px;">
             <tr>
-                <th>#</th>
+                <th></th>
                 <th>Name</th>
-                <th>Level</th>
                 <th>Location</th>
                 <th>*Clicks</th>
                 <th>*Matches</th>
@@ -15,16 +14,19 @@
                 <th>Last Login</th>
             </tr>
             <tr *ngFor="let player of ownersList; let i = index;">
-                <td [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">{{i+1}}</td>
+                <td>
+                    <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="30">
+                    </app-profile-pic>
+                </td>
                 <td [title]="player.user_id">
                     <b>{{player.firstName}}</b>
                     <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
                     <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
                 </td>
-                <td>{{player.ownerLevel}}</td>
+                <!--<td>{{player.ownerLevel}}</td>-->
                 <td>{{player.location}}</td>
                 <td style="color: #900; font-weight: 700; font-size: 12px;" align="center">
-                    Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup> 
+                    Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup>
                 </td>
                 <td style="color: #900; font-weight: 800; font-size: 16px;" align="center">
                     <span *ngIf="player.statsObj.matchLevel2>0">{{player.statsObj.matchLevel2}}</span>
@@ -38,5 +40,6 @@
                 <td><span class="gray-text" style="font-size: 8px;">{{player.lastDay}}</span></td>
             </tr>
         </table>
+        <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray;">{{emailStr}}</div>
     </div>
 </div>
