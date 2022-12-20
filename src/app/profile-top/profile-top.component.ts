@@ -10,6 +10,7 @@ export class ProfileTopComponent implements OnInit {
   @Input('user') user: any = new User(null);
   @Input('myUser') myUser: any = new User(null);
   @Input('distance') distance: string = '';
+  @Input('adminFlg') adminFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
   public largeImageFlg: boolean = false;
@@ -18,6 +19,7 @@ export class ProfileTopComponent implements OnInit {
   public lookingForTitle: string = '';
   public showAdminButtonsFlg: boolean = false;
   public showMoreFlg: boolean = false;
+  public showOptionsFlg: boolean = false;
 
   constructor() { }
 
@@ -25,18 +27,20 @@ export class ProfileTopComponent implements OnInit {
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.user.mainImageSrc = this.user.imgSrc;
     this.showMoreFlg = false;
-//    this.lookingForTitle = this.user.maritalStatus + ' ' + this.user.genderName + ' ' + 'seeking ' + this.user.matchGender;
+    this.showOptionsFlg = false;
   }
 
   cancelMatches() {
     this.messageEvent.emit('cancel');
   }
   showMoreClicked() {
+    this.showOptionsFlg = false;
     this.showMoreFlg = !this.showMoreFlg;
     this.messageEvent.emit('show-more');
   }
   sendClickEventUp(name: string) {
     this.showAdminButtonsFlg = false;
+    this.showOptionsFlg = false;
     this.messageEvent.emit(name);
   }
   likeButtonClicked(likedFlg: boolean) {
@@ -47,6 +51,7 @@ export class ProfileTopComponent implements OnInit {
       this.messageEvent.emit('noToMatch');
   }
   toggleImage() {
+    this.showOptionsFlg = false;
     this.largeImageFlg = !this.largeImageFlg;
   }
   viewImageThumbnail(num: number) {

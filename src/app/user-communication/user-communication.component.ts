@@ -17,6 +17,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public selectedMessage: number = 0;
   public firstName: string = '';
   public unreadMessagesFlg: boolean = false;
+  public showDetailsNumber: number = 0;
 
   public greetings = [
     'Hi!',
@@ -61,6 +62,14 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         this.loadMessages();
     }
   }
+
+  toggleShowDetailsNumber(num: number) {
+    if (num == this.showDetailsNumber)
+      this.showDetailsNumber = 0;
+    else
+      this.showDetailsNumber = num;
+  }
+  
   checkTextFlags() {
     this.showTextInputFlg = false;
     if (this.matchUser.matchObj.match_level == 3 && this.matchUser.matchObj.you_action == 'Interested')

@@ -41,7 +41,7 @@ export class SideMenuComponent implements OnInit {
 
   ngClassMenuItem(menuTitle: string) {
     if (menuTitle == this.pageTitle)
-      return 'side-menu-item active-menu';
+      return 'side-menu-item active-main-color';
     else
       return 'side-menu-item';
   }

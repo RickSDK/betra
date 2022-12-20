@@ -1,6 +1,9 @@
 function getHostname() {
     return 'https://www.appdigity.com/betraPhp/';
 }
+function getVersion() {
+	return '0.80';
+}
 function getIPInfo(userName, pwd) {
     var code = btoa(pwd);
     $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function (data) {

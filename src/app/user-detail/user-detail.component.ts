@@ -28,7 +28,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public exceededPoolSizeFlg: boolean = false;
   public showMatchLevelInfoFlg: boolean = false;
   public showFakePicOptionsFlg: boolean = false;
-  public distance: string = '99';
+  public distance: string = '';
 
 
 
@@ -135,6 +135,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       if (this.id == 4 && responseJson.action == "yesToMatch") {
         //--Admirers
         this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
+      } else if (this.uid>0) {
+        console.log('stay here!!');
+        this.loadThisUser();
       } else {
         this.currentProfileIndex++;
         this.showCurrentProfile();
@@ -154,6 +157,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       }
     }
     if (responseJson.action == 'removeThisUser') {
+      this.router.navigate(['/matches']);
+    }
+    if (responseJson.action == 'banThisUser') {
       this.router.navigate(['']);
     }
     if (responseJson.action == 'logUser') {
@@ -177,33 +183,13 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
   }
 
-  displayThisProfile() {
-    this.calculateDistance(this.matchUser, this.user);
-
-    if (this.matchUser.state && this.user.state != this.matchUser.state) {
-      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
-    }
-    if (this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
-      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.countryName;
-    }
-
-    if (this.matchSnapshotModal)
-      this.populateViewChildren();
-    else {
-      setTimeout(() => {
-        this.populateViewChildren();
-      }, 1000);
-    }
-
-  }
-
   populateViewChildren() {
+    console.log('+++populateViewChildren');
     if (this.messagesModal)
       this.messagesModal.populateModal(this.matchUser);
 
     if (this.matchSnapshotModal) {
-      this.matchSnapshotModal.ngOnInit();
-      this.matchSnapshotModal.calculateMatches(this.user, this.matchUser, this.matchObj);
+      this.matchSnapshotModal.initModal(this.matchUser, this.user, this.matchObj);
     }
   }
 
@@ -219,6 +205,28 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
   }
 
+  displayThisProfile() {
+    console.log('displayThisProfile', this.matchUser.firstName);
+    this.calculateDistance(this.matchUser, this.user);
+
+    if (this.matchUser.state && this.user.state != this.matchUser.state) {
+      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
+    }
+    if (this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
+      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.countryName;
+    }
+
+    if (this.matchSnapshotModal)
+      this.populateViewChildren();
+    else {
+      console.log('no modal!!! try again in one second')
+      setTimeout(() => {
+        this.populateViewChildren();
+      }, 1000);
+    }
+
+
+  }
   calculateDistance(matchUser: any, user: any) {
     this.distance = '';
     if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {

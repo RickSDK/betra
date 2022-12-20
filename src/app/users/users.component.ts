@@ -34,6 +34,7 @@ export class UsersComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode.php', params, true);
   }
   deleteUser(player: any) {
+    this.sortedlist = [];
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
