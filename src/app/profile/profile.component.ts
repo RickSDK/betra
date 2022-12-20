@@ -22,7 +22,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     'We want to verify your email to know you are legit. Feel free to skip for now if you want. We trust you!',
     'Details, details details! Yes this is a lot of stuff to fill out, but it will be worth it. Betra tells you more about a potential match than any other dating site!',
     'How about a simple personality test? This is just to see how you stack up against potential matches.',
-    'You might not care about politics, but this is just one more tool you can use when looking at matches.',
+    'You might not care about politics, but this is just one more tool you can use when looking at matches. NO ONE will be able to see your answers to these questions. The scores are only meant to tell you how close or far away you are fromt potential matches on the political spectrum.',
     'Take a selfie! And make it a good one. Make sure you show your beautiful face.',
     'This is optional, but feel free to add up to 4 more pictures',
     'Final Step! Tell us what you are looking for in a match. And don\'t worry, these are simply used to tell you how close each potential match is to your ideal.',
@@ -55,14 +55,14 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     { question: 'What sounds like more fun?', option1: 'Spring Break Party', option2: 'Camping Trip', answer: '' },
   ];
   public politicalQuiz = [
-    { subject: 'Gun Rights', option1: 'Pro Second Ammendment', option2: 'Guns should be allowed for hunting and personal protection, but heavily regulated and tracked.', option3: 'Guns are too dangerous and should be outlawed.', answer: '' },
-    { subject: 'Abortion Rights', option1: 'Pro Life', option2: 'Pro Choice', option3: 'Abortion on demand and government should pay for them.', answer: '' },
-    { subject: 'Education', option1: 'Pro School Choice', option2: 'More funds for better schools and better teachers.', option3: 'All education should be free. Opposed to charter schools, religious schools and home schooling.', answer: '' },
-    { subject: 'Economy & Taxes', option1: 'Tea Party - Pro capitalism, free market enterprise and keep taxes low', option2: 'Moderate: Good balance of free markets, regulations and taxes.', option3: '99%er: Take money away from greedy corporations in order to fully fund saftey net programs.', answer: '' },
-    { subject: 'Military', option1: 'Anti-military. No more bombs or war machines.', option2: 'Support military but would like to see it reduced in size.', option3: 'Stronger, better military.', answer: '' },
-    { subject: 'Police', option1: 'BLM supporter. Defund the police and shift to social services.', option2: 'More diversity and racial sensitivity training for police.', option3: 'Pro Police', answer: '' },
-    { subject: 'Drugs', option1: 'Legalize all drugs', option2: 'Marijuana  is OK but other hard drugs should remain illegal.', option3: 'Opposed to marijuana and drugs in general.', answer: '' },
-    { subject: 'Sex Workers', option1: 'Legalize prostitution everywhere.', option2: 'Let states set their own laws on prostitution and sex work.', option3: 'Pro traditional families, keep prostitution illegal.', answer: '' },
+    { subject: 'Gun Rights', option1: 'Pro 2nd Ammendment', option2: 'Hunting guns only, please.', option3: 'NO to guns!', answer: '' },
+    { subject: 'Abortion Rights', option1: 'Pro Life', option2: 'Pro Choice', option3: 'Abortion on demand and government should pay.', answer: '' },
+    { subject: 'Education', option1: 'Pro School Choice', option2: 'More funds for better schools.', option3: 'All education should be free and run by the government.', answer: '' },
+    { subject: 'Economy & Taxes', option1: 'Yea capitalism!', option2: 'Regulate and tax.', option3: 'Take money away from greedy corporations and give it to the poor.', answer: '' },
+    { subject: 'Military', option1: 'No more bombs!', option2: 'Support military but reduce its size.', option3: 'Stronger, better military.', answer: '' },
+    { subject: 'Police', option1: 'BLM / Defund Police.', option2: 'Reforms needed.', option3: 'Pro Police', answer: '' },
+    { subject: 'Drugs', option1: 'Legalize all drugs', option2: 'Marijuana is OK but no hard drugs.', option3: 'Opposed to drugs.', answer: '' },
+    { subject: 'Sex Workers', option1: 'Legalize prostitution everywhere.', option2: 'Let states decide.', option3: 'Keep prostitution illegal.', answer: '' },
   ];
   public stateOptions = [
     'Alabama',

@@ -18,6 +18,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public showHeartFormFlg: boolean = false;
   public disableFormFlg: boolean = true;
   public showPopupFlg: boolean = false;
+  public showDetailsNumber: number = 0;
 
   constructor(private route: ActivatedRoute) { super(); }
 
@@ -37,6 +38,13 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       action: 'refreshDatingPool'
     };
     this.executeApi('appApiCode.php', params, true);
+  }
+
+  toggleShowDetailsNumber(num: number) {
+    if (num == this.showDetailsNumber)
+      this.showDetailsNumber = 0;
+    else
+      this.showDetailsNumber = num;
   }
 
   changeMenu(num: number) {
@@ -89,7 +97,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   }
   ngClassButton(num: number) {
     if (num == this.menuNum)
-      return 'btn btn-primary';
+      return 'btn btn-main-color';
     else
       return 'btn btn-secondary';
   }
@@ -105,7 +113,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       console.log('xxxrefreshDatingPool', responseJson);
       this.refreshUserObj(responseJson.user);
       this.updateMatches();
-      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length>8;
+      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length > 8;
       this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {

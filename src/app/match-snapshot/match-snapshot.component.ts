@@ -36,13 +36,26 @@ export class MatchSnapshotComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (this.user && this.matchObj)
+      this.initModal(this.matchObj, this.user, null);
+
+  }
+
+  initModal(matchUser: any, user: any, matchObj: any) {
+    this.user = user;
+    this.matchObj = matchObj;
+    this.matchUser = matchUser;
+
     this.showMoreOptionsFlg = (this.user.datingPool.length > 8);
     this.showMoreFlg = (this.user.datingPool.length > 8);
     this.expandBottomFlg = (this.user.datingPool.length > 8);
 
-    if(this.profileTopComponent) {
+    if (this.profileTopComponent) {
       this.profileTopComponent.ngOnInit();
     }
+
+    this.calculateMatches(user, matchUser, matchObj);
+
   }
 
   buttonPressed(action: string) {
@@ -51,7 +64,7 @@ export class MatchSnapshotComponent implements OnInit {
     this.showConfirmationFlg = true;
   }
 
-  calculateMatches(user: any, matchUser: any, matchObj: any, initflg: boolean = false) {
+  calculateMatches(user: any, matchUser: any, matchObj: any) {
     console.log('+++calculateMatches+++');
 
     this.matchObj = matchObj;
@@ -112,11 +125,6 @@ export class MatchSnapshotComponent implements OnInit {
     if (this.personalityMatch < 1)
       this.personalityMatch = 1;
 
-    if (initflg) {
-      this.profileMatch = 0;
-      this.polyMatch = 0;
-      this.personalityMatch = 0;
-    }
     this.totalMatch = Math.round((this.profileMatch + this.polyMatch + this.personalityMatch) / 3);
 
     this.user.kidsNum = (this.user.matchHasKids == 'No') ? '0' : '99';

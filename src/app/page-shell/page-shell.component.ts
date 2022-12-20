@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { User } from '../classes/user';
 //import { AdsenseModule } from 'ng2-adsense';
 
+declare var getVersion: any;
+
 @Component({
   selector: 'app-page-shell',
   templateUrl: './page-shell.component.html',
@@ -21,6 +23,7 @@ export class PageShellComponent implements OnInit {
   public showPromotionalBoxesFlg: boolean = false;
   public showAboutInfoFlg: boolean = false;
   public firstName: string = '';
+  public appVersion: string = '';
 
   constructor(private router: Router) { }
 
@@ -29,7 +32,7 @@ export class PageShellComponent implements OnInit {
     this.showAboutInfoFlg = true;
     if (localStorage['user_id'] > 0 && localStorage['User']) {
       var user = new User(JSON.parse(localStorage['User']));
-      if(user.ip == "76.103.166.98") {
+      if (user.ip == "76.103.166.98") {
         this.userId = 0;
         return;
       }

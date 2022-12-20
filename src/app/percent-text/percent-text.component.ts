@@ -18,11 +18,11 @@ export class PercentTextComponent implements OnInit {
   }
   ngclassPercent(amount: number) {
     if (amount >= 80)
-      return 'green-value';
+      return 'green-value main-color';
     else if (amount >= 50)
-      return 'yellow-value';
+      return 'yellow-value main-color';
     else
-      return 'red-value';
+      return 'red-value main-color';
 
   }
 }
