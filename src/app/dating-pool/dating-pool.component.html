@@ -1,20 +1,19 @@
 <div *ngIf="user && user.datingPool && user.datingPool.length>0" [style.max-width]="largeFlg?'100%':'400px'">
-    <div class="red-header" [routerLink]="['/matches']">My Dating Pool</div>
+    <div class="main-color" style="font-size: 10px; font-weight: 700; border-bottom: 1px solid #ccc;" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
     <div *ngIf="largeFlg">
         <div *ngFor="let person of user.datingPool" class="pool-large menu-circle">
             <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
                 [src]="person.src" class="large-img">
             <img *ngIf="person.user_id==0" [src]="person.src" class="large-img">
-            <span *ngIf="person.alerts>0" class="red-circle-large">{{person.alerts}}</span>
+            <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon" *ngIf="person.match && person.match.match_date_request == 'A'"></i>
             <i class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
             <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">
-                <i class="fa fa-circle" [style.color]="person.lastLoginColor"></i>
                 {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup>
             </div>
-            <div class="icon-label">
+            <div style="font-size: 8px; color: gray;"><i class="fa fa-circle main-color"></i> {{person.lastLoginText}}</div>
+            <div class="icon-label btn-main-color">
                 <div>{{person.name}}</div>
-                <div style="font-size: 10px; font-weight: 100;">{{person.lastLoginText}}</div>
             </div>
             <div *ngIf="1 && person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!

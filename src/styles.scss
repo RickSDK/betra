@@ -1,15 +1,61 @@
-$dark-red: #b7121f;
 $medium-tan: #b28846;
 $medium-brown: #260e04;
 $lite-blue-color: #d8e0e3;
 $dark-blue: #2a3a46;
+$dark-red: #b7121f;
+$brown-red: #7D4F50;
+$light-pink: #CC8B86;
+$main-color: #b7121f;
+$light-color: #CC8B86;
+
 
 body {
     background-color: #eee !important;
 }
 
+.main-color {
+    color: $main-color;
+}
+
+.light-box {
+    background-color: $light-color;
+    display: inline-block;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.active-main-color {
+    color: $main-color !important;
+    font-weight: 700;
+}
+
+.main-color-bg {
+    background-color: $main-color;
+    color: white;
+}
+
+.btn-main-color {
+    background-color: $main-color !important;
+    color: white !important;
+}
+
+.btn-main-color:hover {
+    background-color: red !important;
+    color: black !important;
+}
+
+.clickable {
+    cursor: pointer;
+    color: $main-color;
+}
+
+.clickable:hover {
+    color: black;
+}
+
 .red-text {
-    color: $dark-red;
+    color: $main-color;
     font-weight: 700;
 }
 
@@ -57,7 +103,6 @@ body {
     margin-left: -70px;
     margin-top: 40px;
     width: 80px;
-    background-color: #b7121f;
     color: white;
     text-align: center;
     font-size: 10px;
@@ -327,7 +372,7 @@ select {
     min-width: 18px;
     font-size: 12px;
     text-align: center;
-    background-color: red;
+    background-color: $main-color;
     color: white;
     border-radius: 50%;
 }
@@ -339,6 +384,7 @@ select {
 .text-link {
     font-size: 12px;
     cursor: pointer;
+    color: $main-color;
 }
 
 .text-link:hover {
