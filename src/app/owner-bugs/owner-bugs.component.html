@@ -1,0 +1,72 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Bugs'" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-owners-menu [pageTitle]="'Bugs'"></app-owners-menu>
+
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div class="border-box" style="font-size: 12px;">
+            Use this page to report bugs or make suggestions to make the app better.
+        </div>
+        <button *ngIf="postId==0 && !showFormFlg" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create
+            Bug</button>
+        <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
+            to top</button>
+
+        <div *ngIf="selectedJournal">
+            <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"
+                [adminFlg]="userId==1">
+            </app-journal-cell>
+        </div>
+
+        <div *ngIf="showFormFlg">
+            <div *ngIf="postId==0" class="gray-text">Tell about the bug you found or describe a feature you think would make the app better.</div>
+            <div *ngIf="postId>0" class="gray-text">Reply to this bug.</div>
+            <app-text-area-input [id]="'journalText'"></app-text-area-input>
+            <table>
+                <tr>
+                    <td>
+                        <div style="padding: 20px;">
+                            <div class="gray-text">Bug Type</div>
+                            <select name="bugType" id="bugType">
+                                <option>Bug</option>
+                                <option>Enhancement</option>
+                                <option>Clarification</option>
+                                <option>Other</option>
+                            </select>
+                        </div>      
+                    </td>
+                    <td>
+                        <div style="padding: 20px;">
+                            <div class="gray-text">Device Type</div>
+                            <select name="deviceType" id="deviceType">
+                                <option>All</option>
+                                <option>Mobile Only</option>
+                                <option>Desktop Only</option>
+                                <option>Tablet Only</option>
+                            </select>
+                        </div>                                    
+                    </td>
+                    <td align="center">
+                        <div>Version</div>
+                        <div>{{appVersion}}</div>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <button (mousedown)="cancelButtonPressed()" class="btn btn-warning">Cancel</button>&nbsp;
+                <button *ngIf="postId==0" (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
+                <button *ngIf="postId>0" (mousedown)="replyButtonPressed()" class="btn btn-main-color">Reply</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="!selectedJournal">
+        <app-journal-cell (messageEvent)="replyButtonClicked($event)"
+            *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
+            [imgSrc]="user.imgSrc" [adminFlg]="userId==1 || userId == journal.user_id" [level]="0"></app-journal-cell>
+    </div>
+
+</app-page-shell>

@@ -60,6 +60,7 @@ import { OwnersMenuComponent } from './owners-menu/owners-menu.component';
 import { OwnerUsersComponent } from './owner-users/owner-users.component';
 import { OwnerStatsComponent } from './owner-stats/owner-stats.component';
 import { OwnersTableCellComponent } from './owners-table-cell/owners-table-cell.component';
+import { OwnerBugsComponent } from './owner-bugs/owner-bugs.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -120,7 +121,8 @@ import { OwnersTableCellComponent } from './owners-table-cell/owners-table-cell.
     OwnersMenuComponent,
     OwnerUsersComponent,
     OwnerStatsComponent,
-    OwnersTableCellComponent
+    OwnersTableCellComponent,
+    OwnerBugsComponent
   ],
   imports: [
     BrowserModule,
