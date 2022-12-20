@@ -1,10 +1,12 @@
-<div class="match-card" *ngIf="matchUser && matchUser.matchObj">
-    <div class="gray-title" style="position: relative;" [style.color]="unreadMessagesFlg?'yellow':'white'"><i class="fa fa-comment"></i> <span *ngIf="unreadMessagesFlg">New</span> Messages <span
+<div class="match-card" *ngIf="matchUser && matchUser.matchObj" style="position: relative; padding-bottom: 45px;">
+    <div class="gray-title" style="position: relative;" [style.color]="unreadMessagesFlg?'yellow':'white'"><i
+            class="fa fa-comment"></i> <span *ngIf="unreadMessagesFlg">New</span> Messages <span
             style="font-size: 8px; font-weight: 200;">{{firstName}}</span>
         <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg"
             class="fa fa-info-circle more-options"></i>
     </div>
-    <div *ngIf="messages.length==6" (mousedown)="loadMessages(true)" class="text-link" style="text-align: left; padding: 5px;">Previous Messages</div>
+    <div *ngIf="messages.length==6" (mousedown)="loadMessages(true)" class="text-link"
+        style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">
         <div *ngFor="let message of messages" style="display: block; min-height: 40px;">&nbsp;
 
@@ -42,7 +44,7 @@
                     <app-message-input (messageEvent)="inputValueChanged($event)" [maxLength]="250"></app-message-input>
                 </td>
                 <td>&nbsp;
-                    <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-primary"
+                    <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-main-color"
                         style="height: 50px;">Send</button>
                 </td>
             </tr>
@@ -67,7 +69,7 @@
                     </select>
                 </td>
                 <td>&nbsp;
-                    <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-primary"
+                    <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-main-color"
                         style="height: 60px;">Send</button>
                 </td>
             </tr>
@@ -79,5 +81,45 @@
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="matchUser.matchObj && matchUser.matchObj.match_level == 3" class="purple-text">Getting a response back
         from {{matchUser.firstName}} will allow you two to communicate freely.</div>
+
+
+
+    <div [ngClass]="showDetailsNumber>0?'bottom-details-panal-open':'bottom-details-panal-closed'">
+        <div *ngIf="showDetailsNumber==1">
+            <div class="red-text">Messages</div>
+            <div style="font-size: 12px; color: gray; text-align: left; padding: 10px;">
+                <p>Communication starts slowly with Betra. You must first make a match before any communication can begin.</p>
+                <p>From there, either person can ask a question from a dropdown list of options. The first communication must start from one of these ice-breaker questions.</p>
+                <p>Once both people reply to each other's questions, you will be free to openly exchange text messages.</p>
+                <p>Reaching Intimacy Level 5 also unlocks 3 other Betra features:</p>
+                <ol>
+                    <li><b>Request Info</b> - Option to exchange each other's phone numbers and email addresses.</li>
+                    <li><b>Request Picture</b> - Ask the other person to send you a personalized photo of themselves.</li>
+                    <li><b>Request Date</b> - Ask the other person on a date with one click!</li>
+                </ol>
+            </div>
+
+
+        </div>
+        <div *ngIf="showDetailsNumber==2">
+            <div>FAQ</div>
+            <div style="font-size: 12px; color: gray; text-align: left; padding: 10px;">
+                <div class="question">Question: Why can't I send this person a text?</div>
+                <div class="answer">Answer: Communication starts slowly with Betra. You must first make a successful match by both indicating you are interested in the other person. From there you must each ask and answer an ice-breaker question. Then free open texting can begin.</div>
+
+                <div class="question">Question: What if the other person is not responding?</div>
+                <div class="answer">Answer: Sorry, but that sometimes happens. If you look at the message, you can tell if it has been read or not. You can also look on the person's profile to see when they last logged in. It's possible they are just very busy.</div>
+
+                <div class="question">Question: How do I block someone?</div>
+                <div class="answer">Answer: Simply dropping the person from your dating pool will automatically stop all communication.</div>
+
+            </div>
+        </div>
+    </div>
+    <div *ngIf="menuNum==0" class="date-pool-bottom-bar">
+        <button (mousedown)="toggleShowDetailsNumber(1)" class="btn btn-main-color">Messages</button>&nbsp;
+        <button (mousedown)="toggleShowDetailsNumber(2)" class="btn btn-main-color">FAQ</button>&nbsp;
+    </div>
+
 
 </div>

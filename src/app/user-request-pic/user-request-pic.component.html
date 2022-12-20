@@ -19,7 +19,7 @@
 </div>
 
 
-<div *ngIf="requestNum==3" class="tan-box">
+<div *ngIf="requestNum==3" class="light-box">
     <div>&nbsp;</div>
     <div *ngIf="matchUser.matchObj.match_pic_request > 0">
         <i class="fa fa-paper-plane"></i> Request has been sent.
@@ -28,9 +28,9 @@
         <i class="fa fa-ban"></i> Sorry, your request has been denied.
     </div>
     <div *ngIf="(!matchUser.matchObj.match_pic_request || matchUser.matchObj.match_pic_request==0) && !messageSentFlg">
-        <div class="gray-text">Ask {{matchUser.firstName}} to send you a special picture, taken today, just for
+        <p style="font-size: 12px;">Ask {{matchUser.firstName}} to send you a special picture, taken today, just for
             you.
-        </div>
+        </p>
         <div>Picture Type:</div>
         <select (change)="selectValueChanged()" name="pictureType" id="pictureType">
             <option disabled selected>Select</option>
@@ -38,8 +38,8 @@
         </select>
         <div>&nbsp;</div>
         <div>
-            <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
-            <button (mousedown)="processRequestsRequest('sendPicRequest')" class="btn btn-success"
+            <button (mousedown)="requestNum=0" class="btn btn-secondary">Cancel</button>&nbsp;
+            <button (mousedown)="processRequestsRequest('sendPicRequest')" class="btn btn-main-color"
                 style="height: 60px;">Send
                 Request</button>
         </div>

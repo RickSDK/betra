@@ -1,4 +1,4 @@
-<div *ngIf="requestNum==2" class="tan-box">
+<div *ngIf="requestNum==2" class="light-box">
     <div>&nbsp;</div>
     <div *ngIf="matchUser.matchObj.you_date_request=='X'">
         you_date_request {{matchUser.matchObj.you_date_request}}
@@ -20,13 +20,13 @@
     <div *ngIf="matchUser.matchObj.you_date_request == 'M'"><i class="fa fa-paper-plane"></i> You have requested a
         modification to your date.</div>
     <div *ngIf="!messageSentFlg && !matchUser.matchObj.match_date_request && !matchUser.matchObj.you_date_request">
-        <div class="gray-text">Ask {{matchUser.firstName}} out on a date with one click!</div>
+        <p style="font-size: 12px;">Ask {{matchUser.firstName}} out on a date with one click!</p>
         <app-date-form [dateObj]="matchUser.matchObj.dateObj" [requestObj]="requestObj"></app-date-form>
         <div>&nbsp;</div>
         <div class="gray-text">Keep in mind the person asking the date is expected to pay.</div>
         <div>&nbsp;</div>
         <div>
-            <button (mousedown)="sendDateRequest()" class="btn btn-success" style="height: 60px;">Send
+            <button (mousedown)="sendDateRequest()" class="btn btn-main-color" style="height: 60px;">Send
                 Request</button>
         </div>
     </div>
