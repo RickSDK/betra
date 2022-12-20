@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId"
-    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
     <div class="matches-card" *ngIf="user">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div class="border-box" style="font-size: 12px;">
@@ -14,7 +14,7 @@
 
         <div *ngIf="selectedJournal">
             <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"
-                [userId]="userId">
+                [adminFlg]="userId==1">
             </app-journal-cell>
         </div>
 
@@ -26,8 +26,8 @@
             <app-text-area-input [id]="'journalText'"></app-text-area-input>
             <div>
                 <button (mousedown)="cancelButtonPressed()" class="btn btn-warning">Cancel</button>&nbsp;
-                <button *ngIf="postId==0" (mousedown)="submitButtonPressed()" class="btn btn-primary">Submit</button>
-                <button *ngIf="postId>0" (mousedown)="replyButtonPressed()" class="btn btn-primary">Reply</button>
+                <button *ngIf="postId==0" (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
+                <button *ngIf="postId>0" (mousedown)="replyButtonPressed()" class="btn btn-main-color">Reply</button>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
     <div *ngIf="!selectedJournal">
         <app-journal-cell (messageEvent)="replyButtonClicked($event)"
             *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
-            [imgSrc]="user.imgSrc" [userId]="userId" [level]="0"></app-journal-cell>
+            [imgSrc]="user.imgSrc" [adminFlg]="userId==1 || userId == journal.user_id" [level]="0"></app-journal-cell>
     </div>
 
 </app-page-shell>

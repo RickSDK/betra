@@ -33,7 +33,7 @@
         </app-dating-pool>
 
         <div class="match-card" style="padding: 10px; width: 100%; max-width: none;">
-            <div style="color: #900; font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to Betra!
+            <div class="main-color" style="font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to Betra!
             </div>
             <div style="text-align: left;" class="gray-text">
                 <p>This is designed to be the "next generation" in dating, and guaranteed to be the most fun you will
@@ -71,22 +71,7 @@
 
             </div>
             <p class="gray-text">Help us spread to every city in the world!</p>
-            <div class="hidden-sm">
-                <hr>
-                <p class="red-text">What can you do now?</p>
-                <button class="btn btn-success" [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}">
-                    <div style="font-size: 24px;"><i class="fa fa-user"></i></div>
-                    <div style="font-size: 10px;">Profile</div>
-                </button>&nbsp;
-                <button [routerLink]="['/user-detail']" class="btn btn-success">
-                    <div style="font-size: 24px;"><i class="fa fa-search"></i></div>
-                    <div style="font-size: 10px;">Browse</div>
-                </button>&nbsp;
-                <button [routerLink]="['/journal']" class="btn btn-success">
-                    <div style="font-size: 24px;"><i class="fa fa-book"></i></div>
-                    <div style="font-size: 10px;">Journal</div>
-                </button>
-            </div>
+
         </div>
     </div>
 

@@ -75,11 +75,25 @@
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 2px 2px 5px gray;
+    min-width: 100px;
+    text-align: center;
     cursor: pointer;
 }
 
+.confirmation-popup {
+    display: inline-block;
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: #900;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+}
+
 .three-dots-menu-option {
-    padding: 8px;
+    padding: 3px;
+    font-size: 14px;
 }
 
 .three-dots-menu-option:hover {

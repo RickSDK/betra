@@ -10,33 +10,75 @@
                     <span (mousedown)="showOptionsFlg=!showOptionsFlg" class="three-dots"><i
                             class="fa fa-ellipsis-v"></i></span>
                     <span *ngIf="showOptionsFlg" class="three-dots-menu">
-                        <div (mousedown)="menuOptionPressed('flagJournal')" class="three-dots-menu-option">Report</div>
-                        <div *ngIf="userId==1" (mousedown)="menuOptionPressed('deleteJournal')"
-                            class="three-dots-menu-option">Delete</div>
+                        <div (mousedown)="menuOptionPressed('flag')" class="three-dots-menu-option">Flag</div>
+                        <div *ngIf="adminFlg" (mousedown)="menuOptionPressed('delete')" class="three-dots-menu-option">
+                            Delete</div>
+                        <div *ngIf="adminFlg" (mousedown)="menuOptionPressed('edit')" class="three-dots-menu-option">
+                            Edit</div>
                     </span>
                 </div>
                 <div style="font-size: 10px; color: gray;">{{journal.localDt}}</div>
             </td>
         </tr>
     </table>
+    <div class="confirmation-popup" *ngIf="showConfirmationFlg">
+        <div>Are you sure you want to {{adminAction}} this entry?</div>
+        <button (mousedown)="showConfirmationFlg=false" class="btn btn-warning">Cancel</button>&nbsp;
+        <button (mousedown)="optionConfirmPressed()" class="btn btn-success">Yes</button>
+    </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
         <i class="fa fa-thumbs-up" style="color: rgb(60, 158, 114);"></i>&nbsp;{{journal.likes}}&nbsp;
         <i class="fa fa-thumbs-down" style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;
-        <i *ngIf="journal.postFlagged" class="fa fa-flag" style="color: orange;"></i>
+        <i *ngIf="journal.postFlagged" class="fa fa-flag" style="color: orange;"></i>&nbsp;
+        <span *ngIf="journal.region == 'Bug'">
+            <span>Status: <span class="red-text">{{journal.status}}</span></span>&nbsp;
+            <span>Type: <span class="red-text">{{journal.bugType}}</span></span>&nbsp;
+            <span>Device Type: <span class="red-text">{{journal.deviceType}}</span></span>&nbsp;
+            <span>Version: <span class="red-text">{{journal.createdVersion}}</span></span>&nbsp;
+            <span *ngIf="journal.status == 'Fixed'">Fixed: <span class="red-text">{{journal.fixedVersion}} ({{journal.fixedDate}})</span></span>&nbsp;
+        </span>
+
         <span (mousedown)="toggleReplies()" *ngIf="journal.replies==1" class="text-link"
             style="color: gray; float: right;">{{journal.replies}} comment</span>
         <span (mousedown)="toggleReplies()" *ngIf="journal.replies>1" class="text-link"
             style="color: gray; float: right;">{{journal.replies}} comments</span>
     </div>
     <div [ngClass]="level>1?'reply-post':'main-post'">
-        <div [innerHTML]="journal.message"></div>
+        <table width="100%" *ngIf="adminAction=='edit'">
+            <tr>
+                <td width="100%">
+                    <app-text-area-input [id]="'journalEditText'" [value]="journal.messageText"></app-text-area-input>
+                </td>
+                <td align="center">
+                    <button (mousedown)="submitButtonPressed()" class="btn btn-primary">Update</button>
+                    <div>&nbsp;</div>
+                    <a (mousedown)="adminAction=''" class="text-link">Cancel</a>
+                </td>
+            </tr>
+        </table>
+
+        <div *ngIf="adminAction!='edit'" [innerHTML]="journal.message"></div>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
-        <span (mousedown)="menuOptionPressed('likePost')" class="text-link">Like</span>&nbsp;
-        <span (mousedown)="menuOptionPressed('dislikePost')" class="text-link">Dislike</span>&nbsp;
+        <span (mousedown)="journalApiCall('likePost')" class="text-link">Like</span>&nbsp;
+        <span (mousedown)="journalApiCall('dislikePost')" class="text-link">Dislike</span>&nbsp;
         <span (mousedown)="toggleReply();" class="text-link">Reply</span>&nbsp;
-    </div>
+        <span *ngIf="journal.imageNum>0" class="text-link" (mousedown)="showImageFlg=!showImageFlg">
+            <i class="fa fa-picture-o"></i> Show Attachment</span>&nbsp;
+        <span *ngIf="journal.region == 'Bug' && adminFlg">
+            <span (mousedown)="toggleAttachment();"
+            class="text-link">Attachment</span>&nbsp;
+            <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')" class="btn btn-primary">Mark as Fixed</button>
+        </span>
 
+        <img *ngIf="showImageFlg" [src]="journal.imageSrc" width="100%">
+    </div>
+    <div *ngIf="showAttachmentFlg">
+        <div>Note you can only have one attachment at a time. Uploading a new attachment will override the existing one.
+        </div>
+        <app-upload-image *ngIf="!loadingFlg" [src]="bugImgSrc" (messageEvent)="updateImageButtonClicked()">
+        </app-upload-image>
+    </div>
     <table *ngIf="replyToFlg" width="100%">
         <tr>
             <td>&nbsp;&nbsp;</td>
@@ -54,7 +96,8 @@
             </td>
         </tr>
     </table>
-    <app-journal-cell *ngFor="let reply of replies; let i = index;" [journal]="reply" [index]="i" [userId]="userId" [level]="level" [imgSrc]="imgSrc">
+    <app-journal-cell *ngFor="let reply of replies; let i = index;" [journal]="reply" [index]="i" [adminFlg]="adminFlg"
+        [level]="level" [imgSrc]="imgSrc">
     </app-journal-cell>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>

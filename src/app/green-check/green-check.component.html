@@ -5,7 +5,8 @@
         <i *ngIf="icon" [class]="icon"></i>
     </span>
     <span class="profile-text">
-        <sup *ngIf="text1==text2"><i class="fa fa-check" style="color: #00cc00;"></i></sup>
         {{text1}}
+        <sup *ngIf="showCheckFlg"><i class="fa fa-check main-color"></i></sup>
     </span>
+    
 </div>
