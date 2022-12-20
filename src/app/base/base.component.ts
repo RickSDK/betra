@@ -70,7 +70,6 @@ export class BaseComponent implements OnInit {
     this.userId = localStorage['user_id'] || 0;
     this.userStatus = '';
     this.popupNum = 1;
-    console.log('+++ loading this user: ', this.userId);
     if (this.userId > 0) {
       var userLocalStorage = localStorage['User'];
       if (userLocalStorage) {
@@ -95,7 +94,7 @@ export class BaseComponent implements OnInit {
   }
   ngClassMenuButton(num: number, menuNum: number) {
     if (num == menuNum)
-      return 'btn btn-primary';
+      return 'btn btn-main-color';
     else
       return 'btn btn-secondary';
   }

@@ -144,7 +144,12 @@ export class User {
     public pendingStatusReason: string = '';
     public pendingStatusPage: number = 0;
     
-
+    public drinksIcon: string = 'assets/images/drinker.png';
+    public drinksTitle: string = 'Drinks';
+    public smokesIcon: string = 'assets/images/smoker.png';
+    public smokesTitle: string = 'Smokes';
+    public potIcon: string = 'assets/images/cannabis.png';
+    public potTitle: string = 'Uses Cannabis';
 
     constructor(obj: any) {
         if (obj) {
@@ -248,6 +253,28 @@ export class User {
             this.ownerLevel = obj.ownerLevel || 0;
             this.picFlagged = obj.picFlagged || 0;
             this.numReviews = obj.numReviews || 0;
+
+            if(this.drinks == 'No') {
+                this.drinksIcon = 'assets/images/nonDrinker.png';
+                this.drinksTitle = 'Non Drinker';
+            }
+            if(this.drinks == 'Occsional') {
+                this.drinksTitle = 'Occsionally drinks';
+            }
+            if(this.smokes == 'No') {
+                this.smokesIcon = 'assets/images/nonSmoker.png';
+                this.smokesTitle = 'Non smoker';              
+            }
+            if(this.smokes == 'Occsional') {
+                this.smokesTitle = 'Occsionally smokes';
+            }
+            if(this.cannabis == 'No') {
+                this.potIcon = 'assets/images/noDrugs.png';
+                this.potTitle = 'No drugs';              
+            }
+            if(this.cannabis == 'Occsional') {
+                this.potTitle = 'Occsional drugs';
+            }
 
             if (this.picFlagged > 0) {
                 this.flaggedImg = betraImageFromId(this.user_id, this.profilePic, '', 0);

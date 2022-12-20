@@ -9,6 +9,7 @@ export class GreenCheckComponent implements OnInit {
   @Input('label') label: string = '';
   @Input('text1') text1: string = '';
   @Input('text2') text2: string = '';
+  @Input('showCheckFlg') showCheckFlg: boolean = false;
   @Input('icon') icon: string = '';
   @Input('img') img: string = '';
   @Input('smokes') smokes: string = '';

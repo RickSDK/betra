@@ -114,5 +114,8 @@
       }
     }
   },
-  "defaultProject": "betra"
+  "defaultProject": "betra",
+  "cli": {
+    "analytics": false
+  }
 }

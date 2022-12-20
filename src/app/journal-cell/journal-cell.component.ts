@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
 
 declare var $: any;
+declare var getVersion: any;
 
 @Component({
   selector: 'app-journal-cell',
@@ -13,10 +14,10 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   @Input('journal') journal: any = null;
   @Input('index') index: number = 0;
   @Input('postId') postId: number = 0;
+  @Input('adminFlg') adminFlg: boolean = false;
   @Input('userId') override userId: number = 0;
   @Input('imgSrc') override imgSrc: string = '';
   @Input('level') level: number = 0;
-
 
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -25,6 +26,12 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   public strLength: number = 0;
   public replies: any = [];
   public showRepliesFlg: boolean = false;
+  public showConfirmationFlg: boolean = false;
+  public showAttachmentFlg: boolean = false;
+  public adminAction: string = '';
+  public bugImgSrc: any = null;
+  public showImageFlg: boolean = false;
+  public appVersion:string = 'x';
 
   constructor() { super(); }
 
@@ -42,24 +49,52 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     this.messageEvent.emit(journal);
   }
 
-  toggleReplies() {
-    this.showRepliesFlg = !this.showRepliesFlg;
-    if (this.showRepliesFlg)
-      this.menuOptionPressed('refreshPost');
-    else {
-      this.replies = [];
-    }
-  }
   menuOptionPressed(action: string) {
     this.showOptionsFlg = false;
+    this.adminAction = action;
+    if (action == 'flag' || action == 'delete')
+      this.showConfirmationFlg = true;
+  }
+
+  optionConfirmPressed() {
+    this.showConfirmationFlg = false;
+    this.journalApiCall(this.adminAction + 'Journal');
+  }
+
+  submitButtonPressed() {
+    this.adminAction = '';
+    this.journal.message = $('#journalEditText').val();
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      message: $('#journalEditText').val(),
+      action: "postJournal",
+      version: this.appVersion,
+      edit_id: this.journal.row_id
+    };
+    console.log(params);
+    this.executeApi('journal.php', params, true);
+  }
+
+  journalApiCall(action: string) {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
       postId: this.journal.row_id,
+      version: this.appVersion,
       action: action
     };
     console.log('params', params);
     this.executeApi('journal.php', params, true);
+  }
+
+  toggleReplies() {
+    this.showRepliesFlg = !this.showRepliesFlg;
+    if (this.showRepliesFlg)
+      this.journalApiCall('refreshPost');
+    else {
+      this.replies = [];
+    }
   }
 
   toggleReply() {
@@ -68,8 +103,25 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
       setTimeout(() => {
         $('#replyInputText').focus();
       }, 200);
-      
+
     }
+  }
+
+  toggleAttachment() {
+    this.showAttachmentFlg = !this.showAttachmentFlg;
+  }
+
+  updateImageButtonClicked() {
+    this.showAttachmentFlg = false;
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      action: 'updateBugImage',
+      bugId: this.journal.row_id,
+      image: $('#myImg').attr('src')
+    };
+    console.log('updateImageButtonClicked', params);
+    this.executeApi('appApiCode.php', params, true);
   }
 
   sumbitReply() {
@@ -101,18 +153,24 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'flagJournal') {
       this.errorMessage = 'This post has been flagged. Thankyou.';
     }
+    if (responseJson.action == 'deleteJournal') {
+      this.errorMessage = 'This post has been deleted.';
+      this.journal = null;
+    }
     if (responseJson.action == 'likePost') {
       this.journal.likes++;
     }
     if (responseJson.action == 'dislikePost') {
       this.journal.dislikes++;
     }
-    if (responseJson.action == 'refreshPost') {
+    if (responseJson.action == 'refreshPost' || responseJson.action == 'markAsFixed') {
       this.journal = new Journal(responseJson.mainPost);
       var replies: any = [];
-      responseJson.itemArray.forEach((element: any) => {
-        replies.push(new Journal(element));
-      });
+      if(responseJson.itemArray) {
+        responseJson.itemArray.forEach((element: any) => {
+          replies.push(new Journal(element));
+        });
+      }
       this.replies = replies;
     }
 

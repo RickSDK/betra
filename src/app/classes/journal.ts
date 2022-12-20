@@ -8,6 +8,7 @@ export class Journal {
     public replyTo: number = 0;
     public postId: number = 0;
     public message: string = '';
+    public messageText: string = '';
     public created: string = '';
     public firstName: string = '';
     public profilePic: number = 0;
@@ -18,6 +19,16 @@ export class Journal {
     public postFlaggedBy: number = 0;
     public likes: number = 0;
     public dislikes: number = 0;
+    public status: string = '';
+    public region: string = '';
+    public bugType: string = '';
+    public deviceType: string = '';
+    public imageNum: number = 0;
+    public imageSrc: string = '';
+    public createdVersion: string = '';
+    public fixedVersion: string = '';
+    public fixedDate: string = '';
+    
    
     constructor(obj: any) {
         if (obj) {
@@ -34,6 +45,20 @@ export class Journal {
             this.postFlaggedBy = obj.postFlaggedBy;
             this.likes = obj.likes;
             this.dislikes = obj.dislikes;
+
+            this.status = obj.status;
+            this.region = obj.region;
+            this.bugType = obj.bugType;
+            this.deviceType = obj.deviceType;
+            this.imageNum = obj.imageNum;
+            this.createdVersion = obj.createdVersion;
+            this.fixedVersion = obj.fixedVersion;
+            this.fixedDate = obj.fixedDate;
+            
+            if(this.imageNum>0)
+                this.imageSrc = "https://www.appdigity.com/betraPhp/bugImages/pic"+obj.row_id+"_"+this.imageNum+".jpg";
+
+            this.messageText = obj.message.replace(/<br>/g, "\n");
 
             this.src = betraImageFromId(obj.user_id, obj.profilePic);
             var dtObj = getDateObjFromJSDate(obj.created);
