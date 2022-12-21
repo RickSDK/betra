@@ -2,7 +2,7 @@
     [userId]="userId" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
     <div class="matches-card" *ngIf="user">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div style="background-color: #99c; color: white; border-radius: 5px; font-size: 24px; font-weight: 700;">
+        <div class="main-color-bg" style="border-radius: 5px; font-size: 24px; font-weight: 700;">
             Notification Center</div>
         <p>&nbsp;</p>
         <div *ngIf="headerObj.notifications==0">No notifications at this time.</div>

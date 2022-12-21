@@ -1,0 +1,53 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Edit Pics'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="!loadingFlg">
+        <div>Profile Picture</div>
+        <app-upload-image [src]="user.imgSrc" (messageEvent)="uploadPicButtonClicked(99, 'updateMainImage', 'myImg')">
+        </app-upload-image>
+    </div>
+    <hr>
+
+    <div *ngIf="!loadingFlg">
+        <div>Bonus Pictures</div>
+        <div class="pic-frame">
+            <div *ngIf="0" style="font-size: 8px;">{{user.pic1}}</div>
+            <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'" [src]="user.pic1"
+                (messageEvent)="uploadPicButtonClicked(1, 'updateBonusImage', 'Image1')"></app-upload-image>
+            <div *ngIf="user.pic1">
+                <button (mousedown)="uploadPicButtonClicked(1, 'deletePic')" class="btn btn-main-color"><i class="fa fa-trash"></i> Delete</button>&nbsp;
+                <button (mousedown)="uploadPicButtonClicked(1, 'promotePic')" class="btn btn-main-color"><i class="fa fa-arrow-up"></i> Make Main Pic</button>
+            </div>
+        </div>
+
+        <div class="pic-frame">
+            <div *ngIf="0" style="font-size: 8px;">{{user.pic2}}</div>
+            <app-upload-image [fileId]="'file2'" [loadingFlg]="loadingFlg" [id]="'Image2'" [src]="user.pic2"
+                (messageEvent)="uploadPicButtonClicked(2, 'updateBonusImage', 'Image2')"></app-upload-image>
+            <div *ngIf="user.pic2">
+                <button (mousedown)="uploadPicButtonClicked(2, 'deletePic')" class="btn btn-main-color"><i class="fa fa-trash"></i> Delete</button>&nbsp;
+                <button (mousedown)="uploadPicButtonClicked(2, 'promotePic')" class="btn btn-main-color"><i class="fa fa-arrow-up"></i> Make Main Pic</button>
+            </div>
+        </div>
+
+        <div class="pic-frame">
+            <div *ngIf="0" style="font-size: 8px;">{{user.pic3}}</div>
+            <app-upload-image [fileId]="'file3'" [loadingFlg]="loadingFlg" [id]="'Image3'" [src]="user.pic3"
+                (messageEvent)="uploadPicButtonClicked(3, 'updateBonusImage', 'Image3')"></app-upload-image>
+            <div *ngIf="user.pic3">
+                <button (mousedown)="uploadPicButtonClicked(3, 'deletePic')" class="btn btn-main-color"><i class="fa fa-trash"></i> Delete</button>&nbsp;
+                <button (mousedown)="uploadPicButtonClicked(3, 'promotePic')" class="btn btn-main-color"><i class="fa fa-arrow-up"></i> Make Main Pic</button>
+            </div>
+        </div>
+
+        <div class="pic-frame">
+            <div *ngIf="0" style="font-size: 8px;">{{user.pic4}}</div>
+            <app-upload-image [fileId]="'file4'" [loadingFlg]="loadingFlg" [id]="'Image4'" [src]="user.pic4"
+                (messageEvent)="uploadPicButtonClicked(4, 'updateBonusImage', 'Image4')"></app-upload-image>
+            <div *ngIf="user.pic4">
+                <button (mousedown)="uploadPicButtonClicked(4, 'deletePic')" class="btn btn-main-color"><i class="fa fa-trash"></i> Delete</button>&nbsp;
+                <button (mousedown)="uploadPicButtonClicked(4, 'promotePic')" class="btn btn-main-color"><i class="fa fa-arrow-up"></i> Make Main Pic</button>
+            </div>
+        </div>
+    </div>
+</app-page-shell>

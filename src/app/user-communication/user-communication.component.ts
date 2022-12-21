@@ -30,6 +30,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     'Greetings.'
   ]
   public questions = [
+    'How are you?',
     'What is your favorite animal?',
     'How is the dating world?',
     'What is the last movie you saw?',

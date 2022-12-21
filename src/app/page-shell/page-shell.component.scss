@@ -140,6 +140,33 @@
     border-radius: 50%;
 }
 
+.main-menu-popup {
+    background-color: white;
+    display: inline-block;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    max-width: 220px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid black;
+    padding: 0;
+    text-align: center;
+    z-index: 100;
+}
+
+.popup-show {
+    opacity: 1;
+    right: 10px;
+    transition: all 1s ease;
+}
+
+.popup-hide {
+    opacity: 0;
+    right: -220px;
+    transition: all 1s ease;
+}
+
 @media screen and (min-width: 600px) {
     .hide-md-up {
         display: none;

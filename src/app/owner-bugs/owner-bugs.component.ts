@@ -15,13 +15,14 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
   public selectedJournal: any;
   public showFormFlg: boolean = false;
   public journalList:any = [];
-  public appVersion:string = 'x';
+  public appVersion:string = '';
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.getAllBugs();
+    this.appVersion = getVersion();
   }
 
   getAllBugs() {

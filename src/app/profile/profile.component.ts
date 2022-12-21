@@ -22,7 +22,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     'We want to verify your email to know you are legit. Feel free to skip for now if you want. We trust you!',
     'Details, details details! Yes this is a lot of stuff to fill out, but it will be worth it. Betra tells you more about a potential match than any other dating site!',
     'How about a simple personality test? This is just to see how you stack up against potential matches.',
-    'You might not care about politics, but this is just one more tool you can use when looking at matches. NO ONE will be able to see your answers to these questions. The scores are only meant to tell you how close or far away you are fromt potential matches on the political spectrum.',
+    'You might not care about politics, but this is just one more tool you can use when looking at matches. NO ONE will be able to see your answers to these questions. The scores are only meant to tell you how close or far away you are from potential matches on the political spectrum.',
     'Take a selfie! And make it a good one. Make sure you show your beautiful face.',
     'This is optional, but feel free to add up to 4 more pictures',
     'Final Step! Tell us what you are looking for in a match. And don\'t worry, these are simply used to tell you how close each potential match is to your ideal.',

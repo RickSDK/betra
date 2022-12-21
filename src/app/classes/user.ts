@@ -119,6 +119,10 @@ export class User {
     public pic2: string = '';
     public pic3: string = '';
     public pic4: string = '';
+    public picNum1: number = 0;
+    public picNum2: number = 0;
+    public picNum3: number = 0;
+    public picNum4: number = 0;
     public numPics: number = 0;
     public mainImageSrc: string = '';
     public memberFlg: boolean = false;
@@ -143,13 +147,15 @@ export class User {
 
     public pendingStatusReason: string = '';
     public pendingStatusPage: number = 0;
-    
-    public drinksIcon: string = 'assets/images/drinker.png';
-    public drinksTitle: string = 'Drinks';
-    public smokesIcon: string = 'assets/images/smoker.png';
-    public smokesTitle: string = 'Smokes';
-    public potIcon: string = 'assets/images/cannabis.png';
-    public potTitle: string = 'Uses Cannabis';
+
+    public drinksIcon: string = '';
+    public drinksTitle: string = '';
+    public smokesIcon: string = '';
+    public smokesTitle: string = '';
+    public potIcon: string = '';
+    public potTitle: string = '';
+
+    public roseAssignedBy: number = 0;
 
     constructor(obj: any) {
         if (obj) {
@@ -253,26 +259,45 @@ export class User {
             this.ownerLevel = obj.ownerLevel || 0;
             this.picFlagged = obj.picFlagged || 0;
             this.numReviews = obj.numReviews || 0;
+            this.roseAssignedBy = obj.roseAssignedBy || 0;
 
-            if(this.drinks == 'No') {
+
+            if (this.drinks == 'Yes') {
+                this.drinksIcon = 'assets/images/drinker.png';
+                this.drinksTitle = 'Drinks';
+            }
+            if (this.drinks == 'No') {
                 this.drinksIcon = 'assets/images/nonDrinker.png';
                 this.drinksTitle = 'Non Drinker';
             }
-            if(this.drinks == 'Occsional') {
+            if (this.drinks == 'Occsional') {
+                this.drinksIcon = 'assets/images/drinker.png';
                 this.drinksTitle = 'Occsionally drinks';
             }
-            if(this.smokes == 'No') {
-                this.smokesIcon = 'assets/images/nonSmoker.png';
-                this.smokesTitle = 'Non smoker';              
+
+            if (this.smokes == 'Yes') {
+                this.smokesIcon = 'assets/images/smoker.png';
+                this.smokesTitle = 'Smokes';
             }
-            if(this.smokes == 'Occsional') {
+            if (this.smokes == 'No') {
+                this.smokesIcon = 'assets/images/nonSmoker.png';
+                this.smokesTitle = 'Non smoker';
+            }
+            if (this.smokes == 'Occsional') {
+                this.smokesIcon = 'assets/images/smoker.png';
                 this.smokesTitle = 'Occsionally smokes';
             }
-            if(this.cannabis == 'No') {
-                this.potIcon = 'assets/images/noDrugs.png';
-                this.potTitle = 'No drugs';              
+
+            if (this.cannabis == 'Yes') {
+                this.potIcon = 'assets/images/cannabis.png';
+                this.potTitle = 'Uses Cannabis';
             }
-            if(this.cannabis == 'Occsional') {
+            if (this.cannabis == 'No') {
+                this.potIcon = 'assets/images/noDrugs.png';
+                this.potTitle = 'No drugs';
+            }
+            if (this.cannabis == 'Occsional') {
+                this.potIcon = 'assets/images/cannabis.png';
                 this.potTitle = 'Occsional drugs';
             }
 
@@ -283,6 +308,10 @@ export class User {
             if (this.picFlagged > 0)
                 this.profilePic = 0;
 
+            this.picNum1 = obj.pic1;
+            this.picNum2 = obj.pic2;
+            this.picNum3 = obj.pic3;
+            this.picNum4 = obj.pic4;
             this.pic1 = bonusImageFromNum(obj.user_id, obj.pic1);
             this.pic2 = bonusImageFromNum(obj.user_id, obj.pic2);
             this.pic3 = bonusImageFromNum(obj.user_id, obj.pic3);

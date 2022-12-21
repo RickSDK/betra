@@ -147,6 +147,10 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
             alerts++;
           if (match.newPics > 0)
             alerts++;
+          if(match.uid == this.user.roseAssignedBy) {
+            match.roseAssignedBy = this.user.roseAssignedBy;
+            alerts++;
+          }
           element.alerts = alerts;
         }
       });
