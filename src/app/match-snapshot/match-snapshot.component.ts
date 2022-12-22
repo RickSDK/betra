@@ -31,6 +31,7 @@ export class MatchSnapshotComponent implements OnInit {
   public youAreInterestedFlg: boolean = false;
   public showMoreFlg: boolean = false;
   public expandBottomFlg: boolean = false;
+  public showBottumButtonsFlg: boolean = false;
 
 
   constructor() { }
@@ -76,6 +77,12 @@ export class MatchSnapshotComponent implements OnInit {
       this.showInterestedButtonsFlg = false;
     if (user.matchPreference == 'M' && matchUser.gender == 'F')
       this.showInterestedButtonsFlg = false;
+
+    if (matchUser.matchPreference == 'F' && user.gender == 'M')
+      this.showInterestedButtonsFlg = false;
+    if (matchUser.matchPreference == 'M' && user.gender == 'F')
+      this.showInterestedButtonsFlg = false;
+
 
     if (this.matchUser.matchObj.match_interested == 'Y')
       this.showInterestedButtonsFlg = true; // handle out of sync

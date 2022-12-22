@@ -1,10 +1,10 @@
 <div style="text-align: center;">
-        <span style="min-width: 180px; text-align: left; display: inline-block;">
+        <span style="text-align: center; display: inline-block;">
                 <span class="profile-icon">
                         <img *ngIf="img" [src]=[img] height="18" alt="">
                         <i *ngIf="icon" [class]="icon"></i>         
                 </span>
-                <span style="display: inline-block; min-width: 90px;">{{label}}:</span>
+                <span class="percent-label">{{label}}:</span>
                 
                 <i *ngIf="amount==0" class="fa fa-spinner fa-spin"></i>
                 <span [ngClass]="ngclassPercent(amount)" *ngIf="amount>0">{{amount}}%</span>

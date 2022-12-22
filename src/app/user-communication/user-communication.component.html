@@ -9,12 +9,31 @@
         style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">
         <div *ngFor="let message of messages" style="display: block; min-height: 40px;">&nbsp;
-
+            <div *ngIf="message.id == messageToDelete">
+                <div style="padding: 10px;">&nbsp;</div>
+                <div>Delete Message?</div>
+                <button (mousedown)="messageToDelete = 0" class="btn btn-warning">cancel</button>&nbsp;
+                <button (mousedown)="deleteCurrentText(message)" class="btn btn-danger">Delete</button>&nbsp;
+            </div>
             <div [ngClass]="ngClassMessage(message.user_id)" (mousedown)="selectMessage(message.id)">
-                <button (mousedown)="deleteCurrentText()" class="btn btn-danger" *ngIf="message.id==selectedMessage"><i
-                        class="fa fa-trash"></i></button>
-                <div *ngIf="showDetailsFlg" class="top-text">{{message.name}}</div>
-                <div [ngClass]="ngClassMessageBlob(message.user_id)">{{message.message}}</div>
+                <div *ngIf="message.id==selectedMessage">
+                    <span *ngIf="message.user_id != myUser.user_id">
+                    <img (mousedown)="emojiClicked(message, i)" *ngFor="let emoji of emojis; let i = index"
+                        [src]="emoji" height="35" class="emoji-button">
+                    </span>
+                    <span *ngIf="message.user_id == myUser.user_id">
+                        <img (mousedown)="emojiClicked(message, 0)" 
+                        src="assets/images/emojis/trash.png" height="35" class="emoji-button">
+                    </span>
+                </div>
+                <div *ngIf="showDetailsFlg" class="top-text">{{message.name}}
+                </div>
+                
+                <div [ngClass]="ngClassMessageBlob(message.user_id)" style="position: relative;">
+                    <img *ngIf="message.emoji>0" [src]="emojis[message.emoji]" height="25" 
+                    style="position: absolute; top: -15px; right: 10px;" title="Added by {{message.emojiName}}">
+                    {{message.message}}
+                </div>
                 <div *ngIf="showDetailsFlg" class="bottom-text">{{message.local}}
                     <span *ngIf="message.user_id == myUser.user_id && !message.readDt" style="color: #700;">Not
                         Read</span>
@@ -88,13 +107,17 @@
         <div *ngIf="showDetailsNumber==1">
             <div class="red-text">Messages</div>
             <div style="font-size: 12px; color: gray; text-align: left; padding: 10px;">
-                <p>Communication starts slowly with Betra. You must first make a match before any communication can begin.</p>
-                <p>From there, either person can ask a question from a dropdown list of options. The first communication must start from one of these ice-breaker questions.</p>
-                <p>Once both people reply to each other's questions, you will be free to openly exchange text messages.</p>
+                <p>Communication starts slowly with Betra. You must first make a match before any communication can
+                    begin.</p>
+                <p>From there, either person can ask a question from a dropdown list of options. The first communication
+                    must start from one of these ice-breaker questions.</p>
+                <p>Once both people reply to each other's questions, you will be free to openly exchange text messages.
+                </p>
                 <p>Reaching Intimacy Level 5 also unlocks 3 other Betra features:</p>
                 <ol>
                     <li><b>Request Info</b> - Option to exchange each other's phone numbers and email addresses.</li>
-                    <li><b>Request Picture</b> - Ask the other person to send you a personalized photo of themselves.</li>
+                    <li><b>Request Picture</b> - Ask the other person to send you a personalized photo of themselves.
+                    </li>
                     <li><b>Request Date</b> - Ask the other person on a date with one click!</li>
                 </ol>
             </div>
@@ -105,13 +128,18 @@
             <div class="main-color"><b>FAQ</b></div>
             <div style="font-size: 12px; color: gray; text-align: left; padding: 10px;">
                 <div class="main-color">Question: Why can't I send this person a text?</div>
-                <div class="answer">Answer: Communication starts slowly with Betra. You must first make a successful match by both indicating you are interested in the other person. From there you must each ask and answer an ice-breaker question. Then free open texting can begin.</div>
+                <div class="answer">Answer: Communication starts slowly with Betra. You must first make a successful
+                    match by both indicating you are interested in the other person. From there you must each ask and
+                    answer an ice-breaker question. Then free open texting can begin.</div>
 
                 <div class="main-color">Question: What if the other person is not responding?</div>
-                <div class="answer">Answer: Sorry, but that sometimes happens. If you look at the message, you can tell if it has been read or not. You can also look on the person's profile to see when they last logged in. It's possible they are just very busy.</div>
+                <div class="answer">Answer: Sorry, but that sometimes happens. If you look at the message, you can tell
+                    if it has been read or not. You can also look on the person's profile to see when they last logged
+                    in. It's possible they are just very busy.</div>
 
                 <div class="main-color">Question: How do I block someone?</div>
-                <div class="answer">Answer: Simply dropping the person from your dating pool will automatically stop all communication.</div>
+                <div class="answer">Answer: Simply dropping the person from your dating pool will automatically stop all
+                    communication.</div>
 
             </div>
         </div>

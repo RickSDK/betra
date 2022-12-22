@@ -48,7 +48,7 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="menuNum==0 && !loadingFlg">
-            <div style="font-size: 12px; color: gray;">You can have a maximum of 8 people in your dating pool at any
+            <div style="font-size: 12px; color: gray;">You can have a maximum of {{datingPoolLimit}} people in your dating pool at any
                 time.</div>
 
             <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
@@ -61,7 +61,7 @@
                 <div>&nbsp;</div>
                 <div class="small-gray-text">Currently no one in your dating pool, but don't worry. Start browsing
                     singles to get your pool filled up.
-                    You can have up to 8 people in your dating pool and that is when the real fun begins!
+                    You can have up to {{datingPoolLimit}} people in your dating pool and that is when the real fun begins!
                 </div>
             </div>
 
@@ -195,12 +195,15 @@
     <div class="over-limit-popup">
         <div style="font-size: 22px;">Over your limit!</div>
         <div style="text-align: left;">
-            <p>You are only allowed 8 people at a time in your dating pool. Select
+            <p>You are only allowed {{datingPoolLimit}} people at a time in your dating pool. Select
                 someone to drop. </p>
-            <p style="font-size: 12px;">Why are you only allowed 8 people? This is to help you organize your dating
-                life. Keep your top 8 pospects active
-                and move the rest to your back burner. Or, by upgrading to Gold Member, you can have 12 people in your
-                pool.
+            <p style="font-size: 12px;">Why are you only allowed {{datingPoolLimit}} people? This is to help you organize your dating
+                life. Keep your top {{datingPoolLimit}} pospects active
+                and move the rest to your back burner. Or, by 
+            </p>
+            <p>
+                Upgrading to Gold Member allows you to have 12 people in your
+                pool!
             </p>
         </div>
         <button class="btn btn-warning">Got it!</button>&nbsp;

@@ -58,6 +58,15 @@ select {
     background-color: #ccc;;
 }
 
+.emoji-button {
+    height: 35px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.emoji-button:hover {
+    height: 40px;
+}
 
 .date-pool-bottom-bar {
     background-color: #444;

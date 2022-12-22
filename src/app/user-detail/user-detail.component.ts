@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { Router } from '@angular/router';
 import { UserCommunicationComponent } from '../user-communication/user-communication.component';
+import { MatchDatingPoolComponent } from '../match-dating-pool/match-dating-pool.component';
 
 declare var $: any;
 
@@ -41,7 +42,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
-      this.exceededPoolSizeFlg = this.user.datingPool.length > 8;
+      var datingPoolLimit = (this.user.memberFlg)?12:8;
+      this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
 
       if (this.uid > 0)
         this.loadThisUser();
@@ -135,7 +137,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       if (this.id == 4 && responseJson.action == "yesToMatch") {
         //--Admirers
         this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
-      } else if (this.uid>0) {
+      } else if (this.uid > 0) {
         console.log('stay here!!');
         this.loadThisUser();
       } else {
@@ -184,7 +186,6 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   populateViewChildren() {
-    console.log('+++populateViewChildren');
     if (this.messagesModal)
       this.messagesModal.populateModal(this.matchUser);
 
@@ -206,7 +207,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   displayThisProfile() {
-    console.log('displayThisProfile', this.matchUser.firstName);
+    console.log('displayThisProfile', this.matchUser);
     this.calculateDistance(this.matchUser, this.user);
 
     if (this.matchUser.state && this.user.state != this.matchUser.state) {

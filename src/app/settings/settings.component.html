@@ -9,7 +9,7 @@
             stats</button>&nbsp;
         <button (mousedown)="showLocation()" class="btn btn-main-color"><i class="fa fa-globe"></i>
             location</button>&nbsp;
-        <button [routerLink]="'/upgrade-member'" class="btn btn-main-color"><i class="fa fa-arrow-up"></i>
+        <button *ngIf="!user.memberFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color"><i class="fa fa-arrow-up"></i>
             Upgrade</button>&nbsp;
 
         <div *ngIf="showLocationFlg && !loadingFlg" class="border-box">

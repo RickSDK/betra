@@ -351,7 +351,8 @@ export class User {
                 var src = betraImageFromId(user_id, parseInt(items[2]), '', 0);
                 var heartFlg = (items.length >= 4 && items[3] == 'Y');
                 var level = (items.length >= 5) ? items[4] : '0';
-                datingPool.push({ name: name, src: src, user_id: user_id, heartFlg: heartFlg, level: level });
+                var heartFlg2 = (items.length >= 6 && items[5] == 'Y');
+                datingPool.push({ name: name, src: src, user_id: user_id, heartFlg: heartFlg, level: level, heartFlg2: heartFlg2 });
             }
 
         });

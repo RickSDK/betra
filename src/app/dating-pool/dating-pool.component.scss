@@ -2,7 +2,21 @@
     display: inline-block;
     width: 43px;
     margin: 2px;
+    color: gray;
 }
+
+.pool-snapshot:hover {
+    color: #900;
+    font-weight: 700;
+}
+
+.small-name-text {
+    font-size: 7px; 
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 50px;
+}
+
 .snapshot-img {
     width: 41px;
     height: 41px;
@@ -14,6 +28,7 @@
 }
 .snapshot-img:hover {
     box-shadow: 2px 2px 10px gray;
+    filter: none;
 }
 .snapshot-img2 {
     width: 41px;
@@ -36,13 +51,6 @@
 .pool-large:hover {
     color: #b7121f;
     font-weight: 700;
-}
-.small-name-text {
-    font-size: 7px; 
-    color: gray;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 50px;
 }
 
 .red-header {

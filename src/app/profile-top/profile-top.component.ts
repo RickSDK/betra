@@ -11,6 +11,8 @@ export class ProfileTopComponent implements OnInit {
   @Input('myUser') myUser: any = new User(null);
   @Input('distance') distance: string = '';
   @Input('adminFlg') adminFlg: boolean = false;
+  @Input('expandBottomFlg') expandBottomFlg: boolean = false;
+  
 
   @Output() messageEvent = new EventEmitter<string>();
   public largeImageFlg: boolean = false;
@@ -18,7 +20,6 @@ export class ProfileTopComponent implements OnInit {
   public unblurPicsFlg: boolean = false;
   public lookingForTitle: string = '';
   public showAdminButtonsFlg: boolean = false;
-  public showMoreFlg: boolean = false;
   public showOptionsFlg: boolean = false;
 
   constructor() { }
@@ -26,7 +27,6 @@ export class ProfileTopComponent implements OnInit {
   ngOnInit(): void {
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.user.mainImageSrc = this.user.imgSrc;
-    this.showMoreFlg = false;
     this.showOptionsFlg = false;
   }
 
@@ -35,7 +35,6 @@ export class ProfileTopComponent implements OnInit {
   }
   showMoreClicked() {
     this.showOptionsFlg = false;
-    this.showMoreFlg = !this.showMoreFlg;
     this.messageEvent.emit('show-more');
   }
   sendClickEventUp(name: string) {

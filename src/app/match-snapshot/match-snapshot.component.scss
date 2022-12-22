@@ -6,17 +6,18 @@
     width: 100%;
     font-size: 14px;
 }
+
 .small-title {
     font-size: 10px;
     text-align: center;
     font-weight: 700;
- }
+}
 
 .bottom-collpased {
-  overflow: hidden;
-  min-height: 0;
-  transition: ease-in-out all .4s;
-  height: 0px;
+    overflow: hidden;
+    min-height: 0;
+    transition: ease-in-out all .4s;
+    height: 0px;
 }
 
 .motto-text {
@@ -30,9 +31,22 @@
 }
 
 .bottom-expanded {
-  overflow: hidden;
-  min-height: 150px;
-  transition: ease-in-out all .4s;
+    overflow: hidden;
+    min-height: 150px;
+    transition: ease-in-out all .4s;
+}
+
+.menu-three-dots {
+    font-size: 24px;
+    float: right;
+    margin-right: 10px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.menu-three-dots:hover {
+    background-color: #ccc;
+    border-radius: 50%;
 }
 
 input {

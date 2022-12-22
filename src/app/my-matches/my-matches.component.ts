@@ -19,6 +19,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public disableFormFlg: boolean = true;
   public showPopupFlg: boolean = false;
   public showDetailsNumber: number = 0;
+  public datingPoolLimit: number = 8;
 
   constructor(private route: ActivatedRoute) { super(); }
 
@@ -113,7 +114,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       console.log('xxxrefreshDatingPool', responseJson);
       this.refreshUserObj(responseJson.user);
       this.updateMatches();
-      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length > 8;
+      this.datingPoolLimit = (this.user.memberFlg)?12:8;
+      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length > this.datingPoolLimit;
       this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {
@@ -147,7 +149,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
             alerts++;
           if (match.newPics > 0)
             alerts++;
-          if(match.uid == this.user.roseAssignedBy) {
+          if (match.uid == this.user.roseAssignedBy) {
             match.roseAssignedBy = this.user.roseAssignedBy;
             alerts++;
           }

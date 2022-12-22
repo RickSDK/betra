@@ -18,6 +18,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public firstName: string = '';
   public unreadMessagesFlg: boolean = false;
   public showDetailsNumber: number = 0;
+  public messageToDelete: number = 0;
 
   public greetings = [
     'Hi!',
@@ -42,6 +43,19 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public disabledButtonFlg: boolean = true;
   public messages: any = [];
   public messageStr: string = '';
+  public emojis = [
+    'assets/images/emojis/trash.png',
+    'assets/images/emojis/thumbsUp.png',
+    'assets/images/emojis/surprised.png',
+    'assets/images/emojis/sad.png',
+    'assets/images/emojis/ok.png',
+    'assets/images/emojis/laugh.png',
+    'assets/images/emojis/hmm.png',
+    'assets/images/emojis/flip.png',
+    'assets/images/emojis/annoyed.png',
+    'assets/images/emojis/angry.png',
+    'assets/images/emojis/angry2.png',
+  ]
 
   constructor() { super(); }
 
@@ -70,7 +84,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     else
       this.showDetailsNumber = num;
   }
-  
+
   checkTextFlags() {
     this.showTextInputFlg = false;
     if (this.matchUser.matchObj.match_level == 3 && this.matchUser.matchObj.you_action == 'Interested')
@@ -151,8 +165,10 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   questionValueChanged() {
     var greeting = $('#greetingText').val();
     var question = $('#questionText').val();
-    this.disabledButtonFlg = (!question || !greeting);
-    this.messageStr = greeting + ' ' + question;
+    this.disabledButtonFlg = (!greeting);
+    this.messageStr = greeting;
+    if (question)
+      this.messageStr = greeting + ' ' + question;
   }
   inputValueChanged(message: string) {
     if (message == '[submitText]') {
@@ -168,14 +184,32 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     else
       this.selectedMessage = num;
   }
-  deleteCurrentText() {
+  deleteCurrentText(message: any) {
+    this.messageToDelete = 0;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
       uid: this.matchUser.user_id,
-      messageId: this.selectedMessage,
+      messageId: message.id,
       action: "deleteMessage"
     };
     this.executeApi('betraMessages.php', params, true);
+  }
+
+  emojiClicked(message: any, emoji: number) {
+    if (emoji == 0)
+      this.messageToDelete = message.id;
+    else {
+      var params = {
+        userId: localStorage['user_id'],
+        code: localStorage['code'],
+        uid: this.matchUser.user_id,
+        messageId: message.id,
+        emoji: emoji,
+        action: "addEmoji"
+      };
+      console.log('params', params);
+      this.executeApi('betraMessages.php', params, true);
+    }
   }
 }

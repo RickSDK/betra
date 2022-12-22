@@ -1,16 +1,16 @@
 <div *ngIf="user && myUser" style="position: relative;">
     <table width="100%" border="0">
         <tr>
-            <td align="center" valign="top" style="padding: 0;">
+            <td width="50%" style="padding: 0;" valign="top">
                 <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
             </td>
-            <td *ngIf="!largeImageFlg" valign="top" style="text-align: center; padding: 5px; min-width: 180px;"
-                width="40%">
+            <td width="50%" *ngIf="!largeImageFlg" valign="top"
+                style="text-align: center; min-width: 180px; max-width: 200px; padding-top: 7px;">
                 <div
-                    style="display: inline-block; width: 100%; max-width: 200px; text-align: left; position: relative; padding-top: 5px;">
+                    style="display: inline-block; width: 100%; min-width: 180px; max-width: 200px; text-align: left; position: relative; padding: 5px;">
 
                     <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
-                        class="three-dots"><i class="fa fa-ellipsis-v"></i></span>
+                        class="three-dots" title="Menu Options"><i class="fa fa-ellipsis-v"></i></span>
                     <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
                             (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
@@ -89,7 +89,7 @@
                             </span>
 
                             <span class="menu-circle" *ngIf="user.potIcon">
-                                <img [src]="user.potIcon" style="float: right;" height="20" class="dabauchery-icon">
+                                <img [src]="user.potIcon" class="dabauchery-icon">
                                 <span class="icon-label main-color-bg">{{user.potTitle}}</span>
                             </span>
                             <span class="menu-circle" *ngIf="user.smokesIcon">
@@ -118,6 +118,14 @@
                         </app-green-check>
                     </div>
 
+                    <div>
+                        <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
+                            *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
+                        <div style="padding-right: 10px; float: right; font-size: 32px;">
+                            <i (mousedown)="showMoreClicked()" [ngClass]="'fa fa-arrow-circle-down clickable'"
+                                [title]="(expandBottomFlg)?'Collapse Profile':'Expand Profile'"></i>
+                        </div>
+                    </div>
                     <div *ngIf="showAdminButtonsFlg" class="border-box" style="text-align: center;">
                         <div><i class="fa fa-lock"></i> admin tools</div>
                         <hr>
@@ -132,25 +140,18 @@
                             <div style="font-size: 8px;">Flag as no face.</div>
                         </div>
                         <div *ngIf="user.picFlagged>0" style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('clearPic')" class="btn btn-primary">Clear Pic</button>
+                            <button (mousedown)="sendClickEventUp('clearPic')" class="btn btn-primary">Clear
+                                Pic</button>
                             <div style="font-size: 8px;">Reset main image.</div>
                         </div>
                         <div style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('refreshDatePools')" class="btn btn-primary">Refresh DP</button>
+                            <button (mousedown)="sendClickEventUp('refreshDatePools')" class="btn btn-primary">Refresh
+                                DP</button>
                             <div style="font-size: 8px;">Reset DP & matches DP.</div>
                         </div>
                     </div>
+                </div>
 
-                    <div *ngIf="0 && !showSmallerPicsFlg"><button [routerLink]="'/upgrade-member'"
-                            class="btn btn-warning">Upgrade to see pics</button></div>
-                </div>
-                <div>
-                    <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
-                        *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
-                    <div style="padding-right: 10px; float: right; font-size: 32px;">
-                        <i (mousedown)="showMoreClicked()" class="fa fa-arrow-circle-down clickable"></i>
-                    </div>
-                </div>
 
             </td>
         </tr>
@@ -174,7 +175,7 @@
     </div>
 
 </div>
-<div *ngIf="showSmallerPicsFlg && showMoreFlg">
+<div *ngIf="showSmallerPicsFlg && expandBottomFlg">
     <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(0)" [src]="user.imgSrc" class="tiny-pic">
     <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(1)" [src]="user.pic1"
         [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
@@ -185,4 +186,6 @@
     <img *ngIf="user.pic4" (mousedown)="viewImageThumbnail(4)" [src]="user.pic4"
         [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
     <a *ngIf="user.user_id == myUser.user_id" [routerLink]="['/edit-pics']" class="text-link">edit pics</a>
+    <div *ngIf="0 && !showSmallerPicsFlg"><button [routerLink]="'/upgrade-member'"
+        class="btn btn-warning">Upgrade to see pics</button></div>
 </div>
