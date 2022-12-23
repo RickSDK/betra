@@ -1,0 +1,71 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Verify Pic'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div class="standard-card">
+        <p><b>Betra Picture Verification</b></p>
+
+        <div *ngIf="!picCertificateFlg">
+            <div style="text-align: left; font-size: 12px;">
+                <div>
+                    <p>Betra has more tools than any other dating app to help you avoid scams. One of them is the
+                        picture
+                        verification tool.
+                        Simply take a selfie, following the instructions below. A member of Betra will verify that the
+                        person in the photo matches your profile picture, and give you
+                        a Betra Picture Verified Certificate.
+                    </p>
+                    <p *ngIf="picCertificateNum>0">
+                        <span style="background-color: yellow; color: #900;">Note: Your previous picture has been
+                            rejected.</span> Reason: <span
+                            class="text-highlight">{{rejectionReasons[picCertificateNum]}}</span>
+                    </p>
+                    <p style="font-size: 14px;" *ngIf="!loadingFlg && status == 'New'"><b>Instructions:</b> Take a photo
+                        of yourself doing the following:
+                        <span class="text-highlight">{{verifiedIdeas[ideaNum]}}</span>
+                    </p>
+
+                </div>
+            </div>
+            <app-upload-image *ngIf="!loadingFlg && status == 'New'" (messageEvent)="uploadImage($event)">
+            </app-upload-image>
+        </div>
+
+
+        <div *ngIf="status == 'Submitted'" class="red-text" style="font-size: 16px;">
+            Thank you! Your photo has been submitted and will be verified shortly.
+        </div>
+        <div *ngIf="user.ownerFlg && picCertificateFlg">
+            <p>Admin picture verification.</p>
+            <p *ngIf="usersToVerify.length==0">No profiles to verify at this time.</p>
+            <div *ngFor="let item of usersToVerify">
+                <table width="100%">
+                    <tr>
+                        <td width="50%" valign="top" align="center">
+                            <div>Profile Pic</div>
+                            <img [src]="item.imageSrc" width="100%">
+                        </td>
+                        <td width="50%" valign="top" align="center">
+                            <div>Verify Pic</div>
+                            <span class="text-highlight">{{verifiedIdeas[item.picCertificateNum]}}</span>
+                            <img [src]="item.verifySrc" width="100%">
+                            <button (mousedown)="verifyUserPic(99, item.user_id)" class="btn btn-success"
+                                style="margin: 5px; height: 60px;">Looks Good!</button>
+                            <button (mousedown)="verifyUserPic(-1, item.user_id)" class="btn btn-danger"
+                                style="margin: 5px;">No Face</button>
+                            <button (mousedown)="verifyUserPic(-2, item.user_id)" class="btn btn-danger"
+                                style="margin: 5px;">Not same person</button>
+                            <button (mousedown)="verifyUserPic(-3, item.user_id)" class="btn btn-danger"
+                                style="margin: 5px;">Bad Picture</button>
+                            <button (mousedown)="verifyUserPic(-4, item.user_id)" class="btn btn-danger"
+                                style="margin: 5px;">Wrong Pose</button>
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+
+</app-page-shell>

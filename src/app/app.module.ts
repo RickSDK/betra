@@ -62,6 +62,7 @@ import { OwnerStatsComponent } from './owner-stats/owner-stats.component';
 import { OwnersTableCellComponent } from './owners-table-cell/owners-table-cell.component';
 import { OwnerBugsComponent } from './owner-bugs/owner-bugs.component';
 import { ProfileEditPicsComponent } from './profile-edit-pics/profile-edit-pics.component';
+import { VerifyPicsComponent } from './verify-pics/verify-pics.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -124,7 +125,8 @@ import { ProfileEditPicsComponent } from './profile-edit-pics/profile-edit-pics.
     OwnerStatsComponent,
     OwnersTableCellComponent,
     OwnerBugsComponent,
-    ProfileEditPicsComponent
+    ProfileEditPicsComponent,
+    VerifyPicsComponent
   ],
   imports: [
     BrowserModule,

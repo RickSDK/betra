@@ -2,6 +2,7 @@
     <table width="100%" border="0">
         <tr>
             <td width="50%" style="padding: 0;" valign="top">
+                <i *ngIf="user.picCertificateFlg" [routerLink]="['/verify-pics']" class="fa fa-certificate verified-cirtificate" title="Picture Verified"></i>
                 <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
             </td>
             <td width="50%" *ngIf="!largeImageFlg" valign="top"
@@ -176,6 +177,7 @@
 
 </div>
 <div *ngIf="showSmallerPicsFlg && expandBottomFlg">
+    <div *ngIf="user.picCertificateFlg" style="text-align: left; font-size: 12px;" class="red-text">&nbsp;<i class="fa fa-certificate"></i> Picture Verified</div>
     <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(0)" [src]="user.imgSrc" class="tiny-pic">
     <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(1)" [src]="user.pic1"
         [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
@@ -185,7 +187,9 @@
         [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
     <img *ngIf="user.pic4" (mousedown)="viewImageThumbnail(4)" [src]="user.pic4"
         [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
-    <a *ngIf="user.user_id == myUser.user_id" [routerLink]="['/edit-pics']" class="text-link">edit pics</a>
+    <a *ngIf="user.user_id == myUser.user_id" [routerLink]="['/edit-pics']" class="text-link">edit pics</a>&nbsp;
+    <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg" [routerLink]="['/verify-pics']" class="text-link">verify pic</a>&nbsp;
+    
     <div *ngIf="0 && !showSmallerPicsFlg"><button [routerLink]="'/upgrade-member'"
         class="btn btn-warning">Upgrade to see pics</button></div>
 </div>

@@ -156,6 +156,8 @@ export class User {
     public potTitle: string = '';
 
     public roseAssignedBy: number = 0;
+    public picCertificateFlg: boolean = false;
+    public picCertificateNum: number = 0;
 
     constructor(obj: any) {
         if (obj) {
@@ -261,6 +263,8 @@ export class User {
             this.numReviews = obj.numReviews || 0;
             this.roseAssignedBy = obj.roseAssignedBy || 0;
 
+            this.picCertificateFlg = obj.picCertificateFlg && obj.picCertificateFlg == 'Y';
+            this.picCertificateNum = obj.picCertificateNum || 0;
 
             if (this.drinks == 'Yes') {
                 this.drinksIcon = 'assets/images/drinker.png';

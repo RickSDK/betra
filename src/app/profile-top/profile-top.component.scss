@@ -11,6 +11,20 @@
     border-radius: 0 0 15px 0;
 }
 
+.verified-cirtificate {
+    cursor: pointer;
+    font-size: 32px; 
+    color: #900; 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    z-index: 300;
+}
+
+.verified-cirtificate:hover {
+    color: red;
+}
+
 .user-profile-image:hover {
     filter: none;
 }

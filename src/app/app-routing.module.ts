@@ -21,6 +21,7 @@ import { OwnerUsersComponent } from './owner-users/owner-users.component';
 import { OwnerStatsComponent } from './owner-stats/owner-stats.component';
 import { OwnerBugsComponent } from './owner-bugs/owner-bugs.component';
 import { ProfileEditPicsComponent } from './profile-edit-pics/profile-edit-pics.component';
+import { VerifyPicsComponent } from './verify-pics/verify-pics.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'owner-stats', component: OwnerStatsComponent },
   { path: 'owner-bugs', component: OwnerBugsComponent },
   { path: 'edit-pics', component: ProfileEditPicsComponent },
+  { path: 'verify-pics', component: VerifyPicsComponent },
 ];
 
 @NgModule({
