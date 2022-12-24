@@ -3,6 +3,7 @@
 }
 
 .side-menu-item {
+    position: relative;
     height: 44px;
     line-height: 44px;
     vertical-align: center;
@@ -27,6 +28,7 @@
     color: gray;
     border-bottom: 1px solid gray;
 }
+
 .red-circle {
     display: inline-block;
     border: 1px solid white;
@@ -39,4 +41,17 @@
     text-align: center;
     color: white;
     border-radius: 50%;
+}
+
+.filter-icon {
+    position: absolute;
+    z-index: 200;
+    right: 10px;
+    top: 14px;
+}
+
+.filter-icon:hover {
+    font-weight: 700;
+    color: #900;
+    font-size: 18px;
 }

@@ -1,8 +1,10 @@
 <div *ngIf="user && myUser" style="position: relative;">
     <table width="100%" border="0">
         <tr>
-            <td width="50%" style="padding: 0;" valign="top">
+            <td width="50%" style="padding: 0; position: relative;" valign="top">
                 <i *ngIf="user.picCertificateFlg" [routerLink]="['/verify-pics']" class="fa fa-certificate verified-cirtificate" title="Picture Verified"></i>
+                <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron" style="left: 10px;"></i>
+                <i *ngIf="pictureIndexMax>1 && pictureIndex<pictureIndexMax" (mousedown)="changePicture(1)" class="fa fa-chevron-right icon-chevron" style="right: 10px;"></i>
                 <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
             </td>
             <td width="50%" *ngIf="!largeImageFlg" valign="top"

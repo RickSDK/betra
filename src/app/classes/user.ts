@@ -525,7 +525,7 @@ export class User {
 
 
         //----Basics
-        var basicsFlg = !!(this.firstName && this.gender && this.matchPreference && this.phone);
+        var basicsFlg = !!(this.firstName && this.gender && this.matchPreference);
         //if (basicsFlg && this.findLoveFlg && !this.matchPreference)
         //  basicsFlg = false;
 

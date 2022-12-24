@@ -31,7 +31,7 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   public adminAction: string = '';
   public bugImgSrc: any = null;
   public showImageFlg: boolean = false;
-  public appVersion:string = 'x';
+  public appVersion:string = getVersion();
 
   constructor() { super(); }
 
@@ -163,7 +163,7 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'dislikePost') {
       this.journal.dislikes++;
     }
-    if (responseJson.action == 'refreshPost' || responseJson.action == 'markAsFixed') {
+    if (responseJson.action == 'refreshPost' || responseJson.action == 'markAsFixed' || responseJson.action == 'markAsBackBurner') {
       this.journal = new Journal(responseJson.mainPost);
       var replies: any = [];
       if(responseJson.itemArray) {

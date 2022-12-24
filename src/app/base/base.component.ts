@@ -92,6 +92,7 @@ export class BaseComponent implements OnInit {
       }
     }
   }
+
   ngClassMenuButton(num: number, menuNum: number) {
     if (num == menuNum)
       return 'btn btn-main-color';

@@ -68,7 +68,8 @@
         <span *ngIf="journal.region == 'Bug' && adminFlg">
             <span (mousedown)="toggleAttachment();"
             class="text-link">Attachment</span>&nbsp;
-            <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')" class="btn btn-primary">Mark as Fixed</button>
+            <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')" class="btn btn-primary">Fixed</button>&nbsp;
+            <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsBackBurner')" class="btn btn-primary">Back Burner</button>&nbsp;
         </span>
 
         <img *ngIf="showImageFlg" [src]="journal.imageSrc" width="100%">

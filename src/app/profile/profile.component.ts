@@ -306,6 +306,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == "logUser") {
+      if(!this.user.email && responseJson.email) {
+        this.user.email = responseJson.email;
+        this.user.phone = responseJson.phone;
+      }
       this.syncUserWithLocalStorage(responseJson);
     }
     if (responseJson.action == 'login') {

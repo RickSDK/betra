@@ -30,6 +30,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showMatchLevelInfoFlg: boolean = false;
   public showFakePicOptionsFlg: boolean = false;
   public distance: string = '';
+  public showFilter: boolean = false;
+  public searchStarted: boolean = false;
+  public ageRange = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
 
 
@@ -42,8 +45,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
-      var datingPoolLimit = (this.user.memberFlg)?12:8;
+      this.showFilter = (params['filter'] == 'true');
+      var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
       this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
+      this.searchStarted = !this.showFilter;
 
       if (this.uid > 0)
         this.loadThisUser();
@@ -58,14 +63,26 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.verifyPictures();
       } else {
         this.pageTitle = 'Browse';
-        this.browseSingles('findMatches');
+        if (!this.showFilter)
+          this.browseSingles('findMatches');
       }
     })
   }
+
+  showAdvancedFilters() {
+    this.showFilter = true;
+    this.searchStarted = false;
+  }
+
+  advancedSearchGo() {
+    this.browseSingles('findMatches');
+  }
+
   browseSingles(action: string) {
     if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
       return;
     }
+    this.searchStarted = true;
     this.matchUser = null;
     var params = {
       userId: localStorage['user_id'],

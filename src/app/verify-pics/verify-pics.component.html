@@ -5,6 +5,7 @@
     <div class="standard-card">
         <p><b>Betra Picture Verification</b></p>
 
+        <p *ngIf="picCertificateFlg"><i class="fa fa-certificate"></i> Your picture has been verified!</p>
         <div *ngIf="!picCertificateFlg">
             <div style="text-align: left; font-size: 12px;">
                 <div>
@@ -36,8 +37,10 @@
             Thank you! Your photo has been submitted and will be verified shortly.
         </div>
         <div *ngIf="user.ownerFlg && picCertificateFlg">
-            <p>Admin picture verification.</p>
-            <p *ngIf="usersToVerify.length==0">No profiles to verify at this time.</p>
+            <hr>
+            <div>Admin picture verification.</div>
+            <div class="gray-text">As an admin you can now verify other's pictures if any are waiting for verification.</div>
+            <p *ngIf="usersToVerify.length==0" class="red-text">No profiles to verify at this time.</p>
             <div *ngFor="let item of usersToVerify">
                 <table width="100%">
                     <tr>

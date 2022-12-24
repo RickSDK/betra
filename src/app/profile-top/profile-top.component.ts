@@ -12,7 +12,7 @@ export class ProfileTopComponent implements OnInit {
   @Input('distance') distance: string = '';
   @Input('adminFlg') adminFlg: boolean = false;
   @Input('expandBottomFlg') expandBottomFlg: boolean = false;
-  
+
 
   @Output() messageEvent = new EventEmitter<string>();
   public largeImageFlg: boolean = false;
@@ -21,15 +21,31 @@ export class ProfileTopComponent implements OnInit {
   public lookingForTitle: string = '';
   public showAdminButtonsFlg: boolean = false;
   public showOptionsFlg: boolean = false;
+  public pictureIndex: number = 0;
+  public pictureIndexMax: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.pictureIndex = 1;
+    this.pictureIndexMax = this.user.numPics + 1;
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.user.mainImageSrc = this.user.imgSrc;
     this.showOptionsFlg = false;
   }
 
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
+  }
+
+  changePicture(num: number) {
+    this.pictureIndex += num;
+    this.pictureIndexMax = this.user.numPics + 1;
+    if (this.pictureIndex > 0 && this.pictureIndex <= this.pictureIndexMax)
+      this.viewImageThumbnail(this.pictureIndex - 1);
+    else
+      this.pictureIndex = 1;
+  }
   cancelMatches() {
     this.messageEvent.emit('cancel');
   }

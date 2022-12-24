@@ -20,8 +20,8 @@
                 </td>
                 <td [title]="player.user_id">
                     <b>{{player.firstName}}</b>
-                    <div *ngIf="0 && user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
-                    <div *ngIf="0 && user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
+                    <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
+                    <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
                 </td>
                 <!--<td>{{player.ownerLevel}}</td>-->
                 <td>{{player.location}}</td>

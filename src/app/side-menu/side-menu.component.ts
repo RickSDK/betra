@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-menu',
@@ -11,7 +12,7 @@ export class SideMenuComponent implements OnInit {
   @Input('messageCount') messageCount: number = 0;
   @Input('matchCount') matchCount: number = 0;
 
-
+  public filterSelectedFlg = false;
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
     { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
@@ -29,17 +30,24 @@ export class SideMenuComponent implements OnInit {
   public bottomItems = [
     { name: 'Settings', routerLink: '/settings', icon: 'fa fa-cog', id: 0 },
   ];
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     if (1)
-      this.bottomItems.push({ name: 'Verify Pic', routerLink: '/verify-pics', icon: 'fa fa-picture-o', id: 0 });
+      this.bottomItems.push({ name: 'Verify Pic', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
 
     if (this.headerObj.ownerFlg) {
       this.bottomItems.push({ name: 'Owners', routerLink: '/owners', icon: 'fa fa-briefcase', id: 0 });
-      this.bottomItems.push({ name: 'Admin Verify Pic', routerLink: '/user-detail', icon: 'fa fa-lock', id: 7 });
+      this.bottomItems.push({ name: 'Profile Pic Legit?', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
     } else
       this.bottomItems.push({ name: 'Join the Team', routerLink: '/join-team', icon: 'fa fa-briefcase', id: 0 });
+  }
+
+  filterSelected(flag: boolean) {
+    this.filterSelectedFlg = flag;
+  }
+  browseSelected() {
+    this.router.navigate(['/user-detail'], {queryParams: {id: 2, filter: this.filterSelectedFlg}});
   }
 
   ngClassMenuItem(menuTitle: string) {

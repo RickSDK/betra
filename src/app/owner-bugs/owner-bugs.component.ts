@@ -14,8 +14,11 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
   public postId: number = 0;
   public selectedJournal: any;
   public showFormFlg: boolean = false;
-  public journalList:any = [];
-  public appVersion:string = '';
+  public displayedBugs: any = [];
+  public allBugs: any = [];
+  public appVersion: string = '';
+  public statusOptions = ['New', 'Back Burner', 'Fixed'];
+  public displayStatus = 'New';
 
   constructor() { super(); }
 
@@ -23,6 +26,22 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
     this.getAllBugs();
     this.appVersion = getVersion();
+  }
+
+  changeStatusFilter(num: number) {
+    this.menuNum = num;
+    this.displayStatus = this.statusOptions[num];
+    this.filterBugs();
+  }
+
+  filterBugs() {
+    var filteredBugs: any = [];
+    this.displayedBugs = [];
+    this.allBugs.forEach((element: any) => {
+      if (element.status == this.displayStatus)
+        filteredBugs.push(element);
+    });
+    this.displayedBugs = filteredBugs;
   }
 
   getAllBugs() {
@@ -39,12 +58,13 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
     console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == 'getJournals' || responseJson.action == 'postJournalReply') {
       this.selectedJournal = null;
-      this.journalList = [];
-      var journalList: any = [];
+      this.allBugs = [];
+      var allBugs: any = [];
       responseJson.itemArray.forEach((element: any) => {
-        journalList.push(new Journal(element));
+        allBugs.push(new Journal(element));
       });
-      this.journalList = journalList;
+      this.allBugs = allBugs;
+      this.filterBugs();
     }
   }
   submitButtonPressed() {
@@ -81,12 +101,12 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
     this.postId = 0;
     this.showFormFlg = true;
     this.selectedJournal = null;
-    this.journalList = [];
+    this.displayedBugs = [];
   }
   cancelButtonPressed() {
     this.showFormFlg = false;
     this.selectedJournal = null;
-    if (this.postId > 0 || this.journalList.length == 0) {
+    if (this.postId > 0 || this.displayedBugs.length == 0) {
       this.postId = 0;
       this.getAllBugs();
     }

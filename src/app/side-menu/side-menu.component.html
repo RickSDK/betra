@@ -1,15 +1,24 @@
 <div class="side-menu">
     <div class="group-heading">discover</div>
     <div *ngFor="let item of topItems">
-        <div *ngIf="item.id>0" [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}"
+        <div *ngIf="item.id>0 && item.id != 2" [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}"
             [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
             {{item.name}}
-            <span *ngIf="item.id==3 && headerObj && headerObj.matchesAlerts>0" class="red-circle">{{headerObj.matchesAlerts}}</span>
-            <span *ngIf="item.id==4 && headerObj && headerObj.admirerCount>0" class="red-circle">{{headerObj.admirerCount}}</span>
+            <span *ngIf="item.id==3 && headerObj && headerObj.matchesAlerts>0"
+                class="red-circle">{{headerObj.matchesAlerts}}</span>
+            <span *ngIf="item.id==4 && headerObj && headerObj.admirerCount>0"
+                class="red-circle">{{headerObj.admirerCount}}</span>
+        </div>
+        <div *ngIf="item.id==2" (mousedown)="browseSelected()" [ngClass]="ngClassMenuItem(item.name)">
+            <span (mousedown)="filterSelected(false)"><i
+                [class]="item.icon"></i> &nbsp;
+            {{item.name}}</span>
+            <i *ngIf="item.id==2" (mousedown)="filterSelected(true)" class="fa fa-cogs filter-icon"></i>
         </div>
         <div *ngIf="item.id==0" [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i
                 [class]="item.icon"></i> &nbsp;
             {{item.name}} </div>
+
 
     </div>
     <div class="group-heading">Interact</div>
@@ -21,7 +30,8 @@
     </div>
     <div class="group-heading"></div>
     <div *ngFor="let item of bottomItems">
-        <div [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
+        <div [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}" [ngClass]="ngClassMenuItem(item.name)"><i
+                [class]="item.icon"></i> &nbsp;
             {{item.name}}</div>
     </div>
 </div>

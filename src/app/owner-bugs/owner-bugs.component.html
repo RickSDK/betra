@@ -9,10 +9,17 @@
         <div class="border-box" style="font-size: 12px;">
             Use this page to report bugs or make suggestions to make the app better.
         </div>
-        <button *ngIf="postId==0 && !showFormFlg" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create
+        <button *ngIf="postId==0 && !showFormFlg" (mousedown)="createNewEntry()"
+            class="btn btn-light bordered-button">Create
             Bug</button>
         <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
             to top</button>
+
+        <div class="btn-group">
+            <button (mousedown)="changeStatusFilter(i)" *ngFor="let button of statusOptions; let i = index;" [ngClass]="ngClassMenuButton(i, menuNum)"
+                style="font-size: 12px; margin-right: 2px;">{{button}}</button>
+        </div>
+
 
         <div *ngIf="selectedJournal">
             <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"
@@ -21,7 +28,8 @@
         </div>
 
         <div *ngIf="showFormFlg">
-            <div *ngIf="postId==0" class="gray-text">Tell about the bug you found or describe a feature you think would make the app better.</div>
+            <div *ngIf="postId==0" class="gray-text">Tell about the bug you found or describe a feature you think would
+                make the app better.</div>
             <div *ngIf="postId>0" class="gray-text">Reply to this bug.</div>
             <app-text-area-input [id]="'journalText'"></app-text-area-input>
             <table>
@@ -35,7 +43,7 @@
                                 <option>Clarification</option>
                                 <option>Other</option>
                             </select>
-                        </div>      
+                        </div>
                     </td>
                     <td>
                         <div style="padding: 20px;">
@@ -46,7 +54,7 @@
                                 <option>Desktop Only</option>
                                 <option>Tablet Only</option>
                             </select>
-                        </div>                                    
+                        </div>
                     </td>
                     <td align="center">
                         <div>Version</div>
@@ -65,7 +73,7 @@
 
     <div *ngIf="!selectedJournal">
         <app-journal-cell (messageEvent)="replyButtonClicked($event)"
-            *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
+            *ngFor="let journal of displayedBugs; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
             [imgSrc]="user.imgSrc" [adminFlg]="userId==1 || userId == journal.user_id" [level]="0"></app-journal-cell>
     </div>
 
