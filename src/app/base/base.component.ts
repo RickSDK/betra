@@ -122,6 +122,18 @@ export class BaseComponent implements OnInit {
     }
 
   }
+
+  getDataFromServer(action: string, fileName: string, bonusParams:any) {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      action: action,
+    };
+    params = Object.assign(params, bonusParams);
+    console.log('xxxparams', params);
+    this.executeApi(fileName, params, true);
+  }
+
   checkServerForChanges(lastUpd: string) {
     var e = document.getElementById('logo');
     if(e && lastUpd == localStorage['timeStamp']) {

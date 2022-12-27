@@ -3,31 +3,17 @@
 
     <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
 
-    <div *ngIf="!showFilter"><span class="text-link" (mousedown)="showAdvancedFilters()">Advanced Filters</span></div>
-    <div *ngIf="showFilter" class="matches-card">
-        <div>Searching for: 
-            <span *ngIf="user.matchPreference == 'F' || user.matchPreference == 'A'" class="text-highlight">Females</span>&nbsp;
-            <span *ngIf="user.matchPreference == 'M' || user.matchPreference == 'A'" class="text-highlight">Males</span>&nbsp;
-        </div>
-        <div>Age: <span class="text-highlight">{{user.matchAge}}</span>  years old. Plus or minus <select>
-            <option *ngFor="let num of ageRange">{{num}}</option>
-        </select> years</div>
-        <div>
-            Location: <select><option>Auto</option></select>
-        </div>
-        <div>
-            Distance: <select><option>Auto</option></select>
-        </div>
-        <div>
-            Note: advanced search features still in the works
-        </div>
-        <div>
-            <button (mousedown)="advancedSearchGo()" class="btn btn-main-color" style="padding: 10px; width: 140px;">Search</button>
-        </div>
+    <div *ngIf="!showFilter && id==2"><span class="text-link" (mousedown)="showAdvancedFilters()">Advanced Filters</span></div>
+    <app-advanced-filters *ngIf="showFilter" [user]="user" (messageEvent)="advancedSearch($event)"></app-advanced-filters>
+    <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
 
-    </div>    
+
 
     <div class="matches-card" *ngIf="searchStarted && user && !matchUser">
+        <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
+            <p class="red-text">Note: Something is not set up properly with your location</p>
+            <p>Click here to fix.</p>
+        </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="exceededPoolSizeFlg">

@@ -9,14 +9,21 @@
             stats</button>&nbsp;
         <button (mousedown)="showLocation()" class="btn btn-main-color"><i class="fa fa-globe"></i>
             location</button>&nbsp;
-        <button *ngIf="!user.memberFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color"><i class="fa fa-arrow-up"></i>
+        <button *ngIf="!user.memberFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color"><i
+                class="fa fa-arrow-up"></i>
             Upgrade</button>&nbsp;
 
+         <div *ngIf="!user.lat" class="border-box">
+            <p class="red-text">Note: Something is not set up properly with your location</p>
+            <p>Click the "Location" button and then press "Update Location" to fix.</p>
+            <p class="gray-text">If this doesn't fix your issue, you will need to log in with a different device or change your browser settings to allow location info.</p>
+        </div>
         <div *ngIf="showLocationFlg && !loadingFlg" class="border-box">
             <div class="gray-text">Location</div>
             <div>City: <span class="text-highlight">{{user.city}}</span></div>
             <div>State: <span class="text-highlight">{{user.state}}</span></div>
             <div>Country: <span class="text-highlight">{{user.countryName}}</span></div>
+            <div style="color: #eee; font-size: 10px;">{{user.latitude}} {{user.longitude}}</div>
             <button (mousedown)="updateLocation()" class="btn btn-success" style="height: 60px;"><i
                     class="fa fa-map-pin"></i>
                 Update Location</button>&nbsp;

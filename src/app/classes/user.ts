@@ -158,6 +158,9 @@ export class User {
     public roseAssignedBy: number = 0;
     public picCertificateFlg: boolean = false;
     public picCertificateNum: number = 0;
+    public lat: number = 0;
+    public lng: number = 0;
+    public lastDay: string = '';
 
     constructor(obj: any) {
         if (obj) {
@@ -265,6 +268,9 @@ export class User {
 
             this.picCertificateFlg = obj.picCertificateFlg && obj.picCertificateFlg == 'Y';
             this.picCertificateNum = obj.picCertificateNum || 0;
+            this.lat = obj.lat || 0;
+            this.lng = obj.lng || 0;
+            this.lastDay = 'test';
 
             if (this.drinks == 'Yes') {
                 this.drinksIcon = 'assets/images/drinker.png';
@@ -481,15 +487,15 @@ export class User {
 
             this.polyText = "Moderate";
 
-            if (conLibertarian > 2)
+            if (conLibertarian > 3)
                 this.polyText = "Capitalist";
-            if (conLibertarian < -2)
-                this.polyText = "Communist";
-            if (conStatist > 2)
+            if (conLibertarian < -3)
+                this.polyText = "Socialist";
+            if (conStatist > 3)
                 this.polyText = "Nationalist";
-            if (conStatist < -2)
+            if (conStatist < -3)
                 this.polyText = "Progressive";
-
+            
 
 
             if (conLibertarian >= 2 && conStatist >= 2)
@@ -506,7 +512,7 @@ export class User {
             if (conLibertarian <= -2 && conStatist <= -2)
                 this.polyText = "Liberal";
             if (conLibertarian == -4 && conStatist == -4)
-                this.polyText = "Socialist";
+                this.polyText = "Communist";
 
             if (conLibertarian <= -2 && conStatist >= 2)
                 this.polyText = "Statist";

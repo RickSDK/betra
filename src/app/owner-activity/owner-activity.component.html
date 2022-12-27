@@ -1,0 +1,24 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owners'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-owners-menu [pageTitle]="'Activity'"></app-owners-menu>
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+        <div *ngIf="!loadingFlg">
+            <div>Teams</div>
+            <div *ngFor="let team of teams" class="team-box">
+                <div style="background-color: #444; color: white;">{{team.name}}</div>
+                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true"></app-owner-activity-user>
+                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member"></app-owner-activity-user>
+                <div class="gray-text">clicks: {{team.clicks}}</div>
+                <div class="gray-text">matches: {{team.matches}}</div>
+                <div class="gray-text">messages: {{team.messages}}</div>
+                <div class="gray-text">pics: {{team.picVerifiedCount}}</div>
+                <div><b>Score: {{team.total}}</b></div>
+            </div>
+        </div>
+
+    </div>
+</app-page-shell>

@@ -32,6 +32,8 @@ export class ProfileTopComponent implements OnInit {
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.user.mainImageSrc = this.user.imgSrc;
     this.showOptionsFlg = false;
+    if (!this.myUser.memberFlg)
+      this.pictureIndexMax = 1;
   }
 
   ngOnChanges(changes: any) {

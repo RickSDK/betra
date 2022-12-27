@@ -15,7 +15,7 @@
         <div style="text-align: center;"><i *ngIf="player.emailVerifyFlg" class="fa fa-check"
                 style="color: green;"></i>{{player.status}}</div>
         <div style="text-align: center; font-size: 11px; color: green;">{{player.lastLoginText}}</div>
-        <button class="btn btn-danger" (mousedown)="deleteUser(player)">Delete</button>
+        <button *ngIf="player.status != 'Deleted'" class="btn btn-danger" (mousedown)="deleteUser(player)">Delete</button>
         <div *ngIf="user && user.user_id==1" style="background-color: #eee;">
             <div style="text-align: center;">{{player.adventureStableText}}</div>
             <div style="text-align: center;">{{player.polyText}}</div>
@@ -24,7 +24,7 @@
             <div>{{player.phone}}</div>
             <div>Clicks: Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup></div>
             <div>matches: {{player.statsObj.matchLevel2}}</div>
-            <button class="btn btn-primary" (mousedown)="selectedId = (selectedId==player.user_id)?0:player.user_id">Stats</button>
+            <button *ngIf="player.statsObj.messages>0" class="btn btn-primary" (mousedown)="selectedId = (selectedId==player.user_id)?0:player.user_id">Stats</button>
             <div *ngIf="selectedId == player.user_id">
                 <div *ngIf="player.statsObj.messages>0">messages: {{player.statsObj.messages}}</div>
                 <div *ngIf="player.statsObj.reviewed>0">reviewed: {{player.statsObj.reviewed}}</div>

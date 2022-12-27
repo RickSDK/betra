@@ -32,9 +32,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public distance: string = '';
   public showFilter: boolean = false;
   public searchStarted: boolean = false;
-  public ageRange = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-
-
+  public matchesCount: number = 0;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -74,14 +72,46 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.searchStarted = false;
   }
 
-  advancedSearchGo() {
-    this.browseSingles('findMatches');
+  advancedSearch(event: any) {
+    if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
+      return;
+    }
+    if (!this.user.lat)
+      return;
+    this.searchStarted = true;
+    this.matchUser = null;
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      matchPreference: this.user.matchPreference,
+      lat: Math.round(this.user.latitude),
+      lng: Math.round(this.user.longitude),
+      matchAgeYear: this.user.matchAgeYear,
+      matchAgeRange: $('#ageRange').val(),
+      distance: $('#distance').val(),
+      location: $('#location').val(),
+      country: $('#country').val(),
+      state: $('#state').val(),
+      city: $('#city').val(),
+      activityLevel: $('#activityLevel').val(),
+      relationshipType: $('#relationshipType').val(),
+      marriageView: $('#marriageView').val(),
+      bodyType: $('#bodyType').val(),
+      testFlg: 'Y',
+      action: 'findMatchesAdvanced'
+    };
+    console.log('params', params);
+    this.executeApi('findMatches.php', params, true);
+
   }
+
 
   browseSingles(action: string) {
     if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
       return;
     }
+    if (!this.user.lat)
+      return;
     this.searchStarted = true;
     this.matchUser = null;
     var params = {
@@ -163,9 +193,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       }
     }
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
+      this.playerList = [];
       if (this.responseJson.playerList) {
-
-        this.playerList = [];
         this.responseJson.playerList.forEach((element: any) => {
           this.playerList.push(new User(element));
         });
@@ -173,6 +202,34 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.currentProfileIndex = 0;
         this.showCurrentProfile();
         console.log('xxxthis.playerList', this.playerList);
+      }
+    }
+    if (responseJson.action == 'findMatchesAdvanced') {
+      this.matchesCount = 0;
+
+      this.playerList = [];
+
+      if (this.responseJson.playerList) {
+        this.matchesCount = this.responseJson.playerList.length;
+        this.responseJson.playerList.forEach((element: any) => {
+          var inRange = true;
+          if (responseJson.distance != 'Any') {
+            var distance = distanceInKmBetweenEarthCoordinates(element.latitude, element.longitude, this.user.latitude, this.user.longitude);
+            if (responseJson.distance == '10 miles')
+              inRange = distance <= 10;
+            if (responseJson.distance == '50 miles')
+              inRange = distance <= 50;
+            if (responseJson.distance == '100 miles')
+              inRange = distance <= 100;
+
+          }
+
+          if (inRange)
+            this.playerList.push(new User(element));
+        });
+
+        this.currentProfileIndex = 0;
+        this.showCurrentProfile();
       }
     }
     if (responseJson.action == 'removeThisUser') {

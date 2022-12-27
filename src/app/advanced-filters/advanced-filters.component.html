@@ -1,0 +1,121 @@
+<div class="matches-card" *ngIf="user">
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div>Searching for: <span class="text-highlight">{{user.matchGender}}</span>
+    </div>
+    <div>Age: <span class="text-highlight">{{user.matchAge}}</span> years old. Plus or minus <select name="ageRange"
+            id="ageRange">
+            <option *ngFor="let option of ageRange" [selected]="option == age">{{option}}</option>
+        </select> years</div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md">
+                    Location: <select name="location" id="location" (input)="locationChanged()">
+                        <option>Auto</option>
+                        <option>Choose</option>
+                    </select>
+                </div>
+                <div class="col-md" *ngIf="showLocationOptionsFlg">
+                    <div class="border-box">
+                        <div class="gray-text">Choose your location</div>
+
+                        <div>Country <i *ngIf="loadingCountriesFlg" class="fa fa-spinner fa-spin"></i></div>
+                        <select name="country" id="country" (input)="countryChanged()"
+                            [disabled]="countrySelectDisabled">
+                            <option *ngFor="let country of listOfCountries" [selected]="country == user.countryName">
+                                {{country}}</option>
+                        </select>
+
+                        <div *ngIf="showStatesFlg">
+                            <div>State</div>
+                            <select name="state" id="state" (input)="stateChanged()">
+                                <option *ngFor="let state of listOfStates" [selected]="state == user.stateName">
+                                    {{state}}</option>
+                            </select>
+                        </div>
+
+                        <div>City <i *ngIf="loadingCitiesFlg" class="fa fa-spinner fa-spin"></i>
+                            <a *ngIf="0 && !loadingCitiesFlg" (mousedown)="stateChanged()"
+                                class="text-link">Change</a>&nbsp;
+                        </div>
+                        <select name="city" id="city">
+                            <option *ngFor="let city of listOfCities" [selected]="city == user.city">{{city}}</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="!showLocationOptionsFlg">
+        Distance: <select name="distance" id="distance">
+            <option *ngFor="let option of distanceOptions">{{option}}</option>
+        </select>
+    </div>
+    <div *ngIf="showMoreOptionsFlg" class="red-text" style="padding: 10px;">
+        <hr>
+        <table>
+            <tr>
+                <td align="right">
+                    Activity Level:
+                </td>
+                <td align="left">
+                    <select name="activityLevel" id="activityLevel">
+                        <option>Any</option>
+                        <option>Online Today</option>
+                        <option>Online This Week</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Relationship Type:
+                </td>
+                <td align="left">
+                    <select name="relationshipType" id="relationshipType">
+                        <option>Any</option>
+                        <option>Serious only</option>
+                        <option>Casual only</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    View of Marriage:
+                </td>
+                <td align="left">
+                    <select name="marriageView" id="marriageView">
+                        <option>Any</option>
+                        <option>Hi Priority</option>
+                        <option>Low Priority</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Body Type:
+                </td>
+                <td align="left">
+                    <select name="bodyType" id="bodyType">
+                        <option>Any</option>
+                        <option>Thin</option>
+                        <option>Heavy</option>
+                        <option>Average and Heavy</option>
+                        <option>Average and Thin</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div>
+        <a *ngIf="!showMoreOptionsFlg" class="text-link" (mousedown)="showMoreOptionsFlg = !showMoreOptionsFlg">More
+            Options</a>&nbsp;
+        <button (mousedown)="advancedSearchGo()" class="btn btn-main-color"
+            style="padding: 10px; width: 140px;">Search</button>&nbsp;
+        <a *ngIf="searchButtonPressedFlg" [routerLink]="['/user-detail']" class="text-link">Default Search</a>
+    </div>
+
+</div>

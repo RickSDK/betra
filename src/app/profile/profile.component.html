@@ -2,8 +2,7 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
 
     <div class="btn-group" *ngIf="user && user.status == 'Active'">
-        <button *ngFor="let title of menuTitles2; let i = index;"
-            (mousedown)="menuNum=i" type="button"
+        <button *ngFor="let title of menuTitles2; let i = index;" (mousedown)="menuNum=i" type="button"
             [ngClass]="menuNum==i?'btn btn-main-color small-btn-group':'btn btn-secondary small-btn-group'">{{title}}</button>
     </div>
     <div *ngIf="1" style="text-align: center;">
@@ -23,145 +22,81 @@
                 <!-------------------------0------------------------->
                 <div class="menu-section" *ngIf="menuNum==0">
 
-                    <div class="container-fluid" style="padding: 0;">
-                        <div class="row">
-                            <div class="col-md">
-                                <table width="100%" border="0">
-                                    <tr>
-                                        <td>
-                                            <div class="tiny-text">First Name</div>
-                                            <input name="firstName" id="firstName" [value]="user.firstName" [disabled]="true" style="background-color: #eee;">
-                                        </td>
-                                        <td>
-                                            <div class="tiny-text">Birthdate</div>
-                                            <app-birthday-input (messageEvent)="menuValueChanged()"
-                                                [birthdate]="user.birthdate"></app-birthday-input>
-                                        </td>
-                                    </tr>
-                                </table>
-
-
-                                <table width="100%">
-                                    <tr>
-                                        <td>
-                                            <div class="tiny-text">Zipcode</div>
-                                            <input name="zipcode"
-                                                [style.background-color]="user.zipcode?'#eee':'#ffffc0'" id="zipcode"
-                                                type="number" [value]="user.zipcode" placeholder="Zipcode" maxlength="5"
-                                                (input)="menuValueChanged()">
-
-                                        </td>
-                                        <td width="55%">
-                                            <div class="tiny-text">Phone</div>
-                                            <app-phone-input (messageEvent)="menuValueChanged()" [phone]="user.phone">
-                                            </app-phone-input>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div class="tiny-text">Email Address</div>
-                                <input name="email" [style.background-color]="user.email?'#eee':'#ffffc0'"
-                                    [disabled]="!!user.email" id="email" type="email" [value]="user.email"
-                                    placeholder="Email Address" (input)="menuValueChanged()">
-
-                                <div class="container-fluid" style="padding: 0;">
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="tiny-text">My Gender</div>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <button (mousedown)="selectGender('M')"
-                                                            [ngClass]="ngClassButton(user.gender=='M')">Male</button>
-                                                    </td>
-                                                    <td>
-                                                        <button (mousedown)="selectGender('F')"
-                                                            [ngClass]="ngClassButton(user.gender=='F')">Female</button>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <div *ngIf="!user.gender && errorMessage" style="background-color: yellow;">
-                                                Select an
-                                                gender
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div *ngIf="user.findLoveFlg">
-                                                <div class="tiny-text">Show Me (I want to date)</div>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <button (mousedown)="selectMatches('M')"
-                                                                [ngClass]="ngClassButton(user.matchPreference=='M')">Men</button>
-                                                        </td>
-                                                        <td>
-                                                            <button (mousedown)="selectMatches('F')"
-                                                                [ngClass]="ngClassButton(user.matchPreference=='F')">Women</button>
-                                                        </td>
-                                                        <td>
-                                                            <button (mousedown)="selectMatches('A')"
-                                                                [ngClass]="ngClassButton(user.matchPreference=='A')">All</button>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <div *ngIf="!user.matchPreference && errorMessage"
-                                                    style="background-color: yellow;">Select an
-                                                    option
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div>
+                        <div class="container" style="padding: 0;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="tiny-text">First Name</div>
+                                    <input name="firstName" id="firstName" [value]="user.firstName" [disabled]="true"
+                                        style="background-color: #eee;">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="tiny-text">Birthdate</div>
+                                    <app-birthday-input (messageEvent)="menuValueChanged()"
+                                        [birthdate]="user.birthdate"></app-birthday-input>
                                 </div>
                             </div>
-                            <div class="col-md" *ngIf="0">
-                                <div class="brown-box">
-                                    <div style="font-size: 12px;"><b>Services this app provides</b></div>
-                                    <table width="100%">
+                        </div>
+
+                        <div class="tiny-text">Phone</div>
+                        <app-phone-input (messageEvent)="menuValueChanged()" [phone]="user.phone">
+                        </app-phone-input>
+
+                        <div class="tiny-text">Email Address</div>
+                        <input name="email" [style.background-color]="user.email?'#eee':'#ffffc0'"
+                            [disabled]="!!user.email" id="email" type="email" [value]="user.email"
+                            placeholder="Email Address" (input)="menuValueChanged()">
+
+                        <div class="container" style="padding: 0;">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="tiny-text">My Gender</div>
+                                    <table>
                                         <tr>
                                             <td>
-                                                <div>Find Love</div>
-                                                <i [ngClass]="ngClassBox(user.findLoveFlg)"
-                                                    (mousedown)="selectCheckbox(1)"></i>
-                                                <div><i (mousedown)="showInfoScreen(1)" class="fa fa-info-circle"
-                                                        style="cursor: pointer;"></i></div>
+                                                <button (mousedown)="selectGender('M')"
+                                                    [ngClass]="ngClassButton(user.gender=='M')">Male</button>
                                             </td>
                                             <td>
-                                                <div>Meet People</div>
-                                                <i [ngClass]="ngClassBox(user.meetPeopleFlg)"
-                                                    (mousedown)="selectCheckbox(2)"></i>
-                                                <div><i (mousedown)="showInfoScreen(2)" class="fa fa-info-circle"
-                                                        style="cursor: pointer;"></i></div>
-                                            </td>
-                                            <td>
-                                                <div>Make Money</div>
-                                                <i [ngClass]="ngClassBox(user.makeMoneyFlg)"
-                                                    (mousedown)="selectCheckbox(3)"></i>
-                                                <div><i (mousedown)="showInfoScreen(3)" class="fa fa-info-circle"
-                                                        style="cursor: pointer;"></i></div>
+                                                <button (mousedown)="selectGender('F')"
+                                                    [ngClass]="ngClassButton(user.gender=='F')">Female</button>
                                             </td>
                                         </tr>
                                     </table>
-                                    <div *ngIf="infoScreenNum>0" (mousedown)="showInfoScreen(0)" class="info-box">
-                                        <div *ngIf="infoScreenNum==1">
-                                            <b>Find Love</b>: Browse through local singles' profiles and find your
-                                            perfect
-                                            match.
-                                        </div>
-                                        <div *ngIf="infoScreenNum==2">
-                                            <b>Meet People</b>: A unique way to meet people for conversation. With one
-                                            click of a button someone will meet you at a coffee shop or restaurant
-                                            within 10 minutes for conversation.
-                                        </div>
-                                        <div *ngIf="infoScreenNum==3">
-                                            <b>Make Money</b>: Are you friendly and like to talk to strangers? Get paid
-                                            to meet people at coffee shops to talk for 20 minutes.
+                                    <div *ngIf="!user.gender && errorMessage" style="background-color: yellow;">
+                                        Select an
+                                        gender
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div *ngIf="user.findLoveFlg">
+                                        <div class="tiny-text">Show Me (I want to date)</div>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <button (mousedown)="selectMatches('M')"
+                                                        [ngClass]="ngClassButton(user.matchPreference=='M')">Men</button>
+                                                </td>
+                                                <td>
+                                                    <button (mousedown)="selectMatches('F')"
+                                                        [ngClass]="ngClassButton(user.matchPreference=='F')">Women</button>
+                                                </td>
+                                                <td>
+                                                    <button (mousedown)="selectMatches('A')"
+                                                        [ngClass]="ngClassButton(user.matchPreference=='A')">All</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div *ngIf="!user.matchPreference && errorMessage"
+                                            style="background-color: yellow;">Select an
+                                            option
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="!user.findLoveFlg" class="info-box">Note: you have not selected "Find Love"
-                                    so you will not be able to browse through single's profiles.</div>
-
                             </div>
+
+
                         </div>
                     </div>
 
@@ -171,13 +106,15 @@
                 <div class="menu-section" *ngIf="menuNum==1">
                     <div *ngIf="user.emailVerifyFlg">Your email address has been verified!</div>
                     <div *ngIf="!user.emailVerifyFlg">
-                        <div>Check your email & spam folder to verify your email address, or click 'Continue' to skip
+                        <div>Check your email & spam folder to verify your email address, or click 'Continue' to
+                            skip
                             for now.</div>
                         <div *ngIf="user.status=='Active'"
                             style="background-color: #ffffc0; padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
                             Your email address:
                             <span class="highlited-field">{{user.email}}</span>
-                            <button class="btn btn-primary" (mousedown)="sendCode()" *ngIf="menuDisableFlg">Send New
+                            <button class="btn btn-primary" (mousedown)="sendCode()" *ngIf="menuDisableFlg">Send
+                                New
                                 Code</button>&nbsp;
                             <button class="btn btn-primary" (mousedown)="refreshUser()">Refresh
                                 Profile</button>
@@ -197,7 +134,8 @@
                                 </tr>
                             </table>
                         </div>
-                        <div *ngIf="!menuDisableFlg && apiSuccessFlg">Code has been sent! Check your email.</div>
+                        <div *ngIf="!menuDisableFlg && apiSuccessFlg">Code has been sent! Check your email.
+                        </div>
                     </div>
                 </div>
 
@@ -205,7 +143,10 @@
                 <!-----------------------------1-------------------------->
                 <div class="menu-section" *ngIf="menuNum==2">
                     <div style="font-size: 22px;">Tell us about yourself</div>
-                    <div *ngIf="!user.ip" style="background-color: yellow;">Note: your location information is not making it through. You may want to log in with another browser or adjust your settings.</div>
+                    <div *ngIf="!user.ip" style="background-color: yellow;">Note: your location information is
+                        not
+                        making it through. You may want to log in with another browser or adjust your settings.
+                    </div>
                     <div class="container-fluid" style="padding: 0;">
                         <div class="row">
                             <div class="col-md" style="text-align: center;">
@@ -288,11 +229,11 @@
                             <div class="col-md" style="text-align: left;">
                                 <table>
                                     <tr>
-                                        <td *ngIf="user.countryName != 'United States'" valign="top" style="padding-right: 10px;">
+                                        <td *ngIf="user.countryName != 'United States'" valign="top"
+                                            style="padding-right: 10px;">
                                             <div class="tiny-text">Country</div>
                                             <div>
-                                                <span
-                                                    class="text-highlight">{{user.countryName}}</span>
+                                                <span class="text-highlight">{{user.countryName}}</span>
                                             </div>
                                         </td>
                                         <td>
@@ -302,7 +243,8 @@
                                                 [disabled]="cityDisabledFlg" (messageEvent)="menuValueChanged()">
                                             </app-text-input>
                                         </td>
-                                        <td *ngIf="user.countryName == 'United States'" valign="top" style="padding-left: 10px;">
+                                        <td *ngIf="user.countryName == 'United States'" valign="top"
+                                            style="padding-left: 10px;">
                                             <div class="tiny-text">State</div>
                                             <select name="state" id="state" [disabled]="!!user.stateName"
                                                 [style.background-color]="user.stateName?'#eee':'#ffffc0'"
@@ -355,7 +297,8 @@
                                                     (change)="menuValueChanged()">
                                                     <option disabled selected>Select</option>
                                                     <option *ngFor="let option of desiredRelationships"
-                                                        [selected]="option == user.desiredRelationship">{{option}}
+                                                        [selected]="option == user.desiredRelationship">
+                                                        {{option}}
                                                     </option>
                                                 </select>
                                             </td>
@@ -432,7 +375,8 @@
 
                 <!-----------------------------2--personality quiz------------------------>
                 <div class="menu-section" *ngIf="menuNum==3 && user.findLoveFlg">
-                    <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this step
+                    <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this
+                        step
                     </div>
                     <div *ngIf="user.findLoveFlg">
 
@@ -448,10 +392,12 @@
 
                 <!-----------------------------3--Political Assessment------------------------>
                 <div class="menu-section" *ngIf="user && menuNum==4">
-                    <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this step
+                    <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this
+                        step
                     </div>
                     <div *ngIf="user.findLoveFlg">
-                        <div style="font-size: 18px;">Answer these questions by selecting the answer you most agree
+                        <div style="font-size: 18px;">Answer these questions by selecting the answer you most
+                            agree
                             with.</div>
                         <div class="box-card" *ngFor="let quiz of politicalQuiz; let i = index">
                             <div><b>{{i+1}}. {{quiz.subject}}</b></div>
@@ -482,7 +428,8 @@
                 <!--------------------------6------------------->
                 <div class="menu-section" *ngIf="menuNum==6">
                     <p>Optionally, you can upload up to 4 additional photos of yourself.</p>
-                    <div class="gray-text">Having additional photos increases the chances of people being interested in
+                    <div class="gray-text">Having additional photos increases the chances of people being
+                        interested in
                         you.</div>
                     <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'" [src]="user.pic1"
                         (messageEvent)="uploadPicButtonClicked(0)"></app-upload-image>
@@ -496,13 +443,16 @@
 
                 <!-----------------------------4--Your match------------------------>
                 <div class="menu-section" *ngIf="user && menuNum==7">
-                    <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this step
+                    <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this
+                        step
                     </div>
                     <div *ngIf="user.findLoveFlg">
                         <div style="font-size: 22px;">What is your ideal match?</div>
-                        <div style="font-size: 14px; color: gray;">Note you will get lots of matches that don't have
+                        <div style="font-size: 14px; color: gray;">Note you will get lots of matches that don't
+                            have
                             your
-                            "Ideal" settings, but these are simply used to tell you how close to ideal the person is.
+                            "Ideal" settings, but these are simply used to tell you how close to ideal the
+                            person is.
                         </div>
                         <div class="container-fluid" style="padding: 0;">
                             <div class="row">
@@ -614,7 +564,8 @@
 
                 </div>
             </div>
-            <div *ngIf="!code" style="background-color: yellow;">App is out of sync. Try logging out and logging back
+            <div *ngIf="!code" style="background-color: yellow;">App is out of sync. Try logging out and logging
+                back
                 in.</div>
 
             <app-spinner [loadingFlg]="loadingFlg" [successFlg]="apiSuccessFlg" [errorMessage]="errorMessage">
@@ -627,7 +578,8 @@
                     </td>
                     <td>
                         <button *ngIf="menuNum < menuTitles.length-1" (mousedown)="profileSectionAdvance()"
-                            class="btn red-button btn-main-color"><span *ngIf="changesMadeFlg">Save &</span> Continue</button>
+                            class="btn red-button btn-main-color"><span *ngIf="changesMadeFlg">Save &</span>
+                            Continue</button>
                     </td>
                 </tr>
             </table>

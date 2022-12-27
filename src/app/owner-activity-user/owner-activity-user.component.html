@@ -1,0 +1,22 @@
+<div *ngIf="owner">
+     <table width="100%">
+        <tr>
+            <td align="left">    <app-profile-pic [user_id]="owner.user_id" [profilePic]="owner.profilePic" [size]="30">
+            </app-profile-pic>
+            <span *ngIf="leaderFlg">*</span>{{owner.firstName}}</td>
+            <td style="color: #900; font-weight: 700; font-size: 12px;" align="center">
+                Yes<sup>{{owner.statsObj.interestYes}}</sup> No<sup>{{owner.statsObj.interestNo}}</sup>
+            </td>
+            <td style="color: #900; font-weight: 800; font-size: 16px;" align="center">
+                <span *ngIf="owner.statsObj.matchLevel2>0">{{owner.statsObj.matchLevel2}}</span>
+            </td>
+            <td style="color: gray; font-size: 14px;" align="center">
+                {{owner.statsObj.messages}}
+            </td>
+            <td style="color: #900; font-weight: 700; font-size: 14px;" align="center">
+                {{owner.statsObj.picVerifiedCount}}
+            </td>
+            <td><span class="gray-text" style="font-size: 8px;">{{owner.lastDay}}</span></td>
+        </tr>
+    </table>
+</div>

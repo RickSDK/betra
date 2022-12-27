@@ -74,7 +74,7 @@
         </table>
     </div>
 
-    <div class="container-fluid" *ngIf="showPromotionalBoxesFlg">
+    <div class="container-fluid" *ngIf="showPromotionalBoxesFlg" [style.max-width]="userId>0?'800px':'none'">
         <div class="row">
             <div class="col-md dark-red-box">
                 <div><i class="fa fa-heart big-icon"></i></div>

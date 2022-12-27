@@ -266,7 +266,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     if (this.menuNum == 6 && !this.user.findLoveFlg)
       this.menuNum = 8;
 
-      window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
 
     if (this.menuNum == 8 && this.user.status == 'Active')
       this.router.navigate(['']);
@@ -306,7 +306,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == "logUser") {
-      if(!this.user.email && responseJson.email) {
+      if (!this.user.email && responseJson.email) {
         this.user.email = responseJson.email;
         this.user.phone = responseJson.phone;
       }
@@ -337,6 +337,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         this.populateGeoInfo();
     }
   }
+
   selectMenu(num: number) {
     if (this.menuNum == num)
       this.menuNum = 0;
@@ -397,8 +398,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
       var basicsFlg = (this.user.email && this.user.firstName && this.user.zipcode && this.user.gender && this.user.matchPreference && this.user.phone);
       var obj = getDateObjFromJSDate(this.user.birthdate);
-   
-      if(obj.jsDate == 'Invalid Date') {
+
+      if (obj.jsDate == 'Invalid Date') {
         this.errorMessage = 'enter valid birthday';
         basicsFlg = false;
       } else {
@@ -410,7 +411,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         if (obj.daysAgo > 365 * 100) {
           this.errorMessage = 'enter valid birthday';
           basicsFlg = false;
-        }  
+        }
       }
       this.user.profileFlags[this.menuNum] = basicsFlg;
     }

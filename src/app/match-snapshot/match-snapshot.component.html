@@ -135,7 +135,7 @@
                             get a
                             reply back soon!
                         </div>
-                        <div><i class="fa fa-heart" style="color: red;"></i> {{matchUser.firstName}}<sup
+                        <div *ngIf="matchUser.matchObj.match_level > 1"><i class="fa fa-heart" style="color: red;"></i> {{matchUser.firstName}}<sup
                                 style="color: gray;">{{matchUser.matchObj.match_level}}</sup> is in your dating
                             pool.</div>
 

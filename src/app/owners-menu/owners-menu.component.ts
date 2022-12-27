@@ -14,6 +14,7 @@ export class OwnersMenuComponent implements OnInit {
     { name: 'Bugs', routerLink: '/owner-bugs' },
     { name: 'Owners', routerLink: '/owner-users' },
     { name: 'Stats', routerLink: '/owner-stats' },
+    { name: 'Activity', routerLink: '/owner-activity' },
   ]
 
   constructor() { }

@@ -14,6 +14,11 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
   constructor(private router: Router) { super(); }
 
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+  }
+
   logout() {
     this.userId = 0;
     localStorage['user_id'] = '';
@@ -49,6 +54,8 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       this.user.city = responseJson.user.city;
       this.user.state = responseJson.user.state;
       this.user.countryName = responseJson.user.countryName;
+      this.user.lat = responseJson.user.lat;
+      this.user.lng = responseJson.user.lng;
       this.syncUserWithLocalStorage(responseJson);
     }
   }

@@ -42,7 +42,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       if (this.login == 2)
         this.logoutUser();
     })
-
+    console.log('xxx', this.user.status);
     if (this.user && this.user.status == 'Active') {
       this.popupNum = 0;
       this.headerObj.notifications = this.user.notifications;
@@ -77,7 +77,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.headerObj.notifications = localStorage['notifications'];
       this.headerObj.admirerCount = localStorage['admirerCount'];
       this.headerObj.messageCount = localStorage['messageCount'];
-      this.router.navigate([''], { queryParams: { 'login': '0' } });
+      console.log('navigating to main menu');
+      this.router.navigate([''], { queryParams: { 'login': '4' } });
     }
     if (value == 'logout')
       this.logoutUser();
@@ -96,7 +97,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "getStateCounts") {
       this.states = responseJson.stateName;
       this.countries = responseJson.countries;
-      var refreshFlg = (this.user && this.user.status == 'Pending')?'Y':'';
+      var refreshFlg = (this.user && this.user.status == 'Pending') ? 'Y' : '';
       this.logUser(refreshFlg);
     }
     if (responseJson.action == "logUser") {
@@ -104,7 +105,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
         this.populateGeoInfo();
       else {
         this.syncUserWithLocalStorage(responseJson);
-        if(this.userStatus != 'Active')
+        if (this.userStatus != 'Active')
           this.userStatus = this.user.status;
       }
     }

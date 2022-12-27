@@ -35,6 +35,10 @@
         <div class="match-card" style="padding: 10px; width: 100%; max-width: none;">
             <div class="main-color" style="font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to Betra!
             </div>
+            <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
+                <p class="red-text">Note: Something is not set up properly with your location</p>
+                <p>Click here to fix.</p>
+            </div>
             <div style="text-align: left;" class="gray-text">
                 <p>This is designed to be the "next generation" in dating, and guaranteed to be the most fun you will
                     ever
@@ -43,6 +47,10 @@
                     people,
                     then begin narrowing your prospects, giving out roses along the way.
                     Its fun and its exciting.
+                </p>
+                <p>
+                    And here's the real kicker: When you hand out a rose, everyone in your dating pool gets to see who you handed it out to.
+                    Is it a little bit scary at first? Yes! But it's also what makes Betra more fun and more transparent than any other dating app. Give it a try.
                 </p>
             </div>
 

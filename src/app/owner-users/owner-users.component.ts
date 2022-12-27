@@ -28,18 +28,10 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getOwnerUsers();
+    this.getDataFromServer('getOwnerUsers', 'owners.php', []);
   }
   changeMenu(num: number) {
     this.menuNum = num;
-  }
-  getOwnerUsers() {
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      action: "getOwnerUsers"
-    };
-    this.executeApi('owners.php', params, true);
   }
 
   override postSuccessApi(file: string, responseJson: any) {
@@ -66,14 +58,14 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
           this.activityReps.push(element);
         else if (element.user_id == 112 || element.user_id == 92 || element.user_id == 87)
           this.activityReps.push(element);
-        else if (element.user_id == 51 || element.user_id == 48 || element.user_id == 61)
+        else if (element.user_id == 51 || element.user_id == 48 || element.user_id == 61 || element.user_id == 16 || element.user_id == 128)
           this.activityReps.push(element);
         else
           this.usList.push(element);
       });
     }
     if (responseJson.action == 'updateUserRegion' || responseJson.action == 'sendEmail') {
-      this.getOwnerUsers();
+      this.getDataFromServer('getOwnerUsers', 'owners.php', []);
     }
   }
   getUserLocation(city: string, state: string, countryName: string) {
