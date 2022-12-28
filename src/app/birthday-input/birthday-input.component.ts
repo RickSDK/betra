@@ -16,10 +16,19 @@ export class BirthdayInputComponent implements OnInit {
   public day: string = '';
   public year: string = '';
   public age: string = '';
+  public months: any = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  public days: any = [];
+  public years: any = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    for (var i = 1; i <= 31; i++)
+      this.days.push(i.toString());
+
+    for (let i = 2010; i >= 1930; i--)
+      this.years.push(i);
+
     if (this.birthdate && this.birthdate.length > 0) {
       var parts = this.birthdate.split('-');
       if (parts.length == 3 && parts[2].length <= 2) {
@@ -27,9 +36,10 @@ export class BirthdayInputComponent implements OnInit {
         this.month = parts[1];
         this.day = parts[2];
         this.verifyBirthday();
-//        var dt = getDateObjFromJSDate(this.birthdate);
-  //      if (dt.jsDate == 'Invalid Date')
-    //      this.errorMessage = 'Invalid Date';
+        console.log('xxx', this.month);
+        //        var dt = getDateObjFromJSDate(this.birthdate);
+        //      if (dt.jsDate == 'Invalid Date')
+        //      this.errorMessage = 'Invalid Date';
       }
     }
   }

@@ -424,6 +424,10 @@ select {
     .hide-sm {
         display: none;
     }
+    .shrink {
+        font-size: 12px !important;
+        padding: 5px !important;
+    }
 }
 
 @media screen and (max-width: 540px) {

@@ -33,14 +33,17 @@ export class PageShellComponent implements OnInit {
     this.showAboutInfoFlg = true;
     if (localStorage['user_id'] > 0 && localStorage['User']) {
       var user = new User(JSON.parse(localStorage['User']));
-      if (user.ip == "76.103.166.98") {
-        this.userId = 0;
-        return;
+      if (user && user.user_id > 0) {
+        if (user.ip == "76.103.166.98") {
+          this.userId = 0;
+          return;
+        }
+        this.firstName = user.firstName;
+        this.imgSrcFile = user.imgSrc;
+        if (user.status == 'Active')
+          this.showPromotionalBoxesFlg = false;
+
       }
-      this.firstName = user.firstName;
-      this.imgSrcFile = user.imgSrc;
-      if (user.status == 'Active')
-        this.showPromotionalBoxesFlg = false;
       this.showAboutInfoFlg = false;
     }
     if (this.pageTitle == '')
@@ -69,13 +72,12 @@ export class PageShellComponent implements OnInit {
     this.userId = 1;
   }
   logout() {
-    console.log('+++logout');
     this.showMainMenuFlg = false;
     this.userId = 0;
     localStorage['user_id'] = '';
     localStorage['User'] = '';
     localStorage['email'] = '';
     localStorage['password'] = '';
-    this.router.navigate(['']);
+    this.router.navigate([''], { queryParams: { 'logout': 'true' } });
   }
 }

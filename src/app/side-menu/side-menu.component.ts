@@ -34,11 +34,11 @@ export class SideMenuComponent implements OnInit {
 
   ngOnInit(): void {
     if (1)
-      this.bottomItems.push({ name: 'Verify Pic', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
+      this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
 
     if (this.headerObj.ownerFlg) {
       this.bottomItems.push({ name: 'Owners', routerLink: '/owners', icon: 'fa fa-briefcase', id: 0 });
-      this.bottomItems.push({ name: 'Profile Pic Legit?', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
+      this.bottomItems.push({ name: 'Verify Profile Pic', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
     } else
       this.bottomItems.push({ name: 'Join the Team', routerLink: '/join-team', icon: 'fa fa-briefcase', id: 0 });
   }

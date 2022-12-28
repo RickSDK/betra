@@ -306,11 +306,13 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == "logUser") {
-      if (!this.user.email && responseJson.email) {
-        this.user.email = responseJson.email;
-        this.user.phone = responseJson.phone;
+      if (!this.user.email && responseJson.user.email) {
+        console.log('fixing User!!', this.user.email, responseJson.user.email);
+        this.user.email = responseJson.user.email;
+        this.user.phone = responseJson.user.phone;
       }
       this.syncUserWithLocalStorage(responseJson);
+
     }
     if (responseJson.action == 'login') {
       localStorage['User'] = JSON.stringify(responseJson.user);
@@ -384,7 +386,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.changesMadeFlg = true;
     this.errorMessage = '';
     if (this.menuNum == 0) {
-      this.user.email = $('#email').val();
+      //this.user.email = $('#email').val();
 
       var day = $('#day').val();
       var month = $('#month').val();
@@ -392,11 +394,11 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
       var now = getDateObjFromJSDate();
       this.user.birthdate = year + '-' + month + '-' + day + ' ' + now.localTime;;
-      this.user.firstName = $('#firstName').val();
+      //this.user.firstName = $('#firstName').val();
       this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();
 
-      var basicsFlg = (this.user.email && this.user.firstName && this.user.zipcode && this.user.gender && this.user.matchPreference && this.user.phone);
+      var basicsFlg = (this.user.email && this.user.firstName && this.user.gender && this.user.matchPreference && this.user.phone);
       var obj = getDateObjFromJSDate(this.user.birthdate);
 
       if (obj.jsDate == 'Invalid Date') {

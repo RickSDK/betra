@@ -95,10 +95,9 @@
                     <div class="name-title">{{person.name}}</div>
                 </div>
                 <div *ngIf="playerList.length>0">
-                    <p><i class="fa fa-heart" style="color: red;"></i> Someone is very interested in you!</p>
-                    <p class="gray-text">Click on the profile(s) above. If you decide you are interested as well, the
-                        two of you can begin
-                        communicating and see where this goes.</p>
+                    <p><i class="fa fa-heart" style="color: red;"></i> These people are very interested in you!</p>
+                    <p class="gray-text">The above profiles are people who are interested in you. Adding them to your dating pool
+                        will allow the two of you to start communicating.</p>
                 </div>
                 <div *ngIf="playerList.length==0">
                     <p>No admirers at the moment.</p>
@@ -176,16 +175,28 @@
                     <div class="answer">Answer: If someone removed you from their dating pool, they will also be removed from yours. Sorry, but they just aren't that into you. But don't worry, there are plenty of great singles still out there hoping to meet you. Get back in the game and fill up that dating pool!</div>
 
                     <div class="red-text">Question: How do I restore someone to my dating pool?</div>
-                    <div class="answer">Answer: Click the 'Who Likes Me' button at the top of this page. If that person is still interested in you, their profile will show up. Click on it. Expand the top and then click the 'Promote' button to put them back into your dating pool.</div>
+                    <div class="answer">Answer: Click the 'Back Burner' button at the top of this page. If that person is still interested in you, their profile will show up. Click on it. Expand the top and then click the 'Promote' button to put them back into your dating pool.</div>
 
 
                 </div>
             </div>
+            <div *ngIf="showDetailsNumber==4">
+                <div class="red-text">Roses</div>
+                <div style="font-size: 12px; color: gray; text-align: left">
+                    <p>
+                        Once you have at least 5 people in your dating pool, you must assign a rose to your favorite. Everyone in your dating pool will get to see who you assigned it to.
+                    </p>
+                    <p>Does this seem scary? Yes! But its also a way of being transparent with everyone in the dating pool.</p>
+                    <p>Not only does everyone in your dating pool get to see who you assigned your rose to, but you can view the dating pools of everyone you are interested in to see who they gave roses to. It's fun and it helps everyone know where they stand.</p>
+                    <p>Feel free to change who gets your rose as often as you like.</p>
+                </div>
+            </div>
         </div>
         <div *ngIf="menuNum==0" class="date-pool-bottom-bar">
-            <button (mousedown)="toggleShowDetailsNumber(1)" class="btn btn-main-color">Dating Pool</button>&nbsp;
-            <button (mousedown)="toggleShowDetailsNumber(2)" class="btn btn-main-color">Intimacy Level</button>&nbsp;
-            <button (mousedown)="toggleShowDetailsNumber(3)" class="btn btn-main-color">FAQ</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(1)" class="btn btn-main-color shrink">Dating Pool</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(2)" class="btn btn-main-color shrink">Intimacy Level</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(3)" class="btn btn-main-color shrink">FAQ</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(4)" class="btn btn-main-color shrink">Roses</button>&nbsp;
         </div>
     </div>
 

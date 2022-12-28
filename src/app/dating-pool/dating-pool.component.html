@@ -1,6 +1,5 @@
-<div *ngIf="user && user.datingPool && user.datingPool.length>0" [style.max-width]="largeFlg?'100%':'400px'">
-    <div class="main-color" style="font-size: 10px; font-weight: 700; border-bottom: 1px solid #ccc;"
-        [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
+<div *ngIf="user && user.datingPool && user.datingPool.length>0">
+    <div class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
     <div *ngIf="largeFlg">
         <div *ngFor="let person of user.datingPool" class="pool-large menu-circle">
             <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
@@ -18,7 +17,7 @@
             <div class="icon-label btn-main-color">
                 <div>{{person.name}}</div>
             </div>
-            <div *ngIf="1 && person.match">
+            <div *ngIf="person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!
                 </div>
                 <div *ngIf="person.match.match_date_request == 'Y'" class="big-flashy"><i class="fa fa-calendar"></i>
@@ -33,19 +32,23 @@
                     Info Requested!</div>
                 <div *ngIf="person.match.unreadMessages > 0" class="big-flashy"><i class="fa fa-comment"></i> New
                     messages!</div>
-                <div *ngIf="person.match.roseAssignedBy > 0" class="big-flashy"><i class="fa fa-heart"></i> Rose Assigned!</div>
+                <div *ngIf="person.match.roseAssignedBy > 0" class="big-flashy"><i class="fa fa-heart"></i> Rose
+                    Assigned!</div>
 
-                
+
             </div>
         </div>
     </div>
     <div *ngIf="!largeFlg">
-        <div *ngFor="let person of user.datingPool" class="pool-snapshot">
-            <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
-                [src]="person.src" class="snapshot-img" [style.border]="person.heartFlg?'3px solid #700':'none'">
-            <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2">
-            <div class="small-name-text"><img src="assets/images/rose5.png" height="10" *ngIf="person.heartFlg"
-                    alt="Rose" title="Rose"><i *ngIf="person.heartFlg2" class="fa fa-heart"></i>{{person.name}}</div>
+        <div style="display: inline-block; border-top: 1px solid #ccc;">
+            <div *ngFor="let person of user.datingPool" class="pool-snapshot">
+                <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+                    [src]="person.src" class="snapshot-img" [style.border]="person.heartFlg?'3px solid #700':'none'">
+                <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2">
+                <div class="small-name-text"><img src="assets/images/rose5.png" height="10" *ngIf="person.heartFlg"
+                        alt="Rose" title="Rose"><i *ngIf="person.heartFlg2" class="fa fa-heart"></i>{{person.name}}
+                </div>
+            </div>
         </div>
         <div [routerLink]="['/matches']" *ngIf="user.datingPool.length >= 5 && user.heartId == 0"
             style="color: #900; font-size: 12px;">

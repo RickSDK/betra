@@ -15,10 +15,14 @@ export class OwnersTableCellComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    setTimeout(() => {
+    if(this.ownersList)
       this.populateEmailList();
-    }, 1000);
   }
+
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
+  }
+
   populateEmailList() {
     var emails: any = [];
     this.ownersList.forEach((element: any) => {

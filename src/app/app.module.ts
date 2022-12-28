@@ -66,6 +66,7 @@ import { VerifyPicsComponent } from './verify-pics/verify-pics.component';
 import { AdvancedFiltersComponent } from './advanced-filters/advanced-filters.component';
 import { OwnerActivityComponent } from './owner-activity/owner-activity.component';
 import { OwnerActivityUserComponent } from './owner-activity-user/owner-activity-user.component';
+import { BetraFeaturesComponent } from './betra-features/betra-features.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -132,7 +133,8 @@ import { OwnerActivityUserComponent } from './owner-activity-user/owner-activity
     VerifyPicsComponent,
     AdvancedFiltersComponent,
     OwnerActivityComponent,
-    OwnerActivityUserComponent
+    OwnerActivityUserComponent,
+    BetraFeaturesComponent
   ],
   imports: [
     BrowserModule,

@@ -42,7 +42,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       if (this.login == 2)
         this.logoutUser();
     })
-    console.log('xxx', this.user.status);
     if (this.user && this.user.status == 'Active') {
       this.popupNum = 0;
       this.headerObj.notifications = this.user.notifications;
@@ -100,7 +99,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       var refreshFlg = (this.user && this.user.status == 'Pending') ? 'Y' : '';
       this.logUser(refreshFlg);
     }
-    if (responseJson.action == "logUser") {
+    if (responseJson.action == "logUser" && this.user) {
       if (this.user && this.user.ip == '')
         this.populateGeoInfo();
       else {

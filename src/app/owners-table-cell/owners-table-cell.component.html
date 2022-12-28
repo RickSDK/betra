@@ -40,6 +40,6 @@
                 <td><span class="gray-text" style="font-size: 8px;">{{player.lastDay}}</span></td>
             </tr>
         </table>
-        <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray;">{{emailStr}}</div>
+        <div (mousedown)="populateEmailList()" *ngIf="user.user_id==1" style="font-size: 8px; color: gray;">Emails: {{emailStr}}</div>
     </div>
 </div>

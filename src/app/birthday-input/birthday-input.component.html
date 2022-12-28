@@ -1,16 +1,25 @@
 <table>
     <tr>
         <td>
-            <input (input)="verifyMonth()" type="text" name="month" id="month" [value]="month" size="3" maxLength="2"
-                placeholder="mm">
+            <!--<input (input)="verifyMonth()" type="text" name="month" id="month" [value]="month" size="3" maxLength="2"
+                placeholder="mm">-->
+            <select (input)="verifyMonth()" name="month" id="month">
+                <option  [selected]="mon == month" *ngFor="let mon of months">{{mon}}</option>
+            </select>
         </td>
         <td>
-            <input (input)="verifyDay()" type="text" name="day" id="day" [value]="day" size="3" maxLength="2"
-                placeholder="dd">
+            <!--<input (input)="verifyDay()" type="text" name="day" id="day" [value]="day" size="3" maxLength="2"
+                placeholder="dd">-->
+            <select name="day" id="day" (input)="verifyDay()">
+                <option  [selected]="d == day" *ngFor="let d of days">{{d}}</option>
+            </select>
         </td>
         <td>
-            <input (input)="verifyYear()" type="text" name="year" id="year" [value]="year" size="5" maxLength="4"
-                placeholder="yyyy">
+            <select name="year" id="year" (input)="verifyYear()">
+                <option  [selected]="yr == year" *ngFor=" let yr of years">{{yr}}</option>
+                </select>
+            <!--<input (input)="verifyYear()" type="text" name="year" id="year" [value]="year" size="5" maxLength="4"
+                placeholder="yyyy">-->
         </td>
         <td align="center" class="hide-md">
             <div class="gray-text" *ngIf="!errorMessage">age: {{age}}</div>

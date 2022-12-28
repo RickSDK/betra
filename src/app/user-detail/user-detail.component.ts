@@ -38,6 +38,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.matchUser = null;
     if (!this.user)
       return;
     this.route.queryParams.subscribe(params => {
@@ -57,7 +58,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.pageTitle = 'Online Today';
         this.browseSingles('getOnlineSingles');
       } else if (this.id == 7) {
-        this.pageTitle = 'Verify Pic';
+        this.pageTitle = 'Verify Profile Pic';
         this.verifyPictures();
       } else {
         this.pageTitle = 'Browse';

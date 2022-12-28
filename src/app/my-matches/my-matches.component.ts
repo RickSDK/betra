@@ -12,7 +12,7 @@ declare var lastLoginColor: any;
   styleUrls: ['./my-matches.component.scss']
 })
 export class MyMatchesComponent extends BaseComponent implements OnInit {
-  public menuButtons: any = ['My Dating Pool', 'Who I Like', 'Who Likes Me?'];
+  public menuButtons: any = ['My Dating Pool', 'Who I Like', 'Back Burner'];
   public playerList: any = [];
   public showMoreFlg = false;
   public showHeartFormFlg: boolean = false;

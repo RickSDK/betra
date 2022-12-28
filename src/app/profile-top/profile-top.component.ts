@@ -23,6 +23,7 @@ export class ProfileTopComponent implements OnInit {
   public showOptionsFlg: boolean = false;
   public pictureIndex: number = 0;
   public pictureIndexMax: number = 0;
+  public showBlockPopupFlg: boolean = false;
 
   constructor() { }
 
@@ -56,6 +57,7 @@ export class ProfileTopComponent implements OnInit {
     this.messageEvent.emit('show-more');
   }
   sendClickEventUp(name: string) {
+    this.showBlockPopupFlg = false;
     this.showAdminButtonsFlg = false;
     this.showOptionsFlg = false;
     this.messageEvent.emit(name);

@@ -1,4 +1,8 @@
 .top-bar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
     background-color: white;
     padding: 0px 10px;
     color: black;
@@ -6,6 +10,8 @@
     height: 60px;
     white-space: nowrap;
     overflow: hidden;
+    z-index: 500;
+    box-shadow: 2px 2px 5px #ccc;
 }
 
 .product-logo {
@@ -98,14 +104,15 @@
 .outer-frame {
     text-align: center;
     width: 100%;
+    padding-top: 60px;
 }
 
 .inner-frame {
     display: inline-block;
     width: 100%;
     max-width: 1200px;
-    padding-top: 10px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    margin-bottom: 10px;
 }
 
 .bottom-title {
@@ -174,10 +181,6 @@
 }
 
 @media screen and (max-width: 600px) {
-    .product-logo {
-        font-size: 30px;
-    }
-
     .icon-button {
         font-size: 24px;
     }

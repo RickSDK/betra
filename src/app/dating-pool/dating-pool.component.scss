@@ -17,6 +17,16 @@
     max-width: 50px;
 }
 
+.date-pool-title {
+    font-size: 10px; 
+    font-weight: 700; 
+    cursor: pointer;
+}
+
+.date-pool-title:hover {
+    font-weight: 800; 
+}
+
 .snapshot-img {
     width: 41px;
     height: 41px;

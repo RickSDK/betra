@@ -83,10 +83,8 @@ export class VerifyPicsComponent extends BaseComponent implements OnInit {
 
       if (responseJson.action == 'checkVerifylImage' && responseJson.picCertificateNum > 0)
         this.status = 'Submitted';
-      else
-        this.status = 'New';
 
-        console.log('xxx', this.status, this.usersToVerify);
+      console.log('xxx', this.status, this.usersToVerify);
 
     }
   }

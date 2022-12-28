@@ -21,16 +21,17 @@
                     back in.</div>
                 <!-------------------------0------------------------->
                 <div class="menu-section" *ngIf="menuNum==0">
-
+                    <div class="gray-text">Name: <span class="text-highlight">{{user.firstName}}</span> Email: <span class="text-highlight">{{user.email}}</span> </div>
+                    
                     <div>
                         <div class="container" style="padding: 0;">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="tiny-text">First Name</div>
-                                    <input name="firstName" id="firstName" [value]="user.firstName" [disabled]="true"
-                                        style="background-color: #eee;">
+                                <div class="col-lg-6">
+                                    <div class="tiny-text">Phone</div>
+                                    <app-phone-input (messageEvent)="menuValueChanged()" [phone]="user.phone">
+                                    </app-phone-input>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <div class="tiny-text">Birthdate</div>
                                     <app-birthday-input (messageEvent)="menuValueChanged()"
                                         [birthdate]="user.birthdate"></app-birthday-input>
@@ -38,19 +39,12 @@
                             </div>
                         </div>
 
-                        <div class="tiny-text">Phone</div>
-                        <app-phone-input (messageEvent)="menuValueChanged()" [phone]="user.phone">
-                        </app-phone-input>
 
-                        <div class="tiny-text">Email Address</div>
-                        <input name="email" [style.background-color]="user.email?'#eee':'#ffffc0'"
-                            [disabled]="!!user.email" id="email" type="email" [value]="user.email"
-                            placeholder="Email Address" (input)="menuValueChanged()">
 
                         <div class="container" style="padding: 0;">
                             <div class="row">
 
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <div class="tiny-text">My Gender</div>
                                     <table>
                                         <tr>
@@ -69,7 +63,7 @@
                                         gender
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <div *ngIf="user.findLoveFlg">
                                         <div class="tiny-text">Show Me (I want to date)</div>
                                         <table>

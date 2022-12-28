@@ -145,7 +145,7 @@ export class User {
     public astrologicalSign: string = 'Aries';
     public numReviews: number = 0;
 
-    public pendingStatusReason: string = '';
+    public pendingStatusReason: string = 'Fill out profile';
     public pendingStatusPage: number = 0;
 
     public drinksIcon: string = '';
@@ -531,7 +531,7 @@ export class User {
 
 
         //----Basics
-        var basicsFlg = !!(this.firstName && this.gender && this.matchPreference);
+        var basicsFlg = !!(this.gender && this.matchPreference);
         //if (basicsFlg && this.findLoveFlg && !this.matchPreference)
         //  basicsFlg = false;
 

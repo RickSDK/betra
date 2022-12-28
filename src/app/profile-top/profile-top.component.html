@@ -14,14 +14,14 @@
 
                     <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
                         class="three-dots" title="Menu Options"><i class="fa fa-ellipsis-v"></i></span>
-                    <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
+                    <span *ngIf="showOptionsFlg && user.matchObj && !showBlockPopupFlg" class="three-dots-menu">
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
                             (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
                             Dating Pool</div>
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
                             (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
                             Add to Dating Pool</div>
-                        <div *ngIf="user.matchObj.you_interested != 'X'" (mousedown)="sendClickEventUp('ban')"
+                        <div *ngIf="user.matchObj.you_interested != 'X'" (mousedown)="showBlockPopupFlg=true"
                             class="three-dots-menu-option">
                             Block</div>
                         <div *ngIf="user.matchObj.you_interested == 'X'" (mousedown)="sendClickEventUp('yesToMatch')"
@@ -177,6 +177,13 @@
         <div style="font-size: 40px;"><i class="fa fa-heart"></i>&nbsp;<b>Match Made!</b></div>
     </div>
 
+    <div *ngIf="showBlockPopupFlg" class="block-popup">
+        <div><b>Block User</b></div>
+        <div>Are you sure you want to block this user and prevent them from having any contact with you?</div>
+        <button (mousedown)="showBlockPopupFlg=false" class="btn btn-warning">Cancel</button> &nbsp;
+        <button (mousedown)="sendClickEventUp('ban')" class="btn btn-success">Block!</button> &nbsp;
+    </div>
+
 </div>
 <div *ngIf="expandBottomFlg">
     <div *ngIf="user.picCertificateFlg" style="text-align: left; font-size: 12px;" class="red-text">&nbsp;<i class="fa fa-certificate"></i> Picture Verified</div>
@@ -195,3 +202,4 @@
     <a *ngIf="!myUser.memberFlg" [routerLink]="'/upgrade-member'"
         class="text-link">Upgrade to see pics</a>
 </div>
+
