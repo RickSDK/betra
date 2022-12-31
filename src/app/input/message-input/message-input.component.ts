@@ -20,8 +20,9 @@ export class MessageInputComponent implements OnInit {
   inputValueChanged(event: any) {
     var e = (document.getElementById('messageInput') as HTMLInputElement);
     if (e) {
-      var value = event.target.value.normalize('NFD').replace(/[^\x00-\x7F]/g, '');
-      value = value.replace(/`/g, '');
+      //var value = event.target.value.normalize('NFD').replace(/[^\x00-\x7F]/g, '');
+      var value = event.target.value.replace(/`/g, '');
+      //value = value.replace(/`/g, '');
       e.value = value;
       this.strlen = value.length;
       this.messageEvent.emit(value);

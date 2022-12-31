@@ -28,6 +28,17 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     window.scrollTo(0, 0);
 
+
+    var searchQueryArr = ['dog2'];
+
+    localStorage.setItem("searchHistory", JSON.stringify(searchQueryArr));
+    //var item = localStorage.getItem("searchHistory");
+    //var searchHistory = (item) ? JSON.parse(item) : [];
+    var searchHistory = JSON.parse(localStorage.getItem("searchHistory") || '[]');
+
+    console.log(searchQueryArr, searchHistory);
+
+
     this.loadUserObj();
     this.getStateCounts();
     this.popupNum = 1;

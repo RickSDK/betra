@@ -15,6 +15,7 @@ export class VerifyPicsComponent extends BaseComponent implements OnInit {
   ];
   public ideaNum: number = 1;
   public status: string = 'New';
+  public firstName: string = '';
   public usersToVerify: any = [];
   public picCertificateNum: number = 0;
   public picCertificateFlg: boolean = false;
@@ -71,12 +72,13 @@ export class VerifyPicsComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'uploadVerifylImage') {
       this.status = 'Submitted';
     }
-    if (responseJson.action == 'checkVerifylImage' || responseJson.action == 'verifyUserPic') {
+    if (responseJson.action == 'checkVerifylImage') {
       this.picCertificateNum = responseJson.picCertificateNum * -1;
       this.picCertificateFlg = (responseJson.picCertificateFlg == 'Y');
       this.usersToVerify = [];
       responseJson.usersToVerify.forEach((element: any) => {
         element.imageSrc = this.betraImageFromId(element.user_id, element.profilePic);
+        this.firstName = element.firstName;
         element.verifySrc = 'https://www.appdigity.com/betraPhp/verifyPics/pic' + element.user_id + '.jpg';
         this.usersToVerify.push(element);
       });
@@ -84,8 +86,12 @@ export class VerifyPicsComponent extends BaseComponent implements OnInit {
       if (responseJson.action == 'checkVerifylImage' && responseJson.picCertificateNum > 0)
         this.status = 'Submitted';
 
+      
       console.log('xxx', this.status, this.usersToVerify);
 
+    }
+    if(responseJson.action == 'verifyUserPic') {
+      this.getServerStuff('checkVerifylImage');
     }
   }
 

@@ -11,12 +11,101 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   public showStatsFlg: boolean = false;
   public showLocationFlg: boolean = false;
   public showUpgradeFlg: boolean = false;
+  public canvas: any;
+  public image: any;
+  public ctx: any;
+  public startPointX: number = 0;
+  public startPointY: number = 0;
+  public currentPointX: number = 0;
+  public currentPointY: number = 0;
+  public isDragging: boolean = false;
+  public zoomLevel: number = 100;
+  public imageWidth: number = 0;
+  public imageHeight: number = 0;
 
   constructor(private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
 
+    this.canvas = document.querySelector('canvas');
+    if (this.canvas) {
+      this.ctx = this.canvas.getContext('2d');
+      if (this.ctx) {
+        this.image = new Image();
+        this.image.src = "assets/images/bachelor.jpg";
+
+
+
+        setTimeout(() => {
+          this.ctx.drawImage(this.image, 0, 0);
+          this.imageWidth = this.image.width;
+          this.imageHeight = this.image.height;
+          console.log('size', this.image.width, this.imageHeight);
+        }, 100);
+
+      }
+    }
+  }
+
+  drawImage() {
+    this.ctx.fillStyle = 'gray';
+    var rect = this.canvas.getBoundingClientRect();
+    this.ctx.fillRect(0, 0, rect.right, rect.bottom);
+
+    var width = this.imageWidth * this.zoomLevel / 100;
+    var height = this.imageHeight * this.zoomLevel / 100;
+    var x = this.currentPointX - this.startPointX;
+    var y = this.currentPointY - this.startPointY;
+    this.ctx.drawImage(this.image, x, y, width, height);
+    console.log(x, y);
+
+  }
+
+  getPosition(event: any) {
+    var rect = this.canvas.getBoundingClientRect();
+    var x = event.clientX - rect.left - this.currentPointX;
+    var y = event.clientY - rect.top - this.currentPointY;
+    this.startPointX = this.currentPointX;
+    this.startPointY = this.currentPointY;
+
+    this.drawImage();
+    this.isDragging = true;
+  }
+  moveMouse(event: any) {
+    if (this.isDragging) {
+      var rect = this.canvas.getBoundingClientRect();
+      this.currentPointX = event.clientX - rect.left;
+      this.currentPointY = event.clientY - rect.top;
+      this.drawImage();
+    }
+  }
+  endPosition(event: any) {
+    this.isDragging = false;
+  }
+
+  zoomImage(amount: number) {
+    this.zoomLevel += amount;
+    this.drawImage();
+  }
+
+  captureImage() {
+    let imageSrc = this.canvas.toDataURL('image/jpeg');
+
+    var canvas = document.getElementById('myCanvas2');
+
+    if (canvas) {
+      var ctx = this.canvas.getContext('2d');
+      if (ctx) {
+        console.log('hey', canvas, ctx);
+        var image = new Image();
+        image.src = imageSrc;
+        setTimeout(() => {
+          ctx.drawImage(image, 0, 0);
+          
+        }, 2000);
+      }
+    }
   }
 
   logout() {

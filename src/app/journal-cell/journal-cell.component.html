@@ -27,8 +27,8 @@
         <button (mousedown)="optionConfirmPressed()" class="btn btn-success">Yes</button>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
-        <i class="fa fa-thumbs-up" style="color: rgb(60, 158, 114);"></i>&nbsp;{{journal.likes}}&nbsp;
-        <i class="fa fa-thumbs-down" style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;
+        <i *ngIf="journal.likes>0" class="fa fa-thumbs-up" style="color: rgb(60, 158, 114);"></i>&nbsp;{{journal.likes}}&nbsp;
+        <i *ngIf="journal.dislikes>0" class="fa fa-thumbs-down" style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;
         <i *ngIf="journal.postFlagged" class="fa fa-flag" style="color: orange;"></i>&nbsp;
         <span *ngIf="journal.region == 'Bug'">
             <span>Status: <span class="red-text">{{journal.status}}</span></span>&nbsp;

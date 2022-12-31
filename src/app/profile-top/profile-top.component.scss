@@ -5,10 +5,23 @@
     max-height: 350px;
     cursor: pointer;
     object-fit: cover;
-    filter: sepia(100%);
+    -webkit-filter: grayscale(70%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(70%);
     object-position: 50% 20%;
     transition: all 1s ease;
     border-radius: 0 0 15px 0;
+}
+
+.new-user-popup {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    max-width: 400px;
+    z-index: 500;
+    background-color: #fdd;
+    padding: 20px;
+    box-shadow: 5px 5px 10px gray;
+    border-radius: 5px;
 }
 
 .verified-cirtificate {

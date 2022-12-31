@@ -23,6 +23,11 @@ export class GreenCheckComponent implements OnInit {
   ngOnInit(): void {
     this.labelText = this.label + ': ' + this.text1;
   }
+  
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
+  }
+
   ngClassText() {
     if (!this.text1 || this.label.length + this.text1.length <= 15)
       return 'normal-text';

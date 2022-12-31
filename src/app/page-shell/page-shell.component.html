@@ -2,11 +2,14 @@
     <table width="100%" border="0">
         <tr>
             <td style="position: relative;">
-                <i class="fa fa-heart" style="position: absolute; top: 10px; left: 3px; font-size: 36px; color: #b7121f;"></i>
-                <i class="fa fa-heart" style="position: absolute; top: 13px; left: 5px; font-size: 30px; color: pink;"></i>
-                <i class="fa fa-heart" style="position: absolute;  top: 15px; left: 8px; font-size: 24px; color: #ff0044;"></i>
-                <span id="logo" class="product-logo" [routerLink]="['']"><i
-                        class="fa fa-heart main-color"></i><span class="hide-xxs" style="margin-left: 2px;">Betra</span></span>
+                <i class="fa fa-heart"
+                    style="position: absolute; top: 10px; left: 3px; font-size: 36px; color: #b7121f;"></i>
+                <i class="fa fa-heart"
+                    style="position: absolute; top: 13px; left: 5px; font-size: 30px; color: pink;"></i>
+                <i class="fa fa-heart"
+                    style="position: absolute;  top: 15px; left: 8px; font-size: 24px; color: #ff0044;"></i>
+                <span id="logo" class="product-logo" [routerLink]="['']"><i class="fa fa-heart main-color"></i><span
+                        class="hide-xxs" style="margin-left: 2px;">Betra</span></span>
                 <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">
                     Beta Version {{appVersion}}
                 </div>
@@ -55,20 +58,23 @@
 </div>
 <div class="outer-frame">
     <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'40px':'0px'">
-
+        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Home' && pageTitle != 'Profile'">
+            Finish Setting up your profile <button [routerLink]="['']" class="btn btn-danger">Profile</button>
+        </div>
         <table width="100%" border="0">
             <tr>
-                <td *ngIf="userId>0 && userStatus == 'Active'" class="hide-sm" width="200"
-                    style="width: 200px;" valign="top">
+                <td *ngIf="userId>0 && userStatus == 'Active'" class="hide-sm" width="200" style="width: 200px;"
+                    valign="top">
                     <div style="position: fixed; top: 60px; left: 0; width: 200px;">
                         <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
-                        [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
+                            [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
                     </div>
                 </td>
                 <td valign="top" align="center">
                     <ng-content></ng-content>
                 </td>
-                <td *ngIf="userId>0 && userStatus == 'Active'" valign="top" align="center" width="200" class="hide-md" style="width: 200px;">
+                <td *ngIf="userId>0 && userStatus == 'Active'" valign="top" align="center" width="200" class="hide-md"
+                    style="width: 200px;">
                     <div style="position: fixed; top: 60px; right: 0; width: 200px;">
                         <div style="color: gray;">Sponsored</div>
                     </div>

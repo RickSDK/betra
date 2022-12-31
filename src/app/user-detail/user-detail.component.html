@@ -7,7 +7,14 @@
     <app-advanced-filters *ngIf="showFilter" [user]="user" (messageEvent)="advancedSearch($event)"></app-advanced-filters>
     <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
 
-
+    <div *ngIf="showExpandedSearchPopupFlg && !loadingFlg" class="warning-search-popup">
+        <p>
+            Note: This is a new dating app that has just launched. 
+            Your initial search returned very few potential matches so we expanded the search parameters to ignore location.
+        </p>
+        <button (mousedown)="showExpandedSearchPopupFlg=false" class="btn btn-main-color">That's ok</button>&nbsp;
+        <button (mousedown)="browseSingles('findMatches')" class="btn btn-warning">Show locals only</button>&nbsp;
+    </div>
 
     <div class="matches-card" *ngIf="searchStarted && user && !matchUser">
         <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">

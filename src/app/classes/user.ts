@@ -161,6 +161,8 @@ export class User {
     public lat: number = 0;
     public lng: number = 0;
     public lastDay: string = '';
+    public icon: string = 'fa fa-user';
+    public userTitle: string = 'Regular Member';
 
     constructor(obj: any) {
         if (obj) {
@@ -280,7 +282,7 @@ export class User {
                 this.drinksIcon = 'assets/images/nonDrinker.png';
                 this.drinksTitle = 'Non Drinker';
             }
-            if (this.drinks == 'Occsional') {
+            if (this.drinks == 'Occasional') {
                 this.drinksIcon = 'assets/images/drinker.png';
                 this.drinksTitle = 'Occsionally drinks';
             }
@@ -293,7 +295,7 @@ export class User {
                 this.smokesIcon = 'assets/images/nonSmoker.png';
                 this.smokesTitle = 'Non smoker';
             }
-            if (this.smokes == 'Occsional') {
+            if (this.smokes == 'Occasional') {
                 this.smokesIcon = 'assets/images/smoker.png';
                 this.smokesTitle = 'Occsionally smokes';
             }
@@ -306,7 +308,7 @@ export class User {
                 this.potIcon = 'assets/images/noDrugs.png';
                 this.potTitle = 'No drugs';
             }
-            if (this.cannabis == 'Occsional') {
+            if (this.cannabis == 'Occasional') {
                 this.potIcon = 'assets/images/cannabis.png';
                 this.potTitle = 'Occsional drugs';
             }
@@ -346,6 +348,15 @@ export class User {
 
         }
 
+        if (this.memberFlg) {
+            this.icon = 'fa fa-star';
+            this.userTitle = 'Gold Member';
+        }
+
+        if (this.ownerFlg) {
+            this.icon = 'fa fa-user-secret';
+            this.userTitle = 'Admin';
+        }
 
         //var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
 
@@ -495,7 +506,7 @@ export class User {
                 this.polyText = "Nationalist";
             if (conStatist < -3)
                 this.polyText = "Progressive";
-            
+
 
 
             if (conLibertarian >= 2 && conStatist >= 2)

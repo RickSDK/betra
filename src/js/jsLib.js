@@ -2,7 +2,7 @@ function getHostname() {
     return 'https://www.appdigity.com/betraPhp/';
 }
 function getVersion() {
-	return '0.95';
+	return '0.98';
 }
 function getIPInfo(userName, pwd) {
     var code = btoa(pwd);

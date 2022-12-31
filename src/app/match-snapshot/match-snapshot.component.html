@@ -98,6 +98,32 @@
                             </table>
                         </div>
                     </div>
+                    <div *ngIf="matchUser.statsObj" class="small-box" style="font-size: 12px;">
+                        <div style="font-size: 10px; color: gray;">At Betra, we encourage people to engage and create
+                            activity on the app.</div>
+                        <table>
+                            <tr>
+                                <td width="50%">
+                                    <div><i class="fa fa-user"></i> Profiles:
+                                        Yes<sup>{{matchUser.statsObj.interestYes}}</sup>
+                                        No<sup>{{matchUser.statsObj.interestNo}}</sup></div>
+                                    <div><i class="fa fa-comments"></i> Messages
+                                        <sup>{{matchUser.statsObj.messages}}</sup></div>
+                                </td>
+                                <td width="50%">
+                                    <div><i class="fa fa-thumbs-o-up"></i> Reviews
+                                        <sup>{{matchUser.statsObj.reviews}}</sup></div>
+                                    <div><i class="fa fa-book"></i> Journals <sup>{{matchUser.statsObj.journals}}</sup>
+                                    </div>
+                                </td>
+                                <td align="center">
+                                    <div style="font-size: 8px;">Activity</div>
+                                    <div style="font-size: 30px; margin-top: -10px;"><b>{{matchUser.statsObj.score}}</b>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
 
                 <div *ngIf="matchUser.matchObj">
@@ -106,18 +132,21 @@
                         [firstName]="matchUser.firstName" [datingPool]="matchUser.datingPool"></app-match-dating-pool>
 
                     <div *ngIf="matchUser.matchObj.match_level >= 1" class="dark-blue-box">
-                        <i (mousedown)="showBottumButtonsFlg=!showBottumButtonsFlg" class="fa fa-ellipsis-v menu-three-dots"></i>
+                        <i (mousedown)="showBottumButtonsFlg=!showBottumButtonsFlg"
+                            class="fa fa-ellipsis-v menu-three-dots"></i>
                         <div *ngIf="matchUser.matchObj.match_interested == 'N'">Sorry, but {{matchUser.firstName}} is
                             not interested.</div>
                         <div *ngIf="matchUser.matchObj.match_interested == 'B'">Sorry, but you are currently on
                             {{matchUser.firstName}}'s back burner.</div>
-                        <div *ngIf="matchUser.matchObj.match_level == 1 && matchUser.matchObj.match_interested == 'Y'">{{matchUser.firstName}} is interested in
+                        <div *ngIf="matchUser.matchObj.match_level == 1 && matchUser.matchObj.match_interested == 'Y'">
+                            {{matchUser.firstName}} is interested in
                             you!</div>
                         <div *ngIf="matchUser.matchObj.match_interested == 'X'">Sorry, but {{matchUser.firstName}} has
                             blocked
                             you!</div>
 
-                        <div *ngIf="matchUser.matchObj.match_level == 1 && matchUser.matchObj.you_interested == 'Y'">{{matchUser.firstName}} has already
+                        <div *ngIf="matchUser.matchObj.match_level == 1 && matchUser.matchObj.you_interested == 'Y'">
+                            {{matchUser.firstName}} has already
                             been notified that you are interested.</div>
                         <div *ngIf="matchUser.matchObj.you_interested == 'B'">{{matchUser.firstName}} is on your back
                             burner.</div>
@@ -135,8 +164,9 @@
                             get a
                             reply back soon!
                         </div>
-                        <div *ngIf="matchUser.matchObj.match_level > 1"><i class="fa fa-heart" style="color: red;"></i> {{matchUser.firstName}}<sup
-                                style="color: gray;">{{matchUser.matchObj.match_level}}</sup> is in your dating
+                        <div *ngIf="matchUser.matchObj.match_level > 1"><i class="fa fa-heart" style="color: red;"></i>
+                            {{matchUser.firstName}}<sup style="color: gray;">{{matchUser.matchObj.match_level}}</sup> is
+                            in your dating
                             pool.</div>
 
                         <span *ngIf="showBottumButtonsFlg && matchUser.matchObj.match_level==1">

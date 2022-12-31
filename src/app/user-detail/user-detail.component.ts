@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { Router } from '@angular/router';
 import { UserCommunicationComponent } from '../user-communication/user-communication.component';
-import { MatchDatingPoolComponent } from '../match-dating-pool/match-dating-pool.component';
 
 declare var $: any;
 
@@ -33,6 +32,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showFilter: boolean = false;
   public searchStarted: boolean = false;
   public matchesCount: number = 0;
+  public showExpandedSearchPopupFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -125,6 +125,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       lng: Math.round(this.user.longitude),
       matchAgeYear: this.user.matchAgeYear,
       matchAgeRange: this.user.matchAgeRange,
+      localsOnly: (this.showExpandedSearchPopupFlg)?'Y':'',
       action: action
     };
     console.log('params', params);
@@ -193,6 +194,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.showCurrentProfile();
       }
     }
+    this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3>0);
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
       this.playerList = [];
       if (this.responseJson.playerList) {

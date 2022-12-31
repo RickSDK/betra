@@ -42,7 +42,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
       this.players = responseJson.playerList;
       this.players.forEach((element: any) => {
         element.lastDay = lastLoginText(element.lastLogin);
-        element.location = this.getUserLocation(element.city, element.state, element.countryName);
+        element.location = this.getUserLocation(element.city, element.state || element.stateName, element.countryName);
 
         if (element.user_id == 1 || element.user_id == 122 || element.user_id == 118 || element.user_id == 156)
           this.managmentTeam.push(element);

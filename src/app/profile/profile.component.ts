@@ -268,8 +268,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     window.scrollTo(0, 0);
 
-    if (this.menuNum == 8 && this.user.status == 'Active')
-      this.router.navigate(['']);
+//    if (this.menuNum == 8 && this.user.status == 'Active')
+ //     this.router.navigate(['']);
   }
   refreshUser() {
     var email = localStorage['email'];

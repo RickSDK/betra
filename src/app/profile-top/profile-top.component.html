@@ -1,10 +1,22 @@
 <div *ngIf="user && myUser" style="position: relative;">
+    <div *ngIf="showNewUserPopupFlg && user.matchObj && user.matchObj.showButtonsFlg" class="new-user-popup">
+        <p class="red-text"><b>Welcome new Betra user!</b></p>
+        <p>Would you like to meet this person? If <b>"Yes!"</b> press the thumbs up, otherwise press the thumbs down.
+        </p>
+        <p style="font-size: 12px; color: gray;">Click "Yes" to everyone you might be interested in. As soon as one of
+            them "likes" you back, they will end up in your dating pool and you can begin communicating!</p>
+        <button (mousedown)="showNewUserPopupFlg=false" class="btn btn-main-color">Got it!</button>
+    </div>
+    
     <table width="100%" border="0">
         <tr>
             <td width="50%" style="padding: 0; position: relative;" valign="top">
-                <i *ngIf="user.picCertificateFlg" [routerLink]="['/verify-pics']" class="fa fa-certificate verified-cirtificate" title="Picture Verified"></i>
-                <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron" style="left: 10px;"></i>
-                <i *ngIf="pictureIndexMax>1 && pictureIndex<pictureIndexMax" (mousedown)="changePicture(1)" class="fa fa-chevron-right icon-chevron" style="right: 10px;"></i>
+                <i *ngIf="user.picCertificateFlg" [routerLink]="['/verify-pics']"
+                    class="fa fa-certificate verified-cirtificate" title="Picture Verified"></i>
+                <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron"
+                    style="left: 10px;"></i>
+                <i *ngIf="pictureIndexMax>1 && pictureIndex<pictureIndexMax" (mousedown)="changePicture(1)"
+                    class="fa fa-chevron-right icon-chevron" style="right: 10px;"></i>
                 <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
             </td>
             <td width="50%" *ngIf="!largeImageFlg" valign="top"
@@ -14,16 +26,19 @@
 
                     <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
                         class="three-dots" title="Menu Options"><i class="fa fa-ellipsis-v"></i></span>
-                    <span *ngIf="showOptionsFlg && user.matchObj && !showBlockPopupFlg" class="three-dots-menu">
+                    <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
                             (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
                             Dating Pool</div>
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
                             (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
                             Add to Dating Pool</div>
-                        <div *ngIf="user.matchObj.you_interested != 'X'" (mousedown)="showBlockPopupFlg=true"
+                        <div *ngIf="user.matchObj.you_interested != 'X'" (mousedown)="menuOptionClicked(1)"
                             class="three-dots-menu-option">
                             Block</div>
+                        <div (mousedown)="menuOptionClicked(2)"
+                            class="three-dots-menu-option">
+                            Flag</div>
                         <div *ngIf="user.matchObj.you_interested == 'X'" (mousedown)="sendClickEventUp('yesToMatch')"
                             class="three-dots-menu-option">
                             Un-Block</div>
@@ -35,7 +50,7 @@
                     <div title="id: {{user.user_id}}" style="font-size: 16px; font-weight: 800;">
                         <span class="name-bar"><img src="assets/images/rose5.png" height="20"
                                 *ngIf="user.user_id == myUser.heartId" alt="Rose" title="Rose">
-                            <span><i class="fa fa-star-o" *ngIf="user.memberFlg" title="Gold Member"></i></span>
+                            <span><i [class]="user.icon" [title]="user.userTitle"></i></span>
                             {{user.firstName}},
                             {{user.age}}&nbsp;
                         </span>
@@ -73,17 +88,17 @@
                         </app-green-check>
 
                         <div>
-                            <span class="profile-icon" title="Has kids">
+                            <span class="profile-icon" [title]="hasKidsTitle">
                                 <img [src]="'assets/images/kids.png'" height="15">
                             </span>
-                            <span title="Has kids" class="profile-text">
+                            <span class="profile-text" [title]="hasKidsTitle">
                                 <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
                                         class="fa fa-check main-color"></i></sup>
                                 {{user.numKids}}
                             </span>&nbsp;
-                            <img [src]="'assets/images/kids2.png'" title="Wants kids" height="15"
+                            <img [src]="'assets/images/kids2.png'" [title]="wantsKidsTitle" height="15"
                                 style="margin-right: 4px;">
-                            <span title="Wants kids">
+                            <span [title]="wantsKidsTitle">
                                 <span *ngIf="user.wantsKids != 'Does Not Matter'"
                                     style="font-size: 10px;">{{user.wantsKids}}</span>
                                 <span *ngIf="user.wantsKids == 'Does Not Matter'"><i class="fa fa-question"></i></span>
@@ -152,6 +167,11 @@
                                 DP</button>
                             <div style="font-size: 8px;">Reset DP & matches DP.</div>
                         </div>
+                        <div *ngIf="user.ownerFlg" style="text-align: center; display: inline-block;">
+                            <button (mousedown)="sendClickEventUp('demoteUser')" class="btn btn-primary">Demote
+                                </button>
+                            <div style="font-size: 8px;">Reset to regular member.</div>
+                        </div>
                     </div>
                 </div>
 
@@ -183,10 +203,22 @@
         <button (mousedown)="showBlockPopupFlg=false" class="btn btn-warning">Cancel</button> &nbsp;
         <button (mousedown)="sendClickEventUp('ban')" class="btn btn-success">Block!</button> &nbsp;
     </div>
-
+    <div *ngIf="showFlagPopupFlg" class="block-popup">
+        <div><b>Flag User</b></div>
+        <div>Are you sure you want to flag this user for innapropriate profile or behavior? We may contact you for more information.</div>
+        <button (mousedown)="showFlagPopupFlg=false" class="btn btn-warning">Cancel</button> &nbsp;
+        <button (mousedown)="sendClickEventUp('flagUser')" class="btn btn-success">Flag!</button> &nbsp;
+    </div>
+    <div *ngIf="showFlagPopup2Flg" class="block-popup">
+        <div><b>User Flagged!</b></div>
+        <div>Thank you for reporting this user.</div>
+        <button (mousedown)="showFlagPopup2Flg=false" class="btn btn-warning">Ok</button> &nbsp;
+    </div>
+    
 </div>
 <div *ngIf="expandBottomFlg">
-    <div *ngIf="user.picCertificateFlg" style="text-align: left; font-size: 12px;" class="red-text">&nbsp;<i class="fa fa-certificate"></i> Picture Verified</div>
+    <div *ngIf="user.picCertificateFlg" style="text-align: left; font-size: 12px;" class="red-text">&nbsp;<i
+            class="fa fa-certificate"></i> Picture Verified</div>
     <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(0)" [src]="user.imgSrc" class="tiny-pic">
     <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(1)" [src]="user.pic1"
         [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
@@ -197,9 +229,8 @@
     <img *ngIf="user.pic4" (mousedown)="viewImageThumbnail(4)" [src]="user.pic4"
         [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
     <a *ngIf="user.user_id == myUser.user_id" [routerLink]="['/edit-pics']" class="text-link">edit pics</a>&nbsp;
-    <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg" [routerLink]="['/verify-pics']" class="text-link">verify pic</a>&nbsp;
-    
-    <a *ngIf="!myUser.memberFlg" [routerLink]="'/upgrade-member'"
-        class="text-link">Upgrade to see pics</a>
-</div>
+    <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg" [routerLink]="['/verify-pics']"
+        class="text-link">verify pic</a>&nbsp;
 
+    <a *ngIf="!myUser.memberFlg" [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see pics</a>
+</div>

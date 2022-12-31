@@ -1,6 +1,16 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Settings'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
+    <!--<canvas (mousedown)="getPosition($event)" (mouseup)="endPosition($event)" (mousemove)="moveMouse($event)"
+        id="myCanvas" width="400" height="600" style="border:1px solid #000000;"></canvas>
+    <button (mousedown)="zoomImage(-10)" class="btn btn-primary">-</button> Zoom <button (mousedown)="zoomImage(10)"
+        class="btn btn-primary">+</button>
+
+    <button (mousedown)="captureImage()" class="btn btn-primary">capture</button>
+
+    <canvas (mousedown)="getPosition($event)" (mouseup)="endPosition($event)" (mousemove)="moveMouse($event)"
+        id="myCanvas2" width="400" height="600" style="border:1px solid #000000;"></canvas>-->
+
     <div class="matches-card" *ngIf="user">
         <div>- Settings -</div>
         <button (mousedown)="logout()" class="btn btn-main-color"><i class="fa fa-sign-out"></i>
@@ -13,10 +23,11 @@
                 class="fa fa-arrow-up"></i>
             Upgrade</button>&nbsp;
 
-         <div *ngIf="!user.lat" class="border-box">
+        <div *ngIf="!user.lat" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>
             <p>Click the "Location" button and then press "Update Location" to fix.</p>
-            <p class="gray-text">If this doesn't fix your issue, you will need to log in with a different device or change your browser settings to allow location info.</p>
+            <p class="gray-text">If this doesn't fix your issue, you will need to log in with a different device or
+                change your browser settings to allow location info.</p>
         </div>
         <div *ngIf="showLocationFlg && !loadingFlg" class="border-box">
             <div class="gray-text">Location</div>
@@ -85,6 +96,8 @@
             <button [routerLink]="['/documentation']" class="btn btn-primary"><i class="fa fa-file-text"></i>
                 Documentation</button>
         </div>
+
+
 
 
     </div>
