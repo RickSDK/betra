@@ -410,9 +410,12 @@
                 <div class="menu-section" *ngIf="menuNum==5">
 
                     <p>Upload a photo of yourself.</p>
-                    <app-upload-image *ngIf="!loadingFlg" [src]="user.imgSrc"
+                    <app-upload-image-crop [loadingFlg]="loadingFlg" [src]="user.imgSrc"
+                    (messageEvent)="updateImageButton2Clicked()"></app-upload-image-crop>
+
+                    <!--<app-upload-image *ngIf="!loadingFlg" [src]="user.imgSrc"
                         (messageEvent)="updateImageButtonClicked()">
-                    </app-upload-image>
+                    </app-upload-image>-->
 
                     <div *ngIf="apiSuccessFlg" style="background-color: #cfc; height: 44px;">
                         Success!

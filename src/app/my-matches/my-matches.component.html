@@ -6,7 +6,7 @@
         <div class="btn-group" role="group" aria-label="Menu">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
-            <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 5" class="btn btn-light">
+            <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 3" class="btn btn-light">
                 <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
             </button>
         </div>
@@ -29,7 +29,7 @@
                                     </select>
                                 </td>
                                 <td>&nbsp;
-                                    <button (mousedown)="assignHeart()" class="btn btn-primary" style="padding: 10px;"
+                                    <button (mousedown)="assignHeart()" class="btn btn-main-color" style="padding: 10px;"
                                         [disabled]="disableFormFlg">Assign</button>
                                 </td>
                             </tr>
@@ -83,7 +83,7 @@
                 liking people! That is the best way for others
                 to find you. Click Browse to find new singles!
                 <p>&nbsp;</p>
-                <div><button [routerLink]="['/user-detail']" class="btn red-small-button"><i class="fa fa-search"></i>
+                <div><button [routerLink]="['/user-detail']" class="btn btn-main-color"><i class="fa fa-search"></i>
                         Browse</button></div>
             </div>
         </div>
@@ -184,7 +184,7 @@
                 <div class="red-text">Roses</div>
                 <div style="font-size: 12px; color: gray; text-align: left">
                     <p>
-                        Once you have at least 5 people in your dating pool, you must assign a rose to your favorite. Everyone in your dating pool will get to see who you assigned it to.
+                        Once you have at least 5 people in your dating pool, you must assign a rose to your favorite. Everyone in your dating pool will get to see who got your rose.
                     </p>
                     <p>Does this seem scary? Yes! But its also a way of being transparent with everyone in the dating pool.</p>
                     <p>Not only does everyone in your dating pool get to see who you assigned your rose to, but you can view the dating pools of everyone you are interested in to see who they gave roses to. It's fun and it helps everyone know where they stand.</p>

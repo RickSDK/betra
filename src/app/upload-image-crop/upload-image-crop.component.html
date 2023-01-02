@@ -1,0 +1,32 @@
+<div (mouseup)="endPosition($event)" (mousemove)="moveMouse($event)">
+    <div class="dashed-line" [style.border]="isDragging?'4px dashed red':'4px dashed #000000'">
+        <canvas (mousedown)="getPosition($event)" id="myCanvas" [width]="canvasWidth" [height]="canvasHeight"></canvas>
+        <div *ngIf="showSelectButtonFlg" class="form-input">
+            <label for="{{fileId}}">Select Image</label>
+            <input type="file" accept="image/*" [id]="fileId" (change)="handleFileInput($event, id)">
+        </div>
+        <img *ngIf="src && !showImageFlg" id="myImg" [src]="src" class="profile-image-upload">
+    </div>
+    
+    <div *ngIf="showImageFlg">
+        <div style="font-size: 12px;">Center and Crop image to your liking</div>
+        <table width="280" align="center">
+            <tr>
+                <td align="center">
+                    <button (mousedown)="zoomImage(-10)" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+                    Zoom
+                    <button (mousedown)="zoomImage(10)" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                    <div><a (mousedown)="cancelUpload()" class="text-link">Cancel</a></div>
+                </td>
+                <td align="center">
+                    <button (mousedown)="captureImage()" style="height: 60px;" class="btn btn-success">Upload</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="loadingFlg">
+        <div style="font-size: 24px; text-align: center;">
+            <i class="fa fa-spinner fa-spin"></i> Uploading, Please Wait
+        </div>
+    </div>
+</div>

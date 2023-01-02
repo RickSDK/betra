@@ -6,7 +6,6 @@
 }
 
 .pool-snapshot:hover {
-    color: #900;
     font-weight: 700;
 }
 
@@ -58,10 +57,6 @@
     font-size: 14px; 
     color: gray;
 }
-.pool-large:hover {
-    color: #b7121f;
-    font-weight: 700;
-}
 
 .red-header {
     background-color: #ccc;
@@ -70,17 +65,6 @@
     font-size: 8px;
     border-radius: 10px;
     cursor: pointer;
-}
-
-.red-header:hover {
-    border: 1px solid #b7121f;
-    color: #b7121f;
-}
-
-.big-flashy {
-    background-color: yellow;
-    color: #b7121f;
-    border-radius: 5px;
 }
 
 .red-circle-large {

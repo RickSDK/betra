@@ -67,6 +67,7 @@ import { AdvancedFiltersComponent } from './advanced-filters/advanced-filters.co
 import { OwnerActivityComponent } from './owner-activity/owner-activity.component';
 import { OwnerActivityUserComponent } from './owner-activity-user/owner-activity-user.component';
 import { BetraFeaturesComponent } from './betra-features/betra-features.component';
+import { UploadImageCropComponent } from './upload-image-crop/upload-image-crop.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -134,7 +135,8 @@ import { BetraFeaturesComponent } from './betra-features/betra-features.componen
     AdvancedFiltersComponent,
     OwnerActivityComponent,
     OwnerActivityUserComponent,
-    BetraFeaturesComponent
+    BetraFeaturesComponent,
+    UploadImageCropComponent
   ],
   imports: [
     BrowserModule,

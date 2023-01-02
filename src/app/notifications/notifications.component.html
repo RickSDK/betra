@@ -11,9 +11,9 @@
             <div *ngIf="notification.amount>0" class="bordered-box">
                 <div style="font-size:18px; font-weight: 700;">{{notification.name}}: {{notification.amount}}</div>
                 <div style="font-size:12px; color: gray;">{{notification.desc}}</div>
-                <button *ngIf="i==0" [routerLink]="['/user-detail']" [queryParams]="{id: 4}" class="btn red-button">Who
+                <button *ngIf="i==0" [routerLink]="['/user-detail']" [queryParams]="{id: 4}" class="btn btn-main-color">Who
                     Likes Me?</button>
-                <button *ngIf="i > 0" [routerLink]="['/matches']" [queryParams]="{menu: 0}" class="btn red-button">My
+                <button *ngIf="i > 0" [routerLink]="['/matches']" [queryParams]="{menu: 0}" class="btn btn-main-color">My
                     Matches</button>
             </div>
         </div>

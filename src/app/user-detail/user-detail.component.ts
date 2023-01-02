@@ -108,13 +108,14 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
 
   browseSingles(action: string) {
+    this.matchUser = null;
     if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
       return;
     }
-    if (!this.user.lat)
+    if (!this.user.lat) {
       return;
+    }
     this.searchStarted = true;
-    this.matchUser = null;
     var params = {
       userId: localStorage['user_id'],
       email: localStorage['email'],

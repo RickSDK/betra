@@ -550,4 +550,20 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode.php', params, true);
   }
 
+  updateImageButton2Clicked() {
+    this.loadingFlg = true;
+    this.showSubmitButtonFlg = false;
+
+    setTimeout(() => {
+      var params = {
+        userId: this.user.user_id,
+        code: localStorage['code'],
+        action: 'updateMainImage',
+        image: $('#myImg').attr('src')
+      };
+      console.log('updateImageButtonClicked', params);
+      this.executeApi('appApiCode.php', params, true);
+    }, 1000);
+  }
+
 }

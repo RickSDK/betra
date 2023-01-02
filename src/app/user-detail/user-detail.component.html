@@ -26,13 +26,13 @@
         <div *ngIf="exceededPoolSizeFlg">
             <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
             <p>Note: You are over your limit in your dating pool. Please drop someone.</p>
-            <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
+            <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                 Dating Pool</button>
         </div>
         <div *ngIf="user && user.showHeartFormFlg">
             <div><img src="assets/images/rose1.png" width="100"></div>
             <p>Note: You need to give someone a rose before proceeding.</p>
-            <button [routerLink]="['/matches']" class="btn red-small-button"><i class="fa fa-users"></i>
+            <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                 Dating Pool</button>
         </div>
 
