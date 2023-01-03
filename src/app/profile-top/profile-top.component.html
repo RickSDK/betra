@@ -7,7 +7,7 @@
             them "likes" you back, they will end up in your dating pool and you can begin communicating!</p>
         <button (mousedown)="showNewUserPopupFlg=false" class="btn btn-main-color">Got it!</button>
     </div>
-    
+
     <table width="100%" border="0">
         <tr>
             <td width="50%" style="padding: 0; position: relative;" valign="top">
@@ -21,23 +21,31 @@
             </td>
             <td width="50%" *ngIf="!largeImageFlg" valign="top"
                 style="text-align: center; min-width: 180px; max-width: 200px; padding-top: 7px;">
+                <i *ngIf="snapshotFlg" (mousedown)="closePopup()" class="fa fa-times"
+                    style="float: right; cursor: pointer; margin: 5px;"></i>
+
                 <div
                     style="display: inline-block; width: 100%; min-width: 180px; max-width: 200px; text-align: left; position: relative; padding: 5px;">
 
+
                     <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
                         class="three-dots" title="Menu Options"><i class="fa fa-ellipsis-v"></i></span>
+                    <button *ngIf="snapshotFlg" [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
+                        class="btn btn-main-color" style="padding: 2px; font-size: 10px; float: right;">Full Profile
+                    </button>
                     <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
                             (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
                             Dating Pool</div>
+                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
+                            (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Assign Rose</div>
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
                             (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
                             Add to Dating Pool</div>
                         <div *ngIf="user.matchObj.you_interested != 'X'" (mousedown)="menuOptionClicked(1)"
                             class="three-dots-menu-option">
                             Block</div>
-                        <div (mousedown)="menuOptionClicked(2)"
-                            class="three-dots-menu-option">
+                        <div *ngIf="!snapshotFlg" (mousedown)="menuOptionClicked(2)" class="three-dots-menu-option">
                             Flag</div>
                         <div *ngIf="user.matchObj.you_interested == 'X'" (mousedown)="sendClickEventUp('yesToMatch')"
                             class="three-dots-menu-option">
@@ -169,7 +177,7 @@
                         </div>
                         <div *ngIf="user.ownerFlg" style="text-align: center; display: inline-block;">
                             <button (mousedown)="sendClickEventUp('demoteUser')" class="btn btn-primary">Demote
-                                </button>
+                            </button>
                             <div style="font-size: 8px;">Reset to regular member.</div>
                         </div>
                     </div>
@@ -205,7 +213,8 @@
     </div>
     <div *ngIf="showFlagPopupFlg" class="block-popup">
         <div><b>Flag User</b></div>
-        <div>Are you sure you want to flag this user for innapropriate profile or behavior? We may contact you for more information.</div>
+        <div>Are you sure you want to flag this user for innapropriate profile or behavior? We may contact you for more
+            information.</div>
         <button (mousedown)="showFlagPopupFlg=false" class="btn btn-warning">Cancel</button> &nbsp;
         <button (mousedown)="sendClickEventUp('flagUser')" class="btn btn-success">Flag!</button> &nbsp;
     </div>
@@ -214,7 +223,7 @@
         <div>Thank you for reporting this user.</div>
         <button (mousedown)="showFlagPopup2Flg=false" class="btn btn-warning">Ok</button> &nbsp;
     </div>
-    
+
 </div>
 <div *ngIf="expandBottomFlg">
     <div *ngIf="user.picCertificateFlg" style="text-align: left; font-size: 12px;" class="red-text">&nbsp;<i

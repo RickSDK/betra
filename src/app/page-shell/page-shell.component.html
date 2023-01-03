@@ -27,25 +27,25 @@
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
             <td *ngIf="userId>0 && userStatus == 'Active'">
-                <span class="menu-circle hide-xxs">
-                    <i [routerLink]="['/user-detail']" class="fa fa-search icon-button main-color"></i>
+                <span class="menu-circle hide-xxs" [routerLink]="['/user-detail']">
+                    <i class="fa fa-search icon-button main-color"></i>
                     <span class="icon-label main-color-bg">Browse</span>
                 </span>
-                <span class="menu-circle">
-                    <i [routerLink]="['/matches']" class="fa fa-users icon-button main-color"></i>
+                <span class="menu-circle" [routerLink]="['/matches']">
+                    <i class="fa fa-users icon-button main-color"></i>
                     <span class="icon-label main-color-bg">My Dating Pool</span>
                 </span>
-                <span class="menu-circle">
-                    <i [routerLink]="['/notifications']" class="fa fa-bell icon-button main-color"></i><span
-                        [routerLink]="['/notifications']" *ngIf="headerObj.notifications>0"
+                <span class="menu-circle" [routerLink]="['/notifications']">
+                    <i  class="fa fa-bell icon-button main-color"></i><span
+                        *ngIf="headerObj.notifications>0"
                         class="red-circle">{{headerObj.notifications}}</span>
                     <span class="icon-label main-color-bg">Notifications</span>
                 </span>
             </td>
             <td *ngIf="userId>0">
-                <span class="menu-circle">
-                    <img [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" [src]="imgSrcFile"
-                        class="profilePic" alt="Profile Picture" [title]="firstName">
+                <span class="menu-circle" [routerLink]="['/user-detail']" [queryParams]="{uid: userId}">
+                    <img [src]="imgSrcFile"
+                        class="profilePic" alt="Profile Picture">
                     <span class="icon-label main-color-bg">My Profile</span>
                 </span>
 

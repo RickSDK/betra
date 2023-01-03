@@ -1,0 +1,36 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Flagged'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+    <div class="matches-card" *ngIf="user">
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <app-owners-menu [pageTitle]="'Flagged'"></app-owners-menu>
+
+        <p *ngIf="playerList.length == 0">
+            No Users Flagged at this time
+        </p>
+
+        <table *ngIf="playerList.length>0">
+            <tr>
+                <th>Flagged User</th>
+                <th>Action</th>
+                <th>Flagged By</th>
+            </tr>
+            <tr *ngFor="let player of playerList">
+                <td>
+                    <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="80">
+                    </app-profile-pic>
+                    {{player.firstName}}    
+                </td>
+                <td>
+                    <button (mousedown)="buttonPressed(player, 'markAsOk')" class="btn btn-primary">Mark as OK</button>
+                </td>
+                <td>
+                    <app-profile-pic [user_id]="player.profileFlaggedBy" [profilePic]="player.profileFlaggedByProfilePic" [size]="50">
+                    </app-profile-pic>
+                </td>
+            </tr>
+        </table>
+
+        
+    </div>
+</app-page-shell>

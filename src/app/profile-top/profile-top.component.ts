@@ -12,6 +12,7 @@ export class ProfileTopComponent implements OnInit {
   @Input('distance') distance: string = '';
   @Input('adminFlg') adminFlg: boolean = false;
   @Input('expandBottomFlg') expandBottomFlg: boolean = false;
+  @Input('snapshotFlg') snapshotFlg: boolean = false;
 
 
   @Output() messageEvent = new EventEmitter<string>();
@@ -77,6 +78,9 @@ export class ProfileTopComponent implements OnInit {
   showMoreClicked() {
     this.showOptionsFlg = false;
     this.messageEvent.emit('show-more');
+  }
+  closePopup() {
+    this.messageEvent.emit('close-popup');
   }
   sendClickEventUp(name: string) {
     this.showBlockPopupFlg = false;

@@ -164,6 +164,10 @@ export class User {
     public icon: string = 'fa fa-user';
     public userTitle: string = 'Regular Member';
 
+    public profileFlaggedBy: number = 0;
+    public profileFlaggedByProfilePic: number = 0;
+    public activityRep: number = 0;
+
     constructor(obj: any) {
         if (obj) {
             this.user_id = obj.user_id || 0;
@@ -268,11 +272,15 @@ export class User {
             this.numReviews = obj.numReviews || 0;
             this.roseAssignedBy = obj.roseAssignedBy || 0;
 
+            this.profileFlaggedBy = obj.profileFlaggedBy || 0;
+            this.profileFlaggedByProfilePic = obj.profileFlaggedByProfilePic || 0;
+
             this.picCertificateFlg = obj.picCertificateFlg && obj.picCertificateFlg == 'Y';
             this.picCertificateNum = obj.picCertificateNum || 0;
             this.lat = obj.lat || 0;
             this.lng = obj.lng || 0;
             this.lastDay = 'test';
+            this.activityRep = obj.activityRep || 0;
 
             if (this.drinks == 'Yes') {
                 this.drinksIcon = 'assets/images/drinker.png';
@@ -284,7 +292,7 @@ export class User {
             }
             if (this.drinks == 'Occasional') {
                 this.drinksIcon = 'assets/images/drinker.png';
-                this.drinksTitle = 'Occsionally drinks';
+                this.drinksTitle = 'Occasionally drinks';
             }
 
             if (this.smokes == 'Yes') {
@@ -297,7 +305,7 @@ export class User {
             }
             if (this.smokes == 'Occasional') {
                 this.smokesIcon = 'assets/images/smoker.png';
-                this.smokesTitle = 'Occsionally smokes';
+                this.smokesTitle = 'Occasionally smokes';
             }
 
             if (this.cannabis == 'Yes') {
@@ -310,7 +318,7 @@ export class User {
             }
             if (this.cannabis == 'Occasional') {
                 this.potIcon = 'assets/images/cannabis.png';
-                this.potTitle = 'Occsional drugs';
+                this.potTitle = 'Occasional drugs';
             }
 
             if (this.picFlagged > 0) {

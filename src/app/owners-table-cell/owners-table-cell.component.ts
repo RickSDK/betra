@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-owners-table-cell',
@@ -9,13 +9,14 @@ export class OwnersTableCellComponent implements OnInit {
   @Input('ownersList') ownersList: any = [];
   @Input('user') user: any = null;
   @Input('tableName') tableName: string = '';
+  @Output() messageEvent = new EventEmitter<any>();
 
   public emailStr: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
-    if(this.ownersList)
+    if (this.ownersList)
       this.populateEmailList();
   }
 
@@ -29,6 +30,10 @@ export class OwnersTableCellComponent implements OnInit {
       emails.push(element.email);
     });
     this.emailStr = emails.join('; ');
+  }
+
+  selectPlayer(player: any) {
+    this.messageEvent.emit(player);
   }
 
 }

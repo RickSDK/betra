@@ -240,15 +240,15 @@ body {
 }
 
 .large-img {
-    width: 148px;
-    height: 148px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .large-img:hover {
     box-shadow: 2px 2px 10px gray;
-    cursor: pointer;
 }
 
 .brown-box {
@@ -406,13 +406,6 @@ select {
 }
 
 @media screen and (max-width: 800px) {
-    .large-img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
     .hide-md {
         display: none;
     }

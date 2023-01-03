@@ -34,10 +34,21 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
     this.menuNum = num;
   }
 
+  updateActivityTeam() {
+    var params = { uid: this.selectedPlayer.user_id, activityRep: $('#activityRep').val() }
+    this.getDataFromServer('updateActivityTeam', 'owners.php', params);
+    this.selectedPlayer = null;
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'getOwnerUsers') {
       this.usList = [];
       this.internationalList = [];
+      this.managmentTeam = [];
+      this.devTeam = [];
+      this.promotionsTeam = [];
+      this.activityLeads = [];
+      this.activityReps = [];
 
       this.players = responseJson.playerList;
       this.players.forEach((element: any) => {
@@ -46,19 +57,13 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
 
         if (element.user_id == 1 || element.user_id == 122 || element.user_id == 118 || element.user_id == 156)
           this.managmentTeam.push(element);
-        else if (element.user_id == 161 || element.user_id == 141 || element.user_id == 85 || element.user_id == 135 || element.user_id == 155 || element.user_id == 77 || element.user_id == 65 || element.user_id == 73 || element.user_id == 74 || element.user_id == 75)
+        else if (element.user_id == 161 || element.user_id == 141 || element.user_id == 85 || element.user_id == 155 || element.user_id == 65 || element.user_id == 73 || element.user_id == 74 || element.user_id == 75)
           this.devTeam.push(element);
         else if (element.user_id == 53 || element.user_id == 1)
           this.promotionsTeam.push(element);
-        else if (element.user_id == 10 || element.user_id == 109 || element.user_id == 119 || element.user_id == 80)
+        else if (element.activityRep > 10)
           this.activityLeads.push(element);
-        else if (element.user_id == 66 || element.user_id == 97 || element.user_id == 134)
-          this.activityReps.push(element);
-        else if (element.user_id == 139 || element.user_id == 98 || element.user_id == 146)
-          this.activityReps.push(element);
-        else if (element.user_id == 112 || element.user_id == 92 || element.user_id == 87)
-          this.activityReps.push(element);
-        else if (element.user_id == 51 || element.user_id == 48 || element.user_id == 61 || element.user_id == 16 || element.user_id == 128)
+        else if (element.activityRep > 0 && element.activityRep <= 6)
           this.activityReps.push(element);
         else
           this.usList.push(element);
@@ -74,6 +79,10 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
     else
       return city + ', ' + state;
 
+  }
+  ownersTableEvent(player: any) {
+    console.log('made it!');
+    this.choosePlayer(player, 7);
   }
   choosePlayer(player: any, num: number) {
     this.option = num;

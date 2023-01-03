@@ -1,4 +1,4 @@
-<div *ngIf="owner">
+<div *ngIf="owner && owner.statsObj">
      <table width="100%">
         <tr>
             <td align="left">    <app-profile-pic [user_id]="owner.user_id" [profilePic]="owner.profilePic" [size]="30">

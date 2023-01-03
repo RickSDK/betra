@@ -1,7 +1,6 @@
 <div class="shaded-border-box">
     <div class="title-bar">{{tableName}}</div>
     <div class="inside-box" style="text-align: center;">
-
         <table style="font-size: 10px;">
             <tr>
                 <th></th>
@@ -13,13 +12,13 @@
                 <th>*Pics</th>
                 <th>Last Login</th>
             </tr>
-            <tr *ngFor="let player of ownersList; let i = index;">
-                <td>
+            <tr *ngFor="let player of ownersList; let i = index;" (mousedown)="selectPlayer(player)">
+                <td [title]="player.user_id">
                     <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="30">
                     </app-profile-pic>
                 </td>
                 <td [title]="player.user_id">
-                    <b>{{player.firstName}}</b>
+                    <b>{{player.firstName}}</b> {{player.activityRep}}
                     <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.email}}</div>
                     <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray">{{player.phone}}</div>
                 </td>

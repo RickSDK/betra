@@ -5,18 +5,41 @@
         <hr>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-        <app-owners-table-cell [ownersList]="managmentTeam" [user]="user" [tableName]="'Management'"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="devTeam" [user]="user" [tableName]="'Dev Team'"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="promotionsTeam" [user]="user" [tableName]="'Promotions Team'"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="activityLeads" [user]="user" [tableName]="'Activity Leads'"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="activityReps" [user]="user" [tableName]="'Activity Reps'"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="usList" [user]="user" [tableName]="'Others'"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="managmentTeam" [user]="user" [tableName]="'Management'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="devTeam" [user]="user" [tableName]="'Dev Team'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="promotionsTeam" [user]="user" [tableName]="'Promotions Team'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="activityLeads" [user]="user" [tableName]="'Activity Leads'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="activityReps" [user]="user" [tableName]="'Activity Reps'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="usList" [user]="user" [tableName]="'Others'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
 
         <div style="font-size: 10px;">
             <div>*<b>Clicks</b> indicates the number of profiles you have browsed.</div>
             <div>*<b>Matches</b> indicates the number of dating pool matches.</div>
             <div>*<b>Messages</b> indicates the number of text messages sent.</div>
             <div>*<b>Pics</b> indicates the number of profile pics you have verified.</div>
+        </div>
+
+        <div *ngIf="selectedPlayer && option==7 && user.user_id==1">
+            <div>{{selectedPlayer.firstName}}</div>
+            <div>
+                Activity Team:
+                <select name="activityRep" id="activityRep">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                </select>
+            </div>
+            <button (mousedown)="updateActivityTeam()" class="btn btn-primary">Update</button>
         </div>
 
         <div *ngIf="selectedPlayer && option==2">

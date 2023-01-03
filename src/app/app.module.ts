@@ -68,6 +68,7 @@ import { OwnerActivityComponent } from './owner-activity/owner-activity.componen
 import { OwnerActivityUserComponent } from './owner-activity-user/owner-activity-user.component';
 import { BetraFeaturesComponent } from './betra-features/betra-features.component';
 import { UploadImageCropComponent } from './upload-image-crop/upload-image-crop.component';
+import { FlaggedUsersComponent } from './flagged-users/flagged-users.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -136,7 +137,8 @@ import { UploadImageCropComponent } from './upload-image-crop/upload-image-crop.
     OwnerActivityComponent,
     OwnerActivityUserComponent,
     BetraFeaturesComponent,
-    UploadImageCropComponent
+    UploadImageCropComponent,
+    FlaggedUsersComponent
   ],
   imports: [
     BrowserModule,

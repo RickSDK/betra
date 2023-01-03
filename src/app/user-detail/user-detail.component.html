@@ -62,7 +62,7 @@
 
     <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id"
         [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
-        [singleProfileFlg]="uid>0" [distance]="distance">
+        [singleProfileFlg]="uid>0">
     </app-match-snapshot>
 
     <div *ngIf="id==7 && matchUser && user" class="match-card">

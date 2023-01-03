@@ -30,6 +30,8 @@ export class AdvancedFiltersComponent extends BaseComponent implements OnInit {
   public showStatesFlg = false;
   public showMoreOptionsFlg: boolean = false;
   public searchButtonPressedFlg: boolean = false;
+  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Other Religion'];
+  public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'South-Asian', 'Hispanic', 'Middle Eastern', 'Other'];
 
   constructor() { super(); }
 

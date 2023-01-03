@@ -53,7 +53,8 @@
 .pool-large {
     display: inline-block;
     width: 150px;
-    margin: 2px;
+    margin: 0;
+    padding: 0;
     font-size: 14px; 
     color: gray;
 }
@@ -85,7 +86,6 @@
     margin-left: -50px;
 }
 .alert-icon {
-    color: #b7121f;
     font-size: 24px;
     display: inline-block;
     position: absolute;

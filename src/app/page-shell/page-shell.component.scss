@@ -101,6 +101,18 @@
     text-decoration: underline;
 }
 
+.menu-circle {
+    position: relative;
+}
+
+.icon-label {
+    position: absolute;
+    margin: 0;
+    top: 22px;
+    left: -20px;
+    z-index: 101;
+}
+
 .outer-frame {
     text-align: center;
     width: 100%;

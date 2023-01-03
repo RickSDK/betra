@@ -13,7 +13,7 @@ export class MatchSnapshotComponent implements OnInit {
   @Input('user') user: any = null;
   @Input('loadingFlg') loadingFlg: boolean = false;
   @Input('errorMessage') errorMessage: string = '';
-  @Input('distance') distance: string = '';
+  @Input('snapshotFlg') snapshotFlg: boolean = false;
   @Input('id') id: number = 0;
   @Input('singleProfileFlg') singleProfileFlg: boolean = false;
 
@@ -23,7 +23,7 @@ export class MatchSnapshotComponent implements OnInit {
   public polyMatch = 0;
   public profileMatch = 0;
   public totalMatch = 0;
-  public matchObj: any;
+//  public matchObj: any;
   public showMoreOptionsFlg: boolean = false;
   public showConfirmationFlg: boolean = false;
   public action: string = '';
@@ -32,19 +32,24 @@ export class MatchSnapshotComponent implements OnInit {
   public showMoreFlg: boolean = false;
   public expandBottomFlg: boolean = false;
   public showBottumButtonsFlg: boolean = false;
+  public distance: string = '';
 
 
   constructor() { }
 
   ngOnInit(): void {
-    if (this.user && this.matchObj)
-      this.initModal(this.matchObj, this.user, null);
+    if (this.user && this.matchUser)
+      this.initModal(this.matchUser, this.user, null);
 
+  }
+
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
   }
 
   initModal(matchUser: any, user: any, matchObj: any) {
     this.user = user;
-    this.matchObj = matchObj;
+    //this.matchObj = matchObj;
     this.matchUser = matchUser;
 
     var limit = (this.user.memberFlg)?12:8;
@@ -57,6 +62,7 @@ export class MatchSnapshotComponent implements OnInit {
     }
 
     this.calculateMatches(user, matchUser, matchObj);
+    this.calculateDistance(matchUser, user);
 
   }
 
@@ -66,10 +72,10 @@ export class MatchSnapshotComponent implements OnInit {
     this.showConfirmationFlg = true;
   }
 
-  calculateMatches(user: any, matchUser: any, matchObj: any) {
+  calculateMatches(user: any, matchUser: any, matchObj: any = null) {
     console.log('+++calculateMatches+++');
 
-    this.matchObj = matchObj;
+    //this.matchObj = matchObj;
     if (!this.matchUser.matchObj)
       return;
 
@@ -152,7 +158,7 @@ export class MatchSnapshotComponent implements OnInit {
       this.showMoreFlg = true;
     }, 400);
     setTimeout(() => {
-      this.calculateMatches(this.user, this.matchUser, this.matchObj);
+      this.calculateMatches(this.user, this.matchUser);
     }, 1500);
   }
   collpaseBottom() {
@@ -181,7 +187,7 @@ export class MatchSnapshotComponent implements OnInit {
     this.polyMatch = 0;
     this.personalityMatch = 0;
     this.totalMatch = 0;
-    this.matchObj = null;
+    //this.matchObj = null;
     this.messageEvent.emit(action);
   }
 
@@ -191,4 +197,30 @@ export class MatchSnapshotComponent implements OnInit {
     this.messageEvent.emit(this.action);
   }
 
+  calculateDistance(matchUser: any, user: any) {
+    this.distance = '';
+    if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
+      var miles = distanceInKmBetweenEarthCoordinates(user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
+      this.distance = parseInt(miles.toString()) + ' miles';
+    }
+  }
+
+}
+function degreesToRadians(degrees: number) {
+  return degrees * Math.PI / 180;
+}
+
+function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: number, lon2: number) {
+  var earthRadiusKm = 6371;
+
+  var dLat = degreesToRadians(lat2 - lat1);
+  var dLon = degreesToRadians(lon2 - lon1);
+
+  lat1 = degreesToRadians(lat1);
+  lat2 = degreesToRadians(lat2);
+
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return earthRadiusKm * c;
 }

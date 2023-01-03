@@ -14,11 +14,15 @@ export class OwnerActivityComponent extends BaseComponent implements OnInit {
   public members2: any = [];
   public members3: any = [];
   public members4: any = [];
+  public members5: any = [];
+  public members6: any = [];
   public teams = [
-    { name: 'Team 1', lead: {}, members: this.members1, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 2', lead: {}, members: this.members2, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 3', lead: {}, members: this.members3, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 4', lead: {}, members: this.members4, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 1 - California', lead: {}, members: this.members1, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 2 - Chicago', lead: {}, members: this.members2, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 3 - New England', lead: {}, members: this.members3, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 4 - Seattle', lead: {}, members: this.members4, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 5 - Midwest', lead: {}, members: this.members5, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 6 - New York', lead: {}, members: this.members6, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
   ];
 
 
@@ -35,57 +39,90 @@ export class OwnerActivityComponent extends BaseComponent implements OnInit {
         element.lastDay = lastLoginText(element.lastLogin);
 
         //leads------------
-        if (element.user_id == 10) {
+        if (element.activityRep == 11) { 
+          // will
           this.teams[0].lead = element;
           this.addStatsForTeam(this.teams[0], element);
         }
-        if (element.user_id == 109) {
+        if (element.activityRep == 12) {
+          //karen
           this.teams[1].lead = element;
           this.addStatsForTeam(this.teams[1], element);
         }
-        if (element.user_id == 80) {
+        if (element.activityRep == 13) {
+          //Randy
           this.teams[2].lead = element;
           this.addStatsForTeam(this.teams[2], element);
 
         }
-        if (element.user_id == 119) {
+        if (element.activityRep == 14) {
+          //brittany
           this.teams[3].lead = element;
           this.addStatsForTeam(this.teams[3], element);
         }
+        if (element.activityRep == 15) {
+          //shubha
+          this.teams[4].lead = element;
+          this.addStatsForTeam(this.teams[4], element);
+        }
+        if (element.activityRep == 16) {
+          //dana
+          this.teams[5].lead = element;
+          this.addStatsForTeam(this.teams[5], element);
+        }
 
         //members------------
-        if (element.user_id == 97 || element.user_id == 66 || element.user_id == 16) {
+        if (element.activityRep == 1) {
+          // will
           this.teams[0].members.push(element);
           this.addStatsForTeam(this.teams[0], element);
         }
 
-        if (element.user_id == 98 || element.user_id == 146 || element.user_id == 139) {
+        if (element.activityRep == 2) {
+          //karen
           this.teams[1].members.push(element);
           this.addStatsForTeam(this.teams[1], element);
         }
 
-        if (element.user_id == 112 || element.user_id == 92 || element.user_id == 128) {
+        if (element.activityRep == 3) {
+          //Randy
           this.teams[2].members.push(element);
           this.addStatsForTeam(this.teams[2], element);
         }
 
-        if (element.user_id == 51 || element.user_id == 48 || element.user_id == 61 ) {
+        if (element.activityRep == 4) {
+          //brittany
           this.teams[3].members.push(element);
           this.addStatsForTeam(this.teams[3], element);
+        }
+
+        if (element.activityRep == 5 ) {
+          //shubha
+          this.teams[4].members.push(element);
+          this.addStatsForTeam(this.teams[4], element);
+        }
+
+        if (element.activityRep == 6 ) {
+          //dana
+          this.teams[5].members.push(element);
+          this.addStatsForTeam(this.teams[5], element);
         }
         //console.log('xxx', element);
       });
     }
   }
   addStatsForTeam(team:any, member: any) {
-    team.clicks += parseInt(member.statsObj.clicks);
-    team.interestNo += parseInt(member.statsObj.interestNo);
-    team.interestYes += parseInt(member.statsObj.interestYes);
-    team.matches += parseInt(member.statsObj.matchLevel2);
-    team.messages += parseInt(member.statsObj.messages);
-    team.picVerifiedCount += parseInt(member.statsObj.picVerifiedCount) || 0;
-
-    team.total = team.clicks + team.matches*10 + Math.round(team.messages/10) + team.picVerifiedCount;
+    if(member && member.statsObj) {
+      team.clicks += parseInt(member.statsObj.clicks);
+      team.interestNo += parseInt(member.statsObj.interestNo);
+      team.interestYes += parseInt(member.statsObj.interestYes);
+      team.matches += parseInt(member.statsObj.matchLevel2);
+      team.messages += parseInt(member.statsObj.messages);
+      team.picVerifiedCount += parseInt(member.statsObj.picVerifiedCount) || 0;
+  
+      team.total = team.clicks + team.matches*10 + Math.round(team.messages/10) + team.picVerifiedCount;
+  
+    }
   }
 
 }

@@ -29,8 +29,8 @@
                                     </select>
                                 </td>
                                 <td>&nbsp;
-                                    <button (mousedown)="assignHeart()" class="btn btn-main-color" style="padding: 10px;"
-                                        [disabled]="disableFormFlg">Assign</button>
+                                    <button (mousedown)="assignHeart()" class="btn btn-main-color"
+                                        style="padding: 10px;" [disabled]="disableFormFlg">Assign</button>
                                 </td>
                             </tr>
                         </table>
@@ -45,13 +45,13 @@
         </div>
 
         <div>&nbsp;</div>
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-        <div *ngIf="menuNum==0 && !loadingFlg">
-            <div style="font-size: 12px; color: gray;">You can have a maximum of {{datingPoolLimit}} people in your dating pool at any
+        <div *ngIf="menuNum==0">
+            <div style="font-size: 12px; color: gray;">You can have a maximum of {{datingPoolLimit}} people in your
+                dating pool at any
                 time.</div>
 
-            <app-dating-pool [user]="user" [largeFlg]="true"></app-dating-pool>
+            <app-dating-pool [user]="user" [largeFlg]="true" (messageEvent)="loadPopupUser($event)"></app-dating-pool>
 
             <div *ngIf="!user.dating_pool">
                 <div [routerLink]="['/user-detail']" class="red-blob">
@@ -61,7 +61,8 @@
                 <div>&nbsp;</div>
                 <div class="small-gray-text">Currently no one in your dating pool, but don't worry. Start browsing
                     singles to get your pool filled up.
-                    You can have up to {{datingPoolLimit}} people in your dating pool and that is when the real fun begins!
+                    You can have up to {{datingPoolLimit}} people in your dating pool and that is when the real fun
+                    begins!
                 </div>
             </div>
 
@@ -96,7 +97,8 @@
                 </div>
                 <div *ngIf="playerList.length>0">
                     <p><i class="fa fa-heart" style="color: red;"></i> These people are very interested in you!</p>
-                    <p class="gray-text">The above profiles are people who are interested in you. Adding them to your dating pool
+                    <p class="gray-text">The above profiles are people who are interested in you. Adding them to your
+                        dating pool
                         will allow the two of you to start communicating.</p>
                 </div>
                 <div *ngIf="playerList.length==0">
@@ -109,7 +111,8 @@
                             <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
                             <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for
                                 others to find you.</li>
-                            <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']" class="text-link">Upgrade</span> in
+                            <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
+                                    class="text-link">Upgrade</span> in
                                 order to maximize your exposure.</li>
                         </div>
 
@@ -118,19 +121,28 @@
 
             </div>
         </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
         <div *ngIf="menuNum==0"
             [ngClass]="showDetailsNumber>0?'bottom-details-panal-open':'bottom-details-panal-closed'">
             <div *ngIf="showDetailsNumber==1">
                 <div class="red-text">Dating Pool</div>
                 <div style="font-size: 12px; color: gray; text-align: left">
                     <p>'Dating Pool' is a feature unique to Betra and makes this like no other dating app!</p>
-                    <p>You can actively be matched up with no more than 8 people at a time, which allows you to focus on your best prospects and helps you manage your dating life.</p>
-                    <p>Once you have 8 people, you can still actively search for new prospects, but as soon as you are matched with a 9th person, you have to move one of your current matches to your back burner.</p>
-                    <p>As soon as you have at least 5 people in your dating pool, you will need to indicate one of them as your 'Top Pick' by giving them a virtual rose. Everyone in your dating pool will get to see who you gave your rose to.
-                        Yes this creates drama, but it also creates a lot of fun, while at the same time being fully transparent with everyone about your true feelings.
-                        We believe Betra to be the most honest dating app ever created.
+                    <p>You can actively be matched up with no more than 8 people at a time, which allows you to focus on
+                        your best prospects and helps you manage your dating life.</p>
+                    <p>Once you have 8 people, you can still actively search for new prospects, but as soon as you are
+                        matched with a 9th person, you have to move one of your current matches to your back burner.</p>
+                    <p>As soon as you have at least 5 people in your dating pool, you will need to indicate one of them
+                        as your 'Top Pick' by giving them a virtual rose. Everyone in your dating pool will get to see
+                        who you gave your rose to.
+                        Yes this creates drama, but it also creates a lot of fun, while at the same time being fully
+                        transparent with everyone about your true feelings.
+                        We believe Betra to be the most honest dating you will ever use.
                     </p>
-                    <p>One final note: Not only do all of your matches get to see who is in your dating pool, you also get to see who each of them is matched up with. Simply click on their profile icon to view thair dating pool.
+                    <p>One final note: Not only do all of your matches get to see who is in your dating pool, you also
+                        get to see who each of them is matched up with. Simply click on their profile icon to view their
+                        dating pool.
                         Let the fun begin!
                     </p>
                     <p>Good luck to everyone.</p>
@@ -141,7 +153,9 @@
             <div *ngIf="showDetailsNumber==2">
                 <div class="red-text">Intimacy Level</div>
                 <div style="font-size: 12px; color: gray; text-align: left">
-                    <p>Intimacy Level indicates how far into the Betra app features you have made it with this match. It is simply a small indicator, letting everyone know how serious the relationship might be getting.</p>
+                    <p>Intimacy Level indicates how far into the Betra app features you have made it with this match. It
+                        is simply a small indicator, letting everyone know how serious the relationship might be
+                        getting.</p>
                     <p>Here are what the levels mean:</p>
                     <ol>
                         <li>One person is interested</li>
@@ -160,22 +174,35 @@
                 <div class="red-text">FAQ</div>
                 <div style="font-size: 12px; color: gray; text-align: left">
                     <div class="red-text">Question: How do I get people added to my date pool?</div>
-                    <div class="answer">Answer: Click 'Browse' and begin liking profiles. As soon as one of the people you like, also likes you back, the two of you are matched up and in each other's dating pools.</div>
-            
+                    <div class="answer">Answer: Click 'Browse' and begin liking profiles. As soon as one of the people
+                        you like, also likes you back, the two of you are matched up and in each other's dating pools.
+                    </div>
+
                     <div class="red-text">Question: How do I drop someone from my dating pool?</div>
-                    <div class="answer">Answer: Click on their profile, expand the header window. Click on the "expand" arrow in the black box which says that person "is in your dating pool". Click the "Remove" button.</div>
+                    <div class="answer">Answer: Click on their profile, expand the header window. Click on the "expand"
+                        arrow in the black box which says that person "is in your dating pool". Click the "Remove"
+                        button.</div>
 
                     <div class="red-text">Question: How do I send someone a text message?</div>
-                    <div class="answer">Answer: You must first be matched with someone in order to communicate with them. From there, the first communication can only be from a drop-down list of prepared questions. Once both people respond to each other's questions, you will be free to opening text back and forth.</div>
+                    <div class="answer">Answer: You must first be matched with someone in order to communicate with
+                        them. From there, the first communication can only be from a drop-down list of prepared
+                        questions. Once both people respond to each other's questions, you will be free to openly text
+                        back and forth.</div>
 
                     <div class="red-text">Question: How do I write a review on someone?</div>
-                    <div class="answer">Answer: You must first reach intimacy level of 5 and then go on a date with them in order to write a review.</div>
+                    <div class="answer">Answer: You must first reach intimacy level of 5 and then go on a date with them
+                        in order to write a review.</div>
 
                     <div class="red-text">Question: Why did someone disappear from my dating pool?</div>
-                    <div class="answer">Answer: If someone removed you from their dating pool, they will also be removed from yours. Sorry, but they just aren't that into you. But don't worry, there are plenty of great singles still out there hoping to meet you. Get back in the game and fill up that dating pool!</div>
+                    <div class="answer">Answer: If someone removed you from their dating pool, they will also be removed
+                        from yours. Sorry, but they just aren't that into you. But don't worry, there are plenty of
+                        great singles still out there hoping to meet you. Get back in the game and fill up that dating
+                        pool!</div>
 
                     <div class="red-text">Question: How do I restore someone to my dating pool?</div>
-                    <div class="answer">Answer: Click the 'Back Burner' button at the top of this page. If that person is still interested in you, their profile will show up. Click on it. Expand the top and then click the 'Promote' button to put them back into your dating pool.</div>
+                    <div class="answer">Answer: Click the 'Back Burner' button at the top of this page. If that person
+                        is still interested in you, their profile will show up. Click on it. Expand the top and then
+                        click the 'Promote' button to put them back into your dating pool.</div>
 
 
                 </div>
@@ -184,17 +211,23 @@
                 <div class="red-text">Roses</div>
                 <div style="font-size: 12px; color: gray; text-align: left">
                     <p>
-                        Once you have at least 5 people in your dating pool, you must assign a rose to your favorite. Everyone in your dating pool will get to see who got your rose.
+                        Once you have at least 5 people in your dating pool, you must assign a rose to your favorite.
+                        Everyone in your dating pool will get to see who got your rose.
                     </p>
-                    <p>Does this seem scary? Yes! But its also a way of being transparent with everyone in the dating pool.</p>
-                    <p>Not only does everyone in your dating pool get to see who you assigned your rose to, but you can view the dating pools of everyone you are interested in to see who they gave roses to. It's fun and it helps everyone know where they stand.</p>
+                    <p>Does this seem scary? Yes! But its also a way of being transparent with everyone in the dating
+                        pool.</p>
+                    <p>Not only does everyone in your dating pool get to see who you assigned your rose to, but you can
+                        view the dating pools of everyone you are interested in to see who they gave roses to. It's fun
+                        and it helps everyone know where they stand.</p>
                     <p>Feel free to change who gets your rose as often as you like.</p>
                 </div>
             </div>
         </div>
         <div *ngIf="menuNum==0" class="date-pool-bottom-bar">
-            <button (mousedown)="toggleShowDetailsNumber(1)" class="btn btn-main-color shrink">Dating Pool</button>&nbsp;
-            <button (mousedown)="toggleShowDetailsNumber(2)" class="btn btn-main-color shrink">Intimacy Level</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(1)" class="btn btn-main-color shrink"><i class="fa fa-info-circle"></i> Dating
+                Pool</button>&nbsp;
+            <button (mousedown)="toggleShowDetailsNumber(2)" class="btn btn-main-color shrink">Intimacy
+                Level</button>&nbsp;
             <button (mousedown)="toggleShowDetailsNumber(3)" class="btn btn-main-color shrink">FAQ</button>&nbsp;
             <button (mousedown)="toggleShowDetailsNumber(4)" class="btn btn-main-color shrink">Roses</button>&nbsp;
         </div>
@@ -208,11 +241,10 @@
         <div style="text-align: left;">
             <p>You are only allowed {{datingPoolLimit}} people at a time in your dating pool. Select
                 someone to drop. </p>
-            <p style="font-size: 12px;">Why are you only allowed {{datingPoolLimit}} people? This is to help you organize your dating
-                life. Keep your top {{datingPoolLimit}} pospects active
-                and move the rest to your back burner. Or, by 
+            <p style="font-size: 12px;">Keep your top {{datingPoolLimit}} interests in your dating pool
+                and move the rest to your back burner.
             </p>
-            <p>
+            <p *ngIf="!user.memberFlg" style="font-size: 12px;">
                 Upgrading to Gold Member allows you to have 12 people in your
                 pool!
             </p>
@@ -220,5 +252,15 @@
         <button class="btn btn-warning">Got it!</button>&nbsp;
         <button *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']" class="btn btn-primary">Upgrade</button>
 
+    </div>
+</div>
+
+<div *ngIf="displayUserPopup" (mousedown)="displayUserPopup=false" class="dark-backdrop">&nbsp;</div>
+<div *ngIf="displayUserPopup" class="user-popup-outer" (mousedown)="userClickedOnPage($event)">
+    <div class="user-popup" id="user-popup">
+        <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
+            [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [snapshotFlg]="true"
+            [singleProfileFlg]="true">
+        </app-match-snapshot>
     </div>
 </div>

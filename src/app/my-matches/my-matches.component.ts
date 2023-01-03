@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../classes/user';
 
 declare var $: any;
 declare var lastLoginText: any;
@@ -20,6 +21,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public showPopupFlg: boolean = false;
   public showDetailsNumber: number = 0;
   public datingPoolLimit: number = 8;
+  public displayUserPopup: boolean = false;
+  public matchUser: any = null;
 
   constructor(private route: ActivatedRoute) { super(); }
 
@@ -29,8 +32,33 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
       this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
+      if (menu == 0 && this.user.datingPool.length == 0)
+        this.showDetailsNumber = 1;
     })
   }
+  loadPopupUser(uid: string) {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      uid: uid,
+      action: "getThisUser"
+    };
+    this.executeApi('appApiCode2.php', params, true);
+  }
+
+  userClickedOnPage(event: any) {
+    var e = document.getElementById('user-popup');
+    if (e) {
+      var divRect = e.getBoundingClientRect();
+      if (event.clientX >= divRect.left && event.clientX <= divRect.right &&
+        event.clientY >= divRect.top && event.clientY <= divRect.bottom) {
+        // do nothing; console.log('yes!');
+      } else
+        this.displayUserPopup = false;
+    }
+
+  }
+
   refreshDatingPool() {
     var params = {
       userId: localStorage['user_id'],
@@ -96,13 +124,43 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     console.log(params);
     this.executeApi('appApiCode2.php', params, true);
   }
+
   ngClassButton(num: number) {
     if (num == this.menuNum)
       return 'btn btn-main-color';
     else
       return 'btn btn-secondary';
   }
+
+  matchSnapshotEvent(action: any) {
+    this.displayUserPopup = false;
+    if (action == 'close-popup') {
+      return;
+    }
+
+    if (action == 'remove')
+      action = 'removeThisUser';
+    if (action == 'ban')
+      action = 'banThisUser';
+
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      matchId: this.matchUser.user_id,
+      action: action
+    };
+    //console.log('this params!', params);
+    this.executeApi('appApiCode2.php', params, true);
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == 'removeThisUser' || responseJson.action == 'banThisUser') {
+      this.syncUserWithLocalStorage(responseJson);
+    }
+    if (responseJson.action == 'getThisUser') {
+      this.displayUserPopup = true;
+      this.matchUser = new User(responseJson.user);
+    }
     if (responseJson.action == "logUser") {
       this.syncUserWithLocalStorage(responseJson);
     }
@@ -114,7 +172,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       console.log('xxxrefreshDatingPool', responseJson);
       this.refreshUserObj(responseJson.user);
       this.updateMatches();
-      this.datingPoolLimit = (this.user.memberFlg)?12:8;
+      this.datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
       this.showPopupFlg = this.user.datingPool && this.user.datingPool.length > this.datingPoolLimit;
       this.logUser();
     }

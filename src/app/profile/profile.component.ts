@@ -32,7 +32,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public menuTitles2 = ['Basics', 'Email', 'Details', 'Personality', 'Politics', 'Image', 'Pics', 'Match'];
   public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
-  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Other Religion'];
   public maritalStatus = ['Single', 'Married', 'Divorced'];
   public bodyTypes = ['Thin', 'Average', 'Heavy'];
   public bodyHeights = ['Short', 'Average', 'Tall'];
@@ -40,6 +39,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
   public smokingOptions = ['Yes', 'Occasional', 'No'];
+  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Other Religion'];
   public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'South-Asian', 'Hispanic', 'Middle Eastern', 'Other'];
   public bonusImages = ['Image1', 'Image2', 'Image3', 'Image4'];
   public code: string = localStorage['code'];

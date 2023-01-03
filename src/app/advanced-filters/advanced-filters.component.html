@@ -107,6 +107,40 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td align="right">
+                    Religion:
+                </td>
+                <td align="left">
+                    <select name="religion" id="religion">
+                        <option>Any</option>
+                        <option *ngFor="let religion of religions">{{religion}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Race:
+                </td>
+                <td align="left">
+                    <select name="race" id="race">
+                        <option>Any</option>
+                        <option *ngFor="let race of raceOptions">{{race}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Tattoos:
+                </td>
+                <td align="left">
+                    <select name="tattoos" id="tattoos">
+                        <option>Any</option>
+                        <option>Has Some</option>
+                        <option>Has None</option>
+                    </select>
+                </td>
+            </tr>
         </table>
 
     </div>

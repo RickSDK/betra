@@ -28,7 +28,6 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public exceededPoolSizeFlg: boolean = false;
   public showMatchLevelInfoFlg: boolean = false;
   public showFakePicOptionsFlg: boolean = false;
-  public distance: string = '';
   public showFilter: boolean = false;
   public searchStarted: boolean = false;
   public matchesCount: number = 0;
@@ -98,7 +97,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       relationshipType: $('#relationshipType').val(),
       marriageView: $('#marriageView').val(),
       bodyType: $('#bodyType').val(),
-      testFlg: 'Y',
+      race: $('#race').val(),
+      religion: $('#religion').val(),
+      tattoos: $('#tattoos').val(),
+      testFlg: '',
       action: 'findMatchesAdvanced'
     };
     console.log('params', params);
@@ -286,7 +288,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   displayThisProfile() {
     console.log('displayThisProfile', this.matchUser);
-    this.calculateDistance(this.matchUser, this.user);
+    //this.calculateDistance(this.matchUser, this.user);
 
     if (this.matchUser.state && this.user.state != this.matchUser.state) {
       this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
@@ -307,10 +309,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   }
   calculateDistance(matchUser: any, user: any) {
-    this.distance = '';
+    //this.distance = '';
     if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
       var miles = distanceInKmBetweenEarthCoordinates(user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
-      this.distance = parseInt(miles.toString()) + ' miles';
+      //this.distance = parseInt(miles.toString()) + ' miles';
     }
   }
 

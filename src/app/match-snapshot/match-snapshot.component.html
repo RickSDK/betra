@@ -1,7 +1,7 @@
 <div class="match-user-card" *ngIf="matchUser && user">
 
     <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)"
-        [distance]="distance" [expandBottomFlg]="expandBottomFlg">
+        [distance]="distance" [expandBottomFlg]="expandBottomFlg" [snapshotFlg]="snapshotFlg">
     </app-profile-top>
 
     <div>
@@ -108,11 +108,13 @@
                                         Yes<sup>{{matchUser.statsObj.interestYes}}</sup>
                                         No<sup>{{matchUser.statsObj.interestNo}}</sup></div>
                                     <div><i class="fa fa-comments"></i> Messages
-                                        <sup>{{matchUser.statsObj.messages}}</sup></div>
+                                        <sup>{{matchUser.statsObj.messages}}</sup>
+                                    </div>
                                 </td>
                                 <td width="50%">
                                     <div><i class="fa fa-thumbs-o-up"></i> Reviews
-                                        <sup>{{matchUser.statsObj.reviews}}</sup></div>
+                                        <sup>{{matchUser.statsObj.reviews}}</sup>
+                                    </div>
                                     <div><i class="fa fa-book"></i> Journals <sup>{{matchUser.statsObj.journals}}</sup>
                                     </div>
                                 </td>
@@ -126,10 +128,11 @@
                     </div>
                 </div>
 
-                <div *ngIf="matchUser.matchObj">
+                <app-match-dating-pool *ngIf="matchUser.matchObj && matchUser.matchObj.match_level > 1"
+                    [firstName]="matchUser.firstName" [datingPool]="matchUser.datingPool"></app-match-dating-pool>
 
-                    <app-match-dating-pool *ngIf="matchUser.matchObj && matchUser.matchObj.match_level > 1"
-                        [firstName]="matchUser.firstName" [datingPool]="matchUser.datingPool"></app-match-dating-pool>
+                <div *ngIf="matchUser.matchObj && !snapshotFlg">
+
 
                     <div *ngIf="matchUser.matchObj.match_level >= 1" class="dark-blue-box">
                         <i (mousedown)="showBottumButtonsFlg=!showBottumButtonsFlg"
