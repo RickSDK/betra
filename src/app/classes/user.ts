@@ -418,7 +418,9 @@ export class User {
             this.astrologicalSign = this.getastrologicalSign(this.birthdate);
 
         }
-
+        var birthdt = getDateObjFromJSDate(this.birthdate);
+        if(birthdt && birthdt.daysAgo>0)
+            this.age = Math.floor(birthdt.daysAgo / 365);
 
         this.lastLoginSrc = 'assets/images/blackCircle.png';
         if (this.lastLogin) {

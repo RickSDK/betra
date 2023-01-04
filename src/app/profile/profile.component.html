@@ -1,5 +1,5 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [pageTitle]="'Profile'"
-    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus"  [stickyBottomFlg]="true">
 
     <div class="btn-group" *ngIf="user && user.status == 'Active'">
         <button *ngFor="let title of menuTitles2; let i = index;" (mousedown)="menuNum=i" type="button"

@@ -72,9 +72,19 @@ export class UploadImageCropComponent implements OnInit {
       this.image.src = imgFile;
       //console.log('+++', this.image);
       this.image.onload = () => {
-        this.ctx.drawImage(this.image, 0, 0);
-        this.imageWidth = this.image.width;
-        this.imageHeight = this.image.height;
+        console.log('Full size: ', this.image.src.length, this.image.width, this.image.height);
+        var smallImgSrc = imageToDataUri(this.image);
+        this.src = smallImgSrc;
+        var smallImage = new Image();
+        smallImage.src = smallImgSrc.toString();
+        smallImage.onload = () => {
+          //$('#' + this.id).attr('src', smallImgSrc);
+          this.ctx.drawImage(smallImage, 0, 0);
+          this.imageWidth = smallImage.width;
+          this.imageHeight = smallImage.height;
+            console.log('New Size: ', this.id, smallImage.src.length, smallImage.width, smallImage.height);
+        };
+
       }
     };
 
@@ -105,11 +115,11 @@ export class UploadImageCropComponent implements OnInit {
     var y = this.imageTop + this.currentPointY - this.startPointY;
     var x = this.imageLeft + this.currentPointX - this.startPointX;
 
-    if (x + this.imageWidth < this.canvasWidth)
-      x = this.canvasWidth - this.imageWidth;
+    if (x + width < this.canvasWidth)
+      x = this.canvasWidth - width;
 
-    if (y + this.imageHeight < this.canvasHeight) {
-      y = this.canvasHeight - this.imageHeight;
+    if (y + height < this.canvasHeight) {
+      y = this.canvasHeight - height;
     }
 
     if (x > 0)
@@ -120,7 +130,7 @@ export class UploadImageCropComponent implements OnInit {
     if (this.image)
       this.ctx.drawImage(this.image, x, y, width, height);
 
-    //  console.log('y', y, rect.bottom, this.imageHeight);
+   //   console.log(x, y, this.canvasWidth, this.imageWidth);
 
   }
 
@@ -152,8 +162,16 @@ export class UploadImageCropComponent implements OnInit {
   }
 
   zoomImage(amount: number) {
-    this.zoomLevel += amount;
-    this.drawImage();
+
+    var zoomLevel = this.zoomLevel + amount;
+    var width = this.imageWidth * zoomLevel / 100;
+    var height = this.imageHeight * zoomLevel / 100;
+
+    if(amount > 0 || (width >= this.canvasWidth && height >= this.canvasHeight)) {
+      this.zoomLevel += amount;
+      this.drawImage();
+    }
+
   }
 
   captureImage() {

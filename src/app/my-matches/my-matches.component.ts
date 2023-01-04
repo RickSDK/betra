@@ -149,7 +149,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       matchId: this.matchUser.user_id,
       action: action
     };
-    //console.log('this params!', params);
+    console.log('matchSnapshotEvent params!', params);
     this.executeApi('appApiCode2.php', params, true);
   }
 

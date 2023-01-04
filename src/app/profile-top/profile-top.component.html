@@ -30,15 +30,13 @@
 
                     <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
                         class="three-dots" title="Menu Options"><i class="fa fa-ellipsis-v"></i></span>
-                    <button *ngIf="snapshotFlg" [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
-                        class="btn btn-main-color" style="padding: 2px; font-size: 10px; float: right;">Full Profile
-                    </button>
                     <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
                             (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
                             Dating Pool</div>
-                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
-                            (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Assign Rose</div>
+                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y' && myUser.heartId != user.user_id"
+                            (mousedown)="sendClickEventUp('assignRose')" class="three-dots-menu-option">Assign Rose
+                        </div>
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
                             (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
                             Add to Dating Pool</div>
@@ -144,13 +142,24 @@
                         </app-green-check>
                     </div>
 
-                    <div>
+                    <div style="text-align: center;">
+                        <button
+                            *ngIf="snapshotFlg && user.matchObj && user.matchObj.match_level >= 2 && user.matchObj.unreadMessages > 0"
+                            [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
+                            class="btn btn-main-color btn-small"><i class="fa fa-comment"></i> New
+                            Messages
+                        </button>
+                        <button *ngIf="snapshotFlg && user.matchObj && user.matchObj.unreadMessages == 0"
+                            [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
+                            class="btn btn-main-color btn-small">Full Profile
+                        </button>
                         <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
                             *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
-                        <div style="padding-right: 10px; float: right; font-size: 32px;">
-                            <i (mousedown)="showMoreClicked()" [ngClass]="'fa fa-arrow-circle-down clickable'"
-                                [title]="(expandBottomFlg)?'Collapse Profile':'Expand Profile'"></i>
-                        </div>
+
+                        <i (mousedown)="showMoreClicked()" style="float: right; font-size: 32px; margin-top: -3px;"
+                            [ngClass]="'fa fa-arrow-circle-down clickable'"
+                            [title]="(expandBottomFlg)?'Collapse Profile':'Expand Profile'"></i>
+
                     </div>
                     <div *ngIf="showAdminButtonsFlg" class="border-box" style="text-align: center;">
                         <div><i class="fa fa-lock"></i> admin tools</div>

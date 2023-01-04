@@ -12,7 +12,6 @@ export class SideMenuComponent implements OnInit {
   @Input('messageCount') messageCount: number = 0;
   @Input('matchCount') matchCount: number = 0;
 
-  public filterSelectedFlg = false;
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
     { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
@@ -23,7 +22,7 @@ export class SideMenuComponent implements OnInit {
 
   ];
   public middleItems = [
-    //    { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
+    { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
     //{ name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
   ];
@@ -33,21 +32,17 @@ export class SideMenuComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (1)
-      this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
+    this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
 
     if (this.headerObj.ownerFlg) {
       this.bottomItems.push({ name: 'Owners', routerLink: '/owners', icon: 'fa fa-briefcase', id: 0 });
-      this.bottomItems.push({ name: 'Verify Profile Pic', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
+      this.bottomItems.push({ name: 'Approve Profile Pic', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
     } else
       this.bottomItems.push({ name: 'Join the Team', routerLink: '/join-team', icon: 'fa fa-briefcase', id: 0 });
   }
 
-  filterSelected(flag: boolean) {
-    this.filterSelectedFlg = flag;
-  }
-  browseSelected() {
-    this.router.navigate(['/user-detail'], {queryParams: {id: 2, filter: this.filterSelectedFlg}});
+  browseSelected(flag: boolean) {
+    this.router.navigate(['/user-detail'], { queryParams: { id: 2, filter: flag } });
   }
 
   ngClassMenuItem(menuTitle: string) {

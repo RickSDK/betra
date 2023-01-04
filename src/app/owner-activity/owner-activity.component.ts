@@ -22,7 +22,7 @@ export class OwnerActivityComponent extends BaseComponent implements OnInit {
     { name: 'Team 3 - New England', lead: {}, members: this.members3, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
     { name: 'Team 4 - Seattle', lead: {}, members: this.members4, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
     { name: 'Team 5 - Midwest', lead: {}, members: this.members5, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 6 - New York', lead: {}, members: this.members6, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 6 - East Coast', lead: {}, members: this.members6, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
   ];
 
 

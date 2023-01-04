@@ -9,11 +9,12 @@
             <span *ngIf="item.id==4 && headerObj && headerObj.admirerCount>0"
                 class="red-circle">{{headerObj.admirerCount}}</span>
         </div>
-        <div *ngIf="item.id==2" (mousedown)="browseSelected()" [ngClass]="ngClassMenuItem(item.name)">
-            <span (mousedown)="filterSelected(false)"><i
+        <div *ngIf="item.id==2" [ngClass]="ngClassMenuItem(item.name)">
+            <span (mousedown)="browseSelected(true)"><i
                 [class]="item.icon"></i> &nbsp;
             {{item.name}}</span>
-            <i *ngIf="item.id==2" (mousedown)="filterSelected(true)" class="fa fa-cogs filter-icon"></i>
+            <span  (mousedown)="browseSelected(false)" style="background-color: transparent; position: absolute; left: 0; top: 0; width: 100%;">&nbsp;</span>
+            <i *ngIf="item.id==2" (mousedown)="browseSelected(true)" class="fa fa-cogs filter-icon"></i>
         </div>
         <div *ngIf="item.id==0" [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i
                 [class]="item.icon"></i> &nbsp;
