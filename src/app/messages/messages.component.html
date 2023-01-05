@@ -5,16 +5,14 @@
      <div class="matches-card" *ngIf="user">
         <p *ngIf="messageCount==0" style="padding-top: 60px;">No unread messages.</p>
         <div *ngIf="messageCount>0">
-            <div style="background-color: #ccc; font-size: 18px;">Your unread messages</div>
+            <div style="background-color: #ccc; font-size: 18px;">Your messages</div>
             <p>&nbsp;</p>
             <div *ngFor="let player of playerList">
                 <div *ngIf="player.messages.length>0" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">
                     <img 
                     [src]="player.src" class="large-img" [title]="player.name">
                     <div>{{player.name}}</div>
-                    <div *ngFor="let message of player.messages" class="blue-blob">
-                        {{message}}
-                    </div>    
+                    <button *ngFor="let message of player.messages" class="btn btn-main-color">{{message}}</button>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 declare var getDateObjFromJSDate: any;
+declare var getBrowser: any;
 
 @Component({
   selector: 'app-profile',
@@ -117,6 +118,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     'Wyoming',
   ]
   public cityDisabledFlg = false;
+  public browser: string = '';
 
   constructor(private router: Router, private route: ActivatedRoute) { super(); }
 
@@ -127,6 +129,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.loadTestAnswers();
     this.checkIPAddress();
     this.logUser('Y');
+    this.browser = getBrowser();
+  
+    if (!localStorage['latitude'])
+      this.getLocation();
+    else if (!this.user.navLat)
+      this.uploadCoordinates();
 
     this.cityDisabledFlg = this.user.city && this.user.city.length > 0;
 
@@ -268,8 +276,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     window.scrollTo(0, 0);
 
-//    if (this.menuNum == 8 && this.user.status == 'Active')
- //     this.router.navigate(['']);
+    //    if (this.menuNum == 8 && this.user.status == 'Active')
+    //     this.router.navigate(['']);
   }
   refreshUser() {
     var email = localStorage['email'];
@@ -520,11 +528,15 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       stableScore: this.user.stableScore,
       conScore: this.user.conScore,
       phone: this.user.phone,
+      browser: this.browser,
+      latitude: localStorage['latitude'],
+      longitude: localStorage['longitude'],
       action: 'updateProfile',
     };
     console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
   }
+
   uploadPicButtonClicked(num: number) {
     this.loadingFlg = true;
     var params = {

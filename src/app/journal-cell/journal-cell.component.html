@@ -11,9 +11,9 @@
                             class="fa fa-ellipsis-v"></i></span>
                     <span *ngIf="showOptionsFlg" class="three-dots-menu">
                         <div (mousedown)="menuOptionPressed('flag')" class="three-dots-menu-option">Flag</div>
-                        <div *ngIf="adminFlg" (mousedown)="menuOptionPressed('delete')" class="three-dots-menu-option">
+                        <div *ngIf="userId == journal.user_id" (mousedown)="menuOptionPressed('delete')" class="three-dots-menu-option">
                             Delete</div>
-                        <div *ngIf="adminFlg" (mousedown)="menuOptionPressed('edit')" class="three-dots-menu-option">
+                        <div *ngIf="userId == journal.user_id" (mousedown)="menuOptionPressed('edit')" class="three-dots-menu-option">
                             Edit</div>
                     </span>
                 </div>
@@ -65,7 +65,7 @@
         <span (mousedown)="toggleReply();" class="text-link">Reply</span>&nbsp;
         <span *ngIf="journal.imageNum>0" class="text-link" (mousedown)="showImageFlg=!showImageFlg">
             <i class="fa fa-picture-o"></i> Show Attachment</span>&nbsp;
-        <span *ngIf="journal.region == 'Bug' && adminFlg">
+        <span *ngIf="journal.region == 'Bug' && userId == 1">
             <span (mousedown)="toggleAttachment();"
             class="text-link">Attachment</span>&nbsp;
             <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')" class="btn btn-primary">Fixed</button>&nbsp;
@@ -98,7 +98,7 @@
         </tr>
     </table>
     <app-journal-cell *ngFor="let reply of replies; let i = index;" [journal]="reply" [index]="i" [adminFlg]="adminFlg"
-        [level]="level" [imgSrc]="imgSrc">
+        [level]="level" [imgSrc]="imgSrc"  [userId]="userId">
     </app-journal-cell>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>

@@ -36,7 +36,7 @@
             <div class="main-color" style="font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to
                 Betra!
             </div>
-            <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
+            <div *ngIf="!user.lat || !user.navLat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>

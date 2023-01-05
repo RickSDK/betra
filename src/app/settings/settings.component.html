@@ -1,7 +1,6 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Settings'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-
     <!--<app-upload-image-crop [src]="user.imgSrc"></app-upload-image-crop>-->
 
     <div class="matches-card" *ngIf="user">
@@ -16,26 +15,84 @@
                 class="fa fa-arrow-up"></i>
             Upgrade</button>&nbsp;
 
-        <div *ngIf="!user.lat" class="border-box">
+        <div *ngIf="!user.lat || !user.navLat" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>
             <p>Click the "Location" button and then press "Update Location" to fix.</p>
             <p class="gray-text">If this doesn't fix your issue, you will need to log in with a different device or
                 change your browser settings to allow location info.</p>
         </div>
         <div *ngIf="showLocationFlg && !loadingFlg" class="border-box">
-            <div class="gray-text">Location</div>
-            <div>City: <span class="text-highlight">{{user.city}}</span></div>
-            <div>State: <span class="text-highlight">{{user.state}}</span></div>
-            <div>Country: <span class="text-highlight">{{user.countryName}}</span></div>
+            <div>Location</div>
+            <div class="gray-text">If you have moved to a new location and want to update the database, click the "Find Location" button below,
+                and then press "Update" to update the database.
+            </div>
+            <div *ngIf="geoUpdatedFlg">Your location data has been updated!</div>
+            <table *ngIf="!geoUpdatedFlg">
+                <tr>
+                    <th>Item</th>
+                    <th>Server Data</th>
+                    <th>Local Data</th>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td><span class="text-highlight">{{user.city}}</span></td>
+                    <td><span class="text-highlight">{{city}}</span></td>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td><span class="text-highlight">{{user.state}}</span></td>
+                    <td><span class="text-highlight">{{state}}</span></td>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td><span class="text-highlight">{{user.countryName}}</span></td>
+                    <td><span class="text-highlight">{{country}}</span></td>
+                </tr>
+                <tr>
+                    <td>GPS1</td>
+                    <td><span class="text-highlight">{{user.gpsLat}}</span></td>
+                    <td><span class="text-highlight">{{lat1}}</span></td>
+                </tr>
+                <tr>
+                    <td>GPS2</td>
+                    <td><span class="text-highlight">{{user.navLat}}</span></td>
+                    <td><span class="text-highlight" id="lat2">{{lat2}}</span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td align="center">
+                        <button class="btn btn-main-color" *ngIf="!findingLocationDataFlg" (mousedown)="findLocalData()">
+                            <i class="fa fa-globe"></i> Find Location</button>
+                        <i *ngIf="findingLocationDataFlg" class="fa fa-spinner fa-spin"></i>
+                        <div style="margin-top: 2px;">
+                            <button (mousedown)="updateLocation()" [disabled]="updateLocationDisabledFlg" class="btn btn-success" style="height: 60px;"><i
+                                class="fa fa-map-pin"></i>
+                            Update</button>&nbsp;
+                        </div>
+                        <div class="gray-text">Update to this new location</div>
+
+                    </td>
+                </tr>
+            </table>
+
+            
             <div style="color: #eee; font-size: 10px;">{{user.latitude}} {{user.longitude}}</div>
-            <button (mousedown)="updateLocation()" class="btn btn-success" style="height: 60px;"><i
-                    class="fa fa-map-pin"></i>
-                Update Location</button>&nbsp;
+
         </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngIf="showStatsFlg">
             <div><b>Betra Stats</b></div>
+            <div style="font-size: 10px;">
+                <div>Version: <span class="text-highlight">{{version}}</span></div>
+                <div>Browser: <span class="text-highlight">{{browser}}</span></div>
+                <div>Platform: <span class="text-highlight">{{platform}}</span></div>
+                <div>gps: <span class="text-highlight">{{user.gpsLat}}, {{user.gpsLng}}</span></div>
+                <div>navigator: <span class="text-highlight">{{user.navLat}}, {{user.navLng}}</span></div>
+                <div>local: <span class="text-highlight">{{lat2}}, {{lng2}}</span></div>    
+                <div>final: <span class="text-highlight">{{user.latitude}}, {{user.longitude}}</span></div>
+            </div>
             <table width="100%" *ngIf="responseJson && !loadingFlg">
                 <tr>
                     <td valign="top">

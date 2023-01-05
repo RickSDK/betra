@@ -3,7 +3,7 @@
     <div class="matches-card" *ngIf="user">
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <app-owners-menu [pageTitle]="'Flagged'"></app-owners-menu>
+        <app-owners-menu [pageTitle]="'Flagged'" [page]="1"></app-owners-menu>
 
         <p *ngIf="playerList.length == 0">
             No Users Flagged at this time

@@ -57,8 +57,8 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
       uid: this.matchUser.user_id,
       rating: this.experienceRating,
       message: $('#reviewText').val(),
-      firstName: this.user.firstName,
-      profilePic: this.user.profilePic,
+      firstName: this.myUser.firstName,
+      profilePic: this.myUser.profilePic,
       action: 'submitReview'
     };
     console.log('p', params);

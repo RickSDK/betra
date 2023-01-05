@@ -2,7 +2,7 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
     <div class="matches-card">
         <div *ngIf="user && user.ownerFlg">
-            <app-owners-menu [pageTitle]="'Overview'"></app-owners-menu>
+            <app-owners-menu [pageTitle]="'Overview'" [page]="1"></app-owners-menu>
         </div>
 
         <p class="gray-text" style="text-align: left;">Join the Betra team and let's try to grow this app into one of
@@ -80,8 +80,8 @@
             <div class="shaded-border-box">
                 <div class="title-bar">How to sign up</div>
                 <div class="inside-box">
-
-                    <div *ngIf="!loadingFlg"
+                    <div *ngIf="ownerCount >= 71">Sorry, all the spots are currently filled up.</div>
+                    <div *ngIf="ownerCount < 71 && !loadingFlg"
                         style="border: 1px solid gray; border-radius: 5px; display: inline-block; text-align: left; padding: 10px;">
                         <ol>
 

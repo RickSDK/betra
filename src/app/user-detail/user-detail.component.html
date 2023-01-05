@@ -17,7 +17,7 @@
     </div>
 
     <div class="matches-card" *ngIf="searchStarted && user && !matchUser">
-        <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
+        <div *ngIf="!user.lat || !user.navLat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
             <p class="red-text">Note: Something is not set up properly with your location</p>
             <p>Click here to fix.</p>
         </div>
@@ -81,6 +81,7 @@
                 <option value="1">Nudity</option>
                 <option value="2">Can't see face</option>
                 <option value="3">Looks fake</option>
+                <option value="4">Bad Picture</option>
             </select>
             <button (mousedown)="rejectPic()" class="btn btn-danger large-button">Submit</button>
 

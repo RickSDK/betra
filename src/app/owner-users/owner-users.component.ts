@@ -55,7 +55,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
         element.lastDay = lastLoginText(element.lastLogin);
         element.location = this.getUserLocation(element.city, element.state || element.stateName, element.countryName);
 
-        if (element.user_id == 1 || element.user_id == 122 || element.user_id == 118 || element.user_id == 156)
+        if (element.user_id == 1 || element.user_id == 122 || element.user_id == 118 || element.user_id == 156 || element.user_id == 233 || element.user_id == 235)
           this.managmentTeam.push(element);
         else if (element.user_id == 161 || element.user_id == 141 || element.user_id == 85 || element.user_id == 155 || element.user_id == 65 || element.user_id == 73 || element.user_id == 74 || element.user_id == 75)
           this.devTeam.push(element);

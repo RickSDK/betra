@@ -14,8 +14,8 @@
             requested info. Awaiting Reply.
         </div>
         <div *ngIf="!loadingFlg && !messageSentFlg && !matchUser.matchObj.you_info_request">
-            <button (mousedown)="requestNum=0" class="btn btn-danger">Cancel</button>&nbsp;
-            <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-success" style="height: 60px;">Send
+            <button (mousedown)="requestNum=0" class="btn btn-secondary">Cancel</button>&nbsp;
+            <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-main-color" style="height: 60px;">Send
                 Request</button>
         </div>
     </div>
@@ -25,8 +25,8 @@
 <div *ngIf="matchUser.matchObj.match_info_request == 'Y'" class="tan-box">
     <div>{{matchUser.firstName}} has requested to receive your email address and phone number.</div>
     <div *ngIf="!loadingFlg && !sendMessage">
-        <button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-danger">Reject</button>&nbsp;
-        <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-success">Approve</button>
+        <button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-secondary">Reject</button>&nbsp;
+        <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-main-color">Approve</button>
     </div>
     <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>
 </div>

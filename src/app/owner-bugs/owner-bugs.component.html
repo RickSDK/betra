@@ -2,37 +2,41 @@
     [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
-        <app-owners-menu [pageTitle]="'Bugs'"></app-owners-menu>
+        <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
 
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div class="border-box" style="font-size: 12px;">
-            Use this page to report bugs or make suggestions to make the app better.
+            <div *ngIf="pageTitle=='Bugs'">Use this page to report bugs or make suggestions to make the app better.
+            </div>
+            <div *ngIf="pageTitle=='Discussion'">Use this page to discuss important elements of the app.</div>
         </div>
         <button *ngIf="postId==0 && !showFormFlg" (mousedown)="createNewEntry()"
             class="btn btn-light bordered-button">Create
-            Bug</button>
+            Entry</button>
         <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
             to top</button>
 
-        <div class="btn-group">
-            <button (mousedown)="changeStatusFilter(i)" *ngFor="let button of statusOptions; let i = index;" [ngClass]="ngClassMenuButton(i, menuNum)"
+        <div class="btn-group" *ngIf="pageTitle=='Bugs'">
+            <button (mousedown)="changeStatusFilter(i)" *ngFor="let button of statusOptions; let i = index;"
+                [ngClass]="ngClassMenuButton(i, menuNum)"
                 style="font-size: 12px; margin-right: 2px;">{{button}}</button>
         </div>
 
 
         <div *ngIf="selectedJournal">
             <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"
-                [adminFlg]="userId==1">
+                [adminFlg]="user.user_id==selectedJournal.user_id" [userId]="user.user_id">
             </app-journal-cell>
         </div>
 
         <div *ngIf="showFormFlg">
-            <div *ngIf="postId==0" class="gray-text">Tell about the bug you found or describe a feature you think would
+            <div *ngIf="postId==0 && pageTitle=='Bugs'" class="gray-text">Tell about the bug you found or describe a feature you think would
                 make the app better.</div>
-            <div *ngIf="postId>0" class="gray-text">Reply to this bug.</div>
+            <div *ngIf="postId==0 && pageTitle=='Discussion'" class="gray-text">What item would you like to bring up for discussion?</div>
+            <div *ngIf="postId>0" class="gray-text">Reply to this item.</div>
             <app-text-area-input [id]="'journalText'"></app-text-area-input>
-            <table>
+            <table *ngIf="pageTitle=='Bugs'">
                 <tr>
                     <td>
                         <div style="padding: 20px;">
@@ -74,7 +78,8 @@
     <div *ngIf="!selectedJournal">
         <app-journal-cell (messageEvent)="replyButtonClicked($event)"
             *ngFor="let journal of displayedBugs; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
-            [imgSrc]="user.imgSrc" [adminFlg]="userId==1 || userId == journal.user_id" [level]="0"></app-journal-cell>
+            [imgSrc]="user.imgSrc" [adminFlg]="user.user_id == journal.user_id" [level]="0" [userId]="user.user_id">
+        </app-journal-cell>
     </div>
 
 </app-page-shell>

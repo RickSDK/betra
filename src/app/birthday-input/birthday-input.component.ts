@@ -36,7 +36,6 @@ export class BirthdayInputComponent implements OnInit {
         this.month = parts[1];
         this.day = parts[2];
         this.verifyBirthday();
-        console.log('xxx', this.month);
         //        var dt = getDateObjFromJSDate(this.birthdate);
         //      if (dt.jsDate == 'Invalid Date')
         //      this.errorMessage = 'Invalid Date';

@@ -24,6 +24,8 @@ import { ProfileEditPicsComponent } from './profile-edit-pics/profile-edit-pics.
 import { VerifyPicsComponent } from './verify-pics/verify-pics.component';
 import { OwnerActivityComponent } from './owner-activity/owner-activity.component';
 import { FlaggedUsersComponent } from './flagged-users/flagged-users.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -50,6 +52,8 @@ const routes: Routes = [
   { path: 'verify-pics', component: VerifyPicsComponent },
   { path: 'owner-activity', component: OwnerActivityComponent },
   { path: 'flagged-users', component: FlaggedUsersComponent },
+  { path: 'terms-conditions', component: TermsConditionsComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
 ];
 
 @NgModule({

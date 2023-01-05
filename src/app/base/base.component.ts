@@ -274,6 +274,29 @@ export class BaseComponent implements OnInit {
     return (flag) ? 'fa fa-check-square-o betra-checkbox' : 'fa fa-square-o betra-checkbox';
   }
 
+  uploadCoordinates() {
+    if (localStorage['latitude']) {
+      var params = { latitude: localStorage['latitude'], longitude: localStorage['longitude'] }
+      this.getDataFromServer('updateLat', 'geoScript.php', params);
+    } else
+      this.errorMessage = 'No Coordinates found. Try using a browser that supports geolocation.';
+  }
+
+  getLocation() {
+    console.log('finding location');
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showPosition);
+    } else {
+      this.errorMessage = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  showPosition(position: any) {
+    console.log('here are the coordinates', position.coords.latitude, position.coords.longitude);
+    localStorage['latitude'] = position.coords.latitude;
+    localStorage['longitude'] = position.coords.longitude;
+    //this.uploadCoordinates();
+  }
 
 }
 function getPostDataFromObj(obj: any) {

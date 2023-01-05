@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Router } from '@angular/router';
 
+declare var getVersion: any;
+declare var getBrowser: any;
+declare var getPlatform: any;
+declare var $: any;
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -11,121 +16,35 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   public showStatsFlg: boolean = false;
   public showLocationFlg: boolean = false;
   public showUpgradeFlg: boolean = false;
-  /*
-  public canvas: any;
-  public image: any;
-  public ctx: any;
-  public startPointX: number = 0;
-  public startPointY: number = 0;
-  public currentPointX: number = 0;
-  public currentPointY: number = 0;
-  public isDragging: boolean = false;
-  public zoomLevel: number = 100;
-  public imageWidth: number = 0;
-  public imageHeight: number = 0;
-  public imageTop: number = 0;
-  public imageLeft: number = 0;*/
+
+  public geoUpdatedFlg: boolean = false;
+  public version: string = '';
+  public browser: string = '';
+  public platform: string = '';
+  public updateLocationDisabledFlg: boolean = true;
+  public findingLocationDataFlg: boolean = false;
+  public city: string = '';
+  public state: string = '';
+  public country: string = '';
+  public lat1: string = '';
+  public lng1: string = '';
+  public lat2: string = '';
+  public lng2: string = '';
+  public ip: string = '';
 
   constructor(private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-/*
-    this.canvas = document.querySelector('canvas');
-    if (this.canvas) {
-      this.ctx = this.canvas.getContext('2d');
-      if (this.ctx) {
-        this.image = new Image();
-        this.image.src = "assets/images/bachelor.jpg";
 
+    this.version = getVersion();
+    this.browser = getBrowser();
+    this.platform = getPlatform();
 
-
-        setTimeout(() => {
-          this.ctx.drawImage(this.image, 0, 0);
-          this.imageWidth = this.image.width;
-          this.imageHeight = this.image.height;
-          console.log('size', this.image.width, this.imageHeight);
-        }, 100);
-
-      }
-    }*/
-  }
-/*
-  drawImage() {
-    this.ctx.fillStyle = 'gray';
-    var rect = this.canvas.getBoundingClientRect();
-    this.ctx.fillRect(0, 0, rect.right, rect.bottom);
-
-    var width = this.imageWidth * this.zoomLevel / 100;
-    var height = this.imageHeight * this.zoomLevel / 100;
-    var y = this.imageTop + this.currentPointY - this.startPointY;
-    var x = this.imageLeft + this.currentPointX - this.startPointX;
-    if (x > 0)
-      x = 0;
-    if (y > 0)
-      y = 0;
-
-    if (x + this.imageWidth < 400)
-      x = 400 - this.imageWidth;
-
-    if (y + this.imageHeight < rect.bottom)
-      y = rect.bottom - this.imageHeight;
-
-    this.ctx.drawImage(this.image, x, y, width, height);
-    //console.log('x', x, this.imageWidth, rect.right, x + this.imageWidth);
+    this.lat2 = localStorage['latitude'];
+    this.lng2 = localStorage['longitude'];
 
   }
-
-  getPosition(event: any) {
-    var rect = this.canvas.getBoundingClientRect();
-    var x = event.clientX - rect.left;
-    var y = event.clientY - rect.top;
-    this.startPointX = x;
-    this.startPointY = y;
-    this.currentPointX = x;
-    this.currentPointY = y;
-    //console.log('start', this.startPointX, this.startPointY);
-    this.drawImage();
-    this.isDragging = true;
-  }
-  moveMouse(event: any) {
-    if (this.isDragging) {
-      var rect = this.canvas.getBoundingClientRect();
-      this.currentPointX = event.clientX - rect.left;
-      this.currentPointY = event.clientY - rect.top;
-      //console.log('move to', this.currentPointX, this.currentPointY);
-      this.drawImage();
-    }
-  }
-  endPosition(event: any) {
-    this.imageTop += this.currentPointY - this.startPointY;
-    this.imageLeft += this.currentPointX - this.startPointX;
-    this.isDragging = false;
-  }
-
-  zoomImage(amount: number) {
-    this.zoomLevel += amount;
-    this.drawImage();
-  }
-
-  captureImage() {
-    let imageSrc = this.canvas.toDataURL('image/jpeg');
-
-    var canvas = document.getElementById('myCanvas2');
-
-    if (canvas) {
-      var ctx = this.canvas.getContext('2d');
-      if (ctx) {
-        console.log('hey', canvas, ctx);
-        var image = new Image();
-        image.src = imageSrc;
-        setTimeout(() => {
-          ctx.drawImage(image, 0, 0);
-
-        }, 2000);
-      }
-    }
-  }*/
 
   logout() {
     this.userId = 0;
@@ -151,13 +70,33 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
   updateLocation() {
     this.loadingFlg = true;
-    this.populateGeoInfo();
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      city: this.city,
+      countryName: this.country,
+      latitude: this.lat1,
+      longitude: this.lng1,
+      navLat: localStorage['latitude'],
+      navLng: localStorage['longitude'],
+      state: this.state,
+      action: "updateNewGeoInfo"
+    };
+    console.log('populateGeoInfo', params);
+    this.getDataFromServer('updateNewGeoInfo', 'geoScript.php', params);
+
   }
   showLocation() {
     this.showLocationFlg = !this.showLocationFlg;
   }
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
+    if (responseJson.action == 'updateLat' || responseJson.action == 'updateNewGeoInfo') {
+      this.user.navLat = responseJson.user.navLat;
+      this.user.navLng = responseJson.user.navLng;
+      this.syncUserWithLocalStorage(responseJson);
+      this.geoUpdatedFlg = true;
+    }
     if (responseJson.action == 'updateGeoInfo') {
       this.user.city = responseJson.user.city;
       this.user.state = responseJson.user.state;
@@ -166,5 +105,45 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       this.user.lng = responseJson.user.lng;
       this.syncUserWithLocalStorage(responseJson);
     }
+  }
+  showLocalPosition(position: any) {
+    console.log('here are the coordinates', position.coords.latitude, position.coords.longitude);
+    localStorage['latitude'] = position.coords.latitude;
+    localStorage['longitude'] = position.coords.longitude;
+
+    var e = document.getElementById("lat2");
+    if (e)
+      e.innerHTML = position.coords.latitude;
+    //this.uploadCoordinates();
+  }
+  checkDisabledButton() {
+    this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1 && (!this.lat2 || this.user.navLat == this.lat2));
+    this.findingLocationDataFlg = false;
+  }
+  findLocalData() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showLocalPosition);
+    } else {
+      this.errorMessage = "Geolocation is not supported by this browser.";
+    }
+    this.populateGeoInfo();
+
+    this.lat2 = localStorage['latitude'];
+
+    this.findingLocationDataFlg = true;
+    $.getJSON('https://ssl.geoplugin.net/json.gp?k=cee1887eb4490f28', (data: any) => {
+      this.city = data.geoplugin_city;
+      this.state = data.geoplugin_regionCode;
+      this.country = data.geoplugin_countryName;
+      this.lat1 = data.geoplugin_latitude;
+      this.lng1 = data.geoplugin_longitude;
+      this.ip = data.geoplugin_request;
+      this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1 && (!this.lat2 || this.user.navLat == this.lat2));
+      setTimeout(() => {
+        this.checkDisabledButton();
+      }, 2000);
+
+    });
+
   }
 }

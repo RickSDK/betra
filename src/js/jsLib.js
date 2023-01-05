@@ -2,7 +2,7 @@ function getHostname() {
     return 'https://www.appdigity.com/betraPhp/';
 }
 function getVersion() {
-	return '0.101';
+	return '0.110';
 }
 function getIPInfo(userName, pwd) {
     var code = btoa(pwd);
@@ -27,6 +27,43 @@ function getIPInfo(userName, pwd) {
                 console.log(data);
             });
     });
+}
+function getPlatform() {
+	return navigator["platform"];
+}
+function getBrowser() {
+	  // CHROME
+	  if (navigator.userAgent.indexOf("Chrome") != -1 ) {
+		return("Google Chrome");
+	  }
+	  // FIREFOX
+	  else if (navigator.userAgent.indexOf("Firefox") != -1 ) {
+		return("Mozilla Firefox");
+	  }
+	  // INTERNET EXPLORER
+	  else if (navigator.userAgent.indexOf("MSIE") != -1 ) {
+		return("Internet Exploder");
+	  }
+	  // EDGE
+	  else if (navigator.userAgent.indexOf("Edge") != -1 ) {
+		return("Internet Exploder");
+	  }
+	  // SAFARI
+	  else if (navigator.userAgent.indexOf("Safari") != -1 ) {
+		return("Safari");
+	  }
+	  // OPERA
+	  else if (navigator.userAgent.indexOf("Opera") != -1 ) {
+		return("Opera");
+	  }
+	  // YANDEX BROWSER
+	  else if (navigator.userAgent.indexOf("YaBrowser") != -1 ) {
+		return("YaBrowser");
+	  }
+	  // OTHERS
+	  else {
+		return("Others");
+	  }
 }
 function betraImageFromId(user_id, profilePic) {
 	if (user_id > 0 && profilePic > 0)

@@ -28,10 +28,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     window.scrollTo(0, 0);
 
-    var one = "one";
-    var two = "two";
-    console.log(one > two);
-
     this.loadUserObj();
     this.getStateCounts();
     this.popupNum = 1;
@@ -49,7 +45,10 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (this.user && this.user.status == 'Active') {
       this.popupNum = 0;
       this.headerObj.notifications = this.user.notifications;
-      //this.logUser();
+      if (!localStorage['latitude'])
+        this.getLocation();
+      else if (!this.user.navLat)
+        this.uploadCoordinates();
     }
   }
   getStateCounts() {

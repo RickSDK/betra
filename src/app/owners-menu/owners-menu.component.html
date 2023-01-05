@@ -1,3 +1,14 @@
-<div class="btn-group">
-    <button *ngFor="let button of buttons" [routerLink]="button.routerLink" [ngClass]="ngClassButton(button.name)" style="font-size: 12px; margin-right: 2px;">{{button.name}}</button>
+<div style="margin-bottom: 2px;">
+    <div class="btn-group">
+        <button *ngFor="let button of topButtons; let i = index;" [routerLink]="button.routerLink" (mousedown)="page=i" [ngClass]="ngClassTopButton(i)"
+            style="font-size: 14px; margin-right: 2px; height: 50px;">{{button.name}}</button>
+    </div>
+</div>
+<div *ngIf="page==0" class="btn-group">
+    <button *ngFor="let button of buttons" [routerLink]="button.routerLink" [queryParams]="{id: button.id}" [ngClass]="ngClassButton(button.name)"
+        style="font-size: 12px; margin-right: 2px;">{{button.name}}</button>
+</div>
+<div *ngIf="page==1" class="btn-group">
+    <button *ngFor="let button of buttons2" [routerLink]="button.routerLink" [ngClass]="ngClassButton(button.name)"
+        style="font-size: 12px; margin-right: 2px;">{{button.name}}</button>
 </div>

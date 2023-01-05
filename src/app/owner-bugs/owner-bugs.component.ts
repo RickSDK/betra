@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
+import { ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 declare var getVersion: any;
@@ -19,12 +20,27 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
   public appVersion: string = '';
   public statusOptions = ['New', 'Back Burner', 'Fixed'];
   public displayStatus = 'New';
+  public region: string = 'Bug';
+  public pageTitle: string = 'Bugs';
 
-  constructor() { super(); }
+  constructor(private route: ActivatedRoute) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getAllBugs();
+    this.displayedBugs = [];
+    this.route.queryParams.subscribe(params => {
+      var id = params['id'] || 0;
+      if (id == 2) {
+        this.region = 'Discus';
+        this.pageTitle = 'Discussion';
+      }
+      if (id == 3) {
+        this.region = 'Bug';
+        this.pageTitle = 'Bugs';
+      }
+      this.getAllEntries();
+    });
+
     this.appVersion = getVersion();
   }
 
@@ -44,11 +60,11 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
     this.displayedBugs = filteredBugs;
   }
 
-  getAllBugs() {
+  getAllEntries() {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      region: 'Bug',
+      region: this.region,
       action: "getJournals"
     };
     console.log(params);
@@ -73,7 +89,7 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
       userId: localStorage['user_id'],
       code: localStorage['code'],
       message: $('#journalText').val(),
-      region: 'Bug',
+      region: this.region,
       bugType: $('#bugType').val(),
       deviceType: $('#deviceType').val(),
       version: this.appVersion,
@@ -108,7 +124,7 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
     this.selectedJournal = null;
     if (this.postId > 0 || this.displayedBugs.length == 0) {
       this.postId = 0;
-      this.getAllBugs();
+      this.getAllEntries();
     }
   }
   replyButtonClicked(journal: any) {

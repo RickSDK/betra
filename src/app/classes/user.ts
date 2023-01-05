@@ -167,6 +167,10 @@ export class User {
     public profileFlaggedBy: number = 0;
     public profileFlaggedByProfilePic: number = 0;
     public activityRep: number = 0;
+    public navLat: string = '';
+    public navLng: string = '';
+    public gpsLat: string = '';
+    public gpsLng: string = '';
 
     constructor(obj: any) {
         if (obj) {
@@ -253,8 +257,13 @@ export class User {
             this.reviewsCount = obj.reviewsCount || 0;;
 
             this.countryName = obj.countryName || '';
-            this.latitude = obj.latitude || '';
-            this.longitude = obj.longitude || '';
+            this.gpsLat = obj.latitude || '';
+            this.gpsLng = obj.longitude || '';
+            this.navLat = obj.navLat || '';
+            this.navLng = obj.navLng || '';
+            this.latitude = obj.navLat || obj.latitude || '';
+            this.longitude = obj.navLng || obj.longitude || '';
+
             this.region = obj.region || '';
             this.state = obj.state || '';
             this.stateName = obj.stateName || '';

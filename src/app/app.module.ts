@@ -69,6 +69,9 @@ import { OwnerActivityUserComponent } from './owner-activity-user/owner-activity
 import { BetraFeaturesComponent } from './betra-features/betra-features.component';
 import { UploadImageCropComponent } from './upload-image-crop/upload-image-crop.component';
 import { FlaggedUsersComponent } from './flagged-users/flagged-users.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+//import { OwnerDiscussionComponent } from './owner-discussion/owner-discussion.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -138,7 +141,9 @@ import { FlaggedUsersComponent } from './flagged-users/flagged-users.component';
     OwnerActivityUserComponent,
     BetraFeaturesComponent,
     UploadImageCropComponent,
-    FlaggedUsersComponent
+    FlaggedUsersComponent,
+    TermsConditionsComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

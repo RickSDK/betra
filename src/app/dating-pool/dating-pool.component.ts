@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dating-pool',
@@ -12,7 +13,7 @@ export class DatingPoolComponent implements OnInit {
 
   public datingPoolLimit: number = 8;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
@@ -23,8 +24,11 @@ export class DatingPoolComponent implements OnInit {
     this.ngOnInit();
   }
 
-  userClicked(uid: number) {
-    this.messageEvent.emit(uid.toString());
+  userClicked(person: any) {
+    if(person.match && person.alerts>0) {
+      this.router.navigate(['/user-detail'], { queryParams: { uid: person.user_id } });
+    } else
+      this.messageEvent.emit(person.user_id.toString());
   }
 
 }

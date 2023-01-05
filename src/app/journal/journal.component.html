@@ -14,7 +14,7 @@
 
         <div *ngIf="selectedJournal">
             <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"
-                [adminFlg]="userId==1">
+                [adminFlg]="user.user_id==selectedJournal.user_id" [userId]="user.user_id">
             </app-journal-cell>
         </div>
 
@@ -36,7 +36,7 @@
     <div *ngIf="!selectedJournal">
         <app-journal-cell (messageEvent)="replyButtonClicked($event)"
             *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
-            [imgSrc]="user.imgSrc" [adminFlg]="userId==1 || userId == journal.user_id" [level]="0"></app-journal-cell>
+            [imgSrc]="user.imgSrc" [adminFlg]="user.user_id == journal.user_id" [userId]="user.user_id" [level]="0"></app-journal-cell>
     </div>
 
 </app-page-shell>

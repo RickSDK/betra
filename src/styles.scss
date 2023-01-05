@@ -98,7 +98,7 @@ body {
 }
 
 .tan-box {
-    background-color: #ffffc0;
+    background-color: $light-color;
     padding: 20px;
     margin: 5px;
     border-radius: 5px;
@@ -389,6 +389,11 @@ select {
     background-color: $main-color;
     color: white;
     border-radius: 50%;
+}
+
+.three-dots-menu-option:hover {
+    background-color: $main-color;
+    color: white;
 }
 
 .variable-text {
