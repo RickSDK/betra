@@ -1,14 +1,17 @@
 <div *ngIf="user && user.datingPool && user.datingPool.length>0">
     <div class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
     <div *ngIf="largeFlg">
-        <div *ngFor="let person of user.datingPool" class="pool-large menu-circle" (mousedown)="userClicked(person)">
-            <img *ngIf="person.user_id>0"
-                [src]="person.src" class="large-img" [style.border]="person.heartFlg?'4px solid teal':'none'">
-            <img *ngIf="person.user_id==0" [src]="person.src" class="large-img">
+        <div *ngFor="let person of datingPool" class="pool-large menu-circle">
+            <img *ngIf="person.user_id>0 && !person.alerts" [src]="person.src" class="large-img" (mousedown)="userClicked(person)"
+                [style.border]="person.heartFlg?'4px solid teal':'none'">
+            <img *ngIf="person.user_id>0 && person.alerts && person.alerts>0" [src]="person.src" class="large-img" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+                [style.border]="person.heartFlg?'4px solid teal':'none'">
             <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
-            <i class="fa fa-calendar alert-icon main-color" *ngIf="person.match && person.match.match_date_request == 'A'"></i>
+            <i class="fa fa-calendar alert-icon main-color"
+                *ngIf="person.match && person.match.match_date_request == 'A'"></i>
             <i class="fa fa-comments alert-icon main-color" *ngIf="person.match && person.match.unreadMessages > 0"></i>
-            <i class="fa fa-phone alert-icon main-color" *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
+            <i class="fa fa-phone alert-icon main-color"
+                *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
             <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">
                 <i *ngIf="person.heartFlg2" class="fa fa-heart"></i>
                 {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup>

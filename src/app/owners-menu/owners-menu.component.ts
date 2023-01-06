@@ -12,6 +12,7 @@ export class OwnersMenuComponent implements OnInit {
   public topButtons = [
     { name: 'Main Info', routerLink: '/owners', id: 1 },
     { name: 'More Details', routerLink: '/join-team', id: 1 },
+    { name: 'Teams', routerLink: '/owner-teams', id: 0 },
   ]
   public buttons = [
     { name: 'Details', routerLink: '/owners', id: 1 },
@@ -24,6 +25,13 @@ export class OwnersMenuComponent implements OnInit {
     { name: 'Owners', routerLink: '/owner-users', id: 1 },
     { name: 'Stats', routerLink: '/owner-stats', id: 1 },
     { name: 'Flagged', routerLink: '/flagged-users', id: 1 },
+  ]
+  public buttons3 = [
+    { name: 'Org Chart', routerLink: '/owner-teams', id: 0 },
+    { name: 'Dev Team', routerLink: '/owner-teams', id: 1 },
+    { name: 'Marketing Team', routerLink: '/owner-teams', id: 2 },
+    { name: 'Team James', routerLink: '/owner-teams', id: 3 },
+    { name: 'Team Halle', routerLink: '/owner-teams', id: 4 },
   ]
 
   constructor() { }

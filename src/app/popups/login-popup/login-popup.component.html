@@ -10,9 +10,9 @@
         </div>
 
         <div class="tiny-text">Email Address</div>
-        <input type="email" name="email" id="email" placeholder="Email Address" (input)="valueChanged()">
+        <input type="email" name="email" id="email" placeholder="Email Address" (input)="valueChanged()" [value]="savedEmail">
         <div *ngIf="!forgotPasswordFlg" class="tiny-text">Password</div>
-        <input *ngIf="!forgotPasswordFlg" type="password" name="password" id="password" placeholder="Password" (input)="valueChanged()">
+        <input *ngIf="!forgotPasswordFlg" type="password" name="password" id="password" placeholder="Password" (input)="valueChanged()" [value]="savedPassword">
         <hr>
         <p *ngIf="forgotPasswordFlg">Forgot password? Enter your email address above and press Submit.</p>
         <div style="text-align: center;">

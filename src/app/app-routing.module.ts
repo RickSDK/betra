@@ -26,6 +26,7 @@ import { OwnerActivityComponent } from './owner-activity/owner-activity.componen
 import { FlaggedUsersComponent } from './flagged-users/flagged-users.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
 
 const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
   { path: 'flagged-users', component: FlaggedUsersComponent },
   { path: 'terms-conditions', component: TermsConditionsComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'owner-teams', component: OwnerTeamsComponent },
 ];
 
 @NgModule({

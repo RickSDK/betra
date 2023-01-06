@@ -8,30 +8,31 @@
     <div *ngIf="messages.length==6" (mousedown)="loadMessages(true)" class="text-link"
         style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">
-        <div *ngFor="let message of messages" style="display: block; min-height: 40px;">&nbsp;
+        <div *ngFor="let message of messages"
+            [style.text-align]="(message.user_id == myUser.user_id)?'left':'right'">
             <div *ngIf="message.id == messageToDelete">
                 <div style="padding: 10px;">&nbsp;</div>
                 <div>Delete Message?</div>
                 <button (mousedown)="messageToDelete = 0" class="btn btn-warning">cancel</button>&nbsp;
                 <button (mousedown)="deleteCurrentText(message)" class="btn btn-danger">Delete</button>&nbsp;
             </div>
-            <div [ngClass]="ngClassMessage(message.user_id)" (mousedown)="selectMessage(message.id)">
+            <div style="display: inline-block; text-align: center;" (mousedown)="selectMessage(message.id)">
                 <div *ngIf="message.id==selectedMessage">
                     <span *ngIf="message.user_id != myUser.user_id">
-                    <img (mousedown)="emojiClicked(message, i)" *ngFor="let emoji of emojis; let i = index"
-                        [src]="emoji" height="35" class="emoji-button">
+                        <img (mousedown)="emojiClicked(message, i)" *ngFor="let emoji of emojis; let i = index"
+                            [src]="emoji" height="35" class="emoji-button">
                     </span>
                     <span *ngIf="message.user_id == myUser.user_id">
-                        <img (mousedown)="emojiClicked(message, 0)" 
-                        src="assets/images/emojis/trash.png" height="35" class="emoji-button">
+                        <img (mousedown)="emojiClicked(message, 0)" src="assets/images/emojis/trash.png" height="35"
+                            class="emoji-button">
                     </span>
                 </div>
                 <div *ngIf="showDetailsFlg" class="top-text">{{message.name}}
                 </div>
-                
+
                 <div [ngClass]="ngClassMessageBlob(message.user_id)" style="position: relative;">
-                    <img *ngIf="message.emoji>0" [src]="emojis[message.emoji]" height="25" 
-                    style="position: absolute; top: -15px; right: 10px;" title="Added by {{message.emojiName}}">
+                    <img *ngIf="message.emoji>0" [src]="emojis[message.emoji]" height="25"
+                        style="position: absolute; top: -15px; right: 10px;" title="Added by {{message.emojiName}}">
                     {{message.message}}
                 </div>
                 <div *ngIf="showDetailsFlg" class="bottom-text">{{message.local}}

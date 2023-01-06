@@ -21,8 +21,12 @@
 
         <div *ngIf="selectedPlayer && option==7 && user.user_id==1">
             <div>{{selectedPlayer.firstName}}</div>
+            <div>1-6 = activity</div>
+            <div>11-16 = activity lead</div>
+            <div>21 = marketing</div>
+            <div>22 = dev</div>
             <div>
-                Activity Team:
+                Team:
                 <select name="activityRep" id="activityRep">
                     <option>0</option>
                     <option>1</option>
@@ -37,6 +41,9 @@
                     <option>14</option>
                     <option>15</option>
                     <option>16</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>99</option>
                 </select>
             </div>
             <button (mousedown)="updateActivityTeam()" class="btn btn-primary">Update</button>

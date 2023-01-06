@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../classes/user';
+import { DatingPoolComponent } from '../dating-pool/dating-pool.component';
 
 declare var $: any;
 declare var lastLoginText: any;
@@ -23,6 +24,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public datingPoolLimit: number = 8;
   public displayUserPopup: boolean = false;
   public matchUser: any = null;
+  @ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
 
   constructor(private route: ActivatedRoute) { super(); }
 
@@ -156,6 +158,11 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'removeThisUser' || responseJson.action == 'banThisUser') {
       this.syncUserWithLocalStorage(responseJson);
+
+      this.user = new User(responseJson.user);
+      console.log('xxx1', this.user.datingPool);
+   //   if (this.datingPoolComponent)
+   //     this.datingPoolComponent.ngOnInit();
     }
     if (responseJson.action == 'getThisUser') {
       this.displayUserPopup = true;

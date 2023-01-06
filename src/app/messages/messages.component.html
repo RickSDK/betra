@@ -3,7 +3,10 @@
 
      <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
      <div class="matches-card" *ngIf="user">
-        <p *ngIf="messageCount==0" style="padding-top: 60px;">No unread messages.</p>
+        <div *ngIf="messageCount==0" style="padding-top: 60px;">
+            <p>No unread messages.</p>
+            <p class="gray-text">To view all your messages check out your <button [routerLink]="['/matches']" class="btn btn-main-color">Dating Pool</button> and view individual users.</p>
+        </div>
         <div *ngIf="messageCount>0">
             <div style="background-color: #ccc; font-size: 18px;">Your messages</div>
             <p>&nbsp;</p>

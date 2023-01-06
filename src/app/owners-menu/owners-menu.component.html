@@ -12,3 +12,7 @@
     <button *ngFor="let button of buttons2" [routerLink]="button.routerLink" [ngClass]="ngClassButton(button.name)"
         style="font-size: 12px; margin-right: 2px;">{{button.name}}</button>
 </div>
+<div *ngIf="page==2" class="btn-group">
+    <button *ngFor="let button of buttons3" [routerLink]="button.routerLink" [queryParams]="{id: button.id}" [ngClass]="ngClassButton(button.name)"
+        style="font-size: 12px; margin-right: 2px;">{{button.name}}</button>
+</div>

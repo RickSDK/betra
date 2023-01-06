@@ -14,24 +14,34 @@
         <button *ngIf="!user.memberFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color"><i
                 class="fa fa-arrow-up"></i>
             Upgrade</button>&nbsp;
+        <button (mousedown)="redoMatchesFlg=!redoMatchesFlg" class="btn btn-main-color"><i
+                class="fa fa-refresh"></i>
+            Redo Matches</button>&nbsp;
 
-        <div *ngIf="!user.lat || !user.navLat" class="border-box">
+        <div *ngIf="!user.lat" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>
-            <p>Click the "Location" button and then press "Update Location" to fix.</p>
+            <p>Click the "Location" button, then "Find Location" and then press "Update" to fix.</p>
             <p class="gray-text">If this doesn't fix your issue, you will need to log in with a different device or
                 change your browser settings to allow location info.</p>
         </div>
-        <div *ngIf="showLocationFlg && !loadingFlg" class="border-box">
+        <div *ngIf="redoMatchesFlg" class="tan-box">
+            <div class="gray-text">Would you like to reset all the people who you said 'No' to so you can browse through them again?</div>
+            <button (mousedown)="redoMatchesFlg=false" class="btn btn-warning">Cancel</button>&nbsp;
+            <button (mousedown)="resetMatchesPressed()" class="btn btn-main-color">Reset Matches</button>
+        </div>
+        <div *ngIf="showLocationFlg" class="border-box">
             <div>Location</div>
-            <div class="gray-text">If you have moved to a new location and want to update the database, click the "Find Location" button below,
+            <div class="gray-text">If you have moved to a new location and want to update the database, click the "Find
+                Location" button below,
                 and then press "Update" to update the database.
             </div>
             <div *ngIf="geoUpdatedFlg">Your location data has been updated!</div>
-            <table *ngIf="!geoUpdatedFlg">
+            <div id="gpsDataError" style="background-color: yellow;">{{gpsDataError}}</div>
+            <table *ngIf="!geoUpdatedFlg" style="font-size: 12px;">
                 <tr>
                     <th>Item</th>
-                    <th>Server Data</th>
-                    <th>Local Data</th>
+                    <th>Current Location</th>
+                    <th>New Location</th>
                 </tr>
                 <tr>
                     <td>City</td>
@@ -62,13 +72,14 @@
                     <td></td>
                     <td></td>
                     <td align="center">
-                        <button class="btn btn-main-color" *ngIf="!findingLocationDataFlg" (mousedown)="findLocalData()">
+                        <button class="btn btn-main-color" *ngIf="!findingLocationDataFlg"
+                            (mousedown)="findLocalData()">
                             <i class="fa fa-globe"></i> Find Location</button>
                         <i *ngIf="findingLocationDataFlg" class="fa fa-spinner fa-spin"></i>
                         <div style="margin-top: 2px;">
-                            <button (mousedown)="updateLocation()" [disabled]="updateLocationDisabledFlg" class="btn btn-success" style="height: 60px;"><i
-                                class="fa fa-map-pin"></i>
-                            Update</button>&nbsp;
+                            <button (mousedown)="updateLocation()" [disabled]="updateLocationDisabledFlg"
+                                class="btn btn-success" style="height: 60px;"><i class="fa fa-map-pin"></i>
+                                Update</button>&nbsp;
                         </div>
                         <div class="gray-text">Update to this new location</div>
 
@@ -76,7 +87,7 @@
                 </tr>
             </table>
 
-            
+
             <div style="color: #eee; font-size: 10px;">{{user.latitude}} {{user.longitude}}</div>
 
         </div>
@@ -90,7 +101,7 @@
                 <div>Platform: <span class="text-highlight">{{platform}}</span></div>
                 <div>gps: <span class="text-highlight">{{user.gpsLat}}, {{user.gpsLng}}</span></div>
                 <div>navigator: <span class="text-highlight">{{user.navLat}}, {{user.navLng}}</span></div>
-                <div>local: <span class="text-highlight">{{lat2}}, {{lng2}}</span></div>    
+                <div>local: <span class="text-highlight">{{lat2}}, {{lng2}}</span></div>
                 <div>final: <span class="text-highlight">{{user.latitude}}, {{user.longitude}}</span></div>
             </div>
             <table width="100%" *ngIf="responseJson && !loadingFlg">

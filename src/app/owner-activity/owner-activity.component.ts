@@ -17,12 +17,12 @@ export class OwnerActivityComponent extends BaseComponent implements OnInit {
   public members5: any = [];
   public members6: any = [];
   public teams = [
-    { name: 'Team 1 - California', lead: {}, members: this.members1, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 2 - Chicago', lead: {}, members: this.members2, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 3 - High Rollers', lead: {}, members: this.members3, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 4 - Seattle', lead: {}, members: this.members4, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 5 - Midwest', lead: {}, members: this.members5, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
-    { name: 'Team 6 - East Coast', lead: {}, members: this.members6, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0 },
+    { name: 'Team 1 - California', lead: {}, members: this.members1, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
+    { name: 'Team 2 - Chicago', lead: {}, members: this.members2, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
+    { name: 'Team 3 - High Rollers', lead: {}, members: this.members3, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
+    { name: 'Team 4 - Seattle', lead: {}, members: this.members4, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
+    { name: 'Team 5 - Midwest', lead: {}, members: this.members5, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
+    { name: 'Team 6 - East Coast', lead: {}, members: this.members6, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
   ];
 
 

@@ -71,7 +71,8 @@ import { UploadImageCropComponent } from './upload-image-crop/upload-image-crop.
 import { FlaggedUsersComponent } from './flagged-users/flagged-users.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-//import { OwnerDiscussionComponent } from './owner-discussion/owner-discussion.component';
+import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
+import { OwnerCellComponent } from './owner-cell/owner-cell.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -143,7 +144,9 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     UploadImageCropComponent,
     FlaggedUsersComponent,
     TermsConditionsComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    OwnerTeamsComponent,
+    OwnerCellComponent
   ],
   imports: [
     BrowserModule,

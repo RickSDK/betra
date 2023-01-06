@@ -17,13 +17,18 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public submitDisabled: boolean = true;
   public showLoginButtonFlg: boolean = true;
   public forgotPasswordFlg: boolean = false;
+  public savedEmail: string = localStorage['savedEmail'] || '';
+  public savedPassword: string = localStorage['savedPassword'] || '';
+  public savedCode: string = localStorage['savedCode'] || '';
 
   constructor(private socialAuthService: SocialAuthService) { super(); }
 
   override ngOnInit(): void {
+    this.submitDisabled = !this.savedEmail;
+
     this.socialAuthService.authState.subscribe((user) => {
-      if(!this.showLoginButtonFlg)
-           this.facebookToBetraLogin(user);
+      if (!this.showLoginButtonFlg)
+        this.facebookToBetraLogin(user);
     });
   }
 
@@ -37,7 +42,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.socialAuthService.signOut();
   }
 
-  facebookToBetraLogin(user:any) {
+  facebookToBetraLogin(user: any) {
     console.log('here is my user!', user);
 
     localStorage['email'] = user.email;
@@ -61,6 +66,10 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     var email: string = $('#email').val();
     var password: string = $('#password').val();
 
+    localStorage['savedEmail'] = email;
+    localStorage['savedPassword'] = password;
+    localStorage['savedCode'] = btoa(password);
+
     localStorage['email'] = email;
     localStorage['code'] = btoa(password);
     var params = {
@@ -72,7 +81,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
   forgotPasswordPressed() {
     var email: string = $('#email').val();
-    if(!email || email.length==0) {
+    if (!email || email.length == 0) {
       this.errorMessage = 'enter your email address';
       return;
     }
@@ -85,16 +94,16 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    if(responseJson.action == 'login' || responseJson.action == 'createAccount') {
+    if (responseJson.action == 'login' || responseJson.action == 'createAccount') {
       console.log('XXX login!!', file, responseJson);
       localStorage['user_id'] = responseJson.user.user_id;
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['messageCount'] = responseJson.infoObj.messageCount;
       localStorage['notifications'] = responseJson.notifications;
       localStorage['User'] = JSON.stringify(responseJson.user);
-  
+
       this.syncUserWithLocalStorage(responseJson);
-      this.messageEvent.emit('login');  
+      this.messageEvent.emit('login');
     }
   }
 

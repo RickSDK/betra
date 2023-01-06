@@ -17,7 +17,7 @@
     </div>
 
     <div class="matches-card" *ngIf="searchStarted && user && !matchUser">
-        <div *ngIf="!user.lat || !user.navLat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
+        <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
             <p class="red-text">Note: Something is not set up properly with your location</p>
             <p>Click here to fix.</p>
         </div>

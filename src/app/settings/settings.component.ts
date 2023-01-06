@@ -31,6 +31,8 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   public lat2: string = '';
   public lng2: string = '';
   public ip: string = '';
+  public gpsDataError: string = '';
+  public redoMatchesFlg: boolean = false;
 
   constructor(private router: Router) { super(); }
 
@@ -69,6 +71,11 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode2.php', params, true);
   }
   updateLocation() {
+    this.gpsDataError = "";
+    var e = document.getElementById("gpsDataError");
+    if (e)
+      e.innerHTML = '';
+
     this.loadingFlg = true;
     var params = {
       userId: localStorage['user_id'],
@@ -89,8 +96,18 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   showLocation() {
     this.showLocationFlg = !this.showLocationFlg;
   }
+
+  resetMatchesPressed() {
+    this.loadingFlg = true;
+    this.redoMatchesFlg = false;
+    this.getDataFromServer('resetMatches', 'appApiCode.php', []);
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
+    if (responseJson.action == 'resetMatches') {
+      this.errorMessage = 'Your Matches have been reset. Click the browse link to continue.';
+    }
     if (responseJson.action == 'updateLat' || responseJson.action == 'updateNewGeoInfo') {
       this.user.navLat = responseJson.user.navLat;
       this.user.navLng = responseJson.user.navLng;
@@ -117,14 +134,23 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     //this.uploadCoordinates();
   }
   checkDisabledButton() {
-    this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1 && (!this.lat2 || this.user.navLat == this.lat2));
+    if (!this.lat1)
+      this.gpsDataError = "unable to get your location. Try logging in using adifferent browser or change your settings.";
+
+    this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1 && this.user.navLat == this.lat2);
     this.findingLocationDataFlg = false;
   }
+  errorCallback() {
+    var e = document.getElementById("gpsDataError");
+    if (e)
+      e.innerHTML = 'Navigator was not able to get your exact position, but will use your gps1 position for locating singles.';
+  }
   findLocalData() {
+    this.gpsDataError = '';
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.showLocalPosition);
+      navigator.geolocation.getCurrentPosition(this.showLocalPosition, this.errorCallback, { timeout: 10000 });
     } else {
-      this.errorMessage = "Geolocation is not supported by this browser.";
+      this.gpsDataError = "Geolocation is not supported by this browser.";
     }
     this.populateGeoInfo();
 

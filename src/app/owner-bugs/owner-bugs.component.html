@@ -17,7 +17,7 @@
         <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
             to top</button>
 
-        <div class="btn-group" *ngIf="pageTitle=='Bugs'">
+        <div class="btn-group" *ngIf="pageTitle=='Bugs' || pageTitle=='Discussion'">
             <button (mousedown)="changeStatusFilter(i)" *ngFor="let button of statusOptions; let i = index;"
                 [ngClass]="ngClassMenuButton(i, menuNum)"
                 style="font-size: 12px; margin-right: 2px;">{{button}}</button>
