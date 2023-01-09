@@ -152,15 +152,15 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   }
   ngClassMessage(user_id: number) {
     if (user_id == this.myUser.user_id)
-      return 'pull-left';
-    else
       return 'pull-right';
+    else
+      return 'pull-left';
   }
   ngClassMessageBlob(user_id: number) {
     if (user_id == this.myUser.user_id)
-      return 'gray-blob';
-    else
       return 'blue-blob';
+    else
+      return 'gray-blob';
   }
   questionValueChanged() {
     var greeting = $('#greetingText').val();

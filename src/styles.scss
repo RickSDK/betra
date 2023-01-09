@@ -5,7 +5,8 @@ $dark-blue: #2a3a46;
 $brown-red: #7D4F50;
 
 $dark-red: #b7121f;
-$light-pink: #CC8B86;
+$medium-red: #b73c46;
+$light-pink: #caa6a3;
 $another-red: #d36f6d;
 
 $dark-teal: #89D5D2;
@@ -13,8 +14,9 @@ $dark-teal: #35B5AC;
 $dark-teal: #1fa49b;
 $lite-teal: #BBF1F1;
 
-$main-color: #198da7;
-$light-color: #BBF1F1;
+$main-color: #b73c46;
+$light-color: #eecccc;
+$button-highlight: #ff4444;
 
 
 body {
@@ -49,7 +51,7 @@ body {
 }
 
 .btn-main-color:hover {
-    background-color: $light-color !important;
+    background-color: $button-highlight !important;
     color: black !important;
 }
 

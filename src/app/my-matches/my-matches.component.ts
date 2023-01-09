@@ -24,12 +24,22 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public datingPoolLimit: number = 8;
   public displayUserPopup: boolean = false;
   public matchUser: any = null;
+  public selectedPerson: any = null;
+  public origSelectedPerson: number = 0;
+
   @ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
 
   constructor(private route: ActivatedRoute) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.user.datingPool.forEach((element: any) => {
+      if (element.heartFlg)
+        this.selectedPerson = element;
+    });
+    if (this.selectedPerson)
+      this.origSelectedPerson = this.selectedPerson.user_id;
+
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
@@ -38,6 +48,16 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         this.showDetailsNumber = 1;
     })
   }
+
+  chooseForRose(person: any) {
+    this.selectedPerson = person;
+    this.disableFormFlg = (this.selectedPerson.user_id == this.origSelectedPerson);
+  }
+
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
+  }
+
   loadPopupUser(uid: string) {
     var params = {
       userId: localStorage['user_id'],
@@ -120,7 +140,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      uid: $('#assignHeart').val(),
+      uid: this.selectedPerson.user_id,
       action: "assignHeart"
     };
     console.log(params);
@@ -161,8 +181,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
       this.user = new User(responseJson.user);
       console.log('xxx1', this.user.datingPool);
-   //   if (this.datingPoolComponent)
-   //     this.datingPoolComponent.ngOnInit();
+      //   if (this.datingPoolComponent)
+      //     this.datingPoolComponent.ngOnInit();
     }
     if (responseJson.action == 'getThisUser') {
       this.displayUserPopup = true;

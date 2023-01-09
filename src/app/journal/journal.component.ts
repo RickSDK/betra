@@ -14,17 +14,19 @@ export class JournalComponent extends BaseComponent implements OnInit {
   public showFormFlg: boolean = false;
   public selectedJournal: any = null;
   public postId: number = 0;
+  public region: string = 'main';
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getAllReviews();
+    this.getAllJournals();
   }
-  getAllReviews() {
+  getAllJournals() {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
+      region: this.region,
       action: "getJournals"
     };
     console.log(params);
@@ -32,27 +34,34 @@ export class JournalComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
-    if (responseJson.action == 'getJournals' || responseJson.action == 'postJournalReply') {
+    if (responseJson.action == 'getJournals' || responseJson.action == 'postMainJournal' || responseJson.action == 'postJournalReply') {
       this.selectedJournal = null;
       this.journalList = [];
       var journalList: any = [];
       responseJson.itemArray.forEach((element: any) => {
-        journalList.push(new Journal(element));
+        if (element.status != 'Closed')
+          journalList.push(new Journal(element));
       });
       this.journalList = journalList;
     }
   }
   submitButtonPressed() {
-    this.showFormFlg = false;
+    this.errorMessage = '';
+    if ($('#aboutme').val() == "" || $('#history').val() == "" || $('#lookingFor').val() == "") {
+      this.errorMessage = 'Fill out all required fields';
+      return;
+    }
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      message: $('#journalText').val(),
-      firstName: this.user.firstName,
-      profilePic: this.user.profilePic,
-      action: "postJournal"
+      region: this.region,
+      message: $('#aboutme').val(),
+      history: $('#history').val(),
+      lookingFor: $('#lookingFor').val(),
+      action: "postMainJournal"
     };
-    console.log(params);
+    //console.log(params);
+    this.showFormFlg = false;
     this.executeApi('journal.php', params, true);
   }
   replyButtonPressed() {
@@ -81,23 +90,10 @@ export class JournalComponent extends BaseComponent implements OnInit {
     this.selectedJournal = null;
     if (this.postId > 0 || this.journalList.length == 0) {
       this.postId = 0;
-      this.getAllReviews();
+      this.getAllJournals();
     }
   }
   replyButtonClicked(journal: any) {
-    console.log('made it', journal);
-    this.postId = journal.row_id;
-    this.selectedJournal = journal;
-    this.showFormFlg = true;
-    if (journal.replies > 0) {
-      var params = {
-        userId: localStorage['user_id'],
-        code: localStorage['code'],
-        postId: this.postId,
-        action: "getJournals"
-      };
-      console.log(params);
-      this.executeApi('journal.php', params, true);
-    }
+    this.getAllJournals();
   }
 }

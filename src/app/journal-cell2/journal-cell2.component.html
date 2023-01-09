@@ -1,4 +1,4 @@
-<div [ngClass]="level==1?'matches-card':'reply-card'" *ngIf="journal">
+<!--<div [ngClass]="level==1?'matches-card':'reply-card'" *ngIf="journal">
     <table width="100%">
         <tr>
             <td align="right">
@@ -62,7 +62,12 @@
             </tr>
         </table>
 
-        <div *ngIf="adminAction!='edit'" [innerHTML]="journal.message"></div>
+        <div class="small-title">About Me</div>
+        <div *ngIf="adminAction!='edit'" [innerHTML]="journal.message" class="gray-box"></div>
+        <div class="small-title">My Dating History</div>
+        <div *ngIf="adminAction!='edit'" [innerHTML]="journal.history" class="gray-box"></div>
+        <div class="small-title">What I'm Looking For</div>
+        <div *ngIf="adminAction!='edit'" [innerHTML]="journal.lookingFor" class="gray-box"></div>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
         <span (mousedown)="journalApiCall('likePost')" class="text-link">Like</span>&nbsp;
@@ -70,7 +75,7 @@
         <span (mousedown)="toggleReply();" class="text-link">Reply</span>&nbsp;
         <span *ngIf="journal.imageNum>0" class="text-link" (mousedown)="showImageFlg=!showImageFlg">
             <i class="fa fa-picture-o"></i> Show Attachment</span>&nbsp;
-        <span (mousedown)="toggleAttachment();" class="text-link">Attachment</span>&nbsp;
+        <span *ngIf="0" (mousedown)="toggleAttachment();" class="text-link">Attachment</span>&nbsp;
         <span *ngIf="journal.region == 'Bug' && userId == 1">
             <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')"
                 class="btn btn-primary">Fixed</button>&nbsp;
@@ -111,4 +116,4 @@
         [level]="level" [imgSrc]="imgSrc" [userId]="userId">
     </app-journal-cell>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-</div>
+</div>-->

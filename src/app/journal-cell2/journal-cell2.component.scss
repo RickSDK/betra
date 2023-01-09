@@ -1,0 +1,155 @@
+/*.profile-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px gray;
+    float: left;
+    margin-right: 10px;
+}
+
+.matches-card {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.reply-card {
+    margin-left: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.main-post {
+    font-size: 12px;
+    text-align: left;
+    padding: 5px;
+}
+
+.reply-post {
+    font-size: 12px;
+    text-align: left;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 5px;;
+}
+
+.profile-circle:hover {
+    box-shadow: 2px 2px 10px black;
+}
+
+.profile-circle-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px gray;
+}
+
+.three-dots {
+    float: right; 
+    border-radius: 50%;
+    width: 30px;
+    font-size: 18px;
+    text-align: center;
+    color: gray; 
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.three-dots:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.three-dots-menu {
+    display: inline-block;
+    position: absolute;
+    z-index: 200;
+    top: 25px;
+    right: 0;
+    color: gray;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px gray;
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.confirmation-popup {
+    display: inline-block;
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: #900;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.three-dots-menu-option {
+    padding: 3px;
+    font-size: 14px;
+}
+
+.three-dots-menu-option:hover {
+    background-color: #ddd;
+}
+
+.profile-circle-small:hover {
+    box-shadow: 1px 1px 5px black;
+}
+
+.betra-cell {
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+    text-align: left;
+    border: 1px solid transparent;
+    width: 100%;
+}
+
+.journal-body {
+    display: inline-block;
+    padding-left: 10px;
+    background-color: yellow;
+}
+
+.small-title {
+    font-size: 8px;
+}
+
+.gray-box {
+    background-color: #eee;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.betra-cell:hover {
+    border: 1px solid #ccc;
+}
+
+.replies-button {
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    float: right;
+    font-size: 8px;
+    margin-top: -30px;
+    margin-right: 5px;
+}
+
+.replies-button:hover {
+    border: 1px solid #ccc;
+}
+
+input {
+    background-color: #eee;
+    width: 100%;
+    border: 1px solid #ccc;
+}*/

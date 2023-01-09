@@ -5,17 +5,17 @@
     </div>
 
     <div *ngIf="openPanelFlg" style="padding-bottom: 10px;">&nbsp;
-        <button (mousedown)=changeNum(1) [ngClass]="requestNum==1?'btn btn-warning request':'btn btn-main-color request'"
+        <button (mousedown)=changeNum(1) [ngClass]="requestNum==1?'btn btn-main-color request':'btn btn-secondary request'"
             [disabled]="buttonsDisabledFlg">
             <div style="font-size: 20px;"><i class="fa fa-phone"></i></div>
             <div style="font-size: 10px;">Info</div>
         </button>&nbsp;
-        <button (mousedown)=changeNum(2) [ngClass]="requestNum==2?'btn btn-warning request':'btn btn-main-color request'"
+        <button (mousedown)=changeNum(2) [ngClass]="requestNum==2?'btn btn-main-color request':'btn btn-secondary request'"
             [disabled]="buttonsDisabledFlg">
             <div style="font-size: 20px;"><i class="fa fa-coffee"></i></div>
             <div style="font-size: 10px;">Date</div>
         </button>&nbsp;
-        <button (mousedown)=changeNum(3) [ngClass]="requestNum==3?'btn btn-warning request':'btn btn-main-color request'"
+        <button (mousedown)=changeNum(3) [ngClass]="requestNum==3?'btn btn-main-color request':'btn btn-secondary request'"
             [disabled]="buttonsDisabledFlg">
             <div style="font-size: 20px;"><i class="fa fa-picture-o"></i></div>
             <div style="font-size: 10px;">Picture</div>

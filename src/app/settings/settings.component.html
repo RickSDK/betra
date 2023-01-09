@@ -27,6 +27,11 @@
         <div *ngIf="redoMatchesFlg" class="tan-box">
             <div class="gray-text">Would you like to reset all the people who you said 'No' to so you can browse through them again?</div>
             <button (mousedown)="redoMatchesFlg=false" class="btn btn-warning">Cancel</button>&nbsp;
+            <select name="resetRange" id="resetRange">
+                <option>All Profiles</option>
+                <option>Past Week</option>
+                <option>Past Month</option>
+            </select>&nbsp;
             <button (mousedown)="resetMatchesPressed()" class="btn btn-main-color">Reset Matches</button>
         </div>
         <div *ngIf="showLocationFlg" class="border-box">
@@ -99,10 +104,6 @@
                 <div>Version: <span class="text-highlight">{{version}}</span></div>
                 <div>Browser: <span class="text-highlight">{{browser}}</span></div>
                 <div>Platform: <span class="text-highlight">{{platform}}</span></div>
-                <div>gps: <span class="text-highlight">{{user.gpsLat}}, {{user.gpsLng}}</span></div>
-                <div>navigator: <span class="text-highlight">{{user.navLat}}, {{user.navLng}}</span></div>
-                <div>local: <span class="text-highlight">{{lat2}}, {{lng2}}</span></div>
-                <div>final: <span class="text-highlight">{{user.latitude}}, {{user.longitude}}</span></div>
             </div>
             <table width="100%" *ngIf="responseJson && !loadingFlg">
                 <tr>

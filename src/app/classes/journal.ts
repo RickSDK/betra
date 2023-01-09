@@ -28,6 +28,8 @@ export class Journal {
     public createdVersion: string = '';
     public fixedVersion: string = '';
     public fixedDate: string = '';
+    public history: string = '';
+    public lookingFor: string = '';
     
    
     constructor(obj: any) {
@@ -54,6 +56,8 @@ export class Journal {
             this.createdVersion = obj.createdVersion;
             this.fixedVersion = obj.fixedVersion;
             this.fixedDate = obj.fixedDate;
+            this.history = obj.history;
+            this.lookingFor = obj.lookingFor;
             
             if(this.imageNum>0)
                 this.imageSrc = "https://www.appdigity.com/betraPhp/bugImages/pic"+obj.row_id+"_"+this.imageNum+".jpg";

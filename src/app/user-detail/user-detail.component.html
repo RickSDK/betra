@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <div *ngIf="matchUser && matchUser.matchObj">
+    <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 
         <app-user-reviews *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user"
             [matchUser]="matchUser">

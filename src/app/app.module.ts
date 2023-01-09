@@ -73,6 +73,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
 import { OwnerCellComponent } from './owner-cell/owner-cell.component';
+//import { JournalCell2Component } from './journal-cell2/journal-cell2.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -146,7 +147,7 @@ import { OwnerCellComponent } from './owner-cell/owner-cell.component';
     TermsConditionsComponent,
     PrivacyPolicyComponent,
     OwnerTeamsComponent,
-    OwnerCellComponent
+    OwnerCellComponent,
   ],
   imports: [
     BrowserModule,

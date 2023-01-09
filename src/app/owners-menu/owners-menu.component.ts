@@ -41,13 +41,13 @@ export class OwnersMenuComponent implements OnInit {
 
   ngClassButton(name: string) {
     if (name == this.pageTitle)
-      return 'btn btn-primary';
+      return 'btn btn-main-color';
     else
       return 'btn btn-secondary';
   }
   ngClassTopButton(page: number) {
     if (page == this.page)
-      return 'btn btn-primary';
+      return 'btn btn-main-color';
     else
       return 'btn btn-secondary';
   }

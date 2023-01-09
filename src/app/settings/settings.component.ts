@@ -100,7 +100,10 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   resetMatchesPressed() {
     this.loadingFlg = true;
     this.redoMatchesFlg = false;
-    this.getDataFromServer('resetMatches', 'appApiCode.php', []);
+    var params = {
+      resetRange: $('#resetRange').val()
+    }
+    this.getDataFromServer('resetMatches', 'appApiCode.php', params);
   }
 
   override postSuccessApi(file: string, responseJson: any) {

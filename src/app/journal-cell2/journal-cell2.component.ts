@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+/*import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
 
@@ -6,11 +6,11 @@ declare var $: any;
 declare var getVersion: any;
 
 @Component({
-  selector: 'app-journal-cell',
-  templateUrl: './journal-cell.component.html',
-  styleUrls: ['./journal-cell.component.scss']
+  selector: 'app-journal-cell2',
+  templateUrl: './journal-cell2.component.html',
+  styleUrls: ['./journal-cell2.component.scss']
 })
-export class JournalCellComponent extends BaseComponent implements OnInit {
+export class JournalCell2Component extends BaseComponent implements OnInit {
   @Input('journal') journal: any = null;
   @Input('index') index: number = 0;
   @Input('postId') postId: number = 0;
@@ -31,7 +31,6 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   public adminAction: string = '';
   public bugImgSrc: any = null;
   public showImageFlg: boolean = false;
-  public appVersion:string = getVersion();
 
   constructor() { super(); }
 
@@ -45,6 +44,7 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     else
       return 'profile-circle';
   }
+
   replyTo(journal: any) {
     this.messageEvent.emit(journal);
   }
@@ -69,7 +69,6 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
       code: localStorage['code'],
       message: $('#journalEditText').val(),
       action: "postJournal",
-      version: this.appVersion,
       edit_id: this.journal.row_id
     };
     console.log(params);
@@ -81,7 +80,6 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
       userId: localStorage['user_id'],
       code: localStorage['code'],
       postId: this.journal.row_id,
-      version: this.appVersion,
       action: action
     };
     console.log('params', params);
@@ -145,9 +143,6 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     }
   }
 
-  getAllReviews() {
-
-  }
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == 'flagJournal') {
@@ -190,3 +185,4 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   }
 
 }
+*/

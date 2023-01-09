@@ -7,6 +7,9 @@
 
         {{teamName}}
 
+        <div *ngIf="team==0">
+            Org chart coming soon...
+        </div>
         <div *ngIf="team==1">
             <app-owner-cell *ngFor="let player of devTeam" [person]="player"></app-owner-cell>
         </div>

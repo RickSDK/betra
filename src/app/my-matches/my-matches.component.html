@@ -10,38 +10,30 @@
                 <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
             </button>
         </div>
-        <div *ngIf="showHeartFormFlg && menuNum==0" style="padding: 20px;">
+        <div *ngIf="showHeartFormFlg && menuNum==0" style="padding: 20px; text-align: center;">
             <table align="center">
                 <tr>
                     <td>
                         <img src="assets/images/rose6.png" height="150" alt="Rose" title="Rose">
                     </td>
                     <td>
-                        <div style="font-size: 20px;">Give someone a rose!</div>
-                        <table align="center" *ngIf="!loadingFlg">
-                            <tr>
-                                <td>
-                                    <select name="assignHeart" id="assignHeart" (change)="disableFormFlg=false">
-                                        <option disabled selected>Select</option>
-                                        <option *ngFor="let player of user.datingPool" [value]="player.user_id">
-                                            {{player.name}}
-                                        </option>
-                                    </select>
-                                </td>
-                                <td>&nbsp;
-                                    <button (mousedown)="assignHeart()" class="btn btn-main-color"
-                                        style="padding: 10px;" [disabled]="disableFormFlg">Assign</button>
-                                </td>
-                            </tr>
-                        </table>
+                        <div style="font-size: 20px;">Give someone a rose</div>
+                        <div class="tiny-text">Pick one person to indicate they are someone special. Everyone
+                            in your dating pool will be able to see who you have chosen.
+                            Feel free to change this pick at any time.
+                        </div>
+                        <div style="display: inline-block; text-align: center;" *ngFor="let player of user.datingPool">
+                            <img (mousedown)="chooseForRose(player)" [src]="player.src" class="small-img" style="height: 40px; width: 40px;" [style.border]="selectedPerson && selectedPerson.user_id==player.user_id?'4px solid #990000':'none'">
+                            <div style="font-size: 8px;">{{player.name}}</div>
+                        </div>
+                        <div>&nbsp;</div>
+                        <button (mousedown)="assignHeart()" class="btn btn-main-color"
+                        style="padding: 10px;" [disabled]="disableFormFlg">Assign Rose</button>
                     </td>
                 </tr>
             </table>
+            <hr>
 
-            <div class="tiny-text">Pick one person to indicate they are someone special. Everyone
-                in your dating pool will be able to see who you have chosen.
-                Feel free to change this pick at any time.
-            </div>
         </div>
 
         <div>&nbsp;</div>

@@ -1,6 +1,6 @@
 <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-<div class="tan-box" *ngIf="requestNum==1">
+<div style="padding: 10px;" *ngIf="requestNum==1">
     <div *ngIf="messageSentFlg">Message Sent.</div>
     <div *ngIf="requestNum==1">
         <div *ngIf="matchUser.matchObj.you_info_request=='X'">Sorry, but {{matchUser.firstName}} has rejected your
@@ -15,7 +15,7 @@
         </div>
         <div *ngIf="!loadingFlg && !messageSentFlg && !matchUser.matchObj.you_info_request">
             <button (mousedown)="requestNum=0" class="btn btn-secondary">Cancel</button>&nbsp;
-            <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-main-color" style="height: 60px;">Send
+            <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-main-color">Send
                 Request</button>
         </div>
     </div>

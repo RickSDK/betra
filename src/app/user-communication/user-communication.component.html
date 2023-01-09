@@ -9,7 +9,7 @@
         style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">
         <div *ngFor="let message of messages"
-            [style.text-align]="(message.user_id == myUser.user_id)?'left':'right'">
+            [style.text-align]="(message.user_id == myUser.user_id)?'right':'left'">
             <div *ngIf="message.id == messageToDelete">
                 <div style="padding: 10px;">&nbsp;</div>
                 <div>Delete Message?</div>

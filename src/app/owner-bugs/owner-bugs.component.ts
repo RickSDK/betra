@@ -135,6 +135,8 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
     this.postId = journal.row_id;
     this.selectedJournal = journal;
     this.showFormFlg = true;
+    this.getAllEntries();
+    /*
     if (journal.replies > 0) {
       var params = {
         userId: localStorage['user_id'],
@@ -144,6 +146,6 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
       };
       console.log(params);
       this.executeApi('journal.php', params, true);
-    }
+    }*/
   }
 }

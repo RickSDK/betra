@@ -82,7 +82,7 @@ export class UploadImageCropComponent implements OnInit {
           this.ctx.drawImage(smallImage, 0, 0);
           this.imageWidth = smallImage.width;
           this.imageHeight = smallImage.height;
-            console.log('New Size: ', this.id, smallImage.src.length, smallImage.width, smallImage.height);
+          console.log('New Size: ', this.id, smallImage.src.length, smallImage.width, smallImage.height);
         };
 
       }
@@ -130,7 +130,7 @@ export class UploadImageCropComponent implements OnInit {
     if (this.image)
       this.ctx.drawImage(this.image, x, y, width, height);
 
-   //   console.log(x, y, this.canvasWidth, this.imageWidth);
+    //   console.log(x, y, this.canvasWidth, this.imageWidth);
 
   }
 
@@ -167,18 +167,30 @@ export class UploadImageCropComponent implements OnInit {
     var width = this.imageWidth * zoomLevel / 100;
     var height = this.imageHeight * zoomLevel / 100;
 
-    if(amount > 0 || (width >= this.canvasWidth && height >= this.canvasHeight)) {
+    if (amount > 0 || (width >= this.canvasWidth && height >= this.canvasHeight)) {
       this.zoomLevel += amount;
       this.drawImage();
     }
 
   }
 
+  positionImageRight(amount: number) {
+    this.currentPointX = this.startPointX - amount;
+    this.currentPointY = this.startPointY;
+    this.drawImage();
+  }
+
+  positionImageDown(amount: number) {
+    this.currentPointY = this.startPointY - amount;
+    this.currentPointX = this.startPointX;
+    this.drawImage();
+  }
+
   captureImage() {
     this.showImageFlg = false;
-    if(this.canvas)
+    if (this.canvas)
       this.src = this.canvas.toDataURL('image/jpeg');
-    console.log('here!', );
+    console.log('here!',);
     this.messageEvent.emit('upload');
   }
 
@@ -190,7 +202,8 @@ function imageToDataUri(img: any) {
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
 
-  var MAXSIZE = 800;
+  /*
+  var MAXSIZE = 500;
   var pct;
   if (img.width > img.height) {
     if (img.width > MAXSIZE) {
@@ -204,10 +217,14 @@ function imageToDataUri(img: any) {
     } else {
       return img.src;
     }
-  }
+  }*/
+  var pct = 1;
+  if (img.height > 0)
+    pct = 480 / img.height;
 
   var newHeight = img.height * pct;
   var newWidth = img.width * pct;
+  console.log('+++hey+++', img.height, pct, newHeight);
 
   if (newHeight < 200 || newWidth < 200) {
     return img.src;

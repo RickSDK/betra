@@ -19,12 +19,19 @@
         </div>
 
         <div *ngIf="showFormFlg">
-            <div *ngIf="postId==0" class="gray-text">Create a journal entry about any aspect of your dating life.
-                Just keep in mind all users are free to read your journal and offer comments and advice.</div>
+            <div *ngIf="postId==0" class="gray-text">Create a journal entry about so others can follow your journy and
+                offer comments and advice.</div>
             <div *ngIf="postId>0" class="gray-text">Reply with your best encouragement, advice, suggestions or
                 encouragement. Please nothing disrespectful.</div>
-            <app-text-area-input [id]="'journalText'"></app-text-area-input>
+            <div>Tell us a little about who you are:</div>
+            <app-text-area-input [id]="'aboutme'"></app-text-area-input>
+            <div>Tell us a little about your recent dating situation:</div>
+            <app-text-area-input [id]="'history'"></app-text-area-input>
+            <div>What are you looking for in a perfect match:</div>
+            <app-text-area-input [id]="'lookingFor'"></app-text-area-input>
+
             <div>
+                <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
                 <button (mousedown)="cancelButtonPressed()" class="btn btn-warning">Cancel</button>&nbsp;
                 <button *ngIf="postId==0" (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
                 <button *ngIf="postId>0" (mousedown)="replyButtonPressed()" class="btn btn-main-color">Reply</button>
@@ -36,7 +43,8 @@
     <div *ngIf="!selectedJournal">
         <app-journal-cell (messageEvent)="replyButtonClicked($event)"
             *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
-            [imgSrc]="user.imgSrc" [adminFlg]="user.user_id == journal.user_id" [userId]="user.user_id" [level]="0"></app-journal-cell>
+            [imgSrc]="user.imgSrc" [adminFlg]="user.user_id == journal.user_id" [userId]="user.user_id" [level]="0">
+        </app-journal-cell>
     </div>
 
 </app-page-shell>
