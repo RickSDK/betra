@@ -13,6 +13,7 @@ export class DatingPoolComponent implements OnInit {
 
   public datingPool: any = [];
   public datingPoolLimit: number = 8;
+  public panRight: boolean = false;
 
   constructor() { }
 

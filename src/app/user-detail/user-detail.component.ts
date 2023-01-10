@@ -246,6 +246,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'logUser') {
       this.syncUserWithLocalStorage(responseJson);
+      if(this.exceededPoolSizeFlg) {
+        var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
+        this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
+      }
     }
     if (responseJson.action == 'getThisUser') {
       this.matchUser = new User(responseJson.user);

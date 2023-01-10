@@ -27,9 +27,11 @@ import { FlaggedUsersComponent } from './flagged-users/flagged-users.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
-  { path: '', component: MainMenuComponent },
+  { path: '', component: LandingPageComponent },
+  { path: 'home', component: MainMenuComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'about', component: AboutComponent },
   { path: 'users', component: UsersComponent },

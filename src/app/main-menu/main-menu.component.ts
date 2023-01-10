@@ -50,6 +50,9 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       else if (!this.user.navLat)
         this.uploadCoordinates();
     }
+
+    var height = window.innerWidth;
+    console.log('hey', height);
   }
   getStateCounts() {
     var params = {

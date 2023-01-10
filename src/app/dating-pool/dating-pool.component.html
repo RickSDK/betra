@@ -2,9 +2,10 @@
     <div class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
     <div *ngIf="largeFlg">
         <div *ngFor="let person of datingPool" class="pool-large menu-circle">
-            <img *ngIf="person.user_id>0 && !person.alerts" [src]="person.src" class="large-img" (mousedown)="userClicked(person)"
-                [style.border]="person.heartFlg?'4px solid #990000':'none'">
-            <img *ngIf="person.user_id>0 && person.alerts && person.alerts>0" [src]="person.src" class="large-img" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+            <img *ngIf="person.user_id>0 && !person.alerts" [src]="person.src" class="large-img"
+                (mousedown)="userClicked(person)" [style.border]="person.heartFlg?'4px solid #990000':'none'">
+            <img *ngIf="person.user_id>0 && person.alerts && person.alerts>0" [src]="person.src" class="large-img"
+                [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
                 [style.border]="person.heartFlg?'4px solid #990000':'none'">
             <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon main-color"
@@ -24,7 +25,7 @@
             <div *ngIf="person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!
                 </div>
-                <div *ngIf="person.match.match_date_request == 'Y'" class="big-flashy"><i class="fa fa-calendar"></i>
+                <div *ngIf="person.match.you_date_request == 'Y'" class="big-flashy"><i class="fa fa-calendar"></i>
                     Date Requested!</div>
                 <div *ngIf="person.match.you_date_request == 'M'" class="big-flashy"><i class="fa fa-calendar"></i> Date
                     Modification!</div>
@@ -32,7 +33,7 @@
                     class="big-flashy"><i class="fa fa-calendar"></i> Upcoming Date!</div>
                 <div *ngIf="person.match.you_pic_request > 0" class="big-flashy"><i class="fa fa-picture-o"></i> Pic
                     Requested!</div>
-                <div *ngIf="person.match.you_info_request == 'Y'" class="big-flashy"><i class="fa fa-info-circle"></i>
+                <div *ngIf="person.match.match_info_request == 'Y'" class="big-flashy"><i class="fa fa-info-circle"></i>
                     Info Requested!</div>
                 <div *ngIf="person.match.unreadMessages > 0" class="big-flashy"><i class="fa fa-comment"></i> New
                     messages!</div>
@@ -45,14 +46,19 @@
     </div>
     <div *ngIf="!largeFlg">
         <div style="display: inline-block; border-top: 1px solid #ccc;">
-            <div *ngFor="let person of user.datingPool" class="pool-snapshot">
-                <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
-                    [src]="person.src" class="snapshot-img" [style.border]="person.heartFlg?'3px solid #700':'none'">
-                <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2">
-                <div class="small-name-text"><img src="assets/images/rose5.png" height="10" *ngIf="person.heartFlg"
-                        alt="Rose" title="Rose"><i *ngIf="person.heartFlg2" class="fa fa-heart"></i>{{person.name}}
-                </div>
+            <i *ngIf="panRight" (mousedown)="panRight=false" class="fa fa-chevron-left large-icon"></i>
+            <div *ngFor="let person of user.datingPool; let i = index;" style="display: inline-block;">
+                <span *ngIf="(!panRight && i<=7) || (panRight && i>=5)" class="pool-snapshot">
+                    <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+                        [src]="person.src" class="snapshot-img"
+                        [style.border]="person.heartFlg?'3px solid #700':'none'">
+                    <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2">
+                    <div class="small-name-text"><img src="assets/images/rose5.png" height="10" *ngIf="person.heartFlg"
+                            alt="Rose" title="Rose"><i *ngIf="person.heartFlg2" class="fa fa-heart"></i>{{person.name}}
+                    </div>
+                </span>
             </div>
+            <i *ngIf="!panRight" (mousedown)="panRight=true" class="fa fa-chevron-right large-icon"></i>
         </div>
         <div [routerLink]="['/matches']" *ngIf="user.datingPool.length >= 5 && user.heartId == 0"
             style="color: #900; font-size: 12px;">

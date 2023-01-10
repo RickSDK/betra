@@ -1,0 +1,115 @@
+.background-img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.large-text {
+    font-size: 32px;
+    line-height: 32px;
+    text-align: left;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 100;
+}
+
+.signup-popup-bg {
+    position: absolute;
+    top: 140px;
+    left: 40px;
+    width: 320px;
+    height: 380px;
+    opacity: .4;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.signup-popup {
+    position: absolute;
+    top: 140px;
+    left: 40px;
+    width: 320px;
+    height: 380px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.login-round {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    height: 50px;
+    padding: 15px 10px 15px 10px;
+    cursor: pointer;
+}
+
+.login-round:hover {
+    padding: 17px 12px 17px 12px;
+    font-size: 13px;
+    height: 54px;
+}
+
+
+.testimony-popup {
+    position: absolute;
+    top: 550px;
+    right: auto;
+    left: 120px;
+    width: 320px;
+    padding: 10px;
+    padding-left: 40px;
+    background-color: #ddd;
+    border-radius: 40px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.savonne {
+    position: absolute;
+    top: 540px;
+    right: auto;
+    left: 5px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.name-text {
+    font-size: 28px;
+    font-weight: 200;
+}
+
+@media screen and (max-width: 800px) {
+    .signup-popup-bg {
+        top: 100px;
+    }
+    .signup-popup {
+        top: 100px;
+    }
+    .testimony-popup {
+        right: auto;
+        left: 110px;
+        top: 520px;
+        font-size: 10px;
+        width: 280px;
+    }
+    .savonne {
+        right: auto;
+        left: 5px;
+        top: 510px;
+    }
+
+}
+@media screen and (max-width: 400px) {
+    .signup-popup {
+        left: 10px;
+    }
+    .signup-popup-bg {
+        left: 10px;
+    }
+}

@@ -61,8 +61,17 @@
                 </td>
             </tr>
         </table>
-
-        <div *ngIf="adminAction!='edit'" [innerHTML]="journal.message"></div>
+        <div *ngIf="journal.region != 'main'">
+            <div *ngIf="adminAction!='edit'" [innerHTML]="journal.message"></div>
+        </div>
+        <div *ngIf="journal.region == 'main'">
+            <div class="small-title">About Me</div>
+            <div class="small-gray-box" *ngIf="adminAction!='edit'" [innerHTML]="journal.message"></div>
+            <div class="small-title">My Recent Dating Life</div>
+            <div class="small-gray-box" *ngIf="adminAction!='edit'" [innerHTML]="journal.history"></div>
+            <div class="small-title">What I'm looking for</div>
+            <div class="small-gray-box" *ngIf="adminAction!='edit'" [innerHTML]="journal.lookingFor"></div>    
+        </div>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
         <span (mousedown)="journalApiCall('likePost')" class="text-link">Like</span>&nbsp;
@@ -70,7 +79,7 @@
         <span (mousedown)="toggleReply();" class="text-link">Reply</span>&nbsp;
         <span *ngIf="journal.imageNum>0" class="text-link" (mousedown)="showImageFlg=!showImageFlg">
             <i class="fa fa-picture-o"></i> Show Attachment</span>&nbsp;
-        <span (mousedown)="toggleAttachment();" class="text-link">Attachment</span>&nbsp;
+        <span *ngIf="userId == journal.user_id" (mousedown)="toggleAttachment();" class="text-link">Attachment</span>&nbsp;
         <span *ngIf="journal.region == 'Bug' && userId == 1">
             <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')"
                 class="btn btn-primary">Fixed</button>&nbsp;

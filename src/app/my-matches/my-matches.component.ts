@@ -226,7 +226,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
             alerts++;
           if (match.unreadMessages > 0)
             alerts += parseInt(match.unreadMessages);
-          if (match.you_date_request == 'M' || match.match_date_request == 'M' || match.match_date_request == 'A' || match.match_date_request == 'Y' || match.you_date_request == 'Y')
+          if (match.you_date_request == 'M' || match.match_date_request == 'M' || match.match_date_request == 'A' || match.you_date_request == 'Y')
             alerts++;
           if (match.you_pic_request > 0)
             alerts++;
