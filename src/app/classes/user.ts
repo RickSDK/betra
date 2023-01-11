@@ -171,12 +171,15 @@ export class User {
     public navLng: string = '';
     public gpsLat: string = '';
     public gpsLng: string = '';
+    public lookingForTitle: string = '';
+    public facebookId: string = '';
 
     constructor(obj: any) {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.firstName = obj.firstName;
             this.phone = obj.phone || '';
+            this.facebookId = obj.facebookId;
             this.birthdate = obj.birthdate;
             this.birthYear = obj.birthYear;
             this.statsObj = obj.statsObj;
@@ -399,8 +402,12 @@ export class User {
         this.location = this.city;
 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
+
         if (this.matchPreference == 'A')
             this.matchGender = "All";
+
+        this.lookingForTitle = this.maritalStatus + ' ' + this.genderName + ' looking for ' + this.matchGender;
+
         var now = new Date();
         var year = now.getFullYear();
 
@@ -428,7 +435,7 @@ export class User {
 
         }
         var birthdt = getDateObjFromJSDate(this.birthdate);
-        if(birthdt && birthdt.daysAgo>0)
+        if (birthdt && birthdt.daysAgo > 0)
             this.age = Math.floor(birthdt.daysAgo / 365);
 
         this.lastLoginSrc = 'assets/images/blackCircle.png';

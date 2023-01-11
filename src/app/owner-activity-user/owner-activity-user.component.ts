@@ -8,11 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 export class OwnerActivityUserComponent implements OnInit {
   @Input('owner') owner: any = null;
   @Input('leaderFlg') leaderFlg: boolean = false;
+  @Input('adminFlg') adminFlg: boolean = false;
+
+  public showDetailsFlg: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 
   ngOnChanges(changes: any) {

@@ -74,6 +74,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
 import { OwnerCellComponent } from './owner-cell/owner-cell.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { UserDatesComponent } from './user-dates/user-dates.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -149,6 +150,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     OwnerTeamsComponent,
     OwnerCellComponent,
     LandingPageComponent,
+    UserDatesComponent,
   ],
   imports: [
     BrowserModule,

@@ -26,9 +26,10 @@ export class BaseComponent implements OnInit {
   public apiSuccessFlg: boolean = false;
   public responseJson: any = null;
   public userStatus: string = '';
-//  public notifications: number = 0;
+  //  public notifications: number = 0;
   public menuNum: number = 0;
   public topButtons: any = ['one', 'two', 'three'];
+  public minutesToRefresh = 1;
 
 
   public headerObj: any = {
@@ -82,6 +83,7 @@ export class BaseComponent implements OnInit {
         this.headerObj.messageCount = localStorage['messageCount'];
         this.headerObj.admirerCount = localStorage['admirerCount'];
         this.headerObj.matchesAlerts = localStorage['matchesAlerts'];
+        this.headerObj.dateCount = localStorage['dateCount'];
         this.headerObj.ownerFlg = this.user.ownerFlg;
         this.popupNum = (this.user.status == 'Active') ? 0 : 3;
         console.log('loadUserObjUser', this.user);
@@ -91,6 +93,13 @@ export class BaseComponent implements OnInit {
         localStorage['user_id'] = 0;
       }
     }
+  }
+
+  changeMenuNum(num: number) {
+    if (num == this.menuNum)
+      this.menuNum = 0;
+    else
+      this.menuNum = num;
   }
 
   ngClassMenuButton(num: number, menuNum: number) {
@@ -110,20 +119,25 @@ export class BaseComponent implements OnInit {
       this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
       this.headerObj.messageCount = responseJson.infoObj.messageCount;
       this.headerObj.matchesAlerts = responseJson.infoObj.matchesAlerts
+      this.headerObj.dateCount = responseJson.infoObj.dateCount
       localStorage['notifications'] = this.headerObj.notifications;
       localStorage['admirerCount'] = this.headerObj.admirerCount;
       localStorage['messageCount'] = this.headerObj.messageCount;
       localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
-      setTimeout(() => {
-        this.checkServerForChanges(now.toString());
-      }, 60 * 4 * 1000);
+      localStorage['dateCount'] = this.headerObj.dateCount;
+      //console.log('xxxdateCount', this.headerObj.dateCount);
+      if (responseJson.user && responseJson.user.status == 'Active') {
+        setTimeout(() => {
+          this.checkServerForChanges(now.toString());
+        }, 60 * this.minutesToRefresh * 1000);
+      }
       if (responseJson.infoObj.refreshFlg == 'Y' && responseJson.user)
         this.refreshUserObj(responseJson.user);
     }
 
   }
 
-  getDataFromServer(action: string, fileName: string, bonusParams:any) {
+  getDataFromServer(action: string, fileName: string, bonusParams: any) {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
@@ -136,10 +150,13 @@ export class BaseComponent implements OnInit {
 
   checkServerForChanges(lastUpd: string) {
     var e = document.getElementById('logo');
-    if(e && lastUpd == localStorage['timeStamp']) {
+    if (e && lastUpd == localStorage['timeStamp'] && this.user.status == 'Active') {
+      this.minutesToRefresh *= 2;
+      console.log('---relog---', this.minutesToRefresh);
       this.logUser();
     } else {
-      console.log('nolog');
+      this.minutesToRefresh = 1;
+      console.log('--nolog--', this.user.status);
     }
   }
   populateGeoInfo() {

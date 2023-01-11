@@ -5,28 +5,73 @@
 
     <div class="matches-card" *ngIf="user">
         <div>- Settings -</div>
-        <button (mousedown)="logout()" class="btn btn-main-color"><i class="fa fa-sign-out"></i>
-            Logout</button>&nbsp;
-        <button (mousedown)="showStats()" class="btn btn-main-color"><i class="fa fa-line-chart"></i>
-            stats</button>&nbsp;
-        <button (mousedown)="showLocation()" class="btn btn-main-color"><i class="fa fa-globe"></i>
-            location</button>&nbsp;
-        <button *ngIf="!user.memberFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color"><i
-                class="fa fa-arrow-up"></i>
-            Upgrade</button>&nbsp;
-        <button (mousedown)="redoMatchesFlg=!redoMatchesFlg" class="btn btn-main-color"><i
-                class="fa fa-refresh"></i>
-            Redo Matches</button>&nbsp;
+        <button (mousedown)="logout()" class="btn btn-main-color spacer"><i class="fa fa-sign-out"></i>
+            Logout</button>
+        <button (mousedown)="showStats()" class="btn btn-main-color spacer"><i class="fa fa-line-chart"></i>
+            stats</button>
+        <button (mousedown)="changeMenuNum(2)" class="btn btn-main-color spacer"><i class="fa fa-globe"></i>
+            location</button>
+        <button (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer"><i class="fa fa-refresh"></i>
+            Redo Matches</button>
+        <button (mousedown)="changeBuddy()" class="btn btn-main-color spacer"><i class="fa fa-envelope-o"></i>
+            Buddy Notification</button>
+        <button (mousedown)="changeMenuNum(6)" class="btn btn-main-color spacer"><i class="fa fa-star"></i>
+            Change Password</button>
 
+        <button *ngIf="!user.memberFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer"><i
+                class="fa fa-arrow-up"></i>
+            Upgrade</button>
+
+        <div *ngIf="menuNum == 5" class="tan-box">
+            <div>Buddy Notification</div>
+            <div class="red-text">Betra is the safest dating app you will ever use.</div>
+            <div class="gray-text" style="text-align: left;">
+                <p>For safety and security we reccomend everyone use the in-app dating scheduler to
+                    arrange your first date.
+                    This will guarantee an elecront record of your meeting time and place to dissuade would be trouble
+                    makers.
+                </p>
+                <p>
+                    In addition to this, we encourage everyone to set up a Buddy Contact. This person will be
+                    notified of your meeting time and place so they can check on you to make sure everything went well.
+                </p>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <app-text-input [placeHolder]="'Email Address'" [id]="'buddyEmail'" [maxLength]="80" [value]="buddyEmail"></app-text-input>
+                        </td>
+                        <td width="70" align="center" valign="middle">
+                            <button (mousedown)="updateBuddyEmail()" class="btn btn-primary"><i class="fa fa-arrow-circle-right" style="font-size: 30px;"></i></button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <div *ngIf="menuNum == 6" class="tan-box">
+            <div>Change Password</div>
+            <div *ngIf="user.facebookId">You are currently logging in using facebook</div>
+            <table *ngIf="!user.facebookId" width="100%">
+                <tr>
+                    <td>
+                        <app-text-input [placeHolder]="'New Password'" [id]="'newPassword'" [maxLength]="30"></app-text-input>
+                    </td>
+                    <td width="70" align="center" valign="middle">
+                        <button (mousedown)="updatePassword()" class="btn btn-primary"><i class="fa fa-arrow-circle-right" style="font-size: 30px;"></i></button>
+                    </td>
+                </tr>
+            </table> 
+        </div>
         <div *ngIf="!user.lat" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>
             <p>Click the "Location" button, then "Find Location" and then press "Update" to fix.</p>
             <p class="gray-text">If this doesn't fix your issue, you will need to log in with a different device or
                 change your browser settings to allow location info.</p>
         </div>
-        <div *ngIf="redoMatchesFlg" class="tan-box">
-            <div class="gray-text">Would you like to reset all the people who you said 'No' to so you can browse through them again?</div>
-            <button (mousedown)="redoMatchesFlg=false" class="btn btn-warning">Cancel</button>&nbsp;
+        <div *ngIf="menuNum == 4" class="tan-box">
+            <div class="gray-text">Would you like to reset all the people who you said 'No' to so you can browse through
+                them again?</div>
+            <button (mousedown)="menuNum=0" class="btn btn-warning">Cancel</button>&nbsp;
             <select name="resetRange" id="resetRange">
                 <option>All Profiles</option>
                 <option>Past Week</option>
@@ -34,7 +79,7 @@
             </select>&nbsp;
             <button (mousedown)="resetMatchesPressed()" class="btn btn-main-color">Reset Matches</button>
         </div>
-        <div *ngIf="showLocationFlg" class="border-box">
+        <div *ngIf="menuNum==2" class="border-box">
             <div>Location</div>
             <div class="gray-text">If you have moved to a new location and want to update the database, click the "Find
                 Location" button below,
@@ -98,7 +143,7 @@
         </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="showStatsFlg">
+        <div *ngIf="menuNum==1">
             <div><b>Betra Stats</b></div>
             <div style="font-size: 10px;">
                 <div>Version: <span class="text-highlight">{{version}}</span></div>

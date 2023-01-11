@@ -27,6 +27,7 @@
         <div [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
             {{item.name}}
             <span *ngIf="item.id==11 && messageCount>0" class="red-circle">{{messageCount}}</span>
+            <span *ngIf="item.id==12 && dateCount>0" class="red-circle">{{dateCount}}</span>
         </div>
     </div>
     <div class="group-heading"></div>

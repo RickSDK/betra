@@ -4,7 +4,10 @@
 <img *ngIf="0" class="background-img" src="assets/images/landing/table3.png" alt="">
 <img *ngIf="1" class="background-img" src="assets/images/landing/girlRose.png" alt="">
 
-<span *ngIf="userId==0" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">Login</span>
+<span [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
+    Log<br>
+    In
+</span>
 <!--<div *ngIf="0"
     style="background-color: black; color: white; padding: 20px; font-size: 60px; font-weight: 800; position: relative;">
     <i class="fa fa-heart" style="position: absolute; top: 40px; left: 25px; font-size: 50px; color: pink;"></i>
@@ -13,9 +16,8 @@
     <span style="margin-left: 2px;">Betra</span>
 </div>-->
 
-<img [routerLink]="['']" [queryParams]="{login: 0}" *ngIf="1" src="assets/images/landing/logoWhite.png" height="60"
+<img [routerLink]="['']" [queryParams]="{login: 0}" src="assets/images/landing/logoWhite.png" height="60"
     style="top: 10px; left: 10px; position: absolute; cursor: pointer;">
-<img *ngIf="0" src="assets/images/landing/logoBlack.png" height="60" style="top: 10px; left: 10px; position: absolute;">
 
 <div class="signup-popup-bg"></div>
 <div class="signup-popup">
@@ -23,10 +25,10 @@
         <div style="padding: 10px;">&nbsp;</div>
         <div class="large-text">FINDING A DATE JUST GOT<br>BETTER</div>
         <div>&nbsp;</div>
-        <h3>START <span class="red-text">FREE</span> TODAY</h3>
+        <h3>START <span class="red-text" style="text-decoration: underline;">FREE</span> TODAY</h3>
         <div>&nbsp;</div>
         <button [routerLink]="['']" [queryParams]="{login: 3}" class="btn btn-main-color"
-            style="width: 100%; height: 50px;">Join</button>
+            style="width: 100%; height: 50px;">Create Account</button>
     </div>
     <app-sign-up-popup *ngIf="showSignupPopup" (messageEvent)="userIsLoggedIn($event)"></app-sign-up-popup>
     <app-login-popup *ngIf="showLoginPopup" (messageEvent)="userIsLoggedIn($event)"></app-login-popup>
@@ -34,7 +36,7 @@
 
 <div class="testimony-popup">
     <div class="name-text">Savonne</div>
-    "Being able to review my dates is a game changer! It's nice knowing who I am actually going to meet."
+    <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's nice knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
 </div>
 <img src="assets/images/landing/dana.png" class="savonne">
 

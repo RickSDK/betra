@@ -12,6 +12,8 @@ export class SideMenuComponent implements OnInit {
   @Input('messageCount') messageCount: number = 0;
   @Input('matchCount') matchCount: number = 0;
 
+  public dateCount: number = 0;
+
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
     { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
@@ -25,6 +27,7 @@ export class SideMenuComponent implements OnInit {
     { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
     //{ name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
+    { name: 'Dates', routerLink: '/user-dates', icon: 'fa fa-calendar', id: 12 },
   ];
   public bottomItems = [
     { name: 'Settings', routerLink: '/settings', icon: 'fa fa-cog', id: 0 },
@@ -32,6 +35,8 @@ export class SideMenuComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    if(this.headerObj)
+      this.dateCount = this.headerObj.dateCount;
     this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
 
     if (this.headerObj.ownerFlg) {

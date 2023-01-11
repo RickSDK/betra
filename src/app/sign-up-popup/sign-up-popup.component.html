@@ -11,7 +11,10 @@
 <input name="password" id="password" type="password" placeholder="Password" (input)="valueChanged()">
 
 <hr>
-<table width="100%">
+<div style="color: black;" (mousedown)="errorMessage=''">
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+</div>
+<table width="100%" *ngIf="!loadingFlg && !errorMessage">
     <tr>
         <td>
             <span [routerLink]="['']" [queryParams]="{login: 0}" class="hyper-link">Back</span>

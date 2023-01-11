@@ -99,6 +99,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       localStorage['user_id'] = responseJson.user.user_id;
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['messageCount'] = responseJson.infoObj.messageCount;
+      localStorage['dateCount'] = responseJson.infoObj.dateCount;
       localStorage['notifications'] = responseJson.notifications;
       localStorage['User'] = JSON.stringify(responseJson.user);
 

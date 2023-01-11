@@ -11,18 +11,18 @@
             Org chart coming soon...
         </div>
         <div *ngIf="team==1">
-            <app-owner-cell *ngFor="let player of devTeam" [person]="player"></app-owner-cell>
+            <app-owner-cell *ngFor="let player of devTeam" [person]="player" [adminFlg]="user.activityRep>8"></app-owner-cell>
         </div>
         <div *ngIf="team==2">
-            <app-owner-cell *ngFor="let player of promotionsTeam" [person]="player"></app-owner-cell>
+            <app-owner-cell *ngFor="let player of promotionsTeam" [person]="player" [adminFlg]="user.activityRep>8"></app-owner-cell>
         </div>
 
         <div *ngIf="team==3">
-            <app-owner-cell *ngIf="ownerJames" [person]="ownerJames"></app-owner-cell>
+            <app-owner-cell *ngIf="ownerJames" [person]="ownerJames" [adminFlg]="user.activityRep>8"></app-owner-cell>
             <div *ngFor="let team of teams1" class="team-box">
                 <div style="background-color: #444; color: white;">{{team.name}}</div>
-                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true"></app-owner-activity-user>
-                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member"></app-owner-activity-user>
+                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
+                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
                 <div class="gray-text">clicks: {{team.clicks}}</div>
                 <div class="gray-text">matches: {{team.matches}}</div>
                 <div class="gray-text">messages: {{team.messages}}</div>
@@ -35,11 +35,11 @@
         </div>
 
         <div *ngIf="team==4">
-            <app-owner-cell *ngIf="ownerHalle" [person]="ownerHalle"></app-owner-cell>
+            <app-owner-cell *ngIf="ownerHalle" [person]="ownerHalle" [adminFlg]="user.activityRep>8"></app-owner-cell>
             <div *ngFor="let team of teams2" class="team-box">
                 <div style="background-color: #444; color: white;">{{team.name}}</div>
-                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true"></app-owner-activity-user>
-                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member"></app-owner-activity-user>
+                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
+                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
                 <div class="gray-text">clicks: {{team.clicks}}</div>
                 <div class="gray-text">matches: {{team.matches}}</div>
                 <div class="gray-text">messages: {{team.messages}}</div>

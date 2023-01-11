@@ -13,8 +13,6 @@ declare var $: any;
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent extends BaseComponent implements OnInit {
-  public showStatsFlg: boolean = false;
-  public showLocationFlg: boolean = false;
   public showUpgradeFlg: boolean = false;
 
   public geoUpdatedFlg: boolean = false;
@@ -32,7 +30,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   public lng2: string = '';
   public ip: string = '';
   public gpsDataError: string = '';
-  public redoMatchesFlg: boolean = false;
+  public buddyEmail: string = '';
 
   constructor(private router: Router) { super(); }
 
@@ -58,7 +56,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
 
   showStats() {
-    this.showStatsFlg = true;
+    this.menuNum = 1;
     this.getStats();
   }
   getStats() {
@@ -69,6 +67,15 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     };
     console.log(params);
     this.executeApi('appApiCode2.php', params, true);
+  }
+
+  changeBuddy() {
+    this.getDataFromServer('getBuddyEmail', 'appApiCode.php', []);
+  }
+
+  updateBuddyEmail() {
+    var params = { buddyEmail: $('#buddyEmail').val() };
+    this.getDataFromServer('updateBuddyEmail', 'appApiCode.php', params);
   }
   updateLocation() {
     this.gpsDataError = "";
@@ -93,21 +100,46 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('updateNewGeoInfo', 'geoScript.php', params);
 
   }
-  showLocation() {
-    this.showLocationFlg = !this.showLocationFlg;
-  }
 
   resetMatchesPressed() {
     this.loadingFlg = true;
-    this.redoMatchesFlg = false;
+    this.menuNum = 0;
     var params = {
       resetRange: $('#resetRange').val()
     }
     this.getDataFromServer('resetMatches', 'appApiCode.php', params);
   }
 
+  updatePassword() {
+    this.errorMessage = '';
+    var newPassword = $('#newPassword').val();
+    if(!newPassword) {
+      this.errorMessage = 'Enter a password';
+      return;
+    }
+    var params = {
+      newPassword: newPassword
+    }
+    this.getDataFromServer('updatePassword', 'appApiCode.php', params);
+ 
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
+    if (responseJson.action == 'updatePassword') {
+      this.menuNum = 0;
+      this.errorMessage = 'Password has been successfully changed';
+      localStorage['savedPassword'] = responseJson.newPassword;
+      localStorage['savedCode'] = btoa(responseJson.newPassword); 
+      localStorage['code'] = btoa(responseJson.newPassword);
+    }
+    if (responseJson.action == 'updateBuddyEmail') {
+      this.menuNum = 0;
+    }
+    if (responseJson.action == 'getBuddyEmail') {
+      this.buddyEmail = responseJson.buddyEmail;
+      this.menuNum = 5;
+    }
     if (responseJson.action == 'resetMatches') {
       this.errorMessage = 'Your Matches have been reset. Click the browse link to continue.';
     }

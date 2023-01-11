@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OwnerCellComponent implements OnInit {
   @Input('person') person: any = null;
+  @Input('adminFlg') adminFlg: boolean = false;
 
   constructor() { }
 

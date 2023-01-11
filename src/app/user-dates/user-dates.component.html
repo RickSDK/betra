@@ -1,0 +1,49 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Your Dates'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" *ngIf="user">
+
+        <div class="btn-group">
+            <button *ngFor="let button of topButtons; let i = index;" 
+                (mousedown)="filterBy(i)" [ngClass]="ngClassMenuButton(i, menuNum)"
+                style="font-size: 14px; margin-right: 2px; height: 50px;">{{button}}</button>
+        </div>
+        <div *ngIf="displayList.length==0">No dates at this time</div>
+        <table *ngIf="displayList.length>0" border="1" style="font-size: 12px;">
+            <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Comment</th>
+                <th>Status</th>
+            </tr>
+            <tr *ngFor="let date of displayList; let i = index" [style.background-color]="i%2==0?'#fff':'#fee'">
+                <td>
+                    <app-profile-pic [user_id]="date.uid" [profilePic]="date.profilePic" [size]="60"></app-profile-pic>
+                </td>
+                <td>
+                    <div><b>{{date.dtObj.dayOfWeek}}</b></div>
+                    <div>{{date.dtObj.localDate}}</div>
+                    <div>{{date.dtObj.localTime2}}</div>
+                </td>
+                <td>
+                    <div><b>{{date.location}}</b></div>
+                    <div>{{date.address}}</div>
+                    <div>{{date.city}}, {{date.state}} {{date.zip}}</div>
+                </td>
+                <td>
+                    {{date.comment}}
+                </td>
+                <td align="center">
+                    <i *ngIf="date.status == 'Confirmed'" class="fa fa-check" title="Confirmed"
+                        style="font-size: 32px; color: green;"></i>
+                    <i *ngIf="date.status == 'Cancelled'" class="fa fa-times" title="Cancelled" style="font-size: 32px; color: red;"></i>
+                    <i *ngIf="date.status == 'Request'" class="fa fa-question" title="Not Confirmed"
+                        style="font-size: 32px; color: blue;"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+</app-page-shell>

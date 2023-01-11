@@ -1,9 +1,12 @@
 <div *ngIf="owner && owner.statsObj">
      <table width="100%">
         <tr>
-            <td align="left">    <app-profile-pic [user_id]="owner.user_id" [profilePic]="owner.profilePic" [size]="30">
+            <td align="left" >    <app-profile-pic [user_id]="owner.user_id" [profilePic]="owner.profilePic" [size]="30">
             </app-profile-pic>
-            <span *ngIf="leaderFlg">*</span>{{owner.firstName}}</td>
+            <span  *ngIf="leaderFlg">*</span> <span (mousedown)="showDetailsFlg=!showDetailsFlg" style="cursor: pointer;">{{owner.firstName}}</span>
+            <div *ngIf="adminFlg && showDetailsFlg" class="gray-text">{{owner.email}}</div>
+            <div *ngIf="adminFlg && showDetailsFlg" class="gray-text">{{owner.phone}}</div>
+        </td>
             <td style="color: #900; font-weight: 700; font-size: 12px;" align="center">
                 Yes<sup>{{owner.statsObj.interestYes}}</sup> No<sup>{{owner.statsObj.interestNo}}</sup>
             </td>

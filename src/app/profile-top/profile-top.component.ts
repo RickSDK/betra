@@ -19,7 +19,6 @@ export class ProfileTopComponent implements OnInit {
   public largeImageFlg: boolean = false;
   public showSmallerPicsFlg: boolean = true;
   public unblurPicsFlg: boolean = false;
-  public lookingForTitle: string = '';
   public showAdminButtonsFlg: boolean = false;
   public showOptionsFlg: boolean = false;
   public pictureIndex: number = 0;
@@ -50,7 +49,7 @@ export class ProfileTopComponent implements OnInit {
         this.hasKidsTitle = 'Has ' + this.user.numKids + ' kids';
       if (!this.myUser.memberFlg)
         this.pictureIndexMax = 1;
-      this.wantsKidsTitle = (this.user.wantsKids == 'Yes') ? 'Wants kids' : 'Doesn\'t was kids';
+      this.wantsKidsTitle = (this.user.wantsKids == 'Yes') ? 'Wants kids' : 'Doesn\'t want kids';
 
     }
   }

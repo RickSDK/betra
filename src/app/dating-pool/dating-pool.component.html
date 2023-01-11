@@ -58,7 +58,7 @@
                     </div>
                 </span>
             </div>
-            <i *ngIf="!panRight" (mousedown)="panRight=true" class="fa fa-chevron-right large-icon"></i>
+            <i *ngIf="!panRight && user.datingPool.length>7" (mousedown)="panRight=true" class="fa fa-chevron-right large-icon"></i>
         </div>
         <div [routerLink]="['/matches']" *ngIf="user.datingPool.length >= 5 && user.heartId == 0"
             style="color: #900; font-size: 12px;">

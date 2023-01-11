@@ -32,6 +32,23 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     this.getStateCounts();
     this.popupNum = 1;
 
+    const values = [{
+      value: "bar",
+      process: false
+    },
+    {
+      value: "foo",
+      process: false
+    }
+  ];
+  
+  var processedValue = '';
+  values.forEach(element => {
+    if(element.process && !processedValue)
+    processedValue = element.value;
+  });
+  console.log('xxxx', processedValue);
+
     this.route.queryParams.subscribe(params => {
       if (!localStorage['user_id']) {
         this.userId = 0;
@@ -50,9 +67,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       else if (!this.user.navLat)
         this.uploadCoordinates();
     }
-
-    var height = window.innerWidth;
-    console.log('hey', height);
   }
   getStateCounts() {
     var params = {
