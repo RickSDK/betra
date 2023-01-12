@@ -31,6 +31,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   public ip: string = '';
   public gpsDataError: string = '';
   public buddyEmail: string = '';
+  public announcement: string = '';
 
   constructor(private router: Router) { super(); }
 
@@ -141,7 +142,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       this.menuNum = 5;
     }
     if (responseJson.action == 'resetMatches') {
-      this.errorMessage = 'Your Matches have been reset. Click the browse link to continue.';
+      this.announcement = 'Your Matches have been reset. Click the browse link to continue.';
     }
     if (responseJson.action == 'updateLat' || responseJson.action == 'updateNewGeoInfo') {
       this.user.navLat = responseJson.user.navLat;

@@ -25,13 +25,13 @@
 
         <div *ngIf="exceededPoolSizeFlg">
             <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
-            <p>Note: You are over your limit in your dating pool. Please drop someone.</p>
+            <p>Note: Visit your Dating Pool. You are over your limit in your dating pool. Please drop someone.</p>
             <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                 Dating Pool</button>
         </div>
         <div *ngIf="user && user.showHeartFormFlg">
             <div><img src="assets/images/rose1.png" width="100"></div>
-            <p>Note: You need to give someone a rose before proceeding.</p>
+            <p>Note: Visit your Dating Pool. You need to give someone a rose before proceeding.</p>
             <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                 Dating Pool</button>
         </div>
@@ -45,6 +45,8 @@
                 </div>
                 <div *ngIf="action != 'findMatches'">
                     <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply press the "Browse" button to bring back possible matches.</p>
+                    <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI that continueously expands your search options until matches are returned. 
+                        If you are getting no results after pressing that button, it means you have already viewed every person in the database meeting your gender requirments.</p>
                 </div>
             </div>
         </div>
@@ -105,7 +107,7 @@
         <app-user-requests *ngIf="matchUser.matchObj.match_level>=5" [myUser]="user" [matchUser]="matchUser">
         </app-user-requests>
 
-        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2" [myUser]="user" [matchUser]="matchUser">
+        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y'" [myUser]="user" [matchUser]="matchUser">
         </app-user-communication>
 
     </div>

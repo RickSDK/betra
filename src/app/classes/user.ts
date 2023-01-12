@@ -173,7 +173,9 @@ export class User {
     public gpsLng: string = '';
     public lookingForTitle: string = '';
     public facebookId: string = '';
-    public infoObj:any = null;
+    public infoObj: any = null;
+    public droppedByName: string = '';
+    public droppedBy: number = 0;
 
     constructor(obj: any) {
         if (obj) {
@@ -295,6 +297,8 @@ export class User {
             this.lng = obj.lng || 0;
             this.lastDay = 'test';
             this.activityRep = obj.activityRep || 0;
+            this.droppedByName = obj.droppedByName;
+            this.droppedBy = obj.droppedBy || 0;
 
             if (this.drinks == 'Yes') {
                 this.drinksIcon = 'assets/images/drinker.png';

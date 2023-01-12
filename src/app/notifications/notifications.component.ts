@@ -1,3 +1,4 @@
+import { not } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
@@ -16,12 +17,14 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
     { name: 'Info Requested', amount: 0, desc: 'Someone has requested your info!' },
     { name: 'Picture Requested', amount: 0, desc: 'Someone has requested your picture!' },
     { name: 'Picture Received', amount: 0, desc: 'Someone has sent you a picture!' },
+    { name: 'Dropped', amount: 0, desc: 'Sorry, but someone has dropped you from their dating pool.' },
   ]
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+
     this.loadNotifications();
   }
 
@@ -35,8 +38,6 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'getNotifications' && responseJson.infoObj) {
-      this.headerObj.notifications = responseJson.infoObj.notifications;
-      localStorage['notifications'] = responseJson.infoObj.notifications;
 
       this.notificationsTypes[0].amount = responseJson.infoObj.admirerCount;
       this.notificationsTypes[1].amount = responseJson.infoObj.users_matched;
@@ -45,9 +46,16 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
       this.notificationsTypes[5].amount = responseJson.infoObj.infoRequestCount;
       this.notificationsTypes[6].amount = responseJson.infoObj.picRequestCount;
       this.notificationsTypes[7].amount = responseJson.infoObj.newPicsCount;
-      
-      
-      
+      this.notificationsTypes[8].amount = (responseJson.infoObj.droppedBy>0)?1:0;
+
+      var notifications = 0;
+      this.notificationsTypes.forEach(element => {
+        notifications += parseInt(element.amount.toString());
+      });
+
+      this.headerObj.notifications = notifications;
+      localStorage['notifications'] = notifications;
+
     }
   }
 

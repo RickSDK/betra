@@ -120,7 +120,7 @@ export class BaseComponent implements OnInit {
     if (responseJson.infoObj) {
       this.infoObj = responseJson.infoObj;
       localStorage['infoObj'] = JSON.stringify(responseJson.infoObj);
-      console.log('hey!!', this.infoObj);
+      //console.log('hey!!', this.infoObj);
       localStorage['lastUpd'] = responseJson.infoObj.lastUpd;
       localStorage['timeStamp'] = now.toString();
       //this.notifications = responseJson.infoObj.notifications;

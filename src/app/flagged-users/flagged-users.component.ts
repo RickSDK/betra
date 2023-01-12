@@ -13,7 +13,7 @@ export class FlaggedUsersComponent extends BaseComponent implements OnInit {
   public itemList: any = [];
   public reviewObj: any = null;
   public headlines: any = [
-    'empty', 'Flagged Users', 'Flagged Reviews', 'New Reviews', 'Flagged Journals'
+    'Approve Profile Pic', 'Flagged Users', 'Flagged Reviews', 'New Reviews', 'Flagged Journals', 'Verify Pic'
   ];
   public headline = '';
 

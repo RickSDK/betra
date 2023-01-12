@@ -40,13 +40,16 @@ export class SideMenuComponent implements OnInit {
     if (localStorage['infoObj'])
       this.infoObj = JSON.parse(localStorage['infoObj']);
 
-    console.log('here is infoObj!', this.infoObj);
+    //console.log('here is infoObj!', this.infoObj);
+    var picVerifiedFlg: string = '';
     if (this.infoObj) {
       this.dateCount = this.infoObj.dateCount;
       this.date2Count = this.infoObj.date2Count;
       this.ownerAlerts = this.infoObj.ownerAlerts;
+      picVerifiedFlg = this.infoObj.picVerifiedFlg;
     }
-    this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
+    if (picVerifiedFlg != 'Y')
+      this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
 
     if (this.date2Count > 0) {
       this.middleItems.push({ name: 'Dates', routerLink: '/user-dates', icon: 'fa fa-calendar', id: 12 });

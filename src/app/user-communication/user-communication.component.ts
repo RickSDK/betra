@@ -67,7 +67,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   ngOnChanges(changes: any) {
     this.ngOnInit();
   }
-  
+
   populateModal(matchUser: any) {
     console.log('populate modal');
     this.messageSentFlg = false;
@@ -79,7 +79,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (this.matchUser && this.matchUser.matchObj) {
       this.checkTextFlags();
 
-      if (this.matchUser.matchObj.match_level > 2)
+      if (this.matchUser.matchObj.match_level > 2 || this.matchUser.matchObj.messagesSentFlg == 'Y')
         this.loadMessages();
     }
   }

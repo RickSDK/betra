@@ -6,6 +6,9 @@
         <app-owners-menu [pageTitle]="'Flagged'" [page]="0"></app-owners-menu>
         <hr>
         <div class="red-text"><b>{{headline}}</b></div>
+        <div *ngIf="menuNum==0">
+            Coding to be completed soon.
+        </div>
         <div *ngIf="menuNum==1">
             <p *ngIf="playerList.length == 0">
                 No Users Flagged at this time
@@ -91,7 +94,9 @@
                     <button (mousedown)="reviewReviewed('approveReview')" class="btn btn-success spacer">Approve</button>    
                 </div>
             </div>
-
+        </div>
+        <div *ngIf="menuNum==5">
+            Coding to be completed soon.
         </div>
 
 

@@ -26,6 +26,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public matchUser: any = null;
   public selectedPerson: any = null;
   public origSelectedPerson: number = 0;
+  public showDroppedPopup: boolean = false;
+  public firstName: string = '';
 
   @ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
 
@@ -46,7 +48,15 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
       if (menu == 0 && this.user.datingPool.length == 0)
         this.showDetailsNumber = 1;
-    })
+    });
+
+     if (localStorage['infoObj']) {
+      this.infoObj = JSON.parse(localStorage['infoObj']);
+      if (this.infoObj.droppedBy > 0) {
+        this.getDataFromServer('clearDroppedColumn', 'appApiCode2.php', []);
+      }
+
+    }
   }
 
   chooseForRose(person: any) {
@@ -190,6 +200,12 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == 'clearDroppedColumn') {
+      this.infoObj.droppedBy = responseJson.droppedBy;
+      this.firstName = responseJson.firstName;
+      this.infoObj.profilePic = responseJson.profilePic;
+      this.showDroppedPopup = true;
+    }
     if (responseJson.action == 'yesToMatch') {
       return;
     }

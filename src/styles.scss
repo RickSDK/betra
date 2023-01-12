@@ -87,6 +87,14 @@ body {
     color: black;
 }
 
+.important-notice {
+    background-color: #ffffc0; 
+    color: #900; 
+    padding: 5px; 
+    margin: 5px; 
+    border-radius: 5px;
+}
+
 .red-text {
     color: $main-color;
     font-weight: 700;

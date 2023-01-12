@@ -11,12 +11,12 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
   public signupDisabledFlg: boolean = false;
   public ownerCount: number = 0;
   public levels = [
-    { number: 6, name: 'President', percent: '7%', spots: 1, payouts: '$70,000' },
-    { number: 5, name: 'VP', percent: '6%', spots: 2, payouts: '$60,000' },
-    { number: 4, name: 'Director', percent: '4%', spots: 4, payouts: '$40,000' },
-    { number: 3, name: 'Manager', percent: '2%', spots: 16, payouts: '$20,000' },
-    { number: 2, name: 'Supervisor', percent: '1%', spots: 16, payouts: '$10,000' },
-    { number: 1, name: 'Owner', percent: '0.5%', spots: 32, payouts: '$5,000' }
+    { number: 6, name: 'President', percent: '5%', spots: 1, payouts: '$5,000' },
+    { number: 5, name: 'VP', percent: '5%', spots: 2, payouts: '$5,000' },
+    { number: 4, name: 'Director', percent: '4%', spots: 2, payouts: '$4,000' },
+    { number: 3, name: 'Manager', percent: '2%', spots: 8, payouts: '$2,000' },
+    { number: 2, name: 'Dev Team', percent: '2%', spots: 6, payouts: '$2,000' },
+    { number: 1, name: 'Owner', percent: '0.5%', spots: 30, payouts: '$500' }
   ]
 
   constructor(private router: Router) { super(); }

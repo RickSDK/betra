@@ -153,7 +153,7 @@
                         </button>
                         <button *ngIf="snapshotFlg && user.matchObj && user.matchObj.unreadMessages == 0"
                             [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
-                            class="btn btn-main-color btn-small">Full Profile
+                            class="btn btn-main-color btn-small"><i class="fa fa-comment"></i> Send Message
                         </button>
                         <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
                             *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
@@ -252,5 +252,5 @@
     <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg" [routerLink]="['/verify-pics']"
         class="text-link">verify pic</a>&nbsp;
 
-    <a *ngIf="!myUser.memberFlg" [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see pics</a>
+    <a *ngIf="!myUser.memberFlg && user.numPics > 0" [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see more pics</a>
 </div>

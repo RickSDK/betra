@@ -3,6 +3,7 @@
 
     <div class="matches-card" style="font-size: 14px; color: #444; position: relative; padding-bottom: 50px;"
         *ngIf="user">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div class="btn-group" role="group" aria-label="Menu">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
@@ -10,18 +11,18 @@
                 <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
             </button>
         </div>
-        <div *ngIf="showHeartFormFlg && menuNum==0" style="padding: 20px; text-align: center;">
+        <div *ngIf="showHeartFormFlg && menuNum==0" class="light-box" style="padding: 20px; text-align: center;">
             <table align="center">
                 <tr>
                     <td>
                         <img src="assets/images/rose6.png" height="150" alt="Rose" title="Rose">
                     </td>
                     <td>
-                        <div style="font-size: 20px;">Give someone a rose</div>
-                        <div class="tiny-text">Pick one person to indicate they are someone special. Everyone
+                        <div style="font-size: 20px;">Give someone a rose!</div>
+                        <p class="tiny-text">Pick one person to indicate they are someone special. Everyone
                             in your dating pool will be able to see who you have chosen.
                             Feel free to change this pick at any time.
-                        </div>
+                        </p>
                         <div style="display: inline-block; text-align: center;" *ngFor="let player of user.datingPool">
                             <img (mousedown)="chooseForRose(player)" [src]="player.src" class="small-img" style="height: 40px; width: 40px;" [style.border]="selectedPerson && selectedPerson.user_id==player.user_id?'4px solid #990000':'none'">
                             <div style="font-size: 8px;">{{player.name}}</div>
@@ -32,8 +33,6 @@
                     </td>
                 </tr>
             </table>
-            <hr>
-
         </div>
 
         <div>&nbsp;</div>
@@ -255,5 +254,19 @@
             [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [snapshotFlg]="true"
             [singleProfileFlg]="true">
         </app-match-snapshot>
+    </div>
+</div>
+
+<div (mousedown)="showDroppedPopup=false" *ngIf="showDroppedPopup" class="over-limit-popup-outer">
+    <div class="over-limit-popup" *ngIf="infoObj">
+        <div>Sorry, but you have been dropped from someone's dating pool.</div>
+        <app-profile-pic [user_id]="infoObj.droppedBy" [profilePic]="infoObj.profilePic" [size]="120">
+        </app-profile-pic>
+        <div>{{firstName}}</div>
+        <div style="font-size: 12px;">That means you can no longer communicate with this person. 
+            The only way to get back into their dating pool is if they add you. But don't worry, this happens to everyone. There are lots of more singles out there.
+            Click the "Browse" button to start finding a better match!
+        </div>
+        <button class="btn btn-warning">Ok</button>
     </div>
 </div>

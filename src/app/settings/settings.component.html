@@ -22,6 +22,9 @@
                 class="fa fa-arrow-up"></i>
             Upgrade</button>
 
+        <div *ngIf="announcement">
+            <div class="light-box">{{announcement}}</div>
+        </div>
         <div *ngIf="menuNum == 5" class="tan-box">
             <div>Buddy Notification</div>
             <div class="red-text">Betra is the safest dating app you will ever use.</div>
@@ -38,10 +41,12 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <app-text-input [placeHolder]="'Email Address'" [id]="'buddyEmail'" [maxLength]="80" [value]="buddyEmail"></app-text-input>
+                            <app-text-input [placeHolder]="'Email Address'" [id]="'buddyEmail'" [maxLength]="80"
+                                [value]="buddyEmail"></app-text-input>
                         </td>
                         <td width="70" align="center" valign="middle">
-                            <button (mousedown)="updateBuddyEmail()" class="btn btn-primary"><i class="fa fa-arrow-circle-right" style="font-size: 30px;"></i></button>
+                            <button (mousedown)="updateBuddyEmail()" class="btn btn-primary"><i
+                                    class="fa fa-arrow-circle-right" style="font-size: 30px;"></i></button>
                         </td>
                     </tr>
                 </table>
@@ -54,13 +59,15 @@
             <table *ngIf="!user.facebookId" width="100%">
                 <tr>
                     <td>
-                        <app-text-input [placeHolder]="'New Password'" [id]="'newPassword'" [maxLength]="30"></app-text-input>
+                        <app-text-input [placeHolder]="'New Password'" [id]="'newPassword'" [maxLength]="30">
+                        </app-text-input>
                     </td>
                     <td width="70" align="center" valign="middle">
-                        <button (mousedown)="updatePassword()" class="btn btn-primary"><i class="fa fa-arrow-circle-right" style="font-size: 30px;"></i></button>
+                        <button (mousedown)="updatePassword()" class="btn btn-primary"><i
+                                class="fa fa-arrow-circle-right" style="font-size: 30px;"></i></button>
                     </td>
                 </tr>
-            </table> 
+            </table>
         </div>
         <div *ngIf="!user.lat" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>

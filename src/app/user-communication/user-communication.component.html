@@ -57,6 +57,16 @@
         text freely.</div>
     <div *ngIf="matchUser.matchObj.match_level==4 && matchUser.matchObj.you_action=='message sent'">You will be able to
         freely chat back and forth once this message is sent.</div>
+    <div *ngIf="matchUser.matchObj.messagesSentFlg == 'Y' && !showTextInputFlg && matchUser.matchObj.match_level < 2">
+        <p class="important-notice" *ngIf="matchUser.matchObj.match_interested == 'Y'">
+            Notice: You currently are not able to communicate with this person due to them not being in your dating pool. Click on the 3-dots at the top of this profile,
+            and then click 'Add to Dating Pool' to communicate further.
+        </p>
+        <p class="important-notice" *ngIf="matchUser.matchObj.match_interested != 'Y'">
+            Notice: You currently are not able to communicate with this person because they dropped you from their dating pool. 
+            Sorry, but only if they add you back, can you further communicate. Try to move on to someone new.
+        </p>
+    </div>
     <div *ngIf="showTextInputFlg">
         <table width="100%">
             <tr>

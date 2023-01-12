@@ -213,6 +213,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       }
     }
     if (responseJson.action == 'findMatchesAdvanced') {
+      this.showFilter = false;
       this.matchesCount = 0;
 
       this.playerList = [];
