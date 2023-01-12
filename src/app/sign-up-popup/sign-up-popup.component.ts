@@ -55,6 +55,10 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
     var firstName: string = $('#firstName').val();
     var zipcode: string = $('#zipcode').val();
 
+    if(!email || !password || !firstName) {
+      this.errorMessage = 'fill out form';
+      return;
+    }
     //localStorage['email'] = email;
     var code = btoa(password);
     localStorage['code'] = code;
@@ -93,6 +97,10 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
   facebookSignin(): void {
     this.showLoginButtonFlg = false;
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  googleSignin(): void {
+    this.errorMessage = 'Google+ not ready yet';
   }
 
   logOut(): void {

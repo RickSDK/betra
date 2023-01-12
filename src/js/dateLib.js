@@ -28,9 +28,9 @@ function getDateObjFromJSDate(dateStr = '') {
     if (now.toLocaleDateString() == dt.toLocaleDateString())
         distanceAway = 'Today';
     else if (daysAgo == 1)
-        distanceAway = daysAgo + ' Yesterday';
+        distanceAway = 'Yesterday';
     else if (daysAgo == -1)
-        distanceAway = daysAgo + ' Tomorrow';
+        distanceAway = 'Tomorrow';
     else if (daysAgo > 0)
         distanceAway = daysAgo + ' days ago';
     else

@@ -29,6 +29,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UserDatesComponent } from './user-dates/user-dates.component';
+import { OwnerAdminComponent } from './owner-admin/owner-admin.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -60,6 +61,7 @@ const routes: Routes = [
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'owner-teams', component: OwnerTeamsComponent },
   { path: 'user-dates', component: UserDatesComponent },
+  { path: 'owner-admin', component: OwnerAdminComponent },
 ];
 
 @NgModule({

@@ -1,173 +1,32 @@
 
-.signup-box {
-    background-color: #d8e0e3;
-    display: inline-block;
-    position: fixed;
-    top: 240px;
-    right: 20px;
-    width: 100%;
-    max-width: 300px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 5px 5px 10px black;
-    padding: 0;
-}
-.signup-box:hover {
-    background-color: #eee;
-    box-shadow: 8px 8px 15px black;
-}
-.inside-box {
-    background-color: #d8e0e3;
-    margin: 3px;
-}
-
-.main-option {
-    background-color: #fff;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    cursor: pointer;
-}
-.main-option:hover {
-    background-color: #eef;
-    border: 1px solid black;
-}
-.red-button {
-    background-color: red;
-    color: white;
-    width: 100%;
-    height: 60px;
-    -webkit-animation: glowing-red 1300ms infinite;
-    -moz-animation: glowing-red 1300ms infinite;
-    -o-animation: glowing-red 1300ms infinite;
-    animation: glowing-red 1300ms infinite;
-}
-.red-button:hover {
-    background-color: red;
-}
-.main-item {
-    font-size: 28px;
-    font-weight: 700;
-    cursor: pointer;
-    color: #b7121f;
-}
-.secondary-item {
-    font-size: 12px;
-    color: gray;
-}
 
 .tiny-text {
     color: white;
 }
 
-.glow-red-button {
-    text-align: center;
-    -webkit-animation: glowing 1300ms infinite;
-    -moz-animation: glowing 1300ms infinite;
-    -o-animation: glowing 1300ms infinite;
-    animation: glowing 1300ms infinite;
-}
-$dark-color: #900;
-$light-color: #f00;
-
-@-webkit-keyframes glowing-red {
-    0% {
-      background-color: $light-color;
-      -webkit-box-shadow: 0 0 3px $light-color;
-    }
-    50% {
-      background-color: $dark-color;
-      -webkit-box-shadow: 0 0 15px $dark-color;
-    }
-    100% {
-      background-color: $light-color;
-      -webkit-box-shadow: 0 0 3px $light-color;
-    }
-  }
-  @keyframes glowing-red {
-    0% {
-      background-color: $light-color;
-      box-shadow: 0 0 3px $light-color;
-    }
-    50% {
-      background-color: $dark-color;
-      box-shadow: 0 0 15px $dark-color;
-    }
-    100% {
-      background-color: $light-color;
-      box-shadow: 0 0 3px $light-color;
-    }
-  }
-
-
-.background-glow {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: -1;
+.login-button {
+    font-size: 22px;
+    padding: 5px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    margin: 3px;
+    cursor: pointer;
 }
 
-.neon {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-    filter: brightness(200%);
+.google-btn {
+    background-color: #db4a39;
 }
 
-.text {
-    background-color: transparent;
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    position: relative;
-    user-select: none;
+.google-btn:hover {
+    background-color: #d67469;
 }
 
-.text::before {
-    content: attr(data-text);
-    position: absolute;
-    color: white;
-    filter: blur(0.02em);
-    mix-blend-mode: difference;
+.facebook-btn {
+    background-color: #1877F2;
 }
 
-.gradient {
-    position: absolute;
-    background: linear-gradient(45deg, red, gold, lightgreen, gold, red);
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    mix-blend-mode: multiply;
+.facebook-btn:hover {
+    background-color: #4690ef;
 }
-
-.spotlight {
-    position: absolute;
-    top: -100%;
-    left: -100%;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(
-            circle,
-            white,
-            transparent 25%
-        ) center / 25% 25%,
-        radial-gradient(
-            circle,
-            white,
-            black 25%
-        ) center / 12.5% 12.5%;
-    animation: light 5s linear infinite;
-    mix-blend-mode: color-dodge;
-}
-
-@keyframes light {
-    to {
-        transform: translate(50%, 50%);
-    }
-}
-

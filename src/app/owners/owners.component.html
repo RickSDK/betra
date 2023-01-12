@@ -2,7 +2,7 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
     <div class="matches-card" *ngIf="user && user.ownerFlg">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <app-owners-menu [pageTitle]="'Details'"></app-owners-menu>
+        <app-owners-menu [pageTitle]="'Details'" [page]="1"></app-owners-menu>
         <p>Welcome to the Betra owner's team!</p>
         <p>Our goal is to grow this app into one of the top dating sites in the world!</p>
         Your current details:

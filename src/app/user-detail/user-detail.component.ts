@@ -32,6 +32,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public searchStarted: boolean = false;
   public matchesCount: number = 0;
   public showExpandedSearchPopupFlg: boolean = false;
+  public action: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -128,7 +129,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       lng: Math.round(this.user.longitude),
       matchAgeYear: this.user.matchAgeYear,
       matchAgeRange: this.user.matchAgeRange,
-      localsOnly: (this.showExpandedSearchPopupFlg)?'Y':'',
+      localsOnly: (this.showExpandedSearchPopupFlg) ? 'Y' : '',
       action: action
     };
     console.log('params', params);
@@ -179,6 +180,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   //--------------------------------------------
   override postSuccessApi(file: string, responseJson: any) {
     console.log('--postSuccessApi--', responseJson);
+    this.action = responseJson.action;
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['notifications'] = responseJson.notifications;
@@ -197,7 +199,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.showCurrentProfile();
       }
     }
-    this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3>0);
+    this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3 > 0);
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
       this.playerList = [];
       if (this.responseJson.playerList) {
@@ -246,7 +248,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'logUser') {
       this.syncUserWithLocalStorage(responseJson);
-      if(this.exceededPoolSizeFlg) {
+      if (this.exceededPoolSizeFlg) {
         var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
         this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
       }

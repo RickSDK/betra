@@ -38,6 +38,10 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
+  googleSignin(): void {
+    this.errorMessage = 'Google+ not ready yet';
+  }
+
   logOut(): void {
     this.socialAuthService.signOut();
   }
@@ -100,6 +104,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['messageCount'] = responseJson.infoObj.messageCount;
       localStorage['dateCount'] = responseJson.infoObj.dateCount;
+      localStorage['ownerAlerts'] = responseJson.infoObj.ownerAlerts;
       localStorage['notifications'] = responseJson.notifications;
       localStorage['User'] = JSON.stringify(responseJson.user);
 

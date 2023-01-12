@@ -1,0 +1,23 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Admin'" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
+
+        <hr>
+        <div style="display: inline-block; max-width: 380px;">
+            <div>Admin Tools</div>
+            <div class="gray-text">These tools will help admins manage the app. If any records have been flagged, you will see an indicator next to the link.</div>
+
+            <div *ngFor="let item of adminLinks">
+                <div [routerLink]="[item.routerLink]" class="menu-item" [queryParams]="{id: item.id}"><i [class]="item.icon"></i> &nbsp;
+                    {{item.name}}
+                    <span *ngIf="item.count>0" class="red-circle">{{item.count}}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</app-page-shell>

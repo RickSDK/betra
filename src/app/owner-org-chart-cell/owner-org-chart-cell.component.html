@@ -1,0 +1,8 @@
+<div *ngIf="person" style="display: inline-block; padding: 3px; margin: 2px; border: 1px solid gray; border-radius: 10px;">
+    <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="60">
+    </app-profile-pic>
+    <div>{{person.firstName}}</div>
+    <div class="red-text" style="font-size: 10px;">{{personTitle}}</div>
+    <div class="gray-text">{{person.email}}</div>
+    <div class="gray-text">{{person.phone}}</div>
+</div>

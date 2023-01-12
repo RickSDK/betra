@@ -14,29 +14,12 @@ export class MessagesComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.loadNewMessages();
+    this.getDataFromServer('loadUserMessages', 'betraMessages.php', []);
   }
-  loadNewMessages() {
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      action: 'loadNewMessages'
-    };
-    this.executeApi('betraMessages.php', params, true);
-  }
-  override postSuccessApi(file: string, responseJson: any) {
-    if (responseJson.action == 'loadNewMessages') {
-      this.messageCount = responseJson.messages.length;
-      
-      this.user.datingPool.forEach((element: any) => {
-        element.messages = [];
-        responseJson.messages.forEach((elementM: any) => {
-          if (elementM.user_id == element.user_id)
-            element.messages.push(elementM.message);
-        });
 
-        this.playerList.push(element);
-      });
+  override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == 'loadUserMessages') {
+      this.playerList = responseJson.players;
       console.log('playerList', this.playerList);
     }
   }

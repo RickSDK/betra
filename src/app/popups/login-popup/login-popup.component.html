@@ -1,6 +1,10 @@
 <div *ngIf="showLoginButtonFlg" style="text-align: center;">
-    <button class="btn btn-primary" (click)="facebookSignin()"><i class="fa fa-facebook-square"></i> Continue
-        with Facebook</button>
+    <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
+    title="Continue with Facebook"></i>
+
+    <i (click)="googleSignin()" class="fa fa-google-plus google-btn login-button"
+    title="Continue with Google+"></i>
+    
 </div>
 
 <div class="tiny-text">Email Address</div>
@@ -11,9 +15,9 @@
 <hr>
 <p *ngIf="forgotPasswordFlg">Forgot password? Enter your email address above and press Submit.</p>
 <div style="text-align: center;">
-    <button *ngIf="!forgotPasswordFlg" (mousedown)="loginPressed()" class="btn red-button"
+    <button *ngIf="!forgotPasswordFlg" (mousedown)="loginPressed()" class="btn btn-main-color btn-large"
         [disabled]="submitDisabled">Log In</button>
-    <button *ngIf="forgotPasswordFlg" (mousedown)="forgotPasswordPressed()" class="btn btn-main-color">Submit</button>
+    <button *ngIf="forgotPasswordFlg" (mousedown)="forgotPasswordPressed()" class="btn btn-main-color btn-large">Submit</button>
 
     <div style="margin-top: 10px;">
         <span [routerLink]="['']" [queryParams]="{login: 3}" class="hyper-link">Create Account</span>&nbsp;&nbsp;&nbsp;

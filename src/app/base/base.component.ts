@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { stringify } from 'querystring';
 import { User } from '../classes/user';
 
 declare var $: any;
@@ -30,6 +31,7 @@ export class BaseComponent implements OnInit {
   public menuNum: number = 0;
   public topButtons: any = ['one', 'two', 'three'];
   public minutesToRefresh = 1;
+  public infoObj: any = null;
 
 
   public headerObj: any = {
@@ -72,6 +74,9 @@ export class BaseComponent implements OnInit {
     this.userStatus = '';
     this.popupNum = 1;
     if (this.userId > 0) {
+      if (localStorage['infoObj'])
+        this.infoObj = JSON.parse(localStorage['infoObj']);
+
       var userLocalStorage = localStorage['User'];
       if (userLocalStorage) {
         var userObj = JSON.parse(localStorage['User']);
@@ -84,6 +89,7 @@ export class BaseComponent implements OnInit {
         this.headerObj.admirerCount = localStorage['admirerCount'];
         this.headerObj.matchesAlerts = localStorage['matchesAlerts'];
         this.headerObj.dateCount = localStorage['dateCount'];
+        this.headerObj.ownerAlerts = localStorage['ownerAlerts'];
         this.headerObj.ownerFlg = this.user.ownerFlg;
         this.popupNum = (this.user.status == 'Active') ? 0 : 3;
         console.log('loadUserObjUser', this.user);
@@ -112,6 +118,9 @@ export class BaseComponent implements OnInit {
     var now = new Date();
     console.log('xxx user synced with database xxx', responseJson);
     if (responseJson.infoObj) {
+      this.infoObj = responseJson.infoObj;
+      localStorage['infoObj'] = JSON.stringify(responseJson.infoObj);
+      console.log('hey!!', this.infoObj);
       localStorage['lastUpd'] = responseJson.infoObj.lastUpd;
       localStorage['timeStamp'] = now.toString();
       //this.notifications = responseJson.infoObj.notifications;
@@ -120,11 +129,13 @@ export class BaseComponent implements OnInit {
       this.headerObj.messageCount = responseJson.infoObj.messageCount;
       this.headerObj.matchesAlerts = responseJson.infoObj.matchesAlerts
       this.headerObj.dateCount = responseJson.infoObj.dateCount
+      this.headerObj.ownerAlerts = responseJson.infoObj.ownerAlerts
       localStorage['notifications'] = this.headerObj.notifications;
       localStorage['admirerCount'] = this.headerObj.admirerCount;
       localStorage['messageCount'] = this.headerObj.messageCount;
       localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
       localStorage['dateCount'] = this.headerObj.dateCount;
+      localStorage['ownerAlerts'] = this.headerObj.ownerAlerts;
       //console.log('xxxdateCount', this.headerObj.dateCount);
       if (responseJson.user && responseJson.user.status == 'Active') {
         setTimeout(() => {

@@ -173,6 +173,7 @@ export class User {
     public gpsLng: string = '';
     public lookingForTitle: string = '';
     public facebookId: string = '';
+    public infoObj:any = null;
 
     constructor(obj: any) {
         if (obj) {
@@ -257,7 +258,8 @@ export class User {
             this.match_level = obj.match_level || 0;
             this.heartId = obj.heartId || 0;
             this.matchObj = obj.matchObj;
-            this.reviewsCount = obj.reviewsCount || 0;;
+            this.reviewsCount = obj.reviewsCount || 0;
+            this.infoObj = obj.infoObj;
 
             this.countryName = obj.countryName || '';
             this.gpsLat = obj.latitude || '';

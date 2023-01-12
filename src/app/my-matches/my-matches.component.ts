@@ -175,7 +175,24 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode2.php', params, true);
   }
 
+  addPersonToDP(person: any) {
+    var playerList: any = [];
+    this.playerList.forEach((element: any) => {
+      if (element.user_id != person.user_id)
+        playerList.push(element);
+    });
+    this.playerList = playerList;
+
+    var params = {
+      matchId: person.user_id,
+    };
+    this.getDataFromServer('yesToMatch', 'appApiCode2.php', params);
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == 'yesToMatch') {
+      return;
+    }
     if (responseJson.action == 'removeThisUser' || responseJson.action == 'banThisUser') {
       this.syncUserWithLocalStorage(responseJson);
 
@@ -226,7 +243,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
             alerts++;
           if (match.unreadMessages > 0)
             alerts += parseInt(match.unreadMessages);
-          if (match.you_date_request == 'M' || match.match_date_request == 'M' || match.match_date_request == 'A' || match.you_date_request == 'Y')
+          if (match.you_date_request == 'M' || match.match_date_request == 'M' || match.you_date_request == 'Y')
             alerts++;
           if (match.you_pic_request > 0)
             alerts++;

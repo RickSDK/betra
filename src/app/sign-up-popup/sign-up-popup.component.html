@@ -1,6 +1,10 @@
 <div style="text-align: center;">
-    <button *ngIf="showLoginButtonFlg" class="btn btn-primary" (click)="facebookSignin()"><i
-            class="fa fa-facebook-square"></i> Continue with Facebook</button>
+    <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
+    title="Continue with Facebook"></i>
+
+    <i (click)="googleSignin()" class="fa fa-google-plus google-btn login-button"
+    title="Continue with Google+"></i>
+
 </div>
 <div class="tiny-text">First Name</div>
 <app-first-name-input (messageEvent)="valueChanged()">
@@ -10,21 +14,16 @@
 <div class="tiny-text">Password</div>
 <input name="password" id="password" type="password" placeholder="Password" (input)="valueChanged()">
 
-<hr>
-<div style="color: black;" (mousedown)="errorMessage=''">
+
+
+
+<div>&nbsp;</div>
+<div style="color: black; text-align: center; padding: 5px;" (mousedown)="errorMessage=''">
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>
-<table width="100%" *ngIf="!loadingFlg && !errorMessage">
-    <tr>
-        <td>
-            <span [routerLink]="['']" [queryParams]="{login: 0}" class="hyper-link">Back</span>
-        </td>
-        <td>
-            <button (mousedown)="signupPressed()" class="btn red-button" [disabled]="submitDisabled">Sign
-                Up!</button>
-        </td>
-    </tr>
-</table>
+<button (mousedown)="signupPressed()" class="btn btn-main-color btn-large">Sign Up!</button>
+
+<div>&nbsp;</div>
 <div style="text-align: center;">
     <span [routerLink]="['']" [queryParams]="{login: 1}" class="hyper-link">Already have an account?</span>
 </div>

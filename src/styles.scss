@@ -55,6 +55,19 @@ body {
     color: black !important;
 }
 
+.btn-large {
+    border-radius: 30px !important;
+    width: 100%;
+}
+
+.alert-icon {
+    color: white;
+    background-color: $main-color;
+    border-radius: 50%;
+    padding: 7px;
+    box-shadow: 2px 2px 3px black;
+}
+
 .spacer {
     margin: 3px;
 }

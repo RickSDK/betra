@@ -34,6 +34,8 @@
     <div *ngFor="let item of bottomItems">
         <div [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}" [ngClass]="ngClassMenuItem(item.name)"><i
                 [class]="item.icon"></i> &nbsp;
-            {{item.name}}</div>
+            {{item.name}}
+            <span *ngIf="item.id==13 && ownerAlerts>0" class="red-circle">{{ownerAlerts}}</span>
+        </div>
     </div>
 </div>

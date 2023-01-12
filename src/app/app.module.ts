@@ -75,6 +75,8 @@ import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
 import { OwnerCellComponent } from './owner-cell/owner-cell.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UserDatesComponent } from './user-dates/user-dates.component';
+import { OwnerAdminComponent } from './owner-admin/owner-admin.component';
+import { OwnerOrgChartCellComponent } from './owner-org-chart-cell/owner-org-chart-cell.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -151,6 +153,8 @@ import { UserDatesComponent } from './user-dates/user-dates.component';
     OwnerCellComponent,
     LandingPageComponent,
     UserDatesComponent,
+    OwnerAdminComponent,
+    OwnerOrgChartCellComponent,
   ],
   imports: [
     BrowserModule,

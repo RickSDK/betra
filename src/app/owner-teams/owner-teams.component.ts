@@ -25,6 +25,13 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
   public members5: any = [];
   public members6: any = [];
 
+  public president: any = null;
+  public vp: any = null;
+  public director1: any = null;
+  public director2: any = null;
+  public managers1: any = [];
+  public managers2: any = [];
+
   public teams1 = [
     { name: 'Team 1 - California', lead: {}, members: this.members1, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
     { name: 'Team 2 - Chicago', lead: {}, members: this.members2, clicks: 0, interestNo: 0, interestYes: 0, matches: 0, messages: 0, picVerifiedCount: 0, total: 0, emails: [] },
@@ -68,6 +75,15 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
         element.lastDay = lastLoginText(element.lastLogin);
         element.location = this.getUserLocation(element.city, element.state || element.stateName, element.countryName);
 
+        if (element.user_id == 1)
+          this.president = element;
+        if (element.user_id == 233)
+          this.vp = element;
+        if (element.user_id == 122)
+          this.director1 = element;
+        if (element.user_id == 235)
+          this.director2 = element;
+
         if (element.user_id == 122)
           this.ownerJames = element;
         if (element.user_id == 235)
@@ -90,31 +106,37 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
         if (element.activityRep == 11) {
           // will
           this.teams1[0].lead = element;
+          this.managers1.push(element);
           this.addStatsForTeam(this.teams1[0], element);
         }
         if (element.activityRep == 12) {
           //karen
+          this.managers1.push(element);
           this.teams1[1].lead = element;
           this.addStatsForTeam(this.teams1[1], element);
         }
         if (element.activityRep == 13) {
           //Randy
+          this.managers1.push(element);
           this.teams1[2].lead = element;
           this.addStatsForTeam(this.teams1[2], element);
 
         }
         if (element.activityRep == 14) {
           //brittany
+          this.managers2.push(element);
           this.teams2[0].lead = element;
           this.addStatsForTeam(this.teams2[0], element);
         }
         if (element.activityRep == 15) {
           //shubha
+          this.managers2.push(element);
           this.teams2[1].lead = element;
           this.addStatsForTeam(this.teams2[1], element);
         }
         if (element.activityRep == 16) {
           //dana
+          this.managers2.push(element);
           this.teams2[2].lead = element;
           this.addStatsForTeam(this.teams2[2], element);
         }

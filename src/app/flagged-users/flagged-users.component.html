@@ -3,34 +3,97 @@
     <div class="matches-card" *ngIf="user">
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <app-owners-menu [pageTitle]="'Flagged'" [page]="1"></app-owners-menu>
+        <app-owners-menu [pageTitle]="'Flagged'" [page]="0"></app-owners-menu>
+        <hr>
+        <div class="red-text"><b>{{headline}}</b></div>
+        <div *ngIf="menuNum==1">
+            <p *ngIf="playerList.length == 0">
+                No Users Flagged at this time
+            </p>
 
-        <p *ngIf="playerList.length == 0">
-            No Users Flagged at this time
-        </p>
+            <table *ngIf="playerList.length>0">
+                <tr>
+                    <th>Flagged User</th>
+                    <th>Action</th>
+                    <th>Flagged By</th>
+                </tr>
+                <tr *ngFor="let player of playerList">
+                    <td>
+                        <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="80">
+                        </app-profile-pic>
+                        {{player.firstName}}
+                    </td>
+                    <td>
+                        <button (mousedown)="buttonPressed(player, 'markAsOk')" class="btn btn-primary">Mark as
+                            OK</button>
+                    </td>
+                    <td>
+                        <app-profile-pic [user_id]="player.profileFlaggedBy"
+                            [profilePic]="player.profileFlaggedByProfilePic" [size]="50">
+                        </app-profile-pic>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="menuNum==2 || menuNum==3">
+            <p *ngIf="!reviewObj">
+                No new reviews at this time
+            </p>
+            <p class="gray-text">Note, new reviews can be seen immediately, but they are all verified by an admin shortly after posting and can be removed if they are too
+                angry or contain sensative, personal or embarassing information.
+            </p>
+            <div *ngIf="reviewObj">
+                <table style="text-align: center;" border="1">
+                    <tr>
+                        <th>Person</th>
+                        <th>Rating</th>
+                        <th align="center">Message</th>
+                        <th>Reviewed By</th>
+                    </tr>
+                    <tr>
+                        <td><app-profile-pic [user_id]="reviewObj.user_id" [profilePic]="reviewObj.profilePic" [size]="80">
+                        </app-profile-pic></td>
+                        <td align="center">{{reviewObj.rating}}</td>
+                        <td class="gray-text" align="center">{{reviewObj.message}}</td>
+                        <td><app-profile-pic [user_id]="reviewObj.uid" [profilePic]="reviewObj.profilePic2" [size]="80">
+                        </app-profile-pic></td>
+                    </tr>
+                </table>
+                <div>
+                    <button (mousedown)="reviewReviewed('rejectReview')" class="btn btn-danger spacer">Reject</button>
+                    <button (mousedown)="reviewReviewed('approveReview')" class="btn btn-success spacer">Approve</button>    
+                </div>
+            </div>
+        </div>
+        <div *ngIf="menuNum==4">
+            <p *ngIf="!reviewObj">
+                No flagged journals at this time.
+            </p>
+            <div *ngIf="reviewObj">
+                <table style="text-align: center;" border="1">
+                    <tr>
+                        <th>Author</th>
+                        <th>Rating</th>
+                        <th align="center">Message</th>
+                        <th>Flagged By</th>
+                    </tr>
+                    <tr>
+                        <td><app-profile-pic [user_id]="reviewObj.user_id" [profilePic]="reviewObj.profilePic" [size]="80">
+                        </app-profile-pic></td>
+                        <td align="center">{{reviewObj.rating}}</td>
+                        <td class="gray-text" align="center">{{reviewObj.message}}</td>
+                        <td><app-profile-pic [user_id]="reviewObj.uid" [profilePic]="reviewObj.profilePic2" [size]="80">
+                        </app-profile-pic></td>
+                    </tr>
+                </table>
+                <div>
+                    <button (mousedown)="reviewReviewed('rejectReview')" class="btn btn-danger spacer">Reject</button>
+                    <button (mousedown)="reviewReviewed('approveReview')" class="btn btn-success spacer">Approve</button>    
+                </div>
+            </div>
 
-        <table *ngIf="playerList.length>0">
-            <tr>
-                <th>Flagged User</th>
-                <th>Action</th>
-                <th>Flagged By</th>
-            </tr>
-            <tr *ngFor="let player of playerList">
-                <td>
-                    <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="80">
-                    </app-profile-pic>
-                    {{player.firstName}}    
-                </td>
-                <td>
-                    <button (mousedown)="buttonPressed(player, 'markAsOk')" class="btn btn-primary">Mark as OK</button>
-                </td>
-                <td>
-                    <app-profile-pic [user_id]="player.profileFlaggedBy" [profilePic]="player.profileFlaggedByProfilePic" [size]="50">
-                    </app-profile-pic>
-                </td>
-            </tr>
-        </table>
+        </div>
 
-        
+
     </div>
 </app-page-shell>

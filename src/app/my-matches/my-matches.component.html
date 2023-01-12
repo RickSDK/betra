@@ -82,13 +82,14 @@
         </div>
         <div *ngIf="menuNum==2 && !loadingFlg">
             <div>
-                <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
-                    *ngFor="let person of playerList" class="person-box">
-                    <img [src]="person.src" class="small-img">
+                <div 
+                    *ngFor="let person of playerList" class="person-box" style="position: relative;">
+                    <i class="fa fa-plus add-button" (mousedown)="addPersonToDP(person)"></i>
+                    <img [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" [src]="person.src" class="small-img">
                     <div class="name-title">{{person.name}}</div>
                 </div>
                 <div *ngIf="playerList.length>0">
-                    <p><i class="fa fa-heart" style="color: red;"></i> These people are very interested in you!</p>
+                    <p><i class="fa fa-heart" style="color: red;"></i> These people are very interested in you, but are on your back burner.</p>
                     <p class="gray-text">The above profiles are people who are interested in you. Adding them to your
                         dating pool
                         will allow the two of you to start communicating.</p>

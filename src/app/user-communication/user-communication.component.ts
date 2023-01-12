@@ -63,8 +63,14 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     //super.ngOnInit();
     this.populateModal(this.matchUser);
   }
+
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
+  }
+  
   populateModal(matchUser: any) {
     console.log('populate modal');
+    this.messageSentFlg = false;
     this.messages = [];
     this.matchUser = matchUser;
 

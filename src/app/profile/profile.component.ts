@@ -40,7 +40,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
   public kidsOptions = ['Yes', 'No', 'Does Not Matter'];
   public smokingOptions = ['Yes', 'Occasional', 'No'];
-  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Other Religion'];
+  public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Spiritualism', 'Other Religion'];
   public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'South-Asian', 'Hispanic', 'Middle Eastern', 'Other'];
   public bonusImages = ['Image1', 'Image2', 'Image3', 'Image4'];
   public code: string = localStorage['code'];

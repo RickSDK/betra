@@ -8,27 +8,53 @@
         {{teamName}}
 
         <div *ngIf="team==0">
-            Org chart coming soon...
+            <app-owner-org-chart-cell [person]="president" [personTitle]="'President'"></app-owner-org-chart-cell>
+            <app-owner-org-chart-cell [person]="vp" [personTitle]="'Vice President'"></app-owner-org-chart-cell>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                        <app-owner-org-chart-cell [person]="director1" [personTitle]="'Director'">
+                        </app-owner-org-chart-cell>
+                        <div>
+                            <app-owner-org-chart-cell *ngFor="let person of managers1" [person]="person"
+                                [personTitle]="'Manager'"></app-owner-org-chart-cell>
+                        </div>
+                    </td>
+                    <td align="center">
+                        <app-owner-org-chart-cell [person]="director2" [personTitle]="'Director'">
+                        </app-owner-org-chart-cell>
+                        <div>
+                            <app-owner-org-chart-cell *ngFor="let person of managers2" [person]="person"
+                                [personTitle]="'Manager'"></app-owner-org-chart-cell>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
         </div>
         <div *ngIf="team==1">
-            <app-owner-cell *ngFor="let player of devTeam" [person]="player" [adminFlg]="user.activityRep>8"></app-owner-cell>
+            <app-owner-cell *ngFor="let player of devTeam" [person]="player" [adminFlg]="user.activityRep>8">
+            </app-owner-cell>
         </div>
         <div *ngIf="team==2">
-            <app-owner-cell *ngFor="let player of promotionsTeam" [person]="player" [adminFlg]="user.activityRep>8"></app-owner-cell>
+            <app-owner-cell *ngFor="let player of promotionsTeam" [person]="player" [adminFlg]="user.activityRep>8">
+            </app-owner-cell>
         </div>
 
         <div *ngIf="team==3">
             <app-owner-cell *ngIf="ownerJames" [person]="ownerJames" [adminFlg]="user.activityRep>8"></app-owner-cell>
             <div *ngFor="let team of teams1" class="team-box">
                 <div style="background-color: #444; color: white;">{{team.name}}</div>
-                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
-                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
+                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8">
+                </app-owner-activity-user>
+                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member"
+                    [adminFlg]="user.activityRep>8"></app-owner-activity-user>
                 <div class="gray-text">clicks: {{team.clicks}}</div>
                 <div class="gray-text">matches: {{team.matches}}</div>
                 <div class="gray-text">messages: {{team.messages}}</div>
                 <div class="gray-text">pics: {{team.picVerifiedCount}}</div>
                 <div><b>Score: {{team.total}}</b></div>
-                <div style="font-size: 8px; color: gray;">
+                <div style="font-size: 8px; color: gray;" *ngIf="user.user_id==1">
                     <span *ngFor="let email of team.emails">{{email}}; </span>
                 </div>
             </div>
@@ -38,14 +64,16 @@
             <app-owner-cell *ngIf="ownerHalle" [person]="ownerHalle" [adminFlg]="user.activityRep>8"></app-owner-cell>
             <div *ngFor="let team of teams2" class="team-box">
                 <div style="background-color: #444; color: white;">{{team.name}}</div>
-                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
-                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member" [adminFlg]="user.activityRep>8"></app-owner-activity-user>
+                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8">
+                </app-owner-activity-user>
+                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member"
+                    [adminFlg]="user.activityRep>8"></app-owner-activity-user>
                 <div class="gray-text">clicks: {{team.clicks}}</div>
                 <div class="gray-text">matches: {{team.matches}}</div>
                 <div class="gray-text">messages: {{team.messages}}</div>
                 <div class="gray-text">pics: {{team.picVerifiedCount}}</div>
                 <div><b>Score: {{team.total}}</b></div>
-                <div style="font-size: 8px; color: gray;">
+                <div style="font-size: 8px; color: gray;" *ngIf="user.user_id==1">
                     <span *ngFor="let email of team.emails">{{email}}; </span>
                 </div>
 

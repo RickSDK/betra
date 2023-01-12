@@ -39,8 +39,13 @@
         <div *ngIf="!loadingFlg && id != 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">
             <div>
                 <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
-                <p>Sorry, no more profiles. This is a new app and people are just starting to sign up. Check back soon.
-                </p>
+                <div *ngIf="action == 'findMatches'">
+                    <p>Sorry, no more profiles to browse!</p>
+                    <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a new app and people are just starting to sign up. Check back soon.</p>
+                </div>
+                <div *ngIf="action != 'findMatches'">
+                    <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply press the "Browse" button to bring back possible matches.</p>
+                </div>
             </div>
         </div>
         <div *ngIf="!loadingFlg && id == 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">

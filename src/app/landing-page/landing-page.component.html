@@ -1,8 +1,6 @@
-<img *ngIf="0" class="background-img" src="assets/images/landing/loveBG.jpg" alt="">
-<img *ngIf="0" class="background-img" src="assets/images/landing/red2BG.png" alt="">
-<img *ngIf="0" class="background-img" src="assets/images/landing/tableBG.png" alt="">
-<img *ngIf="0" class="background-img" src="assets/images/landing/table3.png" alt="">
-<img *ngIf="1" class="background-img" src="assets/images/landing/girlRose.png" alt="">
+<img class="background-img" src="assets/images/landing/girlRose.png" alt="">
+<div class="gray-screen large-screen"></div>
+<div *ngIf="showSignupPopup || showLoginPopup" class="gray-screen large-screen"></div>
 
 <span [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
     Log<br>
@@ -19,27 +17,28 @@
 <img [routerLink]="['']" [queryParams]="{login: 0}" src="assets/images/landing/logoWhite.png" height="60"
     style="top: 10px; left: 10px; position: absolute; cursor: pointer;">
 
-<div class="signup-popup-bg"></div>
-<div class="signup-popup">
-    <div *ngIf="!showLoginPopup && !showSignupPopup">
-        <div style="padding: 10px;">&nbsp;</div>
-        <div class="large-text">FINDING A DATE JUST GOT<br>BETTER</div>
-        <div>&nbsp;</div>
-        <h3>START <span class="red-text" style="text-decoration: underline;">FREE</span> TODAY</h3>
-        <div>&nbsp;</div>
-        <button [routerLink]="['']" [queryParams]="{login: 3}" class="btn btn-main-color"
-            style="width: 100%; height: 50px;">Create Account</button>
+<div class="outer-layer">
+    <div style="display: inline-block; width: 100%; max-width: 360px; position: relative; min-height: 420px;">
+        <div class="gray-screen small-screen">
+        </div>
+        <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; padding: 50px 30px; color: white;">
+            <div *ngIf="!showLoginPopup && !showSignupPopup">
+                <div>&nbsp;</div>
+                <div class="large-text">FINDING A DATE JUST GOT<br>BETTER</div>
+                <div>&nbsp;</div>
+                <h3 style="text-align: center;">START <span class="red-text" style="text-decoration: underline;">FREE</span> TODAY</h3>
+                <div>&nbsp;</div>
+                <button [routerLink]="['']" [queryParams]="{login: 3}" class="btn btn-main-color btn-large"
+                    >Create Account</button>
+            </div>
+            <app-sign-up-popup *ngIf="showSignupPopup" (messageEvent)="userIsLoggedIn($event)"></app-sign-up-popup>
+            <app-login-popup *ngIf="showLoginPopup" (messageEvent)="userIsLoggedIn($event)"></app-login-popup>
+        </div>
+        <div class="testimony-popup">
+            <div class="name-text">Savonne</div>
+            <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's nice knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
+        </div>
+        <img src="assets/images/landing/dana.png" class="savonne">
     </div>
-    <app-sign-up-popup *ngIf="showSignupPopup" (messageEvent)="userIsLoggedIn($event)"></app-sign-up-popup>
-    <app-login-popup *ngIf="showLoginPopup" (messageEvent)="userIsLoggedIn($event)"></app-login-popup>
-</div>
-
-<div class="testimony-popup">
-    <div class="name-text">Savonne</div>
-    <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's nice knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
-</div>
-<img src="assets/images/landing/dana.png" class="savonne">
-
-<div style="height: 100vh;">
 </div>
 <app-betra-features></app-betra-features>

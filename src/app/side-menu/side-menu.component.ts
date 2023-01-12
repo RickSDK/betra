@@ -13,6 +13,9 @@ export class SideMenuComponent implements OnInit {
   @Input('matchCount') matchCount: number = 0;
 
   public dateCount: number = 0;
+  public date2Count: number = 0;
+  public ownerAlerts: number = 0;
+  public infoObj: any = null
 
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
@@ -27,7 +30,6 @@ export class SideMenuComponent implements OnInit {
     { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
     //{ name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
-    { name: 'Dates', routerLink: '/user-dates', icon: 'fa fa-calendar', id: 12 },
   ];
   public bottomItems = [
     { name: 'Settings', routerLink: '/settings', icon: 'fa fa-cog', id: 0 },
@@ -35,15 +37,24 @@ export class SideMenuComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if(this.headerObj)
-      this.dateCount = this.headerObj.dateCount;
+    if (localStorage['infoObj'])
+      this.infoObj = JSON.parse(localStorage['infoObj']);
+
+    console.log('here is infoObj!', this.infoObj);
+    if (this.infoObj) {
+      this.dateCount = this.infoObj.dateCount;
+      this.date2Count = this.infoObj.date2Count;
+      this.ownerAlerts = this.infoObj.ownerAlerts;
+    }
     this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
 
+    if (this.date2Count > 0) {
+      this.middleItems.push({ name: 'Dates', routerLink: '/user-dates', icon: 'fa fa-calendar', id: 12 });
+    }
     if (this.headerObj.ownerFlg) {
-      this.bottomItems.push({ name: 'Owners', routerLink: '/owners', icon: 'fa fa-briefcase', id: 0 });
-      this.bottomItems.push({ name: 'Approve Profile Pic', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
-    } else
-      this.bottomItems.push({ name: 'Join the Team', routerLink: '/join-team', icon: 'fa fa-briefcase', id: 0 });
+      this.bottomItems.push({ name: 'Owners', routerLink: '/owner-admin', icon: 'fa fa-briefcase', id: 13 });
+      //this.bottomItems.push({ name: 'Approve Profile Pic', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
+    }
   }
 
   browseSelected(flag: boolean) {

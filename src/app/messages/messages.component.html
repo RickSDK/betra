@@ -1,24 +1,20 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Messages'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-     <div class="matches-card" *ngIf="user">
-        <div *ngIf="messageCount==0" style="padding-top: 60px;">
-            <p>No unread messages.</p>
-            <p class="gray-text">To view all your messages check out your <button [routerLink]="['/matches']" class="btn btn-main-color">Dating Pool</button> and view individual users.</p>
-        </div>
-        <div *ngIf="messageCount>0">
-            <div style="background-color: #ccc; font-size: 18px;">Your messages</div>
-            <p>&nbsp;</p>
-            <div *ngFor="let player of playerList">
-                <div *ngIf="player.messages.length>0" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}">
-                    <img 
-                    [src]="player.src" class="large-img" [title]="player.name">
-                    <div>{{player.name}}</div>
-                    <button *ngFor="let message of player.messages" class="btn btn-main-color">{{message}}</button>
-                </div>
-            </div>
-        </div>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div class="matches-card" *ngIf="user" style="padding: 0;">
+        <div>Most recent message</div>
+        <table>
+            <tr *ngFor="let player of playerList" class="message-cell" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" >
+                <td>
+                    <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="40">
+                    </app-profile-pic>
+                </td>
+                <td style="font-size: 12px; color: gray;">
+                    <div *ngIf="player.message" [ngClass]="player.sender == user.user_id?'blue-blob':'gray-blob'">{{player.message}}</div>
+                </td>
+            </tr>
+        </table>
     </div>
 
 </app-page-shell>
