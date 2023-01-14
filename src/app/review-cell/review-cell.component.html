@@ -1,19 +1,56 @@
-<table width="100%">
+<table width="100%" *ngIf="!reviewDeletedFlg">
     <tr>
-        <td align="left" width="70">
-            <img [routerLink]="['/user-detail']" [queryParams]="{uid: review.user_id}" [src]="review.src2" class="profile-big">
+        <td align="center" width="50">
+            <app-profile-pic [user_id]="review.uid" [profilePic]="review.profilePic" [size]="40"></app-profile-pic>
+            <div style="font-size: 10px;"><b>{{review.firstName}}</b></div>
+            <div class="main-color" style="font-size: 8px;">{{review.localDt}}</div>
         </td>
-        <td align="left">
-            <div class="betra-cell">
-                <div>
-                    <img [routerLink]="['/user-detail']" [queryParams]="{uid: review.uid}" [src]="review.src" class="profile-circle"> {{review.firstName}}
-                    &nbsp;<span class="main-color" style="font-size: 10px;">{{review.localDt}}</span>
-                    <i *ngIf="review.rating==1" class="fa fa-thumbs-o-up main-color" style="font-weight: 700; float: right;" title="Thumbs up"></i>
-                    <i *ngIf="review.rating==2" class="fa fa-thumbs-o-down main-color" style="font-weight: 700; float: right;" title="Thumbs down"></i>    
-                </div>
-                <div class="gray-text">{{review.message}}</div>   
-    
+        <td align="left" style="position: relative">
+            <span (mousedown)="showOptionsFlg=!showOptionsFlg" class="three-dots"><i
+                    class="fa fa-ellipsis-v"></i></span>
+            <span *ngIf="showOptionsFlg" class="three-dots-menu">
+                <div *ngIf="!review.isMineFlg" (mousedown)="menuOptionPressed('flag')" class="three-dots-menu-option">
+                    Flag</div>
+                <div *ngIf="review.isMineFlg" (mousedown)="menuOptionPressed('delete')" class="three-dots-menu-option">
+                    Delete</div>
+                <div *ngIf="review.isMineFlg" (mousedown)="menuOptionPressed('edit')" class="three-dots-menu-option">
+                    Edit</div>
+                <div (mousedown)="showOptionsFlg=false" class="three-dots-menu-option">
+                    Cancel</div>
+            </span>
+
+            <div class="betra-cell gray-text">
+                <i *ngIf="review.rating==1" class="fa fa-thumbs-o-up main-color" style="font-weight: 700;"
+                    title="Thumbs up"></i>
+                <i *ngIf="review.rating==2" class="fa fa-thumbs-o-down main-color" style="font-weight: 700;"
+                    title="Thumbs down"></i>
+                {{review.message}}
+                <span class="likes-area">
+                    <span class="likes-span" [title]="review.likeTitle"><i class="fa fa-thumbs-o-up"
+                            style="color: green;"></i>
+                        {{review.likes}}</span>&nbsp;
+                    <span class="likes-span" [title]="review.dislikeTitle"><i class="fa fa-thumbs-o-down"
+                            style="color: red;"></i>
+                        {{review.dislikes}}</span>
+                </span>
             </div>
+            <div>
+                <span *ngIf="!review.iLikeFlg" class="text-link" (mousedown)="likeReview()">Like</span>&nbsp;
+                <span *ngIf="!review.iDislikeFlg" class="text-link" (mousedown)="dislikeReview()">Dislike</span>
+            </div>
+
         </td>
     </tr>
 </table>
+<app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+<div *ngIf="showDeletePopup">
+    <div>Are you sure you want to delete this review?</div>
+    <button (mousedown)="showDeletePopup=false" class="btn btn-warning spacer">Cancel</button>
+    <button (mousedown)="deleteReview()" class="btn btn-danger spacer">Delete</button>
+</div>
+<div *ngIf="showFlagPopup">
+    <div>Are you sure you want to flag this review?</div>
+    <button (mousedown)="showFlagPopup=false" class="btn btn-warning spacer">Cancel</button>
+    <button (mousedown)="flagReview()" class="btn btn-danger spacer">Flag</button>
+</div>
+<div *ngIf="message" class="big-flashy important-notice">{{message}}</div>

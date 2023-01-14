@@ -89,7 +89,7 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
         if (element.user_id == 235)
           this.ownerHalle = element;
 
-        if (element.activityRep == 21 || element.user_id == 77 || element.user_id == 109)
+        if (element.activityRep == 21 || element.user_id == 77 || element.user_id == 109 || element.user_id == 144 || element.user_id == 80 || element.user_id == 119 || element.user_id == 85 || element.user_id == 135)
           this.promotionsTeam.push(element);
 
         if (element.user_id == 1)

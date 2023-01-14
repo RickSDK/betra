@@ -101,11 +101,12 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'login' || responseJson.action == 'createAccount') {
       console.log('XXX login!!', file, responseJson);
       localStorage['user_id'] = responseJson.user.user_id;
+      /*
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['messageCount'] = responseJson.infoObj.messageCount;
       localStorage['dateCount'] = responseJson.infoObj.dateCount;
       localStorage['ownerAlerts'] = responseJson.infoObj.ownerAlerts;
-      localStorage['notifications'] = responseJson.notifications;
+      localStorage['notifications'] = responseJson.notifications;*/
       localStorage['User'] = JSON.stringify(responseJson.user);
 
       this.syncUserWithLocalStorage(responseJson);

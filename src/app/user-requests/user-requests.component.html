@@ -1,32 +1,83 @@
 <div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
-    <div class="gray-title" style="position: relative;"> <i class="fa fa-smile-o"></i> Requests
-        <i (mousedown)="openPanel()"
-            [ngClass]="openPanelFlg?'fa fa-chevron-circle-down more-options':'fa fa-chevron-circle-right more-options'"></i>
+    <div class="gray-bar" style="position: relative;">
+        <table width="100%">
+            <tr>
+                <td *ngIf="matchUser.matchObj.match_level>4">
+                    <button (mousedown)="openPanel(1)"
+                        [ngClass]="requestNum==1?'btn request-btn btn-main-color':'btn request-btn'"><i
+                            class="fa fa-phone"></i> Info</button>
+                    <button (mousedown)="openPanel(2)"
+                        [ngClass]="requestNum==2?'btn request-btn btn-main-color':'btn request-btn'"><i
+                            class="fa fa-calendar"></i> Date</button>
+                    <button (mousedown)="openPanel(3)"
+                        [ngClass]="requestNum==3?'btn request-btn btn-main-color':'btn request-btn'"><i
+                            class="fa fa-picture-o"></i> Pic</button>
+                </td>
+                <td align="right">
+                    <button (mousedown)="openPanel(4)"
+                        [ngClass]="requestNum==4?'btn request-btn btn-main-color':'btn request-btn'"><i
+                            class="fa fa-comments"></i> Reviews<sup>{{matchUser.reviewsCount}}</sup></button>
+                    <button (mousedown)="openPanel(5)"
+                        [ngClass]="requestNum==5?'btn request-btn btn-main-color':'btn request-btn'"><i
+                            class="fa fa-pencil"></i></button>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <div *ngIf="openPanelFlg" style="padding-bottom: 10px;">&nbsp;
-        <button (mousedown)=changeNum(1) [ngClass]="requestNum==1?'btn btn-main-color request':'btn btn-secondary request'"
-            [disabled]="buttonsDisabledFlg">
-            <div style="font-size: 20px;"><i class="fa fa-phone"></i></div>
-            <div style="font-size: 10px;">Info</div>
-        </button>&nbsp;
-        <button (mousedown)=changeNum(2) [ngClass]="requestNum==2?'btn btn-main-color request':'btn btn-secondary request'"
-            [disabled]="buttonsDisabledFlg">
-            <div style="font-size: 20px;"><i class="fa fa-coffee"></i></div>
-            <div style="font-size: 10px;">Date</div>
-        </button>&nbsp;
-        <button (mousedown)=changeNum(3) [ngClass]="requestNum==3?'btn btn-main-color request':'btn btn-secondary request'"
-            [disabled]="buttonsDisabledFlg">
-            <div style="font-size: 20px;"><i class="fa fa-picture-o"></i></div>
-            <div style="font-size: 10px;">Picture</div>
-        </button>&nbsp;
+    <div *ngIf="requestNum==4">
+        <div class="tan-box">
+            Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry, abusive, sexual or embarrasing comments allowed.
+        </div>
+        <p *ngIf="reviewList.length==0">No reviews on {{matchUser.firstName}} at this time.</p>
+        <app-review-cell *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i">
+        </app-review-cell>
     </div>
 
+    <div *ngIf="requestNum==5">
+        <div *ngIf="matchUser.matchObj.match_level > 4" class="tan-box">
+            Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry, abusive, sexual or embarrasing comments allowed.
+        </div>
+        <div *ngIf="matchUser.matchObj.match_level <= 4" style="font-size: 12px; color: #900; padding: 20px;">You must be intimacy level
+            5 to write a review on this
+            person. You can achieve this by replying to each other's ice breaker questions.</div>
+
+        <div *ngIf="matchUser.matchObj.match_level > 4 && !loadingFlg" class="small-box">
+            <div><b>Write a review</b></div>
+            <div>Overall Experience (select one)</div>
+            <div>
+                <button (mousedown)="selectRating(1)" [ngClass]="ngClassRating(1)"><i style="font-size: 32px;"
+                        class="fa fa-thumbs-o-up"></i></button>&nbsp;
+                <button (mousedown)="selectRating(2)" [ngClass]="ngClassRating(2)"><i style="font-size: 32px;"
+                        class="fa fa-thumbs-o-down"></i></button>
+            </div>
+
+
+            <div *ngIf="experienceRating>0">
+                <div class="gray-text" style="text-align: left;">Describe your expierence with {{matchUser.firstName}}.
+                    Please do not be too
+                    critical
+                    in your review,
+                    and do not give out any sensitive, personal or embarassing details about the person. Simply mention
+                    one
+                    or
+                    two things you liked about this
+                    person and maybe one or two things you think he or she should work on.
+                </div>
+
+                <app-text-area-input [id]="'reviewText'" [value]="reviewText"></app-text-area-input>
+                <div>
+                    <button (mousedown)="cancelReview()" class="btn btn-warning">Cancel</button>&nbsp;
+                    <button (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <app-user-request-date [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
         (messageEvent)="dateTriggered($event)"></app-user-request-date>
     <app-user-request-pic [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"
         (messageEvent)="picUploadTriggered($event)"></app-user-request-pic>
     <app-user-request-info [myUser]="myUser" [matchUser]="matchUser" [requestNum]="requestNum"></app-user-request-info>
-
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>

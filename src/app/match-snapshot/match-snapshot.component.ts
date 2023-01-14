@@ -52,10 +52,10 @@ export class MatchSnapshotComponent implements OnInit {
     //this.matchObj = matchObj;
     this.matchUser = matchUser;
 
-    var limit = (this.user.memberFlg)?12:8;
-    this.showMoreOptionsFlg = (this.user.datingPool.length > limit);
-    this.showMoreFlg = (this.user.datingPool.length > limit);
-    this.expandBottomFlg = (this.user.datingPool.length > limit);
+    //var limit = (this.user.memberFlg)?12:8;
+    //this.showMoreOptionsFlg = (this.user.datingPool.length > limit);
+    //this.showMoreFlg = (this.user.datingPool.length > limit);
+    //this.expandBottomFlg = (this.user.datingPool.length > limit);
 
     if (this.profileTopComponent) {
       this.profileTopComponent.ngOnInit();

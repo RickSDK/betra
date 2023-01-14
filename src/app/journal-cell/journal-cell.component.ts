@@ -77,6 +77,14 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   }
 
   journalApiCall(action: string) {
+    if(action == 'likePost') {
+      this.journal.iLikeFlg = true;
+      this.journal.iDislikeFlg = false;
+    }
+    if(action == 'dislikePost') {
+      this.journal.iLikeFlg = false;
+      this.journal.iDislikeFlg = true;      
+    }
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
@@ -167,11 +175,11 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
       this.messageEvent.emit('refresh');
     }
     if (responseJson.action == 'refreshPost') {
-      this.journal = new Journal(responseJson.mainPost);
+      this.journal = new Journal(responseJson.mainPost, this.userId);
       var replies: any = [];
       if(responseJson.itemArray) {
         responseJson.itemArray.forEach((element: any) => {
-          replies.push(new Journal(element));
+          replies.push(new Journal(element, this.userId));
         });
       }
       this.replies = replies;

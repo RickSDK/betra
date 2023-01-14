@@ -97,14 +97,14 @@
 
     <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 
-        <app-user-reviews *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user"
+        <!--<app-user-reviews *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user"
             [matchUser]="matchUser">
-        </app-user-reviews>
+        </app-user-reviews>-->
 
         <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
         </app-user-private-pics>
 
-        <app-user-requests *ngIf="matchUser.matchObj.match_level>=5" [myUser]="user" [matchUser]="matchUser">
+        <app-user-requests [myUser]="user" [matchUser]="matchUser">
         </app-user-requests>
 
         <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y'" [myUser]="user" [matchUser]="matchUser">

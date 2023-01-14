@@ -40,9 +40,11 @@ export class JournalComponent extends BaseComponent implements OnInit {
       var journalList: any = [];
       responseJson.itemArray.forEach((element: any) => {
         if (element.status != 'Closed')
-          journalList.push(new Journal(element));
+          journalList.push(new Journal(element, this.user.user_id));
       });
       this.journalList = journalList;
+      console.log('hey!!', journalList);
+      
     }
   }
   submitButtonPressed() {

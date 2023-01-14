@@ -80,7 +80,7 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
       this.allBugs = [];
       var allBugs: any = [];
       responseJson.itemArray.forEach((element: any) => {
-        allBugs.push(new Journal(element));
+        allBugs.push(new Journal(element, this.userId));
       });
       this.allBugs = allBugs;
       this.filterBugs();

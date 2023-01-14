@@ -182,12 +182,13 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     console.log('--postSuccessApi--', responseJson);
     this.action = responseJson.action;
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
+      /*
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['notifications'] = responseJson.notifications;
       localStorage['matchesAlerts'] = responseJson.matchesAlerts;
       this.headerObj.admirerCount = responseJson.admirerCount;
       this.headerObj.matchesAlerts = responseJson.matchesAlerts;
-      this.headerObj.notifications = responseJson.notifications;
+      this.headerObj.notifications = responseJson.notifications;*/
       if (this.id == 4 && responseJson.action == "yesToMatch") {
         //--Admirers
         this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });

@@ -68,6 +68,57 @@ export class BaseComponent implements OnInit {
     var dtObj = getDateObjFromJSDate(dt);
     return dtObj.localDate;
   }
+
+  getNotificationsTypesFromInfoObj(infoObj: any) {
+
+    this.infoObj = infoObj;
+    localStorage['infoObj'] = JSON.stringify(infoObj);
+    localStorage['lastUpd'] = infoObj.lastUpd;
+    this.headerObj.admirerCount = infoObj.admirerCount;
+    this.headerObj.messageCount = infoObj.messageCount;
+    this.headerObj.matchesAlerts = infoObj.matchesAlerts
+    this.headerObj.dateCount = infoObj.dateCount
+    this.headerObj.ownerAlerts = infoObj.ownerAlerts
+    localStorage['admirerCount'] = this.headerObj.admirerCount;
+    localStorage['messageCount'] = this.headerObj.messageCount;
+    localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
+    localStorage['dateCount'] = this.headerObj.dateCount;
+    localStorage['ownerAlerts'] = this.headerObj.ownerAlerts;
+
+    var notificationsTypes = [
+      { name: 'Users Interested', amount: 0, desc: 'You have someone interested in you!' },
+      { name: 'Users Matched', amount: 0, desc: 'You have a new match!' },
+      { name: 'Questions Asked', amount: 0, desc: 'Someone has asked you a question!' },
+      { name: 'Dates Requested', amount: 0, desc: 'Someone has requested a date!' },
+      { name: 'Messages Received', amount: 0, desc: 'You have received new messages!' },
+      { name: 'Info Requested', amount: 0, desc: 'Someone has requested your info!' },
+      { name: 'Picture Requested', amount: 0, desc: 'Someone has requested your picture!' },
+      { name: 'Picture Received', amount: 0, desc: 'Someone has sent you a picture!' },
+      { name: 'Dropped', amount: 0, desc: 'Sorry, but someone has dropped you from their dating pool.' },
+    ];
+
+    notificationsTypes[0].amount = infoObj.admirerCount;
+    notificationsTypes[1].amount = infoObj.users_matched;
+    notificationsTypes[3].amount = infoObj.dateRequestCount;
+    notificationsTypes[4].amount = infoObj.messageCount;
+    notificationsTypes[5].amount = infoObj.infoRequestCount;
+    notificationsTypes[6].amount = infoObj.picRequestCount;
+    notificationsTypes[7].amount = infoObj.newPicsCount;
+    notificationsTypes[8].amount = (infoObj.droppedBy > 0) ? 1 : 0;
+
+    var notifications = 0;
+    notificationsTypes.forEach(element => {
+      notifications += parseInt(element.amount.toString());
+    });
+
+    //console.log('+++++', infoObj, notifications);
+
+    this.headerObj.notifications = notifications;
+    localStorage['notifications'] = notifications;
+
+    return notificationsTypes;
+  }
+
   loadUserObj() {
     this.user = null;
     this.userId = localStorage['user_id'] || 0;
@@ -118,6 +169,11 @@ export class BaseComponent implements OnInit {
     var now = new Date();
     console.log('xxx user synced with database xxx', responseJson);
     if (responseJson.infoObj) {
+
+      this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
+      localStorage['timeStamp'] = now.toString();
+
+      /*
       this.infoObj = responseJson.infoObj;
       localStorage['infoObj'] = JSON.stringify(responseJson.infoObj);
       //console.log('hey!!', this.infoObj);
@@ -136,6 +192,7 @@ export class BaseComponent implements OnInit {
       localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
       localStorage['dateCount'] = this.headerObj.dateCount;
       localStorage['ownerAlerts'] = this.headerObj.ownerAlerts;
+      */
       //console.log('xxxdateCount', this.headerObj.dateCount);
       if (responseJson.user && responseJson.user.status == 'Active') {
         setTimeout(() => {
@@ -271,14 +328,14 @@ export class BaseComponent implements OnInit {
           } else {
             console.log('Error!!', this.responseJson);
             var error = (this.responseJson && this.responseJson.error) ? this.responseJson.error : 'No Success status received from ' + file;
-            this.postErrorApi(file, error);
+            this.postErrorApi(file, error, data);
           }
         }
 
       })
       .catch(error => {
         this.loadingFlg = false;
-        this.postErrorApi(file, error);
+        this.postErrorApi(file, error, 'fetch error');
       });
   }
 
@@ -287,7 +344,7 @@ export class BaseComponent implements OnInit {
     //    if (this.spinnerComponent)
     //      this.spinnerComponent.setApiMessage('Success!');
   }
-  postErrorApi(file: string, error: string) {
+  postErrorApi(file: string, error: string, data:string = '') {
     //    if (this.spinnerComponent) {
     //      this.spinnerComponent.show();
     //     this.spinnerComponent.setApiMessage(error);
@@ -296,7 +353,7 @@ export class BaseComponent implements OnInit {
     if (error == '')
       error = 'No success message returned';
     this.errorMessage = error;
-    console.log('postErrorApi', error);
+    console.log('postErrorApi', error, data);
   }
   ngClassBox(flag: boolean) {
     return (flag) ? 'fa fa-check-square-o betra-checkbox' : 'fa fa-square-o betra-checkbox';

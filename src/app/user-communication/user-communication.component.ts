@@ -95,6 +95,8 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     this.showTextInputFlg = false;
     if (this.matchUser.matchObj.match_level == 3 && this.matchUser.matchObj.you_action == 'Interested')
       this.showTextInputFlg = true;
+    if (this.matchUser.matchObj.match_level == 3 && this.matchUser.matchObj.you_action == 'message sent' && this.matchUser.matchObj.match_action == 'message sent')
+      this.showTextInputFlg = true; // out of sync situation
     if (this.matchUser.matchObj.match_level == 4 && this.matchUser.matchObj.match_action == 'reply sent')
       this.showTextInputFlg = true;
     if (this.matchUser.matchObj.match_level > 4)

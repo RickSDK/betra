@@ -11,7 +11,8 @@ export class LandingPageComponent implements OnInit {
   public userId: number = 0;
   public showLoginPopup: boolean = false;
   public showSignupPopup: boolean = false;
-
+  public bgImg = 'assets/images/landing/logoWhite.png';
+  //public bgImg = 'assets/images/landing/logoBlack.png';
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -24,7 +25,7 @@ export class LandingPageComponent implements OnInit {
       this.route.queryParams.subscribe(params => {
         this.showLoginPopup = false;
         this.showSignupPopup = false;
-        
+
         if (params['login'] == 1)
           this.showLoginPopup = true;
         if (params['login'] == 3)

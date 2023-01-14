@@ -82,17 +82,18 @@
     </div>
 
     <div *ngIf="matchUser.matchObj.match_level==2 && !messageSentFlg" style="padding: 10px;">
+        <div style="font-size: 18px;"><b><i class="fa fa-cube"></i> Ice Breaker!</b></div>
         <div class="gray-text">Break the ice with a question! Here is your chance to start the conversation.</div>
-        <table width="100%">
+        <table align="center">
             <tr>
                 <td>
-                    <div>Greeting:</div>
+                    <div style="font-size: 12px; font-weight: 700;">Greeting:</div>
                     <select (change)="questionValueChanged()" name="greetingText" id="greetingText">
                         <option disabled selected>Select</option>
                         <option *ngFor="let option of greetings">{{option}}</option>
                     </select>
 
-                    <div>Question:</div>
+                    <div style="font-size: 12px; font-weight: 700;">Question:</div>
                     <select (change)="questionValueChanged()" name="questionText" id="questionText">
                         <option disabled selected>Select</option>
                         <option *ngFor="let option of questions">{{option}}</option>
@@ -104,6 +105,7 @@
                 </td>
             </tr>
         </table>
+        <div class="gray-text">Once you each have a chance to ask and answer a question, you will be able to freely communicate.</div>
         <div>&nbsp;</div>
     </div>
     <div *ngIf="messageSentFlg">Message Sent!</div>

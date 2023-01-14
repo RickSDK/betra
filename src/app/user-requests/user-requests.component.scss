@@ -9,3 +9,20 @@ input {
     margin: 5px;
     height: 60px;
 }
+
+.request-btn {
+    border: 1px solid gray;
+    margin: 2px;
+    color: white;
+    height: 30px;
+    padding: 2px 10px 2px 10px;
+}
+
+.request-btn:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.gray-bar {
+    background-color: #444;
+}

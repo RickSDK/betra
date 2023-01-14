@@ -30,9 +30,14 @@ export class Journal {
     public fixedDate: string = '';
     public history: string = '';
     public lookingFor: string = '';
-    
-   
-    constructor(obj: any) {
+    public likeList: any = [];
+    public iLikeFlg: boolean = false;
+    public iDislikeFlg: boolean = false;
+    public likeTitle: string = '';
+    public dislikeTitle: string = '';
+
+
+    constructor(obj: any, userId: number = 0) {
         if (obj) {
             this.row_id = obj.row_id;
             this.user_id = obj.user_id;
@@ -58,16 +63,36 @@ export class Journal {
             this.fixedDate = obj.fixedDate;
             this.history = obj.history;
             this.lookingFor = obj.lookingFor;
-            
-            if(this.imageNum>0)
-                this.imageSrc = "https://www.appdigity.com/betraPhp/bugImages/pic"+obj.row_id+"_"+this.imageNum+".jpg";
+            this.likeList = obj.likeList || [];
+
+            if (this.imageNum > 0)
+                this.imageSrc = "https://www.appdigity.com/betraPhp/bugImages/pic" + obj.row_id + "_" + this.imageNum + ".jpg";
 
             this.messageText = obj.message.replace(/<br>/g, "\n");
 
             this.src = betraImageFromId(obj.user_id, obj.profilePic);
             var dtObj = getDateObjFromJSDate(obj.created);
             this.localDt = dtObj.localDate;
-    
+
+            this.iLikeFlg = false;
+            this.iDislikeFlg = false;
+            var likeNames: any = [];
+            var dislikeNames: any = [];
+            if (userId > 0) {
+                this.likeList.forEach((element: any) => {
+                    if (element.likeFlg == 'Y')
+                        likeNames.push(element.firstName);
+                    if (element.dislikeFlg == 'Y')
+                        dislikeNames.push(element.firstName);
+                    if (element.user_id == userId && element.likeFlg == 'Y')
+                        this.iLikeFlg = true;
+                    if (element.user_id == userId && element.dislikeFlg == 'Y')
+                        this.iDislikeFlg = true;
+                });
+            }
+            this.likeTitle = likeNames.join('\n');
+            this.dislikeTitle = dislikeNames.join('\n');
+
         }
     }
 }

@@ -29,10 +29,13 @@
         <button (mousedown)="optionConfirmPressed()" class="btn btn-success">Yes</button>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
-        <i *ngIf="journal.likes>0" class="fa fa-thumbs-up"
-            style="color: rgb(60, 158, 114);"></i>&nbsp;{{journal.likes}}&nbsp;
-        <i *ngIf="journal.dislikes>0" class="fa fa-thumbs-down"
-            style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;
+        <span *ngIf="journal.likes>0" [title]="journal.likeTitle">
+            <i class="fa fa-thumbs-up" style="color: rgb(60, 158, 114);"></i>&nbsp;{{journal.likes}}&nbsp;
+        </span>
+        <span *ngIf="journal.dislikes>0" [title]="journal.dislikeTitle">
+            <i class="fa fa-thumbs-down" 
+                style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;    
+        </span>
         <i *ngIf="journal.postFlagged" class="fa fa-flag" style="color: orange;"></i>&nbsp;
         <span *ngIf="journal.region == 'Bug'">
             <span>Status: <span class="red-text">{{journal.status}}</span></span>&nbsp;
@@ -70,16 +73,18 @@
             <div class="small-title">My Recent Dating Life</div>
             <div class="small-gray-box" *ngIf="adminAction!='edit'" [innerHTML]="journal.history"></div>
             <div class="small-title">What I'm looking for</div>
-            <div class="small-gray-box" *ngIf="adminAction!='edit'" [innerHTML]="journal.lookingFor"></div>    
+            <div class="small-gray-box" *ngIf="adminAction!='edit'" [innerHTML]="journal.lookingFor"></div>
         </div>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
-        <span (mousedown)="journalApiCall('likePost')" class="text-link">Like</span>&nbsp;
-        <span (mousedown)="journalApiCall('dislikePost')" class="text-link">Dislike</span>&nbsp;
+        <span *ngIf="!journal.iLikeFlg" (mousedown)="journalApiCall('likePost')" class="text-link">Like</span>&nbsp;
+        <span *ngIf="!journal.iDislikeFlg" (mousedown)="journalApiCall('dislikePost')"
+            class="text-link">Dislike</span>&nbsp;
         <span (mousedown)="toggleReply();" class="text-link">Reply</span>&nbsp;
         <span *ngIf="journal.imageNum>0" class="text-link" (mousedown)="showImageFlg=!showImageFlg">
             <i class="fa fa-picture-o"></i> Show Attachment</span>&nbsp;
-        <span *ngIf="userId == journal.user_id" (mousedown)="toggleAttachment();" class="text-link">Attachment</span>&nbsp;
+        <span *ngIf="userId == journal.user_id" (mousedown)="toggleAttachment();"
+            class="text-link">Attachment</span>&nbsp;
         <span *ngIf="journal.region == 'Bug' && userId == 1">
             <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')"
                 class="btn btn-primary">Fixed</button>&nbsp;
