@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
+declare var $: any;
+
 @Component({
   selector: 'app-review-cell',
   templateUrl: './review-cell.component.html',
@@ -14,6 +16,11 @@ export class ReviewCellComponent extends BaseComponent implements OnInit {
   public showFlagPopup: boolean = false;
   public message: string = '';
   public reviewDeletedFlg: boolean = false;
+  public showLikeNamesFlg: boolean = false;
+  public showDislikeNamesFlg: boolean = false;
+  public rebuttalFlg: boolean = false;
+  public strLength: number = 0;
+
 
   constructor() { super(); }
 
@@ -26,6 +33,32 @@ export class ReviewCellComponent extends BaseComponent implements OnInit {
       this.showDeletePopup = true;
     if (action == 'flag')
       this.showFlagPopup = true;
+    if (action == 'rebuttal') {
+      this.rebuttalFlg = true;
+      setTimeout(() => {
+        var d = (document.getElementById('rebuttalText') as HTMLInputElement);
+        if (d)
+          d.focus();
+      }, 500);
+
+    }
+  }
+
+  sumbitRebuttal() {
+    var rebuttalText = $('#rebuttalText').val();
+    var params = { reviewId: this.review.row_id, rebuttalText: rebuttalText }
+    this.getDataFromServer('sumbitRebuttal', 'betraReviews.php', params);
+    this.review.rebuttalText = rebuttalText;
+    this.rebuttalFlg = false;
+  }
+
+  inputValueChanged(event: any) {
+    var e = (document.getElementById('rebuttalText') as HTMLInputElement);
+    if (e) {
+      var value = event.target.value.replace(/`/g, '');
+      e.value = value;
+      this.strLength = value.length;
+    }
   }
 
   likeReview() {

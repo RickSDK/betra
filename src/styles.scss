@@ -72,6 +72,14 @@ body {
     margin: 3px;
 }
 
+.basic-cell {
+    background-color: white;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px gray;
+    padding: 10px;
+}
+
 .big-flashy {
     background-color: #ffffc0;
     color: $main-color;
@@ -286,17 +294,18 @@ body {
 }
 
 .betra-popup {
-    background-color: $lite-blue-color;
+    background-color: $main-color;
+    color: white;
     display: inline-block;
-    position: fixed;
+    position: absolute;
     top: 120px;
     right: 20px;
     width: 100%;
-    max-width: 300px;
+    max-width: 320px;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid black;
-    padding: 0;
+    padding: 20px;
+    box-shadow: 5px 5px 10px black;
 }
 
 .inside-box {

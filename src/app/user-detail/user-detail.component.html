@@ -111,7 +111,11 @@
         </app-user-communication>
 
     </div>
-
-
-
+    <div (mousedown)="showNewReviewPopup=false" *ngIf="showNewReviewPopup" class="betra-popup">
+        <div style="font-size: 18px;"><b>New Review!</b></div>
+        <app-profile-pic [user_id]="matchUser.newReviewBy" [profilePic]="matchUser.newReviewProfilePic" [size]="80"></app-profile-pic>
+        <p style="font-size: 12px;">You have a new review. Click the "Reviews" button below to see what they said.</p>
+        <button class="btn btn-light">Ok</button>
+    </div>
 </app-page-shell>
+

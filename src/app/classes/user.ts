@@ -176,6 +176,9 @@ export class User {
     public infoObj: any = null;
     public droppedByName: string = '';
     public droppedBy: number = 0;
+    public newReviewBy: number = 0;
+    public newReviewProfilePic: number = 0;
+    public incomeRange: string = 'Average';
 
     constructor(obj: any) {
         if (obj) {
@@ -287,6 +290,8 @@ export class User {
             this.picFlagged = obj.picFlagged || 0;
             this.numReviews = obj.numReviews || 0;
             this.roseAssignedBy = obj.roseAssignedBy || 0;
+            this.newReviewBy = obj.newReviewBy || 0;
+            this.newReviewProfilePic = obj.newReviewProfilePic || 0;
 
             this.profileFlaggedBy = obj.profileFlaggedBy || 0;
             this.profileFlaggedByProfilePic = obj.profileFlaggedByProfilePic || 0;
@@ -299,6 +304,12 @@ export class User {
             this.activityRep = obj.activityRep || 0;
             this.droppedByName = obj.droppedByName;
             this.droppedBy = obj.droppedBy || 0;
+ 
+            this.incomeRange = 'Average';
+            if (this.income == 'Under $20K' || this.income == '$20K - $49K')
+                this.incomeRange = 'Low';
+            if (this.income == '$100K - $199K' || this.income == 'over $200K')
+                this.incomeRange = 'High';
 
             if (this.drinks == 'Yes') {
                 this.drinksIcon = 'assets/images/drinker.png';

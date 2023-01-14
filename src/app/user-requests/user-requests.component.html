@@ -1,4 +1,4 @@
-<div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
+<div [ngClass]="openPanelFlg?'match-card3 open-card':'match-card3'" *ngIf="myUser && matchUser && matchUser.matchObj">
     <div class="gray-bar" style="position: relative;">
         <table width="100%">
             <tr>
@@ -17,7 +17,7 @@
                     <button (mousedown)="openPanel(4)"
                         [ngClass]="requestNum==4?'btn request-btn btn-main-color':'btn request-btn'"><i
                             class="fa fa-comments"></i> Reviews<sup>{{matchUser.reviewsCount}}</sup></button>
-                    <button (mousedown)="openPanel(5)"
+                    <button *ngIf="matchUser.matchObj.match_level>1" (mousedown)="openPanel(5)"
                         [ngClass]="requestNum==5?'btn request-btn btn-main-color':'btn request-btn'"><i
                             class="fa fa-pencil"></i></button>
                 </td>
@@ -26,25 +26,27 @@
     </div>
 
     <div *ngIf="requestNum==4">
-        <div class="tan-box">
-            Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry, abusive, sexual or embarrasing comments allowed.
-        </div>
-        <p *ngIf="reviewList.length==0">No reviews on {{matchUser.firstName}} at this time.</p>
+        <p *ngIf="reviewList.length==0" class="basic-cell">No reviews on {{matchUser.firstName}} at this time.</p>
         <app-review-cell *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i">
         </app-review-cell>
+        <div class="tan-box" style="font-size: 10px;">
+            Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry,
+            abusive, sexual or embarrasing comments allowed.
+        </div>
     </div>
 
     <div *ngIf="requestNum==5">
         <div *ngIf="matchUser.matchObj.match_level > 4" class="tan-box">
-            Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry, abusive, sexual or embarrasing comments allowed.
+            Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry,
+            abusive, sexual or embarrasing comments allowed.
         </div>
-        <div *ngIf="matchUser.matchObj.match_level <= 4" style="font-size: 12px; color: #900; padding: 20px;">You must be intimacy level
-            5 to write a review on this
-            person. You can achieve this by replying to each other's ice breaker questions.</div>
+        <div *ngIf="matchUser.matchObj.match_level <= 4" style="font-size: 12px; color: #900; padding: 20px;">You must
+            be intimacy level 5 to write a review on
+            {{matchUser.firstName}}. You can achieve this by replying to each other's ice breaker questions.</div>
 
-        <div *ngIf="matchUser.matchObj.match_level > 4 && !loadingFlg" class="small-box">
+        <div *ngIf="matchUser.matchObj.match_level > 4 && !loadingFlg" class="basic-cell" style="padding: 10px;">
             <div><b>Write a review</b></div>
-            <div>Overall Experience (select one)</div>
+            <div *ngIf="!experienceRating">Overall Experience (select one)</div>
             <div>
                 <button (mousedown)="selectRating(1)" [ngClass]="ngClassRating(1)"><i style="font-size: 32px;"
                         class="fa fa-thumbs-o-up"></i></button>&nbsp;

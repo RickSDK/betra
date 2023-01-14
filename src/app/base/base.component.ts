@@ -79,6 +79,7 @@ export class BaseComponent implements OnInit {
     this.headerObj.matchesAlerts = infoObj.matchesAlerts
     this.headerObj.dateCount = infoObj.dateCount
     this.headerObj.ownerAlerts = infoObj.ownerAlerts
+    this.headerObj.newReviewBy = infoObj.newReviewBy
     localStorage['admirerCount'] = this.headerObj.admirerCount;
     localStorage['messageCount'] = this.headerObj.messageCount;
     localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
@@ -95,6 +96,7 @@ export class BaseComponent implements OnInit {
       { name: 'Picture Requested', amount: 0, desc: 'Someone has requested your picture!' },
       { name: 'Picture Received', amount: 0, desc: 'Someone has sent you a picture!' },
       { name: 'Dropped', amount: 0, desc: 'Sorry, but someone has dropped you from their dating pool.' },
+      { name: 'New Review', amount: 0, desc: 'Someone has written a new review on you!' },
     ];
 
     notificationsTypes[0].amount = infoObj.admirerCount;
@@ -105,6 +107,7 @@ export class BaseComponent implements OnInit {
     notificationsTypes[6].amount = infoObj.picRequestCount;
     notificationsTypes[7].amount = infoObj.newPicsCount;
     notificationsTypes[8].amount = (infoObj.droppedBy > 0) ? 1 : 0;
+    notificationsTypes[9].amount = (infoObj.newReviewBy > 0) ? 1 : 0;
 
     var notifications = 0;
     notificationsTypes.forEach(element => {

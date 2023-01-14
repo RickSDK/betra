@@ -29,6 +29,11 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
   }
 
+  ngOnChanges(changes: any) {
+    this.openPanelFlg = false;
+    this.requestNum = 0;
+  }
+
   openPanel(num: number) {
     this.sendMessage = '';
     if (this.requestNum == num) {
@@ -105,9 +110,7 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   cancelReview() {
     this.openPanel(this.requestNum);
   }
-  writeReview() {
-    // this.showDetailsFlg = !this.showDetailsFlg;
-  }
+
   selectRating(num: number) {
     this.experienceRating = num;
   }

@@ -1,4 +1,4 @@
-<div [ngClass]="openPanelFlg?'match-card open-card':'match-card'" *ngIf="myUser && matchUser && matchUser.matchObj">
+<div [ngClass]="openPanelFlg?'basic-cell open-card':'basic-cell'" *ngIf="myUser && matchUser && matchUser.matchObj">
     <div class="gray-title" style="position: relative;"> <i class="fa fa-picture-o"></i> Private Pics
         <sup *ngIf="matchUser.matchObj">{{matchUser.matchObj.numPics}}</sup> &nbsp;
         <span *ngIf="matchUser.matchObj.newPics>0" style="color: yellow; font-weight: 700;">New pic!</span>

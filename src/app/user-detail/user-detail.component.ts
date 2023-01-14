@@ -33,6 +33,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public matchesCount: number = 0;
   public showExpandedSearchPopupFlg: boolean = false;
   public action: string = '';
+  public showNewReviewPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -260,8 +261,13 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
 
-      //this.logUser();
       this.displayThisProfile();
+      if (this.matchUser.newReviewBy > 0 && this.matchUser.user_id == this.user.user_id) {
+        this.showNewReviewPopup = true;
+        this.getDataFromServer('clearNewReviewFlg', 'betraReviews.php', []);
+      } else {
+        this.logUser(); // this syncs up notifications
+      }
 
     }
     if (responseJson.action == "yesToMatch" && responseJson.action2 == "match made") {

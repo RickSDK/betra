@@ -1,6 +1,6 @@
 <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-<div style="padding: 10px;" *ngIf="requestNum==1">
+<div style="padding: 10px;" *ngIf="requestNum==1" class="basic-cell">
     <div *ngIf="messageSentFlg">Message Sent.</div>
     <div *ngIf="requestNum==1">
         <div *ngIf="matchUser.matchObj.you_info_request=='X'">Sorry, but {{matchUser.firstName}} has rejected your

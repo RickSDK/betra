@@ -36,16 +36,15 @@
                     <span class="icon-label main-color-bg">My Dating Pool</span>
                 </span>
                 <span class="menu-circle" [routerLink]="['/notifications']">
-                    <i  class="fa fa-bell icon-button main-color"></i><span
-                        *ngIf="headerObj.notifications>0"
+                    <i class="fa fa-bell icon-button main-color"></i><span *ngIf="headerObj.notifications>0"
                         class="red-circle">{{headerObj.notifications}}</span>
                     <span class="icon-label main-color-bg">Notifications</span>
                 </span>
             </td>
             <td *ngIf="userId>0">
                 <span class="menu-circle" [routerLink]="['/user-detail']" [queryParams]="{uid: userId}">
-                    <img [src]="imgSrcFile"
-                        class="profilePic" alt="Profile Picture">
+                    <img [src]="imgSrcFile" class="profilePic" alt="Profile Picture">
+                    <span *ngIf="headerObj.newReviewBy>0" class="red-circle">{{headerObj.newReviewBy}}</span>
                     <span class="icon-label main-color-bg">My Profile</span>
                 </span>
 
@@ -70,7 +69,7 @@
                             [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
                     </div>
                 </td>
-                <td valign="top" align="center">
+                <td valign="top" align="center" style="position: relative;">
                     <ng-content></ng-content>
                 </td>
                 <td *ngIf="userId>0 && userStatus == 'Active'" valign="top" align="center" width="200" class="hide-md"

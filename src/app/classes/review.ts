@@ -26,6 +26,9 @@ export class Review {
     public dislikeTitle: string = '';
 
     public isMineFlg: boolean = false;
+    public isAboutMeFlg: boolean = false;
+    public rebuttalText: string = '';
+   
 
     constructor(obj: any, userId: number = 0) {
         if (obj) {
@@ -43,7 +46,8 @@ export class Review {
             this.user_id = obj.user_id || 0;
 
             this.isMineFlg = (obj.isMineFlg == 'Y');
-
+            this.isAboutMeFlg = (obj.isAboutMeFlg == 'Y');
+            
             this.likes = obj.likes || 0;
             this.dislikes = obj.dislikes || 0;
 
@@ -52,6 +56,8 @@ export class Review {
 
             this.iLikeFlg = obj.iLikeFlg || false;
             this.iDislikeFlg = obj.iDislikeFlg || false;
+
+            this.rebuttalText = obj.rebuttalText || '';
 
             this.likeTitle = this.likeList.join('\n');
             this.dislikeTitle = this.dislikeList.join('\n');

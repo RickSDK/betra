@@ -1,4 +1,4 @@
-<div *ngIf="matchUser.matchObj.you_pic_request > 0" class="tan-box">
+<div *ngIf="matchUser.matchObj.you_pic_request > 0" class="basic-cell">
     <div style="font-size: 32px;"><i class="fa fa-picture-o"></i></div>
     <p>You have a new picture request from {{matchUser.firstName}}!</p>
     <div class="gray-text">{{matchUser.firstName}} has requested that you take and share a new
@@ -19,7 +19,7 @@
 </div>
 
 
-<div *ngIf="requestNum==3" class="light-box">
+<div *ngIf="requestNum==3" class="basic-cell">
     <div>&nbsp;</div>
     <div *ngIf="matchUser.matchObj.match_pic_request > 0">
         <i class="fa fa-paper-plane"></i> Request has been sent.

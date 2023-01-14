@@ -10,7 +10,7 @@
                 [style.border]="person.heartFlg?'4px solid #990000':'none'">
             <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon"
-                *ngIf="person.match && person.match.match_date_request == 'A'"></i>
+                *ngIf="person.match && (person.match.match_date_request == 'A' || person.match.you_date_request == 'Y')"></i>
             <i class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
             <i class="fa fa-phone alert-icon"
                 *ngIf="person.match && person.match.match_info_request == 'Y'"></i>

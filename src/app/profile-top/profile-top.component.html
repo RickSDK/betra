@@ -134,7 +134,11 @@
                         <app-green-check [label]="'Education'" [text1]="user.educationLevel"
                             [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
                             [icon]="'fa fa-graduation-cap'"></app-green-check>
-                        <app-green-check [label]="'Income'" [text1]="user.income"
+                        <app-green-check *ngIf="!myUser.memberFlg" [label]="'Income'" [text1]="user.incomeRange"
+                            [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
+                            [icon]="'fa fa-money'">
+                        </app-green-check>
+                        <app-green-check *ngIf="myUser.memberFlg" [label]="'Income'" [text1]="user.income"
                             [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
                             [icon]="'fa fa-money'">
                         </app-green-check>
@@ -252,5 +256,6 @@
     <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg" [routerLink]="['/verify-pics']"
         class="text-link">verify pic</a>&nbsp;
 
-    <a *ngIf="!myUser.memberFlg && user.numPics > 0" [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see more pics</a>
+    <a *ngIf="!myUser.memberFlg && user.numPics > 0" [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see
+        more pics</a>
 </div>
