@@ -3,21 +3,54 @@
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
-
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
-        <div style="display: inline-block; max-width: 380px;">
+         <div *ngIf="menuNum==0" style="display: inline-block; max-width: 380px;">
             <div>Admin Tools</div>
             <div class="gray-text">These tools will help admins manage the app. If any records have been flagged, you will see an indicator next to the link.</div>
 
-            <div *ngFor="let item of adminLinks">
-                <div [routerLink]="[item.routerLink]" class="menu-item" [queryParams]="{id: item.id}"><i [class]="item.icon"></i> &nbsp;
+            <div *ngFor="let item of adminLinks; let i = index;">
+                <div (mousedown)="fixItem(i)" class="menu-item"><i [class]="item.icon"></i> &nbsp;
                     {{item.name}}
                     <span *ngIf="item.count>0" class="red-circle">{{item.count}}</span>
                 </div>
             </div>
         </div>
+        <div *ngIf="menuNum>0">{{adminLinks[menuNum-1].name}}</div>
+        <div *ngIf="message" class="big-flashy">{{message}}</div>
 
+        <div *ngIf="menuNum==1">
+            <div *ngIf="showRecordFlg">
+                <div>{{responseJson.firstName}}</div>
+                <img [src]="src" height="320">
+                <div class="gray-text">Look at the profile picture above and make sure it includes the person's face. Then approve or reject the picture using the buttons below.</div>
 
+                <div *ngIf="!showFakePicOptionsFlg">
+                    <button (mousedown)="confirmPic()" class="btn btn-success large-button spacer"><i class="fa fa-check"></i>
+                        Approve</button>
+                    <button (mousedown)="showFakePicOptionsFlg=!showFakePicOptionsFlg" class="btn btn-danger large-button spacer"><i
+                            class="fa fa-times"></i> Reject</button>
+                </div>
+                <div *ngIf="showFakePicOptionsFlg">
+                    <div>Choose Reason</div>
+                    <button (mousedown)="showFakePicOptionsFlg=false" class="btn btn-warning spacer">Cancel</button>&nbsp;
+                    <select name="picOption" id="picOption">
+                        <option value="0" disabled selected>Select</option>
+                        <option value="1">Nudity</option>
+                        <option value="2">Can't see face</option>
+                        <option value="3">Looks fake</option>
+                        <option value="4">Bad Picture</option>
+                    </select>
+                    <button (mousedown)="rejectPic()" class="btn btn-danger large-button">Submit</button>
+        
+                </div>
 
+                <!--<button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-secondary">Reject</button>&nbsp;
+                <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-main-color">Approve</button>-->
+            </div>
+        </div>
+
+        <hr>
+        <button *ngIf="menuNum>0" (mousedown)="backToTop()" class="btn btn-warning">Back to top</button>
     </div>
 </app-page-shell>

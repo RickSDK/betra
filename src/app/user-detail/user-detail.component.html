@@ -72,7 +72,7 @@
         [singleProfileFlg]="uid>0">
     </app-match-snapshot>
 
-    <div *ngIf="id==7 && matchUser && user" class="match-card">
+    <!--<div *ngIf="id==7 && matchUser && user" class="match-card">
         <div>Does the main profile image look legit?</div>
         <div *ngIf="!showFakePicOptionsFlg">
             <button (mousedown)="confirmPic()" class="btn btn-success large-button"><i class="fa fa-check"></i>
@@ -93,7 +93,7 @@
             <button (mousedown)="rejectPic()" class="btn btn-danger large-button">Submit</button>
 
         </div>
-    </div>
+    </div>-->
 
     <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 

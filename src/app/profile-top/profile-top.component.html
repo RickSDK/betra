@@ -134,11 +134,11 @@
                         <app-green-check [label]="'Education'" [text1]="user.educationLevel"
                             [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
                             [icon]="'fa fa-graduation-cap'"></app-green-check>
-                        <app-green-check *ngIf="!myUser.memberFlg" [label]="'Income'" [text1]="user.incomeRange"
+                        <app-green-check *ngIf="1 || !myUser.memberFlg" [label]="'Income'" [text1]="user.incomeRange"
                             [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
                             [icon]="'fa fa-money'">
                         </app-green-check>
-                        <app-green-check *ngIf="myUser.memberFlg" [label]="'Income'" [text1]="user.income"
+                        <app-green-check *ngIf="0 && myUser.memberFlg" [label]="'Income'" [text1]="user.income"
                             [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
                             [icon]="'fa fa-money'">
                         </app-green-check>

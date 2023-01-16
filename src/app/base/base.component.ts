@@ -172,9 +172,17 @@ export class BaseComponent implements OnInit {
     var now = new Date();
     console.log('xxx user synced with database xxx', responseJson);
     if (responseJson.infoObj) {
-
+      console.log('ownerAlerts', responseJson.infoObj.ownerAlerts)
       this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
       localStorage['timeStamp'] = now.toString();
+      localStorage['lastUpd'] = responseJson.infoObj.lastUpd;
+
+      this.headerObj.notifications = responseJson.infoObj.notifications;
+      this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
+      this.headerObj.messageCount = responseJson.infoObj.messageCount;
+      this.headerObj.matchesAlerts = responseJson.infoObj.matchesAlerts
+      this.headerObj.dateCount = responseJson.infoObj.dateCount
+      this.headerObj.ownerAlerts = responseJson.infoObj.ownerAlerts
 
       /*
       this.infoObj = responseJson.infoObj;

@@ -55,13 +55,20 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     'assets/images/emojis/annoyed.png',
     'assets/images/emojis/angry.png',
     'assets/images/emojis/angry2.png',
-  ]
+  ];
+  public emojisIds = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+  public emojiBatch = 0;
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     //super.ngOnInit();
     this.populateModal(this.matchUser);
+  }
+
+  emojiSrcForId(id: string) {
+    return 'assets/images/emojis/emoji' + (parseInt(id) + this.emojiBatch * 8) + '.png';
   }
 
   ngOnChanges(changes: any) {
@@ -208,6 +215,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (emoji == 0)
       this.messageToDelete = message.id;
     else {
+      emoji += this.emojiBatch * 8;
       var params = {
         userId: localStorage['user_id'],
         code: localStorage['code'],

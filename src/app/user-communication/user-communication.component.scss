@@ -104,3 +104,12 @@ select {
     margin-bottom: 10px;
     padding-left: 20px;
 }
+
+.clickable-icon {
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.clickable-icon:hover {
+    color: #900;
+}

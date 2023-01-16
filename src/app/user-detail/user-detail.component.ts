@@ -60,7 +60,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.browseSingles('getOnlineSingles');
       } else if (this.id == 7) {
         this.pageTitle = 'Approve Profile Pic';
-        this.verifyPictures();
+        //this.verifyPictures();
       } else {
         this.pageTitle = 'Browse';
         if (!this.showFilter)
@@ -136,7 +136,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     console.log('params', params);
     this.executeApi('findMatches.php', params, true);
   }
-  verifyPictures() {
+  /*verifyPictures() {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
@@ -167,7 +167,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     console.log('params', params);
     if (reason > 0)
       this.executeApi('appApiCode.php', params, true);
-  }
+  }*/
   loadThisUser() {
     this.exceededPoolSizeFlg = false;
     var params = {
