@@ -34,6 +34,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showExpandedSearchPopupFlg: boolean = false;
   public action: string = '';
   public showNewReviewPopup: boolean = false;
+  public showBackButton: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -45,6 +46,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
+      this.showBackButton = params['s'] && params['s'] == 'Y';
       this.showFilter = (params['filter'] == 'true');
       var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
       this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;

@@ -28,7 +28,19 @@ export class Review {
     public isMineFlg: boolean = false;
     public isAboutMeFlg: boolean = false;
     public rebuttalText: string = '';
-   
+
+    public reviewAcceptedFg: boolean = false;
+    public flaggedBy: number = 0;
+    public flaggedReason: string = '';
+    public acceptedBy: number = 0;
+    public acceptedDate: string = '';
+    public flaggedDate: string = '';
+    public preventFlagging: boolean = false;
+    public flaggedCount: number = 0;
+    public rejectedFlg: boolean = false;
+    public rejectedBy: number = 0;
+    public flaggedByProfilePic: number = 0;
+
 
     constructor(obj: any, userId: number = 0) {
         if (obj) {
@@ -47,7 +59,7 @@ export class Review {
 
             this.isMineFlg = (obj.isMineFlg == 'Y');
             this.isAboutMeFlg = (obj.isAboutMeFlg == 'Y');
-            
+
             this.likes = obj.likes || 0;
             this.dislikes = obj.dislikes || 0;
 
@@ -61,6 +73,19 @@ export class Review {
 
             this.likeTitle = this.likeList.join('\n');
             this.dislikeTitle = this.dislikeList.join('\n');
+
+            this.reviewAcceptedFg = (obj.reviewAcceptedFg == 'Y');
+            this.flaggedBy = obj.flaggedBy || 0;
+            this.flaggedReason = obj.flaggedReason || '';
+            this.acceptedBy = obj.acceptedBy || 0;
+            this.acceptedDate = obj.acceptedDate || '';
+            this.flaggedDate = obj.flaggedDate || '';
+            this.preventFlagging = (obj.preventFlagging == 'Y');;
+            this.flaggedCount = obj.flaggedCount || 0;
+            this.rejectedFlg = (obj.rejectedFlg == 'Y');;
+            this.rejectedBy = obj.rejectedBy || 0;
+            this.flaggedByProfilePic = obj.flaggedByProfilePic || 0;
+
 
             this.src = betraImageFromId(obj.uid, obj.profilePic);
             this.src2 = betraImageFromId(obj.user_id, obj.profilePic2);

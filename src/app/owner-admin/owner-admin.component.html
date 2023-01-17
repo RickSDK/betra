@@ -5,9 +5,10 @@
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
-         <div *ngIf="menuNum==0" style="display: inline-block; max-width: 380px;">
+        <div *ngIf="menuNum==0" style="display: inline-block; max-width: 380px;">
             <div>Admin Tools</div>
-            <div class="gray-text">These tools will help admins manage the app. If any records have been flagged, you will see an indicator next to the link.</div>
+            <div class="gray-text">These tools will help admins manage the app. If any records have been flagged, you
+                will see an indicator next to the link.</div>
 
             <div *ngFor="let item of adminLinks; let i = index;">
                 <div (mousedown)="fixItem(i)" class="menu-item"><i [class]="item.icon"></i> &nbsp;
@@ -23,17 +24,20 @@
             <div *ngIf="showRecordFlg">
                 <div>{{responseJson.firstName}}</div>
                 <img [src]="src" height="320">
-                <div class="gray-text">Look at the profile picture above and make sure it includes the person's face. Then approve or reject the picture using the buttons below.</div>
+                <div class="gray-text">Look at the profile picture above and make sure it includes the person's face.
+                    Then approve or reject the picture using the buttons below.</div>
 
                 <div *ngIf="!showFakePicOptionsFlg">
-                    <button (mousedown)="confirmPic()" class="btn btn-success large-button spacer"><i class="fa fa-check"></i>
+                    <button (mousedown)="confirmPic()" class="btn btn-success large-button spacer"><i
+                            class="fa fa-check"></i>
                         Approve</button>
-                    <button (mousedown)="showFakePicOptionsFlg=!showFakePicOptionsFlg" class="btn btn-danger large-button spacer"><i
-                            class="fa fa-times"></i> Reject</button>
+                    <button (mousedown)="showFakePicOptionsFlg=!showFakePicOptionsFlg"
+                        class="btn btn-danger large-button spacer"><i class="fa fa-times"></i> Reject</button>
                 </div>
                 <div *ngIf="showFakePicOptionsFlg">
                     <div>Choose Reason</div>
-                    <button (mousedown)="showFakePicOptionsFlg=false" class="btn btn-warning spacer">Cancel</button>&nbsp;
+                    <button (mousedown)="showFakePicOptionsFlg=false"
+                        class="btn btn-warning spacer">Cancel</button>&nbsp;
                     <select name="picOption" id="picOption">
                         <option value="0" disabled selected>Select</option>
                         <option value="1">Nudity</option>
@@ -42,13 +46,139 @@
                         <option value="4">Bad Picture</option>
                     </select>
                     <button (mousedown)="rejectPic()" class="btn btn-danger large-button">Submit</button>
-        
+
                 </div>
 
                 <!--<button (mousedown)="processAPIRequest('rejectInfoRequest')" class="btn btn-secondary">Reject</button>&nbsp;
                 <button (mousedown)="processAPIRequest('approveInfoRequest')" class="btn btn-main-color">Approve</button>-->
             </div>
         </div>
+
+        <div *ngIf="menuNum==2 && responseJson">
+            <p *ngIf="!responseJson.user">
+                No Users Flagged at this time
+            </p>
+
+            <table *ngIf="responseJson.user">
+                <tr>
+                    <th>Flagged User</th>
+                    <th>Action</th>
+                    <th>Flagged By</th>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <app-profile-pic [user_id]="responseJson.user.user_id"
+                            [profilePic]="responseJson.user.profilePic" [size]="80">
+                        </app-profile-pic>
+                        <div>{{responseJson.user.firstName}}</div>
+                    </td>
+                    <td>
+                        <button (mousedown)="flaggedUserButtonPressed('markAsOk')" class="btn btn-success spacer">Mark
+                            as
+                            OK</button>
+                        <button (mousedown)="flaggedUserButtonPressed('rejectPic')" class="btn btn-warning spacer">Pic
+                            Bad</button>
+                        <button (mousedown)="flaggedUserButtonPressed('suspendUser')"
+                            class="btn btn-danger spacer">Suspend</button>
+                    </td>
+                    <td align="center">
+                        <app-profile-pic [user_id]="responseJson.user.profileFlaggedBy"
+                            [profilePic]="responseJson.user.profileFlaggedByProfilePic" [size]="50">
+                        </app-profile-pic>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div *ngIf="menuNum==3 || menuNum==4">
+            <p *ngIf="!responseJson.reviewObj || !responseJson.reviewObj.row_id">
+                No new reviews at this time
+            </p>
+            <p *ngIf="menuNum==3" class="gray-text">This review has been flagged! Check to see the contents. If it has
+                any
+                angry, sensative, personal or embarassing information, reject it. Otherwise approve it.
+            </p>
+            <p *ngIf="menuNum==4" class="gray-text">This is a newly posted review. New reviews can be seen immediately,
+                but they are all verified by an admin shortly after posting and can be removed if they are too
+                angry or contain sensative, personal or embarassing information.
+            </p>
+            <div *ngIf="responseJson.reviewObj && responseJson.reviewObj.row_id">
+                <table style="text-align: center;" border="1" style="font-size: 12px;">
+                    <tr>
+                        <th align="center">Person</th>
+                        <th align="center">Rating</th>
+                        <th align="center" style="text-align: center;">Message</th>
+                        <th align="center">Reviewed By</th>
+                        <th align="center" *ngIf="responseJson.reviewObj.flaggedBy>0">Flagged By</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <app-profile-pic [user_id]="responseJson.reviewObj.user_id"
+                                [profilePic]="responseJson.reviewObj.profilePic2" [size]="80">
+                            </app-profile-pic>
+                        </td>
+                        <td align="center">
+                            <a *ngIf="responseJson.reviewObj.rating==1" class="fa fa-thumbs-up"></a>
+                            <a *ngIf="responseJson.reviewObj.rating!=1" class="fa fa-thumbs-down"></a>
+                        </td>
+                        <td class="gray-text" align="center">{{responseJson.reviewObj.message}}</td>
+                        <td>
+
+                            <app-profile-pic [user_id]="responseJson.reviewObj.uid"
+                                [profilePic]="responseJson.reviewObj.profilePic" [size]="80"></app-profile-pic>
+                        </td>
+                        <td align="center" *ngIf="responseJson.reviewObj.flaggedBy>0">
+                            <app-profile-pic [user_id]="responseJson.reviewObj.flaggedBy"
+                                [profilePic]="responseJson.reviewObj.flaggedByProfilePic" [size]="40"></app-profile-pic>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <button (mousedown)="reviewReviewed('rejectReview')" class="btn btn-danger spacer">Delete this
+                        review</button>
+                    <button (mousedown)="reviewReviewed('approveReview')" class="btn btn-success spacer">This review is
+                        OK</button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="menuNum==5">
+            <div *ngIf="!responseJson.journal || !responseJson.journal.row_id">
+                No flagged journals at this time.
+            </div>
+            <div *ngIf="responseJson.journal && responseJson.journal.row_id">
+                <table style="font-size: 12px; text-align: center;" border="1">
+                    <tr>
+                        <th align="center">Author</th>
+                        <th align="center">Message</th>
+                        <th align="center">Flagged By</th>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <app-profile-pic [user_id]="responseJson.journal.user_id"
+                                [profilePic]="responseJson.journal.profilePic" [size]="60">
+                            </app-profile-pic>
+                        </td>
+                        <td align="center">
+                            <p>{{responseJson.journal.message}}</p>
+                            <p>{{responseJson.journal.history}}</p>
+                            <p>{{responseJson.journal.lookingFor}}</p>
+                        </td>
+                        <td align="center">
+                            <app-profile-pic [user_id]="responseJson.journal.postFlaggedBy"
+                                [profilePic]="responseJson.journal.profilePic2" [size]="60">
+                            </app-profile-pic>
+                        </td>
+                    </tr>
+                </table>
+                <button (mousedown)="journalReviewed('rejectJournal')" class="btn btn-danger spacer">Delete this
+                    entry</button>
+                <button (mousedown)="journalReviewed('approveJournal')" class="btn btn-success spacer">This is
+                    OK</button>
+
+            </div>
+        </div>
+
 
         <hr>
         <button *ngIf="menuNum>0" (mousedown)="backToTop()" class="btn btn-warning">Back to top</button>

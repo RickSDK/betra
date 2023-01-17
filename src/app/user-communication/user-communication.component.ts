@@ -215,6 +215,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (emoji == 0)
       this.messageToDelete = message.id;
     else {
+      this.selectedMessage = 0;
       emoji += this.emojiBatch * 8;
       var params = {
         userId: localStorage['user_id'],

@@ -47,6 +47,11 @@
                 </div>
 
             </td>
+            <td align="center" *ngIf="review.flaggedBy > 0">
+                <i class="fa fa-flag"></i>
+                <div style="color: gray; font-size: 8px;">Flagged By</div>
+                <app-profile-pic [user_id]="review.flaggedBy" [profilePic]="review.flaggedByProfilePic" [size]="30"></app-profile-pic>
+            </td>
         </tr>
         <tr *ngIf="review.rebuttalText">
             <td></td>

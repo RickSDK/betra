@@ -11,6 +11,8 @@
     <table width="100%" border="0">
         <tr>
             <td width="50%" style="padding: 0; position: relative;" valign="top">
+                <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle" style="position: absolute; left: 3px; top: 3px; font-size: 16px; z-index: 200;"></i>
+                <i *ngIf="largeImageFlg" (mousedown)="toggleImage()" class="fa fa-minus-circle" style="position: absolute; left: 3px; top: 3px; font-size: 16px; z-index: 200;"></i>
                 <i *ngIf="user.picCertificateFlg" [routerLink]="['/verify-pics']"
                     class="fa fa-certificate verified-cirtificate" title="Picture Verified"></i>
                 <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron"

@@ -91,7 +91,7 @@
             <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsBackBurner')"
                 class="btn btn-primary">Back Burner</button>&nbsp;
         </span>
-        <span *ngIf="journal.region != 'Bug' && userId == 1">
+        <span *ngIf="journal.region == 'Discus' && userId == 1">
             <button *ngIf="journal.status != 'Closed'" (mousedown)="journalApiCall('markAsClosed')"
                 class="btn btn-primary">Close</button>&nbsp;
         </span>

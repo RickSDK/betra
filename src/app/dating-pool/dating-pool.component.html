@@ -3,10 +3,8 @@
     <div *ngIf="largeFlg">
         <div *ngFor="let person of datingPool" class="pool-large menu-circle" style="position: relative;">
             <i *ngIf="exceededPoolSizeFlg" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
-            <img *ngIf="person.user_id>0 && !person.alerts" [src]="person.src" class="large-img"
-                (mousedown)="userClicked(person)" [style.border]="person.heartFlg?'4px solid #990000':'none'">
-            <img *ngIf="person.user_id>0 && person.alerts && person.alerts>0" [src]="person.src" class="large-img"
-                [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
+            <img [src]="person.src" class="large-img"
+                [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, s: 'Y'}"
                 [style.border]="person.heartFlg?'4px solid #990000':'none'">
             <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon"

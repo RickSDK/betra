@@ -1,6 +1,7 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="pageTitle" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
+    <button *ngIf="showBackButton" [routerLink]="['/matches']" class="btn btn-main-color btn-small" style="float: left; margin: 2px;">Back</button>
     <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
 
     <div *ngIf="!showFilter && id==2"><span class="text-link" (mousedown)="showAdvancedFilters()">Advanced Filters</span></div>
@@ -71,29 +72,6 @@
         [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
         [singleProfileFlg]="uid>0">
     </app-match-snapshot>
-
-    <!--<div *ngIf="id==7 && matchUser && user" class="match-card">
-        <div>Does the main profile image look legit?</div>
-        <div *ngIf="!showFakePicOptionsFlg">
-            <button (mousedown)="confirmPic()" class="btn btn-success large-button"><i class="fa fa-check"></i>
-                Yes</button>
-            <button (mousedown)="showFakePicOptionsFlg=!showFakePicOptionsFlg" class="btn btn-danger large-button"><i
-                    class="fa fa-times"></i> No</button>
-        </div>
-        <div *ngIf="showFakePicOptionsFlg">
-            <div>Choose Reason</div>
-            <button (mousedown)="showFakePicOptionsFlg=false" class="btn btn-warning">Cancel</button>&nbsp;
-            <select name="picOption" id="picOption">
-                <option value="0" disabled selected>Select</option>
-                <option value="1">Nudity</option>
-                <option value="2">Can't see face</option>
-                <option value="3">Looks fake</option>
-                <option value="4">Bad Picture</option>
-            </select>
-            <button (mousedown)="rejectPic()" class="btn btn-danger large-button">Submit</button>
-
-        </div>
-    </div>-->
 
     <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 

@@ -28,10 +28,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
     this.menuNum = 0;
-    if (localStorage['infoObj']) {
-      var infoObj = JSON.parse(localStorage['infoObj']);
-      this.updateFormBasedOnObj(infoObj);
-    }
+    this.getDataFromServer('getInfoObj', 'owners.php', []);
   }
 
   updateFormBasedOnObj(infoObj: any) {
@@ -52,6 +49,14 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     this.menuNum = num + 1;
     if (this.menuNum == 1)
       this.getDataFromServer('getNextApprovePicProfile', 'owners.php', []);
+    if (this.menuNum == 2)
+      this.getDataFromServer('getFlaggedUser', 'owners.php', []);
+    if (this.menuNum == 3)
+      this.getDataFromServer('getFlaggedReview', 'betraReviews.php', []);
+    if (this.menuNum == 4)
+      this.getDataFromServer('getNewReview', 'betraReviews.php', []);
+    if (this.menuNum == 5)
+      this.getDataFromServer('getFlaggedJournal', 'journal.php', []);
   }
 
   processAPIRequest(action: string) {
@@ -82,11 +87,37 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       this.executeApi('appApiCode.php', params, true);
   }
 
+  flaggedUserButtonPressed(action: string) {
+    var params = { uid: this.responseJson.user.user_id };
+    this.getDataFromServer(action, 'owners.php', params);
+  }
+
+  reviewReviewed(action: string) {
+    var params = { reviewId: this.responseJson.reviewObj.row_id };
+    this.getDataFromServer(action, 'owners.php', params);
+  }
+
+  journalReviewed(action: string) {
+    var params = { journalId: this.responseJson.journal.row_id };
+    this.getDataFromServer(action, 'owners.php', params);
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     this.showRecordFlg = false;
     this.responseJson = responseJson;
-    if (responseJson.action == 'confirmPic' || responseJson.action == 'rejectPic') {
-      this.logUser();
+    if (responseJson.action == 'approveReview') {
+      this.getDataFromServer('getNewReview', 'betraReviews.php', []);
+    }
+    if (responseJson.action == 'getInfoObj') {
+      this.updateFormBasedOnObj(responseJson.infoObj);
+      localStorage['infoObj'] = JSON.stringify(responseJson.infoObj);
+      this.syncUserWithLocalStorage(responseJson);
+    }
+    if (responseJson.action == 'confirmPic' || responseJson.action == 'rejectPic' || responseJson.action == 'rejectJournal' || responseJson.action == 'approveJournal') {
+      this.getDataFromServer('getInfoObj', 'owners.php', []);
+    }
+    if (responseJson.action == 'markAsOk' || responseJson.action == 'suspendUser' || responseJson.action == 'rejectReview' || responseJson.action == 'approveReview') {
+      this.getDataFromServer('getInfoObj', 'owners.php', []);
     }
     if (responseJson.action == 'logUser') {
       this.syncUserWithLocalStorage(responseJson);
