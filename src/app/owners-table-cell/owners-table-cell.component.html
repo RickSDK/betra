@@ -36,7 +36,10 @@
                 <td style="color: #900; font-weight: 700; font-size: 14px;" align="center">
                     {{player.statsObj.picVerifiedCount}}
                 </td>
-                <td><span class="gray-text" style="font-size: 8px;">{{player.lastDay}}</span></td>
+                <td>
+                    <span class="gray-text" style="font-size: 8px;">{{player.lastDay}}</span>
+                    <button *ngIf="user.user_id == 1 && player.daysAgo > 10" class="btn btn-main-color btn-small">Demote</button>
+                </td>
             </tr>
         </table>
         <div (mousedown)="populateEmailList()" *ngIf="user.user_id==1" style="font-size: 8px; color: gray;">Emails: {{emailStr}}</div>

@@ -32,6 +32,7 @@ export class AdvancedFiltersComponent extends BaseComponent implements OnInit {
   public searchButtonPressedFlg: boolean = false;
   public religions = ['Christian', 'Jewish', 'Buddhist', 'Islamic', 'Atheist', 'None/Agnostic', 'Hindu', 'Sikh', 'Jainist', 'Taoist', 'Other Religion'];
   public raceOptions = ['White', 'Black', 'Asian', 'Pacific Islander', 'Native American', 'South-Asian', 'Hispanic', 'Middle Eastern', 'Other'];
+  public showUpgradeNoticeFlg: boolean = false;
 
   constructor() { super(); }
 
@@ -49,8 +50,12 @@ export class AdvancedFiltersComponent extends BaseComponent implements OnInit {
   }
 
   advancedSearchGo() {
-    this.searchButtonPressedFlg = true;
-    this.messageEvent.emit('search');
+    if(this.user.memberFlg) {
+      this.searchButtonPressedFlg = true;
+      this.messageEvent.emit('search');  
+    } else {
+      this.showUpgradeNoticeFlg = true;
+    }
   }
 
   locationChanged() {

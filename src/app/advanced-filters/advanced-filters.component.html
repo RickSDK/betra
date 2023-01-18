@@ -1,5 +1,8 @@
 <div class="matches-card2" *ngIf="user">
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="!user.memberFlg" class="important-notice" style="font-size: 12px; color: black;">
+        Advanced search filters are only available to Gold members. Please <span [routerLink]="['/upgrade-member']" class="text-link">Upgrade</span> to take advantage of this feature.
+    </div>
     <div>Searching for: <span class="text-highlight">{{user.matchGender}}</span>
     </div>
     <div>Age: <span class="text-highlight">{{user.matchAge}}</span> years old. Plus or minus <select name="ageRange"
@@ -144,12 +147,15 @@
         </table>
 
     </div>
-    <div>
+    <div *ngIf="!showUpgradeNoticeFlg">
         <a *ngIf="!showMoreOptionsFlg" class="text-link" (mousedown)="showMoreOptionsFlg = !showMoreOptionsFlg">More
             Options</a>&nbsp;
         <button (mousedown)="advancedSearchGo()" class="btn btn-main-color"
             style="padding: 10px; width: 140px;">Search</button>&nbsp;
         <a *ngIf="searchButtonPressedFlg" [routerLink]="['/user-detail']" class="text-link">Default Search</a>
+    </div>
+    <div *ngIf="showUpgradeNoticeFlg" class="important-notice" style="font-size: 12px; color: black;">
+        Advanced search filters are only available to Gold members. Please <span [routerLink]="['/upgrade-member']" class="text-link">Upgrade</span> to take advantage of this feature.
     </div>
 
 </div>

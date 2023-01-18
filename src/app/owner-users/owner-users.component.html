@@ -47,6 +47,9 @@
                 </select>
             </div>
             <button (mousedown)="updateActivityTeam()" class="btn btn-primary">Update</button>
+            <div>
+                <button (mousedown)="demoteUser()" class="btn btn-main-color btn-small">Demote</button>
+            </div>
         </div>
 
         <div *ngIf="selectedPlayer && option==2">

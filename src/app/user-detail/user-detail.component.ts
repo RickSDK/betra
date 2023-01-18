@@ -29,6 +29,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showMatchLevelInfoFlg: boolean = false;
   public showFakePicOptionsFlg: boolean = false;
   public showFilter: boolean = false;
+  public advancedSearchFlg: boolean = false;
   public searchStarted: boolean = false;
   public matchesCount: number = 0;
   public showExpandedSearchPopupFlg: boolean = false;
@@ -49,7 +50,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
       this.showBackButton = params['s'] && params['s'] == 'Y';
-      this.showFilter = (params['filter'] == 'true');
+      this.advancedSearchFlg = (params['filter'] == 'true');
+      this.showFilter = this.advancedSearchFlg;
       var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
       this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
       this.searchStarted = !this.showFilter;
@@ -151,13 +153,19 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     };
     this.executeApi('appApiCode2.php', params, true);
   }
+
+  messagesEvent(event: string) {
+    if(event == 'refresh') {
+      console.log('refreshing due to new message read!!!');
+      this.logUser();
+    }
+  }
   //--------------------------------------------
   override postSuccessApi(file: string, responseJson: any) {
     console.log('--postSuccessApi--', responseJson);
+    this.profileViews = responseJson.profileViews;
     this.action = responseJson.action;
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
-      this.profileViews = responseJson.profileViews;
-
       /*
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['notifications'] = responseJson.notifications;
@@ -179,8 +187,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
       this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3 > 0);
-      this.profileViews = responseJson.profileViews;
-      this.playerList = [];
+       this.playerList = [];
       if (this.responseJson.playerList) {
         this.responseJson.playerList.forEach((element: any) => {
           this.playerList.push(new User(element, this.user));
@@ -247,7 +254,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.showNewReviewPopup = true;
         this.getDataFromServer('clearNewReviewFlg', 'betraReviews.php', []);
       } else {
-        this.logUser(); // this syncs up notifications
+        //this.logUser(); // this syncs up notifications
       }
 
     }

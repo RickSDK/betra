@@ -5,7 +5,7 @@
         style="float: left; margin: 2px;">Back</button>
     <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
 
-    <div *ngIf="id==2 || id==4" class="match-card">
+    <div *ngIf="searchStarted && (id == 2 || id == 4)" class="match-card">
         <div>Profile Views Remaining: <span class="text-highlight" style="font-size: 18px;">{{profileViews}}</span>
             &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg" class="text-link">What's
                 this?</span>
@@ -52,22 +52,21 @@
             <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                 Dating Pool</button>
         </div>
-
         <div *ngIf="!loadingFlg && id != 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">
             <div>
                 <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
-                <div *ngIf="action == 'findMatches'">
+                <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
                     <p>Sorry, no more profiles to browse!</p>
                     <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a new
                         app and people are just starting to sign up. Check back soon.</p>
                 </div>
-                <div *ngIf="action != 'findMatches'">
+                <div *ngIf="advancedSearchFlg && profileViews>0">
                     <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply press
                         the "Browse" button to bring back possible matches.</p>
                     <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI that
                         continueously expands your search options until matches are returned.
                         If you are getting no results after pressing that button, it means you have already viewed every
-                        person in the database meeting your gender requirments.</p>
+                        person in the database meeting your gender requirements.</p>
                 </div>
             </div>
         </div>
@@ -89,7 +88,7 @@
         </div>
     </div>
 
-    <div *ngIf="!loadingFlg && profileViews == 0 && !uid" class="matches-card">
+    <div *ngIf="searchStarted && !loadingFlg && profileViews == 0 && !uid" class="matches-card">
         <div style="font-size: 64px;">🥲</div>
         <div>Searches used up!</div>
         <div style="text-align: left;">
@@ -122,7 +121,7 @@
         </app-user-requests>
 
         <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y'"
-            [myUser]="user" [matchUser]="matchUser">
+            [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
         </app-user-communication>
 
     </div>

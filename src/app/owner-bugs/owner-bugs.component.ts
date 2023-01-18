@@ -38,6 +38,7 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
         this.region = 'Bug';
         this.pageTitle = 'Bugs';
       }
+      this.statusOptions = ['New', 'Back Burner', 'Fixed'];
       if (this.region == 'Discus')
         this.statusOptions = ['New', 'Closed'];
 

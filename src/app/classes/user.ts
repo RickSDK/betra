@@ -1,4 +1,6 @@
 declare var getDateObjFromJSDate: any;
+declare var lastLoginText: any;
+
 export class User {
     public user_id: number = 0;
     public firstName: string = '';
@@ -187,6 +189,8 @@ export class User {
     public isGoodActivity: boolean = false;
     public matchQualityIndex: number = 0;
 
+    public daysAgo: number = 0;
+
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
@@ -307,7 +311,6 @@ export class User {
             this.picCertificateNum = obj.picCertificateNum || 0;
             this.lat = obj.lat || 0;
             this.lng = obj.lng || 0;
-            this.lastDay = 'test';
             this.activityRep = obj.activityRep || 0;
             this.droppedByName = obj.droppedByName;
             this.droppedBy = obj.droppedBy || 0;
@@ -462,9 +465,13 @@ export class User {
         if (birthdt && birthdt.daysAgo > 0)
             this.age = Math.floor(birthdt.daysAgo / 365);
 
+        this.lastDay = lastLoginText(this.lastLogin);
+        this.location = getUserLocation(this.city, this.state || this.stateName, this.countryName);
+
         this.lastLoginSrc = 'assets/images/blackCircle.png';
         if (this.lastLogin) {
             var dateObj = getDateObjFromJSDate(this.lastLogin);
+            this.daysAgo = dateObj.daysAgo;
             this.lastLoginColor = dateObj.lastLoginColor;
             this.lastLoginText = dateObj.daysAgo + ' Days ago';
             this.isGoodActivity = (dateObj.daysAgo <= 10);
@@ -791,4 +798,11 @@ function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: n
         Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return earthRadiusKm * c;
+}
+
+function getUserLocation(city: string, state: string, countryName: string) {
+    if (countryName != 'United States')
+        return countryName;
+    else
+        return city + ', ' + state;
 }

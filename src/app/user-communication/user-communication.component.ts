@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 declare var $: any;
@@ -12,6 +12,8 @@ declare var getDateObjFromJSDate: any;
 export class UserCommunicationComponent extends BaseComponent implements OnInit {
   @Input('myUser') myUser: any = null;
   @Input('matchUser') matchUser: any = null;
+  @Output() messageEvent = new EventEmitter<string>();
+
   public showDetailsFlg: boolean = false;
   public showTextInputFlg = false;
   public selectedMessage: number = 0;
@@ -140,14 +142,14 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
       if (this.messages.length <= 2)
         this.showDetailsFlg = true;
 
-      if (responseJson.refreshFlg == 'Y') {
-        localStorage['messageCount'] = responseJson.messageCount;
-        this.headerObj.messageCount = responseJson.messageCount;
-      }
-
       this.messages.sort((a: any, b: any) => {
         return a.id - b.id;
       });
+
+      if (responseJson.refreshFlg == 'Y') {
+        this.messageEvent.emit('refresh');
+      }
+
     }
   }
   sendMessage() {
