@@ -196,7 +196,6 @@ body {
     color: #b7121f;
     border-radius: 5px;
     font-weight: 700;
-    ;
     padding: 10px;
     box-shadow: 2px 2px 7px gray;
 }
@@ -483,6 +482,11 @@ select {
     }
 }
 
+@media screen and (min-width: 541px) {
+    .show-xs {
+        display: none;
+    }
+}
 @media screen and (max-width: 540px) {
     .hide-xs {
         display: none;

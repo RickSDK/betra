@@ -1,17 +1,33 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="pageTitle" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <button *ngIf="showBackButton" [routerLink]="['/matches']" class="btn btn-main-color btn-small" style="float: left; margin: 2px;">Back</button>
+    <button *ngIf="showBackButton" [routerLink]="['/matches']" class="btn btn-main-color btn-small"
+        style="float: left; margin: 2px;">Back</button>
     <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
 
-    <div *ngIf="!showFilter && id==2"><span class="text-link" (mousedown)="showAdvancedFilters()">Advanced Filters</span></div>
-    <app-advanced-filters *ngIf="showFilter" [user]="user" (messageEvent)="advancedSearch($event)"></app-advanced-filters>
+    <div *ngIf="id==2 || id==4" class="match-card">
+        <div>Profile Views Remaining: <span class="text-highlight" style="font-size: 18px;">{{profileViews}}</span>
+            &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg" class="text-link">What's
+                this?</span>
+        </div>
+        <div *ngIf="showProfileViewDetailsFlg" class="gray-text" style="padding-left: 10px; padding-right: 10px;">
+            <hr>
+            You can view up to 12 profiles per day. Say yes to as many as you like. If you get through your entire batch
+            of 12, you will need to wait until tomorrow to get a new batch.
+        </div>
+    </div>
+
+    <div *ngIf="0 && !showFilter && id==2"><span class="text-link" (mousedown)="showAdvancedFilters()">Advanced
+            Filters</span></div>
+    <app-advanced-filters *ngIf="showFilter" [user]="user" (messageEvent)="advancedSearch($event)">
+    </app-advanced-filters>
     <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
 
     <div *ngIf="showExpandedSearchPopupFlg && !loadingFlg" class="warning-search-popup">
         <p>
-            Note: This is a new dating app that has just launched. 
-            Your initial search returned very few potential matches so we expanded the search parameters to ignore location.
+            Note: This is a new dating app that has just launched.
+            Your initial search returned very few potential matches so we expanded the search parameters to ignore
+            location.
         </p>
         <button (mousedown)="showExpandedSearchPopupFlg=false" class="btn btn-main-color">That's ok</button>&nbsp;
         <button (mousedown)="browseSingles('findMatches')" class="btn btn-warning">Show locals only</button>&nbsp;
@@ -42,12 +58,16 @@
                 <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
                 <div *ngIf="action == 'findMatches'">
                     <p>Sorry, no more profiles to browse!</p>
-                    <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a new app and people are just starting to sign up. Check back soon.</p>
+                    <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a new
+                        app and people are just starting to sign up. Check back soon.</p>
                 </div>
                 <div *ngIf="action != 'findMatches'">
-                    <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply press the "Browse" button to bring back possible matches.</p>
-                    <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI that continueously expands your search options until matches are returned. 
-                        If you are getting no results after pressing that button, it means you have already viewed every person in the database meeting your gender requirments.</p>
+                    <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply press
+                        the "Browse" button to bring back possible matches.</p>
+                    <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI that
+                        continueously expands your search options until matches are returned.
+                        If you are getting no results after pressing that button, it means you have already viewed every
+                        person in the database meeting your gender requirments.</p>
                 </div>
             </div>
         </div>
@@ -61,15 +81,30 @@
                     <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for others
                         to
                         find you.</li>
-                    <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']" class="text-link">Upgrade</span> in order to
+                    <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
+                            class="text-link">Upgrade</span> in order to
                         maximize your exposure.</li>
                 </div>
             </div>
         </div>
     </div>
 
-    <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id"
-        [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
+    <div *ngIf="!loadingFlg && profileViews == 0 && !uid" class="matches-card">
+        <div style="font-size: 64px;">🥲</div>
+        <div>Searches used up!</div>
+        <div style="text-align: left;">
+            <p class="gray-text">Sorry, you have used up all your searches for today. You get to view 12 new singles
+                each day and have already gone through your batch.
+                But don't worry, check back tomorrow and you will have a new batch of 12 singles waiting for you!
+            </p>
+            <p class="gray-text">Note: <span [routerLink]="['/upgrade-member']" class="text-link">Upgrading</span> to
+                Gold Member boosts your total number of singles to 20 per day, along with a bunch of
+                other benfits.</p>
+        </div>
+    </div>
+
+    <app-match-snapshot *ngIf="matchUser && user && (profileViews > 0 || uid > 0)" (messageEvent)="matchSnapshotEvent($event)"
+        [user]="user" [id]="id" [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
         [singleProfileFlg]="uid>0">
     </app-match-snapshot>
 
@@ -82,18 +117,20 @@
         <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
         </app-user-private-pics>
 
-        <app-user-requests [myUser]="user" [matchUser]="matchUser">
+        <app-user-requests *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user"
+            [matchUser]="matchUser">
         </app-user-requests>
 
-        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y'" [myUser]="user" [matchUser]="matchUser">
+        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y'"
+            [myUser]="user" [matchUser]="matchUser">
         </app-user-communication>
 
     </div>
     <div (mousedown)="showNewReviewPopup=false" *ngIf="showNewReviewPopup" class="betra-popup">
         <div style="font-size: 18px;"><b>New Review!</b></div>
-        <app-profile-pic [user_id]="matchUser.newReviewBy" [profilePic]="matchUser.newReviewProfilePic" [size]="80"></app-profile-pic>
+        <app-profile-pic [user_id]="matchUser.newReviewBy" [profilePic]="matchUser.newReviewProfilePic" [size]="80">
+        </app-profile-pic>
         <p style="font-size: 12px;">You have a new review. Click the "Reviews" button below to see what they said.</p>
         <button class="btn btn-light">Ok</button>
     </div>
 </app-page-shell>
-

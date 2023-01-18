@@ -1,3 +1,9 @@
-<input name="messageInput" id="messageInput" type="text"
-    [placeholder]="placeHolder" (input)="inputValueChanged($event)" (keyup.enter)="submitButtonPressed()" [maxLength]="maxLength">
-    <div style="font-size: 10px; color: gray; float: right; margin-top: -5px;">{{strlen}}/{{maxLength}}</div>
+<div style="position: relative;">
+    <input name="messageInput" id="messageInput" type="text" [placeholder]="placeHolder" style="padding-right: 44px;"
+        (input)="inputValueChanged($event)" (keyup.enter)="submitButtonPressed()" [maxLength]="maxLength">
+    <span (mousedown)="showEmojisFlg=!showEmojisFlg" class="emoji" style="position: absolute; top: 20px; right: 10px; font-size: 24px;">🙂</span>
+</div>
+<div style="font-size: 10px; color: gray; float: right; margin-top: -5px;">{{strlen}}/{{maxLength}}</div>
+<div *ngIf="showEmojisFlg" style="font-size: 24px;">
+    <span (mousedown)="addEmoji(emoji)" *ngFor="let emoji of emojis" class="emoji">{{emoji}} </span>
+</div>

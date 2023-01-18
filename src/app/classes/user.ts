@@ -180,7 +180,14 @@ export class User {
     public newReviewProfilePic: number = 0;
     public incomeRange: string = 'Average';
 
-    constructor(obj: any) {
+    public distance: number = 0;
+    public distanceText: string = '?';
+    public isGoodLocation: boolean = false;
+    public isGoodAge: boolean = false;
+    public isGoodActivity: boolean = false;
+    public matchQualityIndex: number = 0;
+
+    constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.firstName = obj.firstName;
@@ -304,7 +311,7 @@ export class User {
             this.activityRep = obj.activityRep || 0;
             this.droppedByName = obj.droppedByName;
             this.droppedBy = obj.droppedBy || 0;
- 
+
             this.incomeRange = 'Average';
             if (this.income == 'Under $20K' || this.income == '$20K - $49K')
                 this.incomeRange = 'Low';
@@ -460,6 +467,9 @@ export class User {
             var dateObj = getDateObjFromJSDate(this.lastLogin);
             this.lastLoginColor = dateObj.lastLoginColor;
             this.lastLoginText = dateObj.daysAgo + ' Days ago';
+            this.isGoodActivity = (dateObj.daysAgo <= 10);
+            if (dateObj.daysAgo <= 3)
+                this.matchQualityIndex++;
             if (dateObj.daysAgo == 0)
                 this.lastLoginText = 'Today';
             if (dateObj.daysAgo == 1)
@@ -581,8 +591,25 @@ export class User {
         if (this.bodyType == 'Average')
             this.bodyDesc = this.bodyHeight + ' ' + this.genderName;
 
-
-
+        //match details
+        if (myUser && myUser.user_id > 0) {
+            if (this.latitude && myUser.latitude) {
+                this.distance = distanceInKmBetweenEarthCoordinates(parseFloat(this.latitude), parseFloat(this.longitude), parseFloat(myUser.latitude), parseFloat(this.longitude));
+                this.isGoodLocation = (this.distance < 200);
+                if (this.distance < 40)
+                    this.matchQualityIndex += 2;
+                this.distanceText = Math.round(this.distance) + ' miles';
+            }
+            this.isGoodAge = (Math.abs(this.age - myUser.matchAge) <= 4);
+            if (Math.abs(this.age - myUser.matchAge) <= 8)
+                this.matchQualityIndex += 3;
+        }
+        if (this.isGoodAge)
+            this.matchQualityIndex += 3;
+        if (this.isGoodLocation)
+            this.matchQualityIndex += 2;
+        if (this.isGoodActivity)
+            this.matchQualityIndex++;
 
         //----Basics
         var basicsFlg = !!(this.gender && this.matchPreference);
@@ -746,4 +773,22 @@ function bonusImageFromNum(user_id: number, profilePic: number) {
     else
         return '';
 
+}
+function degreesToRadians(degrees: number) {
+    return degrees * Math.PI / 180;
+}
+
+function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: number, lon2: number) {
+    var earthRadiusKm = 6371;
+
+    var dLat = degreesToRadians(lat2 - lat1);
+    var dLon = degreesToRadians(lon2 - lon1);
+
+    lat1 = degreesToRadians(lat1);
+    lat2 = degreesToRadians(lat2);
+
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return earthRadiusKm * c;
 }

@@ -11,7 +11,8 @@
                 <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
             </button>
         </div>
-        <div *ngIf="showHeartFormFlg && menuNum==0" class="light-box" style="padding: 20px; text-align: center;">
+       
+        <div *ngIf="showHeartFormFlg || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
             <table align="center">
                 <tr>
                     <td>
@@ -38,7 +39,7 @@
         <div>&nbsp;</div>
 
         <div *ngIf="menuNum==0">
-            <div style="font-size: 12px; color: gray;">You can have a maximum of {{datingPoolLimit}} people in your
+            <div *ngIf="user.datingPool.length < datingPoolLimit" style="font-size: 12px; color: gray;">You can have a maximum of {{datingPoolLimit}} people in your
                 dating pool at any
                 time.</div>
 

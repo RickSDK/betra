@@ -35,6 +35,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public action: string = '';
   public showNewReviewPopup: boolean = false;
   public showBackButton: boolean = false;
+  public profileViews: number = 0;
+  public showProfileViewDetailsFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -138,38 +140,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     console.log('params', params);
     this.executeApi('findMatches.php', params, true);
   }
-  /*verifyPictures() {
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      action: 'verifyPictures'
-    };
-    console.log('params', params);
-    this.executeApi('appApiCode.php', params, true);
-  }
-  confirmPic() {
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      uid: this.matchUser.user_id,
-      action: 'confirmPic'
-    };
-    console.log('params', params);
-    this.executeApi('appApiCode.php', params, true);
-  }
-  rejectPic() {
-    var reason = $('#picOption').val();
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      uid: this.matchUser.user_id,
-      reason: reason,
-      action: 'rejectPic'
-    };
-    console.log('params', params);
-    if (reason > 0)
-      this.executeApi('appApiCode.php', params, true);
-  }*/
+
   loadThisUser() {
     this.exceededPoolSizeFlg = false;
     var params = {
@@ -185,6 +156,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     console.log('--postSuccessApi--', responseJson);
     this.action = responseJson.action;
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
+      this.profileViews = responseJson.profileViews;
+
       /*
       localStorage['admirerCount'] = responseJson.admirerCount;
       localStorage['notifications'] = responseJson.notifications;
@@ -203,17 +176,24 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.showCurrentProfile();
       }
     }
-    this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3 > 0);
+
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
+      this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3 > 0);
+      this.profileViews = responseJson.profileViews;
       this.playerList = [];
       if (this.responseJson.playerList) {
         this.responseJson.playerList.forEach((element: any) => {
-          this.playerList.push(new User(element));
+          this.playerList.push(new User(element, this.user));
         });
 
+        this.playerList.sort((a: any, b: any) => {
+          return b.matchQualityIndex - a.matchQualityIndex;
+        });
+        console.log('xxxthis.playerList', this.playerList);
         this.currentProfileIndex = 0;
         this.showCurrentProfile();
-        console.log('xxxthis.playerList', this.playerList);
+
+
       }
     }
     if (responseJson.action == 'findMatchesAdvanced') {
@@ -227,13 +207,12 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.responseJson.playerList.forEach((element: any) => {
           var inRange = true;
           if (responseJson.distance != 'Any') {
-            var distance = distanceInKmBetweenEarthCoordinates(element.latitude, element.longitude, this.user.latitude, this.user.longitude);
             if (responseJson.distance == '10 miles')
-              inRange = distance <= 10;
+              inRange = element.distance <= 10;
             if (responseJson.distance == '50 miles')
-              inRange = distance <= 50;
+              inRange = element.distance <= 50;
             if (responseJson.distance == '100 miles')
-              inRange = distance <= 100;
+              inRange = element.distance <= 100;
 
           }
 
@@ -304,7 +283,6 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   displayThisProfile() {
     console.log('displayThisProfile', this.matchUser);
-    //this.calculateDistance(this.matchUser, this.user);
 
     if (this.matchUser.state && this.user.state != this.matchUser.state) {
       this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
@@ -323,13 +301,6 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
 
 
-  }
-  calculateDistance(matchUser: any, user: any) {
-    //this.distance = '';
-    if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
-      var miles = distanceInKmBetweenEarthCoordinates(user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
-      //this.distance = parseInt(miles.toString()) + ' miles';
-    }
   }
 
   matchSnapshotEvent(action: string) {
@@ -354,22 +325,4 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode2.php', params, true);
   }
 
-}
-function degreesToRadians(degrees: number) {
-  return degrees * Math.PI / 180;
-}
-
-function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: number, lon2: number) {
-  var earthRadiusKm = 6371;
-
-  var dLat = degreesToRadians(lat2 - lat1);
-  var dLon = degreesToRadians(lon2 - lon1);
-
-  lat1 = degreesToRadians(lat1);
-  lat2 = degreesToRadians(lat2);
-
-  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return earthRadiusKm * c;
 }

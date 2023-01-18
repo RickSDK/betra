@@ -1,9 +1,10 @@
 <div *ngIf="user && myUser" style="position: relative;">
     <div *ngIf="showNewUserPopupFlg && user.matchObj && user.matchObj.showButtonsFlg" class="new-user-popup">
         <p class="red-text"><b>Welcome new Betra user!</b></p>
-        <p>Would you like to meet this person? If <b>"Yes!"</b> press the thumbs up, otherwise press the thumbs down.
+        <p>Would you like to meet this person? If <b>Yes</b>, press the thumbs up, otherwise press the thumbs down.
         </p>
-        <p style="font-size: 12px; color: gray;">Click "Yes" to everyone you might be interested in. As soon as one of
+        <p style="font-size: 12px; color: gray;">Click "thumbs-up" to everyone you might be interested in. As soon as
+            one of
             them "likes" you back, they will end up in your dating pool and you can begin communicating!</p>
         <button (mousedown)="showNewUserPopupFlg=false" class="btn btn-main-color">Got it!</button>
     </div>
@@ -11,8 +12,8 @@
     <table width="100%" border="0">
         <tr>
             <td width="50%" style="padding: 0; position: relative;" valign="top">
-                <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle" style="position: absolute; left: 3px; top: 3px; font-size: 16px; z-index: 200;"></i>
-                <i *ngIf="largeImageFlg" (mousedown)="toggleImage()" class="fa fa-minus-circle" style="position: absolute; left: 3px; top: 3px; font-size: 16px; z-index: 200;"></i>
+                <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle plus-icon"></i>
+                <i *ngIf="largeImageFlg" (mousedown)="toggleImage()" class="fa fa-minus-circle plus-icon"></i>
                 <i *ngIf="user.picCertificateFlg" [routerLink]="['/verify-pics']"
                     class="fa fa-certificate verified-cirtificate" title="Picture Verified"></i>
                 <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron"
@@ -149,7 +150,9 @@
                             [icon]="''" [img]="'assets/images/religion.png'">
                         </app-green-check>
                     </div>
-
+                    <div *ngIf="user.matchObj.match_level == 1 && user.matchObj.match_interested == 'Y'" class="important-notice"
+                    style="text-align: center;">
+                        <i class="fa fa-heart"></i> {{user.firstName}}<br>is interested in you!</div>
                     <div style="text-align: center;">
                         <button
                             *ngIf="snapshotFlg && user.matchObj && user.matchObj.match_level >= 2 && user.matchObj.unreadMessages > 0"

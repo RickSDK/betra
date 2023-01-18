@@ -142,8 +142,7 @@
                         <div *ngIf="matchUser.matchObj.match_interested == 'B'">Sorry, but you are currently on
                             {{matchUser.firstName}}'s back burner.</div>
                         <div *ngIf="matchUser.matchObj.match_level == 1 && matchUser.matchObj.match_interested == 'Y'">
-                            {{matchUser.firstName}} is interested in
-                            you!</div>
+                            {{matchUser.firstName}} is interested in you!</div>
                         <div *ngIf="matchUser.matchObj.match_interested == 'X'">Sorry, but {{matchUser.firstName}} has
                             blocked
                             you!</div>
@@ -162,8 +161,7 @@
                         <div
                             *ngIf="matchUser.matchObj.you_action == 'message sent' && matchUser.matchObj.match_level == 3">
                             <i class="fa fa-paper-plane"></i> You have sent a message to {{matchUser.firstName}}.
-                            Hopefully
-                            you
+                            Hopefully you
                             get a
                             reply back soon!
                         </div>

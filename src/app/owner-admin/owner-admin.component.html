@@ -55,7 +55,7 @@
         </div>
 
         <div *ngIf="menuNum==2 && responseJson">
-            <p *ngIf="!responseJson.user">
+            <p *ngIf="!responseJson.user" class="big-flashy">
                 No Users Flagged at this time
             </p>
 
@@ -91,18 +91,20 @@
         </div>
 
         <div *ngIf="menuNum==3 || menuNum==4">
-            <p *ngIf="!responseJson.reviewObj || !responseJson.reviewObj.row_id">
+            <p *ngIf="!responseJson.reviewObj || !responseJson.reviewObj.row_id" class="big-flashy">
                 No new reviews at this time
             </p>
-            <p *ngIf="menuNum==3" class="gray-text">This review has been flagged! Check to see the contents. If it has
-                any
-                angry, sensative, personal or embarassing information, reject it. Otherwise approve it.
-            </p>
-            <p *ngIf="menuNum==4" class="gray-text">This is a newly posted review. New reviews can be seen immediately,
-                but they are all verified by an admin shortly after posting and can be removed if they are too
-                angry or contain sensative, personal or embarassing information.
-            </p>
             <div *ngIf="responseJson.reviewObj && responseJson.reviewObj.row_id">
+                <p *ngIf="menuNum==3" class="gray-text">This review has been flagged! Check to see the contents. If it
+                    has
+                    any
+                    angry, sensative, personal or embarassing information, reject it. Otherwise approve it.
+                </p>
+                <p *ngIf="menuNum==4" class="gray-text">This is a newly posted review. New reviews can be seen
+                    immediately,
+                    but they are all verified by an admin shortly after posting and can be removed if they are too
+                    angry or contain sensative, personal or embarassing information.
+                </p>
                 <table style="text-align: center;" border="1" style="font-size: 12px;">
                     <tr>
                         <th align="center">Person</th>
@@ -143,7 +145,7 @@
         </div>
 
         <div *ngIf="menuNum==5">
-            <div *ngIf="!responseJson.journal || !responseJson.journal.row_id">
+            <div *ngIf="!responseJson.journal || !responseJson.journal.row_id" class="big-flashy">
                 No flagged journals at this time.
             </div>
             <div *ngIf="responseJson.journal && responseJson.journal.row_id">

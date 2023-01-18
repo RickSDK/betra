@@ -112,12 +112,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.menuNum = num;
     this.playerList = [];
 
-    if (num == 3) {
-      this.showHeartFormFlg = !this.showHeartFormFlg;
-      this.menuNum = 0;
-    } else
-      this.showHeartFormFlg = false;
-
     if (num == 0) {
       var params0 = {
         userId: localStorage['user_id'],

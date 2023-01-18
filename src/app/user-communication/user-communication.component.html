@@ -76,9 +76,9 @@
         <table width="100%">
             <tr>
                 <td>
-                    <app-message-input (messageEvent)="inputValueChanged($event)" [maxLength]="250"></app-message-input>
+                    <app-message-input (messageEvent)="inputValueChanged($event)" [maxLength]="350"></app-message-input>
                 </td>
-                <td>&nbsp;
+                <td valign="top" style="padding-top: 12px; padding-left: 8px;">
                     <button (mousedown)="sendMessage()" [disabled]="disabledButtonFlg" class="btn btn-main-color"
                         style="height: 50px;">Send</button>
                 </td>
