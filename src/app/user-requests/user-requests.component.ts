@@ -61,6 +61,10 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
     this.executeApi('betraReviews.php', params, true);
   }
 
+  reviewCellEvent(event: any) {
+    this.openPanel(5);
+  }
+
   checkButtons() {
     this.buttonsDisabledFlg = this.matchUser.matchObj.match_date_request == 'M' || this.matchUser.matchObj.you_date_request == 'Y' || this.matchUser.matchObj.you_pic_request > 0;
   }
@@ -96,10 +100,10 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
       //      this.showReviewsFlg = true;
       this.reviewList = [];
       responseJson.reviews.forEach((element: any) => {
-        this.reviewList.push(new Review(element))
+        this.reviewList.push(new Review(element, this.myUser.user_id))
       });
 
-      console.log('hey!!', this.reviewList);
+      console.log('hey!!', this.myUser.user_id, this.reviewList);
     }
     if (responseJson.action == 'submitReview') {
       this.processAPIRequest('getReviews');

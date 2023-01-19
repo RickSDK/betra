@@ -27,7 +27,7 @@
 
     <div *ngIf="requestNum==4">
         <p *ngIf="reviewList.length==0" class="basic-cell">No reviews on {{matchUser.firstName}} at this time.</p>
-        <app-review-cell *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i">
+        <app-review-cell (messageEvent)="reviewCellEvent($event)" *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i">
         </app-review-cell>
         <div class="tan-box" style="font-size: 10px;">
             Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry,

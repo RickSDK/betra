@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class JoinTeamComponent extends BaseComponent implements OnInit {
   public signupDisabledFlg: boolean = false;
   public ownerCount: number = 0;
+  public spotsLeft: number = 0;
+
   public levels = [
     { number: 6, name: 'President', percent: '5%', spots: 1, payouts: '$5,000' },
     { number: 5, name: 'VP', percent: '5%', spots: 2, payouts: '$5,000' },
@@ -63,6 +65,7 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'getOwnerCount' || responseJson.action == 'getMyOwnerInfo' ) {
       this.ownerCount = responseJson.ownerCount;
+      this.spotsLeft = 68 - this.ownerCount;
       if(responseJson.refreshFlg && responseJson.refreshFlg == 'Y') {
         console.log('refresh!');
         this.refreshUserObj(responseJson.user);

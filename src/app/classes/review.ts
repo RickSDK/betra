@@ -57,7 +57,7 @@ export class Review {
             this.uid = obj.uid || 0;
             this.user_id = obj.user_id || 0;
 
-            this.isMineFlg = (obj.isMineFlg == 'Y');
+            this.isMineFlg = (obj.isMineFlg == 'Y' || userId == this.uid);
             this.isAboutMeFlg = (obj.isAboutMeFlg == 'Y');
 
             this.likes = obj.likes || 0;

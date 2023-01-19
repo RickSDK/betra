@@ -11,6 +11,8 @@ declare var $: any;
 export class ReviewCellComponent extends BaseComponent implements OnInit {
   @Input('review') review: any = null;
   @Input('index') index: number = 0;
+  @Output() messageEvent = new EventEmitter<string>();
+
   public showOptionsFlg: boolean = false;
   public showDeletePopup: boolean = false;
   public showFlagPopup: boolean = false;
@@ -33,6 +35,9 @@ export class ReviewCellComponent extends BaseComponent implements OnInit {
       this.showDeletePopup = true;
     if (action == 'flag')
       this.showFlagPopup = true;
+    if (action == 'edit') {
+      this.messageEvent.emit('edit');
+    }
     if (action == 'rebuttal') {
       this.rebuttalFlg = true;
       setTimeout(() => {

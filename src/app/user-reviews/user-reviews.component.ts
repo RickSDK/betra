@@ -23,7 +23,7 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     this.reviewList = [];
   }
-  
+  /*
   openReviewPanel() {
     this.openPanelFlg = !this.openPanelFlg;
     this.showReviewsFlg = !this.showReviewsFlg;
@@ -93,11 +93,12 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
       this.processAPIRequest('getReviews');
     }
 
-  }
+  }*/
 }
+/*
 function betraImageFromId(user_id: number, profilePic: number) {
   if (user_id > 0 && profilePic > 0)
       return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
   else
       return 'assets/images/theRock.png';
-}
+}*/

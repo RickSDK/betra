@@ -63,7 +63,7 @@
             <tr>
                 <td align="center">
                     <div>Spots Remaining</div>
-                    <div class="spots-remaining" *ngIf="ownerCount>0"> {{71 - ownerCount}}</div>
+                    <div class="spots-remaining" *ngIf="ownerCount>0"> {{spotsLeft}}</div>
                 </td>
                 <td>&nbsp;</td>
                 <td align="center">
@@ -80,8 +80,8 @@
             <div class="shaded-border-box">
                 <div class="title-bar">How to sign up</div>
                 <div class="inside-box">
-                    <div *ngIf="ownerCount >= 51">Sorry, all the spots are currently filled up.</div>
-                    <div *ngIf="ownerCount < 51 && !loadingFlg"
+                    <div *ngIf="spotsLeft<=0">Sorry, all the spots are currently filled up.</div>
+                    <div *ngIf="spotsLeft > 0 && !loadingFlg"
                         style="border: 1px solid gray; border-radius: 5px; display: inline-block; text-align: left; padding: 10px;">
                         <ol>
 

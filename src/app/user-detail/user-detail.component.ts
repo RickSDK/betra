@@ -155,7 +155,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   messagesEvent(event: string) {
-    if(event == 'refresh') {
+    if (event == 'refresh') {
       console.log('refreshing due to new message read!!!');
       this.logUser();
     }
@@ -187,7 +187,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
       this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3 > 0);
-       this.playerList = [];
+      this.playerList = [];
       if (this.responseJson.playerList) {
         this.responseJson.playerList.forEach((element: any) => {
           this.playerList.push(new User(element, this.user));
