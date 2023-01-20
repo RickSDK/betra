@@ -24,6 +24,7 @@ export class PageShellComponent implements OnInit {
   public showAboutInfoFlg: boolean = false;
   public firstName: string = '';
   public appVersion: string = '';
+  public adsbygoogle: any;
 
   constructor(private router: Router) { }
 
@@ -52,6 +53,10 @@ export class PageShellComponent implements OnInit {
       this.showPromotionalBoxesFlg = true;
       this.showAboutInfoFlg = true;
     }
+
+    setTimeout(() => {
+      (this.adsbygoogle = (window as any).adsbygoogle || []).push({});      
+    }, 3000);
   }
   ngClassToggleMenu() {
     if (this.showMainMenuFlg)

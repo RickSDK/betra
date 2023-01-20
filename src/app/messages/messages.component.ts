@@ -22,7 +22,10 @@ export class MessagesComponent extends BaseComponent implements OnInit {
       this.playerList = [];
       if(responseJson.players && responseJson.players.length>0 && responseJson.players[0].user_id>0)
         this.playerList = responseJson.players;
-      console.log('playerList', this.playerList);
+
+        this.playerList.sort((a: any, b: any) => {
+          return b.row_id - a.row_id;
+        });
     }
   }
 

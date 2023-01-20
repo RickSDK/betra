@@ -39,7 +39,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   googleSignin(): void {
-    this.errorMessage = 'Google+ not ready yet';
+    this.errorMessage = 'Google login not ready yet';
   }
 
   logOut(): void {

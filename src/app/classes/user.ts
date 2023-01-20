@@ -143,7 +143,7 @@ export class User {
     public picFlagged: number = 0;
     public flaggedImg: string = '';
     public statsObj: any = null;
-    public location: string = '';
+    public location: string = 'x';
     public astrologicalSign: string = 'Aries';
     public numReviews: number = 0;
 
@@ -327,7 +327,7 @@ export class User {
             }
             if (this.drinks == 'No') {
                 this.drinksIcon = 'assets/images/nonDrinker.png';
-                this.drinksTitle = 'Non Drinker';
+                this.drinksTitle = 'Non drinker';
             }
             if (this.drinks == 'Occasional') {
                 this.drinksIcon = 'assets/images/drinker.png';
@@ -349,7 +349,7 @@ export class User {
 
             if (this.cannabis == 'Yes') {
                 this.potIcon = 'assets/images/cannabis.png';
-                this.potTitle = 'Uses Cannabis';
+                this.potTitle = 'Uses cannabis';
             }
             if (this.cannabis == 'No') {
                 this.potIcon = 'assets/images/noDrugs.png';
@@ -426,8 +426,7 @@ export class User {
         });
         this.datingPool = datingPool;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
-        this.location = this.city;
-
+ 
         this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
 
         if (this.matchPreference == 'A')
@@ -801,8 +800,10 @@ function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: n
 }
 
 function getUserLocation(city: string, state: string, countryName: string) {
-    if (countryName != 'United States')
+    if (countryName && countryName != "" && countryName != 'United States')
         return countryName;
+    else if (!state)
+        return city;
     else
         return city + ', ' + state;
 }

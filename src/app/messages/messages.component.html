@@ -4,8 +4,12 @@
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div class="matches-card" *ngIf="user" style="padding: 0;">
         <div class="gray-text">Most recent message from each person</div>
+        <div *ngIf="playerList.length==0" class="important-notice">
+            <p>You don't have messages yet. Step one is to get people in your dating pool. Then start up conversations.</p>
+            <button [routerLink]="['/user-detail']" class="btn btn-main-color btn-large">Browse Singles</button>
+        </div>
         <table>
-            <tr *ngFor="let player of playerList" class="message-cell" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" >
+            <tr *ngFor="let player of playerList" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" >
                 <td>
                     <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="40">
                     </app-profile-pic>

@@ -18,6 +18,13 @@
     opacity: 1;
     transition: all 1s ease;
 }
+
+.padded-box {
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  background-color: #fee;
+}
 .text-lite {
     color: black;
     opacity: 0;

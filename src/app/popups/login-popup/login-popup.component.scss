@@ -16,11 +16,13 @@
 }
 
 .google-btn {
-    background-color: #db4a39;
+    margin: -3px 3px 3px 6px; 
+    cursor: pointer; 
 }
 
 .google-btn:hover {
-    background-color: #d67469;
+    border-radius: 50%;
+    background-color: white;
 }
 
 .facebook-btn {

@@ -68,6 +68,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.pageTitle = 'Approve Profile Pic';
         //this.verifyPictures();
       } else {
+        this.id = 2;
         this.pageTitle = 'Browse';
         if (!this.showFilter)
           this.browseSingles('findMatches');
@@ -245,7 +246,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       }
     }
     if (responseJson.action == 'getThisUser') {
-      this.matchUser = new User(responseJson.user);
+      this.matchUser = new User(responseJson.user, this.user);
+      console.log('++++loc', this.matchUser.location);
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
 
@@ -290,13 +292,6 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   displayThisProfile() {
     console.log('displayThisProfile', this.matchUser);
-
-    if (this.matchUser.state && this.user.state != this.matchUser.state) {
-      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.state;
-    }
-    if (this.matchUser.countryName && this.user.countryName != this.matchUser.countryName) {
-      this.matchUser.location = this.matchUser.city + ', ' + this.matchUser.countryName;
-    }
 
     if (this.matchSnapshotModal)
       this.populateViewChildren();

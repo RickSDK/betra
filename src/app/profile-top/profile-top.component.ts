@@ -29,6 +29,7 @@ export class ProfileTopComponent implements OnInit {
   public hasKidsTitle: string = '';
   public wantsKidsTitle: string = '';
   public showNewUserPopupFlg: boolean = true;
+  public showTextWarning = false;
 
   constructor() { }
 

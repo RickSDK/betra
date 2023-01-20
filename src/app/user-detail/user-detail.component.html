@@ -6,13 +6,27 @@
     <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
 
     <div *ngIf="searchStarted && (id == 2 || id == 4)" class="match-card">
-        <div>Profile Views Remaining: <span class="text-highlight" style="font-size: 18px;">{{profileViews}}</span>
+        <div *ngIf="!user.datingPool.length || user.datingPool.length==0" class="important-notice">Your <b>Dating Pool</b> is currently empty. Let's change that!
+            The first thing you want to do is fill it up with interesting singles. You get to swipe through 12 profiles per day. Click thumbs up if you are interested.
+            They will instantly be notified, and if they click "Yes" back, the two of you can begin communicating.
+        </div>
+        <div *ngIf="user.datingPool.length==1" class="important-notice">Congratulations! You now have 1 person in your <b>Dating Pool</b>! This is very exciting
+            as you can now start communicating with that person. Click on the profile circle above to meet them, or continue clicking thumbs up to
+            anyone who catches your eye.
+        </div>
+        <div *ngIf="user.datingPool.length==2" class="important-notice">Great work! You are now have 2 people in your <b>Dating Pool</b>! Who's the new popular
+            kid on the block? You are! Keep clicking through profiles and get your dating pool filled up.
+        </div>
+        <div *ngIf="user.datingPool.length==3" class="important-notice">Your <b>Dating Pool</b> gets maxed out when you
+            have 8 people in it. Until then keep viewing profiles and clicking thumbs up!
+        </div>
+        <div *ngIf="!loadingFlg">Profile swipes remaining: <span class="text-highlight" style="font-size: 18px;">{{profileViews}}</span>
             &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg" class="text-link">What's
                 this?</span>
         </div>
         <div *ngIf="showProfileViewDetailsFlg" class="gray-text" style="padding-left: 10px; padding-right: 10px;">
             <hr>
-            You can view up to 12 profiles per day. Say yes to as many as you like. If you get through your entire batch
+            You can swipe up to 12 profiles per day. Say yes to as many as you like. If you get through your entire batch
             of 12, you will need to wait until tomorrow to get a new batch.
         </div>
     </div>
@@ -90,13 +104,13 @@
 
     <div *ngIf="searchStarted && !loadingFlg && profileViews == 0 && !uid" class="matches-card">
         <div style="font-size: 64px;">🥲</div>
-        <div>Searches used up!</div>
+        <div>Swipes used up!</div>
         <div style="text-align: left;">
-            <p class="gray-text">Sorry, you have used up all your searches for today. You get to view 12 new singles
+            <p class="gray-text">Sorry, you have used up all your swipes for today. You get to view 12 new singles
                 each day and have already gone through your batch.
                 But don't worry, check back tomorrow and you will have a new batch of 12 singles waiting for you!
             </p>
-            <p class="gray-text">Note: <span [routerLink]="['/upgrade-member']" class="text-link">Upgrading</span> to
+            <p *ngIf="!user.memberFlg" class="gray-text">Note: <span [routerLink]="['/upgrade-member']" class="text-link">Upgrading</span> to
                 Gold Member boosts your total number of singles to 20 per day, along with a bunch of
                 other benfits.</p>
         </div>

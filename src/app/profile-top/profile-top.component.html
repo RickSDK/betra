@@ -70,7 +70,7 @@
                     <span style="font-size: 7px; float: right;"><i class="fa fa-clock-o main-color"
                             [title]="user.lastLoginText" style="font-size: 12px;"></i>
                         {{user.lastLoginText}}</span>
-                    <div>{{user.location}}</div>
+                    <div style="font-size: 12px;">{{user.location}}</div>
                     <div style="font-size: 8px; color: gray;">
                         <span>{{distance}}</span>
                     </div>
@@ -150,10 +150,29 @@
                             [icon]="''" [img]="'assets/images/religion.png'">
                         </app-green-check>
                     </div>
-                    <div *ngIf="user.matchObj.match_level == 1 && user.matchObj.match_interested == 'Y'" class="important-notice"
-                    style="text-align: center;">
-                        <i class="fa fa-heart"></i> {{user.firstName}}<br>is interested in you!</div>
+
+
+                    <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;" class="important-notice">
+                        <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each other before texting. Click the green
+                            "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
+                        </div>
+                        <div *ngIf="!user.matchObj.showButtonsFlg">Sorry, you must be matched up to communicate.</div>
+                        <div *ngIf="user.matchObj.you_interested == 'Y'">Unfortunately at the moment, this person is not interested.</div>
+                        <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not interested in this person.
+                            If that is a mistake, go to the Settings tab and reset your matches.
+                        </div>
+                    </div>
+                    <div *ngIf="user.matchObj.match_level == 1 && user.matchObj.match_interested == 'Y'"
+                        class="important-notice" style="text-align: center;">
+                        <i class="fa fa-heart"></i> {{user.firstName}}<br>is interested in you!
+                    </div>
                     <div style="text-align: center;">
+                        <button
+                            *ngIf="user.user_id != myUser.user_id && !showTextWarning && (!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 2)"
+                            (mousedown)="showTextWarning=true;" class="btn btn-main-color btn-small"><i
+                                class="fa fa-comment"></i> Text
+                            {{user.firstName}}</button>
+
                         <button
                             *ngIf="snapshotFlg && user.matchObj && user.matchObj.match_level >= 2 && user.matchObj.unreadMessages > 0"
                             [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
@@ -202,8 +221,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </td>
         </tr>
     </table>
@@ -261,6 +278,7 @@
     <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg" [routerLink]="['/verify-pics']"
         class="text-link">verify pic</a>&nbsp;
 
-    <a *ngIf="!myUser.memberFlg && user.numPics > 0" [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see
+    <a *ngIf="user.user_id != myUser.user_id && !myUser.memberFlg && user.numPics > 0" [routerLink]="'/upgrade-member'"
+        class="text-link">Upgrade to see
         more pics</a>
 </div>
