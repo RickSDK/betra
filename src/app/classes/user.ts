@@ -427,7 +427,7 @@ export class User {
         this.datingPool = datingPool;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
  
-        this.matchGender = (this.matchPreference == 'F') ? 'Female' : 'Male';
+        this.matchGender = (this.matchPreference == 'F') ? 'Women' : 'Men';
 
         if (this.matchPreference == 'A')
             this.matchGender = "All";

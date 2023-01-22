@@ -77,7 +77,7 @@
                     <div class="small-box">
                         <div class="small-title main-color">Relationship</div>
 
-                        <div [title]="user.lookingForTitle">
+                        <div class="menu-circle">
                             <span class="profile-icon">
                                 <i [class]="user.genderIcon"></i>
                             </span>
@@ -86,6 +86,7 @@
                                 <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i
                                     *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
                             </span>
+                            <span class="icon-label main-color-bg">{{user.lookingForTitle}}</span>
                         </div>
 
                         <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
@@ -99,36 +100,51 @@
                         </app-green-check>
 
                         <div>
-                            <span class="profile-icon" [title]="hasKidsTitle">
-                                <img [src]="'assets/images/kids.png'" height="15">
-                            </span>
-                            <span class="profile-text" [title]="hasKidsTitle">
-                                <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
-                                        class="fa fa-check main-color"></i></sup>
-                                {{user.numKids}}
-                            </span>&nbsp;
-                            <img [src]="'assets/images/kids2.png'" [title]="wantsKidsTitle" height="15"
-                                style="margin-right: 4px;">
-                            <span [title]="wantsKidsTitle">
-                                <span *ngIf="user.wantsKids != 'Does Not Matter'"
-                                    style="font-size: 10px;">{{user.wantsKids}}</span>
-                                <span *ngIf="user.wantsKids == 'Does Not Matter'"><i class="fa fa-question"></i></span>
-                                <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
-                                    class="hide-xs"><i class="fa fa-check main-color"></i></sup>
-                            </span>
-
-                            <span class="menu-circle" *ngIf="user.potIcon">
-                                <img [src]="user.potIcon" class="dabauchery-icon">
-                                <span class="icon-label main-color-bg">{{user.potTitle}}</span>
-                            </span>
-                            <span class="menu-circle" *ngIf="user.smokesIcon">
-                                <img [src]="user.smokesIcon" style="float: right;" height="20" class="dabauchery-icon">
-                                <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
-                            </span>
-                            <span class="menu-circle" *ngIf="user.drinksIcon">
-                                <img [src]="user.drinksIcon" style="float: right;" height="20" class="dabauchery-icon">
-                                <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
-                            </span>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <span class="menu-circle">
+                                            <span class="profile-icon">
+                                                <img [src]="'assets/images/kids.png'" height="15">
+                                            </span>
+                                            <span class="profile-text">
+                                                <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
+                                                        class="fa fa-check main-color"></i></sup>
+                                                {{user.numKids}}
+                                            </span>
+                                            <span class="icon-label main-color-bg">{{hasKidsTitle}}</span>
+                                        </span>
+                                        &nbsp;
+                                        <span class="menu-circle">
+                                            <img [src]="'assets/images/kids2.png'" height="15"
+                                                style="margin-right: 4px;">
+                                            <span *ngIf="user.wantsKids != 'Does Not Matter'"
+                                                style="font-size: 10px;">{{user.wantsKids}}</span>
+                                            <span *ngIf="user.wantsKids == 'Does Not Matter'"><i
+                                                    class="fa fa-question"></i></span>
+                                            <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
+                                                class="hide-xs"><i class="fa fa-check main-color"></i></sup>
+                                            <span class="icon-label main-color-bg">{{wantsKidsTitle}}</span>
+                                        </span>
+                                    </td>
+                                    <td align="right">
+                                        <span class="menu-circle" *ngIf="user.drinksIcon">
+                                            <img [src]="user.drinksIcon"
+                                                class="dabauchery-icon">
+                                            <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
+                                        </span>
+                                        <span class="menu-circle" *ngIf="user.smokesIcon">
+                                            <img [src]="user.smokesIcon"
+                                                class="dabauchery-icon">
+                                            <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
+                                        </span>
+                                        <span class="menu-circle" *ngIf="user.potIcon">
+                                            <img [src]="user.potIcon" class="dabauchery-icon">
+                                            <span class="icon-label main-color-bg">{{user.potTitle}}</span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
 
                     </div>
@@ -152,13 +168,17 @@
                     </div>
 
 
-                    <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;" class="important-notice">
-                        <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each other before texting. Click the green
+                    <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;"
+                        class="important-notice">
+                        <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each other
+                            before texting. Click the green
                             "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
                         </div>
                         <div *ngIf="!user.matchObj.showButtonsFlg">Sorry, you must be matched up to communicate.</div>
-                        <div *ngIf="user.matchObj.you_interested == 'Y'">Unfortunately at the moment, this person is not interested.</div>
-                        <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not interested in this person.
+                        <div *ngIf="user.matchObj.you_interested == 'Y'">Unfortunately at the moment, this person is not
+                            interested.</div>
+                        <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not interested
+                            in this person.
                             If that is a mistake, go to the Settings tab and reset your matches.
                         </div>
                     </div>
@@ -189,7 +209,7 @@
                         <i (mousedown)="showMoreClicked()" style="float: right; font-size: 32px; margin-top: -3px;"
                             [ngClass]="'fa fa-arrow-circle-down clickable'"
                             [title]="(expandBottomFlg)?'Collapse Profile':'Expand Profile'"></i>
-
+                        <div *ngIf="myUser.datingPool.length == 0" style="font-size: 10px;">[Click down arrow for more info]</div>
                     </div>
                     <div *ngIf="showAdminButtonsFlg" class="border-box" style="text-align: center;">
                         <div><i class="fa fa-lock"></i> admin tools</div>

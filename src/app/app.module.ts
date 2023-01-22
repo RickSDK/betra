@@ -171,7 +171,7 @@ import { OwnerOrgChartCellComponent } from './owner-org-chart-cell/owner-org-cha
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
-              '1585571315226162'
+              '3399067146824355'
             )
           }
         ]

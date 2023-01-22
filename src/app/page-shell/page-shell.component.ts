@@ -56,7 +56,7 @@ export class PageShellComponent implements OnInit {
 
     setTimeout(() => {
       (this.adsbygoogle = (window as any).adsbygoogle || []).push({});      
-    }, 3000);
+    }, 1000);
   }
   ngClassToggleMenu() {
     if (this.showMainMenuFlg)

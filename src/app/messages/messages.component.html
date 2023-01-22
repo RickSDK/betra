@@ -4,7 +4,7 @@
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div class="matches-card" *ngIf="user" style="padding: 0;">
         <div class="gray-text">Most recent message from each person</div>
-        <div *ngIf="playerList.length==0" class="important-notice">
+        <div *ngIf="playerList.length==0" class="special-box">
             <p>You don't have messages yet. Step one is to get people in your dating pool. Then start up conversations.</p>
             <button [routerLink]="['/user-detail']" class="btn btn-main-color btn-large">Browse Singles</button>
         </div>

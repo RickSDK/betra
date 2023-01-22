@@ -38,8 +38,11 @@
             </div>
 
             <div *ngIf="!user.datingPool || user.datingPool.length < 2" class="padded-box">
-                <p style="font-size: 12px; color: black;">Your first step is to find singles that you like. If they like you back, they will show up in your <span class="red-text">Dating Pool</span> and chatting can begin!</p>
-                <button [routerLink]="['/user-detail']" class="btn btn-main-color btn-large">Browse Singles</button>
+                <p style="font-size: 12px; color: black;">Your first step is to find singles that you like. If they like
+                    you back, they will show up in your <span class="red-text"><i class="fa fa-users"></i> Dating
+                        Pool</span> and chatting can begin!</p>
+                <button [routerLink]="['/user-detail']" class="btn btn-main-color btn-large"><i
+                        class="fa fa-search"></i> Browse Singles</button>
             </div>
 
             <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
@@ -50,7 +53,8 @@
                 <p>This is designed to be the "next generation" in dating, and guaranteed to be the most fun you will
                     ever
                     have with a dating app.</p>
-                <p>Betra means "Better" is Greek and that is exactly what kind of app this is. Fill up your dating pool by indicating which singles you are interested in,
+                <p>Betra means "Better" is Greek and that is exactly what kind of app this is. Fill up your dating pool
+                    by indicating which singles you are interested in,
                     then begin narrowing your prospects, giving out roses along the way.
                     Its fun and its exciting.
                 </p>
@@ -64,16 +68,14 @@
 
 
 
-            <img src="assets/images/landing/table3.png" style="width: 100%;">
-            <hr>
+            <img src="assets/images/landing/table3.webp" style="width: 100%;">
             <p style="font-size: 18px; font-weight: 700;">Officially launches on Feb 14th, 2023!</p>
             <p class="gray-text">This is the fully functioning beta version. Feel free to test it out with other real
                 users.
-                We currently have
-                users in the following countries and states:</p>
+            </p>
             <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-            <div *ngIf="states" class="red-text" style="font-size: 10px; padding-bottom: 10px;">
+            <!--<div *ngIf="0" class="red-text" style="font-size: 10px; padding-bottom: 10px;">
                 <div class="gray-box">
                     <div style="color: gray; font-size: 8px;">Countries with active users</div>
                     <span *ngFor="let country of countries">{{country.name}}<sup>{{country.count}}</sup>&nbsp;
@@ -84,9 +86,7 @@
                     <span *ngFor="let state of states">{{state.stateName}}<sup>{{state.count}}</sup>&nbsp;
                     </span>
                 </div>
-
-            </div>
-            <p class="gray-text">Help us spread to every city in the world!</p>
+            </div>-->
 
         </div>
     </div>

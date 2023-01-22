@@ -106,9 +106,12 @@
 }
 
 .icon-label {
-    right: 10px;
-    margin-top: 20px;
+    top: 20px;
+    left: -10px;
     z-index: 200;
+}
+.icon-label:hover {
+    opacity: 0;
 }
 
 .three-dots {
@@ -209,10 +212,9 @@
 }
 
 .dabauchery-icon {
-    float: right;
     height: 20px;
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
+    -webkit-filter: grayscale(.5);
+    filter: grayscale(.5);
 }
 
 .dabauchery-icon:hover {

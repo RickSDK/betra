@@ -1,8 +1,7 @@
 <div class="small-box">
-    <div class="main-color" style="font-size: 12px;">{{firstName}}'s Dating Pool <sup *ngIf="datingPool.length>3">{{datingPool.length}}</sup></div>
+    <div class="main-color" style="font-size: 12px;">{{firstName}}'s Dating Pool</div>
     <div *ngFor="let person of datingPool" class="pool-snapshot">
-        <img  [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngIf="person.user_id>0" [src]="person.src" class="snapshot-img" [title]="person.name" [style.border]="person.heartFlg?'2px solid red':'none'">
-        <div class="small-name"><i *ngIf="person.heartFlg" style="color: red;" class="fa fa-heart"></i>{{person.name}}<sup
-                style="font-size: 6px; color: #494;">{{person.level}}</sup></div>
+        <img  [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngIf="person.user_id>0" [src]="person.src" class="snapshot-img" title="{{person.name}} (intimacy level {{person.level}})" [style.border]="person.heartFlg?'2px solid red':'none'">
+        <div class="small-name" [style.font-weight]="person.level>4?800:200" ><i *ngIf="person.heartFlg" style="color: red;" class="fa fa-heart"></i>{{person.name}}</div>
     </div>
 </div>

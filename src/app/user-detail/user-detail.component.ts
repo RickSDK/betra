@@ -38,6 +38,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showBackButton: boolean = false;
   public profileViews: number = 0;
   public showProfileViewDetailsFlg: boolean = false;
+  public showEmptyDatingPoolFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -46,6 +47,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.matchUser = null;
     if (!this.user)
       return;
+    this.showEmptyDatingPoolFlg = this.user.datingPool.length == 0;
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;

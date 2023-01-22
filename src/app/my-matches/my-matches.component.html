@@ -29,6 +29,11 @@
                             <div style="font-size: 8px;">{{player.name}}</div>
                         </div>
                         <div>&nbsp;</div>
+                        <div *ngIf="selectedPerson && selectedPerson.name != currentRoseHolder" class="important-notice">
+                            <div style="font-size: 16px;"><i class="fa fa-exclamation-triangle"></i><b>Warning!</b></div>
+                            You ONLY have 1 rose to hand out. Are you sure you want to take your rose back from <b>{{currentRoseHolder}}</b>, and give it to <b>{{selectedPerson.name}}</b>?
+                            <div class="gray-text">Keep in mind, everyone in your dating pool will be able to see this action on your part.</div>
+                        </div>
                         <button (mousedown)="assignHeart()" class="btn btn-main-color"
                         style="padding: 10px;" [disabled]="disableFormFlg">Assign Rose</button>
                     </td>
@@ -51,7 +56,7 @@
                     <p>Click here to find singles</p>
                 </div>
                 <div>&nbsp;</div>
-                <div class="small-gray-text">Currently no one in your dating pool, but don't worry. Start browsing
+                <div class="small-gray-text">Currently no one is in your dating pool, but don't worry. Start browsing
                     singles to get your pool filled up.
                     You can have up to {{datingPoolLimit}} people in your dating pool and that is when the real fun
                     begins!

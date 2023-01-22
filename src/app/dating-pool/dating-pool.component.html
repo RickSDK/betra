@@ -5,7 +5,7 @@
             <i *ngIf="exceededPoolSizeFlg" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
             <img [src]="person.src" class="large-img"
                 [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, s: 'Y'}"
-                [style.border]="person.heartFlg?'4px solid #990000':'none'">
+                [style.border]="person.heartFlg?'7px solid #990000':'none'">
             <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon"
                 *ngIf="person.match && (person.match.match_date_request == 'A' || person.match.you_date_request == 'Y')"></i>
@@ -14,12 +14,12 @@
                 *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
             <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">
                 <i *ngIf="person.heartFlg2" class="fa fa-heart"></i>
-                {{person.name}}<sup style="font-size: 10px; color: #6a6;">{{person.level}}</sup>
+                {{person.name}}
             </div>
             <div style="font-size: 8px; color: gray;"><i class="fa fa-circle main-color"></i> {{person.lastLoginText}}
             </div>
             <div class="icon-label btn-main-color">
-                <div>{{person.name}}</div>
+                {{person.name}}
             </div>
             <div *ngIf="person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!

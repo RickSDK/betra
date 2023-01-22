@@ -12,12 +12,17 @@ export class LandingPageComponent implements OnInit {
   public showLoginPopup: boolean = false;
   public showSignupPopup: boolean = false;
   public bgImg = 'assets/images/landing/logoWhite.png';
+  public adsbygoogle: any;
   //public bgImg = 'assets/images/landing/logoBlack.png';
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.userId = localStorage['user_id'];
+
+    setTimeout(() => {
+      (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
+    }, 1000);
 
     if (this.userId > 0)
       this.gotoMainMenu();

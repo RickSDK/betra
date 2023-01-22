@@ -28,6 +28,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public origSelectedPerson: number = 0;
   public showDroppedPopup: boolean = false;
   public firstName: string = '';
+  public currentRoseHolder: string = '';
 
   @ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
 
@@ -35,10 +36,14 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.firstName = '';
     this.user.datingPool.forEach((element: any) => {
-      if (element.heartFlg)
+      if (element.heartFlg) {
+        this.currentRoseHolder = element.name;
         this.selectedPerson = element;
+      }
     });
+    console.log('currentRoseHolder', this.currentRoseHolder);
     if (this.selectedPerson)
       this.origSelectedPerson = this.selectedPerson.user_id;
 
@@ -50,7 +55,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         this.showDetailsNumber = 1;
     });
 
-     if (localStorage['infoObj']) {
+    if (localStorage['infoObj']) {
       this.infoObj = JSON.parse(localStorage['infoObj']);
       if (this.infoObj.droppedBy > 0) {
         this.getDataFromServer('clearDroppedColumn', 'appApiCode2.php', []);

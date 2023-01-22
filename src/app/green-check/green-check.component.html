@@ -1,8 +1,9 @@
-<div [title]="labelText">
+<div class="menu-circle">
     <span *ngIf="label && !icon && !img">{{label}}:&nbsp;</span>
     <span class="profile-icon">
         <img *ngIf="img" [src]="img" height="20" width="20" style="margin-right: 4px;">
         <i *ngIf="icon" [class]="icon"></i>
+        <span class="icon-label main-color-bg">{{labelText}}</span>
     </span>
     <span class="profile-text">
         {{text1}}
