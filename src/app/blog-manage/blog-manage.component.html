@@ -1,0 +1,13 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Betra Blogs'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" style="text-align: left;">
+        <button [routerLink]="['/blogs']" class="btn btn-main-color spacer">Blog</button>
+        <button [routerLink]="['/blog-create']" class="btn btn-main-color spacer">New</button>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <hr>
+
+        <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [editFlg]="true"></app-blog-cell>
+
+    </div>
+
+</app-page-shell>

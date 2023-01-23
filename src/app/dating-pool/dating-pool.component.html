@@ -9,7 +9,7 @@
             <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon"
                 *ngIf="person.match && (person.match.match_date_request == 'A' || person.match.you_date_request == 'Y')"></i>
-            <i class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
+            <i [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, c: 'Y'}" class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
             <i class="fa fa-phone alert-icon"
                 *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
             <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">

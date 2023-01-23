@@ -30,6 +30,9 @@ import { OwnerTeamsComponent } from './owner-teams/owner-teams.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UserDatesComponent } from './user-dates/user-dates.component';
 import { OwnerAdminComponent } from './owner-admin/owner-admin.component';
+import { BetraBlogsComponent } from './betra-blogs/betra-blogs.component';
+import { BlogCreateComponent } from './blog-create/blog-create.component';
+import { BlogManageComponent } from './blog-manage/blog-manage.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -62,6 +65,9 @@ const routes: Routes = [
   { path: 'owner-teams', component: OwnerTeamsComponent },
   { path: 'user-dates', component: UserDatesComponent },
   { path: 'owner-admin', component: OwnerAdminComponent },
+  { path: 'blogs', component: BetraBlogsComponent },
+  { path: 'blog-create', component: BlogCreateComponent },
+  { path: 'blog-manage', component: BlogManageComponent },
 ];
 
 @NgModule({

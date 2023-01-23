@@ -8,10 +8,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TextAreaInputComponent implements OnInit {
   @Input('id') id: string = '';
   @Input('value') value: string = '';
+  @Input('maxLength') maxLength: number = 500;
   @Output() messageEvent = new EventEmitter<string>();
 
   public strlen: number = 0;
-  public maxLength: number = 500;
 
   constructor() { }
 

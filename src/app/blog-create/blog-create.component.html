@@ -1,0 +1,65 @@
+<app-page-shell [userId]="userId" [pageTitle]="'New/Edit Blog'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
+
+    <div class="matches-card" style="text-align: left;">
+
+        <button [routerLink]="['/blogs']" class="btn btn-main-color spacer">Blog</button>
+
+        <div *ngIf="blog && blog.row_id>0">
+            <div class="btn-group">
+                <button (mousedown)="menuNum = i" *ngFor="let button of topButtons; let i = index;"
+                    [ngClass]="ngClassMenuButton(i, menuNum)">{{button}}</button>
+            </div>
+        </div>
+
+        <div *ngIf="menuNum==0">
+            <div *ngIf="!blog">
+                <div>Create a new blog</div>
+                <div class="gray-text">Fill out the form below and press submit. Pictures will be added later.</div>
+            </div>
+            <hr>
+            <div class="gray-text">Title</div>
+            <app-text-input [id]="'blogTitle'" [placeHolder]="'Blog Title'" [value]="blogTitle"></app-text-input>
+            <div class="gray-text">Section 1</div>
+            <app-text-area-input [id]="'section1'" [maxLength]="2000" [value]="blogSection1"></app-text-area-input>
+            <div class="gray-text">Section 2</div>
+            <app-text-area-input [id]="'section2'" [maxLength]="2000" [value]="blogSection2"></app-text-area-input>
+            <div class="gray-text">Section 3</div>
+            <app-text-area-input [id]="'section3'" [maxLength]="2000" [value]="blogSection3"></app-text-area-input>
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <button (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
+                    </td>
+                    <td width="50%">
+                        <span *ngIf="id>0" (mousedown)="showDeleteOptionsFlg=!showDeleteOptionsFlg"
+                            class="text-link">Delete</span>
+                        <div *ngIf="showDeleteOptionsFlg">
+                            <div>Are you sure you want to delete this blog? Cannot be undone.</div>
+                            <button (mousedown)="showDeleteOptionsFlg=false"
+                                class="btn btn-warning spacer">Cancel</button>
+                            <button (mousedown)="deleteButtonPressed()" class="btn btn-danger spacer">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div *ngIf="menuNum==1">
+            <div>Main Image</div>
+            <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'" [src]="src1"
+                (messageEvent)="uploadPicButtonClicked(1, 'updateBlogImage', 'Image1')"></app-upload-image>
+            <div>2nd Image</div>
+            <app-upload-image [fileId]="'file2'" [loadingFlg]="loadingFlg" [id]="'Image2'" [src]="src2"
+                (messageEvent)="uploadPicButtonClicked(2, 'updateBlogImage', 'Image2')"></app-upload-image>
+            <div>3rd Image</div>
+            <app-upload-image [fileId]="'file3'" [loadingFlg]="loadingFlg" [id]="'Image3'" [src]="src3"
+                (messageEvent)="uploadPicButtonClicked(3, 'updateBlogImage', 'Image3')"></app-upload-image>
+        </div>
+
+
+    </div>
+
+</app-page-shell>

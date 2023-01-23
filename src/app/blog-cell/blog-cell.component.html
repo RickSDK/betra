@@ -1,0 +1,48 @@
+<div style="text-align: center;">
+    <div style="display: inline-block; max-width: 500px;">
+        <div *ngIf="!fullFlg">
+            <div [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}" class="blog-title">{{blog.title}}</div>
+            <table width="100%">
+                <tr>
+                    <td width="50%">
+                        <img [src]="blog.src1" width="100%">
+                    </td>
+                    <td>
+                        <div class="gray-text" style="padding: 5px; text-align: left;">{{blog.intro}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" style="padding: 20px;">
+                        <app-profile-pic [user_id]="blog.user_id" [profilePic]="blog.profilePic" [size]="30">
+                        </app-profile-pic>
+                        {{blog.firstName}}
+                    </td>
+                    <td align="center" style="padding: 20px;">{{blog.localDate}}</td>
+                </tr>
+            </table>
+            <a *ngIf="editFlg" [routerLink]="['/blog-create']" [queryParams]="{id: blog.row_id}" class="text-link">edit</a>
+        </div>
+        <div *ngIf="fullFlg">
+            <div class="blog-title">{{blog.title}}</div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <app-profile-pic [user_id]="blog.user_id" [profilePic]="blog.profilePic" [size]="30">
+                        </app-profile-pic>
+                        {{blog.firstName}}
+                    </td>
+                    <td>
+                        {{blog.localDate}}
+                    </td>
+                </tr>
+            </table>
+            <img *ngIf="blog.pic1" [src]="blog.src1" width="100%">
+            <div *ngIf="blog.section1" class="blog-body" [innerHtml]="blog.section1"></div>
+            <img *ngIf="blog.pic2" [src]="blog.src2" width="100%">
+            <div *ngIf="blog.section2" class="blog-body" [innerHtml]="blog.section2"></div>
+            <img *ngIf="blog.pic3" [src]="blog.src3" width="100%">
+            <div *ngIf="blog.section3" class="blog-body" [innerHtml]="blog.section3"></div>
+
+        </div>
+    </div>
+</div>

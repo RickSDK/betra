@@ -11,7 +11,7 @@ import { DateItem } from '../classes/date-item';
 export class UserDatesComponent extends BaseComponent implements OnInit {
   public dateList: any = [];
   public displayList: any = [];
-  public override topButtons: any = ['Current Dates', 'Past Dates'];
+  public override topButtons: any = ['Current Dates', 'Cancelled Dates'];
 
   constructor() { super(); }
 
@@ -25,7 +25,8 @@ export class UserDatesComponent extends BaseComponent implements OnInit {
 
     this.displayList = [];
     this.dateList.forEach((element: any) => {
-      if ((num == 0 && element.currentFlg) || (num == 1 && !element.currentFlg))
+      console.log('hey', element);
+      if ((num == 0 && element.status != 'Cancelled') || (num == 1 && element.status == 'Cancelled'))
         this.displayList.push(element);
     });
 

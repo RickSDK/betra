@@ -34,7 +34,7 @@ import { PhoneInputComponent } from './input/phone-input/phone-input.component';
 import { MatchDatingPoolComponent } from './match-dating-pool/match-dating-pool.component';
 import { MessageInputComponent } from './input/message-input/message-input.component';
 import { UserRequestInfoComponent } from './user-request-info/user-request-info.component';
-import { UserReviewsComponent } from './user-reviews/user-reviews.component';
+//import { UserReviewsComponent } from './user-reviews/user-reviews.component';
 import { TextAreaInputComponent } from './input/text-area-input/text-area-input.component';
 import { ReviewCellComponent } from './review-cell/review-cell.component';
 import { JournalCellComponent } from './journal-cell/journal-cell.component';
@@ -77,6 +77,11 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UserDatesComponent } from './user-dates/user-dates.component';
 import { OwnerAdminComponent } from './owner-admin/owner-admin.component';
 import { OwnerOrgChartCellComponent } from './owner-org-chart-cell/owner-org-chart-cell.component';
+import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
+import { BetraBlogsComponent } from './betra-blogs/betra-blogs.component';
+import { BlogCellComponent } from './blog-cell/blog-cell.component';
+import { BlogCreateComponent } from './blog-create/blog-create.component';
+import { BlogManageComponent } from './blog-manage/blog-manage.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -113,7 +118,6 @@ import { OwnerOrgChartCellComponent } from './owner-org-chart-cell/owner-org-cha
     MatchDatingPoolComponent,
     MessageInputComponent,
     UserRequestInfoComponent,
-    UserReviewsComponent,
     TextAreaInputComponent,
     ReviewCellComponent,
     JournalCellComponent,
@@ -155,6 +159,11 @@ import { OwnerOrgChartCellComponent } from './owner-org-chart-cell/owner-org-cha
     UserDatesComponent,
     OwnerAdminComponent,
     OwnerOrgChartCellComponent,
+    BottomBarComponent,
+    BetraBlogsComponent,
+    BlogCellComponent,
+    BlogCreateComponent,
+    BlogManageComponent,
   ],
   imports: [
     BrowserModule,
@@ -171,7 +180,7 @@ import { OwnerOrgChartCellComponent } from './owner-org-chart-cell/owner-org-cha
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
-              '3399067146824355'
+              '1585571315226162'
             )
           }
         ]

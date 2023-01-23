@@ -1,9 +1,11 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="pageTitle" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <button *ngIf="showBackButton" [routerLink]="['/matches']" class="btn btn-main-color btn-small"
+    <button *ngIf="showBackButton || commentsOnlyFlg" [routerLink]="['/matches']" class="btn btn-main-color btn-small"
         style="float: left; margin: 2px;">Back</button>
-    <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
+    <app-dating-pool *ngIf="!showFilter && !commentsOnlyFlg" [user]="user" [largeFlg]="false"></app-dating-pool>
+
+    <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic" [size]="30"></app-profile-pic>
 
     <div *ngIf="searchStarted && (id == 2 || id == 4)" class="match-card">
         <div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
@@ -127,21 +129,17 @@
         </div>
     </div>
 
-    <app-match-snapshot *ngIf="matchUser && user && (profileViews > 0 || uid > 0)"
+    <app-match-snapshot *ngIf="!commentsOnlyFlg && matchUser && user && (profileViews > 0 || uid > 0)"
         (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id" [matchUser]="matchUser"
         [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [singleProfileFlg]="uid>0">
     </app-match-snapshot>
 
     <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 
-        <!--<app-user-reviews *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user"
-            [matchUser]="matchUser">
-        </app-user-reviews>-->
-
-        <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
+        <app-user-private-pics *ngIf="!commentsOnlyFlg && matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
         </app-user-private-pics>
 
-        <app-user-requests *ngIf="matchUser.numReviews>0 || matchUser.matchObj.match_level>3" [myUser]="user"
+        <app-user-requests *ngIf="!commentsOnlyFlg && (matchUser.numReviews>0 || matchUser.matchObj.match_level>3)" [myUser]="user"
             [matchUser]="matchUser">
         </app-user-requests>
 

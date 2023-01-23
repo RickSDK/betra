@@ -3,9 +3,14 @@
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
 
+
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
+        <div>
+            <button [routerLink]="['/blog-manage']" [queryParams]="{e: 'Y'}" class="btn btn-main-color spacer">Manage Blog</button>
+        </div>
+
         <div *ngIf="menuNum==0" style="display: inline-block; max-width: 380px;">
             <div>Admin Tools</div>
             <div class="gray-text">These tools will help admins manage the app. If any records have been flagged, you

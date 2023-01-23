@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+/*import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 declare var $: any;
@@ -22,7 +22,7 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     this.reviewList = [];
-  }
+  }*/
   /*
   openReviewPanel() {
     this.openPanelFlg = !this.openPanelFlg;
@@ -94,7 +94,7 @@ export class UserReviewsComponent extends BaseComponent implements OnInit {
     }
 
   }*/
-}
+//}
 /*
 function betraImageFromId(user_id: number, profilePic: number) {
   if (user_id > 0 && profilePic > 0)
