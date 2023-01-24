@@ -11,6 +11,24 @@
     font-weight: 700;
 }
 
+.header-link {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.header-link:hover {
+    color: #900;
+}
+
+.top-bar {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
 h3 {
     font-size: 24px;
     font-weight: 100;

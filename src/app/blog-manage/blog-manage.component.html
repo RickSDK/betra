@@ -6,7 +6,7 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
 
-        <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [editFlg]="true"></app-blog-cell>
+        <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [editFlg]="user.user_id == blog.user_id" [shrinkSize]="1"></app-blog-cell>
 
     </div>
 

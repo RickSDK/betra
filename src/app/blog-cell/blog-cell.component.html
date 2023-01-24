@@ -1,13 +1,27 @@
-<div style="text-align: center;">
-    <div style="display: inline-block; max-width: 500px;">
-        <div *ngIf="!fullFlg">
-            <div [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}" class="blog-title">{{blog.title}}</div>
+<div style="text-align: center; background-color: white;">
+    <div *ngIf="blog" style="display: inline-block; max-width: 500px;">
+        <div *ngIf="shrinkSize==2">
+            <div [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}" class="blog-title" style="font-size: 24px; height: 50px; line-height: 24px; overflow: hidden;">{{blog.title}}</div>
             <table width="100%">
-                <tr>
+                <tr [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}">
                     <td width="50%">
-                        <img [src]="blog.src1" width="100%">
+                        <img [src]="blog.src1" width="100%" style="cursor: pointer;">
                     </td>
                     <td>
+                        <div class="gray-text" style="padding: 5px; text-align: left; max-height: 98px; overflow: hidden;">{{blog.intro}}</div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div *ngIf="shrinkSize==1">
+            <div [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}" class="blog-title">{{blog.title}}</div>
+            <table width="100%">
+                <tr [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}">
+                    <td width="50%">
+                        <img [src]="blog.src1" width="100%" style="cursor: pointer;">
+                    </td>
+                    <td >
                         <div class="gray-text" style="padding: 5px; text-align: left;">{{blog.intro}}</div>
                     </td>
                 </tr>
@@ -22,7 +36,8 @@
             </table>
             <a *ngIf="editFlg" [routerLink]="['/blog-create']" [queryParams]="{id: blog.row_id}" class="text-link">edit</a>
         </div>
-        <div *ngIf="fullFlg">
+        <div *ngIf="shrinkSize==0">
+            <div [routerLink]="['/blogs']" [queryParams]="{id: 0}" class="text-link">Betra Blogs</div>
             <div class="blog-title">{{blog.title}}</div>
             <table width="100%">
                 <tr>
@@ -42,7 +57,7 @@
             <div *ngIf="blog.section2" class="blog-body" [innerHtml]="blog.section2"></div>
             <img *ngIf="blog.pic3" [src]="blog.src3" width="100%">
             <div *ngIf="blog.section3" class="blog-body" [innerHtml]="blog.section3"></div>
-
+            <app-blog-comments [blog]="blog" [user]="user"></app-blog-comments>
         </div>
     </div>
 </div>

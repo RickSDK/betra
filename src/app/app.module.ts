@@ -34,7 +34,6 @@ import { PhoneInputComponent } from './input/phone-input/phone-input.component';
 import { MatchDatingPoolComponent } from './match-dating-pool/match-dating-pool.component';
 import { MessageInputComponent } from './input/message-input/message-input.component';
 import { UserRequestInfoComponent } from './user-request-info/user-request-info.component';
-//import { UserReviewsComponent } from './user-reviews/user-reviews.component';
 import { TextAreaInputComponent } from './input/text-area-input/text-area-input.component';
 import { ReviewCellComponent } from './review-cell/review-cell.component';
 import { JournalCellComponent } from './journal-cell/journal-cell.component';
@@ -51,6 +50,7 @@ import { DateDisplayComponent } from './date-display/date-display.component';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
 import { DateFormComponent } from './date-form/date-form.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { BirthdayInputComponent } from './birthday-input/birthday-input.component';
 import { UpgradeMemberComponent } from './upgrade-member/upgrade-member.component';
 import { JoinTeamComponent } from './join-team/join-team.component';
@@ -82,6 +82,7 @@ import { BetraBlogsComponent } from './betra-blogs/betra-blogs.component';
 import { BlogCellComponent } from './blog-cell/blog-cell.component';
 import { BlogCreateComponent } from './blog-create/blog-create.component';
 import { BlogManageComponent } from './blog-manage/blog-manage.component';
+import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -164,6 +165,7 @@ import { BlogManageComponent } from './blog-manage/blog-manage.component';
     BlogCellComponent,
     BlogCreateComponent,
     BlogManageComponent,
+    BlogCommentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -180,7 +182,13 @@ import { BlogManageComponent } from './blog-manage/blog-manage.component';
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
-              '1585571315226162'
+              '3399067146824355'
+            )
+          },
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com'
             )
           }
         ]

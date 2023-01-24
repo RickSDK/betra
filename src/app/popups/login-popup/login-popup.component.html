@@ -2,7 +2,7 @@
     <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
     title="Continue with Facebook"></i>
 
-    <img (click)="googleSignin()" src="assets/images/google-logo.png" height="38" 
+    <img (click)="loginWithGoogle()" src="assets/images/google-logo.png" height="38" 
     class="google-btn" title="Continue with Google">
     
 </div>
@@ -24,6 +24,13 @@
         <span (mousedown)="forgotPasswordFlg = !forgotPasswordFlg" class="hyper-link"
             style="font-size: 12px; color: #ccc;">Forgot Password</span>
     </div>
+    <table width="100%" border="0" style="margin-top: 40px;">
+        <tr style="font-size: 10px;">
+            <td width="50%" align="center"><span [routerLink]="['/privacy-policy']" class="hyper-link">Privacy Policy</span>
+            </td>
+            <td align="center"><span [routerLink]="['/terms-conditions']" class="hyper-link">Terms</span></td>
+        </tr>
+    </table>
 </div>
 <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
 

@@ -27,6 +27,17 @@ export class Blog {
     public firstName: string = '';
     public profilePic: number = 0;
 
+    public likes: number = 0;
+    public dislikes: number = 0;
+    public iLikeFlg: boolean = false;
+    public iDislikeFlg: boolean = false;
+    public likeList: any = [];
+    public dislikeList: any = [];
+    public likeTitle: string = '';
+    public dislikeTitle: string = '';
+
+    public comments:any = [];
+
     constructor(obj: any, userId: number = 0) {
         if (obj) {
             this.row_id = obj.row_id || 0;
@@ -49,6 +60,18 @@ export class Blog {
 
             var dt = getDateObjFromJSDate(obj.created);
             this.localDate = dt.localDate;
+
+            this.likes = obj.likes || 0;
+            this.dislikes = obj.dislikes || 0;
+            this.iLikeFlg = (obj.iLikeFlg == 'Y');
+            this.iDislikeFlg = (obj.iDislikeFlg == 'Y');
+            this.likeList = obj.likeList || [];
+            this.dislikeList = obj.dislikeList || [];
+            this.likeTitle = this.likeList.join('\n');
+            this.dislikeTitle = this.dislikeList.join('\n');
+
+            this.comments = obj.comments || [];
+      
 
             if (this.pic1)
                 this.src1 = 'https://www.appdigity.com/betraPhp/blogImages/pic'+this.row_id+'_1.jpg';

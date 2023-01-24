@@ -1,0 +1,39 @@
+.text-link {
+    padding: 3px;
+}
+
+.like-results {
+    float: right;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px gray;
+    background-color: #eee;
+    padding: 0 5px 0 5px;
+    font-size: 12px;
+}
+
+.like-results-comment {
+    position: absolute;
+    top: -4px;
+    right: 7px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px gray;
+    background-color: #eee;
+    padding: 0 5px 0 5px;
+    font-size: 10px;
+}
+
+input {
+    background-color: #eee;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.comment {
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 10px;
+    font-size: 12px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+}

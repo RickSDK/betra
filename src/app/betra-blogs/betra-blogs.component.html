@@ -3,9 +3,9 @@
     <div class="matches-card" style="text-align: left;">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
  
-        <app-blog-cell *ngFor="let blog of blogList" [blog]="blog"></app-blog-cell>
+        <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [shrinkSize]="1"></app-blog-cell>
 
-        <app-blog-cell *ngIf="id > 0" [blog]="blog" [fullFlg]="true"></app-blog-cell>
+        <app-blog-cell *ngIf="id > 0" [blog]="blog" [user]="user"></app-blog-cell>
     </div>
 
 </app-page-shell>

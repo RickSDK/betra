@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/classes/user';
 import { BaseComponent } from '../../base/base.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 
 declare var $: any;
 
@@ -21,7 +22,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public savedPassword: string = localStorage['savedPassword'] || '';
   public savedCode: string = localStorage['savedCode'] || '';
 
-  constructor(private socialAuthService: SocialAuthService) { super(); }
+  constructor(private socialAuthService: SocialAuthService, private googleAuthService: SocialAuthService) { super(); }
 
   override ngOnInit(): void {
     this.submitDisabled = !this.savedEmail;
@@ -30,6 +31,13 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       if (!this.showLoginButtonFlg)
         this.facebookToBetraLogin(user);
     });
+
+    this.googleAuthService.authState.subscribe((user) => {
+      var socialUser = user;
+      var isLoggedIn = (user != null);
+      console.log('Google login code!', socialUser, isLoggedIn);
+    });
+
   }
 
   facebookSignin(): void {
@@ -38,9 +46,15 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
-  googleSignin(): void {
-    this.errorMessage = 'Google login not ready yet';
+  loginWithGoogle(): void {
+    console.log('hey! attempting login');
+    this.googleAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+//    this.errorMessage = 'Google login not ready yet';
   }
+
+  googleLogOut(): void {
+    this.googleAuthService.signOut();
+}
 
   logOut(): void {
     this.socialAuthService.signOut();

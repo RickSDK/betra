@@ -1,0 +1,55 @@
+<hr>
+<div style="text-align: left;">
+    <span *ngIf="!blog.iLikeFlg" class="text-link" (mousedown)="likeButtonPressed()">Like</span>
+    <span *ngIf="!blog.iDislikeFlg" class="text-link" (mousedown)="dislikeButtonPressed()">Dislike</span>
+    <span class="text-link" (mousedown)="replyToFlg = !replyToFlg">Reply</span>&nbsp;
+    <span style="color: gray; font-size: 10px;">Comments: {{blog.comments.length}}</span>
+    <span class="like-results">
+        <span [title]="blog.likeTitle"><i class="fa fa-thumbs-up" style="color: green;"></i>{{blog.likes}}</span> &nbsp;
+        <span [title]="blog.dislikeTitle"><i class="fa fa-thumbs-down" style="color: red;"></i>{{blog.dislikes}}</span>&nbsp;
+    </span>
+</div>
+<hr>
+<table *ngIf="replyToFlg" width="100%">
+    <tr>
+        <td>&nbsp;&nbsp;</td>
+        <td valign="top" style="padding-top: 8px;">
+            <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="30">
+            </app-profile-pic>
+        </td>
+        <td width="100%" valign="top">
+            <input id="replyInputText" name="replyInputText" type="text" (keyup.enter)="sumbitReply()"
+                (input)="inputValueChanged($event)" maxLength="400">
+            <span style="font-size: 8px; color: gray; float: right;">{{strLength}}/400</span>
+        </td>
+        <td valign="top" style="padding-top: 3px; padding-left: 5px;">
+            <button (mousedown)="sumbitReply()" class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+        </td>
+    </tr>
+</table>
+<div *ngFor="let item of blog.comments">
+    <table width="100%">
+        <tr>
+            <td width="30" valign="top" style="padding-top: 10px;">
+                <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="30">
+                </app-profile-pic>                            
+            </td>
+            <td>
+                <div class="comment">
+                    <div><b>{{item.firstName}}</b></div>
+                    <div>{{item.comment}}</div>
+                </div>
+                <div style="text-align: left; position: relative;">
+                    <span *ngIf="!item.iLikeFlg" class="text-link" (mousedown)="commentLikeButtonPressed(item)">Like</span>
+                    <span *ngIf="!item.iDislikeFlg" class="text-link" (mousedown)="commentDislikeButtonPressed(item)">Dislike</span>
+                    <span class="like-results-comment">
+                        <span [title]="item.likeList"><i class="fa fa-thumbs-up" style="color: #050;"></i>{{item.likes}}</span> &nbsp;
+                        <span [title]="item.dislikeList"><i class="fa fa-thumbs-down" style="color: #500;"></i>{{item.dislikes}}</span>&nbsp;
+                    </span>                                
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+</div>
+<app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>

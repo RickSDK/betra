@@ -1,9 +1,7 @@
 <div style="text-align: center;">
-    <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
-    title="Continue with Facebook"></i>
+    <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button" title="Continue with Facebook"></i>
 
-    <i (click)="googleSignin()" class="fa fa-google-plus google-btn login-button"
-    title="Continue with Google+"></i>
+    <i (click)="googleSignin()" class="fa fa-google-plus google-btn login-button" title="Continue with Google+"></i>
 
 </div>
 <div class="tiny-text">First Name</div>
@@ -23,7 +21,13 @@
 </div>
 <button (mousedown)="signupPressed()" class="btn btn-main-color btn-large">Sign Up!</button>
 
-<div>&nbsp;</div>
-<div style="text-align: center;">
+<div style="text-align: center; margin-top: 10px;">
     <span [routerLink]="['']" [queryParams]="{login: 1}" class="hyper-link">Already have an account?</span>
 </div>
+<table width="100%" border="0" style="margin-top: 10px;">
+    <tr style="font-size: 10px;">
+        <td width="50%" align="center"><span [routerLink]="['/privacy-policy']" class="hyper-link">Privacy Policy</span>
+        </td>
+        <td align="center"><span [routerLink]="['/terms-conditions']" class="hyper-link">Terms</span></td>
+    </tr>
+</table>

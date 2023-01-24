@@ -7,8 +7,9 @@ import { Blog } from '../classes/blog';
   styleUrls: ['./blog-cell.component.scss']
 })
 export class BlogCellComponent implements OnInit {
+  @Input('user') user: any = null;
   @Input('blog') blog: any = null;
-  @Input('fullFlg') fullFlg: boolean = false;
+  @Input('shrinkSize') shrinkSize: number = 0;
   @Input('editFlg') editFlg: boolean = false;
 
   constructor() { }

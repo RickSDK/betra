@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseComponent } from '../base/base.component';
+import { Blog } from '../classes/blog';
 
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent extends BaseComponent implements OnInit {
   public login: number = 0;
-  public userId: number = 0;
+  public override userId: number = 0;
   public showLoginPopup: boolean = false;
   public showSignupPopup: boolean = false;
   public bgImg = 'assets/images/landing/logoWhite.png';
   public adsbygoogle: any;
+  public blogList: any = [];
   //public bgImg = 'assets/images/landing/logoBlack.png';
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.userId = localStorage['user_id'];
 
     setTimeout(() => {
@@ -27,6 +30,7 @@ export class LandingPageComponent implements OnInit {
     if (this.userId > 0)
       this.gotoMainMenu();
     else {
+      this.getDataFromServer('getBlogs', 'blog.php', []);
       this.route.queryParams.subscribe(params => {
         this.showLoginPopup = false;
         this.showSignupPopup = false;
@@ -52,6 +56,16 @@ export class LandingPageComponent implements OnInit {
       //this.logoutUser();
     }
     console.log('user is logged in!');
+  }
+
+  override postSuccessApi(file: string, responseJson: any) {
+    //console.log('xxx', responseJson);
+    this.blogList = [];
+    if (responseJson.action == "getBlogs") {
+      responseJson.blogList.forEach((element: any) => {
+        this.blogList.push(new Blog(element));
+      });
+    }
   }
 
 }

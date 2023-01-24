@@ -1,11 +1,11 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle"
     [headerObj]="headerObj" [userStatus]="userStatus">
 
-    <div *ngIf="userId==0">
+    <!--<div *ngIf="userId==0">
         <img *ngIf="!headerObj.profileCompleteFlg" class="background-img hide-md" src="assets/images/landing/loveBG.jpg"
             alt="">
 
-        ng g c home-page<div *ngIf="!headerObj.profileCompleteFlg" class="carousel-wrapper show-md">
+        <div *ngIf="!headerObj.profileCompleteFlg" class="carousel-wrapper show-md">
             <div class="carousel-container">
                 <div class="carousel">
                     <img src="assets/images/bachelor1.jpg">
@@ -26,7 +26,7 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </div>-->
 
     <div *ngIf="userId>0">
         <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">
@@ -37,10 +37,19 @@
                 Betra!
             </div>
 
-            <div *ngIf="!user.datingPool || user.datingPool.length < 2" class="padded-box">
-                <p style="font-size: 12px; color: black;">Your first step is to find singles that you like. If they like
+            <div  class="padded-box">
+                <p *ngIf="!user.datingPool || user.datingPool.length < 2" style="font-size: 12px; color: black;">Your first step is to find singles that you like. If they like
                     you back, they will show up in your <span class="red-text"><i class="fa fa-users"></i> Dating
                         Pool</span> and chatting can begin!</p>
+                <p *ngIf="user.datingPool.length >= 2 && user.datingPool.length < 8">
+                    You still have room for more singles in your dating pool.
+                </p>
+                <p *ngIf="user.datingPool.length >= 8 && user.datingPool.length <= 12">
+                    Keep in mind you can continue adding people to your dating pool.
+                </p>
+                <p *ngIf="user.datingPool.length > 12">
+                    You will need to move someone to your back burner before searching for more singles.
+                </p>
                 <button [routerLink]="['/user-detail']" class="btn btn-main-color btn-large"><i
                         class="fa fa-search"></i> Browse Singles</button>
             </div>
@@ -50,25 +59,26 @@
                 <p>Click here to fix.</p>
             </div>
             <div style="text-align: left;" class="gray-text">
-                <p>This is designed to be the "next generation" in dating, and guaranteed to be the most fun you will
+                <p>Betra is designed to be the "next generation" in dating, and guaranteed to be the most fun you will
                     ever
                     have with a dating app.</p>
-                <p>Betra means "Better" is Greek and that is exactly what kind of app this is. Fill up your dating pool
-                    by indicating which singles you are interested in,
-                    then begin narrowing your prospects, giving out roses along the way.
-                    Its fun and its exciting.
-                </p>
-                <p>
-                    And here's the real kicker: When you hand out a rose, everyone in your dating pool gets to see who
-                    you handed it out to.
-                    Is it a little bit scary at first? Yes. But it's also what makes Betra more fun and more transparent
-                    than any other dating app. Give it a try.
-                </p>
             </div>
-
-            <button [routerLink]="['/blogs']" class="btn btn-main-color">Blogs</button>
-
-
+            <hr>
+            <p [routerLink]="['/blogs']" class="text-link">Betra Blogs</p>
+            <div class="contiainer-fluid">
+                <div class="row">
+                    <div class="col-md">
+                        <app-blog-cell *ngIf="blog1" [blog]="blog1" [shrinkSize]="2"></app-blog-cell>
+                    </div>
+                    <div class="col-md">
+                        <app-blog-cell *ngIf="blog2" [blog]="blog2" [shrinkSize]="2"></app-blog-cell>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p style="text-align: left;" class="gray-text">Betra means "Better" is Greek and that is exactly what kind
+                of app this is. Fill up your dating pool by indicating which singles you are interested in, then begin
+                narrowing your prospects, giving out roses along the way. Its fun and its exciting.</p>
             <img src="assets/images/landing/table3.webp" style="width: 100%;">
             <p style="font-size: 18px; font-weight: 700;">Officially launches on Feb 14th, 2023!</p>
             <p class="gray-text">This is the fully functioning beta version. Feel free to test it out with other real

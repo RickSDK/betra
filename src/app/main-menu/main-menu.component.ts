@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Blog } from '../classes/blog';
 
 @Component({
   selector: 'app-main-menu',
@@ -21,6 +22,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public states: any = [];
   public countries: any = [];
   public login: number = 0;
+  public blog1: any = null;
+  public blog2: any = null;
 
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
@@ -29,7 +32,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     window.scrollTo(0, 0);
 
     this.loadUserObj();
-    this.getStateCounts();
+    this.getDataFromServer('getBlogs', 'blog.php', []);
     this.popupNum = 1;
 
     this.route.queryParams.subscribe(params => {
@@ -50,14 +53,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       else if (!this.user.navLat)
         this.uploadCoordinates();
     }
-  }
-  getStateCounts() {
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      action: "getStateCounts"
-    };
-    this.executeApi('appApiCode.php', params, true);
   }
 
   logoutUser() {
@@ -96,11 +91,12 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    if (responseJson.action == "getStateCounts") {
-      this.states = responseJson.stateName;
-      this.countries = responseJson.countries;
+    if (responseJson.action == "getBlogs" && responseJson.blogList.length>1) {
+      this.blog1 = new Blog(responseJson.blogList[0]);
+      this.blog2 = new Blog(responseJson.blogList[1]);
+      console.log('hey!', responseJson);
       var refreshFlg = (this.user && this.user.status == 'Pending') ? 'Y' : '';
-      this.logUser(refreshFlg);
+      //this.logUser(refreshFlg);
     }
     if (responseJson.action == "logUser" && this.user) {
       if (this.user && this.user.ip == '')
