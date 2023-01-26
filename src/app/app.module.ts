@@ -182,7 +182,7 @@ import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
-              '3399067146824355'
+              '495958422621195'
             )
           },
           {

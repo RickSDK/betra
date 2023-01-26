@@ -36,7 +36,10 @@ export class Blog {
     public likeTitle: string = '';
     public dislikeTitle: string = '';
 
-    public comments:any = [];
+    public comments: any = [];
+    public commentCount: number = 0;
+    public author: string = '';
+    public url: string = '';
 
     constructor(obj: any, userId: number = 0) {
         if (obj) {
@@ -71,14 +74,22 @@ export class Blog {
             this.dislikeTitle = this.dislikeList.join('\n');
 
             this.comments = obj.comments || [];
-      
+            this.commentCount = obj.commentCount || 0;
+
+            this.author = obj.author || '';
+            this.url = obj.url || '';
+
+            this.comments.forEach((element: any) => {
+                var dt = getDateObjFromJSDate(element.created);
+                element.localDate = dt.localDate;
+            });
 
             if (this.pic1)
-                this.src1 = 'https://www.appdigity.com/betraPhp/blogImages/pic'+this.row_id+'_1.jpg';
+                this.src1 = 'https://www.appdigity.com/betraPhp/blogImages/pic' + this.row_id + '_1.jpg';
             if (this.pic2)
-                this.src2 = 'https://www.appdigity.com/betraPhp/blogImages/pic'+this.row_id+'_2.jpg';
+                this.src2 = 'https://www.appdigity.com/betraPhp/blogImages/pic' + this.row_id + '_2.jpg';
             if (this.pic3)
-                this.src3 = 'https://www.appdigity.com/betraPhp/blogImages/pic'+this.row_id+'_3.jpg';
+                this.src3 = 'https://www.appdigity.com/betraPhp/blogImages/pic' + this.row_id + '_3.jpg';
 
             this.section1Text = obj.section1.replace(/&nbsp;<br>/g, "\n");
             this.section2Text = obj.section2.replace(/&nbsp;<br>/g, "\n");

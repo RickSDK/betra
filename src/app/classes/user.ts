@@ -190,6 +190,7 @@ export class User {
     public matchQualityIndex: number = 0;
 
     public daysAgo: number = 0;
+    public maxPoolSize: number = 0;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -387,6 +388,7 @@ export class User {
                 this.numPics++;
 
             this.memberFlg = obj.memberFlg == 'Y';
+            this.maxPoolSize = (this.memberFlg) ? 12 : 8;
 
             var ownerPercents = ['0%', '0.5%', '1%', '2%', '4%', '6%', '7%']
             this.ownerPercent = ownerPercents[this.ownerLevel];
@@ -426,7 +428,7 @@ export class User {
         });
         this.datingPool = datingPool;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
- 
+
         this.matchGender = (this.matchPreference == 'F') ? 'Women' : 'Men';
 
         if (this.matchPreference == 'A')

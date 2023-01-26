@@ -13,7 +13,7 @@ declare var $: any;
 export class BlogCreateComponent extends BaseComponent implements OnInit {
   public id: number = 0;
   public blog: any = null;
-  public override topButtons: any = ['Edit Text', 'Edit Pictures'];
+  public override topButtons: any = ['Edit Text', 'Edit Pictures', 'Add Author'];
   public blogTitle: string = '';
   public blogSection1: string = '';
   public blogSection2: string = '';
@@ -22,6 +22,8 @@ export class BlogCreateComponent extends BaseComponent implements OnInit {
   public src1: string = '';
   public src2: string = '';
   public src3: string = '';
+  public blogAuthor: string = '';
+  public blogUrl: string = '';
 
   constructor(private router: Router, private route: ActivatedRoute) { super(); }
 
@@ -57,6 +59,24 @@ export class BlogCreateComponent extends BaseComponent implements OnInit {
     };
     //console.log('params', params);
     this.executeApi('blog.php', params, true);
+  }
+
+  submitAuthorButtonPressed() {
+    var params = {
+      userId: this.user.user_id,
+      code: localStorage['code'],
+      action: 'updateBlogAuthor',
+      blogId: this.id,
+      blogAuthor: $('#blogAuthor').val(),
+      blogUrl: $('#blogUrl').val(),
+    };
+    console.log('params', params);
+    this.executeApi('blog.php', params, true);
+  }
+
+  activeButtonPressed() {
+    this.getDataFromServer('activateBlog', 'blog.php', { blogId: this.id });
+  
   }
 
   deleteButtonPressed() {

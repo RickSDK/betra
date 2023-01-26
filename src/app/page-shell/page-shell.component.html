@@ -1,16 +1,21 @@
 <div class="top-bar" *ngIf="headerObj">
-    <table width="100%" border="0">
+    <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
-            <td style="position: relative;">
+            <td *ngIf="pageTitle != 'Home'">
+                <i (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i> <span
+                    style="position: absolute; left: 45px; top: 16px; font-weight: 700;">Betra</span>
+            </td>
+            <td *ngIf="pageTitle == 'Home'" style="position: relative;">
                 <i class="fa fa-heart"
-                    style="position: absolute; top: 10px; left: 3px; font-size: 36px; color: #b7121f;"></i>
+                    style="position: absolute; top: 6px; left: 3px; font-size: 36px; color: #b7121f;"></i>
                 <i class="fa fa-heart"
-                    style="position: absolute; top: 13px; left: 5px; font-size: 30px; color: pink;"></i>
+                    style="position: absolute; top: 9px; left: 5px; font-size: 30px; color: pink;"></i>
                 <i class="fa fa-heart"
-                    style="position: absolute;  top: 15px; left: 8px; font-size: 24px; color: #ff0044;"></i>
-                <span id="logo" class="product-logo" [routerLink]="['']"><i class="fa fa-heart main-color"></i><span
-                        class="hide-xxs" style="margin-left: 2px;">Betra</span></span>
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 44px; color: gray;">
+                    style="position: absolute;  top: 11px; left: 8px; font-size: 24px; color: #ff0044;"></i>
+                <span *ngIf="1" id="logo" class="product-logo" [routerLink]="['']"><i
+                        class="fa fa-heart main-color"></i><span class="hide-xxs"
+                        style="margin-left: 2px;">Betra</span></span>
+                <div *ngIf="1" style="font-size: 9px; position: absolute; left: 20px; top: 40px; color: gray;">
                     Beta Version {{appVersion}}
                 </div>
             </td>
@@ -71,6 +76,13 @@
                 </td>
                 <td valign="top" align="center" style="position: relative;">
                     <ng-content></ng-content>
+
+                    <div style="text-align: center;">
+                        <div style="color: gray;">Google Ads</div>
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2626924352662007"
+                            data-ad-slot="3410873039" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                    </div>
+
                 </td>
                 <td *ngIf="userId>0 && userStatus == 'Active'" valign="top" align="center" width="200" class="hide-md"
                     style="width: 200px;">
@@ -83,9 +95,7 @@
             </tr>
         </table>
     </div>
-    <div style="color: gray;">Google Ads</div>
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2626924352662007"
-        data-ad-slot="3410873039" data-ad-format="auto" data-full-width-responsive="true"></ins>
+
 
     <app-bottom-bar [stickyBottomFlg]="stickyBottomFlg"></app-bottom-bar>
 </div>

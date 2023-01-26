@@ -52,7 +52,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
       zip: $('#zip').val()
     }
     //console.log(this.requestObj);
-    if (!this.requestObj.date || !this.requestObj.time || !this.requestObj.location || !this.requestObj.address || !this.requestObj.city || !this.requestObj.state || !this.requestObj.zip) {
+    if (!this.requestObj.date || !this.requestObj.time || !this.requestObj.location || !this.requestObj.address) {
       this.errorMessage = 'Fill out all required fields';
 
       if (!this.requestObj.date)

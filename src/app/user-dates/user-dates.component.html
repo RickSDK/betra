@@ -8,7 +8,8 @@
                 (mousedown)="filterBy(i)" [ngClass]="ngClassMenuButton(i, menuNum)"
                 style="font-size: 14px; margin-right: 2px; height: 50px;">{{button}}</button>
         </div>
-        <div *ngIf="displayList.length==0">No dates at this time</div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="!loadingFlg && displayList.length==0">No dates at this time</div>
         <table *ngIf="displayList.length>0" border="1" style="font-size: 12px;">
             <tr>
                 <th>User</th>
@@ -29,7 +30,7 @@
                 <td>
                     <div><b>{{date.location}}</b></div>
                     <div>{{date.address}}</div>
-                    <div>{{date.city}}, {{date.state}} {{date.zip}}</div>
+                    <div *ngIf="date.city">{{date.city}}, {{date.state}} {{date.zip}}</div>
                 </td>
                 <td>
                     {{date.comment}}

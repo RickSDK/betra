@@ -11,6 +11,14 @@
                         <div class="gray-text" style="padding: 5px; text-align: left; max-height: 98px; overflow: hidden;">{{blog.intro}}</div>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2" style="font-size: 11px;">
+                        <i class="fa fa-calendar"></i> {{blog.localDate}}&nbsp;
+                        <span style="color: gray;"><i class="fa fa-comments"></i> {{blog.commentCount}} </span>&nbsp;
+                        <span style="color: #050;"><i class="fa fa-thumbs-up"></i> {{blog.likes}} </span>&nbsp;
+                        <span style="color: #500;"><i class="fa fa-thumbs-down"></i> {{blog.dislikes}} </span>
+                    </td>
+                </tr>
             </table>
 
         </div>
@@ -26,12 +34,20 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="center" style="padding: 20px;">
+                    <td *ngIf="blog.author" align="center" style="padding: 20px;">
+                        by <a href="{{blog.url}}" target="new">{{blog.author}}</a>
+                    </td>
+                    <td *ngIf="!blog.author" align="center" style="padding: 20px;">
                         <app-profile-pic [user_id]="blog.user_id" [profilePic]="blog.profilePic" [size]="30">
                         </app-profile-pic>
-                        {{blog.firstName}}
+                        {{blog.firstName}} 
                     </td>
-                    <td align="center" style="padding: 20px;">{{blog.localDate}}</td>
+                    <td align="center" style="padding: 20px; font-size: 12px;">
+                        <i class="fa fa-calendar"></i> {{blog.localDate}}&nbsp;
+                        <span style="color: gray;"><i class="fa fa-comments"></i> {{blog.commentCount}} </span>&nbsp;
+                        <span style="color: #050;"><i class="fa fa-thumbs-up"></i> {{blog.likes}} </span>&nbsp;
+                        <span style="color: #500;"><i class="fa fa-thumbs-down"></i> {{blog.dislikes}} </span>
+                    </td>
                 </tr>
             </table>
             <a *ngIf="editFlg" [routerLink]="['/blog-create']" [queryParams]="{id: blog.row_id}" class="text-link">edit</a>
@@ -41,7 +57,10 @@
             <div class="blog-title">{{blog.title}}</div>
             <table width="100%">
                 <tr>
-                    <td>
+                    <td *ngIf="blog.author" align="center" style="padding: 20px;">
+                        by <a href="{{blog.url}}" target="new">{{blog.author}}</a>
+                    </td>
+                   <td *ngIf="!blog.author">
                         <app-profile-pic [user_id]="blog.user_id" [profilePic]="blog.profilePic" [size]="30">
                         </app-profile-pic>
                         {{blog.firstName}}

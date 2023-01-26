@@ -7,6 +7,7 @@
             <li>go to <a href="https://developers.facebook.com/apps/?show_reminder=true"
                     target="_new">https://developers.facebook.com/</a></li>
             <hr>
+            <li>Create new project -- Make sure it's Consumer and not business</li>
             <li>Click Facebook Login for Business --> Settings</li>
             <li>Check "Login with the JavaScript SDK" to Yes</li>
             <li>Paste "https://www.betradating.com/" and "http://localhost:4200" in "Allowed Domains for the JavaScript SDK"</li>
@@ -15,6 +16,34 @@
             Betra dating<br>
 1585571315226162<br>
 
+
+
+<!--<fb:login-button 
+  config_id="{config_id}"
+  onlogin="checkLoginState();">
+</fb:login-button>-->
+
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1585571315226162',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v15.0'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
 
 appdigity<br>
 3399067146824355<br>

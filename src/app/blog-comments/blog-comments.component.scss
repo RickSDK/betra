@@ -28,7 +28,14 @@ input {
     border: 1px solid #ccc;
 }
 
+.three-dots {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .comment {
+    position: relative;
     display: inline-block;
     background-color: #eee;
     border-radius: 10px;

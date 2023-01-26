@@ -1,7 +1,10 @@
 <div style="text-align: center;">
     <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button" title="Continue with Facebook"></i>
 
-    <i (click)="googleSignin()" class="fa fa-google-plus google-btn login-button" title="Continue with Google+"></i>
+    <i *ngIf="0" (click)="googleSignin()" class="fa fa-google-plus google-btn login-button" title="Continue with Google+"></i>
+
+    <img (click)="googleSignin()" src="assets/images/google-signin.png" height="44" style="cursor: pointer; margin-top: -5px;"
+    title="Continue with Google">
 
 </div>
 <div class="tiny-text">First Name</div>

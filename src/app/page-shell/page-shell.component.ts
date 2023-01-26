@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../classes/user';
+import { Location } from "@angular/common";
 //import { AdsenseModule } from 'ng2-adsense';
 
 declare var getVersion: any;
@@ -26,7 +27,7 @@ export class PageShellComponent implements OnInit {
   public appVersion: string = '';
   public adsbygoogle: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private location: Location) { }
 
   ngOnInit(): void {
     this.appVersion = getVersion();
@@ -58,6 +59,12 @@ export class PageShellComponent implements OnInit {
       (this.adsbygoogle = (window as any).adsbygoogle || []).push({});      
     }, 1000);
   }
+
+  goBack() {
+    console.log('go back!!!', this.location.getState());
+    this.location.back();
+  }
+
   ngClassToggleMenu() {
     if (this.showMainMenuFlg)
       return 'main-menu-popup popup-show';

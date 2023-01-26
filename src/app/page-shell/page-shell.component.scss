@@ -14,7 +14,18 @@
     box-shadow: 2px 2px 5px #ccc;
 }
 
+.back-button {
+    font-size: 32px;
+    color: black;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    color: #900;
+}
+
 .product-logo {
+    line-height: 36px;
     font-size: 36px;
     font-weight: 800;
     cursor: pointer;

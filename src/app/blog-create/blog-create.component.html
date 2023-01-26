@@ -2,7 +2,7 @@
     [stickyBottomFlg]="true">
 
     <div class="matches-card" style="text-align: left;">
-
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <button [routerLink]="['/blogs']" class="btn btn-main-color spacer">Blog</button>
 
         <div *ngIf="blog && blog.row_id>0">
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div *ngIf="menuNum==0">
+        <div *ngIf="!loadingFlg && menuNum==0">
             <div *ngIf="!blog">
                 <div>Create a new blog</div>
                 <div class="gray-text">Fill out the form below and press submit. Pictures will be added later.</div>
@@ -30,7 +30,8 @@
             <table width="100%">
                 <tr>
                     <td>
-                        <button (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
+                        <button (mousedown)="submitButtonPressed()" class="btn btn-main-color spacer">Submit</button>
+                        <button *ngIf="id>0 && blog.status != 'Active'" (mousedown)="activeButtonPressed()" class="btn btn-primary spacer">Active</button>
                     </td>
                     <td width="50%">
                         <span *ngIf="id>0" (mousedown)="showDeleteOptionsFlg=!showDeleteOptionsFlg"
@@ -59,6 +60,14 @@
                 (messageEvent)="uploadPicButtonClicked(3, 'updateBlogImage', 'Image3')"></app-upload-image>
         </div>
 
+        <div *ngIf="menuNum==2">
+            <div class="gray-text">Author</div>
+            <app-text-input [id]="'blogAuthor'" [placeHolder]="'Author'" [value]="blogAuthor"></app-text-input>
+            <div class="gray-text">Url</div>
+            <app-text-input [id]="'blogUrl'" [placeHolder]="'Url'" [value]="blogUrl"></app-text-input>
+            <button (mousedown)="submitAuthorButtonPressed()" class="btn btn-main-color">Submit</button>
+
+        </div>
 
     </div>
 

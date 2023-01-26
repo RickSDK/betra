@@ -29,6 +29,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public showDroppedPopup: boolean = false;
   public firstName: string = '';
   public currentRoseHolder: string = '';
+  public newlyAssignedRoseFlg: boolean = false;
 
   @ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
 
@@ -66,6 +67,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
   chooseForRose(person: any) {
     this.selectedPerson = person;
+    this.newlyAssignedRoseFlg = false;
     this.disableFormFlg = (this.selectedPerson.user_id == this.origSelectedPerson);
   }
 
@@ -153,6 +155,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       action: "assignHeart"
     };
     console.log(params);
+    this.currentRoseHolder = this.selectedPerson.name;
     this.executeApi('appApiCode2.php', params, true);
   }
 
@@ -225,6 +228,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'assignHeart') {
       this.refreshUserObj(responseJson.user);
+      this.newlyAssignedRoseFlg = true;
     }
     this.playerList = [];
     if (responseJson.action == 'refreshDatingPool') {

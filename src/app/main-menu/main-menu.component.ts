@@ -94,9 +94,9 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "getBlogs" && responseJson.blogList.length>1) {
       this.blog1 = new Blog(responseJson.blogList[0]);
       this.blog2 = new Blog(responseJson.blogList[1]);
-      console.log('hey!', responseJson);
+//      console.log('hey!', responseJson);
       var refreshFlg = (this.user && this.user.status == 'Pending') ? 'Y' : '';
-      //this.logUser(refreshFlg);
+      this.logUser(refreshFlg);
     }
     if (responseJson.action == "logUser" && this.user) {
       if (this.user && this.user.ip == '')

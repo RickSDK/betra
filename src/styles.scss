@@ -449,6 +449,48 @@ select {
     border-radius: 50%;
 }
 
+.three-dots {
+    float: right; 
+    border-radius: 50%;
+    width: 30px;
+    font-size: 18px;
+    text-align: center;
+    color: gray; 
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.three-dots:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.gray-screen {
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+    background-color: black; 
+    opacity: .3; 
+    width: 100%; 
+    height: 100%;
+    border-radius: 5px;
+}
+
+.three-dots-menu {
+    display: inline-block;
+    position: absolute;
+    z-index: 200;
+    top: 25px;
+    right: 0;
+    color: gray;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px gray;
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+
 .three-dots-menu-option:hover {
     background-color: $main-color;
     color: white;

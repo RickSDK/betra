@@ -78,6 +78,7 @@
 
         </div>
         <div class="col-md">
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
             <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [shrinkSize]="1"></app-blog-cell>
         </div>
     </div>

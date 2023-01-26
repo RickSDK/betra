@@ -34,6 +34,11 @@
                             You ONLY have 1 rose to hand out. Are you sure you want to take your rose back from <b>{{currentRoseHolder}}</b>, and give it to <b>{{selectedPerson.name}}</b>?
                             <div class="gray-text">Keep in mind, everyone in your dating pool will be able to see this action on your part.</div>
                         </div>
+                        <div *ngIf="newlyAssignedRoseFlg" class="important-notice">
+                            <div style="font-size: 16px;"><i class="fa fa-check"></i><b>Success!</b></div>
+                            <div>Your rose has been given to <b>{{currentRoseHolder}}</b>. You are free to change this as often as you like.
+                            Just keep in mind you only have one rose to hand out, so it needs to go to your favorite.</div>
+                        </div>
                         <button (mousedown)="assignHeart()" class="btn btn-main-color"
                         style="padding: 10px;" [disabled]="disableFormFlg">Assign Rose</button>
                     </td>

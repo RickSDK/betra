@@ -2,8 +2,11 @@
     <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
     title="Continue with Facebook"></i>
 
-    <img (click)="loginWithGoogle()" src="assets/images/google-logo.png" height="38" 
-    class="google-btn" title="Continue with Google">
+    <img *ngIf="0" (click)="loginWithGoogle()" src="assets/images/google-logo.png" height="37" class="google-btn"
+    title="Continue with Google">
+
+    <img (click)="loginWithGoogle()" src="assets/images/google-signin.png" height="44" style="cursor: pointer; margin-top: -5px;"
+    title="Continue with Google">
     
 </div>
 

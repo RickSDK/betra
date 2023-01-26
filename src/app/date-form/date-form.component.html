@@ -18,11 +18,11 @@
 </div>
 <div>
     <div class="tiny-text">Address</div>
-    <app-text-input [placeHolder]="'Address'" [maxLength]="60" [id]="'address'"
+    <app-text-input [placeHolder]="'Address'" [maxLength]="120" [id]="'address'"
         [highlightFlg]="!requestObj.address" [value]="dateObj.address || ''">
     </app-text-input>
 </div>
-<table width="100%" *ngIf="dateObj && requestObj">
+<table width="100%" *ngIf="0 && dateObj && requestObj">
     <tr>
         <td>
             <div class="tiny-text">City</div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
+declare var FB: any;
+
 @Component({
   selector: 'app-documentation',
   templateUrl: './documentation.component.html',
@@ -21,6 +23,13 @@ export class DocumentationComponent extends BaseComponent implements OnInit {
 
   constructor() { super(); }
 
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response:any) {
+    statusChangeCallback(response);
+  });
+}
 
-
+function statusChangeCallback(response:any) {
+  console.log('statusChangeCallback!!', response);
 }
