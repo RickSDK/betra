@@ -1,6 +1,6 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Betra Blogs'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <div class="matches-card" style="text-align: left;">
+    <div class="matches-card" style="text-align: center;">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
  
         <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [shrinkSize]="1"></app-blog-cell>

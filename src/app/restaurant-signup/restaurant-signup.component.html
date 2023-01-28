@@ -1,0 +1,40 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Restaurant Promo'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card">
+        <h1>Betra Restaurant Promo</h1>
+        <img src="assets/images/landing/table3.webp" style="width: 100%;">
+        <div class="gray-text" style="text-align: left;">
+            <p>We are in the process of signing up restaurants that want to partner with us to provide gift certificates
+                for some of our early single matchups.</p>
+            <p>Ideally we would like to give our winners an $80 gift certificate, but any amount is appreciated. Here
+                are the benefits you will receive by signing up:</p>
+            <ul>
+                <li>Free advertising on our site for your restaurant.</li>
+                <li>The name & address of your restaurant will be featured in all our online promotions.</li>
+                <li>Ads for your restaurant Geo-targeted to our thousands of local users.</li>
+                <li>We will encourage all our users to help make your restaurant the "Official" Betra meet up spot.</li>
+            </ul>
+            <p>Restaurant Managers, please fill out the below form to be a part of this exciting promotion. Someone from
+                our team will be in contact shortly.</p>
+
+            <div *ngIf="showFormFlg">
+                <div class="gray-text">Restaurant Name</div>
+                <app-text-input [id]="'restaurant'" [placeHolder]="'Restaurant Name'"></app-text-input>
+                <div class="gray-text">Address</div>
+                <app-text-input [id]="'address'" [placeHolder]="'Address'"></app-text-input>
+                <div class="gray-text">Manager</div>
+                <app-text-input [id]="'manager'" [placeHolder]="'Manager'"></app-text-input>
+                <div class="gray-text">Phone</div>
+                <app-text-input [id]="'phone'" [placeHolder]="'Phone'"></app-text-input>
+                <div class="gray-text">Email</div>
+                <app-text-input [id]="'email'" [placeHolder]="'Email'"></app-text-input>
+                <button (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
+            </div>
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            <div *ngIf="successFlg" class="important-notice">Thank you. Your info has been submitted!</div>
+
+        </div>
+    </div>
+
+</app-page-shell>

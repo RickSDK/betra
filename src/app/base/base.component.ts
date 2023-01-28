@@ -352,6 +352,7 @@ export class BaseComponent implements OnInit {
 
   postSuccessApi(file: string, responseJson: any) {
     console.log('postSuccessApi', responseJson);
+    this.successFlg = true;
     //    if (this.spinnerComponent)
     //      this.spinnerComponent.setApiMessage('Success!');
   }

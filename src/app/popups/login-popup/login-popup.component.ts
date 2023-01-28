@@ -5,6 +5,9 @@ import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, Soci
 import { GoogleLoginProvider } from 'angularx-social-login';
 
 declare var $: any;
+declare var google: any;
+declare var getVersion: any;
+declare var decodeJwtResponse: any;
 
 @Component({
   selector: 'app-login-popup',
@@ -21,63 +24,109 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public savedEmail: string = localStorage['savedEmail'] || '';
   public savedPassword: string = localStorage['savedPassword'] || '';
   public savedCode: string = localStorage['savedCode'] || '';
+  public version = getVersion();
 
   constructor(private socialAuthService: SocialAuthService, private googleAuthService: SocialAuthService) { super(); }
 
   override ngOnInit(): void {
     this.submitDisabled = !this.savedEmail;
 
+    /*
     this.socialAuthService.authState.subscribe((user) => {
-      if (!this.showLoginButtonFlg)
-        this.facebookToBetraLogin(user);
+      this.facebookToBetraLogin(user);
     });
-
+*/
+    /*
     this.googleAuthService.authState.subscribe((user) => {
       var socialUser = user;
       var isLoggedIn = (user != null);
       console.log('Google login code!', socialUser, isLoggedIn);
-    });
+    });*/
 
+  }
+
+  loginWithGoogle(): void {
+    if (google) {
+      google.accounts.id.initialize({
+        client_id: '859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com',
+        callback: this.handleCredentialResponse
+      });
+      google.accounts.id.prompt();
+    } else
+      console.log('no google!!');
+
+    //this.googleAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  handleCredentialResponse(response: any) {
+    console.log('handleCredentialResponse1!!!!!!', response);
+    var credential = response.credential;
+    console.log('credential!', credential.length);
+
+    const responsePayload = decodeJwtResponse(response.credential);
+
+    console.log("ID: " + responsePayload.sub);
+    console.log('Full Name: ' + responsePayload.name);
+    console.log('Given Name: ' + responsePayload.given_name);
+    console.log('Family Name: ' + responsePayload.family_name);
+    console.log("Image URL: " + responsePayload.picture);
+    console.log("Email: " + responsePayload.email);
+
+    var firstName = responsePayload.name;
+    var names = responsePayload.name.split(' ');
+    if (names && names.length > 0)
+      firstName = names[0];
+    this.authorizedLogin(responsePayload.email, responsePayload.sub, 'Google-Signin', firstName);
+
+    //var secondOption = JSON.parse(atob(response.credential.split('.')[1]));
+    //console.log("secondOption: " + secondOption);
   }
 
   facebookSignin(): void {
     this.showLoginButtonFlg = false;
     this.loadingFlg = true;
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
 
-  loginWithGoogle(): void {
-    console.log('hey! attempting login');
-    this.googleAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-//    this.errorMessage = 'Google login not ready yet';
+    this.socialAuthService.authState.subscribe((user) => {
+      this.facebookToBetraLogin(user);
+    });
   }
-
-  googleLogOut(): void {
-    this.googleAuthService.signOut();
-}
+  /*
+    googleLogOut(): void {
+      this.googleAuthService.signOut();
+    }*/
 
   logOut(): void {
     this.socialAuthService.signOut();
   }
 
   facebookToBetraLogin(user: any) {
-    console.log('here is my user!', user);
+    console.log('here is my facebookToBetraLogin user!', user);
+    this.authorizedLogin(user.email, user.id, user.provider, user.firstName);
+  }
 
-    localStorage['email'] = user.email;
-    localStorage['code'] = btoa(user.id);
-    localStorage['facebookId'] = user.id;
+  authorizedLogin(email: string, id: string, provider: string, firstName: string) {
+    console.log('--------------authorizedLogin---------------');
+    console.log('--------------------------------------');
+    console.log('----------email', email);
+    console.log('----------id', id);
+    console.log('----------provider', provider);
+    console.log('----------firstName', firstName);
+
+    localStorage['email'] = email;
+    localStorage['code'] = btoa(id);
+    localStorage['facebookId'] = id;
 
     var params = {
-      email: user.email,
+      email: email,
       code: localStorage['code'],
-      firstName: user.firstName,
-      facebookId: user.id,
-      provider: user.provider,
+      firstName: firstName,
+      facebookId: id,
+      provider: provider,
       action: 'facebookLogin'
     };
     console.log('params', params);
     this.executeApi('login.php', params, true);
-
   }
 
   loginPressed() {

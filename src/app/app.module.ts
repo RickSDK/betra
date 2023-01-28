@@ -83,6 +83,7 @@ import { BlogCellComponent } from './blog-cell/blog-cell.component';
 import { BlogCreateComponent } from './blog-create/blog-create.component';
 import { BlogManageComponent } from './blog-manage/blog-manage.component';
 import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
+import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -166,6 +167,7 @@ import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
     BlogCreateComponent,
     BlogManageComponent,
     BlogCommentsComponent,
+    RestaurantSignupComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,6 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="pageTitle" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <button *ngIf="showBackButton || commentsOnlyFlg" [routerLink]="['/matches']" class="btn btn-main-color btn-small"
-        style="float: left; margin: 2px;">Back</button>
     <app-dating-pool *ngIf="!showFilter && !commentsOnlyFlg" [user]="user" [largeFlg]="false"></app-dating-pool>
 
     <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic" [size]="30"></app-profile-pic>
@@ -143,7 +141,7 @@
             [matchUser]="matchUser">
         </app-user-requests>
 
-        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y'"
+        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y' || messageCount>0"
             [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
         </app-user-communication>
 

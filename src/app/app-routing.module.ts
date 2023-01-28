@@ -33,6 +33,7 @@ import { OwnerAdminComponent } from './owner-admin/owner-admin.component';
 import { BetraBlogsComponent } from './betra-blogs/betra-blogs.component';
 import { BlogCreateComponent } from './blog-create/blog-create.component';
 import { BlogManageComponent } from './blog-manage/blog-manage.component';
+import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -68,6 +69,7 @@ const routes: Routes = [
   { path: 'blogs', component: BetraBlogsComponent },
   { path: 'blog-create', component: BlogCreateComponent },
   { path: 'blog-manage', component: BlogManageComponent },
+  { path: 'restaurant-promo', component: RestaurantSignupComponent },
 ];
 
 @NgModule({

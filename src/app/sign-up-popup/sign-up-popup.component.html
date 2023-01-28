@@ -1,18 +1,53 @@
 <div style="text-align: center;">
-    <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button" title="Continue with Facebook"></i>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    new code here
+    <table align="center">
+        <tr>
+            <td>
+                <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
+                    title="Continue with Facebook"></i>
+            </td>
+            <td>
+                <img *ngIf="1" (click)="loginWithGoogle2()" src="assets/images/google-logo.png" height="37"
+                    class="google-btn" title="Continue with Google">
+            </td>
+            <td>
+                <div id="g_id_onload"
+                    data-client_id="859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com"
+                    data-context="signin" data-ux_mode="popup" data-callback="loginWithGoogle()"
+                    data-auto_prompt="false">
+                </div>
 
-    <i *ngIf="0" (click)="googleSignin()" class="fa fa-google-plus google-btn login-button" title="Continue with Google+"></i>
+                <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue"
+                    data-text="signin" data-size="medium" data-logo_alignment="left">
+                </div>
+            </td>
+        </tr>
+    </table>
 
-    <img (click)="googleSignin()" src="assets/images/google-signin.png" height="44" style="cursor: pointer; margin-top: -5px;"
-    title="Continue with Google">
+    <!--<i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button" title="Continue with Facebook"></i>
+
+    <i *ngIf="0" (click)="googleSignin()" class="fa fa-google-plus google-btn login-button"
+        title="Continue with Google+"></i>
+
+    <img (click)="googleSignin()" src="assets/images/google-signin.png" height="44"
+        style="cursor: pointer; margin-top: -5px;" title="Continue with Google">
+
+    <div id="g_id_onload" data-client_id="859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com"
+        data-context="signin" data-ux_mode="popup" data-callback="loginWithGoogle()" data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin"
+        data-size="medium" data-logo_alignment="left">
+    </div>-->
 
 </div>
-<div class="tiny-text">First Name</div>
+<div *ngIf="0" class="tiny-text">First Name</div>
 <app-first-name-input (messageEvent)="valueChanged()">
 </app-first-name-input>
-<div class="tiny-text">Email Address</div>
+<div *ngIf="0" class="tiny-text">Email Address</div>
 <input name="email" id="email" type="email" placeholder="Email Address" (input)="valueChanged()">
-<div class="tiny-text">Password</div>
+<div *ngIf="0" class="tiny-text">Password</div>
 <input name="password" id="password" type="password" placeholder="Password" (input)="valueChanged()">
 
 

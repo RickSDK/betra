@@ -18,6 +18,10 @@ $main-color: #b73c46;
 $light-color: #ffeeee;
 $button-highlight: #ff4444;
 
+@font-face {
+    font-family: 'Arturo';
+    src: url('assets/Arturo-Heavy.ttf');
+}
 
 body {
     background-color: #eee !important;

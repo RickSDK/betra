@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
+import { GoogleLoginProvider } from 'angularx-social-login';
 
 declare var $: any;
 declare var getDateObjFromJSDate: any;
@@ -32,14 +33,14 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
   public birthYear: string = '';
   public showLoginButtonFlg: boolean = true;
 
-  constructor(private socialAuthService: SocialAuthService, private router: Router) { super(); }
+  constructor(private socialAuthService: SocialAuthService, private router: Router, private googleAuthService: SocialAuthService) { super(); }
 
   override ngOnInit(): void {
 
-    this.socialAuthService.authState.subscribe((user) => {
+    /*this.socialAuthService.authState.subscribe((user) => {
       if (!this.showLoginButtonFlg)
         this.facebookToBetraLogin(user);
-    });
+    });*/
 
   }
   pressGetStartedButton() {
@@ -101,6 +102,12 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
 
   googleSignin(): void {
     this.errorMessage = 'Google+ not ready yet';
+  }
+
+  loginWithGoogle2(): void {
+    console.log('hey! attempting login2');
+    this.googleAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+//    this.errorMessage = 'Google login not ready yet';
   }
 
   logOut(): void {

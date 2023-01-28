@@ -4,6 +4,21 @@
     object-position: 80% 10%;
 }
 
+.big-title {
+    font-family: 'Arturo';
+    color: black;
+    font-weight: 900;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+    text-shadow: 2px 2px black;
+}
+
+.small-title {
+    color: white;
+    font-weight: 900;
+    text-shadow: 2px 2px black;  
+}
+
 .large-text {
     font-size: 32px;
     line-height: 32px;
@@ -84,7 +99,7 @@ h3 {
 
 .testimony-popup {
     position: absolute;
-    top: 455px;
+    top: 0;
     right: auto;
     left: 120px;
     padding: 10px;
@@ -93,11 +108,13 @@ h3 {
     border-radius: 40px;
     text-align: center;
     font-size: 14px;
+    width: 250px;
+    height: 150px;
 }
 
 .savonne {
     position: absolute;
-    top: 450px;
+    top: 0;
     right: auto;
     left: 0;
     width: 150px;
@@ -107,6 +124,7 @@ h3 {
 
 .large-screen {
     opacity: 0;
+    display: none;
 }
 
 .small-screen {
@@ -141,7 +159,7 @@ h3 {
         top: 100px;
     }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .outer-layer {
         text-align: center;
         padding-left: 0;

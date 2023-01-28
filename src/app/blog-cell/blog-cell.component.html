@@ -1,14 +1,17 @@
-<div style="text-align: center; background-color: white;">
+<div style="display: inline-flex; border: 1px solid #ddd; border-radius: 10px; margin: 5px; padding: 10px; text-align: center; background-color: white;">
     <div *ngIf="blog" style="display: inline-block; max-width: 500px;">
         <div *ngIf="shrinkSize==2">
-            <div [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}" class="blog-title" style="font-size: 24px; height: 50px; line-height: 24px; overflow: hidden;">{{blog.title}}</div>
+            <div [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}" class="blog-title"
+                style="font-size: 24px; height: 50px; line-height: 24px; overflow: hidden;">{{blog.title}}</div>
             <table width="100%">
                 <tr [routerLink]="['/blogs']" [queryParams]="{id: blog.row_id}">
                     <td width="50%">
                         <img [src]="blog.src1" width="100%" style="cursor: pointer;">
                     </td>
                     <td>
-                        <div class="gray-text" style="padding: 5px; text-align: left; max-height: 98px; overflow: hidden;">{{blog.intro}}</div>
+                        <div class="gray-text"
+                            style="padding: 5px; text-align: left; max-height: 98px; overflow: hidden;">{{blog.intro}}
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -29,7 +32,7 @@
                     <td width="50%">
                         <img [src]="blog.src1" width="100%" style="cursor: pointer;">
                     </td>
-                    <td >
+                    <td>
                         <div class="gray-text" style="padding: 5px; text-align: left;">{{blog.intro}}</div>
                     </td>
                 </tr>
@@ -40,7 +43,7 @@
                     <td *ngIf="!blog.author" align="center" style="padding: 20px;">
                         <app-profile-pic [user_id]="blog.user_id" [profilePic]="blog.profilePic" [size]="30">
                         </app-profile-pic>
-                        {{blog.firstName}} 
+                        {{blog.firstName}}
                     </td>
                     <td align="center" style="padding: 20px; font-size: 12px;">
                         <i class="fa fa-calendar"></i> {{blog.localDate}}&nbsp;
@@ -50,7 +53,8 @@
                     </td>
                 </tr>
             </table>
-            <a *ngIf="editFlg" [routerLink]="['/blog-create']" [queryParams]="{id: blog.row_id}" class="text-link">edit</a>
+            <a *ngIf="editFlg" [routerLink]="['/blog-create']" [queryParams]="{id: blog.row_id}"
+                class="text-link">edit</a>
         </div>
         <div *ngIf="shrinkSize==0">
             <div [routerLink]="['/blogs']" [queryParams]="{id: 0}" class="text-link">Betra Blogs</div>
@@ -60,7 +64,7 @@
                     <td *ngIf="blog.author" align="center" style="padding: 20px;">
                         by <a href="{{blog.url}}" target="new">{{blog.author}}</a>
                     </td>
-                   <td *ngIf="!blog.author">
+                    <td *ngIf="!blog.author">
                         <app-profile-pic [user_id]="blog.user_id" [profilePic]="blog.profilePic" [size]="30">
                         </app-profile-pic>
                         {{blog.firstName}}
@@ -76,6 +80,20 @@
             <div *ngIf="blog.section2" class="blog-body" [innerHtml]="blog.section2"></div>
             <img *ngIf="blog.pic3" [src]="blog.src3" width="100%">
             <div *ngIf="blog.section3" class="blog-body" [innerHtml]="blog.section3"></div>
+            <table width="100%" style="font-size: 16px; font-weight: 700;">
+                <tr>
+                    <td align="left">
+                        <span *ngIf="blog.prevBlogId>0" class="text-link" [routerLink]="['/blogs']" [queryParams]="{id: blog.prevBlogId}">
+                            <i class="fa fa-arrow-left"></i> Previous Blog
+                        </span>
+                    </td>
+                    <td align="right">
+                        <span *ngIf="blog.nextBlogId>0" class="text-link" [routerLink]="['/blogs']" [queryParams]="{id: blog.nextBlogId}">
+                            Next Blog <i class="fa fa-arrow-right"></i>
+                        </span>
+                    </td>
+                </tr>
+            </table>
             <app-blog-comments [blog]="blog" [user]="user"></app-blog-comments>
         </div>
     </div>

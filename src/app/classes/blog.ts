@@ -40,6 +40,11 @@ export class Blog {
     public commentCount: number = 0;
     public author: string = '';
     public url: string = '';
+    public blogIds: any = [];
+    public firstBlogId: number = 0;
+    public lastBlogId: number = 0;
+    public prevBlogId: number = 0;
+    public nextBlogId: number = 0;
 
     constructor(obj: any, userId: number = 0) {
         if (obj) {
@@ -74,6 +79,22 @@ export class Blog {
             this.dislikeTitle = this.dislikeList.join('\n');
 
             this.comments = obj.comments || [];
+            this.blogIds = obj.blogIds || [];
+            var i = 0;
+            var thisI = 0;
+            this.blogIds.forEach((element: any) => {
+                if (element == this.row_id)
+                    thisI = i;
+                i++;
+            });
+            if (this.blogIds && this.blogIds.length > 0) {
+                if (thisI > 0)
+                    this.prevBlogId = this.blogIds[thisI - 1];
+                if (thisI < this.blogIds.length-1)
+                    this.nextBlogId = this.blogIds[thisI + 1];
+                this.firstBlogId = this.blogIds[0];
+                this.lastBlogId = this.blogIds[this.blogIds.length - 1];
+            }
             this.commentCount = obj.commentCount || 0;
 
             this.author = obj.author || '';

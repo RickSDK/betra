@@ -28,7 +28,7 @@
         </table>
     </div>-->
 
-    <div *ngIf="userId>0">
+    <div *ngIf="user && userId>0">
         <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">
         </app-dating-pool>
 
@@ -37,21 +37,24 @@
                 Betra!
             </div>
 
-            <div  class="padded-box">
-                <p *ngIf="!user.datingPool || user.datingPool.length < 2" style="font-size: 12px; color: black;">Your first step is to find singles that you like. If they like
+            <div class="padded-box">
+                <p *ngIf="!user.datingPool || user.datingPool.length < 2" style="font-size: 12px; color: black;">Your
+                    first step is to find singles that you like. If they like
                     you back, they will show up in your <span class="red-text"><i class="fa fa-users"></i> Dating
                         Pool</span> and chatting can begin!</p>
-                <p *ngIf="user.datingPool.length >= 2 && user.datingPool.length < 8">
+                <p *ngIf="user.datingPool.length >= 2 && user.datingPool.length < user.maxPoolSize">
                     You still have room for more singles in your dating pool.
                 </p>
-                <p *ngIf="user.datingPool.length >= 8 && user.datingPool.length <= 12">
+                <p *ngIf="user.datingPool.length == user.maxPoolSize">
                     Keep in mind you can continue adding people to your dating pool.
                 </p>
-                <p *ngIf="user.datingPool.length > 12">
+                <p *ngIf="user.datingPool.length > user.maxPoolSize">
                     You will need to move someone to your back burner before searching for more singles.
                 </p>
-                <button [routerLink]="['/user-detail']" class="btn btn-main-color btn-large"><i
+                <button *ngIf="user.datingPool.length <= user.maxPoolSize" [routerLink]="['/user-detail']" class="btn btn-main-color btn-large"><i
                         class="fa fa-search"></i> Browse Singles</button>
+                <button *ngIf="user.datingPool.length > user.maxPoolSize" [routerLink]="['/matches']" class="btn btn-main-color btn-large"><i
+                        class="fa fa-users"></i> Dating Pool</button>
             </div>
 
             <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
@@ -78,28 +81,26 @@
                 </div>
             </div>
             <hr>
+            <table [routerLink]="['/restaurant-promo']" style="cursor: pointer;">
+                <tr>
+                    <td width="50%">
+                        <img src="assets/images/landing/table3.webp" style="width: 100%;">                        
+                    </td>
+                    <td style="padding: 10px;">
+                        <h2>Dinner Date Promotion</h2>
+                        <p class="gray-text">We are searching for restaurants that want to participate in our kick-off pormotion.</p>
+                        <p class="text-link">Details</p>
+                    </td>
+                </tr>
+            </table>
+            <hr>
             <p style="text-align: left;" class="gray-text">Betra means "Better" is Greek and that is exactly what kind
                 of app this is. Fill up your dating pool by indicating which singles you are interested in, then begin
                 narrowing your prospects, giving out roses along the way. Its fun and its exciting.</p>
-            <img src="assets/images/landing/table3.webp" style="width: 100%;">
             <p style="font-size: 18px; font-weight: 700;">Officially launches on Feb 14th, 2023!</p>
             <p class="gray-text">This is the fully functioning beta version. Feel free to test it out with other real
                 users.
             </p>
- 
-            <!--<div *ngIf="0" class="red-text" style="font-size: 10px; padding-bottom: 10px;">
-                <div class="gray-box">
-                    <div style="color: gray; font-size: 8px;">Countries with active users</div>
-                    <span *ngFor="let country of countries">{{country.name}}<sup>{{country.count}}</sup>&nbsp;
-                    </span>
-                </div>
-                <div class="gray-box">
-                    <div style="color: gray; font-size: 8px;">States with active users</div>
-                    <span *ngFor="let state of states">{{state.stateName}}<sup>{{state.count}}</sup>&nbsp;
-                    </span>
-                </div>
-            </div>-->
-
         </div>
     </div>
     <app-betra-features *ngIf="userId==0"></app-betra-features>

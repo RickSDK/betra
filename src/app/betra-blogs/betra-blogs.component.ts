@@ -39,6 +39,7 @@ export class BetraBlogsComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == "getBlog") {
       this.blog = new Blog(responseJson.blog);
+      window.scrollTo(0, 0);
     }
   }
 }

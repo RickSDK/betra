@@ -28,7 +28,7 @@
                     Login
                 </button>
             </td>
-            <td *ngIf="userId==0 && pageTitle != 'Home'" width="44">
+            <td *ngIf="(userId==0 || userStatus != 'Active') && pageTitle != 'Home'" width="44">
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
             <td *ngIf="userId>0 && userStatus == 'Active'">

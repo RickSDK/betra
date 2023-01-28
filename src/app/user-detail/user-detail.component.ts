@@ -40,6 +40,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showProfileViewDetailsFlg: boolean = false;
   public showEmptyDatingPoolFlg: boolean = false;
   public commentsOnlyFlg: boolean = false;
+  public messageCount: number = 0;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -52,7 +53,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
-      
+
       this.commentsOnlyFlg = params['c'] && params['c'] == 'Y';
       this.showBackButton = params['s'] && params['s'] == 'Y';
       this.advancedSearchFlg = (params['filter'] == 'true');
@@ -252,7 +253,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'getThisUser') {
       this.matchUser = new User(responseJson.user, this.user);
-      console.log('++++loc', this.matchUser.location);
+      this.messageCount = responseJson.messages;
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
 
