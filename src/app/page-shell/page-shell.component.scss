@@ -14,6 +14,18 @@
     box-shadow: 2px 2px 5px #ccc;
 }
 
+.top-link {
+    cursor: pointer;
+    color: gray;
+    font-size: 18px;
+    margin: 7px;
+    padding: 5px;
+    font-weight: 700;
+}
+.top-link:hover {
+    text-decoration: underline;
+}
+
 .back-button {
     font-size: 32px;
     color: black;

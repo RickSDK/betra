@@ -19,14 +19,16 @@
                     Beta Version {{appVersion}}
                 </div>
             </td>
-            <td align="center" width="100%" style="font-size: 14px; font-weight: 700;">
-                <span class="hide-xs" *ngIf="pageTitle != 'Home'">{{pageTitle}}</span>
+            <td align="center" width="100%">
+                <span *ngIf="!userId" [routerLink]="['/blogs']" class="top-link">Blogs</span>
+                <span *ngIf="!userId" [routerLink]="['/about']" class="top-link">About</span>
+                <span *ngIf="!userId" [routerLink]="['/join-team']" class="top-link">Join</span>
+                <span *ngIf="!userId" [routerLink]="['/restaurant-promo']" class="top-link">Promo</span>
+                <span class="hide-xs" *ngIf="userId>0 && pageTitle != 'Home'">{{pageTitle}}</span>
             </td>
 
             <td align="right" valign="middle" *ngIf="userId==0 || !userId">
-                <button *ngIf="popupNum != 2" class="btn login-button" [routerLink]="['']" [queryParams]="{login: 1}">
-                    Login
-                </button>
+                <span *ngIf="!userId" [routerLink]="['/landing']" [queryParams]="{login: 1}" class="top-link">Login</span>
             </td>
             <td *ngIf="(userId==0 || userStatus != 'Active') && pageTitle != 'Home'" width="44">
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>

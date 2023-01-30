@@ -112,9 +112,9 @@ export class Blog {
             if (this.pic3)
                 this.src3 = 'https://www.appdigity.com/betraPhp/blogImages/pic' + this.row_id + '_3.jpg';
 
-            this.section1Text = obj.section1.replace(/&nbsp;<br>/g, "\n");
-            this.section2Text = obj.section2.replace(/&nbsp;<br>/g, "\n");
-            this.section3Text = obj.section3.replace(/&nbsp;<br>/g, "\n");
+            this.section1Text = this.section1.replace(/&nbsp;<br>/g, "\n");
+            this.section2Text = this.section2.replace(/&nbsp;<br>/g, "\n");
+            this.section3Text = this.section3.replace(/&nbsp;<br>/g, "\n");
 
             this.intro = this.section1Text.substring(0, 300) + '[...]';
 

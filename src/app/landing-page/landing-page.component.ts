@@ -11,8 +11,6 @@ import { Blog } from '../classes/blog';
 export class LandingPageComponent extends BaseComponent implements OnInit {
   public login: number = 0;
   public override userId: number = 0;
-  public showLoginPopup: boolean = false;
-  public showSignupPopup: boolean = false;
   public bgImg = 'assets/images/landing/logoWhite.png';
   public adsbygoogle: any;
   public blogList: any = [];
@@ -23,23 +21,16 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     this.userId = localStorage['user_id'];
 
-    setTimeout(() => {
-      (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
-    }, 1000);
+    //setTimeout(() => {
+    //  (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
+   // }, 1000);
 
     if (this.userId > 0)
       this.gotoMainMenu();
     else {
-      this.getDataFromServer('getBlogs', 'blog.php', []);
+      //this.getDataFromServer('getBlogs', 'blog.php', []);
       this.route.queryParams.subscribe(params => {
-        this.showLoginPopup = false;
-        this.showSignupPopup = false;
-
-        if (params['login'] == 1)
-          this.showLoginPopup = true;
-        if (params['login'] == 3)
-          this.showSignupPopup = true;
-
+        this.login = params['login'] || 0;
       })
     }
   }

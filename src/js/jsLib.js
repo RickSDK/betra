@@ -2,7 +2,7 @@ function getHostname() {
 	return 'https://www.appdigity.com/betraPhp/';
 }
 function getVersion() {
-	return '0.146';
+	return '0.149';
 }
 function decodeJwtResponse(token) {
 	var base64Url = token.split('.')[1];

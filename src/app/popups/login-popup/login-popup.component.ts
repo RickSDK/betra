@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone, Input } from '@angular/core';
 import { User } from 'src/app/classes/user';
 import { BaseComponent } from '../../base/base.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { Router } from '@angular/router';
 
 declare var $: any;
 declare var google: any;
@@ -15,6 +16,7 @@ declare var decodeJwtResponse: any;
   styleUrls: ['./login-popup.component.scss']
 })
 export class LoginPopupComponent extends BaseComponent implements OnInit {
+  @Input('login') login: number = 0;
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -25,8 +27,9 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public savedPassword: string = localStorage['savedPassword'] || '';
   public savedCode: string = localStorage['savedCode'] || '';
   public version = getVersion();
+//  public popupNumber: number = 0;
 
-  constructor(private socialAuthService: SocialAuthService, private googleAuthService: SocialAuthService) { super(); }
+  constructor(private router: Router, private ngZone: NgZone, private socialAuthService: SocialAuthService, private googleAuthService: SocialAuthService) { super(); }
 
   override ngOnInit(): void {
     this.submitDisabled = !this.savedEmail;
@@ -46,23 +49,31 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   loginWithGoogle(): void {
+    console.log('loginWithGoogle', google);
     if (google) {
       google.accounts.id.initialize({
-        client_id: '859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com',
-        callback: this.handleCredentialResponse
+        client_id: "859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com",
+        callback: (window as any)['handleCredentialResponse'] =
+          (response: any) => this.ngZone.run(() => {
+            this.handleCredentialResponse(response);
+          })
       });
       google.accounts.id.prompt();
-    } else
+      /*
+      google.accounts.id.initialize({
+        client_id: '859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com',
+        callback: this.handleCredentialResponse,
+      });
+      google.accounts.id.prompt();*/
+    } else {
       console.log('no google!!');
+      this.errorMessage = 'Sorry, google login not responding. Try again later';
+    }
 
     //this.googleAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   handleCredentialResponse(response: any) {
-    console.log('handleCredentialResponse1!!!!!!', response);
-    var credential = response.credential;
-    console.log('credential!', credential.length);
-
     const responsePayload = decodeJwtResponse(response.credential);
 
     console.log("ID: " + responsePayload.sub);
@@ -76,10 +87,8 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     var names = responsePayload.name.split(' ');
     if (names && names.length > 0)
       firstName = names[0];
-    this.authorizedLogin(responsePayload.email, responsePayload.sub, 'Google-Signin', firstName);
 
-    //var secondOption = JSON.parse(atob(response.credential.split('.')[1]));
-    //console.log("secondOption: " + secondOption);
+    this.authorizedLogin(responsePayload.email, responsePayload.sub, 'Google-Signin', firstName);
   }
 
   facebookSignin(): void {
@@ -174,6 +183,9 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
       this.syncUserWithLocalStorage(responseJson);
       this.messageEvent.emit('login');
+      if(responseJson.action == 'createAccount') {
+        this.router.navigate(['/profile']);
+      }
     }
   }
 
@@ -183,4 +195,32 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
     this.submitDisabled = !email || !password;
   }
+
+  //------------------ signup------------------
+
+  signupPressed() {
+    var email: string = $('#email').val();
+    var password: string = $('#password').val();
+    var firstName: string = $('#firstName').val();
+
+    if (!email || !password || !firstName) {
+      this.errorMessage = 'fill out form';
+      return;
+    }
+    var code = btoa(password);
+    localStorage['code'] = code;
+    localStorage['email'] = email;
+
+    var params = {
+      email: email,
+      code: code,
+      firstName: firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1),
+      findLoveFlg: 'Y',
+      action: 'createAccount'
+    };
+
+    console.log('xxx', params);
+    this.executeApi('login.php', params, true);
+  }
+
 }
