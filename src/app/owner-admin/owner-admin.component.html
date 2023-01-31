@@ -8,10 +8,11 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
         <div>
-            <button [routerLink]="['/blog-manage']" [queryParams]="{e: 'Y'}" class="btn btn-main-color spacer">Manage Blog</button>
+            <button [routerLink]="['/blog-manage']" [queryParams]="{e: 'Y'}" class="btn btn-main-color spacer">Manage
+                Blog</button>
         </div>
 
-        <div *ngIf="menuNum==0" style="display: inline-block; max-width: 380px;">
+        <div *ngIf="menuNum==0 && !loadingFlg" style="display: inline-block; max-width: 380px;">
             <div>Admin Tools</div>
             <div class="gray-text">These tools will help admins manage the app. If any records have been flagged, you
                 will see an indicator next to the link.</div>
@@ -185,6 +186,32 @@
                     OK</button>
 
             </div>
+        </div>
+        <div *ngIf="menuNum==6 && displayUser">
+            <div>Name: <span class="text-highlight">{{displayUser.firstName}}</span></div>
+            <table>
+                <tr>
+                    <td>
+                        <div>Profile Picture</div>
+                        <img [src]="src" height="300">
+                    </td>
+                    <td>
+                        <div>Submitted Proof Picture</div>
+                        <img [src]="verifySrc" height="300">
+                    </td>
+                </tr>
+            </table>
+            <button (mousedown)="verifyUserPic(99)" class="btn btn-success"
+                style="margin: 5px; height: 60px;">Looks Good!</button>
+            <button (mousedown)="verifyUserPic(-1)" class="btn btn-danger" style="margin: 5px;">No
+                Face</button>
+            <button (mousedown)="verifyUserPic(-2)" class="btn btn-danger" style="margin: 5px;">Not same
+                person</button>
+            <button (mousedown)="verifyUserPic(-3)" class="btn btn-danger" style="margin: 5px;">Bad
+                Picture</button>
+            <button (mousedown)="verifyUserPic(-4)" class="btn btn-danger" style="margin: 5px;">Wrong
+                Pose</button>
+
         </div>
 
 

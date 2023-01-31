@@ -1,0 +1,9 @@
+<div class="thumbnail" *ngIf="person">
+    <img [src]="person.imgSrc" width="100%" class="profile-image3">
+    <div style="padding: 3px;">
+        <div><b>{{person.firstName}}</b></div>
+        <div class="gray-text">{{person.location}}</div>
+        <button class="btn btn-main-color btn-small spacer">Text</button>
+        <button class="btn btn-main-color btn-small spacer">View Profile</button>    
+    </div>
+</div>

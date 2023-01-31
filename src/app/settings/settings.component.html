@@ -38,7 +38,7 @@
                     In addition to this, we encourage everyone to set up a Buddy Contact. This person will be
                     notified of your meeting time and place so they can check on you to make sure everything went well.
                 </p>
-                <table width="100%">
+                <table width="100%" *ngIf="!loadingFlg">
                     <tr>
                         <td>
                             <app-text-input [placeHolder]="'Email Address'" [id]="'buddyEmail'" [maxLength]="80"
@@ -50,7 +50,29 @@
                         </td>
                     </tr>
                 </table>
-
+                <hr>
+                <img src="assets/images/brittany1.jpg" height="200" align="left" style="padding: 3px;">
+                <p><b>History: </b>
+                    In 2023 the online dating world is literally at your finger tips. You could make a connection with
+                    someone, scope their social media, and meet that person all in one night! It’s an exciting time for
+                    dating, but let’s be honest as a single woman it’s also terrifying. The big dating apps have got the
+                    algorithm down, but when it comes to your safety not so much. It’s like once you are on that date,
+                    they leave you at the door just like the Uber you took to the restaurant.
+                </p>
+                <p>
+                    So when Brittany LoCurto got involved with Betra she really wanted it to feel like a safe place for
+                    women to date. Brittany had not only experienced all the different dating platforms herself, but had
+                    witnessed countless dates go wrong while bartending. “No matter what I wanted my female customers to
+                    know I was looking out for them if things got sketchy or someone wasn’t who they said they were”. I
+                    wish I could say that never happens, but it does all the time”, she said.So when she heard another
+                    horror story about a woman being kidnapped by her online date in December, she wanted to think of a
+                    way to look out for women like she did at the bar.
+                </p>
+                <p>This is how the buddy system element in Betra was born. Imagine if a dating app cared for your safety
+                    both while using the app and on your date. Where you could feel safe and not have a bombardment of
+                    what ifs in your brain. The buddy system will alert a friend or family member of your choice that
+                    you are going on a date through Betra. So you could finally focus on connections, and not catfishes.
+                </p>
             </div>
         </div>
         <div *ngIf="menuNum == 6" class="tan-box">

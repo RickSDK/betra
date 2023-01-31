@@ -36,3 +36,18 @@
     background-color: #ccc;
     color: black;
 }
+
+.big-title {
+    font-family: 'Arturo';
+    color: black;
+    font-weight: 900;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+    text-shadow: 2px 2px black;
+}
+
+.small-title {
+    color: #800;
+    font-weight: 900;
+    text-shadow: 2px 2px white;  
+}

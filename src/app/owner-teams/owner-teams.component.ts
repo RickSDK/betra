@@ -29,6 +29,10 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
   public vp: any = null;
   public director1: any = null;
   public director2: any = null;
+  public projectManager: any = null;
+  public marketingLead: any = null;
+  public devLead: any = null;
+
   public managers1: any = [];
   public managers2: any = [];
 
@@ -81,8 +85,16 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
           this.vp = element;
         if (element.user_id == 122)
           this.director1 = element;
-        if (element.user_id == 235)
+        if (element.user_id == 77)
           this.director2 = element;
+
+        if (element.user_id == 85)
+          this.projectManager = element;
+        if (element.user_id == 156)
+          this.marketingLead = element;
+        if (element.user_id == 65)
+          this.devLead = element;
+        
 
         if (element.user_id == 122)
           this.ownerJames = element;

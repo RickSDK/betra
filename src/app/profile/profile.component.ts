@@ -343,7 +343,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       }
     }
     if (responseJson.action == 'checkIPAddress') {
-      if (!responseJson.ip)
+      if (!responseJson.countryName)
         this.populateGeoInfo();
     }
   }

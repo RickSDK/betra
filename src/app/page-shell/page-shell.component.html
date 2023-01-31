@@ -22,8 +22,8 @@
             <td align="center" width="100%">
                 <span *ngIf="!userId" [routerLink]="['/blogs']" class="top-link">Blogs</span>
                 <span *ngIf="!userId" [routerLink]="['/about']" class="top-link">About</span>
-                <span *ngIf="!userId" [routerLink]="['/join-team']" class="top-link">Join</span>
-                <span *ngIf="!userId" [routerLink]="['/restaurant-promo']" class="top-link">Promo</span>
+                <span *ngIf="!userId" [routerLink]="['/join-team']" class="top-link hide-xs">Join</span>
+                <span *ngIf="!userId" [routerLink]="['/restaurant-promo']" class="top-link hide-xs">Promo</span>
                 <span class="hide-xs" *ngIf="userId>0 && pageTitle != 'Home'">{{pageTitle}}</span>
             </td>
 

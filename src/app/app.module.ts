@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BaseComponent } from './base/base.component';
 import { PageShellComponent } from './page-shell/page-shell.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-import { SignUpPopupComponent } from './sign-up-popup/sign-up-popup.component';
+//import { SignUpPopupComponent } from './sign-up-popup/sign-up-popup.component';
 import { LoginPopupComponent } from './popups/login-popup/login-popup.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { InfoPopupComponent } from './popups/info-popup/info-popup.component';
@@ -85,6 +85,8 @@ import { BlogManageComponent } from './blog-manage/blog-manage.component';
 import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
 import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup.component';
 import { LandingContentComponent } from './landing-content/landing-content.component';
+import { ProfileThumbnailComponent } from './profile-thumbnail/profile-thumbnail.component';
+import { ContactComponent } from './contact/contact.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -93,7 +95,6 @@ import { LandingContentComponent } from './landing-content/landing-content.compo
     BaseComponent,
     PageShellComponent,
     MainMenuComponent,
-    SignUpPopupComponent,
     LoginPopupComponent,
     ConfirmationPopupComponent,
     InfoPopupComponent,
@@ -170,6 +171,8 @@ import { LandingContentComponent } from './landing-content/landing-content.compo
     BlogCommentsComponent,
     RestaurantSignupComponent,
     LandingContentComponent,
+    ProfileThumbnailComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

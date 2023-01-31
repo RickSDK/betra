@@ -1,7 +1,20 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="'Home'"
     [headerObj]="headerObj" [userStatus]="userStatus">
 
-    <div
+    <div class="small-title" style="font-size: 20px; margin-bottom: 20px;">Welcome to</div>
+    <div class="big-title" style="font-size: 78px; line-height: 44px;">Betra</div>
+    <div class="small-title" style="font-size: 24px;">The newest, safest and funnest way to date.</div>
+    <div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div class="gray-text">Single Women</div>
+        <app-profile-thumbnail [routerLink]="['/landing']" [queryParams]="{login: 1}" *ngFor="let person of topWomen;" [person]="person"></app-profile-thumbnail>
+    </div>
+    <div>
+        <div class="gray-text">Single Men</div>
+        <app-profile-thumbnail [routerLink]="['/landing']" [queryParams]="{login: 1}" *ngFor="let person of topMen;" [person]="person"></app-profile-thumbnail>
+    </div>
+  
+    <div *ngIf="0"
         style="background-color: white; border-radius: 15px; margin: 5px; padding: 10px; box-shadow: 2px 2px 4px gray;">
         <div class="container-fluid">
             <div class="row">
@@ -82,7 +95,7 @@
     </div>
 
     <div style="text-align: center; background-color: white; padding: 15px;">
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div class="big-title" style="font-size: 32px;">Betra Blogs</div>
         <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [shrinkSize]="1"></app-blog-cell>
     </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+/*import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
@@ -37,10 +37,7 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
 
-    /*this.socialAuthService.authState.subscribe((user) => {
-      if (!this.showLoginButtonFlg)
-        this.facebookToBetraLogin(user);
-    });*/
+ 
 
   }
   pressGetStartedButton() {
@@ -151,3 +148,4 @@ export class SignUpPopupComponent extends BaseComponent implements OnInit {
   }
 
 }
+*/

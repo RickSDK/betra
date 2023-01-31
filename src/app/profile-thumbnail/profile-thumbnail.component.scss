@@ -1,0 +1,16 @@
+.thumbnail {
+    display: inline-block;
+    box-shadow: 3px 3px 5px gray;
+    border-radius: 10px;
+    width: 200px;
+    margin: 2px;
+    padding: 0;
+}
+
+.profile-image3 {
+    width: 100%;
+    height: 180px;
+    cursor: pointer;
+    object-fit: cover;
+    object-position: 50% 20%;
+}

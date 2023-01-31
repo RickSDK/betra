@@ -15,6 +15,10 @@
                     <td align="center">
                         <app-owner-org-chart-cell [person]="director1" [personTitle]="'Director'">
                         </app-owner-org-chart-cell>
+                        <app-owner-org-chart-cell [person]="projectManager" [personTitle]="'Project Manager'">
+                        </app-owner-org-chart-cell>
+                        <app-owner-org-chart-cell [person]="devLead" [personTitle]="'Dev Lead'">
+                        </app-owner-org-chart-cell>
                         <div>
                             <app-owner-org-chart-cell *ngFor="let person of managers1" [person]="person"
                                 [personTitle]="'Manager'"></app-owner-org-chart-cell>
@@ -22,6 +26,8 @@
                     </td>
                     <td align="center">
                         <app-owner-org-chart-cell [person]="director2" [personTitle]="'Director'">
+                        </app-owner-org-chart-cell>
+                        <app-owner-org-chart-cell [person]="marketingLead" [personTitle]="'Marketing Lead'">
                         </app-owner-org-chart-cell>
                         <div>
                             <app-owner-org-chart-cell *ngFor="let person of managers2" [person]="person"

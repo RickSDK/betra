@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { Blog } from '../classes/blog';
+import { Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing-page',
@@ -16,8 +17,11 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
   public blogList: any = [];
   //public bgImg = 'assets/images/landing/logoBlack.png';
 
-  constructor(private route: ActivatedRoute, private router: Router) { super(); }
-
+  constructor(private meta: Meta, private title: Title, private route: ActivatedRoute, private router: Router) { 
+    super(); 
+    //this.meta.addTags([{name: 'description', content: 'Betra - Login'}]);
+    //this.title.setTitle('Betra - Login');
+  }
   override ngOnInit(): void {
     this.userId = localStorage['user_id'];
 
@@ -28,7 +32,7 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
     if (this.userId > 0)
       this.gotoMainMenu();
     else {
-      //this.getDataFromServer('getBlogs', 'blog.php', []);
+      //this.getDataFromServer('getStats', 'blog.php', []);
       this.route.queryParams.subscribe(params => {
         this.login = params['login'] || 0;
       })

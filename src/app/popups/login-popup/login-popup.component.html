@@ -18,11 +18,13 @@
         <table align="center">
             <tr>
                 <td>
-                    <i (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
+                    <i *ngIf="facebookButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
+                    <i *ngIf="!facebookButtonPressedFlg" (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
                         title="Continue with Facebook"></i>
                 </td>
                 <td>
-                    <img (click)="loginWithGoogle()" src="assets/images/google-signin2.png" height="44"
+                    <i *ngIf="googleButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
+                    <img *ngIf="!googleButtonPressedFlg" (click)="loginWithGoogle()" src="assets/images/google-signin2.png" height="44"
                         style="cursor: pointer" title="Continue with Google">
                     <!--<div id="g_id_onload"
                     data-client_id="859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com"

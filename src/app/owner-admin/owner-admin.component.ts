@@ -20,8 +20,10 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   ];
   public message = '';
   public src: string = '';
+  public verifySrc: string = '';
   public showRecordFlg = false;
   public showFakePicOptionsFlg: boolean = false;
+  public displayUser: any = null;
 
   constructor() { super(); }
 
@@ -57,6 +59,8 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       this.getDataFromServer('getNewReview', 'betraReviews.php', []);
     if (this.menuNum == 5)
       this.getDataFromServer('getFlaggedJournal', 'journal.php', []);
+    if (this.menuNum == 6)
+      this.getDataFromServer('getPicCertifiedUser', 'owners.php', []);
   }
 
   processAPIRequest(action: string) {
@@ -102,9 +106,28 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     this.getDataFromServer(action, 'owners.php', params);
   }
 
+  verifyUserPic(num: number) {
+    var params = {
+      userId: localStorage['user_id'],
+      code: localStorage['code'],
+      ideaNum: num,
+      uid: this.displayUser.user_id,
+      action: 'verifyUserPic',
+    };
+    console.log(params);
+   this.executeApi('verifyPics.php', params, true);
+   this.displayUser = null;
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     this.showRecordFlg = false;
     this.responseJson = responseJson;
+
+    if (responseJson.action == 'getPicCertifiedUser') {
+      this.displayUser = responseJson.user;
+      this.src = this.betraImageFromId(this.displayUser.user_id, this.displayUser.profilePic);
+      this.verifySrc = 'https://www.appdigity.com/betraPhp/verifyPics/pic'+this.displayUser.user_id+'.jpg';
+    }
     if (responseJson.action == 'approveReview') {
       this.getDataFromServer('getNewReview', 'betraReviews.php', []);
     }

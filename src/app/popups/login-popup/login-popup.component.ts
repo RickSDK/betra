@@ -27,7 +27,8 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public savedPassword: string = localStorage['savedPassword'] || '';
   public savedCode: string = localStorage['savedCode'] || '';
   public version = getVersion();
-//  public popupNumber: number = 0;
+  public facebookButtonPressedFlg: boolean = false;
+  public googleButtonPressedFlg: boolean = false;
 
   constructor(private router: Router, private ngZone: NgZone, private socialAuthService: SocialAuthService, private googleAuthService: SocialAuthService) { super(); }
 
@@ -49,6 +50,14 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   loginWithGoogle(): void {
+    this.googleButtonPressedFlg = true;
+    localStorage['loginCheck'] = '';
+    setTimeout(() => {
+      if (localStorage['loginCheck'] == '') {
+        this.errorMessage = 'Sorry, google login not working. Try again later';
+        this.googleButtonPressedFlg = false;
+      }
+    }, 10000);
     console.log('loginWithGoogle', google);
     if (google) {
       google.accounts.id.initialize({
@@ -92,6 +101,12 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   facebookSignin(): void {
+    this.facebookButtonPressedFlg = true;
+    localStorage['loginCheck'] = '';
+    setTimeout(() => {
+      if (localStorage['loginCheck'] == '')
+        this.errorMessage = 'Sorry, facebook login not working. Try again later';
+    }, 10000);
     this.showLoginButtonFlg = false;
     this.loadingFlg = true;
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
@@ -115,6 +130,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   authorizedLogin(email: string, id: string, provider: string, firstName: string) {
+    localStorage['loginCheck'] = 'done';
     console.log('--------------authorizedLogin---------------');
     console.log('--------------------------------------');
     console.log('----------email', email);
@@ -183,7 +199,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
       this.syncUserWithLocalStorage(responseJson);
       this.messageEvent.emit('login');
-      if(responseJson.action == 'createAccount') {
+      if (responseJson.action == 'createAccount') {
         this.router.navigate(['/profile']);
       }
     }

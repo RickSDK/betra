@@ -239,7 +239,7 @@ export class BaseComponent implements OnInit {
     }
   }
   populateGeoInfo() {
-    console.log('populateGeoInfo');
+    console.log('>>>>>populateGeoInfo<<<<<');
     //https://ssl.geoplugin.net/json.gp?k=cee1887eb4490f28
     //http://www.geoplugin.net/json.gp?jsoncallback=?
     $.getJSON('https://ssl.geoplugin.net/json.gp?k=cee1887eb4490f28', (data: any) => {
@@ -260,7 +260,7 @@ export class BaseComponent implements OnInit {
         ip: data.geoplugin_request,
         action: "updateGeoInfo"
       };
-      console.log('populateGeoInfo', params);
+      console.log('>>>>>populateGeoInfo<<<<<', params);
       this.executeApi('geoScript.php', params, true);
     });
   }

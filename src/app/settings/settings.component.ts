@@ -71,6 +71,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
 
   changeBuddy() {
+    this.menuNum = 5;
     this.getDataFromServer('getBuddyEmail', 'appApiCode.php', []);
   }
 
