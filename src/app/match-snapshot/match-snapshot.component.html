@@ -1,7 +1,7 @@
 <div class="match-user-card" *ngIf="matchUser && user">
 
     <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)"
-        [distance]="distance" [expandBottomFlg]="expandBottomFlg" [snapshotFlg]="snapshotFlg">
+        [expandBottomFlg]="expandBottomFlg" [snapshotFlg]="snapshotFlg">
     </app-profile-top>
 
     <div>
@@ -50,11 +50,10 @@
                                         [img]="'assets/images/bodyType.png'">
                                     </app-green-check>
                                     <!--[icon]="matchUser.genderIcon" -->
-                                    <div title="Race">
-                                        <span class="profile-icon"><i class="fa fa-user"></i></span>
-                                        <span class="profile-text"><span *ngIf="matchUser.race == 'Other'">Race:</span>
-                                            {{matchUser.race}}</span>
-                                    </div>
+                                    <app-green-check [label]="'Race'" [text1]="matchUser.race"
+                                        [showCheckFlg]="false"
+                                        [icon]="'fa fa-user'">
+                                    </app-green-check>
                                     <table width="100%">
                                         <tr>
                                             <td title="tattoos">

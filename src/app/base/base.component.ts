@@ -291,7 +291,7 @@ export class BaseComponent implements OnInit {
   }
 
   getHostname() {
-    return 'https://www.appdigity.com/betraPhp/';
+    return 'https://www.betradating.com/betraPhp/';
   }
   selectValueChanged() {
     this.changesMadeFlg = true;
@@ -317,7 +317,7 @@ export class BaseComponent implements OnInit {
     var postData = getPostDataFromObj(params);
     this.loadingFlg = true;
     this.apiExecutedFlg = true;
-    console.log('fetch...', file);
+    console.log('fetch...', file, params.action);
     fetch(url, postData).then((resp) => resp.text())
       .then((data) => {
         //console.log('response:', data);

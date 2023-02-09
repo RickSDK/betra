@@ -14,7 +14,9 @@ $dark-teal: #35B5AC;
 $dark-teal: #1fa49b;
 $lite-teal: #BBF1F1;
 
-$main-color: #b73c46;
+// new pink #ff035e
+
+$main-color: #ff035e;
 $light-color: #ffeeee;
 $button-highlight: #ff4444;
 
@@ -75,6 +77,12 @@ body {
 
 .spacer {
     margin: 3px;
+}
+
+.padded {
+    margin: 5px;
+    padding: 20px !important;
+    font-size: 20px;   
 }
 
 .basic-cell {

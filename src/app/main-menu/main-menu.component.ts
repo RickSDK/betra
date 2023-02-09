@@ -4,6 +4,8 @@ import { User } from '../classes/user';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from '../classes/blog';
+import { AdvancedFiltersComponent } from '../advanced-filters/advanced-filters.component';
+import { ScrollItem } from '../classes/scroll-item';
 
 @Component({
   selector: 'app-main-menu',
@@ -24,6 +26,20 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public login: number = 0;
   public blog1: any = null;
   public blog2: any = null;
+  public displayItems: any = [];
+  public scrollItems: any = [
+    { id: 'item1', name: 'item 1', src: 'assets/images/landing/couple2.png', type: 'New Blog Post', description: 'description', icon: 'fa fa-book' },
+    { id: 'item2', name: 'item 2', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item3', name: 'item 3', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item4', name: 'item 4', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item5', name: 'item 5', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item6', name: 'item 6', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item7', name: 'item 7', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item8', name: 'item 8', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item9', name: 'item 9', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+    { id: 'item10', name: 'item 10', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
+  ];
+  public currentIndex = 0;
 
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
@@ -31,8 +47,12 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     window.scrollTo(0, 0);
 
+    document.addEventListener('scroll', () => {
+      this.checkIsVisible();
+    })
+
     this.loadUserObj();
-    this.getDataFromServer('getBlogs', 'blog.php', []);
+    this.userStatus = this.user.status;
     this.popupNum = 1;
 
     this.route.queryParams.subscribe(params => {
@@ -48,11 +68,39 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (this.user && this.user.status == 'Active') {
       this.popupNum = 0;
       this.headerObj.notifications = this.user.notifications;
+      this.getDataFromServer('getScrollData', 'scroll.php', {});
       if (!localStorage['latitude'])
         this.getLocation();
       else if (!this.user.navLat)
         this.uploadCoordinates();
     }
+  }
+  addScrollItem() {
+    if (this.scrollItems.length <= this.currentIndex)
+      return;
+    this.displayItems.push(new ScrollItem(this.scrollItems[this.currentIndex], this.currentIndex));
+    this.currentIndex++;
+  }
+  checkIsVisible() {
+    if (!this.displayItems)
+      return;
+    if (this.displayItems.length == this.scrollItems.length) {
+      console.log('done.');
+      return;
+    }
+    var lastId = this.displayItems[this.displayItems.length - 1].id;
+    const element = document.getElementById(lastId);
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      if (rect.bottom <= window.innerHeight) {
+        console.log("adding 3 items");
+        this.addScrollItem();
+        this.addScrollItem();
+        this.addScrollItem();
+      }
+
+    }
+
   }
 
   logoutUser() {
@@ -91,20 +139,35 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    if (responseJson.action == "getBlogs" && responseJson.blogList.length>1) {
-      this.blog1 = new Blog(responseJson.blogList[0]);
-      this.blog2 = new Blog(responseJson.blogList[1]);
-//      console.log('hey!', responseJson);
-      var refreshFlg = (this.user && this.user.status == 'Pending') ? 'Y' : '';
-      this.logUser(refreshFlg);
+    this.responseJson = responseJson;
+    if (responseJson.action == "getScrollData") {
+      //this.blog1 = new Blog(responseJson.blogList[0]);
+      //this.blog2 = new Blog(responseJson.blogList[1]);
+      this.scrollItems = [];
+      this.responseJson.userItems.forEach((element: any) => {
+        if (this.responseJson.blogItems.length > 0)
+          this.scrollItems.push(this.responseJson.blogItems.shift());
+        if (this.responseJson.reviewItems.length > 0)
+          this.scrollItems.push(this.responseJson.reviewItems.shift());
+        if (this.responseJson.journalItems.length > 0)
+          this.scrollItems.push(this.responseJson.journalItems.shift());
+
+        this.scrollItems.push(element);
+      });
+
+      this.addScrollItem();
+      this.addScrollItem();
+      this.addScrollItem();
+      console.log('hey!', responseJson);
+      //var refreshFlg = (this.user && this.user.status == 'Pending') ? 'Y' : '';
+      //this.logUser(refreshFlg);
     }
     if (responseJson.action == "logUser" && this.user) {
+      this.userStatus = this.user.status;
       if (this.user && this.user.ip == '')
         this.populateGeoInfo();
       else {
         this.syncUserWithLocalStorage(responseJson);
-        if (this.userStatus != 'Active')
-          this.userStatus = this.user.status;
       }
     }
     if (responseJson.action == 'updateGeoInfo') {

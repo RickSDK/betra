@@ -14,8 +14,9 @@
             <td width="50%" style="padding: 0; position: relative;" valign="top">
                 <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle plus-icon"></i>
                 <i *ngIf="largeImageFlg" (mousedown)="toggleImage()" class="fa fa-minus-circle plus-icon"></i>
-                <i *ngIf="user.picCertificateFlg" [routerLink]="['/verify-pics']"
-                    class="fa fa-certificate verified-cirtificate" title="Picture Verified"></i>
+                <i *ngIf="user.picCertificateFlg" 
+                    class="fa fa-certificate verified-cirtificate"></i>
+                <span [routerLink]="['/reputation']" class="reputation-score" title="Reputation Score">{{user.reputationScore}}</span>
                 <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron"
                     style="left: 10px;"></i>
                 <i *ngIf="pictureIndexMax>1 && pictureIndex<pictureIndexMax" (mousedown)="changePicture(1)"
@@ -72,7 +73,7 @@
                         {{user.lastLoginText}}</span>
                     <div style="font-size: 12px;">{{user.location}}</div>
                     <div style="font-size: 8px; color: gray;">
-                        <span>{{distance}}</span>
+                        <span>{{user.distanceText}}</span>
                     </div>
                     <div class="small-box">
                         <div class="small-title main-color">Relationship</div>

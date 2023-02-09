@@ -1,100 +1,101 @@
-<div *ngIf="!loadingFlg">
+<div *ngIf="!loadingFlg" class="login-shell" style="position: relative; width: 320px;">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-    <div *ngIf="login==0">
-        <div>&nbsp;</div>
-        <div class="large-text">FINDING A DATE JUST GOT<br>BETTER</div>
-        <div>&nbsp;</div>
-        <h3 style="text-align: center;">START <span class="red-text"
-                style="text-decoration: underline;">FREE</span> TODAY</h3>
-        <div>&nbsp;</div>
-        <button (mousedown)="login=1"
-            class="btn btn-main-color btn-large">Create
-            Account</button>
+    <div [style.height]="login==0?'220px':'430px'"
+        style="background-color: black; border-radius: 20px; display: block; position: absolute; width: 320px; min-height: 220px; left: 0; top: 0; opacity: .5;">
     </div>
 
-    <div *ngIf="login>0" style="text-align: center;">
-        <div style="font-size: 10px; color: gray;">version: {{version}}</div>
-        <table align="center">
-            <tr>
-                <td>
-                    <i *ngIf="facebookButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
-                    <i *ngIf="!facebookButtonPressedFlg" (click)="facebookSignin()" class="fa fa-facebook facebook-btn login-button"
-                        title="Continue with Facebook"></i>
-                </td>
-                <td>
-                    <i *ngIf="googleButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
-                    <img *ngIf="!googleButtonPressedFlg" (click)="loginWithGoogle()" src="assets/images/google-signin2.png" height="44"
-                        style="cursor: pointer" title="Continue with Google">
-                    <!--<div id="g_id_onload"
-                    data-client_id="859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com"
-                    data-context="signin" data-ux_mode="popup" data-callback="loginWithGoogle()"
-                    data-auto_prompt="false">
+    <div style="display: inline-flexbox; position: absolute; width: 320px; padding: 20px;">
+        <div *ngIf="login==0">
+            <div>&nbsp;</div>
+            <div class="large-text">DATING MADE</div>
+            <h3> <span class="red-text" style="text-decoration: underline;">BETTER</span></h3>
+            <div>&nbsp;</div>
+            <button [routerLink]="['']" [queryParams]="{login: 2}" class="btn btn-main-color btn-large">Create
+                Account</button>
+        </div>
+        <div *ngIf="login>0" style="text-align: center;">
+            <div style="font-size: 10px; color: #444;">version: {{version}}</div>
+            <table align="center">
+                <tr>
+                    <td>
+                        <i *ngIf="facebookButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
+                        <i *ngIf="!facebookButtonPressedFlg" (click)="facebookSignin()"
+                            class="fa fa-facebook facebook-btn login-button" title="Continue with Facebook"></i>
+                    </td>
+                    <td>
+                        <i *ngIf="googleButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
+                        <img *ngIf="!googleButtonPressedFlg" (click)="loginWithGoogle()"
+                            src="assets/images/google-signin2.png" height="44" style="cursor: pointer"
+                            title="Continue with Google">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="login==1">
+            <div class="tiny-text">Email Address</div>
+            <input type="email" name="email" id="email" placeholder="Email Address" (input)="valueChanged()"
+                [value]="savedEmail">
+            <div *ngIf="!forgotPasswordFlg" class="tiny-text">Password</div>
+            <input *ngIf="!forgotPasswordFlg" type="password" name="password" id="password" placeholder="Password"
+                (input)="valueChanged()" [value]="savedPassword">
+            <hr>
+            <p *ngIf="forgotPasswordFlg">Forgot password? Enter your email address above and press Submit.</p>
+            <div style="text-align: center;">
+                <button *ngIf="!forgotPasswordFlg" (mousedown)="loginPressed()" class="btn btn-main-color btn-large"
+                    [disabled]="submitDisabled">Log In</button>
+                <button *ngIf="forgotPasswordFlg" (mousedown)="forgotPasswordPressed()"
+                    class="btn btn-main-color btn-large">Submit</button>
+
+                <div style="margin-top: 10px;">
+                    <span [routerLink]="['']" [queryParams]="{login: 2}" class="hyper-link">Create
+                        Account</span>&nbsp;&nbsp;&nbsp;
+                    <span (mousedown)="forgotPasswordFlg = !forgotPasswordFlg" class="hyper-link"
+                        style="font-size: 12px; color: #ccc;">Forgot Password</span>
                 </div>
-
-                <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue"
-                    data-text="signin" data-size="medium" data-logo_alignment="left">
-                </div>-->
-                </td>
-            </tr>
-        </table>
-    </div>
-
-
-    <div *ngIf="login==1">
-        <div class="tiny-text">Email Address</div>
-        <input type="email" name="email" id="email" placeholder="Email Address" (input)="valueChanged()"
-            [value]="savedEmail">
-        <div *ngIf="!forgotPasswordFlg" class="tiny-text">Password</div>
-        <input *ngIf="!forgotPasswordFlg" type="password" name="password" id="password" placeholder="Password"
-            (input)="valueChanged()" [value]="savedPassword">
-        <hr>
-        <p *ngIf="forgotPasswordFlg">Forgot password? Enter your email address above and press Submit.</p>
-        <div style="text-align: center;">
-            <button *ngIf="!forgotPasswordFlg" (mousedown)="loginPressed()" class="btn btn-main-color btn-large"
-                [disabled]="submitDisabled">Log In</button>
-            <button *ngIf="forgotPasswordFlg" (mousedown)="forgotPasswordPressed()"
-                class="btn btn-main-color btn-large">Submit</button>
-
-            <div style="margin-top: 10px;">
-                <span (mousedown)="login=2" class="hyper-link">Create
-                    Account</span>&nbsp;&nbsp;&nbsp;
-                <span (mousedown)="forgotPasswordFlg = !forgotPasswordFlg" class="hyper-link"
-                    style="font-size: 12px; color: #ccc;">Forgot Password</span>
             </div>
         </div>
-    </div>
-
-
-    <div *ngIf="login==2">
-        <app-first-name-input (messageEvent)="valueChanged()">
-        </app-first-name-input>
-        <input name="email" id="email" type="email" placeholder="Email Address" (input)="valueChanged()">
-        <input name="password" id="password" type="password" placeholder="Password" (input)="valueChanged()">
-        <div>&nbsp;</div>
-        <div style="color: black; text-align: center; padding: 5px;" (mousedown)="errorMessage=''">
-            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="login==2">
+            <app-first-name-input (messageEvent)="valueChanged()">
+            </app-first-name-input>
+            <input name="email" id="email" type="email" placeholder="Email Address" (input)="valueChanged()">
+            <input name="password" id="password" type="password" placeholder="Password" (input)="valueChanged()">
+            <div>&nbsp;</div>
+            <!--<div style="color: black; text-align: center; padding: 5px;" (mousedown)="errorMessage=''">
+                <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            </div>-->
+            <button (mousedown)="signupPressed()" class="btn btn-main-color btn-large">Sign Up!</button>
+            <div style="text-align: center; margin-top: 10px;">
+                <span [routerLink]="['']" [queryParams]="{login: 1}" class="hyper-link">Already have an account?</span>
+            </div>
         </div>
-        <button (mousedown)="signupPressed()" class="btn btn-main-color btn-large">Sign Up!</button>
-        <div style="text-align: center; margin-top: 10px;">
-            <span (mousedown)="login=1" class="hyper-link">Already have an account?</span>
+        <table *ngIf="login>0" width="100%" border="0" style="margin-top: 40px;">
+            <tr style="font-size: 10px;">
+                <td width="50%" align="center"><span [routerLink]="['/privacy-policy']" class="hyper-link">Privacy
+                        Policy</span>
+                </td>
+                <td align="center"><span [routerLink]="['/terms-conditions']" class="hyper-link">Terms</span></td>
+            </tr>
+        </table>
+        <div (mousedown)="errorMessage=''" *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+
+        <div class="inside-box" *ngIf="loadingFlg">
+            <div style="font-size: 24px; text-align: center;">
+                <i class="fa fa-spinner fa-spin"></i> Please Wait
+            </div>
         </div>
+
     </div>
 
 
-    <table *ngIf="login>0" width="100%" border="0" style="margin-top: 40px;">
-        <tr style="font-size: 10px;">
-            <td width="50%" align="center"><span [routerLink]="['/privacy-policy']" class="hyper-link">Privacy
-                    Policy</span>
-            </td>
-            <td align="center"><span [routerLink]="['/terms-conditions']" class="hyper-link">Terms</span></td>
-        </tr>
-    </table>
-</div>
-<div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
 
-<div class="inside-box" *ngIf="loadingFlg">
-    <div style="font-size: 24px; text-align: center;">
-        <i class="fa fa-spinner fa-spin"></i> Please Wait
-    </div>
+
+
+
+
+
+
+
+
+
+
 </div>

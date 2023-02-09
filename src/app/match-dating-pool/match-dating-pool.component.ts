@@ -11,10 +11,15 @@ export class MatchDatingPoolComponent implements OnInit {
   @Input('uid') uid: string = '';
 
   public datingPoolList: any = [];
+  public showIntimacyLevelsFlg: boolean = false;
+  public showIntimacyLevelFlg: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+    var showIntimacyLevelsFlg = localStorage['showIntimacyLevelsFlg'];
+    this.showIntimacyLevelsFlg = showIntimacyLevelsFlg && showIntimacyLevelsFlg == 'Y';
+
   }
 
 }

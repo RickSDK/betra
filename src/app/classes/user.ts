@@ -191,6 +191,14 @@ export class User {
 
     public daysAgo: number = 0;
     public maxPoolSize: number = 0;
+    public reputationScore: number = 0;
+
+    public facebookUrl: string = '';
+    public facebookUrlFlg: boolean = false;
+    public instragramUrl: string = '';
+    public instragramUrlFlg: boolean = false;
+    public linkedInUrl: string = '';
+    public linkedInUrlFlg: boolean = false;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -315,6 +323,27 @@ export class User {
             this.activityRep = obj.activityRep || 0;
             this.droppedByName = obj.droppedByName;
             this.droppedBy = obj.droppedBy || 0;
+
+            this.facebookUrl = obj.facebookUrl || '';
+            this.facebookUrlFlg = obj.facebookUrlFlg == 'Y';
+            this.instragramUrl = obj.instragramUrl || '';
+            this.instragramUrlFlg = obj.instragramUrlFlg == 'Y';
+            this.linkedInUrl = obj.linkedInUrl || '';
+            this.linkedInUrlFlg = obj.linkedInUrlFlg == 'Y';
+
+            if (this.emailVerifyFlg)
+                this.reputationScore++;
+            if (this.picCertificateFlg)
+                this.reputationScore++;
+            if (this.navLat && this.navLat.length > 0)
+                this.reputationScore++;
+            if (this.facebookUrlFlg)
+                this.reputationScore++;
+            if (this.instragramUrlFlg)
+                this.reputationScore++;
+            if (this.linkedInUrlFlg)
+                this.reputationScore++;
+
 
             this.incomeRange = 'Average';
             if (this.income == 'Under $20K' || this.income == '$20K - $49K')
@@ -603,6 +632,11 @@ export class User {
         if (myUser && myUser.user_id > 0) {
             if (this.latitude && myUser.latitude) {
                 this.distance = distanceInKmBetweenEarthCoordinates(parseFloat(this.latitude), parseFloat(this.longitude), parseFloat(myUser.latitude), parseFloat(this.longitude));
+
+                if (this.ownerFlg) {
+                   this.location = myUser.location;
+                   this.distance = 7 + this.firstName.length;
+                }
                 this.isGoodLocation = (this.distance < 200);
                 if (this.distance < 40)
                     this.matchQualityIndex += 2;
@@ -768,7 +802,7 @@ function betraImageFromId(user_id: number, profilePic: number, gender: string, p
     var imgSrc = (gender && gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
 
     if (user_id > 0 && profilePic > 0)
-        imgSrc = 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
+        imgSrc = 'https://www.betradating.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
 
     if (picFlagged > 0)
         imgSrc = 'assets/images/picFlagged' + picFlagged.toString() + '.png';
@@ -777,7 +811,7 @@ function betraImageFromId(user_id: number, profilePic: number, gender: string, p
 }
 function bonusImageFromNum(user_id: number, profilePic: number) {
     if (user_id > 0 && profilePic > 0)
-        return 'https://www.appdigity.com/betraPhp/bonusPics/pic' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
+        return 'https://www.betradating.com/betraPhp/bonusPics/pic' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
     else
         return '';
 

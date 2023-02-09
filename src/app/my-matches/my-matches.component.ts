@@ -52,8 +52,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
       this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
-      if (menu == 0 && this.user.datingPool.length == 0)
-        this.showDetailsNumber = 1;
     });
 
     if (localStorage['infoObj']) {
@@ -247,7 +245,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     }
   }
   getImageFile(user_id: string, profilePic: string) {
-    return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id + '_' + profilePic + '.jpg';
+    return 'https://www.betradating.com/betraPhp/profileImages/profile' + user_id + '_' + profilePic + '.jpg';
   }
   updateMatches() {
     this.user.datingPool.forEach((element: any) => {

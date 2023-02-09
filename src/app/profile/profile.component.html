@@ -24,16 +24,16 @@
                     <div class="gray-text">Name: <span class="text-highlight">{{user.firstName}}</span> Email: <span class="text-highlight">{{user.email}}</span> </div>
                     
                     <div>
-                        <div class="container" style="padding: 0;">
+                        <div class="container-fluid" style="padding: 0;">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-sm-6">
                                     <div class="tiny-text">Phone</div>
-                                    <app-phone-input (messageEvent)="menuValueChanged()" [phone]="user.phone">
+                                    <app-phone-input (messageEvent)="menuValueChanged2()" [phone]="user.phone">
                                     </app-phone-input>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-sm-6">
                                     <div class="tiny-text">Birthdate</div>
-                                    <app-birthday-input (messageEvent)="menuValueChanged()"
+                                    <app-birthday-input (messageEvent)="menuValueChanged2()"
                                         [birthdate]="user.birthdate"></app-birthday-input>
                                 </div>
                             </div>
@@ -41,10 +41,10 @@
 
 
 
-                        <div class="container" style="padding: 0;">
+                        <div class="container-fluid" style="padding: 0;">
                             <div class="row">
 
-                                <div class="col-lg-6">
+                                <div class="col-sm-6">
                                     <div class="tiny-text">My Gender</div>
                                     <table>
                                         <tr>
@@ -63,7 +63,7 @@
                                         gender
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-sm-6">
                                     <div *ngIf="user.findLoveFlg">
                                         <div class="tiny-text">Show Me (I want to date)</div>
                                         <table>

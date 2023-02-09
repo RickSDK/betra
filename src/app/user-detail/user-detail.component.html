@@ -5,7 +5,7 @@
 
     <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic" [size]="30"></app-profile-pic>
 
-    <div *ngIf="searchStarted && (id == 2 || id == 4)" class="match-card">
+    <div *ngIf="searchStarted && id == 2" class="match-card">
         <div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
             <i class="fa fa-times" style="float: right"></i>
             <p style="font-size: 16px" class="red-text">Your <b><i class="fa fa-users"></i> Dating Pool</b> is currently empty.</p>
@@ -82,7 +82,7 @@
                 <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
                     <p>Sorry, no more profiles to browse!</p>
                     <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a new
-                        app and people are just starting to sign up. Check back soon.</p>
+                        app and people are just starting to sign up. Check back soon. If you would like to reset your "No" matches and revisit the people you declined, visit the "<span [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
                 </div>
                 <div *ngIf="advancedSearchFlg && profileViews>0">
                     <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply press

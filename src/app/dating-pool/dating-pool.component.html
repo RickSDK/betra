@@ -3,23 +3,24 @@
     <div *ngIf="largeFlg">
         <div *ngFor="let person of datingPool" class="pool-large menu-circle" style="position: relative;">
             <i *ngIf="exceededPoolSizeFlg" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
-            <img [src]="person.src" class="large-img"
-                [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, s: 'Y'}"
+            <img [src]="person.src" class="large-img" [routerLink]="['/user-detail']"
+                [queryParams]="{uid: person.user_id, s: 'Y'}"
                 [style.border]="person.heartFlg?'7px solid #990000':'none'">
             <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
             <i class="fa fa-calendar alert-icon"
                 *ngIf="person.match && (person.match.match_date_request == 'A' || person.match.you_date_request == 'Y')"></i>
-            <i [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, c: 'Y'}" class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
-            <i class="fa fa-phone alert-icon"
-                *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
+            <i [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, c: 'Y'}"
+                class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
+            <i class="fa fa-phone alert-icon" *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
             <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">
                 <i *ngIf="person.heartFlg2" class="fa fa-heart"></i>
-                {{person.name}}
+                {{person.name}} <sup *ngIf="showIntimacyValuesFlg" class="intimacyValue">{{person.level}}</sup>
             </div>
             <div style="font-size: 8px; color: gray;"><i class="fa fa-circle main-color"></i> {{person.lastLoginText}}
             </div>
             <div class="icon-label btn-main-color">
-                {{person.name}}
+                <div>{{person.name}}</div>
+                <div style="font-size: 8px;">Intimacy Level: {{person.level}}</div>
             </div>
             <div *ngIf="person.match">
                 <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!
@@ -38,9 +39,22 @@
                     messages!</div>
                 <div *ngIf="person.match.roseAssignedBy > 0" class="big-flashy"><i class="fa fa-heart"></i> Rose
                     Assigned!</div>
-
-
             </div>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <input  type="checkbox" id="switch" class="checkbox" [checked]="showIntimacyLevelsFlg"/>
+                        <label (mousedown)="toggleIntimacyFlg()" for="switch" class="toggle"></label>
+                    </td>
+                    <td style="font-size: 10px; color: gray;">
+                        Show intimacy levels
+                    </td>
+                </tr>
+            </table>
+
+
         </div>
     </div>
     <div *ngIf="!largeFlg">
@@ -57,7 +71,8 @@
                     </div>
                 </span>
             </div>
-            <i *ngIf="!panRight && user.datingPool.length>7" (mousedown)="panRight=true" class="fa fa-chevron-right large-icon"></i>
+            <i *ngIf="!panRight && user.datingPool.length>7" (mousedown)="panRight=true"
+                class="fa fa-chevron-right large-icon"></i>
         </div>
         <div [routerLink]="['/matches']" *ngIf="user.datingPool.length >= 5 && user.heartId == 0"
             style="color: #900; font-size: 12px;">

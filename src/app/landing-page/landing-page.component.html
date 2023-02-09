@@ -1,77 +1,77 @@
-<img class="background-img hide-xs" src="assets/images/landing/girlRose.webp" alt="">
-<img class="background-img show-xs" src="assets/images/landing/girlRoseSlim.webp" alt="">
+<!--<img class="background-img hide-xs" src="assets/images/landing/roseHome.png" alt="">-->
+<img class="background-img hide-xs" [src]="backgroundImg" alt="">
+<img class="background-img show-xs" src="assets/images/landing/couple2.png" alt="">
 <div class="gray-screen large-screen"></div>
 <div *ngIf="login > 0" class="gray-screen large-screen"></div>
 
-<span *ngIf="0" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
+<span *ngIf="1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
     Log<br>
     In
 </span>
-<!--<div *ngIf="0"
-    style="background-color: black; color: white; padding: 20px; font-size: 60px; font-weight: 800; position: relative;">
-    <i class="fa fa-heart" style="position: absolute; top: 40px; left: 25px; font-size: 50px; color: pink;"></i>
-    <i class="fa fa-heart" style="position: absolute;  top: 45px; left: 29px; font-size: 40px; color: #ff0044;"></i>
-    <i class="fa fa-heart main-color"></i>
-    <span style="margin-left: 2px;">Betra</span>
-</div>-->
-
-<img [routerLink]="['']" [queryParams]="{login: 0}" [src]="bgImg" height="60"
+<img [routerLink]="['']" [queryParams]="{login: 0}" [src]="logo" height="60"
     style="top: 10px; left: 10px; position: absolute; cursor: pointer;">
 
-<div style="padding: 40px;">&nbsp;</div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md">
-            <div style="display: inline-block; width: 100%; max-width: 360px; position: relative;">
-                <div *ngIf="0" class="gray-screen small-screen">
-                </div>
+<table width="100%" style="color: white; font-size: 16px; margin-top: 15px;">
+    <tr>
+        <td align="center">
+            <i (mousedown)="toggleBackground()" class="fa fa-picture-o"></i>
+            <span [routerLink]="['']" class="white-link2">Home</span>
+            <span [routerLink]="['/about']" class="white-link2">About</span>
+            <span [routerLink]="['/blogs']" class="white-link2">Blog</span>
+            </td>
+    </tr>
+</table>
+<div class="container-fluid" style="height: 100vh; padding-top: 80px; text-align: center;">
+    <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
+    </app-login-popup>
+</div>
 
-                <div
-                    style="width: 100%; height: 100%; padding: 50px 30px; color: white; background-color: #222; border-radius: 15px; box-shadow: 3px 3px 10px black;">
- 
-                    <!--<app-sign-up-popup *ngIf="showSignupPopup" (messageEvent)="userIsLoggedIn($event)">
-                    </app-sign-up-popup>-->
 
-                    <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
-                    </app-login-popup>
+<!---->
+
+<div style="color: white; background-image: url('assets/images/landing/roseBottom.png'); padding-top: 20px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <div style="padding: 20px;">
+                    <div class="large-text2">How we're changing</div>
+                    <div class="large-text2">the game.</div>
+                    <div>You asked. We delivered.</div>
+                    <div>&nbsp;</div>
+                    <h3>MOST SAFETY FEATURES EVER</h3>
+                    <div>We have set out to make the most scam-proof, most reliable and safest way to date online.</div>
+                    <h3>USER REVIEWS</h3>
+                    <div>Betra allows you to read and review your dates before your meet them, so you actually know who
+                        you are going to meet.</div>
+                    <h3>HIGER QUALITY MATCHES</h3>
+                    <div>Completed profiles, quality pictures and cutting out the scammers means you get the highest
+                        quality matches of any app.</div>
+                    <div>&nbsp;</div>
+                    <div style="text-align: center"><img [src]="logo" height="80"></div>
                 </div>
             </div>
-        </div>
-        <div class="col-md" style="padding: 10px; text-align: center;">
-            <div style="display: inline-block; padding: 10px; border-radius: 15px; margin: 10px; text-align: center;">
-                <div class="small-title" style="font-size: 20px;">Welcome to</div>
-                <div class="big-title" style="font-size: 58px;">Betra</div>
-                <div class="small-title" style="font-size: 24px;">The newest, safest and funnest way to date.</div>
-            </div>
+            <div class="col-md" style="text-align: center;">
+                <div style="padding: 2px;">
+                    <img src="assets/images/landing/cell-phone.png" height="500">
+                    <div style="display: block; height: 150px; text-align: center;">
+                        <div style="display: inline-block; position: relative; width: 370px; height: 150px;">
+                           <div class="testimony-popup" style="color: black;">
+                               <div class="name-text">Savonne</div>
+                               <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's nice
+                               knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
+                           </div>
+                           <img src="assets/images/landing/dana.png" class="savonne">
+                       </div>
+                   </div>
 
-            <div style="display: block; height: 150px; text-align: center;">
-                 <div style="display: inline-block; position: relative; width: 370px; height: 150px;">
-                    <div class="testimony-popup">
-                        <div class="name-text">Savonne</div>
-                        <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's nice
-                        knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
-                    </div>
-                    <img src="assets/images/landing/dana.png" class="savonne">
                 </div>
             </div>
-
         </div>
     </div>
+    <div style="text-align: center;">
+        <span [routerLink]="['/blogs']" class="white-link">Blog</span> |
+        <span [routerLink]="['/about']" class="white-link">About</span> |
+        <span [routerLink]="['/terms-conditions']" class="white-link">Terms & Conditions</span> |
+        <span [routerLink]="['/privacy-policy']" class="white-link">Privacy Policy</span>
+    </div>
 </div>
-<div>&nbsp;</div>
-
-<!--<div style="text-align: center; background-color: white; padding: 15px;">
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-    <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [shrinkSize]="1"></app-blog-cell>
-</div>
-
-
-<div style="text-align: center;">
-    <div style="color: gray;">Google Ads</div>
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2626924352662007" data-ad-slot="3410873039"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
-</div>
-
-<app-betra-features></app-betra-features>-->
-
-<app-bottom-bar [stickyBottomFlg]="true"></app-bottom-bar>

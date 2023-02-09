@@ -1,7 +1,34 @@
 <div class="small-box">
-    <div class="main-color" style="font-size: 12px;">{{firstName}}'s Dating Pool</div>
+    <div class="main-color" style="font-size: 12px;">{{firstName}}'s Dating Pool <i *ngIf="showIntimacyLevelsFlg"
+            (mousedown)="showIntimacyLevelFlg=!showIntimacyLevelFlg" class="fa fa-info-circle icon-clickable"></i></div>
     <div *ngFor="let person of datingPool" class="pool-snapshot">
-        <img  [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngIf="person.user_id>0" [src]="person.src" class="snapshot-img" title="{{person.name}} (intimacy level {{person.level}})" [style.border]="person.heartFlg?'2px solid red':'none'">
-        <div class="small-name" [style.font-weight]="person.level>4?800:200" ><i *ngIf="person.heartFlg" style="color: red;" class="fa fa-heart"></i>{{person.name}}</div>
+        <img [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngIf="person.user_id>0"
+            [src]="person.src" class="snapshot-img" title="{{person.name}} (intimacy level {{person.level}})"
+            [style.border]="person.heartFlg?'2px solid red':'none'">
+        <div class="small-name" [style.font-weight]="person.level>4?800:200"><i *ngIf="person.heartFlg"
+                style="color: red;" class="fa fa-heart"></i>{{person.name}} <sup style="color: #800;"
+                *ngIf="showIntimacyLevelsFlg">{{person.level}}</sup></div>
+    </div>
+    <div *ngIf="showIntimacyLevelFlg">
+        <div class="red-text">Intimacy Levels</div>
+        <p class="gray-text" style="text-align: left;">Intimacy Level is the small number listed next to the person's name. It indicates 
+            how many Betra features the two people have used together. 
+            It is simply a small indicator, letting everyone know how serious the relationship might be
+            getting.</p>
+        <p>Here are what the levels mean:</p>
+        <div style="display: inline-block;" class="border-box">
+            <ol style="text-align: left;">
+                <li>One person is interested</li>
+                <li>Match made</li>
+                <li>Initial question asked</li>
+                <li>Question replied to</li>
+                <li>Open text exchange mode</li>
+                <li>Contact Info exchanged</li>
+                <li>Private picture exchanged</li>
+                <li>Went on date</li>
+                <li>Review written</li>
+            </ol>
+        </div>
+        <div (mousedown)="showIntimacyLevelFlg=false" class="text-link">Close</div>
     </div>
 </div>

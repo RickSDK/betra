@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TextInputComponent implements OnInit {
   @Input('matchLevel') matchLevel: number = 0;
   @Input('placeHolder') placeHolder: string = 'Type message';
-  @Input('id') id: string = '';
+  @Input('id') id: string = 'textField';
   @Input('maxLength') maxLength: number = 150;
   @Input('highlightFlg') highlightFlg: boolean = false;
   @Input('value') value: string = '';

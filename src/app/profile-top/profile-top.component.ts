@@ -9,7 +9,7 @@ import { User } from '../classes/user';
 export class ProfileTopComponent implements OnInit {
   @Input('user') user: any = new User(null);
   @Input('myUser') myUser: any = new User(null);
-  @Input('distance') distance: string = '';
+//  @Input('distance') distance: string = '';
   @Input('adminFlg') adminFlg: boolean = false;
   @Input('expandBottomFlg') expandBottomFlg: boolean = false;
   @Input('snapshotFlg') snapshotFlg: boolean = false;

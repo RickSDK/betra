@@ -1,8 +1,8 @@
 function getHostname() {
-	return 'https://www.appdigity.com/betraPhp/';
+	return 'https://www.betradating.com/betraPhp/';
 }
 function getVersion() {
-	return '0.151';
+	return '0.155';
 }
 function decodeJwtResponse(token) {
 	var base64Url = token.split('.')[1];
@@ -77,7 +77,7 @@ function getBrowser() {
 }
 function betraImageFromId(user_id, profilePic) {
 	if (user_id > 0 && profilePic > 0)
-		return 'https://www.appdigity.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
+		return 'https://www.betradating.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
 	else
 		return 'assets/images/theRock.png';
 }

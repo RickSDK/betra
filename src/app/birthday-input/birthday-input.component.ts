@@ -24,7 +24,7 @@ export class BirthdayInputComponent implements OnInit {
 
   ngOnInit(): void {
     for (var i = 1; i <= 31; i++)
-      this.days.push(i.toString());
+      this.days.push(i.toString().padStart(2, '0'));
 
     for (let i = 2010; i >= 1930; i--)
       this.years.push(i);
@@ -35,7 +35,8 @@ export class BirthdayInputComponent implements OnInit {
         this.year = parts[0];
         this.month = parts[1];
         this.day = parts[2];
-        this.verifyBirthday();
+        console.log('birthday', this.day, this.month, this.year);
+        //this.verifyBirthday();
         //        var dt = getDateObjFromJSDate(this.birthdate);
         //      if (dt.jsDate == 'Invalid Date')
         //      this.errorMessage = 'Invalid Date';
@@ -91,7 +92,7 @@ export class BirthdayInputComponent implements OnInit {
   verifyBirthday() {
     this.errorMessage = '';
     var now = getDateObjFromJSDate();
-    var birthdate = this.year + '-' + this.month + '-' + this.day + ' ' + now.localTime;
+    var birthdate = this.year + '-' + this.month + '-' + this.day + ' ' + now.time;
     var obj = getDateObjFromJSDate(birthdate);
     if (obj.jsDate == 'Invalid Date')
       this.errorMessage = 'Invalid Date';

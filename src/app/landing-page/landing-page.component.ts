@@ -12,9 +12,11 @@ import { Meta, Title} from '@angular/platform-browser';
 export class LandingPageComponent extends BaseComponent implements OnInit {
   public login: number = 0;
   public override userId: number = 0;
-  public bgImg = 'assets/images/landing/logoWhite.png';
+  //public bgImg = 'assets/images/landing/logoWhite.png';
+  public logo = 'assets/images/betraLogo.png';
   public adsbygoogle: any;
   public blogList: any = [];
+  public backgroundImg = 'assets/images/landing/roseHome.png';
   //public bgImg = 'assets/images/landing/logoBlack.png';
 
   constructor(private meta: Meta, private title: Title, private route: ActivatedRoute, private router: Router) { 
@@ -38,7 +40,9 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
       })
     }
   }
-
+  toggleBackground() {
+    this.backgroundImg = (this.backgroundImg == 'assets/images/landing/background1.png')?'assets/images/landing/roseHome.png':'assets/images/landing/background1.png';
+  }
   gotoMainMenu() {
     this.router.navigate(['home']);
   }

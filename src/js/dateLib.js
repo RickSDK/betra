@@ -37,6 +37,10 @@ function getDateObjFromJSDate(dateStr = '') {
         distanceAway = (daysAgo * -1).toString() + ' days from now';
 
     var nowLocal = now.toLocaleDateString();
+    var time = dt.toLocaleTimeString();
+    var segments = time.split(' ');
+    if (segments && segments.length > 1)
+        time = segments[0];
     var tomorrowLocal = new Date(now.getTime() + (3600000 * 24)).toLocaleDateString();
     var yesterdayLocal = new Date(now.getTime() - (3600000 * 24)).toLocaleDateString();
     if (dt.toLocaleDateString() == nowLocal)
@@ -53,6 +57,7 @@ function getDateObjFromJSDate(dateStr = '') {
         localDate: dt.toLocaleDateString(),
         localTime: dt.toLocaleTimeString(),
         localTime2: dt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
+        time: time,
         getTime: dt.getTime(),
         mo: dt.getMonth() + 1,
         month: monthName(dt),

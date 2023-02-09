@@ -68,7 +68,7 @@ export class UserPrivatePicsComponent extends BaseComponent implements OnInit {
       this.yourSrc = this.matchPics[0];
   }
   betraPrivateImageFromId(userId: number, uid: number, picNum: number) {
-    return 'https://www.appdigity.com/betraPhp/privateImages/user' + userId + '_' + uid + '_' + picNum + '.jpg';
+    return 'https://www.betradating.com/betraPhp/privateImages/user' + userId + '_' + uid + '_' + picNum + '.jpg';
   }
 
 }

@@ -4,6 +4,7 @@
 
 .like-results {
     float: right;
+    text-align: center;
     border-radius: 10px;
     box-shadow: 2px 2px 3px gray;
     background-color: #eee;
@@ -12,7 +13,9 @@
 }
 
 .like-results-comment {
+    display: inline-block;
     position: absolute;
+    text-align: center;
     top: -4px;
     right: 7px;
     border-radius: 10px;

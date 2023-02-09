@@ -87,6 +87,8 @@ import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup
 import { LandingContentComponent } from './landing-content/landing-content.component';
 import { ProfileThumbnailComponent } from './profile-thumbnail/profile-thumbnail.component';
 import { ContactComponent } from './contact/contact.component';
+import { ReputationComponent } from './reputation/reputation.component';
+import { TextWithEnterComponent } from './input/text-with-enter/text-with-enter.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -173,6 +175,8 @@ import { ContactComponent } from './contact/contact.component';
     LandingContentComponent,
     ProfileThumbnailComponent,
     ContactComponent,
+    ReputationComponent,
+    TextWithEnterComponent,
   ],
   imports: [
     BrowserModule,

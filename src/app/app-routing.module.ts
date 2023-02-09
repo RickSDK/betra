@@ -36,10 +36,11 @@ import { BlogManageComponent } from './blog-manage/blog-manage.component';
 import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup.component';
 import { LandingContentComponent } from './landing-content/landing-content.component';
 import { ContactComponent } from './contact/contact.component';
+import { ReputationComponent } from './reputation/reputation.component';
 
 const routes: Routes = [
-  { path: '', component: LandingContentComponent },
-  { path: 'landing', component: LandingPageComponent },
+  { path: 'content', component: LandingContentComponent },
+  { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'about', component: AboutComponent },
@@ -74,6 +75,7 @@ const routes: Routes = [
   { path: 'blog-manage', component: BlogManageComponent },
   { path: 'restaurant-promo', component: RestaurantSignupComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'reputation', component: ReputationComponent },
 ];
 
 @NgModule({

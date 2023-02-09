@@ -32,7 +32,7 @@
         <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">
         </app-dating-pool>
 
-        <div class="match-card" style="padding: 10px; width: 100%; max-width: none;">
+        <div class="match-card">
             <div class="main-color" style="font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to
                 Betra!
             </div>
@@ -66,9 +66,8 @@
                     ever
                     have with a dating app.</p>
             </div>
+            <!--
             <hr>
-            <p [routerLink]="['/blogs']" class="text-link">Betra Blogs</p>
-            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
             <div class="contiainer-fluid">
                 <div class="row">
@@ -100,12 +99,29 @@
             <p style="font-size: 18px; font-weight: 700;">Officially launches on Feb 14th, 2023!</p>
             <p class="gray-text">This is the fully functioning beta version. Feel free to test it out with other real
                 users.
-            </p>
+            </p>-->
+        </div>
+
+        <div *ngFor="let item of displayItems" class="item-card">
+            <table width="100%" [id]="item.id">
+                <tr>
+                    <td style="width: 50%; max-width: 200px; min-width: 100px;">
+                        <a [href]="item.url"><img [src]="item.src" class="item-pic" width="100%"></a>
+                    </td>
+                    <td style="padding: 10px;">
+                        <div class="main-color"><i [class]="item.icon"></i> {{item.type}}
+                            <span class="local-date">{{item.date}}</span>
+                        </div>
+                        <div><a [href]="item.url">{{item.name}}</a></div>
+                        <div class="gray-text">{{item.description}}</div>
+                    </td>
+                </tr>
+            </table>
+
+            
         </div>
     </div>
-    <app-betra-features *ngIf="userId==0"></app-betra-features>
-
-
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
 </app-page-shell>
 

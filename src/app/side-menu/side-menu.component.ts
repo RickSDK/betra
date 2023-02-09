@@ -48,8 +48,7 @@ export class SideMenuComponent implements OnInit {
       this.ownerAlerts = this.infoObj.ownerAlerts;
       picCertificateFlg = this.infoObj.picCertificateFlg;
     }
-    if (picCertificateFlg != 'Y')
-      this.bottomItems.push({ name: 'Verify Photo', routerLink: '/verify-pics', icon: 'fa fa-certificate', id: 0 });
+    this.bottomItems.push({ name: 'Reputation', routerLink: '/reputation', icon: 'fa fa-certificate', id: 0 });
 
     if (this.date2Count > 0) {
       this.middleItems.push({ name: 'Dates', routerLink: '/user-dates', icon: 'fa fa-calendar', id: 12 });

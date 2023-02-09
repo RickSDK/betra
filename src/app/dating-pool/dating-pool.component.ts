@@ -9,17 +9,22 @@ import { BaseComponent } from '../base/base.component';
 export class DatingPoolComponent extends BaseComponent implements OnInit {
   @Input('user') override user: any = null;
   @Input('largeFlg') largeFlg: boolean = false;
-  
+
   @Output() messageEvent = new EventEmitter<string>();
 
   public datingPool: any = [];
   public datingPoolLimit: number = 8;
   public panRight: boolean = false;
   public exceededPoolSizeFlg: boolean = false;
+  public showIntimacyLevelsFlg: boolean = false;
+  public showIntimacyValuesFlg: boolean = false;
 
   constructor() { super(); }
 
   override ngOnInit(): void {
+    var showIntimacyLevelsFlg = localStorage['showIntimacyLevelsFlg'];
+    this.showIntimacyLevelsFlg = showIntimacyLevelsFlg && showIntimacyLevelsFlg == 'Y';
+    this.showIntimacyValuesFlg = this.showIntimacyLevelsFlg; // messes up toggle switch otherwise
     this.datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
 
     this.refreshDatingPool();
@@ -32,6 +37,12 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
 
   ngOnChanges(changes: any) {
     this.ngOnInit();
+  }
+
+  toggleIntimacyFlg() {
+    this.showIntimacyValuesFlg = !this.showIntimacyValuesFlg;
+    var showIntimacyLevelsFlg = localStorage['showIntimacyLevelsFlg'];
+    localStorage['showIntimacyLevelsFlg'] = (showIntimacyLevelsFlg && showIntimacyLevelsFlg == 'Y') ? 'N' : 'Y';
   }
 
   dropPersonFromDP(person: any) {
@@ -47,7 +58,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
       matchId: person.user_id,
     };
     this.getDataFromServer('removeThisUser', 'appApiCode2.php', params);
-    
+
   }
 
   userClicked(person: any) {

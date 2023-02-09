@@ -130,7 +130,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.checkIPAddress();
     this.logUser('Y');
     this.browser = getBrowser();
-  
+
     if (!localStorage['latitude'])
       this.getLocation();
     else if (!this.user.navLat)
@@ -261,6 +261,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
   }
   profileSectionAdvance() {
+    if (this.changesMadeFlg == true)
+      this.menuValueChanged();
     this.apiSuccessFlg = false;
     if (!this.user.profileFlags[this.menuNum]) {
       this.errorMessage = 'Fill out all required fields';
@@ -390,6 +392,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     else
       return 'fa fa-hand-o-right';
   }
+  menuValueChanged2() {
+    this.changesMadeFlg = true;
+    this.errorMessage = '';
+  }
   menuValueChanged() {
     this.changesMadeFlg = true;
     this.errorMessage = '';
@@ -401,7 +407,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       var year = $('#year').val();
 
       var now = getDateObjFromJSDate();
-      this.user.birthdate = year + '-' + month + '-' + day + ' ' + now.localTime;;
+      this.user.birthdate = year + '-' + month + '-' + day + ' ' + now.time;
       //this.user.firstName = $('#firstName').val();
       this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();

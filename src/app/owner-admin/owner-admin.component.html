@@ -7,10 +7,6 @@
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
-        <div>
-            <button [routerLink]="['/blog-manage']" [queryParams]="{e: 'Y'}" class="btn btn-main-color spacer">Manage
-                Blog</button>
-        </div>
 
         <div *ngIf="menuNum==0 && !loadingFlg" style="display: inline-block; max-width: 380px;">
             <div>Admin Tools</div>
@@ -26,11 +22,11 @@
         </div>
         <div *ngIf="menuNum>0">{{adminLinks[menuNum-1].name}}</div>
         <div *ngIf="message" class="big-flashy">{{message}}</div>
-
+        
         <div *ngIf="menuNum==1">
             <div *ngIf="showRecordFlg">
-                <div>{{responseJson.firstName}}</div>
-                <img [src]="src" height="320">
+                <div>User's Name: <span class="text-highlight">{{responseJson.firstName}}</span></div>
+               <img [src]="src" height="320">
                 <div class="gray-text">Look at the profile picture above and make sure it includes the person's face.
                     Then approve or reject the picture using the buttons below.</div>
 
@@ -213,7 +209,22 @@
                 Pose</button>
 
         </div>
-
+        <div *ngIf="menuNum>6 && displayUser">
+            <div>Name: <span class="text-highlight">{{displayUser.firstName}}</span></div>
+            <img [src]="src" height="300">
+            <div *ngIf="responseJson.action == 'getFacebookUser'">
+                Facebook Link: <a [href]="displayUser.facebookUrl" target="new"><span class="text-link">{{displayUser.facebookUrl}}</span></a>
+            </div>
+            <div *ngIf="responseJson.action == 'getInstagramUser'">
+                Instagram Link: <a [href]="displayUser.instragramUrl" target="new"><span class="text-link">{{displayUser.instragramUrl}}</span></a>
+            </div>
+            <div *ngIf="responseJson.action == 'getLinkedInUser'">
+                linkedIn Link: <a [href]="displayUser.linkedInUrl" target="new"><span class="text-link">{{displayUser.linkedInUrl}}</span></a>
+            </div>
+            <div class="gray-text">Verify the link above and then press one of these buttons</div>
+            <button (mousedown)="approveLink(false)" class="btn btn-danger padded">No Good</button>
+            <button (mousedown)="approveLink(true)" class="btn btn-success padded">Good</button>
+        </div>
 
         <hr>
         <button *ngIf="menuNum>0" (mousedown)="backToTop()" class="btn btn-warning">Back to top</button>

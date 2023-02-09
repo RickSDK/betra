@@ -65,7 +65,7 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'getOwnerCount' || responseJson.action == 'getMyOwnerInfo' ) {
       this.ownerCount = responseJson.ownerCount;
-      this.spotsLeft = 68 - this.ownerCount;
+      this.spotsLeft = 58 - this.ownerCount;
       if(responseJson.refreshFlg && responseJson.refreshFlg == 'Y') {
         console.log('refresh!');
         this.refreshUserObj(responseJson.user);

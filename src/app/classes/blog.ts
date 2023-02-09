@@ -106,11 +106,11 @@ export class Blog {
             });
 
             if (this.pic1)
-                this.src1 = 'https://www.appdigity.com/betraPhp/blogImages/pic' + this.row_id + '_1.jpg';
+                this.src1 = 'https://www.betradating.com/betraPhp/blogImages/pic' + this.row_id + '_1.jpg';
             if (this.pic2)
-                this.src2 = 'https://www.appdigity.com/betraPhp/blogImages/pic' + this.row_id + '_2.jpg';
+                this.src2 = 'https://www.betradating.com/betraPhp/blogImages/pic' + this.row_id + '_2.jpg';
             if (this.pic3)
-                this.src3 = 'https://www.appdigity.com/betraPhp/blogImages/pic' + this.row_id + '_3.jpg';
+                this.src3 = 'https://www.betradating.com/betraPhp/blogImages/pic' + this.row_id + '_3.jpg';
 
             this.section1Text = this.section1.replace(/&nbsp;<br>/g, "\n");
             this.section2Text = this.section2.replace(/&nbsp;<br>/g, "\n");

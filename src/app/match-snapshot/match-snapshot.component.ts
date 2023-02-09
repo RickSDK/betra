@@ -49,20 +49,14 @@ export class MatchSnapshotComponent implements OnInit {
 
   initModal(matchUser: any, user: any, matchObj: any) {
     this.user = user;
-    //this.matchObj = matchObj;
     this.matchUser = matchUser;
 
-    //var limit = (this.user.memberFlg)?12:8;
-    //this.showMoreOptionsFlg = (this.user.datingPool.length > limit);
-    //this.showMoreFlg = (this.user.datingPool.length > limit);
-    //this.expandBottomFlg = (this.user.datingPool.length > limit);
-
-    if (this.profileTopComponent) {
+      if (this.profileTopComponent) {
       this.profileTopComponent.ngOnInit();
     }
 
     this.calculateMatches(user, matchUser, matchObj);
-    this.calculateDistance(matchUser, user);
+    //this.calculateDistance(matchUser, user);
 
   }
 
@@ -198,15 +192,15 @@ export class MatchSnapshotComponent implements OnInit {
   }
 
   calculateDistance(matchUser: any, user: any) {
-    this.distance = '';
-    if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
+    this.distance = 'hey!';
+/*    if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
       var miles = distanceInKmBetweenEarthCoordinates(user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
       this.distance = parseInt(miles.toString()) + ' miles';
-    }
+    }*/
   }
 
 }
-function degreesToRadians(degrees: number) {
+/*function degreesToRadians(degrees: number) {
   return degrees * Math.PI / 180;
 }
 
@@ -223,4 +217,4 @@ function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: n
     Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadiusKm * c;
-}
+}*/

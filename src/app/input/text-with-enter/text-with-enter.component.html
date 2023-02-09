@@ -1,0 +1,12 @@
+<table width="100%">
+    <tr>
+        <td>
+            <app-text-input [id]="id" [value]="value" [maxLength]="maxLength" [disabled]="disabled" [placeHolder]="placeHolder" (messageEvent)="textValueChanged($event)">
+            </app-text-input>
+        </td>
+        <td  style="padding: 3px;">&nbsp;
+            <button (mousedown)="submitValue()" class="btn btn-primary" [disabled]="submitDisabled"><i
+                    class="fa fa-paper-plane"></i></button>
+        </td>
+    </tr>
+</table>

@@ -66,7 +66,7 @@ export class Journal {
             this.likeList = obj.likeList || [];
 
             if (this.imageNum > 0)
-                this.imageSrc = "https://www.appdigity.com/betraPhp/bugImages/pic" + obj.row_id + "_" + this.imageNum + ".jpg";
+                this.imageSrc = "https://www.betradating.com/betraPhp/bugImages/pic" + obj.row_id + "_" + this.imageNum + ".jpg";
 
             this.messageText = obj.message.replace(/<br>/g, "\n");
 

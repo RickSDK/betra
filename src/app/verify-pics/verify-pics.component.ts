@@ -79,7 +79,7 @@ export class VerifyPicsComponent extends BaseComponent implements OnInit {
       responseJson.usersToVerify.forEach((element: any) => {
         element.imageSrc = this.betraImageFromId(element.user_id, element.profilePic);
         this.firstName = element.firstName;
-        element.verifySrc = 'https://www.appdigity.com/betraPhp/verifyPics/pic' + element.user_id + '.jpg';
+        element.verifySrc = 'https://www.betradating.com/betraPhp/verifyPics/pic' + element.user_id + '.jpg';
         this.usersToVerify.push(element);
       });
 

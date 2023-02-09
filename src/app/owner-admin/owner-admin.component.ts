@@ -17,6 +17,9 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     { name: 'New Reviews', routerLink: '/flagged-users', icon: 'fa fa-pencil', id: 4, count: 0 },
     { name: 'Flagged Journals', routerLink: '/flagged-users', icon: 'fa fa-book', id: 5, count: 0 },
     { name: 'Verify Photo', routerLink: '/flagged-users', icon: 'fa fa-certificate', id: 6, count: 0 },
+    { name: 'Verify Facebook', routerLink: '/flagged-users', icon: 'fa fa-facebook-square', id: 7, count: 0 },
+    { name: 'Verify Instagram', routerLink: '/flagged-users', icon: 'fa fa-instagram', id: 8, count: 0 },
+    { name: 'Verify LinkedIn', routerLink: '/flagged-users', icon: 'fa fa-linkedin-square', id: 9, count: 0 },
   ];
   public message = '';
   public src: string = '';
@@ -40,6 +43,9 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     this.adminLinks[3].count = infoObj.newReviewCount;
     this.adminLinks[4].count = infoObj.journalFlaggedCount;
     this.adminLinks[5].count = infoObj.pic2Count;
+    this.adminLinks[6].count = infoObj.facebookCount;
+    this.adminLinks[7].count = infoObj.instagramCount;
+    this.adminLinks[8].count = infoObj.linkedInCount;
   }
 
   backToTop() {
@@ -61,6 +67,12 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       this.getDataFromServer('getFlaggedJournal', 'journal.php', []);
     if (this.menuNum == 6)
       this.getDataFromServer('getPicCertifiedUser', 'owners.php', []);
+    if (this.menuNum == 7)
+      this.getDataFromServer('getFacebookUser', 'reputation.php', []);
+    if (this.menuNum == 8)
+      this.getDataFromServer('getInstagramUser', 'reputation.php', []);
+    if (this.menuNum == 9)
+      this.getDataFromServer('getLinkedInUser', 'reputation.php', []);
   }
 
   processAPIRequest(action: string) {
@@ -115,18 +127,27 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       action: 'verifyUserPic',
     };
     console.log(params);
-   this.executeApi('verifyPics.php', params, true);
-   this.displayUser = null;
+    this.executeApi('verifyPics.php', params, true);
+    this.displayUser = null;
   }
 
   override postSuccessApi(file: string, responseJson: any) {
     this.showRecordFlg = false;
     this.responseJson = responseJson;
 
+    if(responseJson.action == 'approveRejectLink') {
+      this.menuNum = 0;
+      this.getDataFromServer('getInfoObj', 'owners.php', []);
+    }
+    if (responseJson.user) {
+      this.displayUser = responseJson.user;
+      this.src = this.betraImageFromId(this.displayUser.user_id, this.displayUser.profilePic);
+
+    }
     if (responseJson.action == 'getPicCertifiedUser') {
       this.displayUser = responseJson.user;
       this.src = this.betraImageFromId(this.displayUser.user_id, this.displayUser.profilePic);
-      this.verifySrc = 'https://www.appdigity.com/betraPhp/verifyPics/pic'+this.displayUser.user_id+'.jpg';
+      this.verifySrc = 'https://www.betradating.com/betraPhp/verifyPics/pic' + this.displayUser.user_id + '.jpg';
     }
     if (responseJson.action == 'approveReview') {
       this.getDataFromServer('getNewReview', 'betraReviews.php', []);
@@ -155,5 +176,14 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
         this.message = 'no profiles waiting to be approved.';
       }
     }
+  }
+
+  approveLink(flag: boolean) {
+    var params = {
+      type: this.responseJson.action,
+      uid: this.displayUser.user_id,
+      value: (flag)?'Y':'N'
+    }
+    this.getDataFromServer('approveRejectLink', 'reputation.php', params);
   }
 }

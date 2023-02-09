@@ -1,0 +1,61 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Reputation'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card">
+        <h1>Reputation Points</h1>
+        <div class="gray-text" style="text-align: left;">
+            <p>Having a high reputation score is important to Betra users.
+                This is a way of confirming you are who you say you are, and that you in fact look like your
+                profile photo.
+            </p>
+            <p>
+                This is a safety feature and users should be very cautious about meeting someone with a very low
+                reputation score.
+            </p>
+            <p>You receive 1 point for each of the following items that you confirm, for a maximum score of 7 points.
+            </p>
+        </div>
+        <div class="border-box">
+            <div *ngFor="let item of items">
+                <i [class]="item.icon"></i> {{item.name}}
+                <i class="fa fa-check" *ngIf="item.score>0" style="color: green;"></i>
+                <button (mousedown)="editItemNum(item.id)" *ngIf="item.score==0"
+                    class="btn btn-main-color btn-small">edit</button>
+            </div>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="successFlg" class="important-notice">Thank you. Your info has been submitted!</div>
+        <div *ngIf="!loadingFlg">
+            <div *ngIf="selectedItemNum==1" class="tan-box">
+                <div>Your email address has not yet been confirmed. Go here to fix that:</div>
+                <button [routerLink]="['/profile']" [queryParams]="{num: 1}" class="btn btn-main-color">Profile</button>
+            </div>
+            <div *ngIf="selectedItemNum==2" class="tan-box">
+                <div>Phone confirm feature coming soon.</div>
+            </div>
+            <div *ngIf="selectedItemNum==3" class="tan-box">
+                <div>Click here to verify your picture:</div>
+                <button [routerLink]="['/verify-pics']" class="btn btn-main-color">Verify Pic</button>
+            </div>
+            <div *ngIf="selectedItemNum==4" class="tan-box">
+                <div>Click here to verify your Location:</div>
+                <div *ngIf="searchLocFlg" id="gpsMessage" name="gpsMessage" class="important-notice"></div>
+                <button *ngIf="!searchLocFlg" (mousedown)="verifyLocation()" class="btn btn-main-color">Verify Location</button>
+                <div *ngIf="searchLocFlg">
+                    <div>Latitude: <span id="latitude" class="text-highlight"></span></div>
+                    <div>Longitude: <span id="longitude" class="text-highlight"></span></div>
+                    <button  (mousedown)="uploadCoords()" class="btn btn-main-color">Upload Your Coords</button>
+                </div>
+            </div>
+            <div *ngIf="selectedItemNum>=5" class="tan-box">
+                <div>Add a link to your {{items[selectedItemNum-1].name}} profile.</div>
+                <div class="gray-text" *ngIf="value && value.length>0">Note: Your url has been uploaded and is awaiting verification. This might take a couple of days.</div>
+                 <app-text-with-enter [value]="value" [placeHolder]="'http://'" (messageEvent)="textValueSubmitted($event)">
+                </app-text-with-enter>
+            </div>
+        </div>
+
+        <div style="font-size: 12px;"><b>Your Score</b></div>
+        <div><span class="text-highlight" style="font-size: 48px;">{{user.reputationScore}}</span></div>
+    </div>
+</app-page-shell>

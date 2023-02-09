@@ -4,10 +4,11 @@
     <span *ngIf="!blog.iDislikeFlg" class="text-link" (mousedown)="dislikeButtonPressed()">Dislike</span>
     <span class="text-link" (mousedown)="replyLinkPressed()">Reply</span>&nbsp;
     <span style="color: gray; font-size: 10px;">Comments: {{blog.comments.length}}</span>
-    <span class="like-results">
-        <span [title]="blog.likeTitle" (mousedown)="showLikesFlg=!showLikesFlg"><i class="fa fa-thumbs-up" style="color: green; cursor: pointer;"></i>{{blog.likes}}</span> &nbsp;
-        <span [title]="blog.dislikeTitle" (mousedown)="showDislikesFlg=!showDislikesFlg"><i class="fa fa-thumbs-down"
-                style="color: red; cursor: pointer;"></i>{{blog.dislikes}}</span>&nbsp;
+    <span *ngIf="blog.likes>0 || blog.dislikes>0" class="like-results">
+        <span [title]="blog.likeTitle" (mousedown)="showLikesFlg=!showLikesFlg"><i class="fa fa-thumbs-up"
+                style="color: green; cursor: pointer; margin: 3px;"></i>{{blog.likes}}</span> 
+        <span *ngIf="blog.dislikes>0" [title]="blog.dislikeTitle" (mousedown)="showDislikesFlg=!showDislikesFlg"><i class="fa fa-thumbs-down"
+                style="color: red; cursor: pointer; margin: 3px;"></i>{{blog.dislikes}}</span>
     </span>
 </div>
 <div *ngIf="showLikesFlg && blog.likeList.length>0" (mousedown)="showLikesFlg=false">
@@ -49,7 +50,8 @@
                 <div class="comment">
                     <span (mousedown)="toggleOptionsMenu(item)" class="three-dots"><i
                             class="fa fa-ellipsis-v"></i></span>
-                    <div *ngIf="showOptionsFlg && commentId == item.row_id" class="gray-screen" (mousedown)="showOptionsFlg=false"></div>
+                    <div *ngIf="showOptionsFlg && commentId == item.row_id" class="gray-screen"
+                        (mousedown)="showOptionsFlg=false"></div>
                     <span *ngIf="showOptionsFlg && commentId == item.row_id" class="three-dots-menu">
                         <div (mousedown)="menuOptionPressed(item, 'flag')" class="three-dots-menu-option">Flag</div>
                         <div *ngIf="user.user_id == item.user_id" (mousedown)="menuOptionPressed(item, 'delete')"
@@ -59,7 +61,8 @@
                             class="three-dots-menu-option">
                             Edit</div>
                     </span>
-                    <div><b>{{item.firstName}}</b> &nbsp;<span style="font-size: 8px; color: gray;">{{item.localDate}}</span></div>
+                    <div><b>{{item.firstName}}</b> &nbsp;<span
+                            style="font-size: 8px; color: gray;">{{item.localDate}}</span></div>
                     <div>{{item.comment}}</div>
                 </div>
                 <div style="text-align: left; position: relative;">
@@ -68,10 +71,10 @@
                     <span *ngIf="!item.iDislikeFlg" class="text-link"
                         (mousedown)="commentDislikeButtonPressed(item)">Dislike</span>
                     <span class="like-results-comment">
-                        <span [title]="item.likeList"><i class="fa fa-thumbs-up"
-                                style="color: #050;"></i>{{item.likes}}</span> &nbsp;
-                        <span [title]="item.dislikeList"><i class="fa fa-thumbs-down"
-                                style="color: #500;"></i>{{item.dislikes}}</span>&nbsp;
+                        <span *ngIf="item.likes>0" [title]="item.likeList"><i class="fa fa-thumbs-up"
+                                style="color: #050;"></i>{{item.likes}}</span>
+                        <span *ngIf="item.dislikes>0" [title]="item.dislikeList"><i class="fa fa-thumbs-down"
+                                style="color: #500;"></i>{{item.dislikes}}</span>
                     </span>
                 </div>
 
