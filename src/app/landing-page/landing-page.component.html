@@ -18,16 +18,13 @@
             <span [routerLink]="['']" class="white-link2">Home</span>
             <span [routerLink]="['/about']" class="white-link2">About</span>
             <span [routerLink]="['/blogs']" class="white-link2">Blog</span>
-            </td>
+        </td>
     </tr>
 </table>
 <div class="container-fluid" style="height: 100vh; padding-top: 80px; text-align: center;">
-    <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
-    </app-login-popup>
+        <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
+        </app-login-popup>
 </div>
-
-
-<!---->
 
 <div style="color: white; background-image: url('assets/images/landing/roseBottom.png'); padding-top: 20px;">
     <div class="container-fluid">
@@ -55,14 +52,15 @@
                     <img src="assets/images/landing/cell-phone.png" height="500">
                     <div style="display: block; height: 150px; text-align: center;">
                         <div style="display: inline-block; position: relative; width: 370px; height: 150px;">
-                           <div class="testimony-popup" style="color: black;">
-                               <div class="name-text">Savonne</div>
-                               <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's nice
-                               knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
-                           </div>
-                           <img src="assets/images/landing/dana.png" class="savonne">
-                       </div>
-                   </div>
+                            <div class="testimony-popup" style="color: black;">
+                                <div class="name-text">Savonne</div>
+                                <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's
+                                nice
+                                knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
+                            </div>
+                            <img src="assets/images/landing/dana.png" class="savonne">
+                        </div>
+                    </div>
 
                 </div>
             </div>

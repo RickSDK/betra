@@ -4,7 +4,6 @@
     <!--<app-upload-image-crop [src]="user.imgSrc"></app-upload-image-crop>-->
 
     <div class="matches-card" *ngIf="user">
-        <div>- Settings -</div>
         <button (mousedown)="logout()" class="btn btn-main-color spacer"><i class="fa fa-sign-out"></i>
             Logout</button>
         <button (mousedown)="showStats()" class="btn btn-main-color spacer"><i class="fa fa-line-chart"></i>
@@ -76,20 +75,9 @@
             </div>
         </div>
         <div *ngIf="menuNum == 6" class="tan-box">
-            <div>Change Password</div>
-            <div *ngIf="user.facebookId">You are currently logging in using facebook</div>
-            <table *ngIf="!user.facebookId" width="100%">
-                <tr>
-                    <td>
-                        <app-text-input [placeHolder]="'New Password'" [id]="'newPassword'" [maxLength]="30">
-                        </app-text-input>
-                    </td>
-                    <td width="70" align="center" valign="middle">
-                        <button (mousedown)="updatePassword()" class="btn btn-primary"><i
-                                class="fa fa-arrow-circle-right" style="font-size: 30px;"></i></button>
-                    </td>
-                </tr>
-            </table>
+            <div *ngIf="user.facebookId">Notice: You are currently logging in using facebook</div>
+            <button *ngIf="!loadingFlg" (mousedown)="requestPasswordReset()" class="btn btn-primary">Request Password Reset</button>
+            <div *ngIf="successFlg" class="important-notice">You have been emailed a link to reset your password. Please follow the instructions on that email.</div>
         </div>
         <div *ngIf="!user.lat" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>

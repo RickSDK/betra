@@ -14,6 +14,8 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
 
   public datingPool: any = [];
   public datingPoolLimit: number = 8;
+  public datingPoolSize: number = 8;
+  public displayPicsSize: number = 8;
   public panRight: boolean = false;
   public exceededPoolSizeFlg: boolean = false;
   public showIntimacyLevelsFlg: boolean = false;
@@ -27,12 +29,37 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     this.showIntimacyValuesFlg = this.showIntimacyLevelsFlg; // messes up toggle switch otherwise
     this.datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
 
-    this.refreshDatingPool();
+    this.datingPoolSize = this.user.datingPool.length;
     this.exceededPoolSizeFlg = this.user.datingPool.length > this.datingPoolLimit;
+    var width = window.innerWidth;
+    if (width > 812)
+      width -= 400;
+    else if (width > 615)
+      width -= 200;
+
+    this.displayPicsSize = Math.round(width / 50);
+    if (this.displayPicsSize > this.user.datingPool.length)
+      this.displayPicsSize = this.user.datingPool.length;
+
+    this.refreshDatingPool();
+
   }
 
+  panRightClicked(flag: boolean) {
+    this.panRight = flag;
+    if (flag) {
+      this.datingPool = [];
+      for (var i = this.datingPoolSize-this.displayPicsSize; i < this.datingPoolSize; i++) {
+        this.datingPool.push(this.user.datingPool[i])
+      }
+    } else
+      this.refreshDatingPool();
+  }
   refreshDatingPool() {
-    this.datingPool = this.user.datingPool;
+    this.datingPool = [];
+    for (var i = 0; i < this.displayPicsSize; i++) {
+      this.datingPool.push(this.user.datingPool[i])
+    }
   }
 
   ngOnChanges(changes: any) {

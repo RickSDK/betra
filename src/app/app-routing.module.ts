@@ -37,6 +37,7 @@ import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup
 import { LandingContentComponent } from './landing-content/landing-content.component';
 import { ContactComponent } from './contact/contact.component';
 import { ReputationComponent } from './reputation/reputation.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: 'content', component: LandingContentComponent },
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'restaurant-promo', component: RestaurantSignupComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'reputation', component: ReputationComponent },
+  { path: 'password-reset', component: PasswordResetComponent },
 ];
 
 @NgModule({

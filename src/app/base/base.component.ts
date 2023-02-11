@@ -156,6 +156,7 @@ export class BaseComponent implements OnInit {
   }
 
   changeMenuNum(num: number) {
+    this.successFlg = false;
     if (num == this.menuNum)
       this.menuNum = 0;
     else

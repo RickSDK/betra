@@ -1,10 +1,9 @@
 <div *ngIf="!loadingFlg" class="login-shell" style="position: relative; width: 320px;">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div [style.height]="login==0?'220px':'430px'"
-        style="background-color: black; border-radius: 20px; display: block; position: absolute; width: 320px; min-height: 220px; left: 0; top: 0; opacity: .5;">
+    <div [ngStyle]="ngStyleGrayScreen()" class="gray-screen">
     </div>
 
-    <div style="display: inline-flexbox; position: absolute; width: 320px; padding: 20px;">
+    <div [ngStyle]="ngStyleLoginBox()" style="display: inline-flexbox; position: absolute; width: 320px; padding: 20px;">
         <div *ngIf="login==0">
             <div>&nbsp;</div>
             <div class="large-text">DATING MADE</div>

@@ -10,6 +10,18 @@
     font-size: 8px;
 }
 
+.gray-screen {
+    background-color: black; 
+    border-radius: 20px; 
+    display: block; 
+    position: absolute; 
+    width: 320px; 
+    min-height: 220px; 
+    left: 0; 
+    top: 0; 
+    opacity: .3;
+}
+
 .login-button {
     font-size: 22px;
     padding: 5px;

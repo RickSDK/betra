@@ -3,12 +3,12 @@
   "name": "Betra", 
   "icons": [ 
     { 
-      "src": "icon.png", 
+      "src": "Icon.png", 
       "sizes": "192x192", 
       "type": "image/png" 
     } 
   ], 
-  "start_url": "betra/index.html", 
+  "start_url": "index.html", 
   "display": "fullscreen", 
   "orientation": "portrait" 
 } 

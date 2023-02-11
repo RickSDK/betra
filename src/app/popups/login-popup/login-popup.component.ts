@@ -49,6 +49,22 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
   }
 
+  ngStyleGrayScreen() {
+    let height = window.innerHeight || 750;
+    if (this.login == 0)
+      return { 'top': (height-500).toString()+ 'px', 'height': '220px' };
+    else
+      return { 'top': '1px', 'height': '430px' };
+  }
+
+  ngStyleLoginBox() {
+    let height = window.innerHeight || 750;
+    if (this.login == 0)
+      return { 'top': (height-520).toString()+ 'px', 'height': '220px' };
+    else
+      return { 'top': '1px', 'height': '430px' };
+  }
+
   loginWithGoogle(): void {
     this.googleButtonPressedFlg = true;
     localStorage['loginCheck'] = '';

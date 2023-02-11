@@ -2,7 +2,9 @@
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
             <td *ngIf="pageTitle != 'Home'">
-                <i (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>
+                <i (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>&nbsp;
+                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
+
             </td>
             <td *ngIf="pageTitle == 'Home'" style="position: relative;">
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">

@@ -1,6 +1,6 @@
 <div *ngIf="user && user.datingPool && user.datingPool.length>0">
-    <div class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
     <div *ngIf="largeFlg">
+        <div class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
         <div *ngFor="let person of datingPool" class="pool-large menu-circle" style="position: relative;">
             <i *ngIf="exceededPoolSizeFlg" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
             <img [src]="person.src" class="large-img" [routerLink]="['/user-detail']"
@@ -57,29 +57,32 @@
 
         </div>
     </div>
-    <div *ngIf="!largeFlg">
-        <div style="display: inline-block; border-top: 1px solid #ccc;">
-            <i *ngIf="panRight" (mousedown)="panRight=false" class="fa fa-chevron-left large-icon"></i>
-            <div *ngFor="let person of user.datingPool; let i = index;" style="display: inline-block;">
-                <span *ngIf="(!panRight && i<=7) || (panRight && i>=5)" class="pool-snapshot">
+    <div *ngIf="!largeFlg" class="small-dating-pool">
+        <div style="font-size: 8px; color: gray;">{{user.firstName}}'s Dating Pool</div>
+        <div *ngIf="0" class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
+        <table>
+            <tr>
+                <td *ngIf="panRight && displayPicsSize < datingPoolSize">
+                    <i (mousedown)="panRightClicked(false)" class="fa fa-chevron-left large-icon"></i>
+                </td>
+                <td *ngFor="let person of datingPool; let i = index;">
                     <img *ngIf="person.user_id>0" [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}"
                         [src]="person.src" class="snapshot-img"
                         [style.border]="person.heartFlg?'3px solid #700':'none'">
-                    <img *ngIf="person.user_id==0" [src]="person.src" class="snapshot-img2">
-                    <div class="small-name-text"><img src="assets/images/rose5.png" height="10" *ngIf="person.heartFlg"
-                            alt="Rose" title="Rose"><i *ngIf="person.heartFlg2" class="fa fa-heart"></i>{{person.name}}
-                    </div>
-                </span>
-            </div>
-            <i *ngIf="!panRight && user.datingPool.length>7" (mousedown)="panRight=true"
-                class="fa fa-chevron-right large-icon"></i>
-        </div>
+                </td>
+                <td *ngIf="!panRight && displayPicsSize < datingPoolSize">
+                    <i (mousedown)="panRightClicked(true)"
+                        class="fa fa-chevron-right large-icon"></i>
+                </td>
+            </tr>
+        </table>
         <div [routerLink]="['/matches']" *ngIf="user.datingPool.length >= 5 && user.heartId == 0"
             style="color: #900; font-size: 12px;">
             <i class="fa fa-exclamation-triangle"></i> You need to assign a rose! <span class="text-link">Click
                 here</span>
         </div>
     </div>
+
     <div *ngIf="user.datingPool.length>datingPoolLimit" style="color: #900; font-size: 12px;">
         <i class="fa fa-exclamation-triangle"></i> You are over your limit!
     </div>

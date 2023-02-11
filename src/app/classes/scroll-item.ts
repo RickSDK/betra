@@ -28,8 +28,10 @@ export class ScrollItem {
             var dt = getDateObjFromJSDate(obj.created);
             this.date = dt.localDate;
 
-            if (this.description.length > 140)
-                this.description = this.description.substring(0, 140);
+            var trimAmount = 180 - this.name.length;
+            if (this.description.length > trimAmount) {
+                this.description = this.description.substring(0, trimAmount) + '...';
+            }
 
         }
     }

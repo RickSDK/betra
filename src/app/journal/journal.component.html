@@ -7,7 +7,7 @@
             journal here about your dating experiences, hopes or expectations.
             Others can comment or give advice. It's fun and it's helpful because we are all in this together.
         </div>
-        <button *ngIf="postId==0" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create journal
+        <button *ngIf="0 && postId==0" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create journal
             entry</button>
         <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
             to top</button>

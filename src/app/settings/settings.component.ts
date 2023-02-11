@@ -112,22 +112,21 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('resetMatches', 'appApiCode.php', params);
   }
 
-  updatePassword() {
+  requestPasswordReset() {
     this.errorMessage = '';
-    var newPassword = $('#newPassword').val();
-    if(!newPassword) {
-      this.errorMessage = 'Enter a password';
-      return;
-    }
+    this.loadingFlg = true;
+    var emailVerifyCode = 1000 + Math.floor(Math.random() * 5000);
+    console.log('code', emailVerifyCode);
     var params = {
-      newPassword: newPassword
+      emailVerifyCode: emailVerifyCode
     }
-    this.getDataFromServer('updatePassword', 'appApiCode.php', params);
+    this.getDataFromServer('requestPasswordReset', 'appApiCode.php', params);
  
   }
 
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
+    this.successFlg = true;
     if (responseJson.action == 'updatePassword') {
       this.menuNum = 0;
       this.errorMessage = 'Password has been successfully changed';

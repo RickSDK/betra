@@ -89,6 +89,8 @@ import { ProfileThumbnailComponent } from './profile-thumbnail/profile-thumbnail
 import { ContactComponent } from './contact/contact.component';
 import { ReputationComponent } from './reputation/reputation.component';
 import { TextWithEnterComponent } from './input/text-with-enter/text-with-enter.component';
+import { JournalItemComponent } from './journal-item/journal-item.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -177,6 +179,8 @@ import { TextWithEnterComponent } from './input/text-with-enter/text-with-enter.
     ContactComponent,
     ReputationComponent,
     TextWithEnterComponent,
+    JournalItemComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,

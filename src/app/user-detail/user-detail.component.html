@@ -3,12 +3,14 @@
 
     <app-dating-pool *ngIf="!showFilter && !commentsOnlyFlg" [user]="user" [largeFlg]="false"></app-dating-pool>
 
-    <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic" [size]="30"></app-profile-pic>
+    <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic"
+        [size]="30"></app-profile-pic>
 
     <div *ngIf="searchStarted && id == 2" class="match-card">
         <div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
             <i class="fa fa-times" style="float: right"></i>
-            <p style="font-size: 16px" class="red-text">Your <b><i class="fa fa-users"></i> Dating Pool</b> is currently empty.</p>
+            <p style="font-size: 16px" class="red-text">Your <b><i class="fa fa-users"></i> Dating Pool</b> is currently
+                empty.</p>
             <p style="text-align: left;">Let's change that!
                 Begin to fill it with interesting singles. You get to swipe through 12
                 profiles per day. Click thumbs up <i class="fa fa-thumbs-up"></i> if you are interested.
@@ -82,7 +84,9 @@
                 <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
                     <p>Sorry, no more profiles to browse!</p>
                     <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a new
-                        app and people are just starting to sign up. Check back soon. If you would like to reset your "No" matches and revisit the people you declined, visit the "<span [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
+                        app and people are just starting to sign up. Check back soon. If you would like to reset your
+                        "No" matches and revisit the people you declined, visit the "<span [routerLink]="['/settings']"
+                            class="text-link">Settings</span>" tab.</p>
                 </div>
                 <div *ngIf="advancedSearchFlg && profileViews>0">
                     <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply press
@@ -134,14 +138,16 @@
 
     <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 
-        <app-user-private-pics *ngIf="!commentsOnlyFlg && matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
+        <app-user-private-pics *ngIf="!commentsOnlyFlg && matchUser.matchObj.numPics > 0" [myUser]="user"
+            [matchUser]="matchUser">
         </app-user-private-pics>
 
-        <app-user-requests *ngIf="!commentsOnlyFlg && (matchUser.numReviews>0 || matchUser.matchObj.match_level>3)" [myUser]="user"
-            [matchUser]="matchUser">
+        <app-user-requests *ngIf="!commentsOnlyFlg && (matchUser.numReviews>0 || matchUser.matchObj.match_level>3)"
+            [myUser]="user" [matchUser]="matchUser">
         </app-user-requests>
 
-        <app-user-communication *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y' || messageCount>0"
+        <app-user-communication
+            *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y' || messageCount>0"
             [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
         </app-user-communication>
 
@@ -154,3 +160,32 @@
         <button class="btn btn-light">Ok</button>
     </div>
 </app-page-shell>
+
+<div *ngIf="showBigPopupFlg && matchUser" class="image-popup hide-big">
+    <i (mousedown)="showBigPopupFlg=false" class="fa fa-times"
+        style="position: fixed; top: 5px; right: 5px; font-size: 16px; text-shadow: 3px 3px 4px pink; cursor: pointer;"></i>
+    <img [src]="matchUser.imgSrc" class="big-image">
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 100px; background-color: white; opacity: .7;">
+    </div>
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 100px; padding: 10px;">
+        <table width="100%">
+            <tr>
+                <td>
+                    <div><b>{{matchUser.firstName}}</b>, {{matchUser.age}}</div>
+                    <div style="font-size: 12px;">{{matchUser.location}}</div>
+                    <div style="font-size: 12px;">{{matchUser.distanceText}}</div>
+                </td>
+                <td *ngIf="showYesNoButtonsFlg" align="center" width="200">
+                    <i (mousedown)="likeButtonClicked(false)"
+                        class="fa fa-thumbs-o-down circle-button no-button"></i>&nbsp;
+                    <i (mousedown)="likeButtonClicked(true)"
+                        class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
+                </td>
+                <td>
+                    <button (mousedown)="showBigPopupFlg=false" class="btn btn-main-color btn-small"
+                        style="float: right;">More Info</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

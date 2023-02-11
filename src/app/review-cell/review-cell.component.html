@@ -1,103 +1,120 @@
-<div class="basic-cell">
-    <table width="100%" *ngIf="!reviewDeletedFlg">
+<div class="basic-cell" *ngIf="review">
+    <table width="100%">
         <tr>
-            <td align="center" width="50">
-                <app-profile-pic [user_id]="review.uid" [profilePic]="review.profilePic" [size]="40"></app-profile-pic>
-                <div style="font-size: 10px;"><b>{{review.firstName}}</b></div>
-                <div class="main-color" style="font-size: 8px;">{{review.localDt}}</div>
+            <td width="80">
+                <img [src]="review.src2" class="profile-big">
             </td>
-            <td align="left" style="position: relative">
-                <span (mousedown)="showOptionsFlg=!showOptionsFlg" class="three-dots"><i
-                        class="fa fa-ellipsis-v"></i></span>
-                <span *ngIf="showOptionsFlg" class="three-dots-menu">
-                    <div *ngIf="!review.isMineFlg" (mousedown)="menuOptionPressed('flag')"
-                        class="three-dots-menu-option">
-                        Flag</div>
-                    <div *ngIf="review.isMineFlg" (mousedown)="menuOptionPressed('delete')"
-                        class="three-dots-menu-option">
-                        Delete</div>
-                    <div *ngIf="review.isMineFlg" (mousedown)="menuOptionPressed('edit')"
-                        class="three-dots-menu-option">
-                        Edit</div>
-                    <div *ngIf="review.isAboutMeFlg" (mousedown)="menuOptionPressed('rebuttal')"
-                        class="three-dots-menu-option">
-                        Write Rebuttal</div>
-                    <div (mousedown)="showOptionsFlg=false" class="three-dots-menu-option">
-                        Cancel</div>
-                </span>
-
-                <div class="betra-cell gray-text">
-                    <i *ngIf="review.rating==1" class="fa fa-thumbs-o-up main-color" style="font-weight: 700;"
-                        title="Thumbs up"></i>
-                    <i *ngIf="review.rating==2" class="fa fa-thumbs-o-down main-color" style="font-weight: 700;"
-                        title="Thumbs down"></i>
-                    {{review.message}}
-                    <span class="likes-area">
-                        <span (mousedown)="showLikeNamesFlg=!showLikeNamesFlg" class="likes-span"
-                            [title]="review.likeTitle"><i class="fa fa-thumbs-o-up" style="color: green;"></i>
-                            {{review.likes}}</span>&nbsp;
-                        <span (mousedown)="showDislikeNamesFlg=!showDislikeNamesFlg" class="likes-span"
-                            [title]="review.dislikeTitle"><i class="fa fa-thumbs-o-down" style="color: red;"></i>
-                            {{review.dislikes}}</span>
-                    </span>
-                </div>
-                <div>
-                    <span *ngIf="!review.iLikeFlg" class="text-link" (mousedown)="likeReview()">Like</span>&nbsp;
-                    <span *ngIf="!review.iDislikeFlg" class="text-link" (mousedown)="dislikeReview()">Dislike</span>
-                </div>
-
-            </td>
-            <td align="center" *ngIf="review.flaggedBy > 0">
-                <i class="fa fa-flag"></i>
-                <div style="color: gray; font-size: 8px;">Flagged By</div>
-                <app-profile-pic [user_id]="review.flaggedBy" [profilePic]="review.flaggedByProfilePic" [size]="30"></app-profile-pic>
-            </td>
-        </tr>
-        <tr *ngIf="review.rebuttalText">
-            <td></td>
             <td>
-                <app-profile-pic [user_id]="review.user_id" [profilePic]="review.profilePic2" [size]="40">
-                </app-profile-pic>
-                <span class="betra-cell gray-text">{{review.rebuttalText}}</span>
+
+                <table width="100%" *ngIf="!reviewDeletedFlg">
+                    <tr>
+                        <td align="center" width="50">
+                            <app-profile-pic [user_id]="review.uid" [profilePic]="review.profilePic" [size]="40">
+                            </app-profile-pic>
+                            <div style="font-size: 10px;"><b>{{review.firstName}}</b></div>
+                            <div class="main-color" style="font-size: 8px;">{{review.localDt}}</div>
+                        </td>
+                        <td align="left" style="position: relative">
+                            <span (mousedown)="showOptionsFlg=!showOptionsFlg" class="three-dots"><i
+                                    class="fa fa-ellipsis-v"></i></span>
+                            <span *ngIf="showOptionsFlg" class="three-dots-menu">
+                                <div *ngIf="!review.isMineFlg" (mousedown)="menuOptionPressed('flag')"
+                                    class="three-dots-menu-option">
+                                    Flag</div>
+                                <div *ngIf="review.isMineFlg" (mousedown)="menuOptionPressed('delete')"
+                                    class="three-dots-menu-option">
+                                    Delete</div>
+                                <div *ngIf="review.isMineFlg" (mousedown)="menuOptionPressed('edit')"
+                                    class="three-dots-menu-option">
+                                    Edit</div>
+                                <div *ngIf="review.isAboutMeFlg" (mousedown)="menuOptionPressed('rebuttal')"
+                                    class="three-dots-menu-option">
+                                    Write Rebuttal</div>
+                                <div (mousedown)="showOptionsFlg=false" class="three-dots-menu-option">
+                                    Cancel</div>
+                            </span>
+
+                            <div class="betra-cell gray-text">
+                                <i *ngIf="review.rating==1" class="fa fa-thumbs-o-up main-color"
+                                    style="font-weight: 700;" title="Thumbs up"></i>
+                                <i *ngIf="review.rating==2" class="fa fa-thumbs-o-down main-color"
+                                    style="font-weight: 700;" title="Thumbs down"></i>
+                                {{review.message}}
+                                <span class="likes-area">
+                                    <span (mousedown)="showLikeNamesFlg=!showLikeNamesFlg" class="likes-span"
+                                        [title]="review.likeTitle"><i class="fa fa-thumbs-o-up"
+                                            style="color: green;"></i>
+                                        {{review.likes}}</span>&nbsp;
+                                    <span (mousedown)="showDislikeNamesFlg=!showDislikeNamesFlg" class="likes-span"
+                                        [title]="review.dislikeTitle"><i class="fa fa-thumbs-o-down"
+                                            style="color: red;"></i>
+                                        {{review.dislikes}}</span>
+                                </span>
+                            </div>
+                            <div>
+                                <span *ngIf="!review.iLikeFlg" class="text-link"
+                                    (mousedown)="likeReview()">Like</span>&nbsp;
+                                <span *ngIf="!review.iDislikeFlg" class="text-link"
+                                    (mousedown)="dislikeReview()">Dislike</span>
+                            </div>
+
+                        </td>
+                        <td align="center" *ngIf="review.flaggedBy > 0">
+                            <i class="fa fa-flag"></i>
+                            <div style="color: gray; font-size: 8px;">Flagged By</div>
+                            <app-profile-pic [user_id]="review.flaggedBy" [profilePic]="review.flaggedByProfilePic"
+                                [size]="30"></app-profile-pic>
+                        </td>
+                    </tr>
+                    <tr *ngIf="review.rebuttalText">
+                        <td></td>
+                        <td>
+                            <app-profile-pic [user_id]="review.user_id" [profilePic]="review.profilePic2" [size]="40">
+                            </app-profile-pic>
+                            <span class="betra-cell gray-text">{{review.rebuttalText}}</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <div *ngIf="showLikeNamesFlg && review.likeList.length>0" style="display: inline-block;"
+                    class="tan-box"><i class="fa fa-thumbs-o-up" style="color: green;"></i>&nbsp;<span
+                        *ngFor="let name of review.likeList">{{name}}&nbsp;</span></div>
+                <div *ngIf="showDislikeNamesFlg && review.dislikeList.length>0" style="display: inline-block;"
+                    class="tan-box"><i class="fa fa-thumbs-o-down" style="color: red;"></i>&nbsp;<span
+                        *ngFor="let name of review.dislikeList">{{name}}&nbsp;</span></div>
+
+                <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+                <table *ngIf="rebuttalFlg" width="100%">
+                    <tr>
+                        <td width="40" style="padding: 15px;">&nbsp;</td>
+                        <td valign="top" style="padding-top: 3px;">
+                            <app-profile-pic [user_id]="review.user_id" [profilePic]="review.profilePic2" [size]="40">
+                            </app-profile-pic>
+                        </td>
+                        <td width="100%" valign="middle">
+                            <input id="rebuttalText" name="rebuttalText" type="text" (keyup.enter)="sumbitRebuttal()"
+                                [value]="review.rebuttalText" (input)="inputValueChanged($event)" maxLength="200">
+                            <span style="font-size: 8px; color: gray; float: right;">{{strLength}}/200</span>
+                        </td>
+                        <td valign="top" style="padding-top: 3px; padding-left: 5px;">
+                            <button (mousedown)="sumbitRebuttal()" class="btn btn-primary"><i
+                                    class="fa fa-paper-plane"></i></button>
+                        </td>
+                    </tr>
+                </table>
+                <div *ngIf="showDeletePopup">
+                    <div>Are you sure you want to delete this review?</div>
+                    <button (mousedown)="showDeletePopup=false" class="btn btn-warning spacer">Cancel</button>
+                    <button (mousedown)="deleteReview()" class="btn btn-danger spacer">Delete</button>
+                </div>
+                <div *ngIf="showFlagPopup">
+                    <div>Are you sure you want to flag this review?</div>
+                    <button (mousedown)="showFlagPopup=false" class="btn btn-warning spacer">Cancel</button>
+                    <button (mousedown)="flagReview()" class="btn btn-danger spacer">Flag</button>
+                </div>
+                <div *ngIf="message" class="big-flashy important-notice">{{message}}</div>
             </td>
         </tr>
     </table>
 
-    <div *ngIf="showLikeNamesFlg && review.likeList.length>0" style="display: inline-block;" class="tan-box"><i
-            class="fa fa-thumbs-o-up" style="color: green;"></i>&nbsp;<span
-            *ngFor="let name of review.likeList">{{name}}&nbsp;</span></div>
-    <div *ngIf="showDislikeNamesFlg && review.dislikeList.length>0" style="display: inline-block;" class="tan-box"><i
-            class="fa fa-thumbs-o-down" style="color: red;"></i>&nbsp;<span
-            *ngFor="let name of review.dislikeList">{{name}}&nbsp;</span></div>
-
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-    <table *ngIf="rebuttalFlg" width="100%">
-        <tr>
-            <td width="40" style="padding: 15px;">&nbsp;</td>
-            <td valign="top" style="padding-top: 3px;">
-                <app-profile-pic [user_id]="review.user_id" [profilePic]="review.profilePic2" [size]="40">
-                </app-profile-pic>
-            </td>
-            <td width="100%" valign="middle">
-                <input id="rebuttalText" name="rebuttalText" type="text" (keyup.enter)="sumbitRebuttal()"
-                    [value]="review.rebuttalText" (input)="inputValueChanged($event)" maxLength="200">
-                <span style="font-size: 8px; color: gray; float: right;">{{strLength}}/200</span>
-            </td>
-            <td valign="top" style="padding-top: 3px; padding-left: 5px;">
-                <button (mousedown)="sumbitRebuttal()" class="btn btn-primary"><i
-                        class="fa fa-paper-plane"></i></button>
-            </td>
-        </tr>
-    </table>
-    <div *ngIf="showDeletePopup">
-        <div>Are you sure you want to delete this review?</div>
-        <button (mousedown)="showDeletePopup=false" class="btn btn-warning spacer">Cancel</button>
-        <button (mousedown)="deleteReview()" class="btn btn-danger spacer">Delete</button>
-    </div>
-    <div *ngIf="showFlagPopup">
-        <div>Are you sure you want to flag this review?</div>
-        <button (mousedown)="showFlagPopup=false" class="btn btn-warning spacer">Cancel</button>
-        <button (mousedown)="flagReview()" class="btn btn-danger spacer">Flag</button>
-    </div>
-    <div *ngIf="message" class="big-flashy important-notice">{{message}}</div>
 </div>

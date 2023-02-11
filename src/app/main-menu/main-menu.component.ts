@@ -158,9 +158,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.addScrollItem();
       this.addScrollItem();
       this.addScrollItem();
-      console.log('hey!', responseJson);
-      //var refreshFlg = (this.user && this.user.status == 'Pending') ? 'Y' : '';
-      //this.logUser(refreshFlg);
     }
     if (responseJson.action == "logUser" && this.user) {
       this.userStatus = this.user.status;

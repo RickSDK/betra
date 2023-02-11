@@ -41,6 +41,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showEmptyDatingPoolFlg: boolean = false;
   public commentsOnlyFlg: boolean = false;
   public messageCount: number = 0;
+  public showBigPopupFlg: boolean = false;
+  public showYesNoButtonsFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -76,6 +78,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       } else {
         this.id = 2;
         this.pageTitle = 'Browse';
+        this.showBigPopupFlg = true;
+        this.showYesNoButtonsFlg = true;
         if (!this.showFilter)
           this.browseSingles('findMatches');
       }
@@ -187,6 +191,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         console.log('stay here!!');
         this.loadThisUser();
       } else {
+        this.showYesNoButtonsFlg = true;
         this.currentProfileIndex++;
         this.showCurrentProfile();
       }
@@ -309,6 +314,14 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
 
 
+  }
+
+  likeButtonClicked(likedFlg: boolean) {
+    this.showYesNoButtonsFlg = false;
+    if (likedFlg)
+      this.matchSnapshotEvent('yesToMatch');
+    else
+      this.matchSnapshotEvent('noToMatch');
   }
 
   matchSnapshotEvent(action: string) {

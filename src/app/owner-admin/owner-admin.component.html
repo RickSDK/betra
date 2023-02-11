@@ -7,6 +7,7 @@
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
+        <span [routerLink]="['/upgrade-member']" class="text-link">Membership Page</span>
 
         <div *ngIf="menuNum==0 && !loadingFlg" style="display: inline-block; max-width: 380px;">
             <div>Admin Tools</div>

@@ -32,7 +32,7 @@
         <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">
         </app-dating-pool>
 
-        <div class="match-card">
+        <div *ngIf="userStatus=='Active'" class="match-card">
             <div class="main-color" style="font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to
                 Betra!
             </div>
@@ -66,46 +66,12 @@
                     ever
                     have with a dating app.</p>
             </div>
-            <!--
-            <hr>
-
-            <div class="contiainer-fluid">
-                <div class="row">
-                    <div class="col-md">
-                        <app-blog-cell *ngIf="blog1" [blog]="blog1" [shrinkSize]="2"></app-blog-cell>
-                    </div>
-                    <div class="col-md">
-                        <app-blog-cell *ngIf="blog2" [blog]="blog2" [shrinkSize]="2"></app-blog-cell>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <table [routerLink]="['/restaurant-promo']" style="cursor: pointer;">
-                <tr>
-                    <td width="50%">
-                        <img src="assets/images/landing/table3.webp" style="width: 100%;">                        
-                    </td>
-                    <td style="padding: 10px;">
-                        <h2>Dinner Date Promotion</h2>
-                        <p class="gray-text">We are searching for restaurants that want to participate in our kick-off pormotion.</p>
-                        <p class="text-link">Details</p>
-                    </td>
-                </tr>
-            </table>
-            <hr>
-            <p style="text-align: left;" class="gray-text">Betra means "Better" is Greek and that is exactly what kind
-                of app this is. Fill up your dating pool by indicating which singles you are interested in, then begin
-                narrowing your prospects, giving out roses along the way. Its fun and its exciting.</p>
-            <p style="font-size: 18px; font-weight: 700;">Officially launches on Feb 14th, 2023!</p>
-            <p class="gray-text">This is the fully functioning beta version. Feel free to test it out with other real
-                users.
-            </p>-->
         </div>
 
         <div *ngFor="let item of displayItems" class="item-card">
             <table width="100%" [id]="item.id">
                 <tr>
-                    <td style="width: 50%; max-width: 200px; min-width: 100px;">
+                    <td style="width: 30%; max-width: 190px; min-width: 100px; padding: 0;">
                         <a [href]="item.url"><img [src]="item.src" class="item-pic" width="100%"></a>
                     </td>
                     <td style="padding: 10px;">
@@ -113,7 +79,8 @@
                             <span class="local-date">{{item.date}}</span>
                         </div>
                         <div><a [href]="item.url">{{item.name}}</a></div>
-                        <div class="gray-text">{{item.description}}</div>
+                        <div class="gray-text" [innerHtml]="item.description"></div>
+                        <a [href]="item.url" class="text-link" style="float: right; font-size: 10px; color: gray;">Read More</a>
                     </td>
                 </tr>
             </table>
