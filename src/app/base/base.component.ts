@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { stringify } from 'querystring';
 import { User } from '../classes/user';
 
 declare var $: any;
@@ -32,6 +31,7 @@ export class BaseComponent implements OnInit {
   public topButtons: any = ['one', 'two', 'three'];
   public minutesToRefresh = 1;
   public infoObj: any = null;
+  public outOfSyncFlg: boolean = false;
 
 
   public headerObj: any = {
@@ -47,8 +47,9 @@ export class BaseComponent implements OnInit {
   ngOnInit(): void {
     if (!localStorage['code']) {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
-    }
-    this.loadUserObj();
+      this.outOfSyncFlg = true;
+    } else
+      this.loadUserObj();
     //this.notifications = localStorage['notifications'];
 
   }
@@ -357,7 +358,7 @@ export class BaseComponent implements OnInit {
     //    if (this.spinnerComponent)
     //      this.spinnerComponent.setApiMessage('Success!');
   }
-  postErrorApi(file: string, error: string, data:string = '') {
+  postErrorApi(file: string, error: string, data: string = '') {
     //    if (this.spinnerComponent) {
     //      this.spinnerComponent.show();
     //     this.spinnerComponent.setApiMessage(error);

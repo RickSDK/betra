@@ -45,6 +45,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
   override ngOnInit(): void {
+    super.ngOnInit();
     window.scrollTo(0, 0);
 
     document.addEventListener('scroll', () => {
@@ -145,15 +146,21 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       //this.blog2 = new Blog(responseJson.blogList[1]);
       this.scrollItems = [];
       this.responseJson.userItems.forEach((element: any) => {
+        this.scrollItems.push(element);
         if (this.responseJson.blogItems.length > 0)
           this.scrollItems.push(this.responseJson.blogItems.shift());
+        if (this.responseJson.matchItems.length > 0)
+          this.scrollItems.push(this.responseJson.matchItems.shift());
         if (this.responseJson.reviewItems.length > 0)
           this.scrollItems.push(this.responseJson.reviewItems.shift());
         if (this.responseJson.journalItems.length > 0)
           this.scrollItems.push(this.responseJson.journalItems.shift());
 
-        this.scrollItems.push(element);
       });
+      this.scrollItems.sort((a: any, b: any) => {
+        return (a.created < b.created) ? 1 : (a.created > b.created) ? -1 : 0;
+      });
+      //console.log(this.scrollItems);
 
       this.addScrollItem();
       this.addScrollItem();

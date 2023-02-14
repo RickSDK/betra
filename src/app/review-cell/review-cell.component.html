@@ -2,7 +2,7 @@
     <table width="100%">
         <tr>
             <td width="80">
-                <img [src]="review.src2" class="profile-big">
+                <img [routerLink]="['/user-detail']" [queryParams]="{uid: review.user_id}" [src]="review.src2" class="profile-big">
             </td>
             <td>
 
@@ -41,11 +41,11 @@
                                     style="font-weight: 700;" title="Thumbs down"></i>
                                 {{review.message}}
                                 <span class="likes-area">
-                                    <span (mousedown)="showLikeNamesFlg=!showLikeNamesFlg" class="likes-span"
+                                    <span *ngIf="review.likes>0" (mousedown)="showLikeNamesFlg=!showLikeNamesFlg" class="likes-span"
                                         [title]="review.likeTitle"><i class="fa fa-thumbs-o-up"
                                             style="color: green;"></i>
                                         {{review.likes}}</span>&nbsp;
-                                    <span (mousedown)="showDislikeNamesFlg=!showDislikeNamesFlg" class="likes-span"
+                                    <span *ngIf="review.dislikes>0" (mousedown)="showDislikeNamesFlg=!showDislikeNamesFlg" class="likes-span"
                                         [title]="review.dislikeTitle"><i class="fa fa-thumbs-o-down"
                                             style="color: red;"></i>
                                         {{review.dislikes}}</span>

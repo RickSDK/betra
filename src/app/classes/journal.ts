@@ -35,6 +35,9 @@ export class Journal {
     public iDislikeFlg: boolean = false;
     public likeTitle: string = '';
     public dislikeTitle: string = '';
+    public isMineFlg: boolean = false;
+    public comments: any = [];
+    public updates: any = [];
 
 
     constructor(obj: any, userId: number = 0) {
@@ -47,11 +50,11 @@ export class Journal {
             this.created = obj.created;
             this.firstName = obj.firstName;
             this.profilePic = obj.profilePic;
-            this.replies = obj.replies;
             this.postFlagged = obj.postFlagged;
             this.postFlaggedBy = obj.postFlaggedBy;
             this.likes = obj.likes;
             this.dislikes = obj.dislikes;
+            this.replies = this.comments.length;
 
             this.status = obj.status;
             this.region = obj.region;
@@ -68,7 +71,7 @@ export class Journal {
             if (this.imageNum > 0)
                 this.imageSrc = "https://www.betradating.com/betraPhp/bugImages/pic" + obj.row_id + "_" + this.imageNum + ".jpg";
 
-            this.messageText = obj.message.replace(/<br>/g, "\n");
+            this.messageText = obj.message.replace(/&nbsp;<br>/g, "\n");
 
             this.src = betraImageFromId(obj.user_id, obj.profilePic);
             var dtObj = getDateObjFromJSDate(obj.created);
@@ -79,6 +82,7 @@ export class Journal {
             var likeNames: any = [];
             var dislikeNames: any = [];
             if (userId > 0) {
+                this.isMineFlg = (this.user_id == userId);
                 this.likeList.forEach((element: any) => {
                     if (element.likeFlg == 'Y')
                         likeNames.push(element.firstName);
@@ -90,6 +94,17 @@ export class Journal {
                         this.iDislikeFlg = true;
                 });
             }
+
+            obj.comments.forEach((element: any) => {
+                var dtObj = getDateObjFromJSDate(element.created);
+                element.localDate = dtObj.localDate;
+    
+                if (element.updateFlg == 'Y')
+                    this.updates.push(element);
+                else
+                    this.comments.push(element);
+
+            });
             this.likeTitle = likeNames.join('\n');
             this.dislikeTitle = dislikeNames.join('\n');
 

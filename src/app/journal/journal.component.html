@@ -1,50 +1,73 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
-    <div class="matches-card" *ngIf="user">
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div class="border-box" style="font-size: 12px;">
-            Part of the vision of <span class="red-text">Betra</span> is about people helping people. Feel free to
-            journal here about your dating experiences, hopes or expectations.
-            Others can comment or give advice. It's fun and it's helpful because we are all in this together.
-        </div>
-        <button *ngIf="0 && postId==0" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create journal
-            entry</button>
-        <button *ngIf="postId>0" (mousedown)="cancelButtonPressed()" class="btn btn-light bordered-button">Back
-            to top</button>
+    <div class="tan-box" style="font-size: 12px;">
+        Part of the vision of <span class="red-text">Betra</span> is about people helping people. Feel free to
+        journal here about your dating experiences, hopes or expectations.
+        Others can comment or give advice. It's fun and it's helpful because we are all in this together.
+    </div>
+    <button *ngIf="journalId>0" [routerLink]="['/journal']" class="btn btn-light bordered-button">Back
+        to top</button>
+    <button *ngIf="journalId==0 && !showFormFlg" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create journal
+        entry</button>
 
-        <div *ngIf="selectedJournal">
+    <!--<div *ngIf="selectedJournal">
             <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"
                 [adminFlg]="user.user_id==selectedJournal.user_id" [userId]="user.user_id">
             </app-journal-cell>
+        </div>-->
+
+    <div *ngIf="showFormFlg">
+        <div *ngIf="postId==0" class="gray-text">Create a journal entry about so others can follow your journey and
+            offer comments and advice.</div>
+        <div *ngIf="postId>0" class="gray-text">Reply with your best encouragement, advice, suggestions or
+            encouragement. Please nothing disrespectful.</div>
+        <div>Tell us a little about who you are:</div>
+        <app-text-area-input [id]="'aboutme'"></app-text-area-input>
+        <div>Tell us a little about your recent dating situation:</div>
+        <app-text-area-input [id]="'history'"></app-text-area-input>
+        <div>What are you looking for in a perfect match:</div>
+        <app-text-area-input [id]="'lookingFor'"></app-text-area-input>
+
+        <div>
+            <button [routerLink]="['']" class="btn btn-warning">Cancel</button>&nbsp;
+            <button *ngIf="postId==0" (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
+            <button *ngIf="postId>0" (mousedown)="replyButtonPressed()" class="btn btn-main-color">Reply</button>
         </div>
-
-        <div *ngIf="showFormFlg">
-            <div *ngIf="postId==0" class="gray-text">Create a journal entry about so others can follow your journey and
-                offer comments and advice.</div>
-            <div *ngIf="postId>0" class="gray-text">Reply with your best encouragement, advice, suggestions or
-                encouragement. Please nothing disrespectful.</div>
-            <div>Tell us a little about who you are:</div>
-            <app-text-area-input [id]="'aboutme'"></app-text-area-input>
-            <div>Tell us a little about your recent dating situation:</div>
-            <app-text-area-input [id]="'history'"></app-text-area-input>
-            <div>What are you looking for in a perfect match:</div>
-            <app-text-area-input [id]="'lookingFor'"></app-text-area-input>
-
-            <div>
-                <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-                <button (mousedown)="cancelButtonPressed()" class="btn btn-warning">Cancel</button>&nbsp;
-                <button *ngIf="postId==0" (mousedown)="submitButtonPressed()" class="btn btn-main-color">Submit</button>
-                <button *ngIf="postId>0" (mousedown)="replyButtonPressed()" class="btn btn-main-color">Reply</button>
-            </div>
-        </div>
-
     </div>
 
-    <div *ngIf="!selectedJournal">
-        <app-journal-cell (messageEvent)="replyButtonClicked($event)"
-            *ngFor="let journal of journalList; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
-            [imgSrc]="user.imgSrc" [adminFlg]="user.user_id == journal.user_id" [userId]="user.user_id" [level]="0">
+
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngFor="let journal of journalList; let i = index;">
+        <app-journal-cell *ngIf="journalId>0" (messageEvent)="replyButtonClicked($event)" [journal]="journal"
+            [userId]="user.user_id" [profilePic]="user.profilePic">
         </app-journal-cell>
+
+        <table *ngIf="journalId==0" width="100%" class="matches-card" style="margin: 3px;">
+            <tr>
+                <td width="80">
+                    <img [routerLink]="['/user-detail']" [queryParams]="{uid: journal.user_id}" [src]="journal.src"
+                        class="profile-big">
+                </td>
+                <td style="padding: 3px;" [routerLink]="['/journal']" [queryParams]="{id: journal.row_id}">
+                    <div>
+                        <b>{{journal.firstName}}</b>
+                        <span style="float: right;" class="local-date">{{journal.localDt}}</span>
+                    </div>
+                    <div class="gray-text">{{journal.messageText}}
+                    </div>
+                    <div style="color: gray; font-size: 12px; padding-left: 20px;">
+                        <span *ngIf="journal.replies>0" style="padding: 6px;"><i class="fa fa-comment"></i>
+                            {{journal.replies}}</span>
+                        <span *ngIf="journal.likes>0" style="padding: 6px;"><i class="fa fa-thumbs-o-up"></i>
+                            {{journal.likes}}</span>
+                        <span *ngIf="journal.dislikes>0" style="padding: 6px;"><i class="fa fa-thumbs-o-down"></i>
+                            {{journal.dislikes}}</span>
+                        <span style="float: right;"
+                            class="text-link">read more</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
 </app-page-shell>

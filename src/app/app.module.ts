@@ -91,6 +91,9 @@ import { ReputationComponent } from './reputation/reputation.component';
 import { TextWithEnterComponent } from './input/text-with-enter/text-with-enter.component';
 import { JournalItemComponent } from './journal-item/journal-item.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { TextWithEmojiComponent } from './input/text-with-emoji/text-with-emoji.component';
+import { ScrollCardComponent } from './scroll-card/scroll-card.component';
+import { MembershipConfirmationComponent } from './membership-confirmation/membership-confirmation.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -181,6 +184,9 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     TextWithEnterComponent,
     JournalItemComponent,
     PasswordResetComponent,
+    TextWithEmojiComponent,
+    ScrollCardComponent,
+    MembershipConfirmationComponent,
   ],
   imports: [
     BrowserModule,

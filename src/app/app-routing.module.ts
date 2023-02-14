@@ -38,6 +38,8 @@ import { LandingContentComponent } from './landing-content/landing-content.compo
 import { ContactComponent } from './contact/contact.component';
 import { ReputationComponent } from './reputation/reputation.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { JournalItemComponent } from './journal-item/journal-item.component';
+import { MembershipConfirmationComponent } from './membership-confirmation/membership-confirmation.component';
 
 const routes: Routes = [
   { path: 'content', component: LandingContentComponent },
@@ -78,6 +80,9 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'reputation', component: ReputationComponent },
   { path: 'password-reset', component: PasswordResetComponent },
+  { path: 'journal-item', component: JournalItemComponent },
+  { path: 'member-confirmation', component: MembershipConfirmationComponent },
+  
 ];
 
 @NgModule({

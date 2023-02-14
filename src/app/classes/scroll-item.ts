@@ -9,7 +9,9 @@ export class ScrollItem {
     public description: string = '';
     public created: string = '';
     public src: string = '';
+    public src2: string = '';
     public url: string = '';
+    public url2: string = '';
     public date: string = '';
     public id: string = '';
 
@@ -23,7 +25,9 @@ export class ScrollItem {
             this.description = obj.description || '';
             this.created = obj.created || '';
             this.src = obj.src || '';
+            this.src2 = obj.src2 || '';
             this.url = obj.url || '';
+            this.url2 = obj.url2 || '';
 
             var dt = getDateObjFromJSDate(obj.created);
             this.date = dt.localDate;

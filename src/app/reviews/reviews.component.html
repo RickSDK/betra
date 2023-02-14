@@ -1,11 +1,9 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Reviews'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <div class="matches-card" *ngIf="user">
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="reviewList.length==0">No Reviews at this time.</div>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="reviewList.length==0">No Reviews at this time.</div>
 
-        <app-review-cell *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i"></app-review-cell>
-    </div>
+    <app-review-cell *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i"></app-review-cell>
 
 </app-page-shell>

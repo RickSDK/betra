@@ -1,7 +1,15 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Contact'" [headerObj]="headerObj" [userStatus]="userStatus"
     [stickyBottomFlg]="true">
 
-    <div class="matches-card" style="text-align: left;">
+    <div class="matches-card" style="text-align: center;">
+        <div *ngIf="showFormFlg">
+            <div>Have a question or comment about Betra?</div>
+            <app-text-input [id]="'email'" [placeHolder]="'your email address'"></app-text-input>
+            <app-text-area-input [id]="'message'"></app-text-area-input>
+            <button (mousedown)="submitQuery()" class="btn btn-main-color">Submit</button>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="successFlg" class="important-notice">Your query has been sent!</div>
     </div>
 
 </app-page-shell>

@@ -29,12 +29,14 @@
         <button (mousedown)="optionConfirmPressed()" class="btn btn-success">Yes</button>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
+        <span *ngIf="journal.replies>0">
+            <i class="fa fa-comment" style="color: gray;"></i>&nbsp;{{journal.replies}}&nbsp;
+        </span>
         <span *ngIf="journal.likes>0" [title]="journal.likeTitle">
             <i class="fa fa-thumbs-up" style="color: rgb(60, 158, 114);"></i>&nbsp;{{journal.likes}}&nbsp;
         </span>
         <span *ngIf="journal.dislikes>0" [title]="journal.dislikeTitle">
-            <i class="fa fa-thumbs-down" 
-                style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;    
+            <i class="fa fa-thumbs-down" style="color: rgb(148, 96, 72);"></i>&nbsp;{{journal.dislikes}}&nbsp;
         </span>
         <i *ngIf="journal.postFlagged" class="fa fa-flag" style="color: orange;"></i>&nbsp;
         <span *ngIf="journal.region == 'Bug'">
@@ -45,11 +47,6 @@
             <span *ngIf="journal.status == 'Fixed'">Fixed: <span class="red-text">{{journal.fixedVersion}}
                     ({{journal.fixedDate}})</span></span>&nbsp;
         </span>
-
-        <span (mousedown)="toggleReplies()" *ngIf="journal.replies==1" class="text-link"
-            style="color: gray; float: right;">{{journal.replies}} comment</span>
-        <span (mousedown)="toggleReplies()" *ngIf="journal.replies>1" class="text-link"
-            style="color: gray; float: right;">{{journal.replies}} comments</span>
     </div>
     <div [ngClass]="level>1?'reply-post':'main-post'">
         <table width="100%" *ngIf="adminAction=='edit'">
@@ -75,6 +72,19 @@
             <div class="small-title">What I'm looking for</div>
             <div class="small-gray-box" *ngIf="adminAction!='edit'" [innerHTML]="journal.lookingFor"></div>
         </div>
+        <div *ngFor="let update of journal.updates" class="padding: 10px;">
+            <table>
+                <tr>
+                    <td width="50">
+                                    &nbsp;
+                    </td>
+                    <td>
+                        <div class="gray-text">Update {{update.localDate}}</div>
+                        <div class="small-gray-box">{{update.message}}</div>                      
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div style="text-align: left; font-size: 12px; color: gray;">
         <span *ngIf="!journal.iLikeFlg" (mousedown)="journalApiCall('likePost')" class="text-link">Like</span>&nbsp;
@@ -83,8 +93,7 @@
         <span (mousedown)="toggleReply();" class="text-link">Reply</span>&nbsp;
         <span *ngIf="journal.imageNum>0" class="text-link" (mousedown)="showImageFlg=!showImageFlg">
             <i class="fa fa-picture-o"></i> Show Attachment</span>&nbsp;
-        <span *ngIf="userId == journal.user_id" (mousedown)="toggleAttachment();"
-            class="text-link">Attachment</span>&nbsp;
+        <span *ngIf="journal.isMineFlg" (mousedown)="toggleAttachment();" class="text-link">Attachment</span>&nbsp;
         <span *ngIf="journal.region == 'Bug' && userId == 1">
             <button *ngIf="journal.status != 'Fixed'" (mousedown)="journalApiCall('markAsFixed')"
                 class="btn btn-primary">Fixed</button>&nbsp;
@@ -95,34 +104,39 @@
             <button *ngIf="journal.status != 'Closed'" (mousedown)="journalApiCall('markAsClosed')"
                 class="btn btn-primary">Close</button>&nbsp;
         </span>
+        <span *ngIf="journal.isMineFlg && journal.region == 'main'">
+            <button *ngIf="journal.status != 'Closed'" (mousedown)="addEntryFlg = !addEntryFlg"
+                class="btn btn-primary">Add Update</button>&nbsp;
+        </span>
 
         <img *ngIf="showImageFlg" [src]="journal.imageSrc" width="100%">
     </div>
+    <div *ngIf="addEntryFlg">Add an update to let people know how things are going:</div>
+    <app-text-with-emoji *ngIf="addEntryFlg" (messageEvent)="sumbitReply($event)" [user_id]="userId"
+    [profilePic]="profilePic" [maxLength]="400"></app-text-with-emoji>
+
     <div *ngIf="showAttachmentFlg">
         <div>Note you can only have one attachment at a time. Uploading a new attachment will override the existing one.
         </div>
         <app-upload-image *ngIf="!loadingFlg" [src]="bugImgSrc" (messageEvent)="updateImageButtonClicked()">
         </app-upload-image>
     </div>
-    <table *ngIf="replyToFlg" width="100%">
-        <tr>
-            <td>&nbsp;&nbsp;</td>
-            <td valign="top" style="padding-top: 8px;">
-                <img [routerLink]="['/user-detail']" [queryParams]="{uid: journal.user_id}" [src]="imgSrc"
-                    class="profile-circle-small">
-            </td>
-            <td width="100%" valign="top">
-                <input id="replyInputText" name="replyInputText" type="text" (keyup.enter)="sumbitReply()"
-                    (input)="inputValueChanged($event)" maxLength="400">
-                <span style="font-size: 8px; color: gray; float: right;">{{strLength}}/400</span>
-            </td>
-            <td valign="top" style="padding-top: 3px; padding-left: 5px;">
-                <button (mousedown)="sumbitReply()" class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
-            </td>
-        </tr>
-    </table>
-    <app-journal-cell *ngFor="let reply of replies; let i = index;" [journal]="reply" [index]="i" [adminFlg]="adminFlg"
-        [level]="level" [imgSrc]="imgSrc" [userId]="userId">
-    </app-journal-cell>
+    <app-text-with-emoji *ngIf="replyToFlg" (messageEvent)="sumbitReply($event)" [user_id]="userId"
+        [profilePic]="profilePic" [maxLength]="400"></app-text-with-emoji>
+
+    <hr *ngIf="journal.replies>0">
+    <div *ngFor="let reply of journal.comments; let i = index;">
+        <table width="100%">
+            <tr>
+                <td width="30" valign="top" style="padding-top: 2px;">
+                    <app-profile-pic [user_id]="reply.user_id" [profilePic]="reply.profilePic" [size]="30">
+                    </app-profile-pic>
+                </td>
+                <td>
+                    <div class="small-gray-box" style="font-size: 12px;">{{reply.message}}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>

@@ -20,11 +20,6 @@ $main-color: #ff035e;
 $light-color: #ffeeee;
 $button-highlight: #ff4444;
 
-@font-face {
-    font-family: 'Arturo';
-    src: url('assets/Arturo-Heavy.ttf');
-}
-
 body {
     background-color: #eee !important;
 }
@@ -525,6 +520,24 @@ select {
 .btn-small {
     padding: 2px 10px 2px 10px !important;
     font-size: 12px !important;
+}
+
+.local-date {
+    font-size: 10px;
+    color: pink;
+    float: right;
+}
+
+.profile-big {
+    width: 80px;
+    height: 120px;
+    border-radius: 5px;
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px gray;
+}
+.profile-big:hover {
+    box-shadow: 2px 2px 10px black;
 }
 
 @media screen and (max-width: 800px) {

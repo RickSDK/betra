@@ -78,7 +78,7 @@
     <div *ngIf="!selectedJournal">
         <app-journal-cell (messageEvent)="replyButtonClicked($event)"
             *ngFor="let journal of displayedBugs; let i = index;" [journal]="journal" [index]="i" [postId]="postId"
-            [imgSrc]="user.imgSrc" [adminFlg]="user.user_id == journal.user_id" [level]="0" [userId]="user.user_id">
+            [profilePic]="user.profilePic" [adminFlg]="user.user_id == journal.user_id" [level]="0" [userId]="user.user_id">
         </app-journal-cell>
     </div>
 

@@ -16,7 +16,8 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   @Input('postId') postId: number = 0;
   @Input('adminFlg') adminFlg: boolean = false;
   @Input('userId') override userId: number = 0;
-  @Input('imgSrc') override imgSrc: string = '';
+  @Input('profilePic') profilePic: number = 0;
+  //  @Input('imgSrc') override imgSrc: string = '';
   @Input('level') level: number = 0;
 
   @Output() messageEvent = new EventEmitter<any>();
@@ -31,12 +32,14 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   public adminAction: string = '';
   public bugImgSrc: any = null;
   public showImageFlg: boolean = false;
-  public appVersion:string = getVersion();
+  public appVersion: string = getVersion();
+  public addEntryFlg: boolean = false;
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     this.level++;
+    console.log('+++', this.journal);
   }
 
   ngClassPic(num: number) {
@@ -77,13 +80,13 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   }
 
   journalApiCall(action: string) {
-    if(action == 'likePost') {
+    if (action == 'likePost') {
       this.journal.iLikeFlg = true;
       this.journal.iDislikeFlg = false;
     }
-    if(action == 'dislikePost') {
+    if (action == 'dislikePost') {
       this.journal.iLikeFlg = false;
-      this.journal.iDislikeFlg = true;      
+      this.journal.iDislikeFlg = true;
     }
     var params = {
       userId: localStorage['user_id'],
@@ -132,32 +135,22 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     this.executeApi('appApiCode.php', params, true);
   }
 
-  sumbitReply() {
-    var message = $('#replyInputText').val();
+  sumbitReply(message: string) {
     if (message.length > 0) {
       this.replyToFlg = false;
-      var postId = this.journal.postId;
-      if (postId == 0)
-        postId = this.journal.row_id;
-      var params = {
-        userId: localStorage['user_id'],
-        code: localStorage['code'],
-        postId: postId,
-        replyTo: this.journal.row_id,
-        actionFlg: 'Y',
-        message: message,
-        action: "postJournal"
-      };
-      console.log('params', params, this.journal);
-      this.executeApi('journal.php', params, true);
+      this.getDataFromServer('postJournalComment', 'journal.php', {
+        journalId: this.journal.row_id, message: message, updateFlg: (this.addEntryFlg)?'Y':''
+      });
     }
   }
 
-  getAllReviews() {
-
-  }
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
+    this.addEntryFlg = false;
+    if (responseJson.action == 'getJournals') {
+      if (responseJson.itemArray.length > 0)
+        this.journal = new Journal(responseJson.itemArray[0]);
+    }
     if (responseJson.action == 'flagJournal') {
       this.errorMessage = 'This post has been flagged. Thankyou.';
     }
@@ -177,7 +170,7 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'refreshPost') {
       this.journal = new Journal(responseJson.mainPost, this.userId);
       var replies: any = [];
-      if(responseJson.itemArray) {
+      if (responseJson.itemArray) {
         responseJson.itemArray.forEach((element: any) => {
           replies.push(new Journal(element, this.userId));
         });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
+import { ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 
@@ -15,23 +16,20 @@ export class JournalComponent extends BaseComponent implements OnInit {
   public selectedJournal: any = null;
   public postId: number = 0;
   public region: string = 'main';
+  public journalId: number = 0;
 
-  constructor() { super(); }
+  constructor(private route: ActivatedRoute) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getAllJournals();
+
+    this.route.queryParams.subscribe(params => {
+      this.journalId = parseInt(params['id']) || 0;
+
+      this.getDataFromServer('getJournals', 'journal.php', {region: this.region, journalId: this.journalId});
+    });
   }
-  getAllJournals() {
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      region: this.region,
-      action: "getJournals"
-    };
-    console.log(params);
-    this.executeApi('journal.php', params, true);
-  }
+
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == 'getJournals' || responseJson.action == 'postMainJournal' || responseJson.action == 'postJournalReply') {
@@ -44,7 +42,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
       });
       this.journalList = journalList;
       console.log('hey!!', journalList);
-      
+
     }
   }
   submitButtonPressed() {
@@ -62,7 +60,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
       lookingFor: $('#lookingFor').val(),
       action: "postMainJournal"
     };
-    //console.log(params);
+    console.log(params);
     this.showFormFlg = false;
     this.executeApi('journal.php', params, true);
   }
@@ -87,15 +85,9 @@ export class JournalComponent extends BaseComponent implements OnInit {
     this.selectedJournal = null;
     this.journalList = [];
   }
-  cancelButtonPressed() {
-    this.showFormFlg = false;
-    this.selectedJournal = null;
-    if (this.postId > 0 || this.journalList.length == 0) {
-      this.postId = 0;
-      this.getAllJournals();
-    }
-  }
+
   replyButtonClicked(journal: any) {
-    this.getAllJournals();
+    this.getDataFromServer('getJournals', 'journal.php', {region: this.region, journalId: this.journalId});
+
   }
 }

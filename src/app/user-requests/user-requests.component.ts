@@ -102,8 +102,6 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
       responseJson.reviews.forEach((element: any) => {
         this.reviewList.push(new Review(element, this.myUser.user_id))
       });
-
-      console.log('hey!!', this.myUser.user_id, this.reviewList);
     }
     if (responseJson.action == 'submitReview') {
       this.processAPIRequest('getReviews');

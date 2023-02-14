@@ -1,20 +1,19 @@
 <!--<img class="background-img hide-xs" src="assets/images/landing/roseHome.png" alt="">-->
-<img class="background-img hide-xs" [src]="backgroundImg" alt="">
-<img class="background-img show-xs" src="assets/images/landing/couple2.png" alt="">
+<img *ngIf="1" class="background-img" [src]="backgroundImg" alt="">
+<!--<img class="background-img show-xs" src="assets/images/landing/couple2.png" alt="">-->
 <div class="gray-screen large-screen"></div>
 <div *ngIf="login > 0" class="gray-screen large-screen"></div>
 
-<span *ngIf="1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
+<span (mousedown)="login=1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
     Log<br>
     In
 </span>
-<img [routerLink]="['']" [queryParams]="{login: 0}" [src]="logo" height="60"
+<img (mousedown)="login=0" [routerLink]="['']" [queryParams]="{login: 0}" [src]="logo" height="60"
     style="top: 10px; left: 10px; position: absolute; cursor: pointer;">
 
 <table width="100%" style="color: white; font-size: 16px; margin-top: 15px;">
     <tr>
         <td align="center">
-            <i (mousedown)="toggleBackground()" class="fa fa-picture-o"></i>
             <span [routerLink]="['']" class="white-link2">Home</span>
             <span [routerLink]="['/about']" class="white-link2">About</span>
             <span [routerLink]="['/blogs']" class="white-link2">Blog</span>

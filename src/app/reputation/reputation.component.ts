@@ -56,14 +56,28 @@ export class ReputationComponent extends BaseComponent implements OnInit {
   }
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
-    if (responseJson.action == 'postReputationUrl' || responseJson.action == 'updateLat') {
+    if (responseJson.action == 'updateLat') {
       this.selectedItemNum = 0;
       this.successFlg = true;
+      this.refreshUserObj(responseJson.user);
+      this.getDataFromServer('getReputationStats', 'reputation.php', {})
+    }
+    if (responseJson.action == 'postReputationUrl') {
+      this.selectedItemNum = 0;
+      this.successFlg = true;
+      this.getDataFromServer('getReputationStats', 'reputation.php', {})
     }
     if (responseJson.action == 'getReputationStats') {
       this.facebookUrl = responseJson.facebookUrl;
       this.instragramUrl = responseJson.instragramUrl;
       this.linkedInUrl = responseJson.linkedInUrl;
+
+      if (responseJson.emailVerifyFlg == 'Y')
+        this.items[0].score = 1;
+      if (responseJson.picCertificateFlg == 'Y')
+        this.items[2].score = 1;
+      if (responseJson.navLat && responseJson.navLat.length > 0)
+        this.items[3].score = 1;
 
       if (responseJson.facebookUrlFlg == 'Y')
         this.items[4].score = 1;
@@ -71,6 +85,13 @@ export class ReputationComponent extends BaseComponent implements OnInit {
         this.items[5].score = 1;
       if (responseJson.linkedInUrlFlg == 'Y')
         this.items[6].score = 1;
+
+      var reputationsScore = 0;
+      this.items.forEach(element => {
+        reputationsScore += element.score;
+      });
+      if (reputationsScore > this.user, reputationsScore)
+        this.user.reputationsScore = reputationsScore;
     }
   }
 

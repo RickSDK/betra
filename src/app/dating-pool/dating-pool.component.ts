@@ -41,6 +41,8 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     if (this.displayPicsSize > this.user.datingPool.length)
       this.displayPicsSize = this.user.datingPool.length;
 
+    if (this.largeFlg)
+      this.displayPicsSize = this.user.datingPool.length;
     this.refreshDatingPool();
 
   }
@@ -49,7 +51,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     this.panRight = flag;
     if (flag) {
       this.datingPool = [];
-      for (var i = this.datingPoolSize-this.displayPicsSize; i < this.datingPoolSize; i++) {
+      for (var i = this.datingPoolSize - this.displayPicsSize; i < this.datingPoolSize; i++) {
         this.datingPool.push(this.user.datingPool[i])
       }
     } else

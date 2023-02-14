@@ -1,0 +1,7 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Membership Confirmation'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" *ngIf="user" style="padding: 10px 0 10px 0;">
+        Membership confirmed!
+    </div>
+</app-page-shell>

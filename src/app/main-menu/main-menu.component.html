@@ -28,6 +28,8 @@
         </table>
     </div>-->
 
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click "settings" to log out and then try logging back in.</div>
     <div *ngIf="user && userId>0">
         <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">
         </app-dating-pool>
@@ -46,7 +48,7 @@
                     You still have room for more singles in your dating pool.
                 </p>
                 <p *ngIf="user.datingPool.length == user.maxPoolSize">
-                    Keep in mind you can continue adding people to your dating pool.
+                    Your dating pool is full, but feel free to keep browsing.
                 </p>
                 <p *ngIf="user.datingPool.length > user.maxPoolSize">
                     You will need to move someone to your back burner before searching for more singles.
@@ -67,28 +69,9 @@
                     have with a dating app.</p>
             </div>
         </div>
+       <app-scroll-card *ngFor="let item of displayItems" [item]="item"></app-scroll-card>
 
-        <div *ngFor="let item of displayItems" class="item-card">
-            <table width="100%" [id]="item.id">
-                <tr>
-                    <td style="width: 30%; max-width: 190px; min-width: 100px; padding: 0;">
-                        <a [href]="item.url"><img [src]="item.src" class="item-pic" width="100%"></a>
-                    </td>
-                    <td style="padding: 10px;">
-                        <div class="main-color"><i [class]="item.icon"></i> {{item.type}}
-                            <span class="local-date">{{item.date}}</span>
-                        </div>
-                        <div><a [href]="item.url">{{item.name}}</a></div>
-                        <div class="gray-text" [innerHtml]="item.description"></div>
-                        <a [href]="item.url" class="text-link" style="float: right; font-size: 10px; color: gray;">Read More</a>
-                    </td>
-                </tr>
-            </table>
-
-            
-        </div>
     </div>
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
 </app-page-shell>
 
