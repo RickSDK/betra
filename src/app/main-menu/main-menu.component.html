@@ -28,6 +28,7 @@
         </table>
     </div>-->
 
+    <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" style="width: 100%;">
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click "settings" to log out and then try logging back in.</div>
     <div *ngIf="user && userId>0">

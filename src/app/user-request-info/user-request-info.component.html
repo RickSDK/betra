@@ -7,16 +7,15 @@
             request.</div>
         <div *ngIf="matchUser.matchObj.you_info_request=='A'"><i class="fa fa-envelope"></i> Info has been
             delivered. Check your messages.</div>
-        <div *ngIf="!matchUser.matchObj.you_info_request" class="gray-text">If your request is accepted, you will
-            receive {{matchUser.firstName}}'s email and
-            phone contact info.</div>
+        <div *ngIf="!matchUser.matchObj.you_info_request" class="gray-text">Would you like to have {{matchUser.firstName}}'s email address and
+            phone number? Click the "Request Info" button below. If your request is accepted, you will
+            receive them in a chat.</div>
         <div *ngIf="matchUser.matchObj.you_info_request == 'Y'"><i class="fa fa-paper-plane"></i> You have already
             requested info. Awaiting Reply.
         </div>
         <div *ngIf="!loadingFlg && !messageSentFlg && !matchUser.matchObj.you_info_request">
             <button (mousedown)="requestNum=0" class="btn btn-secondary">Cancel</button>&nbsp;
-            <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-main-color">Send
-                Request</button>
+            <button (mousedown)="processAPIRequest('requestInfo')" class="btn btn-main-color">Request Info</button>
         </div>
     </div>
     <div *ngIf="sendMessage"><i class="fa fa-paper-plane"></i> {{sendMessage}}</div>

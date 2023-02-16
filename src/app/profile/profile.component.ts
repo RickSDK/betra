@@ -19,7 +19,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public inputFieldObj: any;
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Your Match', 'Done'];
   public menuDesc = [
-    'Ready to find love? Yes you are! Lets start with your basic infomation',
+    'Ready to find love? Yes you are! Let\'s start with your basic infomation',
     'We want to verify your email to know you are legit. Feel free to skip for now if you want. We trust you!',
     'Details, details details! Yes this is a lot of stuff to fill out, but it will be worth it. Betra tells you more about a potential match than any other dating site!',
     'How about a simple personality test? This is just to see how you stack up against potential matches.',
@@ -34,7 +34,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
   public maritalStatus = ['Single', 'Married', 'Divorced'];
-  public bodyTypes = ['Thin', 'Average', 'Heavy'];
+  public bodyTypes = ['Thin', 'Average', 'Plus'];
   public bodyHeights = ['Short', 'Average', 'Tall'];
   public desiredRelationships = ['Serious', 'Casual', 'Serious or Casual'];
   public marriageOptions = ['High Priority', 'Maybe', 'Not likely'];
@@ -541,6 +541,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     };
     console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
+  }
+
+  continueUploadButtonPressed() {
+    this.errorMessage = 'Select an image and then press "Upload" to continue.';
   }
 
   uploadPicButtonClicked(num: number) {

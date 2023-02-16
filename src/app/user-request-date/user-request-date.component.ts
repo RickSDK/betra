@@ -20,6 +20,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
   public modifyDateNum: number = 0;
   public secondsAgo: number = 0;
   public declineDateFlg: boolean = false;
+  public dateObjExists: boolean = false;
 
   public requestObj = {
     date: 'empty',
@@ -33,6 +34,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   override ngOnInit(): void {
+    this.dateObjExists = (this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.dateObj && this.matchUser.matchObj.dateObj.row_id > 0);
     if (this.matchUser.matchObj.dateObj) {
       var dt = getDateObjFromJSDate(this.matchUser.matchObj.dateObj.eventDate + ' ' + this.matchUser.matchObj.dateObj.eventTime);
       if (dt)

@@ -17,7 +17,7 @@
         <button (mousedown)="changeMenuNum(6)" class="btn btn-main-color spacer"><i class="fa fa-star"></i>
             Change Password</button>
 
-        <button *ngIf="!user.memberFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer"><i
+        <button [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer"><i
                 class="fa fa-arrow-up"></i>
             Upgrade</button>
 

@@ -153,6 +153,58 @@ h3 {
     border: 1px solid red;
 }
 
+$size-width: 440px;
+$size-height: 122px;
+
+.carousel-wrapper {
+  width: 100%;
+  height: $size-height;
+  left: 0;
+  justify-content: left;
+  align-items: left;
+  margin: 0;
+}
+
+.carousel-container {
+  width: $size-width;
+  height: $size-height;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.carousel {
+  display: flex;
+  width: $size-width * 3;
+  animation: sliding 12s infinite;
+  img {
+    width: $size-width;
+    height: $size-height;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@keyframes sliding {
+  30% {
+    transform: translateX(0);
+  }
+  35% {
+    transform: translateX(-$size-width);
+  }
+  65% {
+    transform: translateX(-$size-width);
+  }
+  70% {
+    transform: translateX(-$size-width * 2);
+  }
+  98% {
+    transform: translateX(-$size-width * 2);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 @media screen and (max-width: 800px) {
     .signup-popup {
         top: 100px;

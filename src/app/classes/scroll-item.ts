@@ -14,10 +14,12 @@ export class ScrollItem {
     public url2: string = '';
     public date: string = '';
     public id: string = '';
+    public cardType: number = 0;
 
     constructor(obj: any, num: number) {
         if (obj) {
             this.id = 'item' + num;
+            this.cardType = obj.cardType || 0;
             this.row_id = obj.row_id || 0;
             this.type = obj.type || '';
             this.icon = obj.icon || '';

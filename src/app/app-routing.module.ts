@@ -34,7 +34,6 @@ import { BetraBlogsComponent } from './betra-blogs/betra-blogs.component';
 import { BlogCreateComponent } from './blog-create/blog-create.component';
 import { BlogManageComponent } from './blog-manage/blog-manage.component';
 import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup.component';
-import { LandingContentComponent } from './landing-content/landing-content.component';
 import { ContactComponent } from './contact/contact.component';
 import { ReputationComponent } from './reputation/reputation.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
@@ -42,7 +41,6 @@ import { JournalItemComponent } from './journal-item/journal-item.component';
 import { MembershipConfirmationComponent } from './membership-confirmation/membership-confirmation.component';
 
 const routes: Routes = [
-  { path: 'content', component: LandingContentComponent },
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'profile', component: ProfileComponent },

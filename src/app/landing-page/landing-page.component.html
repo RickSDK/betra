@@ -25,11 +25,12 @@
         </app-login-popup>
 </div>
 
-<div style="color: white; background-image: url('assets/images/landing/roseBottom.png'); padding-top: 20px;">
+<div style="color: white; text-align: center; background-image: url('assets/images/landing/roseBottom.png');">
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md">
-                <div style="padding: 20px;">
+            <div class="col-md" style="text-align: left; padding: 20px;">
+                <div >
                     <div class="large-text2">How we're changing</div>
                     <div class="large-text2">the game.</div>
                     <div>You asked. We delivered.</div>
@@ -46,10 +47,11 @@
                     <div style="text-align: center"><img [src]="logo" height="80"></div>
                 </div>
             </div>
-            <div class="col-md" style="text-align: center;">
-                <div style="padding: 2px;">
+            <div class="col-md" style="text-align: center; padding: 0;">
+                <div>
                     <img src="assets/images/landing/cell-phone.png" height="500">
-                    <div style="display: block; height: 150px; text-align: center;">
+                  
+                    <div *ngIf="0" style="display: block; height: 150px; text-align: center;">
                         <div style="display: inline-block; position: relative; width: 370px; height: 150px;">
                             <div class="testimony-popup" style="color: black;">
                                 <div class="name-text">Savonne</div>
@@ -58,6 +60,17 @@
                                 knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
                             </div>
                             <img src="assets/images/landing/dana.png" class="savonne">
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="1" class="carousel-wrapper">
+                        <div class="carousel-container">
+                            <div class="carousel">
+                                <img src="assets/images/reviews/review1.png">
+                                <img src="assets/images/reviews/review2.png">
+                                <img src="assets/images/reviews/review3.png">
+                                <img src="assets/images/reviews/review4.png">
+                            </div>
                         </div>
                     </div>
 

@@ -147,6 +147,24 @@
     margin-bottom: 10px;
 }
 
+.dp-header {
+    background-color: white;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 0 8px 0 8px;
+    cursor: pointer;
+    font-size: 12px;
+    position: absolute;
+    left: auto;
+    top: -10px;
+    z-index: 100;
+}
+
+.dp-header:hover {
+    border: 1px solid black;
+    box-shadow: 2px 2px 3px black;
+}
+
 /* toggle in label designing */
 .toggle {
     cursor: pointer;

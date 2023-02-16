@@ -6,12 +6,12 @@
                     <button (mousedown)="openPanel(1)"
                         [ngClass]="requestNum==1?'btn request-btn btn-main-color':'btn request-btn'"><i
                             class="fa fa-phone"></i> Info</button>
-                    <button (mousedown)="openPanel(2)"
-                        [ngClass]="requestNum==2?'btn request-btn btn-main-color':'btn request-btn'"><i
-                            class="fa fa-calendar"></i> Date</button>
                     <button (mousedown)="openPanel(3)"
                         [ngClass]="requestNum==3?'btn request-btn btn-main-color':'btn request-btn'"><i
                             class="fa fa-picture-o"></i> Pic</button>
+                    <button (mousedown)="openPanel(2)"
+                        [ngClass]="requestNum==2?'btn request-btn btn-main-color':'btn request-btn'"><i
+                            class="fa fa-calendar"></i> Date</button>
                 </td>
                 <td align="right">
                     <button (mousedown)="openPanel(4)"
@@ -27,7 +27,8 @@
 
     <div *ngIf="requestNum==4">
         <p *ngIf="reviewList.length==0" class="basic-cell">No reviews on {{matchUser.firstName}} at this time.</p>
-        <app-review-cell (messageEvent)="reviewCellEvent($event)" *ngFor="let review of reviewList; let i = index;" [review]="review" [index]="i">
+        <app-review-cell (messageEvent)="reviewCellEvent($event)" *ngFor="let review of reviewList; let i = index;"
+            [review]="review" [index]="i">
         </app-review-cell>
         <div class="tan-box" style="font-size: 10px;">
             Note: reviews are meant to be ONLY for positive comments and constructive criticism. No gas-lighting, angry,

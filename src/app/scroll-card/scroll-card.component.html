@@ -1,5 +1,5 @@
 <div class="item-card" *ngIf="item">
-    <table *ngIf="item.type != 'User Review' && item.type != 'Match Made'" width="100%" [id]="item.id">
+    <table *ngIf="item.cardType == 0" width="100%" [id]="item.id">
         <tr>
             <td style="width: 30%; max-width: 190px; min-width: 100px; padding: 0;">
                 <a [href]="item.url"><img [src]="item.src" class="item-pic" width="100%"></a>
@@ -16,7 +16,7 @@
         </tr>
     </table>
 
-    <table *ngIf="item.type == 'User Review'" width="100%" [id]="item.id">
+    <table *ngIf="item.cardType == 1" width="100%" [id]="item.id">
         <tr>
             <td style="width: 30%; max-width: 190px; min-width: 100px; padding: 0;">
                 <a [href]="item.url"><img [src]="item.src" class="item-pic" width="100%"></a>
@@ -37,12 +37,13 @@
         </tr>
     </table>
 
-    <table *ngIf="item.type == 'Match Made'" width="100%" [id]="item.id">
+    <table *ngIf="item.cardType == 2" width="100%" [id]="item.id">
         <tr>
             <td style="width: 30%; max-width: 190px; min-width: 100px; padding: 0;">
                 <a [href]="item.url"><img [src]="item.src" class="item-pic" width="100%"></a>
             </td>
             <td style="padding: 10px; text-align: center;">
+                <img *ngIf="item.type == 'Rose Given Out!'" src="assets/images/rose1.png" height="100">
                 <div class="main-color"><i [class]="item.icon"></i> {{item.type}}</div>
                 <div><a [href]="item.url">{{item.name}}</a></div>
                 <div style="font-size: 12px; color: pink;">{{item.date}}</div>

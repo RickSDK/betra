@@ -1,7 +1,56 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Membership Confirmation'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <div class="matches-card" *ngIf="user" style="padding: 10px 0 10px 0;">
-        Membership confirmed!
+    <div class="matches-card" *ngIf="user && plan" style="padding: 20px; max-width: 400px;">
+        <div class="payment-plan-box">
+            <div style="font-size: 30px;"><b>{{plan.name}}</b></div>
+            <div *ngIf="id==0" style="font-size: 22px;"><s>{{plan.cost}}</s></div>
+            <div *ngIf="id>0" style="font-size: 22px;">{{plan.cost}}</div>
+            <div *ngIf="id==0" style="font-size: 22px;">Only {{plan.payment}}</div>
+            <div style="font-size: 12px; color: gray;">Payment: {{plan.payment}}</div>
+        </div>
+        <div>&nbsp;</div>
+        <div *ngIf="showFormFlg">
+            <div class="small-text">Card information
+                <span style="float: right; font-size: 16px;">
+                    <i class="fa fa-cc-visa"></i>&nbsp;
+                    <i class="fa fa-cc-mastercard"></i>&nbsp;
+                    <i class="fa fa-cc-amex"></i>&nbsp;
+                    <i class="fa fa-cc-jcb"></i>
+                </span>
+            </div>
+            <input id="ccNumber" type="text" placeholder="1234 1234 1234 1234" (input)="ccValueChanged($event)"
+                maxLength="19">
+            <table>
+                <tr>
+                    <td>
+                        <input id="expNumber" type="text" placeholder="MM / YY" (input)="expValueChanged($event)"
+                            maxLength="7">
+                    </td>
+                    <td>
+                        <input id="cvcNumber" type="text" placeholder="CVC" (input)="cvcValueChanged($event)"
+                            maxLength="4">
+                    </td>
+                </tr>
+            </table>
+            <div class="small-text">Name on card</div>
+            <input id="customerName" type="text" placeholder="John Doe" maxLength="100">
+            <div class="small-text">Zip code</div>
+            <input type="text" id="zipcode" placeholder="12345" (input)="zipcodeValueChanged($event)" maxLength="5">
+            <div>&nbsp;</div>
+            <button (mousedown)="submitButtonPressed()" class="btn btn-main-color"
+                style="width: 220px;">Upgrade</button>
+            <div>&nbsp;</div>
+            <div class="gray-text">By confirmaing your subscription, you allow Betra to charge your card
+                for this payment and future payments in accordance with their terms. You can always cancel at any time.
+            </div>
+        </div>
+        <div *ngIf="successFlg">
+            <div style="font-size: 32px; color: green;">Success!</div>
+            <div>You are now a gold member! Enjoy your membership</div>
+            <button [routerLink]="['/home']" class="btn btn-main-color">Home</button>
+        </div>
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     </div>
 </app-page-shell>

@@ -1,5 +1,18 @@
 <div *ngIf="requestNum==2" class="basic-cell">
+    <!-- date request-->
     <div>&nbsp;</div>
+    <div *ngIf="!messageSentFlg && !dateObjExists">
+        <p style="font-size: 12px;">Ask {{matchUser.firstName}} out on a date with one click!</p>
+        <app-date-form [dateObj]="matchUser.matchObj.dateObj" [requestObj]="requestObj"></app-date-form>
+        <div>&nbsp;</div>
+        <div class="gray-text">Keep in mind the person asking the date is expected to pay.</div>
+        <div>&nbsp;</div>
+        <div>
+            <button (mousedown)="sendDateRequest()" class="btn btn-main-color" style="height: 60px;">Send
+                Request</button>
+        </div>
+    </div>
+
     <div *ngIf="matchUser.matchObj.you_date_request=='X'">
         you_date_request {{matchUser.matchObj.you_date_request}}
     </div>
@@ -19,28 +32,12 @@
         already have a date set up.</div>
     <div *ngIf="matchUser.matchObj.you_date_request == 'M'"><i class="fa fa-paper-plane"></i> You have requested a
         modification to your date.</div>
-    <div *ngIf="!messageSentFlg && !matchUser.matchObj.match_date_request && !matchUser.matchObj.you_date_request">
-        <p style="font-size: 12px;">Ask {{matchUser.firstName}} out on a date with one click!</p>
-        <app-date-form [dateObj]="matchUser.matchObj.dateObj" [requestObj]="requestObj"></app-date-form>
-        <div>&nbsp;</div>
-        <div class="gray-text">Keep in mind the person asking the date is expected to pay.</div>
-        <div>&nbsp;</div>
-        <div>
-            <button (mousedown)="sendDateRequest()" class="btn btn-main-color" style="height: 60px;">Send
-                Request</button>
-        </div>
-    </div>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div>&nbsp;</div>
     <div *ngIf="messageSentFlg"><i class="fa fa-paper-plane"></i> Message sent!</div>
 </div>
 
-
-
-
-
-
-<div *ngIf="requestNum == 0 && matchUser.matchObj.dateObj && myUser && matchUser.matchObj.dateObj.row_id > 0"
+<div *ngIf="dateObjExists"
     class="tan-box">
     <div *ngIf="0">
         match_date_request [{{matchUser.matchObj.match_date_request}}]

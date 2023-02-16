@@ -84,7 +84,6 @@ import { BlogCreateComponent } from './blog-create/blog-create.component';
 import { BlogManageComponent } from './blog-manage/blog-manage.component';
 import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
 import { RestaurantSignupComponent } from './restaurant-signup/restaurant-signup.component';
-import { LandingContentComponent } from './landing-content/landing-content.component';
 import { ProfileThumbnailComponent } from './profile-thumbnail/profile-thumbnail.component';
 import { ContactComponent } from './contact/contact.component';
 import { ReputationComponent } from './reputation/reputation.component';
@@ -177,7 +176,6 @@ import { MembershipConfirmationComponent } from './membership-confirmation/membe
     BlogManageComponent,
     BlogCommentsComponent,
     RestaurantSignupComponent,
-    LandingContentComponent,
     ProfileThumbnailComponent,
     ContactComponent,
     ReputationComponent,

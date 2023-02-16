@@ -574,7 +574,8 @@
                             class="btn gray-button">Back</button>
                     </td>
                     <td>
-                        <button *ngIf="menuNum < menuTitles.length-1" (mousedown)="profileSectionAdvance()"
+                        <button *ngIf="menuNum==5" class="btn red-button btn-main-color" (mousedown)="continueUploadButtonPressed()">Contine</button>
+                        <button *ngIf="menuNum!=5 && menuNum < menuTitles.length-1" (mousedown)="profileSectionAdvance()"
                             class="btn red-button btn-main-color"><span *ngIf="changesMadeFlg">Save &</span>
                             Continue</button>
                     </td>

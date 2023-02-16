@@ -126,7 +126,6 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       uid: this.displayUser.user_id,
       action: 'verifyUserPic',
     };
-    console.log(params);
     this.executeApi('verifyPics.php', params, true);
     this.displayUser = null;
   }
@@ -134,7 +133,6 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     this.showRecordFlg = false;
     this.responseJson = responseJson;
-
     if(responseJson.action == 'approveRejectLink') {
       this.menuNum = 0;
       this.getDataFromServer('getInfoObj', 'owners.php', []);
@@ -144,7 +142,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       this.src = this.betraImageFromId(this.displayUser.user_id, this.displayUser.profilePic);
 
     }
-    if (responseJson.action == 'getPicCertifiedUser') {
+    if (responseJson.action == 'getPicCertifiedUser' && responseJson.user) {
       this.displayUser = responseJson.user;
       this.src = this.betraImageFromId(this.displayUser.user_id, this.displayUser.profilePic);
       this.verifySrc = 'https://www.betradating.com/betraPhp/verifyPics/pic' + this.displayUser.user_id + '.jpg';

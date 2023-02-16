@@ -2,7 +2,7 @@ function getHostname() {
 	return 'https://www.betradating.com/betraPhp/';
 }
 function getVersion() {
-	return '0.160';
+	return '0.162';
 }
 function decodeJwtResponse(token) {
 	var base64Url = token.split('.')[1];

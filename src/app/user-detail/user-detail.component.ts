@@ -175,6 +175,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     console.log('--postSuccessApi--', responseJson);
     this.profileViews = responseJson.profileViews;
+    if (this.profileViews < 0)
+      this.profileViews = 0;
     this.action = responseJson.action;
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
       /*
@@ -343,7 +345,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       action: action
     };
     console.log('this params!', params);
-    this.executeApi('appApiCode2.php', params, true);
+    if (this.user.user_id == this.matchUser.user_id) {
+      this.errorMessage = 'Invalid User for action ' + action;
+    } else
+      this.executeApi('appApiCode2.php', params, true);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Blog } from '../classes/blog';
 import { User } from '../classes/user';
@@ -120,11 +120,11 @@ export class LandingContentComponent extends BaseComponent implements OnInit {
       this.blogList.push(new Blog(element));
     });
     console.log(this.blogList);
-    /*
+    
         setTimeout(() => {
           (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
         }, 1000);
-    */
+    
     if (this.userId > 0)
       this.router.navigate(['home']);
     else {
@@ -147,3 +147,4 @@ export class LandingContentComponent extends BaseComponent implements OnInit {
   }
 
 }
+*/

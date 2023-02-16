@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-import { User } from '../classes/user';
+//import { User } from '../classes/user';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Blog } from '../classes/blog';
-import { AdvancedFiltersComponent } from '../advanced-filters/advanced-filters.component';
+//import { Blog } from '../classes/blog';
+//import { AdvancedFiltersComponent } from '../advanced-filters/advanced-filters.component';
 import { ScrollItem } from '../classes/scroll-item';
+
+declare var getDateObjFromJSDate: any;
 
 @Component({
   selector: 'app-main-menu',
@@ -40,12 +42,23 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     { id: 'item10', name: 'item 10', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
   ];
   public currentIndex = 0;
-
+  public holidayScr: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+
+    if(!this.user || !this.userId) {
+      this.router.navigate(['']);
+      return;
+  
+    }
+
+    var dt = getDateObjFromJSDate();
+    if (dt.mo == 2 && dt.dayOfMonth == 14)
+      this.holidayScr = 'assets/images/holidays/valentines-day.jpg';
+
     window.scrollTo(0, 0);
 
     document.addEventListener('scroll', () => {
@@ -151,6 +164,10 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
           this.scrollItems.push(this.responseJson.blogItems.shift());
         if (this.responseJson.matchItems.length > 0)
           this.scrollItems.push(this.responseJson.matchItems.shift());
+        if (this.responseJson.roseItems.length > 0)
+          this.scrollItems.push(this.responseJson.roseItems.shift());
+        if (this.responseJson.dateItems.length > 0)
+          this.scrollItems.push(this.responseJson.dateItems.shift());
         if (this.responseJson.reviewItems.length > 0)
           this.scrollItems.push(this.responseJson.reviewItems.shift());
         if (this.responseJson.journalItems.length > 0)
@@ -165,6 +182,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.addScrollItem();
       this.addScrollItem();
       this.addScrollItem();
+      this.logUser();
     }
     if (responseJson.action == "logUser" && this.user) {
       this.userStatus = this.user.status;

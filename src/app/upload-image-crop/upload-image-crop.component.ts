@@ -33,6 +33,8 @@ export class UploadImageCropComponent implements OnInit {
   public imageHeight: number = 0;
   public imageTop: number = 0;
   public imageLeft: number = 0;
+  public lastLeft: number = 0;
+  public lastTop: number = 0;
 
   constructor() { }
 
@@ -112,52 +114,67 @@ export class UploadImageCropComponent implements OnInit {
 
     var width = this.imageWidth * this.zoomLevel / 100;
     var height = this.imageHeight * this.zoomLevel / 100;
-    var y = this.imageTop + this.currentPointY - this.startPointY;
-    var x = this.imageLeft + this.currentPointX - this.startPointX;
 
-    if (x + width < this.canvasWidth)
-      x = this.canvasWidth - width;
+    this.imageLeft = this.lastLeft + this.currentPointX - this.startPointX;
+    this.imageTop = this.lastTop + this.currentPointY - this.startPointY;
 
-    if (y + height < this.canvasHeight) {
-      y = this.canvasHeight - height;
+    if (this.imageLeft > 0)
+      this.imageLeft = 0;
+    if (this.imageTop > 0)
+      this.imageTop = 0;
+
+    if (this.imageLeft + width < this.canvasWidth)
+      this.imageLeft = this.canvasWidth - width;
+
+    if (this.imageTop + height < this.canvasHeight) {
+      this.imageTop = this.canvasHeight - height;
     }
 
-    if (x > 0)
-      x = 0;
-    if (y > 0)
-      y = 0;
-
-    if (this.image)
-      this.ctx.drawImage(this.image, x, y, width, height);
-
-    //   console.log(x, y, this.canvasWidth, this.imageWidth);
+    this.ctx.drawImage(this.image, this.imageLeft, this.imageTop, width, height);
 
   }
 
-  getPosition(event: any) {
+  centerImage() {
+    this.ctx.fillStyle = 'gray';
     var rect = this.canvas.getBoundingClientRect();
-    var x = event.clientX - rect.left;
-    var y = event.clientY - rect.top;
+    this.ctx.fillRect(0, 0, rect.right, rect.bottom);
+
+    var width = this.imageWidth * this.zoomLevel / 100;
+    var height = this.imageHeight * this.zoomLevel / 100;
+
+    this.lastLeft = (width - this.canvasWidth) * -1 / 2;
+    this.lastTop = (height - this.canvasHeight) * -1 / 2;
+    this.startPointX = this.currentPointX;
+    this.startPointY = this.currentPointY;
+
+    this.drawImage();
+  }
+
+  getPosition(event: any) {
+    this.lastLeft = this.imageLeft;
+    this.lastTop = this.imageTop;
+    var x = event.offsetX;
+    var y = event.offsetY;
     this.startPointX = x;
     this.startPointY = y;
     this.currentPointX = x;
     this.currentPointY = y;
-    //console.log('start', this.startPointX, this.startPointY);
     this.isDragging = true;
     this.drawImage();
   }
   moveMouse(event: any) {
     if (this.isDragging) {
-      var rect = this.canvas.getBoundingClientRect();
-      this.currentPointX = event.clientX - rect.left;
-      this.currentPointY = event.clientY - rect.top;
-      //console.log('move to', this.currentPointX, this.currentPointY);
+      this.currentPointX = event.offsetX;
+      this.currentPointY = event.offsetY;
       this.drawImage();
     }
   }
   endPosition(event: any) {
-    this.imageTop += this.currentPointY - this.startPointY;
-    this.imageLeft += this.currentPointX - this.startPointX;
+    this.startPointX = this.currentPointX;
+    this.startPointY = this.currentPointY;
+    this.lastLeft = this.imageLeft;
+    this.lastTop = this.imageTop;
+    this.drawImage();
     this.isDragging = false;
   }
 
@@ -175,13 +192,13 @@ export class UploadImageCropComponent implements OnInit {
   }
 
   positionImageRight(amount: number) {
-    this.currentPointX = this.startPointX - amount;
+    this.currentPointX = this.startPointX + amount;
     this.currentPointY = this.startPointY;
     this.drawImage();
   }
 
   positionImageDown(amount: number) {
-    this.currentPointY = this.startPointY - amount;
+    this.currentPointY = this.startPointY + amount;
     this.currentPointX = this.startPointX;
     this.drawImage();
   }
@@ -190,7 +207,6 @@ export class UploadImageCropComponent implements OnInit {
     this.showImageFlg = false;
     if (this.canvas)
       this.src = this.canvas.toDataURL('image/jpeg');
-    console.log('here!',);
     this.messageEvent.emit('upload');
   }
 
@@ -224,7 +240,6 @@ function imageToDataUri(img: any) {
 
   var newHeight = img.height * pct;
   var newWidth = img.width * pct;
-  console.log('+++hey+++', img.height, pct, newHeight);
 
   if (newHeight < 200 || newWidth < 200) {
     return img.src;

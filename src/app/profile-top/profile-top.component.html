@@ -11,19 +11,19 @@
 
     <table width="100%" border="0">
         <tr>
-            <td width="50%" style="padding: 0; position: relative;" valign="top">
+            <td style="padding: 0; position: relative;" valign="top" width="50%">
                 <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle plus-icon"></i>
                 <i *ngIf="largeImageFlg" (mousedown)="toggleImage()" class="fa fa-minus-circle plus-icon"></i>
-                <i *ngIf="user.picCertificateFlg" 
-                    class="fa fa-certificate verified-cirtificate"></i>
-                <span [routerLink]="['/reputation']" class="reputation-score" title="Reputation Score">{{user.reputationScore}}</span>
+                <i *ngIf="user.picCertificateFlg" class="fa fa-certificate verified-cirtificate"></i>
+                <span [routerLink]="['/reputation']" class="reputation-score"
+                    title="Reputation Score">{{user.reputationScore}}</span>
                 <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron"
                     style="left: 10px;"></i>
                 <i *ngIf="pictureIndexMax>1 && pictureIndex<pictureIndexMax" (mousedown)="changePicture(1)"
                     class="fa fa-chevron-right icon-chevron" style="right: 10px;"></i>
                 <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
             </td>
-            <td width="50%" *ngIf="!largeImageFlg" valign="top"
+            <td *ngIf="!largeImageFlg" valign="top"
                 style="text-align: center; min-width: 180px; max-width: 200px; padding-top: 7px; position: relative;">
                 <i *ngIf="snapshotFlg" (mousedown)="closePopup()" class="fa fa-times"
                     style="float: right; cursor: pointer; margin: 5px;"></i>
@@ -130,13 +130,11 @@
                                     </td>
                                     <td align="right">
                                         <span class="menu-circle" *ngIf="user.drinksIcon">
-                                            <img [src]="user.drinksIcon"
-                                                class="dabauchery-icon">
+                                            <img [src]="user.drinksIcon" class="dabauchery-icon">
                                             <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
                                         </span>
                                         <span class="menu-circle" *ngIf="user.smokesIcon">
-                                            <img [src]="user.smokesIcon"
-                                                class="dabauchery-icon">
+                                            <img [src]="user.smokesIcon" class="dabauchery-icon">
                                             <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
                                         </span>
                                         <span class="menu-circle" *ngIf="user.potIcon">
@@ -175,9 +173,12 @@
                             before texting. Click the green
                             "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
                         </div>
-                        <div *ngIf="!user.matchObj.showButtonsFlg">Sorry, you must be matched up to communicate.</div>
-                        <div *ngIf="user.matchObj.you_interested == 'Y'">Unfortunately at the moment, this person is not
-                            interested.</div>
+                        <div *ngIf="0 && !user.matchObj.showButtonsFlg">Sorry, you must be matched up to communicate.</div>
+                        <div *ngIf="user.matchObj.you_interested == 'Y' && user.matchObj.match_interested == 'N'">
+                            Unfortunately, this person is not
+                            interested in you. Keep browsing!</div>
+                        <div *ngIf="user.matchObj.you_interested == 'Y' && !user.matchObj.match_interested">
+                            This person is aware that you are interested. If they say 'Yes' to you, you will be able to communicate. Keep your fingers crossed!</div>
                         <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not interested
                             in this person.
                             If that is a mistake, go to the Settings tab and reset your matches.
@@ -210,7 +211,8 @@
                         <i (mousedown)="showMoreClicked()" style="float: right; font-size: 32px; margin-top: -3px;"
                             [ngClass]="'fa fa-arrow-circle-down clickable'"
                             [title]="(expandBottomFlg)?'Collapse Profile':'Expand Profile'"></i>
-                        <div *ngIf="myUser.datingPool.length == 0" style="font-size: 10px;">[Click down arrow for more info]</div>
+                        <div *ngIf="myUser.datingPool.length == 0" style="font-size: 10px;">[Click down arrow for more
+                            info]</div>
                     </div>
                     <div *ngIf="showAdminButtonsFlg" class="border-box" style="text-align: center;">
                         <div><i class="fa fa-lock"></i> admin tools</div>
