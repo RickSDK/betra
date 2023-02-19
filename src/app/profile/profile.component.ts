@@ -406,8 +406,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       var month = $('#month').val();
       var year = $('#year').val();
 
-      var now = getDateObjFromJSDate();
-      this.user.birthdate = year + '-' + month + '-' + day + ' ' + now.time;
+      this.user.birthdate = year + '-' + month + '-' + day + ' 00:00:00';
       //this.user.firstName = $('#firstName').val();
       this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();

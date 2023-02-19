@@ -1,18 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ProfileTopComponent } from '../profile-top/profile-top.component';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-match-snapshot',
   templateUrl: './match-snapshot.component.html',
   styleUrls: ['./match-snapshot.component.scss']
 })
-export class MatchSnapshotComponent implements OnInit {
+export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   @ViewChild(ProfileTopComponent) profileTopComponent: ProfileTopComponent = new (ProfileTopComponent);
 
   @Input('matchUser') matchUser: any = null;
-  @Input('user') user: any = null;
-  @Input('loadingFlg') loadingFlg: boolean = false;
-  @Input('errorMessage') errorMessage: string = '';
+  @Input('user') override user: any = null;
+  @Input('loadingFlg') override loadingFlg: any = null;
+  @Input('errorMessage') override errorMessage: any = null;
   @Input('snapshotFlg') snapshotFlg: boolean = false;
   @Input('id') id: number = 0;
   @Input('singleProfileFlg') singleProfileFlg: boolean = false;
@@ -23,7 +24,7 @@ export class MatchSnapshotComponent implements OnInit {
   public polyMatch = 0;
   public profileMatch = 0;
   public totalMatch = 0;
-//  public matchObj: any;
+  //  public matchObj: any;
   public showMoreOptionsFlg: boolean = false;
   public showConfirmationFlg: boolean = false;
   public action: string = '';
@@ -32,15 +33,15 @@ export class MatchSnapshotComponent implements OnInit {
   public showMoreFlg: boolean = false;
   public expandBottomFlg: boolean = false;
   public showBottumButtonsFlg: boolean = false;
+  public showSnoopFlg: boolean = false;
   public distance: string = '';
 
 
-  constructor() { }
+  constructor() { super(); }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     if (this.user && this.matchUser)
       this.initModal(this.matchUser, this.user, null);
-
   }
 
   ngOnChanges(changes: any) {
@@ -50,14 +51,14 @@ export class MatchSnapshotComponent implements OnInit {
   initModal(matchUser: any, user: any, matchObj: any) {
     this.user = user;
     this.matchUser = matchUser;
+    this.showSnoopFlg = false;
 
-      if (this.profileTopComponent) {
+    if (this.profileTopComponent) {
       this.profileTopComponent.ngOnInit();
     }
 
     this.calculateMatches(user, matchUser, matchObj);
-    //this.calculateDistance(matchUser, user);
-
+  
   }
 
   buttonPressed(action: string) {
@@ -73,17 +74,7 @@ export class MatchSnapshotComponent implements OnInit {
     if (!this.matchUser.matchObj)
       return;
 
-    this.showInterestedButtonsFlg = matchUser.user_id != user.user_id;
-    if (user.matchPreference == 'F' && matchUser.gender == 'M')
-      this.showInterestedButtonsFlg = false;
-    if (user.matchPreference == 'M' && matchUser.gender == 'F')
-      this.showInterestedButtonsFlg = false;
-
-    if (matchUser.matchPreference == 'F' && user.gender == 'M')
-      this.showInterestedButtonsFlg = false;
-    if (matchUser.matchPreference == 'M' && user.gender == 'F')
-      this.showInterestedButtonsFlg = false;
-
+    this.showInterestedButtonsFlg = matchUser.potentialLoveInterestFlg;
 
     if (this.matchUser.matchObj.match_interested == 'Y')
       this.showInterestedButtonsFlg = true; // handle out of sync
@@ -161,6 +152,11 @@ export class MatchSnapshotComponent implements OnInit {
       this.showMoreFlg = false;
     }, 400);
   }
+  snoopPressed() {
+    this.showSnoopFlg = !this.showSnoopFlg;
+    if(this.showSnoopFlg)
+      this.getDataFromServer('getSnoopData', 'appApiCode.php', {uid: this.matchUser.user_id});
+  }
   actionButtonClicked(action: string) {
     if (action == "show-more") {
       if (this.showMoreFlg)
@@ -191,30 +187,5 @@ export class MatchSnapshotComponent implements OnInit {
     this.messageEvent.emit(this.action);
   }
 
-  calculateDistance(matchUser: any, user: any) {
-    this.distance = 'hey!';
-/*    if (user.latitude && matchUser.latitude && user.user_id != matchUser.user_id) {
-      var miles = distanceInKmBetweenEarthCoordinates(user.latitude, user.longitude, matchUser.latitude, matchUser.longitude);
-      this.distance = parseInt(miles.toString()) + ' miles';
-    }*/
-  }
 
 }
-/*function degreesToRadians(degrees: number) {
-  return degrees * Math.PI / 180;
-}
-
-function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: number, lon2: number) {
-  var earthRadiusKm = 6371;
-
-  var dLat = degreesToRadians(lat2 - lat1);
-  var dLon = degreesToRadians(lon2 - lon1);
-
-  lat1 = degreesToRadians(lat1);
-  lat2 = degreesToRadians(lat2);
-
-  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return earthRadiusKm * c;
-}*/

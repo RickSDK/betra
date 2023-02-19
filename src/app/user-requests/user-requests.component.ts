@@ -12,6 +12,8 @@ declare var $: any;
 export class UserRequestsComponent extends BaseComponent implements OnInit {
   @Input('myUser') myUser: any = null;
   @Input('matchUser') matchUser: any = null;
+  @Input('dateObj') dateObj: any = null;
+  
 
   public requestNum: number = 0;
   public messageSentFlg: boolean = false;

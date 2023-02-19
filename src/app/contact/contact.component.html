@@ -1,8 +1,26 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Contact'" [headerObj]="headerObj" [userStatus]="userStatus"
     [stickyBottomFlg]="true">
 
-    <div class="matches-card" style="text-align: center;">
-        <div *ngIf="showFormFlg">
+    <div class="matches-card" style="text-align: center; max-width: 800px;">
+        <img src="assets/images/betraLogo.png" height="100">
+        <p>Welcome to <span class="red-text">Betra</span>, the hottest new dating site, where safety and quality come first! Betra is Greek for "better," and we are not shy about making that claim.</p>
+
+        <div *ngFor="let person of staff" class="contact-person">
+            <div class="main-color-bg" style="font-size: 12px; font-weight: 700;">{{person.title}}</div>
+            <img [src]="person.src" class="profile-image" style="width: 150px; height: 150px;">
+            <div class="main-color" style="font-size: 12px;">{{person.name}}</div>
+            <a style="font-size: 10px;" href="mailto:{{person.email}}">{{person.email}}</a>
+        </div>
+
+        <div>
+            <div>Marketing and Promotions Team</div>
+            <div *ngFor="let person of qualityTeam" class="contact-person">
+                <img [src]="person.src" class="profile-image">
+                <div class="main-color" style="font-size: 12px;">{{person.name}}</div>
+                <a style="font-size: 16px;" href="mailto:{{person.email}}"><i class="fa fa-envelope"></i></a>
+            </div>    
+        </div>
+        <div *ngIf="showFormFlg" style="max-width: 400px; display: inline-block; padding: 20px;">
             <div>Have a question or comment about Betra?</div>
             <app-text-input [id]="'email'" [placeHolder]="'your email address'"></app-text-input>
             <app-text-area-input [id]="'message'"></app-text-area-input>

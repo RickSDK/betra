@@ -56,7 +56,7 @@
         </tr>
     </table>
 </div>
-<div class="outer-frame">
+<div class="outer-frame" >
     <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'40px':'0px'">
         <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Home' && pageTitle != 'Profile'">
             Finish Setting up your profile <button [routerLink]="['']" class="btn btn-danger">Profile</button>
@@ -72,7 +72,7 @@
                 </td>
                 <td valign="top" align="center" style="position: relative;">
                     <ng-content></ng-content>
-
+                    <div>&nbsp;</div>
                     <div *ngIf="0" style="text-align: center;">
                         <div style="color: gray;">Google Ads</div>
                         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2626924352662007"

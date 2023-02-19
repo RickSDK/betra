@@ -199,6 +199,7 @@ export class User {
     public instragramUrlFlg: boolean = false;
     public linkedInUrl: string = '';
     public linkedInUrlFlg: boolean = false;
+    public potentialLoveInterestFlg: boolean = true;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -630,12 +631,25 @@ export class User {
 
         //match details
         if (myUser && myUser.user_id > 0) {
+
+            this.potentialLoveInterestFlg = this.user_id != myUser.user_id;
+            if (myUser.matchPreference == 'F' && this.gender == 'M')
+                this.potentialLoveInterestFlg = false;
+            if (myUser.matchPreference == 'M' && this.gender == 'F')
+                this.potentialLoveInterestFlg = false;
+
+            if (this.matchPreference == 'F' && myUser.gender == 'M')
+                this.potentialLoveInterestFlg = false;
+            if (this.matchPreference == 'M' && myUser.gender == 'F')
+                this.potentialLoveInterestFlg = false;
+
+
             if (this.latitude && myUser.latitude) {
                 this.distance = distanceInKmBetweenEarthCoordinates(parseFloat(this.latitude), parseFloat(this.longitude), parseFloat(myUser.latitude), parseFloat(this.longitude));
 
                 if (this.ownerFlg) {
-                   this.location = myUser.location;
-                   this.distance = 7 + this.firstName.length;
+                    this.location = myUser.location;
+                    this.distance = 7 + this.firstName.length;
                 }
                 this.isGoodLocation = (this.distance < 200);
                 if (this.distance < 40)

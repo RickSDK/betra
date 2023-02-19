@@ -1,7 +1,6 @@
 .background-img {
     width: 100%;
     object-fit: cover;
-    object-position: 80% 10%;
 }
 
 .large-text {
@@ -137,6 +136,9 @@ h3 {
     padding: 10px;
     cursor: pointer;
 }
+.white-link:hover {
+    text-decoration: underline;
+}
 
 .white-link2 {
     width: 120px;
@@ -153,8 +155,8 @@ h3 {
     border: 1px solid red;
 }
 
-$size-width: 440px;
-$size-height: 122px;
+$size-width: 400px;
+$size-height: 110px;
 
 .carousel-wrapper {
   width: 100%;
@@ -162,7 +164,7 @@ $size-height: 122px;
   left: 0;
   justify-content: left;
   align-items: left;
-  margin: 0;
+  margin: 0 0 20px 0;
 }
 
 .carousel-container {

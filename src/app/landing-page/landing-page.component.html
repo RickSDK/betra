@@ -21,8 +21,8 @@
     </tr>
 </table>
 <div class="container-fluid" style="height: 100vh; padding-top: 80px; text-align: center;">
-        <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
-        </app-login-popup>
+    <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
+    </app-login-popup>
 </div>
 
 <div style="color: white; text-align: center; background-image: url('assets/images/landing/roseBottom.png');">
@@ -30,7 +30,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md" style="text-align: left; padding: 20px;">
-                <div >
+                <div>
                     <div class="large-text2">How we're changing</div>
                     <div class="large-text2">the game.</div>
                     <div>You asked. We delivered.</div>
@@ -49,8 +49,8 @@
             </div>
             <div class="col-md" style="text-align: center; padding: 0;">
                 <div>
-                    <img src="assets/images/landing/cell-phone.png" height="500">
-                  
+                    <img src="assets/images/landing/cell-phone.png" height="500" style="margin: 10px;">
+
                     <div *ngIf="0" style="display: block; height: 150px; text-align: center;">
                         <div style="display: inline-block; position: relative; width: 370px; height: 150px;">
                             <div class="testimony-popup" style="color: black;">
@@ -62,8 +62,8 @@
                             <img src="assets/images/landing/dana.png" class="savonne">
                         </div>
                     </div>
-                    
-                    <div *ngIf="1" class="carousel-wrapper">
+
+                    <div class="carousel-wrapper">
                         <div class="carousel-container">
                             <div class="carousel">
                                 <img src="assets/images/reviews/review1.png">
@@ -73,15 +73,17 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     <div style="text-align: center;">
-        <span [routerLink]="['/blogs']" class="white-link">Blog</span> |
+        <span [routerLink]="['/contact']" class="white-link">Contact</span> |
         <span [routerLink]="['/about']" class="white-link">About</span> |
-        <span [routerLink]="['/terms-conditions']" class="white-link">Terms & Conditions</span> |
+        <span [routerLink]="['/terms-conditions']" class="white-link">Terms <span class="hide-sm">&
+                Conditions</span></span> |
         <span [routerLink]="['/privacy-policy']" class="white-link">Privacy Policy</span>
     </div>
+    <div>&nbsp;</div>
+
 </div>

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BaseComponent } from './base/base.component';
 import { PageShellComponent } from './page-shell/page-shell.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-//import { SignUpPopupComponent } from './sign-up-popup/sign-up-popup.component';
 import { LoginPopupComponent } from './popups/login-popup/login-popup.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { InfoPopupComponent } from './popups/info-popup/info-popup.component';
@@ -93,6 +92,7 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { TextWithEmojiComponent } from './input/text-with-emoji/text-with-emoji.component';
 import { ScrollCardComponent } from './scroll-card/scroll-card.component';
 import { MembershipConfirmationComponent } from './membership-confirmation/membership-confirmation.component';
+import { OwnerAnalyticsComponent } from './owner-analytics/owner-analytics.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -185,6 +185,7 @@ import { MembershipConfirmationComponent } from './membership-confirmation/membe
     TextWithEmojiComponent,
     ScrollCardComponent,
     MembershipConfirmationComponent,
+    OwnerAnalyticsComponent,
   ],
   imports: [
     BrowserModule,

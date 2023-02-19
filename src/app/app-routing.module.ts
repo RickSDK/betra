@@ -39,6 +39,7 @@ import { ReputationComponent } from './reputation/reputation.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { JournalItemComponent } from './journal-item/journal-item.component';
 import { MembershipConfirmationComponent } from './membership-confirmation/membership-confirmation.component';
+import { OwnerAnalyticsComponent } from './owner-analytics/owner-analytics.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -80,6 +81,7 @@ const routes: Routes = [
   { path: 'password-reset', component: PasswordResetComponent },
   { path: 'journal-item', component: JournalItemComponent },
   { path: 'member-confirmation', component: MembershipConfirmationComponent },
+  { path: 'owner-analytics', component: OwnerAnalyticsComponent },
   
 ];
 

@@ -13,6 +13,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
 
   @Input('myUser') myUser: any = null;
+  @Input('dateObj') dateObj: any = null;
   @Input('matchUser') matchUser: any = null;
   @Input('requestNum') requestNum: number = 0;
   public messageSentFlg: boolean = false;
@@ -34,12 +35,16 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   override ngOnInit(): void {
-    this.dateObjExists = (this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.dateObj && this.matchUser.matchObj.dateObj.row_id > 0);
+    this.dateObjExists = (this.dateObj && this.dateObj.row_id > 0);
     if (this.matchUser.matchObj.dateObj) {
       var dt = getDateObjFromJSDate(this.matchUser.matchObj.dateObj.eventDate + ' ' + this.matchUser.matchObj.dateObj.eventTime);
       if (dt)
         this.secondsAgo = dt.secondsAgo;
     }
+  }
+
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
   }
 
   sendDateRequest() {

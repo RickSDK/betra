@@ -72,7 +72,7 @@
         <span class="highlited-text">"{{matchUser.matchObj.dateObj.comment}}"</span>
     </div>
 
-    <app-date-display [dateObj]="matchUser.matchObj.dateObj"></app-date-display>
+    <app-date-display *ngIf="matchUser.matchObj" [dateObj]="matchUser.matchObj.dateObj"></app-date-display>
 
     <div *ngIf="!messageSentFlg && !loadingFlg">
         <div *ngIf="matchUser.matchObj.you_date_request == 'Y'">

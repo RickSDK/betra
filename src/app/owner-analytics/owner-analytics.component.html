@@ -1,0 +1,88 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Analytics'" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-owners-menu [pageTitle]="'Analytics'"></app-owners-menu>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+      <hr>
+        <table *ngIf="statsArray" style="text-align: center;" border="1">
+            <tr>
+                <td></td>
+                <td colspan="8" style="background-color: #efe; font-size: 10px;">Profile Creation</td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+                <th title="Weeks Back">
+                    W.B.
+                </th>
+                <th title="# of Accounts Created">
+                    #
+                </th>
+                <th title="GPS data grabbed">
+                    <i class="fa fa-globe"></i>
+                </th>
+               <th title="Basics filled out">
+                    <i class="fa fa-phone"></i>
+                </th>
+                <th title="Details filled out">
+                    <i class="fa fa-graduation-cap"></i>
+                </th>
+                <th title="Personality test filled out">
+                    <i class="fa fa-user"></i>
+                </th>
+                <th title="Political test filled out">
+                    <i class="fa fa-university"></i>
+                </th>
+                <th title="Picture uploaded">
+                    <i class="fa fa-picture-o"></i>
+                </th>
+                <th title="Looking for filled out">
+                    <i class="fa fa-binoculars"></i>
+                </th>
+                <th title="Percent of accounts completed">
+                    %
+                </th>
+                <th title="Email Verified">
+                    <i class="fa fa-envelope"></i>
+                </th>
+                <th title="At least one user swiped">
+                    <i class="fa fa-thumbs-up"></i>
+                </th>
+                <th title="At least one match made">
+                    <i class="fa fa-users"></i>
+                </th>
+            </tr>
+            <tr *ngFor="let statsObj of statsArray">
+                <td>{{statsObj.weeksBack}}</td>
+                <td style="background-color: #efe;">{{statsObj.accounts}}</td>
+                <td style="background-color: #efe;">{{statsObj.city}}</td>
+                <td style="background-color: #efe;">{{statsObj.phone}}</td>
+                <td style="background-color: #efe;">{{statsObj.race}}</td>
+                <td style="background-color: #efe;">{{statsObj.personality}}</td>
+                <td style="background-color: #efe;">{{statsObj.politics}}</td>
+                <td style="background-color: #efe;">{{statsObj.pic}}</td>
+                <td style="background-color: #efe;">{{statsObj.match}}</td>
+                <td>{{statsObj.rate}}%</td>
+                <td>{{statsObj.emailVerifyFlg}}</td>
+                <td>{{statsObj.swipes}}</td>
+                <td>{{statsObj.matches}}</td>
+            </tr>
+            <tr *ngIf="totalsObj" style="font-weight: 700;">
+                <td>T</td>
+                <td style="background-color: #efe;">{{totalsObj.accounts}}</td>
+                <td style="background-color: #efe;">{{totalsObj.city}}</td>
+                <td style="background-color: #efe;">{{totalsObj.phone}}</td>
+                <td style="background-color: #efe;">{{totalsObj.race}}</td>
+                <td style="background-color: #efe;">{{totalsObj.personality}}</td>
+                <td style="background-color: #efe;">{{totalsObj.politics}}</td>
+                <td style="background-color: #efe;">{{totalsObj.pic}}</td>
+                <td style="background-color: #efe;">{{totalsObj.match}}</td>
+                <td>{{totalsObj.rate}}%</td>
+                <td>{{totalsObj.emailVerifyFlg}}</td>
+                <td>{{totalsObj.swipes}}</td>
+                <td>{{totalsObj.matches}}</td>
+            </tr>
+        </table>
+        <div class="gray-text">Table is generated dynmaically from the database. First row is all accounts created in the past 7 days (1 Week Back).</div>
+    </div>
+</app-page-shell>

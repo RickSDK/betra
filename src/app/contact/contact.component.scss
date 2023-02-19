@@ -1,0 +1,22 @@
+.contact-person {
+    display: inline-block;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 3px;
+    border: 1px solid #eee;
+    box-shadow: 2px 2px 3px gray;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px #999;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.top-title {
+    font-size: 12px;
+    font-weight: 700;
+}

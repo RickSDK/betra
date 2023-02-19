@@ -1,6 +1,6 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Users'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
-    <div class="matches-card2" *ngIf="user && user.ownerFlg">
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
         <app-owners-menu [pageTitle]="teamName" [page]="2"></app-owners-menu>
         <hr>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
@@ -29,6 +29,9 @@
                         </app-owner-org-chart-cell>
                         <app-owner-org-chart-cell [person]="marketingLead" [personTitle]="'Marketing Lead'">
                         </app-owner-org-chart-cell>
+                        <app-owner-org-chart-cell [person]="marketingManager" [personTitle]="'Marketing Manager'">
+                        </app-owner-org-chart-cell>
+                        
                         <div>
                             <app-owner-org-chart-cell *ngFor="let person of managers2" [person]="person"
                                 [personTitle]="'Manager'"></app-owner-org-chart-cell>

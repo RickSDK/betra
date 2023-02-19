@@ -21,6 +21,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public id: number = 0;
   public pageTitle = 'User Detail';
   public matchUser: any = null;
+  public dateObj: any = null;
   public calculatingStatsFlg = true;
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public playerList: any = [];
@@ -263,6 +264,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.messageCount = responseJson.messages;
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
+      if(this.matchUser && this.matchUser.matchObj)
+        this.dateObj = this.matchUser.matchObj.dateObj;
 
       this.displayThisProfile();
       if (this.matchUser.newReviewBy > 0 && this.matchUser.user_id == this.user.user_id) {

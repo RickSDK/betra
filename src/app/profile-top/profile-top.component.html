@@ -169,6 +169,12 @@
 
                     <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;"
                         class="important-notice">
+                        <div *ngIf="user.matchObj.match_level == 2">
+                            With Betra, the first contact must be from a dropdown Ice Breaker. If you get a response back, you can begin to freely text! See Ice Breaker below.
+                        </div>
+                        <div *ngIf="user.matchObj.match_level == 3">
+                            Almost there! You must get a response back from each other's Ice Breaker questions to begin texting. See below.
+                        </div>
                         <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each other
                             before texting. Click the green
                             "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
@@ -190,7 +196,7 @@
                     </div>
                     <div style="text-align: center;">
                         <button
-                            *ngIf="user.user_id != myUser.user_id && !showTextWarning && (!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 2)"
+                            *ngIf="user.potentialLoveInterestFlg && !showTextWarning && (!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 4)"
                             (mousedown)="showTextWarning=true;" class="btn btn-main-color btn-small"><i
                                 class="fa fa-comment"></i> Text
                             {{user.firstName}}</button>

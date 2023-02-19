@@ -157,7 +157,7 @@
 
             <app-user-requests
                 *ngIf="!commentsOnlyFlg && (matchUser.reviewsCount>0 || matchUser.matchObj.match_level>3)"
-                [myUser]="user" [matchUser]="matchUser">
+                [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
             </app-user-requests>
 
             <app-user-communication
