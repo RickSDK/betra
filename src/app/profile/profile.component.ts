@@ -543,7 +543,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   continueUploadButtonPressed() {
-    this.errorMessage = 'Select an image and then press "Upload" to continue.';
+    if (this.user.profilePic > 0)
+      this.profileSectionAdvance();
+    else
+      this.errorMessage = 'Select an image and then press "Upload" to continue.';
   }
 
   uploadPicButtonClicked(num: number) {

@@ -88,8 +88,9 @@
             <div *ngIf="!loadingFlg && id != 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">
                 <div>
                     <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
-                    <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
-                        <p>Sorry, no more profiles to browse!</p>
+                    <p>Sorry, no more profiles found.</p>
+                    <p *ngIf="!showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are joining constantly. Check back soon.</p>
+                    <div *ngIf="id == 2 && showExpandedSearchPopupFlg && !advancedSearchFlg && profileViews>0">
                         <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a
                             new
                             app and people are just starting to sign up. Check back soon. If you would like to reset
@@ -98,7 +99,7 @@
                                 [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
                     </div>
                     <div *ngIf="advancedSearchFlg && profileViews>0">
-                        <p>Sorry, no profiles found with those filter settings. Try expanding your search or simply
+                        <p>Try expanding your search or simply
                             press
                             the "Browse" button to bring back possible matches.</p>
                         <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI that

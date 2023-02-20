@@ -688,11 +688,10 @@ export class User {
             politicsFlg = false;
 
         var matchFlg = true;
-        if (this.status != 'Active')
+        if (this.status != 'Active') {
+            this.story = '';
             matchFlg = false;
-
-        if (this.findLoveFlg && !this.matchHasKids)
-            matchFlg = false;
+        }
 
         var profilePicFlg = this.profilePic > 0;
 

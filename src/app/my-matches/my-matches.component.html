@@ -1,10 +1,9 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Dating Pool'" [userId]="userId"
-    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="false">
 
-    <div class="matches-card" style="font-size: 14px; color: #444; position: relative; padding-bottom: 50px;"
+    <div class="matches-card" style="font-size: 14px; color: #444; position: relative; padding-bottom: 50px; min-height: 510px;"
         *ngIf="user">
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div class="btn-group" role="group" aria-label="Menu">
+        <div class="btn-group" role="group" aria-label="Menu" style="box-shadow: 2px 2px 3px black;">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
             <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 3" class="btn btn-light">

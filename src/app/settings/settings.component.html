@@ -6,8 +6,8 @@
     <div class="matches-card" *ngIf="user">
         <button (mousedown)="logout()" class="btn btn-main-color spacer"><i class="fa fa-sign-out"></i>
             Logout</button>
-        <button (mousedown)="showStats()" class="btn btn-main-color spacer"><i class="fa fa-line-chart"></i>
-            stats</button>
+        <button (mousedown)="changeMenuNum(1)" class="btn btn-main-color spacer"><i class="fa fa-trash"></i>
+            Delete Account</button>
         <button (mousedown)="changeMenuNum(2)" class="btn btn-main-color spacer"><i class="fa fa-globe"></i>
             location</button>
         <button (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer"><i class="fa fa-refresh"></i>
@@ -17,12 +17,18 @@
         <button (mousedown)="changeMenuNum(6)" class="btn btn-main-color spacer"><i class="fa fa-star"></i>
             Change Password</button>
 
-        <button [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer"><i
-                class="fa fa-arrow-up"></i>
+        <button [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer"><i class="fa fa-arrow-up"></i>
             Upgrade</button>
 
         <div *ngIf="announcement">
             <div class="light-box">{{announcement}}</div>
+        </div>
+        <div *ngIf="menuNum == 1" class="tan-box">
+            <div>Delete Account?</div>
+            <div class="gray-text">Are you sure you want to delete your account? This action is permanent and cannot be un-done. Alternatively you can place the account on hold and then re-activiate it whenever you like.</div>
+            <button (mousedown)="changeMenuNum(0)" class="btn btn-success spacer">Cancel</button>
+            <button (mousedown)="holdAccount()" class="btn btn-warning spacer">Place on Hold</button>
+            <button (mousedown)="deleteAccount()" class="btn btn-danger spacer">Yes, Delete</button>
         </div>
         <div *ngIf="menuNum == 5" class="tan-box">
             <div>Buddy Notification</div>
@@ -76,8 +82,10 @@
         </div>
         <div *ngIf="menuNum == 6" class="tan-box">
             <div *ngIf="user.facebookId">Notice: You are currently logging in using facebook</div>
-            <button *ngIf="!loadingFlg" (mousedown)="requestPasswordReset()" class="btn btn-primary">Request Password Reset</button>
-            <div *ngIf="successFlg" class="important-notice">You have been emailed a link to reset your password. Please follow the instructions on that email.</div>
+            <button *ngIf="!loadingFlg" (mousedown)="requestPasswordReset()" class="btn btn-primary">Request Password
+                Reset</button>
+            <div *ngIf="successFlg" class="important-notice">You have been emailed a link to reset your password. Please
+                follow the instructions on that email.</div>
         </div>
         <div *ngIf="!user.lat" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>
@@ -160,7 +168,12 @@
         </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="menuNum==1">
+        <div style="font-size: 12px;">
+            <div>Version: <span class="text-highlight">{{version}}</span></div>
+            <div>Browser: <span class="text-highlight">{{browser}}</span></div>
+            <div>Platform: <span class="text-highlight">{{platform}}</span></div>
+        </div>
+        <!--<div *ngIf="menuNum==1">
             <div><b>Betra Stats</b></div>
             <div style="font-size: 10px;">
                 <div>Version: <span class="text-highlight">{{version}}</span></div>
@@ -209,7 +222,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </div>-->
 
 
 

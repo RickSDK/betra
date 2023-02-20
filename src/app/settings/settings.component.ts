@@ -47,6 +47,14 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
   }
 
+  deleteAccount() {
+    this.getDataFromServer('deleteAccount', 'appApiCode.php', {});
+  }
+
+  holdAccount() {
+    this.getDataFromServer('holdAccount', 'appApiCode.php', {}); 
+  }
+
   logout() {
     this.userId = 0;
     localStorage['user_id'] = '';
@@ -121,17 +129,20 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       emailVerifyCode: emailVerifyCode
     }
     this.getDataFromServer('requestPasswordReset', 'appApiCode.php', params);
- 
+
   }
 
   override postSuccessApi(file: string, responseJson: any) {
     console.log('XXX postSuccessApi', file, responseJson);
     this.successFlg = true;
+    if (responseJson.action == 'deleteAccount' || responseJson.action == 'holdAccount') {
+      this.logout();
+    }
     if (responseJson.action == 'updatePassword') {
       this.menuNum = 0;
       this.errorMessage = 'Password has been successfully changed';
       localStorage['savedPassword'] = responseJson.newPassword;
-      localStorage['savedCode'] = btoa(responseJson.newPassword); 
+      localStorage['savedCode'] = btoa(responseJson.newPassword);
       localStorage['code'] = btoa(responseJson.newPassword);
     }
     if (responseJson.action == 'updateBuddyEmail') {
