@@ -6,8 +6,11 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="showUpgradeFlg">
-            <div style="font-size: 24px;">Become a Gold Member!</div>
-            <div class="red-text">What is more important than love? Maximize your chances today.</div>
+            <div *ngIf="user.memberFlg" style="font-size: 24px;">You are a Gold member!</div>
+            <div *ngIf="!user.memberFlg" style="font-size: 24px;">Become a Gold Member!</div>
+            <div *ngIf="user.memberFlg" class="red-text">Your Membership Benefits</div>
+            <div *ngIf="!user.memberFlg" class="red-text">What is more important than love? Maximize your chances today.
+            </div>
             <div class="small-border-box" style="padding: 15px;">
                 <div style="text-align: center; color: black;"><b>Benefits</b></div>
                 <li>Gold Member badge on your profile</li>
@@ -22,29 +25,46 @@
                 <li>Eliminate Ads</li>
             </div>
             <hr>
-            <div *ngIf="user.memberFlg">You are already a Gold member!</div>
-            <div class="red-text">First 50 members to sign up receive our $2 launch special!</div>
-            <div *ngIf="0" class="payment-plan-box">
-                <div style="font-size: 30px;"><b>1 Month</b></div>
-                <div style="font-size: 22px;">
-                    <div><s>$19.99</s></div>
-                    <div class="red-text">Launch Special!</div>
-                </div>
-                <div style="font-size: 22px;">$2.99</div>
-                <div style="font-size: 12px; color: gray;">Payment: $2.99</div>
-                <div>&nbsp;</div>
-                <a [href]="'https://buy.stripe.com/28o5ll8pN275fba3cc?cancel_url=https://www.betradating.com/#/member-confirmation'"><button class="btn btn-main-color">Select Plan</button></a>
+            <div *ngIf="user.memberFlg && creditObj">
+                <div *ngIf="user.memberFlg" class="red-text">Your Current Plan</div>
+                <div>Plan: <span class="text-highlight">{{creditObj.name}} at {{creditObj.cost}}</span></div>
+                <div>Benefits Expire: <span class="text-highlight">{{benefitExpDate}}</span></div>
+                <div>Card on file: <span class="text-highlight">{{cardOnFile}}</span></div>
+                <div>Card exp: <span class="text-highlight">{{creditObj.exp_number}}</span></div>
+                <div>Auto Renew? <span class="text-highlight">{{creditObj.autoRenewFlg}}</span></div>
+                <button [routerLink]="['/member-confirmation']" [queryParams]="{id: 99}" class="btn btn-main-color btn-small spacer">Update card</button>
+                <button (mousedown)="setAutoRenew('Y')" *ngIf="creditObj.autoRenewFlg!='Y'" class="btn btn-main-color btn-small spacer">Make Auto-Renew</button>                
+                <button (mousedown)="setAutoRenew('N')" *ngIf="creditObj.autoRenewFlg=='Y'" class="btn btn-main-color btn-small spacer">Cancel Auto-Renew</button>                
+                <button (mousedown)="showPlanDetailsFlg=true" class="btn btn-main-color btn-small spacer">New Plan</button>
+                <div *ngIf="creditObj.autoRenewFlg!='Y'" class="gray-text">Note: Your membership will automatically cancel once it expires. Nothing needed to cancel.</div>
             </div>
+            <div *ngIf="showPlanDetailsFlg">
+                <div class="red-text">First 50 members to sign up receive our $2 launch special!</div>
+                <div *ngIf="0" class="payment-plan-box">
+                    <div style="font-size: 30px;"><b>1 Month</b></div>
+                    <div style="font-size: 22px;">
+                        <div><s>$19.99</s></div>
+                        <div class="red-text">Launch Special!</div>
+                    </div>
+                    <div style="font-size: 22px;">$2.99</div>
+                    <div style="font-size: 12px; color: gray;">Payment: $2.99</div>
+                    <div>&nbsp;</div>
+                    <a
+                        [href]="'https://buy.stripe.com/28o5ll8pN275fba3cc?cancel_url=https://www.betradating.com/#/member-confirmation'"><button
+                            class="btn btn-main-color">Select Plan</button></a>
+                </div>
 
-            <div *ngFor="let plan of plans; let i = index;" class="payment-plan-box">
-                <div style="font-size: 30px;"><b>{{plan.name}}</b></div>
-                <div *ngIf="i==0" style="font-size: 22px;"><s>{{plan.cost}}</s></div>
-                <div *ngIf="i>0" style="font-size: 22px;">{{plan.cost}}</div>
-                <div *ngIf="i==0" class="red-text">Launch Special!</div>
-                <div *ngIf="i==0" style="font-size: 22px;">Only {{plan.payment}}</div>
-                <div style="font-size: 12px; color: gray;">Payment: {{plan.payment}}</div>
-                <div>&nbsp;</div>
-                <button [routerLink]="['/member-confirmation']" [queryParams]="{id: i}" class="btn btn-main-color">Select Plan</button>
+                <div *ngFor="let plan of plans; let i = index;" class="payment-plan-box">
+                    <div style="font-size: 30px;"><b>{{plan.name}}</b></div>
+                    <div *ngIf="i==0" style="font-size: 22px;"><s>{{plan.cost}}</s></div>
+                    <div *ngIf="i>0" style="font-size: 22px;">{{plan.cost}}</div>
+                    <div *ngIf="i==0" class="red-text">Launch Special!</div>
+                    <div *ngIf="i==0" style="font-size: 22px;">Only {{plan.payment}}</div>
+                    <div style="font-size: 12px; color: gray;">Payment: {{plan.payment}}</div>
+                    <div>&nbsp;</div>
+                    <button [routerLink]="['/member-confirmation']" [queryParams]="{id: i}"
+                        class="btn btn-main-color">Select Plan</button>
+                </div>
             </div>
         </div>
     </div>

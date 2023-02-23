@@ -1,18 +1,21 @@
-<div *ngIf="!loadingFlg" class="login-shell" style="position: relative; width: 320px;">
+<div *ngIf="!loadingFlg" class="login-shell" style="position: relative; width: 100%; max-width: 500px; ">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div [ngStyle]="ngStyleGrayScreen()" class="gray-screen">
+    <div *ngIf="login>0" [ngStyle]="ngStyleGrayScreen()" class="gray-screen">
     </div>
 
-    <div [ngStyle]="ngStyleLoginBox()" style="display: inline-flexbox; position: absolute; width: 320px; padding: 20px;">
+    <div [ngStyle]="ngStyleLoginBox()" style="display: inline-flexbox; position: absolute; width: 100%; padding: 20px;">
         <div *ngIf="login==0">
             <div>&nbsp;</div>
-            <div class="large-text">DATING MADE</div>
-            <h3> <span class="red-text" style="text-decoration: underline;">BETTER</span></h3>
+            <div style="text-align: left;">
+                <div class="large-text">A <span class="red-text">BETTER</span> WAY
+                </div>
+                <div class="large-text">TO DATE</div>
+            </div>
             <div>&nbsp;</div>
-            <button [routerLink]="['']" [queryParams]="{login: 2}" class="btn btn-main-color btn-large">Create
+            <button [routerLink]="['']" [queryParams]="{login: 2}" class="btn btn-grad btn-large">Create
                 Account</button>
         </div>
-        <div *ngIf="login>0" style="text-align: center;">
+        <div *ngIf="login>0" style="text-align: center; max-width: 320px;">
             <div style="font-size: 10px; color: #444;">version: {{version}}</div>
             <table align="center">
                 <tr>
@@ -30,7 +33,7 @@
                 </tr>
             </table>
         </div>
-        <div *ngIf="login==1">
+        <div *ngIf="login==1" style="max-width: 320px;">
             <div class="tiny-text">Email Address</div>
             <input type="email" name="email" id="email" placeholder="Email Address" (input)="valueChanged()"
                 [value]="savedEmail">
@@ -53,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="login==2">
+        <div *ngIf="login==2" style="max-width: 320px;">
             <app-first-name-input (messageEvent)="valueChanged()">
             </app-first-name-input>
             <input name="email" id="email" type="email" placeholder="Email Address" (input)="valueChanged()">

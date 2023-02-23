@@ -104,7 +104,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   }
 
   flaggedUserButtonPressed(action: string) {
-    var params = { uid: this.responseJson.user.user_id };
+    var params = { uid: this.responseJson.user.user_id, reason: 4 };
     this.getDataFromServer(action, 'owners.php', params);
   }
 

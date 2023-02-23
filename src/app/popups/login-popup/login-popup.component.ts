@@ -54,7 +54,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     if (this.login == 0)
       return { 'top': (height-500).toString()+ 'px', 'height': '220px' };
     else
-      return { 'top': '1px', 'height': '430px' };
+      return { 'top': '40px', 'height': '430px' };
   }
 
   ngStyleLoginBox() {
@@ -62,7 +62,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     if (this.login == 0)
       return { 'top': (height-520).toString()+ 'px', 'height': '220px' };
     else
-      return { 'top': '1px', 'height': '430px' };
+      return { 'top': '40px', 'height': '430px' };
   }
 
   loginWithGoogle(): void {

@@ -69,6 +69,9 @@ export class BaseComponent implements OnInit {
     var dtObj = getDateObjFromJSDate(dt);
     return dtObj.localDate;
   }
+  getDateObjFromJSDate(dt: string) {
+    return getDateObjFromJSDate(dt);
+  }
 
   getNotificationsTypesFromInfoObj(infoObj: any) {
 

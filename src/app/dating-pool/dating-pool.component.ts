@@ -43,6 +43,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
 
     if (this.largeFlg)
       this.displayPicsSize = this.user.datingPool.length;
+
     this.refreshDatingPool();
 
   }
@@ -57,10 +58,28 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     } else
       this.refreshDatingPool();
   }
+
   refreshDatingPool() {
     this.datingPool = [];
     for (var i = 0; i < this.displayPicsSize; i++) {
-      this.datingPool.push(this.user.datingPool[i])
+      var dpItem = this.user.datingPool[i];
+      if (dpItem.match) {
+        if (dpItem.match.newMatchFlg == 'Y')
+          dpItem.lastLoginText = 'New Match!';
+        if (dpItem.match.you_date_request == 'Y')
+          dpItem.lastLoginText = 'Date Requested!';
+        if (dpItem.match.you_date_request == 'M')
+          dpItem.lastLoginText = 'Date Modified!';
+        if (dpItem.match.match_date_request == 'A' || dpItem.match.you_date_request == 'A')
+          dpItem.lastLoginText = 'Upcoming Date!';
+        if (dpItem.match.match_info_request == 'Y')
+          dpItem.lastLoginText = 'Info Requested!';
+        if (dpItem.match.roseAssignedBy > 0)
+          dpItem.lastLoginText = 'Rose Assigned!';
+        if (dpItem.match.unreadMessages > 0)
+          dpItem.lastLoginText = 'New Messages!';
+      }
+      this.datingPool.push(dpItem)
     }
   }
 

@@ -15,12 +15,31 @@
     border-radius: 20px; 
     display: block; 
     position: absolute; 
-    width: 320px; 
+    width: 100%; 
     min-height: 220px; 
     left: 0; 
     top: 0; 
     opacity: .3;
 }
+
+.btn-grad {
+    background-image: linear-gradient(to right, #ce4774 0%, #f1b245  51%, #e64e80  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    border-radius: 10px;
+    display: block;
+  }
+
+  .btn-grad:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
 
 .login-button {
     font-size: 22px;
@@ -34,8 +53,9 @@
 }
 
 .large-text {
-    font-size: 32px;
-    font-weight: 700;
+    font-size: 60px;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px black;
 }
 
 .google-btn {
@@ -58,4 +78,10 @@
 
 input {
     margin: 5px;
+}
+
+@media screen and (max-width: 500px) {
+    .large-text  {
+        font-size: 46px;
+    }
 }

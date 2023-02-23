@@ -40,10 +40,22 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { JournalItemComponent } from './journal-item/journal-item.component';
 import { MembershipConfirmationComponent } from './membership-confirmation/membership-confirmation.component';
 import { OwnerAnalyticsComponent } from './owner-analytics/owner-analytics.component';
+import { CookiesComponent } from './cookies/cookies.component';
+import { FaqComponent } from './faq/faq.component';
+import { CareersComponent } from './careers/careers.component';
+import { PressComponent } from './press/press.component';
+import { SecurityComponent } from './security/security.component';
+import { DatingTipsComponent } from './dating-tips/dating-tips.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'cookies', component: CookiesComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'careers', component: CareersComponent },
+  { path: 'press', component: PressComponent },
+  { path: 'security', component: SecurityComponent },
+  { path: 'dating-tips', component: DatingTipsComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'about', component: AboutComponent },
   { path: 'users', component: UsersComponent },

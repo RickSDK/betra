@@ -31,7 +31,7 @@
                 <tr>
                     <td>
                         <button (mousedown)="submitButtonPressed()" class="btn btn-main-color spacer">Submit</button>
-                        <button *ngIf="id>0 && blog.status != 'Active'" (mousedown)="activeButtonPressed()" class="btn btn-primary spacer">Active</button>
+                        <button *ngIf="id>0 && blog.status != 'Active'" (mousedown)="activeButtonPressed()" class="btn btn-primary spacer">Publish</button>
                     </td>
                     <td width="50%">
                         <span *ngIf="id>0" (mousedown)="showDeleteOptionsFlg=!showDeleteOptionsFlg"

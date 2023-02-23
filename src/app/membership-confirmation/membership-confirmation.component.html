@@ -1,8 +1,8 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Membership Confirmation'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <div class="matches-card" *ngIf="user && plan" style="padding: 20px; max-width: 400px;">
-        <div class="payment-plan-box">
+    <div class="matches-card" *ngIf="user" style="padding: 20px; max-width: 400px;">
+        <div *ngIf="plan && plan.name != 'renew'" class="payment-plan-box">
             <div style="font-size: 30px;"><b>{{plan.name}}</b></div>
             <div *ngIf="id==0" style="font-size: 22px;"><s>{{plan.cost}}</s></div>
             <div *ngIf="id>0" style="font-size: 22px;">{{plan.cost}}</div>
@@ -39,7 +39,7 @@
             <input type="text" id="zipcode" placeholder="12345" (input)="zipcodeValueChanged($event)" maxLength="5">
             <div>&nbsp;</div>
             <button (mousedown)="submitButtonPressed()" class="btn btn-main-color"
-                style="width: 220px;">Upgrade</button>
+                style="width: 220px;">Submit</button>
             <div>&nbsp;</div>
             <div class="gray-text">By confirmaing your subscription, you allow Betra to charge your card
                 for this payment and future payments in accordance with their terms. You can always cancel at any time.

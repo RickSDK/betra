@@ -93,6 +93,12 @@ import { TextWithEmojiComponent } from './input/text-with-emoji/text-with-emoji.
 import { ScrollCardComponent } from './scroll-card/scroll-card.component';
 import { MembershipConfirmationComponent } from './membership-confirmation/membership-confirmation.component';
 import { OwnerAnalyticsComponent } from './owner-analytics/owner-analytics.component';
+import { CookiesComponent } from './cookies/cookies.component';
+import { FaqComponent } from './faq/faq.component';
+import { CareersComponent } from './careers/careers.component';
+import { PressComponent } from './press/press.component';
+import { SecurityComponent } from './security/security.component';
+import { DatingTipsComponent } from './dating-tips/dating-tips.component';
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -186,6 +192,12 @@ import { OwnerAnalyticsComponent } from './owner-analytics/owner-analytics.compo
     ScrollCardComponent,
     MembershipConfirmationComponent,
     OwnerAnalyticsComponent,
+    CookiesComponent,
+    FaqComponent,
+    CareersComponent,
+    PressComponent,
+    SecurityComponent,
+    DatingTipsComponent,
   ],
   imports: [
     BrowserModule,

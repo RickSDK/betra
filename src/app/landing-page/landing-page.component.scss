@@ -59,17 +59,23 @@ h3 {
     right: 20px;
     border-radius: 50%;
     font-size: 12px;
+    font-weight: 700;
     height: 50px;
     width: 50px;
     padding: 15px 10px 15px 10px;
     text-align: center;
-    line-height: 13px;
+    line-height: 11px;
     cursor: pointer;
 }
 
 .login-round:hover {
-    font-size: 13px;
-    background-color: red;
+    background-color: white;
+    color: black;
+}
+
+.app-store {
+    cursor: pointer;
+    padding-bottom: 5px;
 }
 
 .outer-layer {
@@ -131,9 +137,33 @@ h3 {
     cursor: pointer;
 }
 
+
+.link-section {
+    min-width: 180px;
+    font-size: 18px;
+    display: inline-block; 
+    text-align: left;
+    padding: 10px;
+}
+
+.social-media {
+    background-color: #ff035e; 
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%; 
+    padding: 10px; 
+    width: 44px; 
+    margin: 4px;
+}
+
+.social-media:hover {
+    color: black;
+}
+
 .white-link {
     color: white;
-    padding: 10px;
     cursor: pointer;
 }
 .white-link:hover {
@@ -143,16 +173,29 @@ h3 {
 .white-link2 {
     width: 120px;
     display: inline-block;
-    border: 1px solid black;
-    border-radius: 20px;
     color: white;
-    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 15px;
     cursor: pointer;
-    padding: 10px;
-    margin: 10px;
 }
 .white-link2:hover {
-    border: 1px solid red;
+    text-decoration: underline;
+    color: #ff035e;
+}
+
+.big-white-text {
+    font-size: 60px;
+    color: white;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px black;
+}
+
+.medium-white-text {
+    font-size: 32px;
+    color: white;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px black;
 }
 
 $size-width: 400px;
@@ -165,6 +208,15 @@ $size-height: 110px;
   justify-content: left;
   align-items: left;
   margin: 0 0 20px 0;
+}
+
+.bottom-container {
+    position: absolute;
+    top: 160px; 
+    left: 0; 
+    text-align: center; 
+    width: 100%;
+    padding: 20px;
 }
 
 .carousel-container {
@@ -208,11 +260,27 @@ $size-height: 110px;
 }
 
 @media screen and (max-width: 800px) {
+    .bottom-container {
+        top: auto;
+        bottom: 40px;
+    }
+    .big-white-text {
+        font-size: 48px;
+    }
+    .medium-white-text {
+        font-size: 28px;
+    }
     .signup-popup {
         top: 100px;
     }
 }
 @media screen and (max-width: 600px) {
+    .big-white-text {
+        font-size: 32px;
+    }
+    .medium-white-text {
+        display: none;
+    }
     .white-link2 {
         display: none;
     }

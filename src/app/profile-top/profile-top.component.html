@@ -92,10 +92,10 @@
 
                         <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
                             [showCheckFlg]="user.desiredRelationship == myUser.matchRelationship && myUser.user_id != user.user_id"
-                            [img]="'assets/images/lookingFor.png'"></app-green-check>
+                            [img]="'assets/images/profile/lookingFor.png'"></app-green-check>
                         <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
                             [showCheckFlg]="myUser.marriageView == user.marriageView && myUser.user_id != user.user_id"
-                            [img]="'assets/images/marriage.png'"></app-green-check>
+                            [img]="'assets/images/profile/marriage.png'"></app-green-check>
                         <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText"
                             [icon]="'fa fa-exchange'">
                         </app-green-check>
@@ -106,7 +106,7 @@
                                     <td>
                                         <span class="menu-circle">
                                             <span class="profile-icon">
-                                                <img [src]="'assets/images/kids.png'" height="15">
+                                                <img [src]="'assets/images/profile/kids.png'" height="15">
                                             </span>
                                             <span class="profile-text">
                                                 <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
@@ -117,7 +117,7 @@
                                         </span>
                                         &nbsp;
                                         <span class="menu-circle">
-                                            <img [src]="'assets/images/kids2.png'" height="15"
+                                            <img [src]="'assets/images/profile/kids2.png'" height="15"
                                                 style="margin-right: 4px;">
                                             <span *ngIf="user.wantsKids != 'Does Not Matter'"
                                                 style="font-size: 10px;">{{user.wantsKids}}</span>
@@ -162,7 +162,7 @@
                         </app-green-check>
                         <app-green-check [label]="'Religion'" [text1]="user.religion"
                             [showCheckFlg]="user.religion == myUser.matchReligion && myUser.user_id != user.user_id"
-                            [icon]="''" [img]="'assets/images/religion.png'">
+                            [icon]="''" [img]="'assets/images/profile/religion.png'">
                         </app-green-check>
                     </div>
 

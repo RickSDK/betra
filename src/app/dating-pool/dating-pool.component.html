@@ -18,37 +18,20 @@
                     {{person.name}} <sup *ngIf="showIntimacyValuesFlg" class="intimacyValue">{{person.level}}</sup>
                 </div>
                 <div style="font-size: 8px; color: #444;"> {{person.lastLoginText}}
-                </div>    
+                </div>
+
             </div>
             <div class="icon-label btn-main-color" [routerLink]="['/user-detail']"
-            [queryParams]="{uid: person.user_id, s: 'Y'}">
+                [queryParams]="{uid: person.user_id, s: 'Y'}">
                 <div>{{person.name}}</div>
                 <div style="font-size: 8px;">Intimacy Level: {{person.level}}</div>
-            </div>
-            <div *ngIf="person.match">
-                <div *ngIf="person.match.newMatchFlg == 'Y'" class="big-flashy"><i class="fa fa-heart"></i> New Match!
-                </div>
-                <div *ngIf="person.match.you_date_request == 'Y'" class="big-flashy"><i class="fa fa-calendar"></i>
-                    Date Requested!</div>
-                <div *ngIf="person.match.you_date_request == 'M'" class="big-flashy"><i class="fa fa-calendar"></i> Date
-                    Modification!</div>
-                <!--<div *ngIf="person.match.match_date_request == 'A' || person.match.you_date_request == 'A'"
-                    class="big-flashy"><i class="fa fa-calendar"></i> Upcoming Date!</div>-->
-                <div *ngIf="person.match.you_pic_request > 0" class="big-flashy"><i class="fa fa-picture-o"></i> Pic
-                    Requested!</div>
-                <div *ngIf="person.match.match_info_request == 'Y'" class="big-flashy"><i class="fa fa-info-circle"></i>
-                    Info Requested!</div>
-                <div *ngIf="person.match.unreadMessages > 0" class="big-flashy"><i class="fa fa-comment"></i> New
-                    messages!</div>
-                <div *ngIf="person.match.roseAssignedBy > 0" class="big-flashy"><i class="fa fa-heart"></i> Rose
-                    Assigned!</div>
             </div>
         </div>
         <div>
             <table>
                 <tr>
                     <td>
-                        <input  type="checkbox" id="switch" class="checkbox" [checked]="showIntimacyLevelsFlg"/>
+                        <input type="checkbox" id="switch" class="checkbox" [checked]="showIntimacyLevelsFlg" />
                         <label (mousedown)="toggleIntimacyFlg()" for="switch" class="toggle"></label>
                     </td>
                     <td style="font-size: 10px; color: gray;">
@@ -65,7 +48,8 @@
             <span [routerLink]="['/matches']" class="dp-header">
                 <i class="fa fa-users"></i> {{user.firstName}}'s Dating Pool</span>
         </div>
-        <div *ngIf="0" class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool</div>
+        <div *ngIf="0" class="main-color date-pool-title" [routerLink]="['/matches']">{{user.firstName}}'s Dating Pool
+        </div>
         <table>
             <tr>
                 <td *ngIf="panRight && displayPicsSize < datingPoolSize">
@@ -77,8 +61,7 @@
                         [style.border]="person.heartFlg?'3px solid #700':'none'">
                 </td>
                 <td *ngIf="!panRight && displayPicsSize < datingPoolSize">
-                    <i (mousedown)="panRightClicked(true)"
-                        class="fa fa-chevron-right large-icon"></i>
+                    <i (mousedown)="panRightClicked(true)" class="fa fa-chevron-right large-icon"></i>
                 </td>
             </tr>
         </table>

@@ -200,6 +200,7 @@ export class User {
     public linkedInUrl: string = '';
     public linkedInUrlFlg: boolean = false;
     public potentialLoveInterestFlg: boolean = true;
+    public expiration: string = ''
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -210,6 +211,7 @@ export class User {
             this.birthdate = obj.birthdate;
             this.birthYear = obj.birthYear;
             this.statsObj = obj.statsObj;
+            this.expiration = obj.expiration;
             this.gender = obj.gender;
             this.genderIcon = (obj.gender == 'M') ? 'fa fa-male' : 'fa fa-female';
             this.genderName = (obj.gender == 'M') ? 'male' : 'female';
@@ -353,41 +355,41 @@ export class User {
                 this.incomeRange = 'High';
 
             if (this.drinks == 'Yes') {
-                this.drinksIcon = 'assets/images/drinker.png';
+                this.drinksIcon = 'assets/images/profile/drinker.png';
                 this.drinksTitle = 'Drinks';
             }
             if (this.drinks == 'No') {
-                this.drinksIcon = 'assets/images/nonDrinker.png';
+                this.drinksIcon = 'assets/images/profile/nonDrinker.png';
                 this.drinksTitle = 'Non drinker';
             }
             if (this.drinks == 'Occasional') {
-                this.drinksIcon = 'assets/images/drinker.png';
+                this.drinksIcon = 'assets/images/profile/drinker.png';
                 this.drinksTitle = 'Occasionally drinks';
             }
 
             if (this.smokes == 'Yes') {
-                this.smokesIcon = 'assets/images/smoker.png';
+                this.smokesIcon = 'assets/images/profile/smoker.png';
                 this.smokesTitle = 'Smokes';
             }
             if (this.smokes == 'No') {
-                this.smokesIcon = 'assets/images/nonSmoker.png';
+                this.smokesIcon = 'assets/images/profile/nonSmoker.png';
                 this.smokesTitle = 'Non smoker';
             }
             if (this.smokes == 'Occasional') {
-                this.smokesIcon = 'assets/images/smoker.png';
+                this.smokesIcon = 'assets/images/profile/smoker.png';
                 this.smokesTitle = 'Occasionally smokes';
             }
 
             if (this.cannabis == 'Yes') {
-                this.potIcon = 'assets/images/cannabis.png';
+                this.potIcon = 'assets/images/profile/cannabis.png';
                 this.potTitle = 'Uses cannabis';
             }
             if (this.cannabis == 'No') {
-                this.potIcon = 'assets/images/noDrugs.png';
+                this.potIcon = 'assets/images/profile/noDrugs.png';
                 this.potTitle = 'No drugs';
             }
             if (this.cannabis == 'Occasional') {
-                this.potIcon = 'assets/images/cannabis.png';
+                this.potIcon = 'assets/images/profile/cannabis.png';
                 this.potTitle = 'Occasional drugs';
             }
 

@@ -96,8 +96,10 @@
 }
 
 .red-circle-large {
-    display: inline-block;
     position: absolute;
+    top: -120px;
+    right: 10px;
+    display: inline-block;
     border: 1px solid white;
     box-shadow: 1px 1px 3px black;
     cursor: pointer;
@@ -117,8 +119,8 @@
     font-size: 22px;
     display: inline-block;
     position: absolute;
-    right: 5px;
-    top: 90px;
+    right: 1px;
+    top: 40px;
 }
 
 .icon-label {

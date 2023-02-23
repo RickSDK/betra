@@ -30,7 +30,7 @@
                                     <app-green-check [label]="'Personality Quiz Type'"
                                         [text1]="matchUser.adventureStableText"
                                         [showCheckFlg]="matchUser.adventureStableText == user.adventureStableText && matchUser.user_id != user.user_id"
-                                        [img]="'assets/images/personality.png'">
+                                        [img]="'assets/images/profile/personality.png'">
                                     </app-green-check>
                                     <app-green-check [label]="'Politics'" [text1]="matchUser.polyText"
                                         [showCheckFlg]="matchUser.polyText == user.polyText && matchUser.user_id != user.user_id"
@@ -47,7 +47,7 @@
                                     <div class="small-title main-color">Body</div>
                                     <app-green-check [label]="'Body'" [text1]="matchUser.bodyDesc"
                                         [showCheckFlg]="matchUser.bodyType == user.matchBody && matchUser.user_id != user.user_id"
-                                        [img]="'assets/images/bodyType.png'">
+                                        [img]="'assets/images/profile/bodyType.png'">
                                     </app-green-check>
                                     <!--[icon]="matchUser.genderIcon" -->
                                     <app-green-check [label]="'Race'" [text1]="matchUser.race"
@@ -57,12 +57,12 @@
                                     <table width="100%">
                                         <tr>
                                             <td title="tattoos">
-                                                <span class="profile-icon"><img src="assets/images/tattoo.png"
+                                                <span class="profile-icon"><img src="assets/images/profile/tattoo.png"
                                                         height="18"></span>
                                                 <span class="profile-text"> {{matchUser.numTattoos}}</span>
                                             </td>
                                             <td title="piercings">
-                                                <span class="profile-icon"><img src="assets/images/piercing.png"
+                                                <span class="profile-icon"><img src="assets/images/profile/piercing.png"
                                                         height="18"></span>
                                                 <span class="profile-text"> {{matchUser.numPiercings}}</span>
                                             </td>
@@ -79,17 +79,17 @@
                                 <tr>
                                     <td width="50%">
                                         <app-percent-text [label]="'Personality Mt'" [amount]="personalityMatch"
-                                            [loadingFlg]="loadingFlg" [img]="'assets/images/personalityMatch.png'">
+                                            [loadingFlg]="loadingFlg" [img]="'assets/images/profile/personalityMatch.png'">
                                         </app-percent-text>
-                                        <app-percent-text [img]="'assets/images/politicsMatch.png'"
+                                        <app-percent-text [img]="'assets/images/profile/politicsMatch.png'"
                                             [label]="'Politics Match'" [amount]="polyMatch" [loadingFlg]="loadingFlg">
                                         </app-percent-text>
                                     </td>
                                     <td>
-                                        <app-percent-text [img]="'assets/images/profileMatch.png'"
+                                        <app-percent-text [img]="'assets/images/profile/profileMatch.png'"
                                             [label]="'Profile Match'" [amount]="profileMatch" [loadingFlg]="loadingFlg">
                                         </app-percent-text>
-                                        <app-percent-text [img]="'assets/images/totalMatch.png'"
+                                        <app-percent-text [img]="'assets/images/profile/totalMatch.png'"
                                             [label]="'Overall Match'" [amount]="totalMatch" [loadingFlg]="loadingFlg">
                                         </app-percent-text>
                                     </td>

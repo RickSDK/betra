@@ -14,6 +14,7 @@ export class MembershipConfirmationComponent extends BaseComponent implements On
     { name: '1 Month', cost: '$19.99/month', payment: '$2', term: '1', autoRenewFlg: 'Y' },
     { name: '3 Months', cost: '$14.99/month', payment: '$44.97', term: '3', autoRenewFlg: 'N' },
     { name: '12 Months', cost: '$10.99/month', payment: '$131.88', term: '12', autoRenewFlg: 'N' },
+    { name: 'renew', cost: '', payment: '', term: '', autoRenewFlg: '' },
   ];
   public id: number = 0;
   public plan: any = null;
@@ -26,7 +27,10 @@ export class MembershipConfirmationComponent extends BaseComponent implements On
 
     this.route.queryParams.subscribe(params => {
       this.id = parseInt(params['id']) || 0;
-      this.plan = this.plans[this.id];
+      if (this.id == 99)
+        this.plan = this.plans[3];
+      else
+        this.plan = this.plans[this.id];
     });
   }
 
