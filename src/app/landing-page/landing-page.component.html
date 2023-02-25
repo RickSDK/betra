@@ -51,7 +51,7 @@
 <div class="container-fluid" style="background-color: #fff; text-align: center; font-family: now;">
     <div class="row">
         <div class="col-md" style="text-align: left; padding: 40px;">
-            <div style="font-size: 32px; font-weight: 700; margin-top: 20px; line-height: 32px;">Real people<br>
+            <div style="font-size: 32px; font-weight: 700; margin-top: 20px; line-height: 40px;">Real people<br>
                 Real dates</div>
                 <div>&nbsp;</div>
             <p style="font-size: 18px;">We don't play when it comes to love. We have developed a proven method for
@@ -128,7 +128,7 @@
 <div style="position: relative; font-family: now;">
     <img src="assets/images/landing/bottomImage.png" style="width: 100%; object-fit: cover; object-position: 40% 100%;">
     <div class="bottom-container">
-        <div class="big-white-text">The buzz is real. <img [src]="logo" height="130" style="padding-bottom: 25px;"> is better.</div>
+        <div class="big-white-text">The buzz is real. <img [src]="logo" class="logo-betra"> is better.</div>
         <div class="medium-white-text">Stop swiping and start matching with the better
             dating app.</div>
     </div>
@@ -197,18 +197,18 @@
                     <div style="color: gray;">Company</div>
                     <div [routerLink]="['/contact']" class="white-link">Contact</div>
                     <div [routerLink]="['/about']" class="white-link">About</div>
-                    <div [routerLink]="['/careers']" class="white-link">Careers</div>
-                    <div [routerLink]="['/press']" class="white-link">Press</div>
+                    <div [routerLink]="['/join-team']" class="white-link">Careers</div>
+                    <!--<div [routerLink]="['/press']" class="white-link">Press</div>-->
                 </div>
             </td>
             <td valign="top" class="hide-md">
                 <div class="link-section">
                     <div style="color: gray;">Resouces</div>
                     <div [routerLink]="['/blogs']" class="white-link">Blog</div>
-                    <div [routerLink]="['/dating-tips']" class="white-link">Safe Dating Tips</div>
+                    <!--<<div [routerLink]="['/dating-tips']" class="white-link">Safe Dating Tips</div>
                     <div [routerLink]="['/faq']" class="white-link">FAQ</div>
                     <div [routerLink]="['/faq']" class="white-link">App Store</div>
-                    <div [routerLink]="['/faq']" class="white-link">Sitemap</div>
+                    div [routerLink]="['/faq']" class="white-link">Sitemap</div>-->
                 </div>
             </td>
             <td valign="top">
@@ -216,7 +216,7 @@
                     <div style="color: gray;">Legal</div>
                     <div [routerLink]="['/privacy-policy']" class="white-link">Privacy Policy</div>
                     <div [routerLink]="['/terms-conditions']" class="white-link">Terms & Conditions</div>
-                    <div [routerLink]="['/security']" class="white-link">Security</div>
+                    <!--<div [routerLink]="['/security']" class="white-link">Security</div>-->
                     <div [routerLink]="['/cookies']" class="white-link">Cookie Policy</div>
                 </div>
             </td>
@@ -230,11 +230,14 @@
                             class="fa fa-facebook social-media"></i></a>
                     <a [href]="'https://www.instagram.com/Betradating/'" target="new"><i
                             class="fa fa-instagram social-media"></i></a>
-                    <i class="fa fa-twitter social-media"></i>&nbsp;
-
-                    <img src="assets/images/landing/appStore1.png" height="44" class="app-store">&nbsp;
-                    <img src="assets/images/landing/appStore2.png" height="44" class="app-store">
+                    <i class="fa fa-twitter social-media"></i>
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="assets/images/landing/appStore1.png" height="44" class="app-store">&nbsp;
+                <img src="assets/images/landing/appStore2.png" height="44" class="app-store">
             </td>
         </tr>
     </table>

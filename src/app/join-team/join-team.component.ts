@@ -50,6 +50,15 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
     this.executeApi('owners.php', params, true);
   }
   signupPressed() {
+    console.log(this.userId, this.user);
+    if(!this.user || this.userId==0) {
+      this.errorMessage = 'Error - You must first create an account and sign into it. Click "Create a Betra account" link above to get started.';
+      return;  
+    }
+    if(this.user && this.user.status != 'Active') {
+      this.errorMessage = 'Error - Make sure you fully complete your profile. Click "Profile" link above to get finish.';
+      return;  
+    }
     this.signupDisabledFlg = true;
     var params = {
       userId: localStorage['user_id'],
@@ -67,7 +76,6 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
       this.ownerCount = responseJson.ownerCount;
       this.spotsLeft = 58 - this.ownerCount;
       if(responseJson.refreshFlg && responseJson.refreshFlg == 'Y') {
-        console.log('refresh!');
         this.refreshUserObj(responseJson.user);
       }
     }

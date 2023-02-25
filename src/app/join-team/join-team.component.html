@@ -23,7 +23,8 @@
             </div>
         </div>
         <p class="gray-text" style="text-align: left;">
-            The following chart shows payouts based on a smaller amount of $100,000/month income, which we hope to achieve within 90-days of launch.
+            The following chart shows payouts based on a smaller amount of $100,000/month income, which we hope to
+            achieve within 90-days of launch.
         </p>
         <div class="gray-text">*Provided we get enough people signed up</div>
         <div class="shaded-border-box">
@@ -57,7 +58,8 @@
                 <li>Approve user submitted pictures.</li>
             </div>
         </div>
-        <p class="gray-text" style="text-align: left;">That's about it! Everything can be done from home. Work as much or as little as you have time for and let's all help make this a success.</p>
+        <p class="gray-text" style="text-align: left;">That's about it! Everything can be done from home. Work as much
+            or as little as you have time for and let's all help make this a success.</p>
 
         <table align="center" border="0">
             <tr>
@@ -91,14 +93,15 @@
                             <li *ngIf="!user || user && user.status != 'Active'"> Complete your <a
                                     [routerLink]="'/profile'">profile</a> <i *ngIf="user && user.status == 'Active'"
                                     class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
-                            <li *ngIf="!user || (user && !user.emailVerifyFlg)"> Verify your <a [routerLink]="'/profile'"
-                                    [queryParams]="{num: 1}">email address</a> <i *ngIf="user && user.emailVerifyFlg"
-                                    class="fa fa-check" style="color: green; font-size: 32px;"></i> (check your junk
+                            <li *ngIf="!user || (user && !user.emailVerifyFlg)"> Verify your <a
+                                    [routerLink]="'/profile'" [queryParams]="{num: 1}">email address</a> <i
+                                    *ngIf="user && user.emailVerifyFlg" class="fa fa-check"
+                                    style="color: green; font-size: 32px;"></i> (check your junk
                                 email address)</li>
                             <li>Click Join button below</li>
                             <div style="text-align: center">
                                 <button (mousedown)="signupPressed()" class="btn btn-primary"
-                                    [disabled]="signupDisabledFlg" style="padding: 10px; width: 120px;">Join!</button>
+                                    style="padding: 10px; width: 120px;">Join!</button>
                             </div>
                         </ol>
                     </div>

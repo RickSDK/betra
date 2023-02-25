@@ -172,6 +172,7 @@ h3 {
 
 .white-link2 {
     width: 120px;
+    text-decoration: none;;
     display: inline-block;
     color: white;
     font-size: 18px;
@@ -186,6 +187,7 @@ h3 {
 
 .big-white-text {
     font-size: 60px;
+    line-height: 60px;
     color: white;
     font-weight: 400;
     text-shadow: 1px 1px 2px black;
@@ -196,6 +198,11 @@ h3 {
     color: white;
     font-weight: 400;
     text-shadow: 1px 1px 2px black;
+}
+
+.logo-betra {
+    height: 130px;
+    padding-bottom: 25px;
 }
 
 $size-width: 400px;
@@ -273,8 +280,16 @@ $size-height: 110px;
     .signup-popup {
         top: 100px;
     }
+    .logo-betra {
+        height: 100px;
+        padding-bottom: 20px;
+    }
 }
 @media screen and (max-width: 600px) {
+    .logo-betra {
+        height: 80px;
+        padding-bottom: 15px;
+    }
     .big-white-text {
         font-size: 32px;
     }

@@ -4,7 +4,7 @@
     </div>
 
     <div [ngStyle]="ngStyleLoginBox()" style="display: inline-flexbox; position: absolute; width: 100%; padding: 20px;">
-        <div *ngIf="login==0">
+        <div *ngIf="!login || login==0">
             <div>&nbsp;</div>
             <div style="text-align: left;">
                 <div class="large-text">A <span class="red-text">BETTER</span> WAY
