@@ -40,7 +40,9 @@ export class UpgradeMemberComponent extends BaseComponent implements OnInit {
         this.benefitExpDate = dt.localDate + ' (' + (dt.daysAgo * -1) + ' days remaining)';
       } else
         this.benefitExpDate = 'Never expire';
-      this.cardOnFile = '**** **** **** ' + responseJson.creditObj.card_number.substr(-4, 4);
+      this.cardOnFile = '';
+      if (responseJson.creditObj && responseJson.creditObj.card_number && responseJson.creditObj.card_number.length > 12)
+        this.cardOnFile = '**** **** **** ' + responseJson.creditObj.card_number.substr(-4, 4);
       this.creditObj = responseJson.creditObj;
     }
   }

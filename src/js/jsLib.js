@@ -2,7 +2,12 @@ function getHostname() {
 	return 'https://www.betradating.com/betraPhp/';
 }
 function getVersion() {
-	return '1.6';
+	return '1.7';
+}
+function getPlatform() {
+	var platform = 0; // edit this line, 0 = web, 1 = android, 2 = ios
+	var platforms = ['Web', 'Android', 'IOS'];
+	return platforms[platform];
 }
 function decodeJwtResponse(token) {
 	var base64Url = token.split('.')[1];
@@ -38,7 +43,7 @@ function getIPInfo(userName, pwd) {
 			});
 	});
 }
-function getPlatform() {
+function getOS() {
 	return navigator["platform"];
 }
 function getBrowser() {

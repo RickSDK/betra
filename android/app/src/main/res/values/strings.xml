@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">betra</string>
+    <string name="title_activity_main">betra</string>
+    <string name="package_name">com.betradating</string>
+    <string name="custom_url_scheme">com.betradating</string>
+</resources>

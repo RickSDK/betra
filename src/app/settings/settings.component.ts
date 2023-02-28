@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 declare var getVersion: any;
 declare var getBrowser: any;
 declare var getPlatform: any;
+declare var getOS: any;
 declare var $: any;
 
 @Component({
@@ -19,6 +20,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   public version: string = '';
   public browser: string = '';
   public platform: string = '';
+  public os: string = '';
   public updateLocationDisabledFlg: boolean = true;
   public findingLocationDataFlg: boolean = false;
   public city: string = '';
@@ -41,6 +43,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     this.version = getVersion();
     this.browser = getBrowser();
     this.platform = getPlatform();
+    this.os = getOS();
 
     this.lat2 = localStorage['latitude'];
     this.lng2 = localStorage['longitude'];

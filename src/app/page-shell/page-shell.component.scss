@@ -26,6 +26,16 @@
     text-decoration: underline;
 }
 
+.hamburger-menu {
+    font-size: 28px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.hamburger-menu:hover {
+    color: #900;
+}
+
 .back-button {
     font-size: 32px;
     color: black;

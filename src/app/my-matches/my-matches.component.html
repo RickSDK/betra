@@ -28,11 +28,12 @@
                             <div style="font-size: 8px;">{{player.name}}</div>
                         </div>
                         <div>&nbsp;</div>
-                        <div *ngIf="selectedPerson && selectedPerson.name != currentRoseHolder" class="important-notice">
+                        <div *ngIf="selectedPerson && selectedPerson.name != currentRoseHolder && currentRoseHolder != ''" class="important-notice">
                             <div style="font-size: 16px;"><i class="fa fa-exclamation-triangle"></i><b>Warning!</b></div>
                             You ONLY have 1 rose to hand out. Are you sure you want to take your rose back from <b>{{currentRoseHolder}}</b>, and give it to <b>{{selectedPerson.name}}</b>?
                             <div class="gray-text">Keep in mind, everyone in your dating pool will be able to see this action on your part.</div>
                         </div>
+                        <p *ngIf="!disableFormFlg && selectedPerson && selectedPerson.name" class="red-text">Click 'Assign Rose' button to give your rose to {{selectedPerson.name}}.</p>
                         <div *ngIf="newlyAssignedRoseFlg" class="important-notice">
                             <div style="font-size: 16px;"><i class="fa fa-check"></i><b>Success!</b></div>
                             <div>Your rose has been given to <b>{{currentRoseHolder}}</b>. You are free to change this as often as you like.
@@ -152,7 +153,7 @@
 
             </div>
             <div *ngIf="showDetailsNumber==2">
-                <div class="red-text">Intimacy Level</div>
+                <div class="red-text">Intimacy Levels</div>
                 <div style="font-size: 12px; color: gray; text-align: left">
                     <p>Intimacy Level indicates how far into the Betra app features you have made it with this match. It
                         is simply a small indicator, letting everyone know how serious the relationship might be
@@ -228,7 +229,7 @@
             <button (mousedown)="toggleShowDetailsNumber(1)" class="btn btn-main-color shrink"><i class="fa fa-info-circle"></i> Dating
                 Pool</button>&nbsp;
             <button (mousedown)="toggleShowDetailsNumber(2)" class="btn btn-main-color shrink">Intimacy
-                Level</button>&nbsp;
+                Levels</button>&nbsp;
             <button (mousedown)="toggleShowDetailsNumber(3)" class="btn btn-main-color shrink">FAQ</button>&nbsp;
             <button (mousedown)="toggleShowDetailsNumber(4)" class="btn btn-main-color shrink">Roses</button>&nbsp;
         </div>

@@ -27,16 +27,29 @@
             <hr>
             <div *ngIf="user.memberFlg && creditObj">
                 <div *ngIf="user.memberFlg" class="red-text">Your Current Plan</div>
-                <div>Plan: <span class="text-highlight">{{creditObj.name}} at {{creditObj.cost}}</span></div>
-                <div>Benefits Expire: <span class="text-highlight">{{benefitExpDate}}</span></div>
-                <div>Card on file: <span class="text-highlight">{{cardOnFile}}</span></div>
-                <div>Card exp: <span class="text-highlight">{{creditObj.exp_number}}</span></div>
-                <div>Auto Renew? <span class="text-highlight">{{creditObj.autoRenewFlg}}</span></div>
-                <button [routerLink]="['/member-confirmation']" [queryParams]="{id: 99}" class="btn btn-main-color btn-small spacer">Update card</button>
-                <button (mousedown)="setAutoRenew('Y')" *ngIf="creditObj.autoRenewFlg!='Y'" class="btn btn-main-color btn-small spacer">Make Auto-Renew</button>                
-                <button (mousedown)="setAutoRenew('N')" *ngIf="creditObj.autoRenewFlg=='Y'" class="btn btn-main-color btn-small spacer">Cancel Auto-Renew</button>                
-                <button (mousedown)="showPlanDetailsFlg=true" class="btn btn-main-color btn-small spacer">New Plan</button>
-                <div *ngIf="creditObj.autoRenewFlg!='Y'" class="gray-text">Note: Your membership will automatically cancel once it expires. Nothing needed to cancel.</div>
+                <div *ngIf="!creditObj.exp_number">
+                    <div>Plan: <span class="text-highlight">Lifetime Member</span></div>
+                    <div>Benefits Expire: <span class="text-highlight">{{benefitExpDate}}</span></div>
+                    <button (mousedown)="showPlanDetailsFlg=true" class="btn btn-main-color btn-small spacer">New
+                        Plan</button>
+                </div>
+                <div *ngIf="creditObj.exp_number">
+                    <div>Plan: <span class="text-highlight">{{creditObj.name}} at {{creditObj.cost}}</span></div>
+                    <div>Benefits Expire: <span class="text-highlight">{{benefitExpDate}}</span></div>
+                    <div>Card on file: <span class="text-highlight">{{cardOnFile}}</span></div>
+                    <div>Card exp: <span class="text-highlight">{{creditObj.exp_number}}</span></div>
+                    <div>Auto Renew? <span class="text-highlight">{{creditObj.autoRenewFlg}}</span></div>
+                    <button [routerLink]="['/member-confirmation']" [queryParams]="{id: 99}"
+                        class="btn btn-main-color btn-small spacer">Update card</button>
+                    <button (mousedown)="setAutoRenew('Y')" *ngIf="creditObj.autoRenewFlg!='Y'"
+                        class="btn btn-main-color btn-small spacer">Make Auto-Renew</button>
+                    <button (mousedown)="setAutoRenew('N')" *ngIf="creditObj.autoRenewFlg=='Y'"
+                        class="btn btn-main-color btn-small spacer">Cancel Auto-Renew</button>
+                    <button (mousedown)="showPlanDetailsFlg=true" class="btn btn-main-color btn-small spacer">New
+                        Plan</button>
+                    <div *ngIf="creditObj.autoRenewFlg!='Y'" class="gray-text">Note: Your membership will automatically
+                        cancel once it expires. Nothing needed to cancel.</div>
+                </div>
             </div>
             <div *ngIf="showPlanDetailsFlg">
                 <div class="red-text">First 50 members to sign up receive our $2 launch special!</div>

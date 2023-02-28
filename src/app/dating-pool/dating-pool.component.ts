@@ -71,7 +71,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
         if (dpItem.match.you_date_request == 'M')
           dpItem.lastLoginText = 'Date Modified!';
         if (dpItem.match.match_date_request == 'A' || dpItem.match.you_date_request == 'A')
-          dpItem.lastLoginText = 'Upcoming Date!';
+          dpItem.lastLoginText = 'Scheduled Date';
         if (dpItem.match.match_info_request == 'Y')
           dpItem.lastLoginText = 'Info Requested!';
         if (dpItem.match.roseAssignedBy > 0)
