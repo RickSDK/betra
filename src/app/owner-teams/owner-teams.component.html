@@ -13,9 +13,7 @@
             <table width="100%">
                 <tr>
                     <td align="center">
-                        <app-owner-org-chart-cell [person]="director1" [personTitle]="'Director'">
-                        </app-owner-org-chart-cell>
-                        <app-owner-org-chart-cell [person]="projectManager" [personTitle]="'Project Manager'">
+                         <app-owner-org-chart-cell [person]="projectManager" [personTitle]="'Project Manager'">
                         </app-owner-org-chart-cell>
                         <app-owner-org-chart-cell [person]="devLead" [personTitle]="'Dev Lead'">
                         </app-owner-org-chart-cell>
@@ -51,7 +49,7 @@
         </div>
 
         <div *ngIf="team==3">
-            <app-owner-cell *ngIf="ownerJames" [person]="ownerJames" [adminFlg]="user.activityRep>8"></app-owner-cell>
+            <app-owner-cell *ngIf="0" [person]="ownerJames" [adminFlg]="user.activityRep>8"></app-owner-cell>
             <div *ngFor="let team of teams1" class="team-box">
                 <div style="background-color: #444; color: white;">{{team.name}}</div>
                 <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8">
@@ -70,7 +68,7 @@
         </div>
 
         <div *ngIf="team==4">
-            <app-owner-cell *ngIf="ownerHalle" [person]="ownerHalle" [adminFlg]="user.activityRep>8"></app-owner-cell>
+            <app-owner-cell *ngIf="0" [person]="ownerHalle" [adminFlg]="user.activityRep>8"></app-owner-cell>
             <div *ngFor="let team of teams2" class="team-box">
                 <div style="background-color: #444; color: white;">{{team.name}}</div>
                 <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true" [adminFlg]="user.activityRep>8">

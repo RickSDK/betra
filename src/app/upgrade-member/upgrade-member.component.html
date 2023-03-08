@@ -24,6 +24,7 @@
                 <li>Full access to user reviews</li>
                 <li>Eliminate Ads</li>
             </div>
+            <div>Platform: <span class="text-highlight">{{platform}}</span></div>
             <hr>
             <div *ngIf="user.memberFlg && creditObj">
                 <div *ngIf="user.memberFlg" class="red-text">Your Current Plan</div>
@@ -51,7 +52,38 @@
                         cancel once it expires. Nothing needed to cancel.</div>
                 </div>
             </div>
-            <div *ngIf="showPlanDetailsFlg">
+            <div *ngIf="showPlanDetailsFlg && platform != 'Web'">
+                <div class="red-text">In-App purchases coming soon.</div>
+                <div>appStore: {{appStore}}</div>
+                <div *ngIf="appStore">InAppPurchase2: {{appStore.InAppPurchase2}}</div>
+                <div>products: {{products}}</div>
+
+                <div>
+                    <div>
+                        <div button *ngFor="let p of products" (click)="purchase(p)" detail="false">
+                            <div class="ion-text-wrap">
+                                {{ p.title }}
+                                <p>{{ p.description }}</p>
+                            </div>
+                            <button slot="end">
+                                {{ p.price }} {{ p.currency }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <button expand="full" (click)="restore()">Restore</button>
+
+                    <div>
+                        Gems: {{ gems }}
+                    </div>
+                    <div>
+                        Is Pro: {{ isPro }}
+                    </div>
+                </div>
+
+
+            </div>
+            <div *ngIf="showPlanDetailsFlg && platform == 'Web'">
                 <div class="red-text">First 50 members to sign up receive our $2 launch special!</div>
                 <div *ngIf="0" class="payment-plan-box">
                     <div style="font-size: 30px;"><b>1 Month</b></div>

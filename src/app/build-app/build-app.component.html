@@ -1,0 +1,230 @@
+<app-page-shell [userId]="userId" [pageTitle]="'App-Setup'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
+
+    <div class="matches-card" style="text-align: left;">
+        <div class="tan-box">
+            <div><b>Create Angular Project</b>
+                <i (mousedown)="changeMenuNum(1)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==1">
+                <li>node -v <span class="gray-text">(version 10.9.0 or later)</span></li>
+                <li>npm -v <span class="gray-text">(i'm using 8.19.2)</span></li>
+                <li>ng version <span class="gray-text">(currently 13.2.7)</span></li>
+                <li>npm install -g @angular/cli <span class="gray-text">(if not installed)</span></li>
+                <li>ionic -v <span class="gray-text">(currently 6.20.8)</span></li>
+                <li>npm install -g @ionic/cli <span class="gray-text">(if not installed)</span></li>
+                <li>cordova -v <span class="gray-text">(currently 11.1.0)</span></li>
+                <li>npm install -g cordova <span class="gray-text">(if not installed)</span></li>
+                <hr>
+                <li>ng new my-app</li>
+                <li>cd my-app</li>
+                <li>npm install bootstrap jquery popper.js --save-dev</li>
+                <li>npm install font-awesome --save-dev</li>
+                <li>ng serve -o</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Download Project</b>
+                <i (mousedown)="changeMenuNum(2)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==2">
+                <li>git clone https://github.com/RickSDK/betra.git</li>
+                <li>npm install --save angularx-social-login --force </li>
+                <li>npm install</li>
+                <li>ng serve -o</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Git Commit Project</b>
+                <i (mousedown)="changeMenuNum(3)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==3">
+                <li>git status</li>
+                <li>git add -A</li>
+                <li>git commit -m "trying to make it better"</li>
+                <li>git push</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Converting Angular to capacitor</b>
+                <i (mousedown)="changeMenuNum(4)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==4">
+                <li>npm install @capacitor/core</li>
+                <li>npm install @capacitor/cli</li>
+                <li>npx cap init</li>
+                <li>Edit capacitor.config.ts: webDir: 'dist/betra',</li>
+                <li>npm install @capacitor/ios @capacitor/android</li>
+                <li>npx cap add ios</li>
+                <li>npx cap add android</li>
+                <li>ng serve -o<span class="gray-text"><-- make sure it runs</span></li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>index.html</b>
+                <i (mousedown)="changeMenuNum(5)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==5">
+                <div>Add the following files to assets folder:</div>
+                <li>favicon.ico (28px)</li>
+                <li>Icon.png (192px)</li>
+                <li>Icon128.png (128px)</li>
+                <li>Launch.png (320x483)</li>
+                <li>manifest.json</li>
+                <div>Make sure index.html has the following code:</div>
+                <hr>
+                &lt;meta name="viewport"
+                    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;<br>
+                    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;<br>
+                    &lt;meta name="mobile-web-app-capable" content="yes"&gt;<br>
+                    &lt;meta name="apple-mobile-web-app-title" content="Title"&gt;<br>
+                    &lt;meta name="apple-mobile-web-app-status-bar-style" content="black"&gt;<br>
+                    &lt;meta name="description" content="desc"&gt;<br>
+
+                    &lt;link rel="apple-touch-icon" href="assets/Icon.png"&gt;<br>
+                    &lt;link rel="apple-touch-startup-image" href="assets/launch.png"&gt;<br>
+                    &lt;link rel="apple-touch-icon-precomposed" sizes="128x128" href="assets/Icon128.png"&gt;<br>
+                    &lt;link rel="shortcut icon" sizes="196x196" href="assets/Icon.png"&gt;<br>
+                    &lt;link rel="shortcut icon" sizes="128x128" href="assets/Icon128.png"&gt;<br>
+                    &lt;link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"&gt;<br>
+                    &lt;link rel="manifest" href="assets/manifest.json"&gt;<br>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Manifest</b>
+                <i (mousedown)="changeMenuNum(6)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==6">
+                <li>create manifest.json </li>
+                <li>add to assets folder</li>
+                &#123;<br>
+                "short_name": "AppName", <br>
+                "name": "App Name", <br>
+                "icons": [ <br>
+                &#123;<br>
+                "src": "Icon.png", <br>
+                "sizes": "192x192", <br>
+                "type": "image/png" <br>
+                &#125; <br>
+                ], <br>
+                "start_url": "ptp/index.html", <br>
+                "display": "fullscreen", <br>
+                "orientation": "portrait" <br>
+                &#125;<br>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Build & Deploy Web Project</b>
+                <i (mousedown)="changeMenuNum(7)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==7">
+                <li>edit jsLib.js, change platform to 0, update version</li>
+                <li>ng serve -o <span class="gray-text">(make sure it looks right)</span></li>
+                <li>ng build --prod</li>
+                <li>Delete 6 files in root folder</li>
+                <li>FTP 6 files to root folder</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Build & Deploy Android Project</b>
+                <i (mousedown)="changeMenuNum(8)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==8">
+                <li>edit jsLib.js, change platform to 1, update version</li>
+                <li>ng serve -o <span class="gray-text">(make sure it looks right)</span></li>
+                <li>ng build --prod</li>
+                <li>npx cap sync</li>
+                <li>npx cap open android <span class="gray-text">(takes about 5 minutes)</span></li>
+                <li>Press green triangle <span class="gray-text">(takes about 5 minutes)</span></li>
+                <li>Select "Build" tab at the bottom to see progress</li>
+                <li>Verify app looks good</li>
+                <li>Update android/app/build.gradle, incriment versionCode by 1, write new version in versionName.</li>
+                <li>Build --> Clean Project</li>
+                <li>Click "Build --> Generate Signed Bundle", select "Android App Bundle", click "Next", betraKey99z</li>
+                <li>Should say, "App bundle(s) generated successfully"</li>
+                <hr>
+                <li><i class="fa fa-android"></i> &nbsp;<a
+                    href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
+                    target="_new">https://play.google.com/apps/publish/</a></li>
+                <li>Click "Betra Dating"</li>
+                <li>Release > Production, upload bundle (betra/android/app/release/app-release.aab)</li>
+                <li>Verify correct version and Release name show up.</li>
+                <li>Add release notes, press Next</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Build & Deploy IOS Project</b>
+                <i (mousedown)="changeMenuNum(9)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==9">
+                <li>make sure capacitor.config.ts has this line: ios: &#123; contentInset: 'always'&#125;,</li>
+                <li>edit jsLib.js, change platform to 2, update version</li>
+                <li>ng serve -o <span class="gray-text">(make sure it looks right)</span></li>
+                <li>ng build --prod</li>
+                <li>npx cap sync</li>
+                <li>npx cap open ios <span class="gray-text">(takes about 5 minutes)</span></li>
+                <hr>
+                <li>Make sure all assets are in place.</li>
+                <li>Press build button (Triangle) <span class="gray-text">(takes about 5 minutes)</span></li>
+                <li>Press stop, then home on the simulator, then app icon to launch</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Setting up IOS Project</b>
+                <i (mousedown)="changeMenuNum(10)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==10">
+                <li><a href="https://appstoreconnect.apple.com/login" target="new">https://appstoreconnect.apple.com/</a></li>
+                <li><a href="https://developer.apple.com/account/resources/certificates/list" target="new">https://developer.apple.com/</a></li>
+                <li>make sure capacitor.config.ts has this line: ios: &#123; contentInset: 'always'&#125;,</li>
+                <li>Make sure all assets are in place.</li>
+                <li>Left Side, Click App --> Singing & Capabilities, select Team</li>
+                <li>Top, click App --> Any IOS Device (arm64)</li>
+                <li>Product --> Archive</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>In-App Purchases with Capacitor</b>
+                <i (mousedown)="changeMenuNum(11)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==11">
+                
+                <li><a href="https://capacitorjs.com/docs/guides/in-app-purchases" target="new">https://capacitorjs.com/docs/guides/in-app-purchases</a></li>
+                <li><a href="https://devdactic.com/ionic-in-app-purchase-capacitor" target="new">https://devdactic.com/ionic-in-app-purchase-capacitor</a></li>
+                <li>npm install cordova-plugin-purchase</li>
+                <li>npx cap update</li>
+                <li>add "Content-Security-Policy" meta tag to index.html</li>
+                <hr>
+                <table border="1" style="font-size: 12px; background-color: white;">
+                    <tr>
+                        <th>Category</th><th>Name</th><th>ProductId</th><th>Type</th><th>Amount</th>
+                    </tr>
+                    <tr>
+                        <td>In-App Purchases</td><td>1-Month Plan</td><td>plan1</td><td>Non-Consumable</td><td>$1.99</td>
+                    </tr>
+                    <tr>
+                        <td>In-App Purchases</td><td>12-Month Plan</td><td>plan12</td><td>Consumable</td><td>$129.99</td>
+                    </tr>
+                    <tr>
+                        <td>In-App Purchases</td><td>3-Month Plan</td><td>plan3</td><td>Consumable</td><td>$47.99</td>
+                    </tr>
+                    <tr>
+                        <td>Subscriptions</td><td>1-Month Subscription</td><td>subscription1</td><td>subscription-base1</td><td>$19.99</td>
+                    </tr>
+                    <tr>
+                        <td>Subscriptions</td><td>1-Month Promo</td><td>promo1 base-plan-1</td><td>promo-base-1 offer1</td><td>$1.99</td>
+                    </tr>
+                </table>
+                <li><i class="fa fa-apple"></i> &nbsp; Create Products<a href="https://appstoreconnect.apple.com/login" target="new">https://appstoreconnect.apple.com/</a></li>
+                <li>Click "My Apps" -> Betra Dating --> In-App Purchases</li>
+                <hr>
+                <li><i class="fa fa-android"></i> &nbsp;create stuff <a
+                    href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
+                    target="_new">https://play.google.com/apps/publish/</a></li>
+                <li>Click Monetize -> In-App products</li>
+
+            </div>
+        </div>
+
+    </div>
+</app-page-shell>

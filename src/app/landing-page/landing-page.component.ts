@@ -26,7 +26,6 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
   }
   override ngOnInit(): void {
     this.userId = localStorage['user_id'];
-
     //setTimeout(() => {
     //  (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
    // }, 1000);
@@ -39,7 +38,7 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
         this.login = params['login'] || 0;
       })
     }
-  }
+ }
   toggleBackground() {
     this.backgroundImg = (this.backgroundImg == 'assets/images/landing/background1.png')?'assets/images/landing/roseHome.png':'assets/images/landing/background1.png';
   }

@@ -6,56 +6,65 @@
   <title>Betra</title>
   <base href="/">
 
-  <meta name="viewport"
-    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Betra">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="application-name" content="Betra Dating App">
-  <meta name="description"
-    content="Betra - the better way to date, make friends and meet new people. Betra is simply the best dating app ever created!">
-  <meta name="keyowrds" content="Betra, date, dating, hinge, bumble, match, tinder, eharmony">
+  <platform name="ios">
+    <preference name="WKWebViewOnly" value="true" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' [...]" />
+    <meta name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Betra">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="Betra Dating App">
+    <meta name="description"
+      content="Betra - the better way to date, make friends and meet new people. Betra is simply the best dating app ever created!">
+    <meta name="keyowrds" content="Betra, date, dating, hinge, bumble, match, tinder, eharmony">
 
-  <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-  <link rel="apple-touch-icon" href="assets/icon.png">
-  <link rel="apple-touch-icon-precomposed" sizes="128x128" href="assets/Icon128.png">
-  <link rel="shortcut icon" sizes="196x196" href="assets/Icon.png">
-  <link rel="shortcut icon" sizes="128x128" href="assets/Icon128.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="128x128" href="assets/icon128.png">
+    <link rel="shortcut icon" sizes="196x196" href="assets/icon.png">
+    <link rel="shortcut icon" sizes="128x128" href="assets/icon128.png">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9DTEG365YP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9DTEG365YP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
 
-  gtag('config', 'G-9DTEG365YP');
-</script>
+      gtag('config', 'G-9DTEG365YP');
+    </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2626924352662007"
-    crossorigin="anonymous"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!--Apple Sign-in-->
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
 
-<!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1732283180501880');
-  fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1732283180501880&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2626924352662007"
+      crossorigin="anonymous"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+          n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+        n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+      }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1732283180501880');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1732283180501880&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
 
 
 

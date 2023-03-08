@@ -1,149 +1,83 @@
-<img src="assets/images/landing/topImage.png"
-    style="width: 100%; height: 100vh; object-fit: cover; object-position: 40% 100%;">
+<div style="position: relative;">
+    <img src="assets/images/landing/roseHome.png"
+        style="width: 100%; height: 100vh; object-fit: cover; object-position: 50% 100%;">
 
-<table *ngIf="1" width="100%" style="color: white; font-size: 16px; top: 0; left: 0; position: absolute;">
-    <tr>
-        <td align="center">
-            <span [routerLink]="['/blogs']" class="white-link2">Blog</span>
-            <span [routerLink]="['/about']" class="white-link2">About</span>
-            <a href="#betra-reviews" class="white-link2">Reviews</a>
-            <a href="#download" class="white-link2">App Store</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">
-            <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
-            </app-login-popup>
-        </td>
-    </tr>
-</table>
+    <table *ngIf="1" width="100%" style="color: white; font-size: 16px; top: 0; left: 0; position: absolute;">
+        <tr>
+            <td align="center" style="padding-top: 20px;">
+                <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
+                </app-login-popup>
+            </td>
+        </tr>
+    </table>
 
-<span (mousedown)="login=1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
-    Log<br>
-    In
-</span>
-<img (mousedown)="login=0" [routerLink]="['']" [queryParams]="{login: 0}" [src]="logo" height="80"
-    style="top: 10px; left: 10px; position: absolute; cursor: pointer;">
+    <span (mousedown)="login=1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
+        Log<br>
+        In
+    </span>
+    <img (mousedown)="login=0" [routerLink]="['']" [queryParams]="{login: 0}" [src]="logo" height="60"
+        style="top: 10px; left: 10px; position: absolute; cursor: pointer;">
 
+</div>
 
 <!--<div class="container-fluid" style="height: 100vh; padding-top: 80px; text-align: center;">
     <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
     </app-login-popup>
 </div>-->
 
-<div class="container-fluid" style="background-color: #eee; text-align: center; font-family: now;">
-    <div class="row">
-        <div class="col-md" style="padding: 20px;">
-            <img src="assets/images/landing/couple.png" style="width: 100%; max-width: 500px;">
-        </div>
-        <div class="col-md" style="text-align: left; padding: 40px;">
-            <div style="font-size: 32px; font-weight: 700;">No more wasting time.</div>
-            <p style="font-size: 18px;">Welcome to <span class="red-text">Betra</span>, the hottest new dating site,
-                where safety and quality come
-                first. We believe in one thing, Finding real relationships.
-                How do we accomplish this? With a combination of AI and a dedicated group of people who are passionate about finding real people that want a real connection. We are on more than a mission. It is our life goal to build the world's best dating app. No more endless swiping.
-            </p>
+<!--<img src="assets/images/landing/roseBottom.png"
+style="width: 100%; object-fit: cover; object-position: 50% 50%; max-height: 800px;">-->
 
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid" style="background-color: #fff; text-align: center; font-family: now;">
-    <div class="row">
-        <div class="col-md" style="text-align: left; padding: 40px;">
-            <div style="font-size: 32px; font-weight: 700; margin-top: 20px; line-height: 40px;">Real people<br>
-                Real dates</div>
-                <div>&nbsp;</div>
-            <p style="font-size: 18px;">We don't play when it comes to love. We have developed a proven method for
-                finding the right people. Our app has some of the industries leading safety features. Keeping you safe.
-            </p>
-
-
-        </div>
-        <div class="col-md">
-            <img src="assets/images/landing/picCollage.png"
-                style="width: 100%; max-width: 700px; height: 100%; max-height: 500px; object-fit: contain;">
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid" style="background-color: #eee; text-align: center;">
-    <div class="row">
-        <div class="col-md" style="padding: 20px;">
-            <img src="assets/images/landing/phone.png" style="width: 100%; max-width: 500px; height: 100%;">
-        </div>
-        <div class="col-md" style="text-align: left; padding: 20px; font-family: now;">
-            <div style="max-width: 420px;">
-                <div style="font-size: 32px; font-weight: 700; margin-top: 20px; text-align: left;">We know what it
+<div *ngIf="1" style="position: relative; font-family: now; background-color: #555;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md" style="text-align: left; padding: 0; color: white;">
+                <div style="padding: 20px; ">
+                    <p style="font-size: 22px;">Welcome to <span class="red-text">Betra</span>, the hottest new app and
+                        guaranteed to be the most
+                        fun you will ever have dating.</p>
+                    <p>We have created a unique dating concept that mimics the experience of the Bachelor /
+                        Bachelorette,
+                        and turns you into the star of the show.</p>
+                    <p *ngIf="0">You begin the journey with a large pool of people who are really interested in you. Get
+                        to
+                        know them,
+                        send texts and pics, go on dates, hand out roses to your favorites, and finally narrow it down
+                        to
+                        the person you want to start seeing.</p>
+                    <p>It's fun, it's exciting and it's free. Get started today!</p>
                 </div>
-                <div style="font-size: 32px; font-weight: 700; text-align: right;">means to <span
-                        class="red-text">love</span></div>
-            </div>
-
-            <p style="font-size: 18px; font-family: now;">
-                <li>We use a combination of hard work and AI to make the best possible experience for our users. </li>
-                <li>The best safety features of any dating app.</li>
-                <li>The best filters in the industry.</li>
-                <li>Free signup, free texting, free swipe notifications.</li>
-                <li>Exclusive <span class="red-text">Dating Pool</span> feature.</li>
-                <li>Read user reviews before you meet.</li>
-                <li>Most scam-proof dating app ever created.</li>
-            </p>
-        </div>
-    </div>
-</div>
-<div id="betra-reviews" class="container-fluid" style="background-color: #fff; text-align: center;">
-    <div class="row">
-        <div class="col-md" style="text-align: left; padding: 50px; font-family: now;">
-            <div style="font-size: 32px; line-height: 32px; font-weight: 700; margin-top: 20px;">Just some<br><b>reviews</b></div>
-            <p style="font-size: 22px;">We don't just talk about it. We are about it. Read what real people have to say
-                about <img [src]="logo" height="40" style="padding-bottom: 5px;">.</p>
-        </div>
-        <div class="col-md" style="text-align: left; padding: 20px; font-size: 22px; font-family: now;">
-
-            <!--<div class="carousel-wrapper">
-                <div class="carousel-container">
-                    <div class="carousel">
-                        <img src="assets/images/reviews/review1.png">
-                        <img src="assets/images/reviews/review2.png">
-                        <img src="assets/images/reviews/review3.png">
-                        <img src="assets/images/reviews/review4.png">
+                <div style="text-align: center;">
+                    <img src="assets/images/rose1.png" height="100">
+                    <img [src]="logo" height="80">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-container">
+                            <div class="carousel">
+                                <img src="assets/images/reviews/review1.png">
+                                <img src="assets/images/reviews/review2.png">
+                                <img src="assets/images/reviews/review3.png">
+                                <img src="assets/images/reviews/review4.png">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>-->
-
-            <hr>
-            <div>I got tired of swiping. Nice to actually find quality people to date. </div>
-            <div><b>GEORGEO</b></div>
-            <hr>
-            <div>Being able to review my dates is an absolute game changer. </div>
-            <div><b>TIFFANY</b></div>
-            <hr>
-            <div>I never really felt other apps took safty seriously. Nice to find one that does.</div>
-            <div><b>BRITT</b></div>
+            </div>
+            <div class="col-md" style="text-align: center; padding: 20px; color: white;">
+                <!--<img src="assets/images/landing/phone.png" style="width: 100%; max-width: 500px; height: 100%;">-->
+                <img src="assets/images/landing/cell-phone.png" height="500" style="margin: 10px;">
+            </div>
         </div>
     </div>
 </div>
-
-<div style="position: relative; font-family: now;">
-    <img src="assets/images/landing/bottomImage.png" style="width: 100%; object-fit: cover; object-position: 40% 100%;">
-    <div class="bottom-container">
-        <div class="big-white-text">The buzz is real. <img [src]="logo" class="logo-betra"> is better.</div>
-        <div class="medium-white-text">Stop swiping and start matching with the better
-            dating app.</div>
-    </div>
-</div>
-
-
-<!--<div *ngif="0" style="color: white; text-align: center; background-image: url('assets/images/landing/roseBottom.png');">
+<!--<div style="position: relative; font-family: now; background-color: #555;">
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md" style="text-align: left; padding: 20px;">
+            <div class="col-md" style="text-align: left; padding: 20px; color: white;">
                 <div>
                     <div class="large-text2">How we're changing</div>
                     <div class="large-text2">the game.</div>
-                    <div>You asked. We delivered.</div>
+                    <div style="margin-top: 7px;">You asked. We delivered.</div>
                     <div>&nbsp;</div>
                     <h3>MOST SAFETY FEATURES EVER</h3>
                     <div>We have set out to make the most scam-proof, most reliable and safest way to date online.</div>
@@ -187,9 +121,125 @@
             </div>
         </div>
     </div>
+
 </div>-->
 
-<div id="download" style="text-align: center; background-color: #1a1a1a; padding: 20px;">
+<div *ngIf="1" class="container-fluid"
+    style="width: 100%; background-color: #eee; text-align: center; font-family: now; padding: 0;">
+    <div class="row" style="padding: 0; margin: 0;">
+        <div class="col-md" style="padding: 0; margin: 0;">
+            <img src="assets/images/landing/table3.webp" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="col-md" style="text-align: left; padding: 40px;">
+            <div style="font-size: 32px; font-weight: 700;">A unique dating experience.</div>
+            <p style="font-size: 18px;"><span class="red-text">Betra</span> is unlike any dating site you have ever
+                tried. Once you sign up, you will have a pool of admirers all vying for your attention.
+                Talk, text, send roses and go on dates until you narrow down to just one true love interest.
+            </p>
+            <p>Ever wanted to be the star of your own reality dating show? This is your chance!</p>
+        </div>
+    </div>
+</div>
+<div style="position: relative;">
+    <img src="assets/images/landing/girlRose.webp" style="width: 100%; object-fit: cover; object-position: 40% 100%;">
+    <div style="position: absolute; left: 20px; bottom: 20px; color: white; font-size: 24px;">
+        <img [src]="logo" height="100">
+        <div>Start your adventure today</div>
+    </div>
+</div>
+
+<div class="container-fluid" style="background-color: #fff; text-align: center; font-family: now;">
+    <div class="row">
+        <div class="col-md" style="text-align: left; padding: 40px;">
+            <div style="font-size: 32px; font-weight: 700; margin-top: 20px; line-height: 40px;">Real people<br>
+                Real dates</div>
+            <div>&nbsp;</div>
+            <p style="font-size: 18px;">Get ready for an experience like none other.
+            </p>
+            <div>🌹 Unique <span class="red-text">Dating Pool</span> concept</div>
+            <div>🌹 Best <span class="red-text">safety features</span> in the business</div>
+            <div>🌹 Most <span class="red-text">scam-proof</span> dating app ever created</div>
+            <div>🌹 User <span class="red-text">Reviews</span></div>
+            <div>🌹 Top rated <span class="red-text">filters</span></div>
+            <img [src]="logo" height="100">
+
+        </div>
+        <div class="col-md">
+            <img src="assets/images/landing/picCollage.png"
+                style="width: 100%; max-width: 700px; height: 100%; max-height: 500px; object-fit: contain;">
+        </div>
+    </div>
+</div>
+
+<!--<div class="container-fluid" style="background-color: #eee; text-align: center;">
+    <div class="row">
+        <div class="col-md" style="padding: 20px;">
+            <img src="assets/images/landing/phone.png" style="width: 100%; max-width: 500px; height: 100%;">
+        </div>
+        <div class="col-md" style="text-align: left; padding: 20px; font-family: now;">
+            <div style="max-width: 420px;">
+                <div style="font-size: 32px; font-weight: 700; margin-top: 20px; text-align: left;">We know what it
+                </div>
+                <div style="font-size: 32px; font-weight: 700; text-align: right;">means to <span
+                        class="red-text">love</span></div>
+            </div>
+
+            <p style="font-size: 18px; font-family: now;">
+                <li>We use a combination of hard work and AI to make the best possible experience for our users. </li>
+                <li>The best safety features of any dating app.</li>
+                <li>The best filters in the industry.</li>
+                <li>Free signup, free texting, free swipe notifications.</li>
+                <li>Exclusive <span class="red-text">Dating Pool</span> feature.</li>
+                <li>Read user reviews before you meet.</li>
+                <li>Most scam-proof dating app ever created.</li>
+            </p>
+        </div>
+    </div>
+</div>-->
+<div *ngIf="0" id="betra-reviews" class="container-fluid" style="background-color: #fff; text-align: center;">
+    <div class="row">
+        <div class="col-md" style="text-align: left; padding: 50px; font-family: now;">
+            <div style="font-size: 32px; line-height: 32px; font-weight: 700; margin-top: 20px;">Just
+                some<br><b>reviews</b></div>
+            <p style="font-size: 22px;">We don't just talk about it. We are about it. Read what real people have to say
+                about <img [src]="logo" height="40" style="padding-bottom: 5px;">.</p>
+        </div>
+        <div class="col-md" style="text-align: left; padding: 20px; font-size: 22px; font-family: now;">
+
+            <!--<div class="carousel-wrapper">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <img src="assets/images/reviews/review1.png">
+                        <img src="assets/images/reviews/review2.png">
+                        <img src="assets/images/reviews/review3.png">
+                        <img src="assets/images/reviews/review4.png">
+                    </div>
+                </div>
+            </div>-->
+
+            <!--<hr>
+            <div>I got tired of swiping. Nice to actually find quality people to date. </div>
+            <div><b>GEORGEO</b></div>
+            <hr>
+            <div>Being able to review my dates is an absolute game changer. </div>
+            <div><b>TIFFANY</b></div>
+            <hr>
+            <div>I never really felt other apps took safty seriously. Nice to find one that does.</div>
+            <div><b>BRITT</b></div>-->
+        </div>
+    </div>
+</div>
+
+<div style="position: relative; font-family: now;">
+    <img src="assets/images/landing/bottomImage.png" style="width: 100%; object-fit: cover; object-position: 40% 100%;">
+    <div class="bottom-container">
+        <div class="big-white-text">The buzz is real</div>
+        <div class="medium-white-text">This is not your grandma's dating app!</div>
+        <img [src]="logo" class="logo-betra">
+    </div>
+</div>
+
+<div id="download" style="text-align: center; background-color: #1a1a1a;">
     <table align="center">
         <tr>
             <td valign="top">
@@ -242,5 +292,5 @@
         </tr>
     </table>
 
-    <div style="padding: 20px; color: gray;">&copy; 2023 Betra Llc</div>
+    <div style="padding: 20px; color: gray;">&copy; 2023 Betra, Inc</div>
 </div>

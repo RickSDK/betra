@@ -1,4 +1,4 @@
-<div *ngIf="!loadingFlg" class="login-shell" style="position: relative; width: 100%; max-width: 500px; ">
+<div class="login-shell" style="position: relative; width: 100%; max-width: 500px; ">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <div *ngIf="login>0" [ngStyle]="ngStyleGrayScreen()" class="gray-screen">
     </div>
@@ -6,16 +6,16 @@
     <div [ngStyle]="ngStyleLoginBox()" style="display: inline-flexbox; position: absolute; width: 100%; padding: 20px;">
         <div *ngIf="!login || login==0">
             <div>&nbsp;</div>
-            <div style="text-align: left;">
-                <div class="large-text">A <span class="red-text">BETTER</span> WAY
+            <div style="text-align: center; margin-bottom: 2px;">
+                <div class="large-text">DATING DONE
                 </div>
-                <div class="large-text">TO DATE</div>
+                <div class="large-text red-text">BETTER</div>
             </div>
             <div>&nbsp;</div>
             <button [routerLink]="['']" [queryParams]="{login: 2}" class="btn btn-grad btn-large">Create
                 Account</button>
         </div>
-        <div *ngIf="login>0" style="text-align: center; max-width: 320px;">
+        <div *ngIf="login>0 && platform == 'Web'" style="text-align: center; max-width: 320px;">
             <div style="font-size: 10px; color: #444;">version: {{version}}</div>
             <table align="center">
                 <tr>
@@ -27,8 +27,13 @@
                     <td>
                         <i *ngIf="googleButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
                         <img *ngIf="!googleButtonPressedFlg" (click)="loginWithGoogle()"
-                            src="assets/images/google-signin2.png" height="44" style="cursor: pointer"
+                            src="assets/images/googleButton.png" height="42" style="cursor: pointer"
                             title="Continue with Google">
+                    </td>
+                    <td>
+                        <i *ngIf="appleButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
+                        <i *ngIf="!appleButtonPressedFlg" (click)="appleSignin()" style="background-color: white; color: black;"
+                            class="fa fa-apple facebook-btn login-button" title="Continue with Apple"></i>
                     </td>
                 </tr>
             </table>
@@ -42,14 +47,14 @@
                 (input)="valueChanged()" [value]="savedPassword">
             <hr>
             <p *ngIf="forgotPasswordFlg">Forgot password? Enter your email address above and press Submit.</p>
-            <div style="text-align: center;">
+            <div style="text-align: center;" *ngIf="!loadingFlg">
                 <button *ngIf="!forgotPasswordFlg" (mousedown)="loginPressed()" class="btn btn-main-color btn-large"
                     [disabled]="submitDisabled">Log In</button>
                 <button *ngIf="forgotPasswordFlg" (mousedown)="forgotPasswordPressed()"
                     class="btn btn-main-color btn-large">Submit</button>
 
                 <div style="margin-top: 10px;">
-                    <span [routerLink]="['']" [queryParams]="{login: 2}" class="hyper-link">Create
+                    <span (mousedown)="resetFlags()" [routerLink]="['']" [queryParams]="{login: 2}" class="hyper-link">Create
                         Account</span>&nbsp;&nbsp;&nbsp;
                     <span (mousedown)="forgotPasswordFlg = !forgotPasswordFlg" class="hyper-link"
                         style="font-size: 12px; color: #ccc;">Forgot Password</span>

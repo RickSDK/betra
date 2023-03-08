@@ -25,7 +25,9 @@
         </div>
         <div *ngIf="menuNum == 1" class="tan-box">
             <div>Delete Account?</div>
-            <div class="gray-text">Are you sure you want to delete your account? This action is permanent and cannot be un-done. Alternatively you can place the account on hold and then re-activiate it whenever you like.</div>
+            <div class="gray-text">Are you sure you want to delete your account? This action is permanent and cannot be
+                un-done. Alternatively you can place the account on hold and then re-activiate it whenever you like.
+            </div>
             <button (mousedown)="changeMenuNum(0)" class="btn btn-success spacer">Cancel</button>
             <button (mousedown)="holdAccount()" class="btn btn-warning spacer">Place on Hold</button>
             <button (mousedown)="deleteAccount()" class="btn btn-danger spacer">Yes, Delete</button>
@@ -229,10 +231,12 @@
 
         <div *ngIf="userId==1">
             <p>&nbsp;</p>
-            <button [routerLink]="['/users']" class="btn btn-primary"><i class="fa fa-users"></i>
-                Users</button>&nbsp;
-            <button [routerLink]="['/documentation']" class="btn btn-primary"><i class="fa fa-file-text"></i>
+            <button [routerLink]="['/users']" class="btn btn-primary spacer"><i class="fa fa-users"></i>
+                Users</button>
+            <button [routerLink]="['/documentation']" class="btn btn-primary spacer"><i class="fa fa-file-text"></i>
                 Documentation</button>
+            <button [routerLink]="['/build-app']" class="btn btn-primary spacer"><i class="fa fa-mobile"></i>
+                App Setup</button>
         </div>
 
 

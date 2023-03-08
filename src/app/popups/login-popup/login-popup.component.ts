@@ -4,11 +4,13 @@ import { BaseComponent } from '../../base/base.component';
 import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { Router } from '@angular/router';
+import { BaseLoginProvider } from 'angularx-social-login';
 
 declare var $: any;
 declare var google: any;
 declare var getVersion: any;
 declare var decodeJwtResponse: any;
+declare let getPlatform: any;
 
 @Component({
   selector: 'app-login-popup',
@@ -20,6 +22,9 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
+  public static readonly PROVIDER_ID: string = 'APPLE';
+  protected auth2: any;
+
   public submitDisabled: boolean = true;
   public showLoginButtonFlg: boolean = true;
   public forgotPasswordFlg: boolean = false;
@@ -29,8 +34,13 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public version = getVersion();
   public facebookButtonPressedFlg: boolean = false;
   public googleButtonPressedFlg: boolean = false;
+  public appleButtonPressedFlg: boolean = false;
+  public platform: string = getPlatform();
 
-  constructor(private router: Router, private ngZone: NgZone, private socialAuthService: SocialAuthService, private googleAuthService: SocialAuthService) { super(); }
+
+  constructor(private router: Router, private ngZone: NgZone,
+    private socialAuthService: SocialAuthService,
+    private googleAuthService: SocialAuthService) { super(); }
 
   override ngOnInit(): void {
     this.submitDisabled = !this.savedEmail;
@@ -48,11 +58,30 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     });*/
 
   }
+  /*
+    public initialize(): Promise<void> {
+      return new Promise((resolve, _reject) => {
+        this.loadScript(
+          AppleLoginProvider.PROVIDER_ID,
+          'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js',
+          () => {
+            AppleID.auth.init({
+              clientId: this.clientId,
+              scope: 'name email',
+              redirectURI: 'https://auth.example.com/auth/apple',
+              state: '[ANYTHING]', //used to prevent CSFR
+              usePopup: false,
+            });
+            resolve();
+          }
+        );
+      });
+    }*/
 
   ngStyleGrayScreen() {
     let height = window.innerHeight || 750;
     if (this.login == 0)
-      return { 'top': (height-500).toString()+ 'px', 'height': '220px' };
+      return { 'top': '15px', 'height': '220px' };
     else
       return { 'top': '40px', 'height': '430px' };
   }
@@ -60,7 +89,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   ngStyleLoginBox() {
     let height = window.innerHeight || 750;
     if (this.login == 0)
-      return { 'top': (height-520).toString()+ 'px', 'height': '220px' };
+      return { 'top': '15px', 'height': '220px' };
     else
       return { 'top': '40px', 'height': '430px' };
   }
@@ -114,6 +143,43 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       firstName = names[0];
 
     this.authorizedLogin(responsePayload.email, responsePayload.sub, 'Google-Signin', firstName);
+  }
+
+  appleSignin(): void {
+    this.appleButtonPressedFlg = true;
+    var YOUR_CLIENT_ID = 'com.betradating.app';
+    // var YOUR_REDIRECT_ID = `${window.location.origin}/#/?login=1`;
+    var YOUR_REDIRECT_ID = 'https://www.betradating.com';
+
+    console.log('hey!!', YOUR_REDIRECT_ID);
+    window.open(
+      'https://appleid.apple.com/auth/authorize?' +
+      `client_id=${YOUR_CLIENT_ID}&` +
+      `redirect_uri=${encodeURIComponent(YOUR_REDIRECT_ID)}&` +
+      'response_type=code id_token&' +
+      'scope=name email&' +
+      'response_mode=form_post',
+      '_blank',
+    );
+    /*
+        window.open(
+          'https://appleid.apple.com/auth/authorize?' +
+            `client_id=${YOUR_CLIENT_ID}&` +
+            `redirect_uri=${encodeURIComponent(YOUR_REDIRECT_ID)}&` +
+            'response_type=code id_token&' +
+            'scope=name email&' +
+            'response_mode=form_post',
+          '_blank',
+        );*/
+
+    // Here is our new message event listener
+    window.addEventListener('message', event => {
+      console.log('Got a message: ', event);
+      this.appleButtonPressedFlg = false;
+      if (!event.data || !event.data.data)
+        this.errorMessage = 'Sorry, apple login not working';
+    });
+
   }
 
   facebookSignin(): void {
@@ -170,7 +236,15 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.executeApi('login.php', params, true);
   }
 
+  resetFlags() {
+    console.log('resetFlags');
+    this.loadingFlg = false;
+    this.facebookButtonPressedFlg = false;
+    this.googleButtonPressedFlg = false;
+    this.errorMessage = '';
+  }
   loginPressed() {
+    this.resetFlags();
     var email: string = $('#email').val();
     var password: string = $('#password').val();
 
@@ -188,6 +262,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.executeApi('login.php', params, true);
   }
   forgotPasswordPressed() {
+    this.resetFlags();
     var email: string = $('#email').val();
     if (!email || email.length == 0) {
       this.errorMessage = 'enter your email address';
@@ -231,6 +306,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   //------------------ signup------------------
 
   signupPressed() {
+    this.resetFlags();
     var email: string = $('#email').val();
     var password: string = $('#password').val();
     var firstName: string = $('#firstName').val();

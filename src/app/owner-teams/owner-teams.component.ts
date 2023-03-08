@@ -49,7 +49,7 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
   ];
 
   public team: number = 0;
-  public teams = ['Org Chart', 'Dev Team', 'Marketing Team', 'Team James', 'Team Halle'];
+  public teams = ['Org Chart', 'Dev Team', 'Marketing Team', 'Team Alpha', 'Team Beta'];
   public teamName: string = '';
   public ownerJames: any = null;
   public ownerHalle: any = null;

@@ -1,5 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { Platform, AlertController } from '@ionic/angular';
+import { InAppPurchase2, IAPProduct } from '@ionic-native/in-app-purchase-2/ngx';
+
+declare var getPlatform: any;
+const PLAN1MONTH = 'plan1';
+const PLAN3MONTH = 'plan3';
+const PLAN12MONTH = 'plan12';
+const SUBSCRIPTION1MONTH = 'subscription1';
+const SUBSCRIPTIONPROMO = 'promo1';
 
 @Component({
   selector: 'app-upgrade-member',
@@ -17,14 +26,98 @@ export class UpgradeMemberComponent extends BaseComponent implements OnInit {
   public showUpgradeFlg: boolean = true;
   public showPlanDetailsFlg: boolean = true;
   public creditObj: any = null
+  public platform: string = getPlatform();
+  public products: IAPProduct[] = [];
+  public isPro: boolean = false;
+  public gems: number = 0;
+  public appStore: any = null;
 
-  constructor() { super(); }
+  constructor(private plt: Platform, private store: InAppPurchase2, private alertController: AlertController, private ref: ChangeDetectorRef) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+
+    this.plt.ready().then(() => {
+      // Only for debugging!
+      this.store.verbosity = this.store.DEBUG;
+      this.appStore = this.store;
+      console.log('hey!! store', this.store);
+      console.log('hey!! products', this.store.products);
+
+      this.registerProducts();
+      this.setupListeners();
+
+      // Get the real product information
+      this.store.ready(() => {
+        this.products = this.store.products;
+        this.ref.detectChanges();
+      });
+    });
+
     this.showPlanDetailsFlg = !this.user.memberFlg;
     this.getDataFromServer('getCreditCardInfo', 'payments.php', {});
   }
+
+  registerProducts() {
+    this.store.register({
+      id: PLAN1MONTH,
+      type: this.store.CONSUMABLE,
+    });
+
+    this.store.register({
+      id: SUBSCRIPTION1MONTH,
+      type: this.store.NON_CONSUMABLE,
+    });
+
+    this.store.refresh();
+  }
+
+  setupListeners() {
+    // General query to all products
+    this.store.when('product')
+      .approved((p: IAPProduct) => {
+        // Handle the product deliverable
+        if (p.id === SUBSCRIPTION1MONTH) {
+          this.isPro = true;
+        } else if (p.id === PLAN1MONTH) {
+          this.gems += 100;
+        }
+        this.ref.detectChanges();
+
+        return p.verify();
+      })
+      .verified((p: IAPProduct) => p.finish());
+
+
+    // Specific query for one ID
+    this.store.when(SUBSCRIPTION1MONTH).owned((p: IAPProduct) => {
+      this.isPro = true;
+    });
+  }
+
+  purchase(product: IAPProduct) {
+    this.store.order(product).then((p: any) => {
+      // Purchase in progress!
+    }, (e: any) => {
+      this.presentAlert('Failed', `Failed to purchase: ${e}`);
+    });
+  }
+
+  // To comply with AppStore rules
+  restore() {
+    this.store.refresh();
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 
   setAutoRenew(value: string) {
     this.creditObj.autoRenewFlg = value;

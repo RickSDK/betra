@@ -46,10 +46,12 @@ import { CareersComponent } from './careers/careers.component';
 import { PressComponent } from './press/press.component';
 import { SecurityComponent } from './security/security.component';
 import { DatingTipsComponent } from './dating-tips/dating-tips.component';
+import { BuildAppComponent } from './build-app/build-app.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'build-app', component: BuildAppComponent },
   { path: 'cookies', component: CookiesComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'careers', component: CareersComponent },

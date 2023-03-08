@@ -99,6 +99,9 @@ import { CareersComponent } from './careers/careers.component';
 import { PressComponent } from './press/press.component';
 import { SecurityComponent } from './security/security.component';
 import { DatingTipsComponent } from './dating-tips/dating-tips.component';
+import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
+import { BuildAppComponent } from './build-app/build-app.component';
+
 //import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
@@ -198,6 +201,7 @@ import { DatingTipsComponent } from './dating-tips/dating-tips.component';
     PressComponent,
     SecurityComponent,
     DatingTipsComponent,
+    BuildAppComponent,
   ],
   imports: [
     BrowserModule,
@@ -206,6 +210,7 @@ import { DatingTipsComponent } from './dating-tips/dating-tips.component';
   //  AdsenseModule.forRoot()
   ],
   providers: [
+    InAppPurchase2,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -222,7 +227,8 @@ import { DatingTipsComponent } from './dating-tips/dating-tips.component';
             provider: new GoogleLoginProvider(
               '859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com'
             )
-          }
+          },
+          
         ]
       } as SocialAuthServiceConfig,
     }    

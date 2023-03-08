@@ -31,8 +31,8 @@ export class OwnersMenuComponent implements OnInit {
     { name: 'Org Chart', routerLink: '/owner-teams', id: 0 },
     { name: 'Dev Team', routerLink: '/owner-teams', id: 1 },
     { name: 'Marketing Team', routerLink: '/owner-teams', id: 2 },
-    { name: 'Team James', routerLink: '/owner-teams', id: 3 },
-    { name: 'Team Halle', routerLink: '/owner-teams', id: 4 },
+    { name: 'Team Alpha', routerLink: '/owner-teams', id: 3 },
+    { name: 'Team Beta', routerLink: '/owner-teams', id: 4 },
   ]
 
   constructor() { }
