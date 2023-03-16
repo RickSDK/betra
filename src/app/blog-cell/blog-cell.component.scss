@@ -15,3 +15,9 @@
     color: gray;
     text-align: left;
 }
+
+@media screen and (max-width: 400px) {
+    .hide-xs {
+        display: none;
+    }
+}

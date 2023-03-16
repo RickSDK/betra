@@ -2,7 +2,7 @@
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
             <td *ngIf="pageTitle != 'Home'">
-                <i (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>&nbsp;
+                <i *ngIf="platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button hide-back"></i>&nbsp;
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
 
             </td>

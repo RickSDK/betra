@@ -55,6 +55,14 @@
     background-color: #ffcc00;
 }
 
+.times-button {
+    color: gray;
+    cursor: pointer;
+}
+.times-button:hover {
+    color: black;
+}
+
 @media screen and (min-width: 600px) {
     .hide-big {
         display: none;

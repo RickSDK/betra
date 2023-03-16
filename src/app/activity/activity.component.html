@@ -1,0 +1,11 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Betra Activity'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" style="text-align: center;">
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <app-scroll-card (messageEvent)="clearItem(item)" *ngFor="let item of displayItems" [item]="item"></app-scroll-card>
+
+
+    </div>
+
+</app-page-shell>

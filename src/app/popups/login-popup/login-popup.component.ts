@@ -35,6 +35,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public facebookButtonPressedFlg: boolean = false;
   public googleButtonPressedFlg: boolean = false;
   public appleButtonPressedFlg: boolean = false;
+  public policyCheckboxChecked: boolean = false;
   public platform: string = getPlatform();
 
 
@@ -307,12 +308,16 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
   signupPressed() {
     this.resetFlags();
+    if(!this.policyCheckboxChecked) {
+      this.errorMessage = 'Please accept the policy disclaimer by checking the box above the signup button.';
+      return;
+    }
     var email: string = $('#email').val();
     var password: string = $('#password').val();
     var firstName: string = $('#firstName').val();
 
     if (!email || !password || !firstName) {
-      this.errorMessage = 'fill out form';
+      this.errorMessage = 'Fill out the form.';
       return;
     }
     var code = btoa(password);

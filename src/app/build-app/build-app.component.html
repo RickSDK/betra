@@ -57,7 +57,9 @@
                 <li>npm install @capacitor/ios @capacitor/android</li>
                 <li>npx cap add ios</li>
                 <li>npx cap add android</li>
-                <li>ng serve -o<span class="gray-text"><-- make sure it runs</span></li>
+                <li>ng serve -o<span class="gray-text">
+                        <-- make sure it runs</span>
+                </li>
             </div>
         </div>
         <div class="tan-box">
@@ -74,20 +76,21 @@
                 <div>Make sure index.html has the following code:</div>
                 <hr>
                 &lt;meta name="viewport"
-                    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;<br>
-                    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;<br>
-                    &lt;meta name="mobile-web-app-capable" content="yes"&gt;<br>
-                    &lt;meta name="apple-mobile-web-app-title" content="Title"&gt;<br>
-                    &lt;meta name="apple-mobile-web-app-status-bar-style" content="black"&gt;<br>
-                    &lt;meta name="description" content="desc"&gt;<br>
+                content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0,
+                maximum-scale=1.0, user-scalable=no"&gt;<br>
+                &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;<br>
+                &lt;meta name="mobile-web-app-capable" content="yes"&gt;<br>
+                &lt;meta name="apple-mobile-web-app-title" content="Title"&gt;<br>
+                &lt;meta name="apple-mobile-web-app-status-bar-style" content="black"&gt;<br>
+                &lt;meta name="description" content="desc"&gt;<br>
 
-                    &lt;link rel="apple-touch-icon" href="assets/Icon.png"&gt;<br>
-                    &lt;link rel="apple-touch-startup-image" href="assets/launch.png"&gt;<br>
-                    &lt;link rel="apple-touch-icon-precomposed" sizes="128x128" href="assets/Icon128.png"&gt;<br>
-                    &lt;link rel="shortcut icon" sizes="196x196" href="assets/Icon.png"&gt;<br>
-                    &lt;link rel="shortcut icon" sizes="128x128" href="assets/Icon128.png"&gt;<br>
-                    &lt;link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"&gt;<br>
-                    &lt;link rel="manifest" href="assets/manifest.json"&gt;<br>
+                &lt;link rel="apple-touch-icon" href="assets/Icon.png"&gt;<br>
+                &lt;link rel="apple-touch-startup-image" href="assets/launch.png"&gt;<br>
+                &lt;link rel="apple-touch-icon-precomposed" sizes="128x128" href="assets/Icon128.png"&gt;<br>
+                &lt;link rel="shortcut icon" sizes="196x196" href="assets/Icon.png"&gt;<br>
+                &lt;link rel="shortcut icon" sizes="128x128" href="assets/Icon128.png"&gt;<br>
+                &lt;link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"&gt;<br>
+                &lt;link rel="manifest" href="assets/manifest.json"&gt;<br>
             </div>
         </div>
         <div class="tan-box">
@@ -140,12 +143,13 @@
                 <li>Verify app looks good</li>
                 <li>Update android/app/build.gradle, incriment versionCode by 1, write new version in versionName.</li>
                 <li>Build --> Clean Project</li>
-                <li>Click "Build --> Generate Signed Bundle", select "Android App Bundle", click "Next", betraKey99z</li>
+                <li>Click "Build --> Generate Signed Bundle", select "Android App Bundle", click "Next", betraKey99z
+                </li>
                 <li>Should say, "App bundle(s) generated successfully"</li>
                 <hr>
                 <li><i class="fa fa-android"></i> &nbsp;<a
-                    href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
-                    target="_new">https://play.google.com/apps/publish/</a></li>
+                        href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
+                        target="_new">https://play.google.com/apps/publish/</a></li>
                 <li>Click "Betra Dating"</li>
                 <li>Release > Production, upload bundle (betra/android/app/release/app-release.aab)</li>
                 <li>Verify correct version and Release name show up.</li>
@@ -165,8 +169,12 @@
                 <li>npx cap open ios <span class="gray-text">(takes about 5 minutes)</span></li>
                 <hr>
                 <li>Make sure all assets are in place.</li>
+                <li>Click "App --> General", set version and build number</li>
                 <li>Press build button (Triangle) <span class="gray-text">(takes about 5 minutes)</span></li>
                 <li>Press stop, then home on the simulator, then app icon to launch</li>
+                <li>Top, click App --> Any IOS Device (arm64)</li>
+                <li>Product --> Archive</li>
+                <li>Click "Distribute App"</li>
             </div>
         </div>
         <div class="tan-box">
@@ -174,8 +182,10 @@
                 <i (mousedown)="changeMenuNum(10)" class="fa fa-plus plus-sign"></i>
             </div>
             <div *ngIf="menuNum==10">
-                <li><a href="https://appstoreconnect.apple.com/login" target="new">https://appstoreconnect.apple.com/</a></li>
-                <li><a href="https://developer.apple.com/account/resources/certificates/list" target="new">https://developer.apple.com/</a></li>
+                <li><a href="https://appstoreconnect.apple.com/login"
+                        target="new">https://appstoreconnect.apple.com/</a></li>
+                <li><a href="https://developer.apple.com/account/resources/certificates/list"
+                        target="new">https://developer.apple.com/</a></li>
                 <li>make sure capacitor.config.ts has this line: ios: &#123; contentInset: 'always'&#125;,</li>
                 <li>Make sure all assets are in place.</li>
                 <li>Left Side, Click App --> Singing & Capabilities, select Team</li>
@@ -188,40 +198,127 @@
                 <i (mousedown)="changeMenuNum(11)" class="fa fa-plus plus-sign"></i>
             </div>
             <div *ngIf="menuNum==11">
-                
-                <li><a href="https://capacitorjs.com/docs/guides/in-app-purchases" target="new">https://capacitorjs.com/docs/guides/in-app-purchases</a></li>
-                <li><a href="https://devdactic.com/ionic-in-app-purchase-capacitor" target="new">https://devdactic.com/ionic-in-app-purchase-capacitor</a></li>
+
+                <li><a href="https://capacitorjs.com/docs/guides/in-app-purchases"
+                        target="new">https://capacitorjs.com/docs/guides/in-app-purchases</a></li>
+                <li><a href="https://devdactic.com/ionic-in-app-purchase-capacitor"
+                        target="new">https://devdactic.com/ionic-in-app-purchase-capacitor</a></li>
                 <li>npm install cordova-plugin-purchase</li>
                 <li>npx cap update</li>
                 <li>add "Content-Security-Policy" meta tag to index.html</li>
                 <hr>
                 <table border="1" style="font-size: 12px; background-color: white;">
                     <tr>
-                        <th>Category</th><th>Name</th><th>ProductId</th><th>Type</th><th>Amount</th>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>ProductId</th>
+                        <th>Type</th>
+                        <th>Amount</th>
                     </tr>
                     <tr>
-                        <td>In-App Purchases</td><td>1-Month Plan</td><td>plan1</td><td>Non-Consumable</td><td>$1.99</td>
+                        <td>In-App Purchases</td>
+                        <td>1-Month Plan</td>
+                        <td>plan1</td>
+                        <td>Non-Consumable</td>
+                        <td>$1.99</td>
                     </tr>
                     <tr>
-                        <td>In-App Purchases</td><td>12-Month Plan</td><td>plan12</td><td>Consumable</td><td>$129.99</td>
+                        <td>In-App Purchases</td>
+                        <td>12-Month Plan</td>
+                        <td>plan12</td>
+                        <td>Consumable</td>
+                        <td>$129.99</td>
                     </tr>
                     <tr>
-                        <td>In-App Purchases</td><td>3-Month Plan</td><td>plan3</td><td>Consumable</td><td>$47.99</td>
+                        <td>In-App Purchases</td>
+                        <td>3-Month Plan</td>
+                        <td>plan3</td>
+                        <td>Consumable</td>
+                        <td>$47.99</td>
                     </tr>
                     <tr>
-                        <td>Subscriptions</td><td>1-Month Subscription</td><td>subscription1</td><td>subscription-base1</td><td>$19.99</td>
+                        <td>Subscriptions</td>
+                        <td>1-Month Subscription</td>
+                        <td>subscription1</td>
+                        <td>subscription-base1</td>
+                        <td>$19.99</td>
                     </tr>
                     <tr>
-                        <td>Subscriptions</td><td>1-Month Promo</td><td>promo1 base-plan-1</td><td>promo-base-1 offer1</td><td>$1.99</td>
+                        <td>Subscriptions</td>
+                        <td>1-Month Promo</td>
+                        <td>promo1 base-plan-1</td>
+                        <td>promo-base-1 offer1</td>
+                        <td>$1.99</td>
                     </tr>
                 </table>
-                <li><i class="fa fa-apple"></i> &nbsp; Create Products<a href="https://appstoreconnect.apple.com/login" target="new">https://appstoreconnect.apple.com/</a></li>
+                <li><i class="fa fa-apple"></i> &nbsp; Create Products<a href="https://appstoreconnect.apple.com/login"
+                        target="new">https://appstoreconnect.apple.com/</a></li>
                 <li>Click "My Apps" -> Betra Dating --> In-App Purchases</li>
                 <hr>
                 <li><i class="fa fa-android"></i> &nbsp;create stuff <a
-                    href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
-                    target="_new">https://play.google.com/apps/publish/</a></li>
+                        href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
+                        target="_new">https://play.google.com/apps/publish/</a></li>
                 <li>Click Monetize -> In-App products</li>
+
+            </div>
+        </div>
+
+        <div class="tan-box">
+            <div><b>Superpowers Download Build & Deploy</b>
+                <i (mousedown)="changeMenuNum(12)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==12">
+                git clone https://github.com/RickSDK/sp2.git<br>
+                npm install<br>
+                export NODE_OPTIONS=--openssl-legacy-provider<br>
+                ng serve -o<br>
+                npm install @capacitor/core<br>
+                npm install @capacitor/cli<br>
+                npx cap init<br>
+                name: superpowers<br>
+                bundle: com.mydomain.superpowers<br>
+                Edit capacitor.config.ts: webDir: 'dist/superpowers',<br>
+                make sure capacitor.config.ts has this line: ios: &#123; contentInset: 'always'&#125;,<br>
+                npm install @capacitor/ios @capacitor/android<br>
+                npx cap add ios<br>
+                npx cap add android<br>
+                ng serve -o<br>
+                ng build --prod<br>
+                npx cap sync<br>
+                npx cap open ios<br>
+                <hr>
+                Click App -> Assets, Add assets.<br>
+                Left Side, Click App --> Singing & Capabilities, select Team<br>
+                Left Side, Click App --> General, set Version & Build<br>
+                Top, click App --> Any IOS Device (arm64)<br>
+                Product --> Archive<br>
+                Distribute to app store<br>
+                <hr>
+                <li><a href="https://appstoreconnect.apple.com/login"
+                        target="new">https://appstoreconnect.apple.com/</a></li>
+                <li>Add new version</li>
+                <hr>
+                export NODE_OPTIONS=--openssl-legacy-provider<br>
+                ng serve -o<br>
+                ng build --prod<br>
+                npx cap sync<br>
+                <li>npx cap open android <span class="gray-text">(takes about 5 minutes)</span></li>
+                <li>Press green triangle <span class="gray-text">(takes about 5 minutes)</span></li>
+                <li>Select "Build" tab at the bottom to see progress</li>
+                <li>Verify app looks good</li>
+                <li>Update android/app/build.gradle, incriment versionCode by 1, write new version in versionName.</li>
+                id="com.mydomain.superpowers", version="2.1.0" <br>
+                password: spKeyGen99<br>
+                <li>Build --> Clean Project</li>
+                <li>key: spKey99z</li>
+                <li>Click "Build --> Generate Signed Bundle", select "Android App Bundle", click "Next", betraKey99z
+                </li>
+                <li>Should say, "App bundle(s) generated successfully"</li>
+                <hr>
+                <li><i class="fa fa-android"></i> &nbsp;<a
+                        href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
+                        target="_new">https://play.google.com/apps/publish/</a></li>
+                <li>Click, "Create New Release"</li>
 
             </div>
         </div>

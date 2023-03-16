@@ -101,6 +101,7 @@ import { SecurityComponent } from './security/security.component';
 import { DatingTipsComponent } from './dating-tips/dating-tips.component';
 import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
 import { BuildAppComponent } from './build-app/build-app.component';
+import { ActivityComponent } from './activity/activity.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -202,6 +203,7 @@ import { BuildAppComponent } from './build-app/build-app.component';
     SecurityComponent,
     DatingTipsComponent,
     BuildAppComponent,
+    ActivityComponent,
   ],
   imports: [
     BrowserModule,

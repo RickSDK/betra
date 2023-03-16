@@ -26,6 +26,43 @@
     transition: all 1s ease;
 }
 
+.button-pic {
+    filter: grayscale(50%);
+}
+
+
+.button-box {
+    position: relative; 
+    display: inline-block; 
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 2px 2px 10px black;
+    margin: 5px;
+    width: 100%;
+    max-width: 190px; 
+    height: 190px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.button-box:hover {
+    border: 1px solid white;
+    box-shadow: 5px 5px 10px black;
+    img {
+        filter: grayscale(0%);
+    }
+    .button-text {
+        text-shadow: 2px 2px black;
+    }
+}
+.button-text {
+    position: absolute; top: 30px; left: 0; width: 190px; text-align: center;
+    font-size: 32px;
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
+    padding: 10px;
+}
+
 .padded-box {
   padding: 20px;
   border: 1px solid gray;

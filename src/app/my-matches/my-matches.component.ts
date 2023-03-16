@@ -145,7 +145,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
   }
   assignHeart() {
-    this.showHeartFormFlg = false;
+    //this.showHeartFormFlg = false;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],

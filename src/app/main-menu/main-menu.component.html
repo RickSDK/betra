@@ -1,5 +1,5 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle"
-    [headerObj]="headerObj" [userStatus]="userStatus">
+    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <!--<div *ngIf="userId==0">
         <img *ngIf="!headerObj.profileCompleteFlg" class="background-img hide-md" src="assets/images/landing/loveBG.jpg"
@@ -30,8 +30,28 @@
 
     <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" style="width: 100%;">
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-    <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click "settings" to log out and then try logging back in.</div>
-    <div *ngIf="user && userId>0">
+    <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click
+        "settings" to log out and then try logging back in.</div>
+
+    <img src="assets/images/betraLogo.png" height="100">
+    <div class="red-text">What would you like to do?</div>
+    <div class="button-box" [routerLink]="['/user-detail']">
+        <img [src]="browseScr" height="100%" width="100%" class="button-pic">
+        <div class="button-text">Find<br>Singles</div>
+    </div>
+    <div class="button-box" [routerLink]="['/matches']">
+        <img src="assets/images/buttons/datePool.jpg" height="200" width="200" class="button-pic">
+        <div class="button-text">Dating<br>Pool</div>
+    </div>
+    <div class="button-box" [routerLink]="['/blogs']">
+        <img src="assets/images/buttons/blogs.jpg" height="200" width="200" class="button-pic">
+        <div class="button-text">Read<br>Blogs</div>
+    </div>
+    <div class="button-box" [routerLink]="['/activity']">
+        <img src="assets/images/buttons/activity.jpeg" height="200" width="200" class="button-pic">
+        <div class="button-text">View<br>Activity</div>
+    </div>
+    <!--<div *ngIf="user && userId>0">
         <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">
         </app-dating-pool>
 
@@ -70,9 +90,30 @@
                     have with a dating app.</p>
             </div>
         </div>
-       <app-scroll-card *ngFor="let item of displayItems" [item]="item"></app-scroll-card>
+       <app-scroll-card (messageEvent)="clearItem(item)" *ngFor="let item of displayItems" [item]="item"></app-scroll-card>
+       <table *ngIf="blog1">
+        <tr>
+            <td>
+                <app-blog-cell [blog]="blog1" [shrinkSize]="2"></app-blog-cell>
+            </td>
+            <td>
+                <app-blog-cell [blog]="blog2" [shrinkSize]="2"></app-blog-cell>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <app-blog-cell [blog]="blog3" [shrinkSize]="2"></app-blog-cell>
+            </td>
+            <td>
+                <app-blog-cell [blog]="blog4" [shrinkSize]="2"></app-blog-cell>
+            </td>
+        </tr>
+       </table>
+       
+       
+       
 
-    </div>
+    </div>-->
 
 </app-page-shell>
 

@@ -3,11 +3,12 @@ import { BaseComponent } from '../base/base.component';
 //import { User } from '../classes/user';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { ActivatedRoute, Router } from '@angular/router';
-//import { Blog } from '../classes/blog';
+import { Blog } from '../classes/blog';
 //import { AdvancedFiltersComponent } from '../advanced-filters/advanced-filters.component';
 import { ScrollItem } from '../classes/scroll-item';
 
 declare var getDateObjFromJSDate: any;
+declare var getPlatform: any;
 
 @Component({
   selector: 'app-main-menu',
@@ -22,48 +23,64 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public matchUser: any = null;
   public displayProfileFlg = true;
+  public showLoadMoreButton: boolean = true;
   public papgeTitle = 'Home';
   public states: any = [];
   public countries: any = [];
   public login: number = 0;
   public blog1: any = null;
   public blog2: any = null;
+  public blog3: any = null;
+  public blog4: any = null;
   public displayItems: any = [];
-  public scrollItems: any = [
-    { id: 'item1', name: 'item 1', src: 'assets/images/landing/couple2.png', type: 'New Blog Post', description: 'description', icon: 'fa fa-book' },
-    { id: 'item2', name: 'item 2', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item3', name: 'item 3', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item4', name: 'item 4', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item5', name: 'item 5', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item6', name: 'item 6', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item7', name: 'item 7', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item8', name: 'item 8', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item9', name: 'item 9', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-    { id: 'item10', name: 'item 10', src: 'assets/images/landing/couple2.png', type: 'type', description: 'description', icon: 'fa fa-book' },
-  ];
+  public scrollItems: any = [];
   public currentIndex = 0;
   public holidayScr: string = '';
+  public browseScr: string = '';
+  public banItemList: any = [];
+  public getPlatform: string = getPlatform();
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
 
-    if(!this.user || !this.userId) {
+    if (!this.user || !this.userId) {
       this.router.navigate(['']);
       return;
-  
+
     }
+    var race = this.user.race;
+    if (this.user.race == 'Middle Eastern' || this.user.race == 'Other')
+      race = 'Arab';
+    if (this.user.race == 'Pacific Islander' || this.user.race == 'South-Asian')
+      race = 'Asian';
+    if (this.user.race == 'Native American')
+      race = 'White';
+
+    //this.user.matchPreference = 'A';
+    this.browseScr = 'assets/images/buttons/browse' + this.user.matchPreference + race + '.png';
 
     var dt = getDateObjFromJSDate();
     if (dt.mo == 2 && dt.dayOfMonth == 14)
       this.holidayScr = 'assets/images/holidays/valentines-day.jpg';
+    if (dt.mo == 3 && dt.dayOfMonth == 17)
+      this.holidayScr = 'assets/images/holidays/st-patricks-day.jpg';
+    if (dt.mo == 4 && dt.dayOfMonth == 9)
+      this.holidayScr = 'assets/images/holidays/happy-easter.jpg';
+    if (dt.mo == 5 && dt.dayOfMonth == 29)
+      this.holidayScr = 'assets/images/holidays/memorial-day.jpg';
+    if (dt.mo == 7 && dt.dayOfMonth == 4)
+      this.holidayScr = 'assets/images/holidays/july4.jpeg';
 
-    window.scrollTo(0, 0);
+      /*
+    if (this.getPlatform != 'IOS') {
+      document.addEventListener('scroll', () => {
+        this.checkIsVisible();
+      })
+    }
+    window.scrollTo(0, 0);*/
 
-    document.addEventListener('scroll', () => {
-      this.checkIsVisible();
-    })
 
     this.loadUserObj();
     this.userStatus = this.user.status;
@@ -82,18 +99,67 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (this.user && this.user.status == 'Active') {
       this.popupNum = 0;
       this.headerObj.notifications = this.user.notifications;
-      this.getDataFromServer('getScrollData', 'scroll.php', {});
+
+//      if (this.getPlatform == 'IOS')
+//        this.getDataFromServer('getBlogs', 'blog.php', {});
+//      else
+//        this.getDataFromServer('getScrollData', 'scroll.php', {});
+
       if (!localStorage['latitude'])
         this.getLocation();
       else if (!this.user.navLat)
         this.uploadCoordinates();
     }
   }
+  /*getBanItemList() {
+    if (localStorage['banItemList'])
+      return JSON.parse(localStorage['banItemList']);
+    else
+      return [];
+  }
+  setBanItemList(banItemList: any) {
+    localStorage['banItemList'] = JSON.stringify(banItemList);
+  }
+  getBanItemListHash() {
+    var banItemList = this.getBanItemList();
+    var banItemListHash: any = {};
+    banItemList.forEach((element: any) => {
+      banItemListHash[element] = true;
+    });
+    console.log('banItemListHash', banItemListHash);
+    return banItemListHash;
+  }
+  clearItem(item: any) {
+    this.banItemList = this.getBanItemList();
+    this.banItemList.push(item.name);
+    this.setBanItemList(this.banItemList);
+    var displayItems: any = [];
+    this.displayItems.forEach((element: any) => {
+      if (element.name != item.name)
+        displayItems.push(element);
+    });
+    this.displayItems = displayItems;
+    this.addScrollItem();
+  }
   addScrollItem() {
     if (this.scrollItems.length <= this.currentIndex)
-      return;
-    this.displayItems.push(new ScrollItem(this.scrollItems[this.currentIndex], this.currentIndex));
+      return false;
+    var banItemListHash = this.getBanItemListHash();
+
+    var scrollItem = new ScrollItem(this.scrollItems[this.currentIndex], this.currentIndex);
     this.currentIndex++;
+    if (banItemListHash[scrollItem.name]) {
+      this.addScrollItem();
+      console.log('banned item!', scrollItem.name);
+      return false;
+    } else {
+      this.displayItems.push(scrollItem);
+      return true;
+    }
+  }
+  loadMoreScrollCards() {
+    for (var i = 0; i < 12; i++)
+      this.showLoadMoreButton = this.addScrollItem();
   }
   checkIsVisible() {
     if (!this.displayItems)
@@ -115,7 +181,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
     }
 
-  }
+  }*/
 
   logoutUser() {
     console.log('logout!');
@@ -154,7 +220,14 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     this.responseJson = responseJson;
-    if (responseJson.action == "getScrollData") {
+
+    if (responseJson.action == "getBlogs" && responseJson.blogList && responseJson.blogList.length > 4) {
+      this.blog1 = new Blog(responseJson.blogList[4]);
+      this.blog2 = new Blog(responseJson.blogList[5]);
+      this.blog3 = new Blog(responseJson.blogList[6]);
+      this.blog4 = new Blog(responseJson.blogList[7]);
+    }
+    /*if (responseJson.action == "getScrollData") {
       //this.blog1 = new Blog(responseJson.blogList[0]);
       //this.blog2 = new Blog(responseJson.blogList[1]);
       this.scrollItems = [];
@@ -179,11 +252,10 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       });
       //console.log(this.scrollItems);
 
-      this.addScrollItem();
-      this.addScrollItem();
-      this.addScrollItem();
+      for (var i = 0; i < 12; i++)
+        this.addScrollItem();
       this.logUser();
-    }
+    }*/
     if (responseJson.action == "logUser" && this.user) {
       this.userStatus = this.user.status;
       if (this.user && this.user.ip == '')

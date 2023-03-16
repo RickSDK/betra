@@ -7,9 +7,9 @@
         <div *ngIf="!login || login==0">
             <div>&nbsp;</div>
             <div style="text-align: center; margin-bottom: 2px;">
-                <div class="large-text">DATING DONE
-                </div>
                 <div class="large-text red-text">BETTER</div>
+                <div class="large-text">THAN DATING
+                </div>
             </div>
             <div>&nbsp;</div>
             <button [routerLink]="['']" [queryParams]="{login: 2}" class="btn btn-grad btn-large">Create
@@ -30,10 +30,11 @@
                             src="assets/images/googleButton.png" height="42" style="cursor: pointer"
                             title="Continue with Google">
                     </td>
-                    <td>
+                    <td *ngIf="0">
                         <i *ngIf="appleButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
-                        <i *ngIf="!appleButtonPressedFlg" (click)="appleSignin()" style="background-color: white; color: black;"
-                            class="fa fa-apple facebook-btn login-button" title="Continue with Apple"></i>
+                        <i *ngIf="!appleButtonPressedFlg" (click)="appleSignin()"
+                            style="background-color: white; color: black;" class="fa fa-apple facebook-btn login-button"
+                            title="Continue with Apple"></i>
                     </td>
                 </tr>
             </table>
@@ -54,7 +55,8 @@
                     class="btn btn-main-color btn-large">Submit</button>
 
                 <div style="margin-top: 10px;">
-                    <span (mousedown)="resetFlags()" [routerLink]="['']" [queryParams]="{login: 2}" class="hyper-link">Create
+                    <span (mousedown)="resetFlags()" [routerLink]="['']" [queryParams]="{login: 2}"
+                        class="hyper-link">Create
                         Account</span>&nbsp;&nbsp;&nbsp;
                     <span (mousedown)="forgotPasswordFlg = !forgotPasswordFlg" class="hyper-link"
                         style="font-size: 12px; color: #ccc;">Forgot Password</span>
@@ -70,6 +72,15 @@
             <!--<div style="color: black; text-align: center; padding: 5px;" (mousedown)="errorMessage=''">
                 <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
             </div>-->
+
+            <p style="font-size: 10px; color: #ccc;">
+                <i (mousedown)="policyCheckboxChecked=!policyCheckboxChecked"
+                    [ngClass]="policyCheckboxChecked?'fa fa-check-square-o':'fa fa-square-o'"
+                    style="font-size: 14px; cursor: pointer;"></i> By Signing up, I have read and agree to the <span [routerLink]="['/privacy-policy']"
+                    class="hyper-link">Privacy
+                    Policy</span>, <span [routerLink]="['/terms-conditions']" class="hyper-link">Terms</span> and <span
+                    [routerLink]="['/cookies']" class="hyper-link">Cookie Policy</span>.
+            </p>
             <button (mousedown)="signupPressed()" class="btn btn-main-color btn-large">Sign Up!</button>
             <div style="text-align: center; margin-top: 10px;">
                 <span [routerLink]="['']" [queryParams]="{login: 1}" class="hyper-link">Already have an account?</span>

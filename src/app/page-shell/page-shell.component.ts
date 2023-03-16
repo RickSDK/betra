@@ -5,6 +5,7 @@ import { Location } from "@angular/common";
 //import { AdsenseModule } from 'ng2-adsense';
 
 declare var getVersion: any;
+declare var getPlatform: any;
 
 @Component({
   selector: 'app-page-shell',
@@ -26,6 +27,7 @@ export class PageShellComponent implements OnInit {
   public firstName: string = '';
   public appVersion: string = '';
   public adsbygoogle: any;
+  public platform: string = getPlatform();
 
   constructor(private router: Router, private location: Location) { }
 
@@ -56,7 +58,7 @@ export class PageShellComponent implements OnInit {
     }
 
     setTimeout(() => {
-      (this.adsbygoogle = (window as any).adsbygoogle || []).push({});      
+      (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
     }, 1000);
   }
 
