@@ -2,7 +2,7 @@
     <img src="assets/images/landing/roseHome.png"
         style="width: 100%; height: 100vh; object-fit: cover; object-position: 50% 100%;">
 
-    <table *ngIf="1" width="100%" style="color: white; font-size: 16px; top: 0; left: 0; position: absolute;">
+    <table width="100%" style="color: white; font-size: 16px; top: 0; left: 0; position: absolute;">
         <tr>
             <td align="center" style="padding-top: 20px;">
                 <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
@@ -11,7 +11,7 @@
         </tr>
     </table>
 
-    <span (mousedown)="login=1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
+    <span *ngIf="login!=1" (mousedown)="login=1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
         Log<br>
         In
     </span>
@@ -20,21 +20,13 @@
 
 </div>
 
-<!--<div class="container-fluid" style="height: 100vh; padding-top: 80px; text-align: center;">
-    <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
-    </app-login-popup>
-</div>-->
-
-<!--<img src="assets/images/landing/roseBottom.png"
-style="width: 100%; object-fit: cover; object-position: 50% 50%; max-height: 800px;">-->
-
-<div *ngIf="1" style="position: relative; font-family: now; background-color: #555;">
+<div *ngIf="login != 1" style="position: relative; font-family: now; background-color: #555;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md" style="text-align: left; padding: 0; color: white;">
                 <div style="padding: 20px; ">
-                    <p style="font-size: 22px;">Welcome to <span class="red-text">Betra</span>, an experience like
-                        nothing you have ever done before.
+                    <p style="font-size: 22px;">Welcome to <span class="red-text">Betra</span>, the safest and
+                        most exciting way to meet new people.
                         This is the hottest new app and
                         guaranteed to be the most
                         fun you will ever have dating.</p>
@@ -47,7 +39,7 @@ style="width: 100%; object-fit: cover; object-position: 50% 50%; max-height: 800
                         send texts and pics, go on dates, hand out roses to your favorites, and finally narrow it down
                         to
                         the person you want to start seeing.</p>
-                    <p>It's fun, it's exciting and it's free. Get started today!</p>
+                    <p>Not only is it the safest way to date, it's also fun, it's exciting and it's free. Get started today!</p>
                 </div>
                 <div style="text-align: center;">
                     <img src="assets/images/rose1.png" height="100">
@@ -65,68 +57,13 @@ style="width: 100%; object-fit: cover; object-position: 50% 50%; max-height: 800
                 </div>
             </div>
             <div class="col-md" style="text-align: center; padding: 20px; color: white;">
-                <!--<img src="assets/images/landing/phone.png" style="width: 100%; max-width: 500px; height: 100%;">-->
                 <img src="assets/images/landing/cell-phone.png" height="500" style="margin: 10px;">
             </div>
         </div>
     </div>
 </div>
-<!--<div style="position: relative; font-family: now; background-color: #555;">
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md" style="text-align: left; padding: 20px; color: white;">
-                <div>
-                    <div class="large-text2">How we're changing</div>
-                    <div class="large-text2">the game.</div>
-                    <div style="margin-top: 7px;">You asked. We delivered.</div>
-                    <div>&nbsp;</div>
-                    <h3>MOST SAFETY FEATURES EVER</h3>
-                    <div>We have set out to make the most scam-proof, most reliable and safest way to date online.</div>
-                    <h3>USER REVIEWS</h3>
-                    <div>Betra allows you to read and review your dates before your meet them, so you actually know who
-                        you are going to meet.</div>
-                    <h3>HIGER QUALITY MATCHES</h3>
-                    <div>Completed profiles, quality pictures and cutting out the scammers means you get the highest
-                        quality matches of any app.</div>
-                    <div>&nbsp;</div>
-                    <div style="text-align: center"><img [src]="logo" height="80"></div>
-                </div>
-            </div>
-            <div class="col-md" style="text-align: center; padding: 0;">
-                <div>
-                    <img src="assets/images/landing/cell-phone.png" height="500" style="margin: 10px;">
-
-                    <div *ngIf="0" style="display: block; height: 150px; text-align: center;">
-                        <div style="display: inline-block; position: relative; width: 370px; height: 150px;">
-                            <div class="testimony-popup" style="color: black;">
-                                <div class="name-text">Savonne</div>
-                                <i class="fa fa-quote-left"></i>Being able to review my dates is a game changer! It's
-                                nice
-                                knowing who I am actually going to meet.<i class="fa fa-quote-right"></i>
-                            </div>
-                            <img src="assets/images/landing/dana.png" class="savonne">
-                        </div>
-                    </div>
-
-                    <div class="carousel-wrapper">
-                        <div class="carousel-container">
-                            <div class="carousel">
-                                <img src="assets/images/reviews/review1.png">
-                                <img src="assets/images/reviews/review2.png">
-                                <img src="assets/images/reviews/review3.png">
-                                <img src="assets/images/reviews/review4.png">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>-->
-
-<div *ngIf="1" class="container-fluid"
+<div *ngIf="login != 1" class="container-fluid"
     style="width: 100%; background-color: #eee; text-align: center; font-family: now; padding: 0;">
     <div class="row" style="padding: 0; margin: 0;">
         <div class="col-md" style="padding: 0; margin: 0;">
@@ -142,7 +79,7 @@ style="width: 100%; object-fit: cover; object-position: 50% 50%; max-height: 800
         </div>
     </div>
 </div>
-<div style="position: relative;">
+<div *ngIf="login != 1" style="position: relative;">
     <img src="assets/images/landing/girlRose.webp" style="width: 100%; object-fit: cover; object-position: 40% 100%;">
     <div style="position: absolute; left: 20px; bottom: 20px; color: white; font-size: 24px;">
         <img [src]="logo" height="100">
@@ -150,11 +87,11 @@ style="width: 100%; object-fit: cover; object-position: 50% 50%; max-height: 800
     </div>
 </div>
 
-<div class="container-fluid" style="background-color: #fff; text-align: center; font-family: now;">
+<div *ngIf="login != 1" class="container-fluid" style="background-color: #fff; text-align: center; font-family: now;">
     <div class="row">
         <div class="col-md" style="text-align: left; padding: 40px;">
             <div style="font-size: 32px; font-weight: 700; margin-top: 20px; line-height: 40px;">Real people<br>
-                Real dates</div>
+                Real dates<br>Safety first</div>
             <div>&nbsp;</div>
             <p style="font-size: 18px;">Get ready for an experience like none other.
             </p>
@@ -173,126 +110,13 @@ style="width: 100%; object-fit: cover; object-position: 50% 50%; max-height: 800
     </div>
 </div>
 
-<!--<div class="container-fluid" style="background-color: #eee; text-align: center;">
-    <div class="row">
-        <div class="col-md" style="padding: 20px;">
-            <img src="assets/images/landing/phone.png" style="width: 100%; max-width: 500px; height: 100%;">
-        </div>
-        <div class="col-md" style="text-align: left; padding: 20px; font-family: now;">
-            <div style="max-width: 420px;">
-                <div style="font-size: 32px; font-weight: 700; margin-top: 20px; text-align: left;">We know what it
-                </div>
-                <div style="font-size: 32px; font-weight: 700; text-align: right;">means to <span
-                        class="red-text">love</span></div>
-            </div>
-
-            <p style="font-size: 18px; font-family: now;">
-                <li>We use a combination of hard work and AI to make the best possible experience for our users. </li>
-                <li>The best safety features of any dating app.</li>
-                <li>The best filters in the industry.</li>
-                <li>Free signup, free texting, free swipe notifications.</li>
-                <li>Exclusive <span class="red-text">Dating Pool</span> feature.</li>
-                <li>Read user reviews before you meet.</li>
-                <li>Most scam-proof dating app ever created.</li>
-            </p>
-        </div>
-    </div>
-</div>-->
-<div *ngIf="0" id="betra-reviews" class="container-fluid" style="background-color: #fff; text-align: center;">
-    <div class="row">
-        <div class="col-md" style="text-align: left; padding: 50px; font-family: now;">
-            <div style="font-size: 32px; line-height: 32px; font-weight: 700; margin-top: 20px;">Just
-                some<br><b>reviews</b></div>
-            <p style="font-size: 22px;">We don't just talk about it. We are about it. Read what real people have to say
-                about <img [src]="logo" height="40" style="padding-bottom: 5px;">.</p>
-        </div>
-        <div class="col-md" style="text-align: left; padding: 20px; font-size: 22px; font-family: now;">
-
-            <!--<div class="carousel-wrapper">
-                <div class="carousel-container">
-                    <div class="carousel">
-                        <img src="assets/images/reviews/review1.png">
-                        <img src="assets/images/reviews/review2.png">
-                        <img src="assets/images/reviews/review3.png">
-                        <img src="assets/images/reviews/review4.png">
-                    </div>
-                </div>
-            </div>-->
-
-            <!--<hr>
-            <div>I got tired of swiping. Nice to actually find quality people to date. </div>
-            <div><b>GEORGEO</b></div>
-            <hr>
-            <div>Being able to review my dates is an absolute game changer. </div>
-            <div><b>TIFFANY</b></div>
-            <hr>
-            <div>I never really felt other apps took safty seriously. Nice to find one that does.</div>
-            <div><b>BRITT</b></div>-->
-        </div>
-    </div>
-</div>
-
-<div style="position: relative; font-family: now;">
+<div *ngIf="login != 1" style="position: relative; font-family: now;">
     <img src="assets/images/landing/bottomImage.png" style="width: 100%; object-fit: cover; object-position: 40% 100%;">
     <div class="bottom-container">
         <div class="big-white-text">The buzz is real</div>
-        <div class="medium-white-text">This is not your grandma's dating app!</div>
+        <div class="medium-white-text">Start your adventure today!</div>
         <img [src]="logo" class="logo-betra">
     </div>
 </div>
 
-<div id="download" style="text-align: center; background-color: #1a1a1a;">
-    <table align="center">
-        <tr>
-            <td valign="top">
-                <div class="link-section">
-                    <div style="color: gray;">Company</div>
-                    <div [routerLink]="['/contact']" class="white-link">Contact</div>
-                    <div [routerLink]="['/about']" class="white-link">About</div>
-                    <div [routerLink]="['/join-team']" class="white-link">Careers</div>
-                    <!--<div [routerLink]="['/press']" class="white-link">Press</div>-->
-                </div>
-            </td>
-            <td valign="top" class="hide-md">
-                <div class="link-section">
-                    <div style="color: gray;">Resouces</div>
-                    <div [routerLink]="['/blogs']" class="white-link">Blog</div>
-                    <!--<<div [routerLink]="['/dating-tips']" class="white-link">Safe Dating Tips</div>
-                    <div [routerLink]="['/faq']" class="white-link">FAQ</div>
-                    <div [routerLink]="['/faq']" class="white-link">App Store</div>
-                    div [routerLink]="['/faq']" class="white-link">Sitemap</div>-->
-                </div>
-            </td>
-            <td valign="top">
-                <div class="link-section">
-                    <div style="color: gray;">Legal</div>
-                    <div [routerLink]="['/privacy-policy']" class="white-link">Privacy Policy</div>
-                    <div [routerLink]="['/terms-conditions']" class="white-link">Terms & Conditions</div>
-                    <!--<div [routerLink]="['/security']" class="white-link">Security</div>-->
-                    <div [routerLink]="['/cookies']" class="white-link">Cookie Policy</div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <table align="center">
-        <tr>
-            <td>
-                <div class="link-section">
-                    <a [href]="'https://www.facebook.com/profile.php?id=100090251506367'" target="new"><i
-                            class="fa fa-facebook social-media"></i></a>
-                    <a [href]="'https://www.instagram.com/Betradating/'" target="new"><i
-                            class="fa fa-instagram social-media"></i></a>
-                    <i class="fa fa-twitter social-media"></i>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="assets/images/landing/appStore1.png" height="44" class="app-store">&nbsp;
-                <img src="assets/images/landing/appStore2.png" height="44" class="app-store">
-            </td>
-        </tr>
-    </table>
-
-    <div style="padding: 20px; color: gray;">&copy; 2023 Betra, Inc</div>
-</div>
+<app-bottom-links *ngIf="login != 1"></app-bottom-links>

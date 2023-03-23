@@ -221,6 +221,9 @@
 
                             </div>
                             <div class="col-md" style="text-align: left;">
+                                <div style="border: 1px solid #ccc; border-radius: 10px; margin: 5px; padding: 5px; background-color: #eee;">
+
+                                <div class="gray-text">Note: This info set by GPS. If you are not seeing your location info, continue setting up your profile and fix it later under "Settings" tab.</div>
                                 <table>
                                     <tr>
                                         <td *ngIf="user.countryName != 'United States'" valign="top"
@@ -251,6 +254,8 @@
                                         </td>
                                     </tr>
                                 </table>
+                            </div>
+
                                 <div *ngIf="user.findLoveFlg">
                                     <table>
                                         <tr>
@@ -569,8 +574,8 @@
             </app-spinner>
             <table width="100%" *ngIf="!loadingFlg && !showSubmitButtonFlg">
                 <tr>
-                    <td>
-                        <button *ngIf="menuNum>0 && menuNum<8" (mousedown)="profileSectionBack()"
+                    <td *ngIf="menuNum>0 && menuNum<8">
+                        <button (mousedown)="profileSectionBack()"
                             class="btn gray-button">Back</button>
                     </td>
                     <td>

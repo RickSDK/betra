@@ -1,0 +1,46 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Safety Features'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+        <table style="font-size: 10px;" (mousedown)="showContactInfo=!showContactInfo">
+            <tr>
+                <th>Name</th>
+                <th *ngIf="showContactInfo && userId==1">Email</th>
+                <th *ngIf="showContactInfo && userId==1">Phone</th>
+                <th>G</th>
+                <th>State</th>
+                <th>Lat</th>
+                <th>Pic</th>
+                <th>M.A.</th>
+                <th>Owner</th>
+                <th>Swipes</th>
+                <th>Matches</th>
+            </tr>
+            <tr *ngFor="let user of users">
+                <td>{{user.firstName}}</td>
+                <td *ngIf="showContactInfo && userId==1">{{user.email}}</td>
+                <td *ngIf="showContactInfo && userId==1">{{user.phone}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.state}}</td>
+                <td>{{user.lat}}</td>
+                <td>{{user.profilePic}}</td>
+                <td><i class="fa fa-check" *ngIf="user.matchAge>0"></i></td>
+                <td>{{user.ownerFlg}}</td>
+                <td>{{user.statsObj.matchLevel1}}</td>
+                <td>{{user.statsObj.matchLevel2}}</td>
+            </tr>
+        </table>
+
+        <div *ngIf="userId==1" style="font-size: 8px;">
+            <hr>
+            <div>Owners</div>
+            <span *ngFor="let user of users"><span *ngIf="user.ownerFlg=='Y'">{{user.email}}; </span></span>
+            <hr>
+            <div>Non-Owners</div>
+            <span *ngFor="let user of users"><span *ngIf="user.ownerFlg!='Y'">{{user.email}}; </span></span>
+        </div>
+
+    </div>
+</app-page-shell>

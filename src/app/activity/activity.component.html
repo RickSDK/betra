@@ -1,9 +1,24 @@
-<app-page-shell [userId]="userId" [pageTitle]="'Betra Activity'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+<app-page-shell [userId]="userId" [pageTitle]="'Betra Activity'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
 
     <div class="matches-card" style="text-align: center;">
 
+        <table>
+            <tr>
+                <td>
+                    <button [routerLink]="['']" class="btn btn-main-color">Home</button>
+                </td>
+                <td>
+                    <div class="tan-box">Here is recent activity on Betra. This app works like a reality show allowing
+                        everyone
+                        to get a glimpse into the dating world and what people are up to.</div>
+
+                </td>
+            </tr>
+        </table>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <app-scroll-card (messageEvent)="clearItem(item)" *ngFor="let item of displayItems" [item]="item"></app-scroll-card>
+        <app-scroll-card (messageEvent)="clearItem(item)" *ngFor="let item of displayItems" [item]="item">
+        </app-scroll-card>
 
 
     </div>

@@ -21,6 +21,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public unreadMessagesFlg: boolean = false;
   public showDetailsNumber: number = 0;
   public messageToDelete: number = 0;
+  public displayThisComponentFlg: boolean = false;
 
   public greetings = [
     'Hi!',
@@ -67,6 +68,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   override ngOnInit(): void {
     //super.ngOnInit();
     this.populateModal(this.matchUser);
+    this.displayThisComponentFlg = this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.match_level > 1;
   }
 
   emojiSrcForId(id: string) {
@@ -88,8 +90,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     if (this.matchUser && this.matchUser.matchObj) {
       this.checkTextFlags();
 
-      if (1 || this.matchUser.matchObj.match_level > 2 || this.matchUser.matchObj.messagesSentFlg == 'Y')
-        this.loadMessages();
+      this.loadMessages();
     }
   }
 
@@ -138,6 +139,8 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         message.local = dt.local;
         this.messages.push(message);
       });
+      if (this.messages.length > 0)
+        this.displayThisComponentFlg = true;
       this.showDetailsFlg = showDetailsFlg;
       if (this.messages.length <= 2)
         this.showDetailsFlg = true;

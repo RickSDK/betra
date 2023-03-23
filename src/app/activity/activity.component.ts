@@ -75,7 +75,6 @@ export class ActivityComponent extends BaseComponent implements OnInit {
     banItemList.forEach((element: any) => {
       banItemListHash[element] = true;
     });
-    console.log('banItemListHash', banItemListHash);
     return banItemListHash;
   }
   clearItem(item: any) {
@@ -99,7 +98,6 @@ export class ActivityComponent extends BaseComponent implements OnInit {
     this.currentIndex++;
     if (banItemListHash[scrollItem.name]) {
       this.addScrollItem();
-      console.log('banned item!', scrollItem.name);
       return false;
     } else {
       this.displayItems.push(scrollItem);
@@ -114,7 +112,6 @@ export class ActivityComponent extends BaseComponent implements OnInit {
     if (!this.displayItems)
       return;
     if (this.displayItems.length == this.scrollItems.length) {
-      console.log('done.');
       return;
     }
     var lastId = this.displayItems[this.displayItems.length - 1].id;

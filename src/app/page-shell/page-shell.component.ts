@@ -28,6 +28,7 @@ export class PageShellComponent implements OnInit {
   public appVersion: string = '';
   public adsbygoogle: any;
   public platform: string = getPlatform();
+  public showPageFlg: boolean = true;
 
   constructor(private router: Router, private location: Location) { }
 
@@ -35,6 +36,7 @@ export class PageShellComponent implements OnInit {
     this.appVersion = getVersion();
     this.showPromotionalBoxesFlg = true;
     this.showAboutInfoFlg = true;
+    this.showPageFlg = true;
     if (localStorage['user_id'] > 0 && localStorage['User']) {
       var user = new User(JSON.parse(localStorage['User']));
       if (user && user.user_id > 0) {
@@ -46,6 +48,10 @@ export class PageShellComponent implements OnInit {
         this.imgSrcFile = user.imgSrc;
         if (user.status == 'Active')
           this.showPromotionalBoxesFlg = false;
+        else {
+          if (this.pageTitle != 'Profile')
+            this.showPageFlg = false;
+        }
 
       }
       this.showAboutInfoFlg = false;

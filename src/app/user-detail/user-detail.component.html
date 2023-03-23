@@ -50,8 +50,6 @@
             </div>
         </div>
 
-        <div *ngIf="0 && !showFilter && id==2"><span class="text-link" (mousedown)="showAdvancedFilters()">Advanced
-                Filters</span></div>
         <app-advanced-filters *ngIf="showFilter" [user]="user" (messageEvent)="advancedSearch($event)">
         </app-advanced-filters>
         <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
@@ -66,84 +64,98 @@
             <button (mousedown)="browseSingles('findMatches')" class="btn btn-warning">Show locals only</button>&nbsp;
         </div>
 
-        <div class="matches-card" *ngIf="searchStarted && user && !matchUser">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div class="matches-card" *ngIf="user && !matchUser && !loadingFlg && !uid">
             <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
-            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-
             <div *ngIf="exceededPoolSizeFlg">
                 <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
-                <p>Note: Visit your Dating Pool. You are over your limit in your dating pool. Please drop someone.</p>
+                <p>Note: Visit your Dating Pool. You are over your limit and need to drop someone.</p>
                 <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                     Dating Pool</button>
             </div>
-            <div *ngIf="user && user.showHeartFormFlg">
+            <div *ngIf="user.showHeartFormFlg">
                 <div><img src="assets/images/rose1.png" width="100"></div>
                 <p>Note: Visit your Dating Pool. You need to give someone a rose before proceeding.</p>
                 <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                     Dating Pool</button>
             </div>
-            <div *ngIf="!loadingFlg && id != 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">
-                <div>
-                    <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
-                    <p>Sorry, no more profiles found.</p>
-                    <p *ngIf="!showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are joining constantly. Check back soon.</p>
-                    <div *ngIf="id == 2 && showExpandedSearchPopupFlg && !advancedSearchFlg && profileViews>0">
-                        <p class="gray-text">You have already said "Yes" or "No" to everyone in the database. This is a
-                            new
-                            app and people are just starting to sign up. Check back soon. If you would like to reset
-                            your
-                            "No" matches and revisit the people you declined, visit the "<span
-                                [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
-                    </div>
-                    <div *ngIf="advancedSearchFlg && profileViews>0">
-                        <p>Try expanding your search or simply
-                            press
-                            the "Browse" button to bring back possible matches.</p>
-                        <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI that
-                            continueously expands your search options until matches are returned.
-                            If you are getting no results after pressing that button, it means you have already viewed
-                            every
-                            person in the database meeting your gender requirements.</p>
+            <div *ngIf="searchStarted">
+                <div *ngIf="profileViews == 0">
+                    <div style="font-size: 64px;">🥲</div>
+                    <div>Swipes used up!</div>
+                    <div style="text-align: left;">
+                        <p class="gray-text">Sorry, you have used up all your swipes for today. You get to view 12 new
+                            singles
+                            each day and have already gone through your batch.
+                            But don't worry, check back tomorrow and you will have a new batch of 12 singles waiting for
+                            you!
+                        </p>
+                        <p *ngIf="!user.memberFlg" class="gray-text">Note: <span [routerLink]="['/upgrade-member']"
+                                class="text-link">Upgrading</span> to
+                            Gold Member boosts your total number of singles to 20 per day, along with a bunch of
+                            other benfits.</p>
                     </div>
                 </div>
-            </div>
-            <div *ngIf="!loadingFlg && id == 4 && !exceededPoolSizeFlg && !user.showHeartFormFlg">
-                <p>No admirers at the moment.</p>
-                <div style="text-align: left;" class="small-gray-text">
-                    <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
-                    <div style="padding-left: 30px;">
-                        <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your profile.
-                        </li>
-                        <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
-                        <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way for
-                            others
-                            to
-                            find you.</li>
-                        <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
-                                class="text-link">Upgrade</span> in order to
-                            maximize your exposure.</li>
+                <div *ngIf="profileViews>0">
+                    <div *ngIf="id == 4">
+                        <p>No admirers at the moment.</p>
+                        <div style="text-align: left;" class="small-gray-text">
+                            <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
+                            <div style="padding-left: 30px;">
+                                <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your
+                                    profile.
+                                </li>
+                                <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
+                                <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way
+                                    for
+                                    others to find you.</li>
+                                <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
+                                        class="text-link">Upgrade</span> in order to
+                                    maximize your exposure.</li>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="id != 4">
+                        <div>
+                            <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
+                            <p>Sorry, no more profiles found.</p>
+                            <p *ngIf="!showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
+                                joining
+                                constantly. Check back soon.</p>
+                            <div *ngIf="id == 2 && showExpandedSearchPopupFlg && !advancedSearchFlg && profileViews>0">
+                                <p class="gray-text">You have already said "Yes" or "No" to everyone in the database.
+                                    This
+                                    is a
+                                    new
+                                    app and people are just starting to sign up. Check back soon. If you would like to
+                                    reset
+                                    your
+                                    "No" matches and revisit the people you declined, visit the "<span
+                                        [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
+                            </div>
+                            <div *ngIf="advancedSearchFlg && profileViews>0">
+                                <p>Try expanding your search or simply
+                                    press
+                                    the "Browse" button to bring back possible matches.</p>
+                                <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI
+                                    that
+                                    continueously expands your search options until matches are returned.
+                                    If you are getting no results after pressing that button, it means you have already
+                                    viewed
+                                    every
+                                    person in the database meeting your gender requirements.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!--- match card user && !matchUser -->
 
-        <div *ngIf="searchStarted && !loadingFlg && profileViews == 0 && !uid" class="matches-card">
-            <div style="font-size: 64px;">🥲</div>
-            <div>Swipes used up!</div>
-            <div style="text-align: left;">
-                <p class="gray-text">Sorry, you have used up all your swipes for today. You get to view 12 new singles
-                    each day and have already gone through your batch.
-                    But don't worry, check back tomorrow and you will have a new batch of 12 singles waiting for you!
-                </p>
-                <p *ngIf="!user.memberFlg" class="gray-text">Note: <span [routerLink]="['/upgrade-member']"
-                        class="text-link">Upgrading</span> to
-                    Gold Member boosts your total number of singles to 20 per day, along with a bunch of
-                    other benfits.</p>
-            </div>
-        </div>
+
 
         <app-match-snapshot *ngIf="!commentsOnlyFlg && matchUser && user && (profileViews > 0 || uid > 0)"
             (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id" [matchUser]="matchUser"
@@ -162,7 +174,7 @@
             </app-user-requests>
 
             <app-user-communication
-                *ngIf="matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y' || messageCount>0"
+                *ngIf="1 || matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y' || messageCount>0"
                 [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
             </app-user-communication>
 
@@ -188,7 +200,7 @@
         Profile swipes remaining: <span class="text-highlight" style="font-size: 18px;">{{profileViews}}</span>
     </div>
     <i (mousedown)="showBigPopupFlg=false" class="fa fa-times times-button"
-    style="position: fixed; top: 5px; right: 5px; font-size: 16px; text-shadow: 3px 3px 4px pink; cursor: pointer;"></i>
+        style="position: fixed; top: 5px; right: 5px; font-size: 16px; text-shadow: 3px 3px 4px pink; cursor: pointer;"></i>
 
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 100px; background-color: white; opacity: .7;">
     </div>

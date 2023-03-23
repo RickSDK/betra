@@ -58,10 +58,10 @@
 </div>
 <div class="outer-frame" >
     <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'40px':'0px'">
-        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Home' && pageTitle != 'Profile'">
+        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Home' && pageTitle != 'Profile'" class="tan-box">
             Finish Setting up your profile <button [routerLink]="['']" class="btn btn-danger">Profile</button>
         </div>
-        <table width="100%" border="0">
+        <table *ngIf="showPageFlg" width="100%" border="0">
             <tr>
                 <td *ngIf="userId>0 && userStatus == 'Active'" class="hide-sm" width="200" style="width: 200px;"
                     valign="top">

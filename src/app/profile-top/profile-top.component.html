@@ -15,7 +15,7 @@
                 <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle plus-icon"></i>
                 <i *ngIf="largeImageFlg" (mousedown)="toggleImage()" class="fa fa-minus-circle plus-icon"></i>
                 <i *ngIf="user.picCertificateFlg" class="fa fa-certificate verified-cirtificate"></i>
-                <span [routerLink]="['/reputation']" class="reputation-score"
+                <span *ngIf="user.reputationScore>0" [routerLink]="['/reputation']" class="reputation-score"
                     title="Reputation Score">{{user.reputationScore}}</span>
                 <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron"
                     style="left: 10px;"></i>
@@ -166,28 +166,32 @@
                         </app-green-check>
                     </div>
 
-
                     <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;"
                         class="important-notice">
+                        <div *ngIf="!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 2">
+                            <p *ngIf="user.matchObj.match_interested == 'B'">
+                                Sorry, but you have been placed on {{user.firstName}}'s back burner.
+                            </p>
+                            <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each other
+                                before texting. Click the green
+                                "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
+                            </div>
+                            <div *ngIf="user.matchObj.you_interested == 'Y' && user.matchObj.match_interested == 'N'">
+                                Unfortunately, this person is not
+                                interested in you. Keep browsing!</div>
+                            <div *ngIf="user.matchObj.you_interested == 'Y'">
+                                This person is aware that you are interested. If they say 'Yes' to you, you will be able to communicate. Keep your fingers crossed!</div>
+                            <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not interested
+                                in this person.
+                                If that is a mistake, go to the Settings tab and reset your matches.
+                            </div>
+
+                        </div>
                         <div *ngIf="user.matchObj.match_level == 2">
                             With Betra, the first contact must be from a dropdown Ice Breaker. If you get a response back, you can begin to freely text! See Ice Breaker below.
                         </div>
                         <div *ngIf="user.matchObj.match_level == 3">
                             Almost there! You must get a response back from each other's Ice Breaker questions to begin texting. See below.
-                        </div>
-                        <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each other
-                            before texting. Click the green
-                            "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
-                        </div>
-                        <div *ngIf="0 && !user.matchObj.showButtonsFlg">Sorry, you must be matched up to communicate.</div>
-                        <div *ngIf="user.matchObj.you_interested == 'Y' && user.matchObj.match_interested == 'N'">
-                            Unfortunately, this person is not
-                            interested in you. Keep browsing!</div>
-                        <div *ngIf="user.matchObj.you_interested == 'Y' && !user.matchObj.match_interested">
-                            This person is aware that you are interested. If they say 'Yes' to you, you will be able to communicate. Keep your fingers crossed!</div>
-                        <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not interested
-                            in this person.
-                            If that is a mistake, go to the Settings tab and reset your matches.
                         </div>
                     </div>
                     <div *ngIf="user.matchObj.match_level == 1 && user.matchObj.match_interested == 'Y'"

@@ -65,6 +65,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
       this.searchStarted = !this.showFilter;
 
+
       if (this.uid > 0)
         this.loadThisUser();
       else if (this.id == 4) {
@@ -81,6 +82,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.pageTitle = 'Browse';
         this.showBigPopupFlg = true;
         this.showYesNoButtonsFlg = true;
+
         if (!this.showFilter)
           this.browseSingles('findMatches');
       }
@@ -130,6 +132,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
 
   browseSingles(action: string) {
+    this.searchStarted = false;
     this.matchUser = null;
     if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
       return;

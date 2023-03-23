@@ -151,9 +151,11 @@
                         href="https://play.google.com/apps/publish/?account=6357535332490911568#AppListPlace"
                         target="_new">https://play.google.com/apps/publish/</a></li>
                 <li>Click "Betra Dating"</li>
+                <li>Click Production, "Create new release"</li>
                 <li>Release > Production, upload bundle (betra/android/app/release/app-release.aab)</li>
                 <li>Verify correct version and Release name show up.</li>
                 <li>Add release notes, press Next</li>
+                <li>click, "Start rollout to Production", "Rollout"</li>
             </div>
         </div>
         <div class="tan-box">
@@ -175,6 +177,9 @@
                 <li>Top, click App --> Any IOS Device (arm64)</li>
                 <li>Product --> Archive</li>
                 <li>Click "Distribute App"</li>
+                <hr>
+                <li><a href="https://appstoreconnect.apple.com/login"
+                    target="new">https://appstoreconnect.apple.com/</a></li>
             </div>
         </div>
         <div class="tan-box">
@@ -193,6 +198,7 @@
                 <li>Product --> Archive</li>
             </div>
         </div>
+
         <div class="tan-box">
             <div><b>In-App Purchases with Capacitor</b>
                 <i (mousedown)="changeMenuNum(11)" class="fa fa-plus plus-sign"></i>
@@ -322,6 +328,17 @@
 
             </div>
         </div>
-
+        <div class="tan-box">
+            <div><b>Icons with Capacitor</b>
+                <i (mousedown)="changeMenuNum(13)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==13">
+                <li>npm install capacitor-resources</li>
+                <li>Create the folder which is named "resources" under the root (same level as node_modules)</li>
+                <li>Add your icon.png (1024x1024 px) and splash.png (2732x2732 px)</li>
+                <li>edit package.json, under "scripts", add: "resources": "capacitor-resources -p android,ios",</li>
+                <li>npm run resources</li>
+            </div>
+        </div>
     </div>
 </app-page-shell>

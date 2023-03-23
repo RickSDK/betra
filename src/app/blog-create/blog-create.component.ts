@@ -76,7 +76,10 @@ export class BlogCreateComponent extends BaseComponent implements OnInit {
 
   activeButtonPressed() {
     this.getDataFromServer('activateBlog', 'blog.php', { blogId: this.id });
-  
+  }
+
+  archiveButtonPressed() {
+    this.getDataFromServer('archiveBlog', 'blog.php', { blogId: this.id });
   }
 
   deleteButtonPressed() {

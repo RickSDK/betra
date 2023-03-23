@@ -26,6 +26,7 @@ export class OwnersMenuComponent implements OnInit {
     { name: 'Details', routerLink: '/owners', id: 1 },
     { name: 'Owners', routerLink: '/owner-users', id: 1 },
     { name: 'Stats', routerLink: '/owner-stats', id: 1 },
+    { name: 'Users', routerLink: '/recent-users', id: 1 },
   ]
   public buttons3 = [
     { name: 'Org Chart', routerLink: '/owner-teams', id: 0 },

@@ -15,7 +15,7 @@
             <button [routerLink]="['']" [queryParams]="{login: 2}" class="btn btn-grad btn-large">Create
                 Account</button>
         </div>
-        <div *ngIf="login>0 && platform == 'Web'" style="text-align: center; max-width: 320px;">
+        <div *ngIf="login>0 && platform != 'IOS'" style="text-align: center; max-width: 320px;">
             <div style="font-size: 10px; color: #444;">version: {{version}}</div>
             <table align="center">
                 <tr>

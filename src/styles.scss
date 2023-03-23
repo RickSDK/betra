@@ -59,8 +59,9 @@ body {
 }
 
 .btn-main-color:hover {
-    background-color: $button-highlight !important;
-    color: black !important;
+    background-color: #b7121f !important;
+    color: white !important;
+    box-shadow: 2px 2px 3px black;
 }
 
 .btn-large {
@@ -363,7 +364,6 @@ body {
 
 .red-button:hover {
     background-color: red;
-    ;
 }
 
 .tiny-text {

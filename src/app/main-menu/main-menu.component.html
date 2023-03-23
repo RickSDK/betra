@@ -28,28 +28,32 @@
         </table>
     </div>-->
 
-    <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" style="width: 100%;">
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click
         "settings" to log out and then try logging back in.</div>
 
-    <img src="assets/images/betraLogo.png" height="100">
+    <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" class="holiday-banner">
+    <img *ngIf="!holidayScr" src="assets/images/betraLogo.png" height="100">
     <div class="red-text">What would you like to do?</div>
     <div class="button-box" [routerLink]="['/user-detail']">
         <img [src]="browseScr" height="100%" width="100%" class="button-pic">
-        <div class="button-text">Find<br>Singles</div>
+        <div class="gray-screen2">&nbsp;</div>
+        <div class="button-text">Find Singles</div>
     </div>
     <div class="button-box" [routerLink]="['/matches']">
         <img src="assets/images/buttons/datePool.jpg" height="200" width="200" class="button-pic">
-        <div class="button-text">Dating<br>Pool</div>
+        <div class="gray-screen2">&nbsp;</div>
+        <div class="button-text">Dating Pool</div>
     </div>
     <div class="button-box" [routerLink]="['/blogs']">
         <img src="assets/images/buttons/blogs.jpg" height="200" width="200" class="button-pic">
-        <div class="button-text">Read<br>Blogs</div>
+        <div class="gray-screen2">&nbsp;</div>
+        <div class="button-text">Read Blogs</div>
     </div>
     <div class="button-box" [routerLink]="['/activity']">
         <img src="assets/images/buttons/activity.jpeg" height="200" width="200" class="button-pic">
-        <div class="button-text">View<br>Activity</div>
+        <div class="gray-screen">&nbsp;</div>
+        <div class="button-text">View Activity</div>
     </div>
     <!--<div *ngIf="user && userId>0">
         <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">

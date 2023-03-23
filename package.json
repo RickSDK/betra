@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "resources": "capacitor-resources -p android,ios",
     "test": "ng test"
   },
   "private": true,
@@ -25,6 +26,7 @@
     "@ionic-native/in-app-purchase-2": "^5.36.0",
     "@ionic/angular": "^6.5.6",
     "angularx-social-login": "^4.1.0",
+    "capacitor-resources": "^2.0.5",
     "cordova-plugin-purchase": "^13.3.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

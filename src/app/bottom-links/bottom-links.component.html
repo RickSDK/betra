@@ -1,0 +1,46 @@
+<div id="download" style="text-align: center; background-color: #1a1a1a; color: white;">
+    <div class="container-sm" style="max-width: 550px;">
+        <div class="row">
+            <div class="col">
+                <div class="link-section">
+                    <div style="color: gray;">Company</div>
+                    <div [routerLink]="['/contact']" class="white-link">Contact</div>
+                    <div [routerLink]="['/about']" class="white-link">About</div>
+                    <div [routerLink]="['/join-team']" class="white-link">Careers</div>
+                    <!--<div [routerLink]="['/press']" class="white-link">Press</div>-->
+                </div>
+            </div>
+            <div class="col">
+                <div class="link-section">
+                    <div style="color: gray;">Resouces</div>
+                    <div [routerLink]="['/blogs']" class="white-link">Blog</div>
+                    <div [routerLink]="['/safety-features']" class="white-link">Safety <span class="hide-xs">Features</span></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="link-section">
+                    <div style="color: gray;">Legal</div>
+                    <div [routerLink]="['/privacy-policy']" class="white-link">Privacy Policy</div>
+                    <div [routerLink]="['/terms-conditions']" class="white-link">Terms <span class="hide-xs">& Conditions</span></div>
+                    <div [routerLink]="['/cookies']" class="white-link">Cookie Policy</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="link-section">
+        <a [href]="'https://www.facebook.com/profile.php?id=100090469152111'" target="new"><i
+                class="fa fa-facebook social-media"></i></a>
+        <a [href]="'https://www.instagram.com/betradating/'" target="new"><i
+                class="fa fa-instagram social-media"></i></a>
+        <a href="https://twitter.com/BetraDating"><i class="fa fa-twitter social-media"></i></a>
+    </div>
+
+    <div>
+        <img *ngIf="0" src="assets/images/landing/appStore1.png" height="44" class="app-store">&nbsp;
+        <a href="https://play.google.com/store/apps/details?id=com.betradating" target="new"><img
+                src="assets/images/landing/appStore2.png" height="44" class="app-store"></a>    
+    </div>
+
+    <div style="padding: 20px; color: gray;">&copy; 2023 Betra, llc</div>
+</div>

@@ -102,6 +102,9 @@ import { DatingTipsComponent } from './dating-tips/dating-tips.component';
 import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
 import { BuildAppComponent } from './build-app/build-app.component';
 import { ActivityComponent } from './activity/activity.component';
+import { BottomLinksComponent } from './bottom-links/bottom-links.component';
+import { SafetyFeaturesComponent } from './safety-features/safety-features.component';
+import { RecentUsersComponent } from './recent-users/recent-users.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -204,6 +207,9 @@ import { ActivityComponent } from './activity/activity.component';
     DatingTipsComponent,
     BuildAppComponent,
     ActivityComponent,
+    BottomLinksComponent,
+    SafetyFeaturesComponent,
+    RecentUsersComponent,
   ],
   imports: [
     BrowserModule,

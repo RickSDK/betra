@@ -81,6 +81,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
       }
       this.datingPool.push(dpItem)
     }
+    //console.log('+++', this.datingPool);
   }
 
   ngOnChanges(changes: any) {

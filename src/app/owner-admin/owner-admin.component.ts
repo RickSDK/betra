@@ -101,6 +101,8 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     //console.log('params', params);
     if (reason > 0)
       this.executeApi('appApiCode.php', params, true);
+
+    this.showFakePicOptionsFlg = false;
   }
 
   flaggedUserButtonPressed(action: string) {
@@ -133,7 +135,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     this.showRecordFlg = false;
     this.responseJson = responseJson;
-    if(responseJson.action == 'approveRejectLink') {
+    if (responseJson.action == 'approveRejectLink') {
       this.menuNum = 0;
       this.getDataFromServer('getInfoObj', 'owners.php', []);
     }
@@ -180,7 +182,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     var params = {
       type: this.responseJson.action,
       uid: this.displayUser.user_id,
-      value: (flag)?'Y':'N'
+      value: (flag) ? 'Y' : 'N'
     }
     this.getDataFromServer('approveRejectLink', 'reputation.php', params);
   }

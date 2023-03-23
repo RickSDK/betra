@@ -11,6 +11,7 @@
             <i [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, c: 'Y'}"
                 class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
             <i class="fa fa-phone alert-icon" *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
+            <i class="fa fa-picture-o alert-icon" *ngIf="person.pictureAlert"></i>
 
             <div class="name-plate">
                 <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">

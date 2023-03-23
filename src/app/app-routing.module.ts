@@ -48,10 +48,14 @@ import { SecurityComponent } from './security/security.component';
 import { DatingTipsComponent } from './dating-tips/dating-tips.component';
 import { BuildAppComponent } from './build-app/build-app.component';
 import { ActivityComponent } from './activity/activity.component';
+import { SafetyFeaturesComponent } from './safety-features/safety-features.component';
+import { RecentUsersComponent } from './recent-users/recent-users.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'recent-users', component: RecentUsersComponent },
+  { path: 'safety-features', component: SafetyFeaturesComponent },
   { path: 'build-app', component: BuildAppComponent },
   { path: 'activity', component: ActivityComponent },
   { path: 'cookies', component: CookiesComponent },

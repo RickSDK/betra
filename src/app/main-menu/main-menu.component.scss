@@ -42,10 +42,8 @@
     max-width: 190px; 
     height: 190px;
     cursor: pointer;
-    border: 1px solid transparent;
 }
 .button-box:hover {
-    border: 1px solid white;
     box-shadow: 5px 5px 10px black;
     img {
         filter: grayscale(0%);
@@ -54,13 +52,25 @@
         text-shadow: 2px 2px black;
     }
 }
+.holiday-banner {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 2px 2px 3px gray;
+    width: 100%; 
+    max-width: 420px;
+}
+.gray-screen2 {
+    position: absolute; bottom: 0; left: 0; width: 190px; height: 44px; text-align: center;
+    background-color: black;
+    opacity: .5;
+}
 .button-text {
-    position: absolute; top: 30px; left: 0; width: 190px; text-align: center;
-    font-size: 32px;
+    position: absolute; bottom: 0; left: 0; width: 190px; text-align: center;
+    font-size: 24px;
     color: white;
     font-weight: 700;
     text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
-    padding: 10px;
+    padding: 5px;
 }
 
 .padded-box {
