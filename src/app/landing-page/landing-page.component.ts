@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { Blog } from '../classes/blog';
-import { Meta, Title} from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing-page',
@@ -17,10 +17,11 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
   public adsbygoogle: any;
   public blogList: any = [];
   public backgroundImg = 'assets/images/landing/roseHome.png';
+  public referralId: number = 0
   //public bgImg = 'assets/images/landing/logoBlack.png';
 
-  constructor(private meta: Meta, private title: Title, private route: ActivatedRoute, private router: Router) { 
-    super(); 
+  constructor(private meta: Meta, private title: Title, private route: ActivatedRoute, private router: Router) {
+    super();
     //this.meta.addTags([{name: 'description', content: 'Betra - Login'}]);
     //this.title.setTitle('Betra - Login');
   }
@@ -28,7 +29,7 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
     this.userId = localStorage['user_id'];
     //setTimeout(() => {
     //  (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
-   // }, 1000);
+    // }, 1000);
 
     if (this.userId > 0)
       this.gotoMainMenu();
@@ -36,11 +37,15 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
       //this.getDataFromServer('getStats', 'blog.php', []);
       this.route.queryParams.subscribe(params => {
         this.login = params['login'] || 0;
+        this.referralId = params['referralId'] || 0;
+        if (this.referralId > 0) {
+          this.login = 2;
+        }
       })
     }
- }
+  }
   toggleBackground() {
-    this.backgroundImg = (this.backgroundImg == 'assets/images/landing/background1.png')?'assets/images/landing/roseHome.png':'assets/images/landing/background1.png';
+    this.backgroundImg = (this.backgroundImg == 'assets/images/landing/background1.png') ? 'assets/images/landing/roseHome.png' : 'assets/images/landing/background1.png';
   }
   gotoMainMenu() {
     this.router.navigate(['home']);

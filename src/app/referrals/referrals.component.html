@@ -1,0 +1,20 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Referrals'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div class="matches-card">
+        <div>Your referral Link: <span class="text-highlight">https://www.betradating.com?referralId={{userId}}</span>
+            <i class="fa fa-clipboard icon" (mousedown)="copyText()"></i>
+            <span *ngIf="textCopiedFlg" style="color: green;">Copied</span>
+        </div>
+        <div class="gray-text">Give this link to friends who might be interested in Betra. If they sign up, you get
+            credit. The user with the most referrals after 90 days wins $500!</div>
+        <hr>
+        <div>Leading Referral Users</div>
+        <div *ngFor="let user of users">
+            <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="44">
+            </app-profile-pic> {{user.referralCount}}
+        </div>
+    </div>
+
+</app-page-shell>

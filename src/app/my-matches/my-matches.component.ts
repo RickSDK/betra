@@ -59,8 +59,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       if (this.infoObj.droppedBy > 0) {
         this.getDataFromServer('clearDroppedColumn', 'appApiCode2.php', []);
       }
-
     }
+    if (this.user.datingPool && this.user.datingPool.length == 0)
+      this.getDataFromServer('getMyLikes', 'appApiCode2.php', {});
   }
 
   chooseForRose(person: any) {
@@ -228,7 +229,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.refreshUserObj(responseJson.user);
       this.newlyAssignedRoseFlg = true;
     }
-    this.playerList = [];
     if (responseJson.action == 'refreshDatingPool') {
       console.log('xxxrefreshDatingPool', responseJson);
       this.refreshUserObj(responseJson.user);
@@ -238,9 +238,10 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {
+      this.playerList = [];
       responseJson.playerList.forEach((element: { [x: string]: string; name: any; }) => {
         var src = this.getImageFile(element['user_id'], element['profilePic']);
-        this.playerList.push({ name: element['name'], src: src, user_id: element['user_id'] })
+        this.playerList.push({ name: element['name'], src: src, user_id: element['user_id'], profilePic: element['profilePic'] })
       });
     }
   }

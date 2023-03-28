@@ -16,6 +16,7 @@ export class SideMenuComponent implements OnInit {
   public date2Count: number = 0;
   public ownerAlerts: number = 0;
   public infoObj: any = null
+  public toggleInteractMenu: boolean = true;
 
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
@@ -29,7 +30,7 @@ export class SideMenuComponent implements OnInit {
   public middleItems = [
     { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
     { name: 'Blogs', routerLink: '/blogs', icon: 'fa fa-file-text', id: 0 },
-   // { name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
+    // { name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
   ];
   public bottomItems = [

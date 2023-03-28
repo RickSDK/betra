@@ -41,6 +41,12 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     'What is your favorite sports team?',
     'What is your favorite restaurant?',
     'What do you like to do for fun?',
+    'Who is your favorite actor/actress?',
+    'What is your favorite movie of all time?',
+    'What is your favorite superhero?',
+    'What is your favorite breed of dog?',
+    'What do you think of Betra?',
+    'What is your favorite TV show?'
   ];
   public messageSentFlg: boolean = false;
   public disabledButtonFlg: boolean = true;

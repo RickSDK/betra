@@ -50,10 +50,14 @@ import { BuildAppComponent } from './build-app/build-app.component';
 import { ActivityComponent } from './activity/activity.component';
 import { SafetyFeaturesComponent } from './safety-features/safety-features.component';
 import { RecentUsersComponent } from './recent-users/recent-users.component';
+import { IosInstallComponent } from './ios-install/ios-install.component';
+import { ReferralsComponent } from './referrals/referrals.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'referrals', component: ReferralsComponent },
+  { path: 'ios-install', component: IosInstallComponent },
   { path: 'recent-users', component: RecentUsersComponent },
   { path: 'safety-features', component: SafetyFeaturesComponent },
   { path: 'build-app', component: BuildAppComponent },

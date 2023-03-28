@@ -19,7 +19,7 @@ export class ActivityComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
     this.getDataFromServer('getScrollData', 'scroll.php', {});
-
+    this.logUser();
     document.addEventListener('scroll', () => {
       this.checkIsVisible();
     })
@@ -28,7 +28,9 @@ export class ActivityComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     this.responseJson = responseJson;
-
+    if (responseJson.action == "logUser") {
+      this.syncUserWithLocalStorage(responseJson);
+    }
 
     if (responseJson.action == "getScrollData") {
       //this.blog1 = new Blog(responseJson.blogList[0]);

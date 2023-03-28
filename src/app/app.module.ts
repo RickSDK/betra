@@ -105,6 +105,8 @@ import { ActivityComponent } from './activity/activity.component';
 import { BottomLinksComponent } from './bottom-links/bottom-links.component';
 import { SafetyFeaturesComponent } from './safety-features/safety-features.component';
 import { RecentUsersComponent } from './recent-users/recent-users.component';
+import { ReferralsComponent } from './referrals/referrals.component';
+import { IosInstallComponent } from './ios-install/ios-install.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -210,6 +212,8 @@ import { RecentUsersComponent } from './recent-users/recent-users.component';
     BottomLinksComponent,
     SafetyFeaturesComponent,
     RecentUsersComponent,
+    ReferralsComponent,
+    IosInstallComponent,
   ],
   imports: [
     BrowserModule,

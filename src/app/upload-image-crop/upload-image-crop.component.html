@@ -7,7 +7,7 @@
             <label for="{{fileId}}">Select Image</label>
             <input type="file" accept="image/*" [id]="fileId" (change)="handleFileInput($event, id)">
         </div>
-        <img *ngIf="src && !showImageFlg" id="myImg" [src]="src" class="profile-image-upload">
+        <img *ngIf="src && disableUploadButton" id="myImg" [src]="src" class="profile-image-upload">
     </div>
 
     <div *ngIf="showImageFlg">
@@ -37,7 +37,7 @@
                     <div><a (mousedown)="cancelUpload()" class="text-link">Cancel</a></div>
                 </td>
                 <td align="center">
-                    <button (mousedown)="captureImage()" style="height: 60px;" class="btn btn-success">Upload</button>
+                    <button [disabled]="disableUploadButton" (mousedown)="captureImage()" style="height: 60px;" class="btn btn-success">Upload</button>
                 </td>
             </tr>
         </table>

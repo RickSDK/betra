@@ -48,10 +48,12 @@
         <div>&nbsp;</div>
 
         <div *ngIf="menuNum==0">
-            <div *ngIf="user.datingPool.length < datingPoolLimit" style="font-size: 12px; color: gray;">You can have a
-                maximum of {{datingPoolLimit}} people in your
-                dating pool at any
-                time.</div>
+            <div *ngIf="user.datingPool.length==0" class="tan-box">
+                <div>Waiting to hear back from the following people:</div>
+                <app-profile-pic *ngFor="let person of playerList" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+                </app-profile-pic>
+                <div class="gray-text">As soon as one of them says yes to you, they will appear in your dating pool below.</div> 
+            </div>
 
             <app-dating-pool [user]="user" [largeFlg]="true" (messageEvent)="loadPopupUser($event)"></app-dating-pool>
 

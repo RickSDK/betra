@@ -35,6 +35,7 @@ export class UploadImageCropComponent implements OnInit {
   public imageLeft: number = 0;
   public lastLeft: number = 0;
   public lastTop: number = 0;
+  public disableUploadButton: boolean = true;
 
   constructor() { }
 
@@ -84,6 +85,7 @@ export class UploadImageCropComponent implements OnInit {
           this.ctx.drawImage(smallImage, 0, 0);
           this.imageWidth = smallImage.width;
           this.imageHeight = smallImage.height;
+          this.disableUploadButton = false;
           console.log('New Size: ', this.id, smallImage.src.length, smallImage.width, smallImage.height);
         };
 
@@ -131,6 +133,7 @@ export class UploadImageCropComponent implements OnInit {
     }
 
     this.ctx.drawImage(this.image, this.imageLeft, this.imageTop, width, height);
+    console.log('draw!');
 
   }
 
@@ -204,10 +207,15 @@ export class UploadImageCropComponent implements OnInit {
   }
 
   captureImage() {
-    this.showImageFlg = false;
     if (this.canvas)
       this.src = this.canvas.toDataURL('image/jpeg');
-    this.messageEvent.emit('upload');
+    this.disableUploadButton = true;
+
+    setTimeout(() => {
+      this.messageEvent.emit('upload');
+      console.log('hey! this.src', this.src);
+    }, 500);
+
   }
 
 

@@ -578,16 +578,20 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.loadingFlg = true;
     this.showSubmitButtonFlg = false;
 
-    setTimeout(() => {
+    var image = $('#myImg').attr('src');
+    if (!image) {
+      this.errorMessage = 'No image data found!';
+    } else {
       var params = {
         userId: this.user.user_id,
         code: localStorage['code'],
         action: 'updateMainImage',
         image: $('#myImg').attr('src')
       };
-      console.log('updateImageButtonClicked', params);
+      //console.log('updateImageButtonClicked', params);
       this.executeApi('appApiCode.php', params, true);
-    }, 1000);
+    }
+
   }
 
 }

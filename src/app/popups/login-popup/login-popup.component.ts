@@ -19,6 +19,8 @@ declare let getPlatform: any;
 })
 export class LoginPopupComponent extends BaseComponent implements OnInit {
   @Input('login') login: number = 0;
+  @Input('referralId') referralId: number = 0;
+  
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -45,6 +47,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     this.submitDisabled = !this.savedEmail;
+    this.forgotPasswordFlg = false;
 
     /*
     this.socialAuthService.authState.subscribe((user) => {
@@ -230,6 +233,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       code: localStorage['code'],
       firstName: firstName,
       facebookId: id,
+      referralId: this.referralId,
       provider: provider,
       action: 'facebookLogin'
     };
@@ -237,15 +241,17 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.executeApi('login.php', params, true);
   }
 
-  resetFlags() {
-    console.log('resetFlags');
+  resetFlags(login: number) {
+    console.log('resetFlags', login);
+    this.login = login;
+    this.forgotPasswordFlg = false;
     this.loadingFlg = false;
     this.facebookButtonPressedFlg = false;
     this.googleButtonPressedFlg = false;
     this.errorMessage = '';
   }
   loginPressed() {
-    this.resetFlags();
+    this.resetFlags(1);
     var email: string = $('#email').val();
     var password: string = $('#password').val();
 
@@ -263,7 +269,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.executeApi('login.php', params, true);
   }
   forgotPasswordPressed() {
-    this.resetFlags();
+    this.resetFlags(this.login);
     var email: string = $('#email').val();
     if (!email || email.length == 0) {
       this.errorMessage = 'enter your email address';
@@ -307,7 +313,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   //------------------ signup------------------
 
   signupPressed() {
-    this.resetFlags();
+    this.resetFlags(2);
     if(!this.policyCheckboxChecked) {
       this.errorMessage = 'Please accept the policy disclaimer by checking the box above the signup button.';
       return;
@@ -327,6 +333,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     var params = {
       email: email,
       code: code,
+      referralId: this.referralId,
       firstName: firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1),
       findLoveFlg: 'Y',
       action: 'createAccount'

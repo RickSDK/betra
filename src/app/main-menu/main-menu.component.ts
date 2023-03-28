@@ -81,7 +81,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     }
     window.scrollTo(0, 0);*/
 
-
+    this.logUser();
     this.loadUserObj();
     this.userStatus = this.user.status;
     this.popupNum = 1;
@@ -221,12 +221,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     this.responseJson = responseJson;
 
-    if (responseJson.action == "getBlogs" && responseJson.blogList && responseJson.blogList.length > 4) {
-      this.blog1 = new Blog(responseJson.blogList[4]);
-      this.blog2 = new Blog(responseJson.blogList[5]);
-      this.blog3 = new Blog(responseJson.blogList[6]);
-      this.blog4 = new Blog(responseJson.blogList[7]);
-    }
     /*if (responseJson.action == "getScrollData") {
       //this.blog1 = new Blog(responseJson.blogList[0]);
       //this.blog2 = new Blog(responseJson.blogList[1]);

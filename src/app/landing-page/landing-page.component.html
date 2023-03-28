@@ -5,13 +5,14 @@
     <table width="100%" style="color: white; font-size: 16px; top: 0; left: 0; position: absolute;">
         <tr>
             <td align="center" style="padding-top: 20px;">
-                <app-login-popup [login]="login" (messageEvent)="userIsLoggedIn($event)">
+                <app-login-popup [login]="login" [referralId]="referralId" (messageEvent)="userIsLoggedIn($event)">
                 </app-login-popup>
             </td>
         </tr>
     </table>
 
-    <span *ngIf="login!=1" (mousedown)="login=1" [routerLink]="['']" [queryParams]="{login: 1}" class="main-color-bg login-round">
+    <span *ngIf="login!=1" (mousedown)="login=1" [routerLink]="['']" [queryParams]="{login: 1}"
+        class="main-color-bg login-round">
         Log<br>
         In
     </span>
@@ -39,7 +40,8 @@
                         send texts and pics, go on dates, hand out roses to your favorites, and finally narrow it down
                         to
                         the person you want to start seeing.</p>
-                    <p>Not only is it the safest way to date, it's also fun, it's exciting and it's free. Get started today!</p>
+                    <p>Not only is it the safest way to date, it's also fun, it's exciting and it's free. Get started
+                        today!</p>
                 </div>
                 <div style="text-align: center;">
                     <img src="assets/images/rose1.png" height="100">

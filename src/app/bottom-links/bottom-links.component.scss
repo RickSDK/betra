@@ -17,6 +17,16 @@
     margin: 4px;
 }
 
+.app-store {
+    cursor: pointer;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.app-store:hover {
+    border: 1px solid white;
+}
+
 .social-media:hover {
     color: black;
 }

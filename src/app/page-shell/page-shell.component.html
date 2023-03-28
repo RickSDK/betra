@@ -2,7 +2,7 @@
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
             <td *ngIf="pageTitle != 'Home'">
-                <i *ngIf="platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button hide-back"></i>&nbsp;
+                <i *ngIf="0 && platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button hide-back"></i>&nbsp;
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
 
             </td>
@@ -92,9 +92,9 @@
         </table>
     </div>
 
-
-    <app-bottom-bar *ngIf="pageTitle != 'Profile'" [stickyBottomFlg]="stickyBottomFlg"></app-bottom-bar>
+    <app-bottom-bar *ngIf="0 && pageTitle != 'Profile'" [stickyBottomFlg]="stickyBottomFlg"></app-bottom-bar>
 </div>
+<app-bottom-links></app-bottom-links>
 
 
 <div class="menu-darkener" *ngIf="showMainMenuFlg" (mousedown)="showMainMenuFlg=false"></div>

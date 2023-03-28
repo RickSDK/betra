@@ -55,11 +55,12 @@
                     class="btn btn-main-color btn-large">Submit</button>
 
                 <div style="margin-top: 10px;">
-                    <span (mousedown)="resetFlags()" [routerLink]="['']" [queryParams]="{login: 2}"
+                    <span (mousedown)="resetFlags(2)" [routerLink]="['']" [queryParams]="{login: 2}"
                         class="hyper-link">Create
                         Account</span>&nbsp;&nbsp;&nbsp;
                     <span (mousedown)="forgotPasswordFlg = !forgotPasswordFlg" class="hyper-link"
-                        style="font-size: 12px; color: #ccc;">Forgot Password</span>
+                        style="font-size: 12px; color: #ccc;"><span *ngIf="!forgotPasswordFlg">Forgot
+                            Password</span><span *ngIf="forgotPasswordFlg">Login</span></span>
                 </div>
             </div>
         </div>
@@ -76,14 +77,15 @@
             <p style="font-size: 10px; color: #ccc;">
                 <i (mousedown)="policyCheckboxChecked=!policyCheckboxChecked"
                     [ngClass]="policyCheckboxChecked?'fa fa-check-square-o':'fa fa-square-o'"
-                    style="font-size: 14px; cursor: pointer;"></i> By Signing up, I have read and agree to the <span [routerLink]="['/privacy-policy']"
-                    class="hyper-link">Privacy
+                    style="font-size: 14px; cursor: pointer;"></i> By Signing up, I have read and agree to the <span
+                    [routerLink]="['/privacy-policy']" class="hyper-link">Privacy
                     Policy</span>, <span [routerLink]="['/terms-conditions']" class="hyper-link">Terms</span> and <span
                     [routerLink]="['/cookies']" class="hyper-link">Cookie Policy</span>.
             </p>
+            <div *ngIf="referralId>0" style="font-size: 10px;">This is a referral link!</div>
             <button (mousedown)="signupPressed()" class="btn btn-main-color btn-large">Sign Up!</button>
             <div style="text-align: center; margin-top: 10px;">
-                <span [routerLink]="['']" [queryParams]="{login: 1}" class="hyper-link">Already have an account?</span>
+                <span (mousedown)="resetFlags(1)" [routerLink]="['']" [queryParams]="{login: 1}" class="hyper-link">Already have an account?</span>
             </div>
         </div>
         <table *ngIf="login>0" width="100%" border="0" style="margin-top: 40px;">

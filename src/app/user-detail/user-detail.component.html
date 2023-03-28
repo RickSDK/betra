@@ -8,7 +8,7 @@
         <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic"
             [size]="30"></app-profile-pic>
 
-        <div *ngIf="searchStarted && id == 2" class="match-card">
+        <div *ngIf="searchStarted && id == 2 && profileViews>0" class="match-card">
             <div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
                 <i class="fa fa-times" style="float: right"></i>
                 <p style="font-size: 16px" class="red-text">Your <b><i class="fa fa-users"></i> Dating Pool</b> is
@@ -54,7 +54,7 @@
         </app-advanced-filters>
         <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
 
-        <div *ngIf="showExpandedSearchPopupFlg && !loadingFlg" class="warning-search-popup">
+        <div *ngIf="profileViews > 0 && showExpandedSearchPopupFlg && !loadingFlg && matchUser" class="warning-search-popup">
             <p>
                 Note: This is a new dating app that has just launched.
                 Your initial search returned very few potential matches so we expanded the search parameters to ignore
@@ -65,41 +65,41 @@
         </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div class="matches-card" *ngIf="user && !matchUser && !loadingFlg && !uid">
-            <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
+        <div *ngIf="searchStarted && profileViews == 0 && user && !loadingFlg && !uid" class="matches-card">
+            <div style="font-size: 64px;">🥲</div>
+            <div>Swipes used up!</div>
+            <div style="text-align: left;">
+                <p class="gray-text">Sorry, you have used up all your swipes for today. You get to view 12 new
+                    singles
+                    each day and have already gone through your batch.
+                    But don't worry, check back tomorrow and you will have a new batch of 12 singles waiting for
+                    you!
+                </p>
+                <p *ngIf="!user.memberFlg" class="gray-text">Note: <span [routerLink]="['/upgrade-member']"
+                        class="text-link">Upgrading</span> to
+                    Gold Member boosts your total number of singles to 20 per day, along with a bunch of
+                    other benfits.</p>
+            </div>
+        </div>
+        <div *ngIf="user && !loadingFlg && !uid">
+            <div class="matches-card" *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
-            <div *ngIf="exceededPoolSizeFlg">
+            <div class="matches-card" *ngIf="exceededPoolSizeFlg">
                 <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
                 <p>Note: Visit your Dating Pool. You are over your limit and need to drop someone.</p>
                 <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                     Dating Pool</button>
             </div>
-            <div *ngIf="user.showHeartFormFlg">
+            <div class="matches-card" *ngIf="user.showHeartFormFlg">
                 <div><img src="assets/images/rose1.png" width="100"></div>
                 <p>Note: Visit your Dating Pool. You need to give someone a rose before proceeding.</p>
                 <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
                     Dating Pool</button>
             </div>
             <div *ngIf="searchStarted">
-                <div *ngIf="profileViews == 0">
-                    <div style="font-size: 64px;">🥲</div>
-                    <div>Swipes used up!</div>
-                    <div style="text-align: left;">
-                        <p class="gray-text">Sorry, you have used up all your swipes for today. You get to view 12 new
-                            singles
-                            each day and have already gone through your batch.
-                            But don't worry, check back tomorrow and you will have a new batch of 12 singles waiting for
-                            you!
-                        </p>
-                        <p *ngIf="!user.memberFlg" class="gray-text">Note: <span [routerLink]="['/upgrade-member']"
-                                class="text-link">Upgrading</span> to
-                            Gold Member boosts your total number of singles to 20 per day, along with a bunch of
-                            other benfits.</p>
-                    </div>
-                </div>
-                <div *ngIf="profileViews>0">
+                <div class="matches-card" *ngIf="profileViews>0 && !matchUser">
                     <div *ngIf="id == 4">
                         <p>No admirers at the moment.</p>
                         <div style="text-align: left;" class="small-gray-text">

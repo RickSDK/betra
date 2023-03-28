@@ -21,6 +21,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
       this.menuNum = parseInt(params['id']) || 0;
     });
     this.selectMenuOption(this.menuNum);
+    this.logUser();
   }
 
   selectMenuOption(num: number) {
@@ -33,6 +34,9 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == "logUser") {
+      this.syncUserWithLocalStorage(responseJson);
+    }
     if (responseJson.action == 'loadUserMessages' || responseJson.action == 'loadUnreadMessages') {
       this.playerList = [];
       if (responseJson.players && responseJson.players.length > 0 && responseJson.players[0].user_id > 0)
