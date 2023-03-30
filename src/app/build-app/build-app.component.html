@@ -138,10 +138,11 @@
                 <li>ng build --prod</li>
                 <li>npx cap sync</li>
                 <li>npx cap open android <span class="gray-text">(takes about 5 minutes)</span></li>
-                <li>Press green triangle <span class="gray-text">(takes about 5 minutes)</span></li>
+                <li>Press green triangle <span class="gray-text">(takes about 15 minutes)</span></li>
                 <li>Select "Build" tab at the bottom to see progress</li>
                 <li>Verify app looks good</li>
                 <li>Update android/app/build.gradle, incriment versionCode by 1, write new version in versionName.</li>
+                <li>Press red Square to stop</li>
                 <li>Build --> Clean Project</li>
                 <li>Click "Build --> Generate Signed Bundle", select "Android App Bundle", click "Next", betraKey99z
                 </li>
@@ -338,6 +339,20 @@
                 <li>Add your icon.png (1024x1024 px) and splash.png (2732x2732 px)</li>
                 <li>edit package.json, under "scripts", add: "resources": "capacitor-resources -p android,ios",</li>
                 <li>npm run resources</li>
+            </div>
+        </div>
+        <div class="tan-box">
+            <div><b>Admob</b>
+                <i (mousedown)="changeMenuNum(14)" class="fa fa-plus plus-sign"></i>
+            </div>
+            <div *ngIf="menuNum==14">
+                <li><a href="https://apps.admob.com/v2/home?_ga=2.172739431.536938062.1680197870-11998480.1679965377&_gl=1*1qhsj3l*_ga*MTE5OTg0ODAuMTY3OTk2NTM3Nw..*_ga_6R1K8XRD9P*MTY4MDE5Nzg3MC4zLjAuMTY4MDE5Nzg3MC4wLjAuMA..">Admob</a></li>
+                <li>npm install @capacitor-community/admob</li>
+                <li>npx cap update</li>
+                <li>Instructions: https://github.com/capacitor-community/admob</li>
+                <li><a href="https://developers.google.com/admob/android/quick-start#import_the_mobile_ads_sdk">https://developers.google.com/admob/android/quick-start#import_the_mobile_ads_sdk</a></li>
+                <li>AppId: ca-app-pub-2626924352662007~5344839130</li>
+                <li>Ad Unit: ca-app-pub-2626924352662007/1324088676</li>
             </div>
         </div>
     </div>

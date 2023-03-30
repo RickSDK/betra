@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../classes/user';
 import { Location } from "@angular/common";
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
+
 //import { AdsenseModule } from 'ng2-adsense';
 
 declare var getVersion: any;
@@ -12,6 +14,27 @@ declare var getPlatform: any;
   templateUrl: './page-shell.component.html',
   styleUrls: ['./page-shell.component.scss']
 })
+
+/*export async function banner(): Promise<void> {
+  AdMob.addListener(BannerAdPluginEvents.Loaded, () => {
+    // Subscribe Banner Event Listener
+  });
+
+  AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size: AdMobBannerSize) => {
+    // Subscribe Change Banner Size
+  });
+
+  const options: BannerAdOptions = {
+    adId: 'YOUR ADID',
+    adSize: BannerAdSize.BANNER,
+    position: BannerAdPosition.BOTTOM_CENTER,
+    margin: 0,
+    // isTesting: true
+    // npa: true
+  };
+  AdMob.showBanner(options);
+}*/
+
 export class PageShellComponent implements OnInit {
   @Input('userId') userId: number = 0;
   @Input('userStatus') userStatus: string = '';
@@ -33,6 +56,7 @@ export class PageShellComponent implements OnInit {
   constructor(private router: Router, private location: Location) { }
 
   ngOnInit(): void {
+    //AdMob.initialize('ca-app-pub-3940256099942544/6300978111');
     this.appVersion = getVersion();
     this.showPromotionalBoxesFlg = true;
     this.showAboutInfoFlg = true;

@@ -1,4 +1,4 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Admin'" [userId]="userId" [imgSrcFile]="imgSrcFile"
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owners'" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
@@ -9,6 +9,7 @@
         <hr>
         <div>
             <span [routerLink]="['/upgrade-member']" class="text-link">Membership Page</span>&nbsp;
+            <span [routerLink]="['/media']" class="text-link">Media</span>&nbsp;
             <span [routerLink]="['/reviews']" class="text-link">User Reviews</span>    
         </div>
 

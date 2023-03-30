@@ -4,4 +4,5 @@
     <string name="title_activity_main">betra</string>
     <string name="package_name">com.betradating</string>
     <string name="custom_url_scheme">com.betradating</string>
+    <string name="admob_app_id">ca-app-pub-2626924352662007~5344839130</string>
 </resources>

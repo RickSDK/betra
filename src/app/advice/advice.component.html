@@ -1,0 +1,14 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Advice'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
+
+    <div class="matches-card" style="text-align: center;">
+        <div class="tan-box">
+            Upgraded Gold Members get advice automatically from our experts! Feel free to post questions or tell us
+            about your situation and we will be happy to help you find love!
+            <button *ngIf="user && !user.memberFlg" class="btn btn-main-color btn-small">Upgrade</button>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+    </div>
+
+</app-page-shell>

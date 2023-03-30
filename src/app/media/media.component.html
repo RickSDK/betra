@@ -1,0 +1,21 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
+    [pageTitle]="'Media'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" *ngIf="user" style="padding: 10px 0 10px 0;">
+
+        <div class="tan-box">
+            These items are currently being used to advertise for Betra. Feel free to use or share them with anyone you like.
+        </div>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/h629qNVdblk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <p>
+            <a href="https://www.youtube.com/watch?v=h629qNVdblk">https://www.youtube.com/watch?v=h629qNVdblk</a>
+        </p>
+        <p>
+            <a href="https://www.dropbox.com/s/z7ioc2tf6mhee31/betraAd.mp4?dl=0">File on Dropbox</a>
+        </p>
+        <hr>
+        <img *ngFor="let image of images" [src]="image" class="image">
+    </div>
+</app-page-shell>

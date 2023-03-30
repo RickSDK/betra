@@ -20,7 +20,7 @@ export class ReferralsComponent extends BaseComponent implements OnInit {
   copyText() {
     var copyText = 'https://www.betradating.com?referralId=' + this.userId;
     // Copy the text inside the text field
-    if(navigator && navigator.clipboard) {
+    if (navigator && navigator.clipboard) {
       navigator.clipboard.writeText(copyText);
       this.textCopiedFlg = true;
     }

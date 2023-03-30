@@ -52,11 +52,15 @@ import { SafetyFeaturesComponent } from './safety-features/safety-features.compo
 import { RecentUsersComponent } from './recent-users/recent-users.component';
 import { IosInstallComponent } from './ios-install/ios-install.component';
 import { ReferralsComponent } from './referrals/referrals.component';
+import { MediaComponent } from './media/media.component';
+import { AdviceComponent } from './advice/advice.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'referrals', component: ReferralsComponent },
+  { path: 'advice', component: AdviceComponent },
+  { path: 'media', component: MediaComponent },
   { path: 'ios-install', component: IosInstallComponent },
   { path: 'recent-users', component: RecentUsersComponent },
   { path: 'safety-features', component: SafetyFeaturesComponent },
