@@ -2,8 +2,11 @@
     [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
-
-
+        <div style="text-align: center;">
+            <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
+            <img src="assets/images/betraLogo.png" height="25" style="float: right;">
+        </div>
+        <hr>
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>

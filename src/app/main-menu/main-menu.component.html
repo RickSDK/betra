@@ -1,123 +1,24 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle"
     [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <!--<div *ngIf="userId==0">
-        <img *ngIf="!headerObj.profileCompleteFlg" class="background-img hide-md" src="assets/images/landing/loveBG.jpg"
-            alt="">
-
-        <div *ngIf="!headerObj.profileCompleteFlg" class="carousel-wrapper show-md">
-            <div class="carousel-container">
-                <div class="carousel">
-                    <img src="assets/images/bachelor1.jpg">
-                    <img src="assets/images/bachelor2.jpg">
-                    <img src="assets/images/bachelor3.jpg">
-                </div>
-            </div>
-        </div>
-
-        <table width="100%">
-            <tr>
-                <td>
-                    <div style="height: 100vh;">&nbsp;
-                    </div>
-                </td>
-                <td width="310">
-                    <app-sign-up-popup *ngIf="login!=1" (messageEvent)="userIsLoggedIn($event)"></app-sign-up-popup>
-                </td>
-            </tr>
-        </table>
-    </div>-->
-
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click
         "settings" to log out and then try logging back in.</div>
 
     <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" class="holiday-banner">
-    <img *ngIf="!holidayScr" src="assets/images/betraLogo.png" height="100">
+    <img src="assets/images/betraLogo.png" height="25">
     <div class="red-text">What would you like to do?</div>
-    <div class="button-box" [routerLink]="['/user-detail']">
+    <div class="button-box" [routerLink]="['/browse-singles']">
         <img [src]="browseScr" height="100%" width="100%" class="button-pic">
         <div class="gray-screen2">&nbsp;</div>
         <div class="button-text">Find Singles</div>
     </div>
-    <div class="button-box" [routerLink]="['/matches']">
-        <img src="assets/images/buttons/datePool.jpg" height="200" width="200" class="button-pic">
+    <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
+        <img [src]="button.src" height="200" width="200" class="button-pic">
         <div class="gray-screen2">&nbsp;</div>
-        <div class="button-text">Dating Pool</div>
+        <div class="button-text">{{button.name}}</div>
     </div>
-    <div class="button-box" [routerLink]="['/blogs']">
-        <img src="assets/images/buttons/blogs.jpg" height="200" width="200" class="button-pic">
-        <div class="gray-screen2">&nbsp;</div>
-        <div class="button-text">Read Blogs</div>
-    </div>
-    <div class="button-box" [routerLink]="['/activity']">
-        <img src="assets/images/buttons/activity.jpeg" height="200" width="200" class="button-pic">
-        <div class="gray-screen">&nbsp;</div>
-        <div class="button-text">View Activity</div>
-    </div>
-    <!--<div *ngIf="user && userId>0">
-        <app-dating-pool *ngIf="headerObj.profileCompleteFlg && user" [user]="user" [largeFlg]="false">
-        </app-dating-pool>
-
-        <div *ngIf="userStatus=='Active'" class="match-card">
-            <div class="main-color" style="font-size: 18px; font-weight: 700;"><i class="fa fa-heart"></i> Welcome to
-                Betra!
-            </div>
-
-            <div class="padded-box">
-                <p *ngIf="!user.datingPool || user.datingPool.length < 2" style="font-size: 12px; color: black;">Your
-                    first step is to find singles that you like. If they like
-                    you back, they will show up in your <span class="red-text"><i class="fa fa-users"></i> Dating
-                        Pool</span> and chatting can begin!</p>
-                <p *ngIf="user.datingPool.length >= 2 && user.datingPool.length < user.maxPoolSize">
-                    You still have room for more singles in your dating pool.
-                </p>
-                <p *ngIf="user.datingPool.length == user.maxPoolSize">
-                    Your dating pool is full, but feel free to keep browsing.
-                </p>
-                <p *ngIf="user.datingPool.length > user.maxPoolSize">
-                    You will need to move someone to your back burner before searching for more singles.
-                </p>
-                <button *ngIf="user.datingPool.length <= user.maxPoolSize" [routerLink]="['/user-detail']" class="btn btn-main-color btn-large"><i
-                        class="fa fa-search"></i> Browse Singles</button>
-                <button *ngIf="user.datingPool.length > user.maxPoolSize" [routerLink]="['/matches']" class="btn btn-main-color btn-large"><i
-                        class="fa fa-users"></i> Dating Pool</button>
-            </div>
-
-            <div *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
-                <p class="red-text">Note: Something is not set up properly with your location</p>
-                <p>Click here to fix.</p>
-            </div>
-            <div style="text-align: left;" class="gray-text">
-                <p>Betra is designed to be the "next generation" in dating, and guaranteed to be the most fun you will
-                    ever
-                    have with a dating app.</p>
-            </div>
-        </div>
-       <app-scroll-card (messageEvent)="clearItem(item)" *ngFor="let item of displayItems" [item]="item"></app-scroll-card>
-       <table *ngIf="blog1">
-        <tr>
-            <td>
-                <app-blog-cell [blog]="blog1" [shrinkSize]="2"></app-blog-cell>
-            </td>
-            <td>
-                <app-blog-cell [blog]="blog2" [shrinkSize]="2"></app-blog-cell>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <app-blog-cell [blog]="blog3" [shrinkSize]="2"></app-blog-cell>
-            </td>
-            <td>
-                <app-blog-cell [blog]="blog4" [shrinkSize]="2"></app-blog-cell>
-            </td>
-        </tr>
-       </table>
-       
-       
-       
-
-    </div>-->
+    
 
 </app-page-shell>
 

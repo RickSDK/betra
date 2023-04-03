@@ -20,7 +20,7 @@ export class SideMenuComponent implements OnInit {
 
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
-    { name: 'Browse', routerLink: '/user-detail', icon: 'fa fa-search', id: 2 },
+    { name: 'Browse', routerLink: '/browse-singles', icon: 'fa fa-search', id: 2 },
     { name: 'Dating Pool', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
     { name: 'Admirers', routerLink: '/user-detail', icon: 'fa fa-heart', id: 4 },
     //    { name: 'Online Today', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
@@ -62,7 +62,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   browseSelected(flag: boolean) {
-    this.router.navigate(['/user-detail'], { queryParams: { id: 2, filter: flag } });
+    this.router.navigate(['/browse-singles'], { queryParams: { id: 2, filter: flag } });
   }
 
   ngClassMenuItem(menuTitle: string) {

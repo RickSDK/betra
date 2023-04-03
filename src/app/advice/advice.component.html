@@ -2,12 +2,51 @@
     [stickyBottomFlg]="true">
 
     <div class="matches-card" style="text-align: center;">
-        <div class="tan-box">
+        <app-top-header [topTitle]="'Advice'"></app-top-header>
+
+        <table style="font-size: 12px;" width="100%">
+            <tr>
+                <td valign="top">
+                    <div class="top-item">
+                        <img [routerLink]="['/advice1']" src="assets/images/buttons/DatingTips.jpg" class="image">
+                        <div>Rules of Dating</div>
+                    </div>
+                </td>
+                <td valign="top">
+                    <div class="top-item">
+                        <img [routerLink]="['/advice2']" src="assets/images/buttons/advice2.png" class="image">
+                        <div>Online Dating Advice</div>
+                    </div>
+                </td>
+                <td valign="top">
+                    <div class="top-item">
+                        <img [routerLink]="['/advice3']" src="assets/images/buttons/advice3.jpg" class="image">
+                        <div>Online Profile Advice</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+        <div class="tan-box" style="font-size: 12px;">
             Upgraded Gold Members get advice automatically from our experts! Feel free to post questions or tell us
             about your situation and we will be happy to help you find love!
-            <button *ngIf="user && !user.memberFlg" class="btn btn-main-color btn-small">Upgrade</button>
+            <div *ngIf="user && responseJson && !responseJson.isIncluded" class="border-box">
+                <div>Would you like to sign up to receive advice?</div>
+                <button [disabled]="loadingFlg" (mousedown)="addMe()" class="btn btn-main-color btn-small">Add Me</button>&nbsp;
+            
+                <button *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']" class="btn btn-main-color btn-small">Upgrade</button>    
+            </div>
+            <div *ngIf="user && responseJson && responseJson.isIncluded" class="border-box">
+                <div>Would you like to remove yourself from this page?</div>
+                <button [disabled]="loadingFlg" (mousedown)="removeMe()" class="btn btn-main-color btn-small">Remove Me</button>&nbsp;
+            </div>
         </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="responseJson">
+            <app-advice-cell [admin]="user" [person]="person" *ngFor="let person of responseJson.users"></app-advice-cell>
+        </div>
 
     </div>
 

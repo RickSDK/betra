@@ -3,15 +3,23 @@
 
     <div class="matches-card"
         style="font-size: 14px; color: #444; position: relative; padding-bottom: 50px; min-height: 510px;" *ngIf="user">
-        <div class="btn-group" role="group" aria-label="Menu" style="box-shadow: 2px 2px 3px black;">
-            <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
-                [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
-            <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 3" class="btn btn-light">
-                <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
-            </button>
+
+        <div style="text-align: center;">
+            <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
+            <div class="btn-group" role="group" aria-label="Menu" style="box-shadow: 2px 2px 3px black;">
+                <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
+                    [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
+                <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 3" class="btn btn-light">
+                    <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
+                </button>
+            </div>
+            <img src="assets/images/betraLogo.png" height="25" style="float: right;">
         </div>
 
-        <div *ngIf="showHeartFormFlg || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
+
+
+
+        <div *ngIf="user.showHeartFormFlg || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
             <img src="assets/images/rose1.png" height="120" alt="Rose" title="Rose">
             <div style="font-size: 20px;">Give someone a rose!</div>
             <p class="tiny-text">Pick one person to indicate they are your favorite. Everyone

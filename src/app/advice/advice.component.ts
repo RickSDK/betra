@@ -15,4 +15,19 @@ export class AdviceComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('getAdviceUsers', 'advice.php', {});
   }
 
+  addMe() {
+    if(!this.user.memberFlg) {
+      this.errorMessage = 'You must upgrade to get this feature. Only $2!';
+      return;
+    }
+    this.getDataFromServer('addMe', 'advice.php', {});
+  }
+  removeMe() {
+    this.getDataFromServer('removeMe', 'advice.php', {});
+  }
+  override postSuccessApi(file: string, responseJson: any) {
+    if (responseJson.action == "getAdviceUsers") {
+      console.log('hey!', responseJson);
+    }
+  }
 }

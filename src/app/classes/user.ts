@@ -201,6 +201,10 @@ export class User {
     public linkedInUrlFlg: boolean = false;
     public potentialLoveInterestFlg: boolean = true;
     public expiration: string = ''
+    public exceededPoolSizeFlg: boolean = false;
+    public datingPoolLimit: number = 8;
+    public profileViews:number = 0;
+    public yourTitle:string = '';
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -215,6 +219,7 @@ export class User {
             this.gender = obj.gender;
             this.genderIcon = (obj.gender == 'M') ? 'fa fa-male' : 'fa fa-female';
             this.genderName = (obj.gender == 'M') ? 'male' : 'female';
+            this.yourTitle = (obj.gender == 'M') ? 'Bachelor' : 'Bachelorette';
             //this.findLoveFlg = obj.findLoveFlg == 'Y';
             this.findLoveFlg = true; // always true for this version
             this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
@@ -240,6 +245,7 @@ export class User {
                 this.longestRelationshipText = '1 year';
             this.numTattoos = obj.numTattoos || '0';
             this.numPiercings = obj.numPiercings || '0';
+            this.profileViews = obj.profileViews || 0;
 
             this.personalityQuizAnswers = obj.personalityQuizAnswers || '';
             this.politicalQuizAnswers = obj.politicalQuizAnswers || '';
@@ -459,8 +465,10 @@ export class User {
 
         });
         this.datingPool = datingPool;
+        this.datingPoolLimit = (this.memberFlg) ? 12 : 8;
+        this.exceededPoolSizeFlg = datingPool.length > this.datingPoolLimit;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
-
+    
         this.matchGender = (this.matchPreference == 'F') ? 'Women' : 'Men';
 
         if (this.matchPreference == 'A')

@@ -1,14 +1,21 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Journal'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div style="text-align: center;">
+        <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
+        <button *ngIf="journalId>0" [routerLink]="['/journal']" class="btn btn-light bordered-button">Back
+            to top</button>
+        <button *ngIf="journalId==0 && !showFormFlg" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create journal
+            entry</button>
+        <img src="assets/images/betraLogo.png" height="25" style="float: right;">
+    </div>
+
     <div class="tan-box" style="font-size: 12px;">
         Part of the vision of <span class="red-text">Betra</span> is about people helping people. Feel free to
         journal here about your dating experiences, hopes or expectations.
         Others can comment or give advice. It's fun and it's helpful because we are all in this together.
     </div>
-    <button *ngIf="journalId>0" [routerLink]="['/journal']" class="btn btn-light bordered-button">Back
-        to top</button>
-    <button *ngIf="journalId==0 && !showFormFlg" (mousedown)="createNewEntry()" class="btn btn-light bordered-button">Create journal
-        entry</button>
+
 
     <!--<div *ngIf="selectedJournal">
             <app-journal-cell (messageEvent)="replyButtonClicked($event)" [journal]="selectedJournal" [postId]="postId"

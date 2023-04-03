@@ -54,12 +54,26 @@ import { IosInstallComponent } from './ios-install/ios-install.component';
 import { ReferralsComponent } from './referrals/referrals.component';
 import { MediaComponent } from './media/media.component';
 import { AdviceComponent } from './advice/advice.component';
+import { Advice1Component } from './advice1/advice1.component';
+import { Advice2Component } from './advice2/advice2.component';
+import { Advice3Component } from './advice3/advice3.component';
+import { ContestComponent } from './contest/contest.component';
+import { ChatRoomComponent } from './chat-room/chat-room.component';
+import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
+import { LocationCheckComponent } from './location-check/location-check.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'browse-singles', component: BrowseSinglesComponent },
   { path: 'referrals', component: ReferralsComponent },
+  { path: 'location', component: LocationCheckComponent },
   { path: 'advice', component: AdviceComponent },
+  { path: 'advice1', component: Advice1Component },
+  { path: 'advice2', component: Advice2Component },
+  { path: 'advice3', component: Advice3Component },
+  { path: 'contest', component: ContestComponent },
+  { path: 'chat-room', component: ChatRoomComponent },
   { path: 'media', component: MediaComponent },
   { path: 'ios-install', component: IosInstallComponent },
   { path: 'recent-users', component: RecentUsersComponent },

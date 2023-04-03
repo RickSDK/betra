@@ -1,0 +1,16 @@
+.image {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 2px 2px 3px black;
+}
+
+.image:hover {
+    border: 1px solid white;
+    box-shadow: 3px 3px 5px black;
+}
+.top-item {
+    display: inline-block;
+    padding: 3px;
+}

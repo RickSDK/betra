@@ -36,6 +36,7 @@ export class TextWithEmojiComponent implements OnInit {
   submitValue() {
     var value = $('#messageInput').val();
     this.messageEvent.emit(value);
+    $('#messageInput').val('');
 
   }
 

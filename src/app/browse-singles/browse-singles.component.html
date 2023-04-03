@@ -1,0 +1,104 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Browse Singles'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
+
+    <div *ngIf="user" class="matches-card" style="text-align: center;">
+        <app-top-header [topTitle]="'Browse Singles'"></app-top-header>
+    </div>
+    <div *ngIf="user" class="matches-card" style="text-align: center;">
+
+        <div *ngIf="!loadingFlg">Swipes: <span class="text-highlight"
+                style="font-size: 18px;">{{user.profileViews}}</span>
+            &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg" class="text-link">What's
+                this?</span>
+        </div>
+        <div *ngIf="showProfileViewDetailsFlg" class="gray-text" style="padding-left: 10px; padding-right: 10px;">
+            <hr>
+            You can swipe up to 12 profiles per day. Say yes to as many as you like. If you get through your entire
+            batch
+            of 12, you will need to wait until tomorrow to get a new batch.
+        </div>
+    </div>
+    <div *ngIf="user" class="matches-card" style="text-align: center;">
+
+
+        <div>
+            <table *ngIf="userId==37 || user.datingPool.length < 5">
+                <tr>
+                    <td>
+                        <img src="assets/images/pics/hold-rose.jpg" width="100" style="border-radius: 5px; box-shadow: 2px 2px 3px gray;" alt="Holding a Rose">
+                    </td>
+                    <td style="padding: 5px;">
+                        <div class="red-text">{{user.firstName}} is the {{user.yourTitle}}!</div>
+                        <div class="gray-text" style="text-align: left;">Betra is different from any other dating app. As the
+                            {{user.yourTitle}}, your first job
+                            is to fill up your dating pool with interesting singles. Then eliminate them one at a time until you
+                            find your one true love.</div>
+                    </td>
+                </tr>
+            </table>
+
+
+            <div style="border: 1px solid gray; padding: 10px; margin: 5px; border-radius: 5px;">
+                <div class="gray-text">{{user.firstName}}'s Dating Pool</div>
+                <div *ngIf="user.datingPool.length==0">(empty)</div>
+                <img *ngFor="let person of user.datingPool" [src]="person.src" class="snapshot-img">
+            </div>
+            <div class="tan-box" *ngIf="user.exceededPoolSizeFlg">
+                <div class="red-text">You are over your limit!</div>
+                <div class="small-text">You have too many people in your dating pool and need to
+                    move someone to your back burner. Please
+                    fix that before browsing more singles.</div>
+                <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
+                    Dating Pool</button>
+            </div>
+            <div class="tan-box" *ngIf="user.datingPool.length == 0">
+                <div class="red-text">Your dating pool is empty!</div>
+                <p class="small-text">Your first job is to fill up your dating pool.
+                    Click the "Browse Singles" button below and click thumbs-up to as many people as possible.</p>
+                <p class="small-text">Once one of them likes you back, you can begin to communicate and hopefully end up
+                    on a fun date.</p>
+                <p class="small-text">Keep in mind, you only get 12 swipes per day, and then you will have to wait until
+                    tomorrow to view more singles.</p>
+            </div>
+            <div class="tan-box" *ngIf="user.datingPool.length == 1">
+                <div class="red-text">You found a match!</div>
+                <p class="small-text">This is very exciting. You have matched one person that you can now
+                    begin to communicate with.</p>
+                <p class="small-text">Click the "Browse Singles" button below to find more matches.
+                </p>
+            </div>
+            <div class="tan-box" *ngIf="user.datingPool.length == 2">
+                <div class="red-text">You now have 2 people in your dating pool!</div>
+                <p class="small-text">Who's the popular kid on the block? You are!</p>
+                <p class="small-text">Click the "Browse Singles" button below to find more singles.
+                </p>
+            </div>
+            <div class="tan-box" *ngIf="user.datingPool.length > 2 && user.datingPool.length < user.datingPoolLimit">
+                <div class="red-text">You now have {{user.datingPool.length}} matches.</div>
+                <p class="small-text">Click the "Browse Singles" button below to get more prospects into your dating pool.
+                </p>
+            </div>
+            <div class="tan-box" *ngIf="user.datingPool.length == user.datingPoolLimit">
+                <div class="red-text">Your dating pool is now full.</div>
+                <p class="small-text">Great job! Keep in mind you can continue browsing and if you find someone new, 
+                    simply move an existing person to your back burner.</p>
+                <p class="small-text">Alternatively, you can begin eliminating people you don't feel a connection to, in
+                    order to narrow down your prospects.
+                </p>
+            </div>
+            <div class="tan-box" *ngIf="user.showHeartFormFlg">
+                <div class="red-text">Time to hand out a rose!</div>
+                <div class="small-text">You must choose who to give your rose to, before browsing any more singles.
+                    Go to your Dating Pool to hand out a rose.
+                </div>
+                <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
+                    Dating Pool</button>
+            </div>
+        </div>
+
+    </div>
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <button (mousedown)="browseSingles()" class="btn-main-color btn btn-large" style="height: 60px;">Browse Singles</button>
+ 
+</app-page-shell>

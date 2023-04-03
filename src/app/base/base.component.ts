@@ -45,6 +45,7 @@ export class BaseComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     if (!localStorage['code']) {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
       this.outOfSyncFlg = true;
@@ -228,7 +229,7 @@ export class BaseComponent implements OnInit {
       action: action,
     };
     params = Object.assign(params, bonusParams);
-    console.log('xxxparams', params);
+    //console.log('xxxparams', params);
     this.executeApi(fileName, params, true);
   }
 
@@ -322,7 +323,7 @@ export class BaseComponent implements OnInit {
     var postData = getPostDataFromObj(params);
     this.loadingFlg = true;
     this.apiExecutedFlg = true;
-    console.log('fetch...', file, params.action);
+    //console.log('fetch...', file, params.action);
     fetch(url, postData).then((resp) => resp.text())
       .then((data) => {
         //console.log('response:', data);
@@ -338,7 +339,7 @@ export class BaseComponent implements OnInit {
             console.log('error!', e);
           }
 
-          console.log('responseJson', this.responseJson);
+          //console.log('responseJson', this.responseJson);
           if (this.responseJson && this.responseJson.status == 'Success') {
             this.postSuccessApi(file, this.responseJson);
           } else {

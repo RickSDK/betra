@@ -1,32 +1,47 @@
 <div id="download" style="text-align: center; background-color: #1a1a1a; color: white;">
-    <div class="container-sm" style="max-width: 550px;">
-        <div class="row">
-            <div class="col">
-                <div class="link-section">
-                    <div style="color: gray;">Company</div>
-                    <div [routerLink]="['/contact']" class="white-link">Contact</div>
-                    <div [routerLink]="['/about']" class="white-link">About</div>
-                    <div [routerLink]="['/join-team']" class="white-link">Careers</div>
-                    <!--<div [routerLink]="['/press']" class="white-link">Press</div>-->
-                </div>
-            </div>
-            <div class="col">
-                <div class="link-section">
-                    <div style="color: gray;">Resouces</div>
-                    <div [routerLink]="['/blogs']" class="white-link">Blog</div>
-                    <div [routerLink]="['/safety-features']" class="white-link">Safety <span class="hide-xs">Features</span></div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="link-section">
-                    <div style="color: gray;">Legal</div>
-                    <div [routerLink]="['/privacy-policy']" class="white-link">Privacy Policy</div>
-                    <div [routerLink]="['/terms-conditions']" class="white-link">Terms <span class="hide-xs">& Conditions</span></div>
-                    <div [routerLink]="['/cookies']" class="white-link">Cookie Policy</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <table width="100%" style="width: 100%;" align="center">
+        <tr>
+            <td class="hide-sm" width="200" style="width: 200px; min-width: 200px; max-width: 200px;">&nbsp;
+            </td>
+            <table align="center">
+                <tr>
+                    <td valign="top" width="33%">
+                        <div class="link-section">
+                            <div style="color: gray;">Company</div>
+                            <div [routerLink]="['']" class="white-link">Home</div>
+                            <div [routerLink]="['/contact']" class="white-link">Contact</div>
+                            <div [routerLink]="['/about']" class="white-link">About</div>
+                            <div [routerLink]="['/safety-features']" class="white-link">Safety <span
+                                    class="hide-xs">Features</span></div>
+                            <!--<div [routerLink]="['/press']" class="white-link">Press</div>-->
+                        </div>
+                    </td>
+                    <td valign="top" width="33%">
+                        <div class="link-section">
+                            <div style="color: gray;">Resources</div>
+                            <div [routerLink]="['/blogs']" class="white-link">Blog</div>
+                            <div *ngIf="userId>0" [routerLink]="['/advice']" class="white-link">Advice </div>
+                            <div *ngIf="userId>0" [routerLink]="['/chat-room']" class="white-link">Chat Room </div>
+                            <div *ngIf="userId>0" [routerLink]="['/contest']" class="white-link">Contest </div>
+                        </div>
+                    </td>
+                    <td valign="top" width="33%">
+                        <div class="link-section">
+                            <div style="color: gray;">Legal</div>
+                            <div [routerLink]="['/privacy-policy']" class="white-link">Privacy Policy</div>
+                            <div [routerLink]="['/terms-conditions']" class="white-link">Terms <span class="hide-xs">&
+                                    Conditions</span></div>
+                            <div [routerLink]="['/cookies']" class="white-link">Cookie Policy</div>
+                            <div *ngIf="userId>0" [routerLink]="['/settings']" class="white-link">Settings</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <td class="hide-md" width="200" style="width: 200px; min-width: 200px; max-width: 200px;">&nbsp;
+            </td>
+        </tr>
+    </table>
 
     <div class="link-section">
         <a [href]="'https://www.facebook.com/profile.php?id=100090469152111'" target="new"><i
@@ -36,10 +51,11 @@
         <a href="https://twitter.com/BetraDating"><i class="fa fa-twitter social-media"></i></a>
     </div>
 
-    <div>
-        <img [routerLink]="['/ios-install']" src="assets/images/landing/appStore1.png" height="44" class="app-store">&nbsp;
+    <div *ngIf="platform=='Web'">
+        <img [routerLink]="['/ios-install']" src="assets/images/landing/appStore1.png" height="44"
+            class="app-store">&nbsp;
         <a href="https://play.google.com/store/apps/details?id=com.betradating" target="new"><img
-                src="assets/images/landing/appStore2.png" height="44" class="app-store"></a>    
+                src="assets/images/landing/appStore2.png" height="44" class="app-store"></a>
     </div>
 
     <div style="padding: 20px; color: gray;">&copy; 2023 Betra, llc</div>

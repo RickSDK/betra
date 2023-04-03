@@ -1,0 +1,85 @@
+<app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="'Location'"
+    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" style="text-align: center;">
+        <app-top-header [topTitle]="'Location'"></app-top-header>
+
+        <div class="tan-box" style="font-size: 12px; text-align: left;">
+            <p>Note: Your GPS location is never shared with anyone, but is used for potential
+                matches to know how far apart they live. </p>
+
+            <p>You should have green checkmarks under both
+                "Navigator" and "GeoPlugin" sections below.</p>
+        </div>
+        <table width="100%" *ngIf="responseJson" style="font-size: 10px;">
+            <tr>
+                <td valign="top" width="50%">
+                    <div class="red-text">Navigator</div>
+                    <div *ngIf="!latitude || responseJson.navLat != latitude" style="color: #900; font-size: 16px;"><i
+                            class="fa fa-times"></i> Not Synced
+                    </div>
+                    <div *ngIf="latitude && responseJson.navLat == latitude" style="color: green; font-size: 16px;"><i
+                            class="fa fa-check"></i> Synced up
+                    </div>
+                    <div *ngIf="responseJson" class="border-box">
+                        <div><b>Current database values</b></div>
+                        <div>Lat: <span class="text-highlight">{{responseJson.navLat}}</span></div>
+                        <div>Lng: <span class="text-highlight">{{responseJson.navLng}}</span></div>
+                    </div>
+
+                    <div *ngIf="!latitudeFlg" class="border-box">
+                        <div>Notice, unable to get gps from navigator</div>
+                        <div style="color: gray; text-align: left;">Try pressing "Find Location" button. If gps location
+                            doesn't show up,
+                            you may need to adjust your browser settings or try logging in with a different
+                            browser.</div>
+                        <button [disabled]="loadingFlg" (mousedown)="findLocation()"
+                            class="btn btn-main-color btn-small">Find Location</button>
+                    </div>
+                    <div *ngIf="latitudeFlg" class="border-box">
+                        <div>Current Local GPS</div>
+                        <div>Lat: <span class="text-highlight">{{latitude}}</span></div>
+                        <div>Lng: <span class="text-highlight">{{longitude}}</span></div>
+                        <button [disabled]="loadingFlg" (mousedown)="findLocation()"
+                            class="btn btn-main-color btn-small spacer">Find Location</button>
+                        <button [disabled]="loadingFlg || !latitudeFlg || latitude == responseJson.navLat"
+                            (mousedown)="updateGps()" class="btn btn-primary btn-small spacer">Update</button>
+
+                    </div>
+
+                </td>
+                <td valign="top">
+                    <div class="red-text">GeoPlugin</div>
+                    <div *ngIf="!responseJson.latitude || responseJson.latitude != localLat"
+                        style="color: #900; font-size: 16px;"><i class="fa fa-times"></i> Not Synced
+                    </div>
+                    <div *ngIf="responseJson.latitude && responseJson.latitude == localLat"
+                        style="color: green; font-size: 16px;"><i class="fa fa-check"></i> Synced up
+                    </div>
+
+                    <div class="border-box">
+                        <div><b>Current database values</b></div>
+                        <div>City: <span class="text-highlight">{{responseJson.city}}</span></div>
+                        <div>Lat: <span class="text-highlight">{{responseJson.latitude}}</span></div>
+                        <div>Lng: <span class="text-highlight">{{responseJson.longitude}}</span></div>
+                        <div>Country: <span class="text-highlight">{{responseJson.countryName}}</span></div>
+                        <div>State: <span class="text-highlight">{{responseJson.state}}</span></div>
+                        <div>Region: <span class="text-highlight">{{responseJson.region}}</span></div>
+                        <div>Continent: <span class="text-highlight">{{responseJson.continentName}}</span></div>
+                    </div>
+
+                    <div class="border-box">
+                        <div><b>Your current Location</b></div>
+                        <div>City: <span class="text-highlight">{{localCity}}</span></div>
+                        <div>Lat: <span class="text-highlight">{{localLat}}</span></div>
+                        <div>Lng: <span class="text-highlight">{{localLng}}</span></div>
+                        <button [disabled]="loadingFlg || localLat == responseJson.latitude"
+                            (mousedown)="updateGeoPluginInfo()" class="btn btn-primary btn-small spacer">Update</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+    </div>
+</app-page-shell>

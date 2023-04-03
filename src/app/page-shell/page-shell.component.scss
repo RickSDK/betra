@@ -115,6 +115,36 @@
     position: relative;
 }
 
+.top-button {
+    font-size: 32px;
+    color: #999;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    width: 70px;
+    cursor: pointer;
+    position: relative;
+}
+
+.top-button:hover {
+    background-color: #eee;
+}
+
+.top-button:hover .top-button-label {
+    opacity: 1;
+}
+
+.top-button-label {
+    font-size: 10px;
+    position: absolute;
+    bottom: -4px;
+    background-color: #eee;
+    left: 0;
+    color: black;
+    width: 70px;
+    opacity: 0;
+    border-radius: 8px;
+}
+
 .icon-label {
     position: absolute;
     margin: 0;
@@ -192,6 +222,14 @@
     .icon-button {
         font-size: 24px;
     }
+    .top-button {
+        font-size: 28px;
+        padding: 5px 10px 5px 10px;
+        width: 50px;
+    }
+    .top-button-label {
+        width: 50px;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -199,6 +237,9 @@
         font-size: 18px;
     }
     .hide-back {
+        display: none;
+    }
+    .top-button {
         display: none;
     }
 }

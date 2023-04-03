@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MessagesComponent extends BaseComponent implements OnInit {
   public playerList: any = [];
   public messageCount: number = 0;
-  public override topButtons: any = ['Dating pool summary', 'All unread messages'];
+  public override topButtons: any = ['Dating Pool', 'Unread messages'];
 
   constructor(private route: ActivatedRoute) { super(); }
 

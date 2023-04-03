@@ -1,0 +1,33 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Contest'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
+
+
+    <div class="matches-card" style="text-align: left; font-size: 12px;">
+        <app-top-header [topTitle]="'Contest'"></app-top-header>
+
+        <img src="assets/images/pics/bachelor.jpg" width="100%">
+        <div class="red-text" style="text-align: center; font-size: 16px;">Would you like to be a contestant on our first ever Bachelor/Bachelorette contest?</div>
+        <p><b>Here's how it works:</b> Anyone can sign up to join the contest. On <b>May 31st</b> we will pick one lucky Bachelor and one lucky Bachelorette to compete in the contest.</p>
+        <p>We will also pick an additional 12 bachelors and 12 bacheloretts to fill their dating pools.</p>
+        <p>The 2 main contestants will then eliminate 2 people from their dating pools each week until the reach the final winner.</p>
+        <p>All members of our community will get to watch this play out in real time, and the contestants will fill out a weekly blog to describe their reasons for who they kept and eliminated. This will be a lot of fun for everyone!</p>
+        <p>For this first contest, it will be nation-wide and instead of going on real dates, they will simply have virtual dates. In the future, we hope to pick one city and do the contest on a more local level.</p>
+        <p>Good luck to everyone!</p>
+
+        <div *ngIf="!isIncluded" style="text-align: center; padding: 10px;">
+            <button [disabled]="loadingFlg" (mousedown)="signUp()" class="btn-main-color btn btn-large">Sign Up!</button>
+        </div>
+        <div *ngIf="isIncluded" class="border-box gray-text" style="text-align: center">
+            <div>Note: You are now signed up for this contest! If, for any reason you decide not to participate, simply click the remove me button below.</div>
+            <button [disabled]="loadingFlg" (mousedown)="removeMe()" class="btn-main-color btn btn-small">Remove Me</button>
+            <p>Check back on June 1st to see who was selected to be in the contest!</p>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="responseJson" class="border-box">
+            <div>Users signed up:</div>
+            <app-profile-pic *ngFor="let person of responseJson.users" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+            </app-profile-pic>
+        </div>
+
+    </div>
+</app-page-shell>

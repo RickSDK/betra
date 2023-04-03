@@ -1,0 +1,20 @@
+.snapshot-img {
+    width: 100%;
+    max-width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: 1;
+    filter: sepia(100%);
+    cursor: pointer;
+}
+
+.snapshot-img:hover {
+    box-shadow: 2px 2px 10px gray;
+    filter: none;
+}
+
+.small-text {
+    font-size: 12px; 
+    text-align: left;
+}

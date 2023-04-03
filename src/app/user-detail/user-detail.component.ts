@@ -134,7 +134,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   browseSingles(action: string) {
     this.searchStarted = false;
     this.matchUser = null;
-    if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
+    if (this.id != 4 && (this.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
       return;
     }
     if (!this.user.lat) {

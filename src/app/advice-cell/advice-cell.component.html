@@ -1,0 +1,28 @@
+<div class="advice-cell">
+    <table>
+        <tr>
+            <td>
+                <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="80">
+                </app-profile-pic>
+            </td>
+            <td align="left" style="font-size: 12px; padding: 5px;">
+                <div class="red-text">{{person.firstName}}</div>
+                <div><b>Motto:</b> {{person.motto}}</div>
+                <div><b>Looking For:</b> {{person.lookingFor}}</div>
+                <div *ngIf="admin.ownerFlg" style="text-align: left;">
+                    <a (mousedown)="showReplyFlg=!showReplyFlg" class="text-link">reply</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <app-text-with-emoji *ngIf="showReplyFlg && admin.ownerFlg" (messageEvent)="sumbitReply($event)"
+        [user_id]="admin.user_id" [profilePic]="admin.profilePic" [maxLength]="400"></app-text-with-emoji>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngFor="let message of person.messages" style="text-align: left; padding: 5px;">
+        <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic" [size]="30">
+        </app-profile-pic>
+        <span style="background-color: white; padding: 5px; border-radius: 5px; margin: 5px;">{{message.message}}</span>
+        <i (mousedown)="deleteMessage(message)" *ngIf="admin && message.user_id == admin.user_id" class="fa fa-trash"></i>
+    </div>
+</div>

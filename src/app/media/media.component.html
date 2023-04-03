@@ -2,7 +2,10 @@
     [pageTitle]="'Media'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user" style="padding: 10px 0 10px 0;">
-
+        <div style="text-align: center; margin: 5px;">
+            <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
+            <img src="assets/images/betraLogo.png" height="25" style="float: right;">
+        </div>
         <div class="tan-box">
             These items are currently being used to advertise for Betra. Feel free to use or share them with anyone you like.
         </div>

@@ -1,14 +1,18 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Settings'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <!--<app-upload-image-crop [src]="user.imgSrc"></app-upload-image-crop>-->
-
-    <div class="matches-card" *ngIf="user">
+     <div class="matches-card" *ngIf="user">
+        <div style="text-align: center;">
+            <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
+            <span class="main-title">Settings</span>
+            <img src="assets/images/betraLogo.png" height="25" style="float: right;">
+        </div>
+        <hr>
         <button (mousedown)="logout()" class="btn btn-main-color spacer"><i class="fa fa-sign-out"></i>
             Logout</button>
         <button (mousedown)="changeMenuNum(1)" class="btn btn-main-color spacer"><i class="fa fa-trash"></i>
             Delete Account</button>
-        <button (mousedown)="changeMenuNum(2)" class="btn btn-main-color spacer"><i class="fa fa-globe"></i>
+        <button [routerLink]="['/location']" class="btn btn-main-color spacer"><i class="fa fa-globe"></i>
             location</button>
         <button (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer"><i class="fa fa-refresh"></i>
             Redo Matches</button>

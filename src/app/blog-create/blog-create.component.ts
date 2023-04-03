@@ -35,7 +35,6 @@ export class BlogCreateComponent extends BaseComponent implements OnInit {
       if (this.id > 0)
         this.getDataFromServer('getBlog', 'blog.php', { blogId: this.id });
     });
-    //window.scrollTo(0, 0);
   }
 
   submitButtonPressed() {

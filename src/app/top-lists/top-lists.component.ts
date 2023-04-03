@@ -7,7 +7,7 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./top-lists.component.scss']
 })
 export class TopListsComponent extends BaseComponent implements OnInit {
-  public override topButtons = ['Most Liked', 'Newest', 'Most Recent'];
+  public override topButtons = ['Likes', 'Newest', 'Online Now!'];
   constructor() { super(); }
 
   override ngOnInit(): void {

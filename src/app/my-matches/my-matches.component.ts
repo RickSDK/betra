@@ -14,10 +14,10 @@ declare var lastLoginColor: any;
   styleUrls: ['./my-matches.component.scss']
 })
 export class MyMatchesComponent extends BaseComponent implements OnInit {
-  public menuButtons: any = ['My Dating Pool', 'Who I Like', 'Back Burner'];
+  public menuButtons: any = ['Dating Pool', 'My Likes', 'Back Burner'];
   public playerList: any = [];
   public showMoreFlg = false;
-  public showHeartFormFlg: boolean = false;
+  //public showHeartFormFlg: boolean = false;
   public disableFormFlg: boolean = true;
   public showPopupFlg: boolean = false;
   public showDetailsNumber: number = 0;
@@ -51,7 +51,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
-      this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
+//      this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
     });
 
     if (localStorage['infoObj']) {
@@ -146,7 +146,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
   }
   assignHeart() {
-    //this.showHeartFormFlg = false;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],

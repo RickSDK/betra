@@ -15,7 +15,6 @@ export class BlogManageComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
     this.getDataFromServer('getBlogs', 'blog.php', {type: 'All'});
-    //window.scrollTo(0, 0);
   }
 
   override postSuccessApi(file: string, responseJson: any) {

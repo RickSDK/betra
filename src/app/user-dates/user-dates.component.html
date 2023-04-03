@@ -3,11 +3,17 @@
 
     <div class="matches-card" *ngIf="user">
 
-        <div class="btn-group">
-            <button *ngFor="let button of topButtons; let i = index;" 
-                (mousedown)="filterBy(i)" [ngClass]="ngClassMenuButton(i, menuNum)"
-                style="font-size: 14px; margin-right: 2px; height: 50px;">{{button}}</button>
+        <div style="text-align: center;">
+            <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
+            <div class="btn-group">
+                <button *ngFor="let button of topButtons; let i = index;" 
+                    (mousedown)="filterBy(i)" [ngClass]="ngClassMenuButton(i, menuNum)"
+                    style="font-size: 14px; margin-right: 2px; height: 50px;">{{button}}</button>
+            </div>
+            <img src="assets/images/betraLogo.png" height="25" style="float: right;">
         </div>
+
+
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngIf="!loadingFlg && displayList.length==0">No dates at this time</div>
         <table *ngIf="displayList.length>0" border="1" style="font-size: 12px;">

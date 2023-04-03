@@ -2,7 +2,8 @@
     [pageTitle]="'Upgrade'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user">
-
+        <app-top-header [topTitle]="'Upgrade'"></app-top-header>
+        <hr>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="showUpgradeFlg">

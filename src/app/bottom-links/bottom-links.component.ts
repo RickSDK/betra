@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+declare var getPlatform: any;
 
 @Component({
   selector: 'app-bottom-links',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bottom-links.component.scss']
 })
 export class BottomLinksComponent implements OnInit {
+  @Input('userId') userId: number = 0;
+ 
+  public platform = getPlatform();
 
   constructor() { }
 

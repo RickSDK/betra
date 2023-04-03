@@ -14,7 +14,6 @@ export class RestaurantSignupComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    window.scrollTo(0, 0);
   }
 
   submitButtonPressed() {

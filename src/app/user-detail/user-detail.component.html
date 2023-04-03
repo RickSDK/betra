@@ -9,7 +9,7 @@
             [size]="30"></app-profile-pic>
 
         <div *ngIf="searchStarted && id == 2 && profileViews>0" class="match-card">
-            <div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
+            <!--<div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
                 <i class="fa fa-times" style="float: right"></i>
                 <p style="font-size: 16px" class="red-text">Your <b><i class="fa fa-users"></i> Dating Pool</b> is
                     currently
@@ -36,7 +36,7 @@
             <div *ngIf="user.datingPool.length==3" class="important-notice">Your <b>Dating Pool</b> gets maxed out when
                 you
                 have 8 people in it. Until then keep viewing profiles and clicking thumbs up!
-            </div>
+            </div>-->
             <div *ngIf="!loadingFlg">Profile swipes remaining: <span class="text-highlight"
                     style="font-size: 18px;">{{profileViews}}</span>
                 &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg" class="text-link">What's
@@ -65,7 +65,27 @@
         </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="searchStarted && profileViews == 0 && user && !loadingFlg && !uid" class="matches-card">
+
+        <div *ngIf="id == 4 && !matchUser" class="matches-card">
+            <p>No admirers at the moment.</p>
+            <div style="text-align: left;" class="small-gray-text">
+                <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
+                <div style="padding-left: 30px;">
+                    <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your
+                        profile.
+                    </li>
+                    <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
+                    <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way
+                        for
+                        others to find you.</li>
+                    <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
+                            class="text-link">Upgrade</span> in order to
+                        maximize your exposure.</li>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="searchStarted && profileViews == 0 && user && !loadingFlg && !uid && !matchUser && id != 4" class="matches-card">
             <div style="font-size: 64px;">🥲</div>
             <div>Swipes used up!</div>
             <div style="text-align: left;">
@@ -100,24 +120,6 @@
             </div>
             <div *ngIf="searchStarted">
                 <div class="matches-card" *ngIf="profileViews>0 && !matchUser">
-                    <div *ngIf="id == 4">
-                        <p>No admirers at the moment.</p>
-                        <div style="text-align: left;" class="small-gray-text">
-                            <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
-                            <div style="padding-left: 30px;">
-                                <li><i class="fa fa-picture-o"></i> Have a nice, well lit photo of your face on your
-                                    profile.
-                                </li>
-                                <li><i class="fa fa-bullhorn"></i> Have a fun or interesting motto.</li>
-                                <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way
-                                    for
-                                    others to find you.</li>
-                                <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
-                                        class="text-link">Upgrade</span> in order to
-                                    maximize your exposure.</li>
-                            </div>
-                        </div>
-                    </div>
                     <div *ngIf="id != 4">
                         <div>
                             <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
@@ -197,7 +199,7 @@
     <div style="position: fixed; top: 0; left: 0; width: 100%; height: 30px; background-color: white; opacity: .7;">
     </div>
     <div style="position: fixed; top: 0; left: 0; width: 100%; height: 30px; text-align: center;">
-        Profile swipes remaining: <span class="text-highlight" style="font-size: 18px;">{{profileViews}}</span>
+        Swipes remaining: <span class="text-highlight" style="font-size: 18px;">{{profileViews}}</span>
     </div>
     <i (mousedown)="showBigPopupFlg=false" class="fa fa-times times-button"
         style="position: fixed; top: 5px; right: 5px; font-size: 16px; text-shadow: 3px 3px 4px pink; cursor: pointer;"></i>

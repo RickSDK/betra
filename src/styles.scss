@@ -309,6 +309,7 @@ body {
     width: 100%;
     overflow: hidden;
     padding: 10px;
+    margin-bottom: 15px;
 }
 
 .large-img {
@@ -547,6 +548,11 @@ select {
     box-shadow: 2px 2px 10px black;
 }
 
+.main-title {
+    font-weight: 700;
+    font-size: 14px;
+}
+
 @media screen and (max-width: 800px) {
     .hide-md {
         display: none;
@@ -579,11 +585,6 @@ select {
     }
 }
 
-@media screen and (min-width: 541px) {
-    .show-xs {
-        display: none;
-    }
-}
 @media screen and (max-width: 540px) {
     .hide-xs {
         display: none;

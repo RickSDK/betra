@@ -1,12 +1,14 @@
-<app-page-shell [userId]="userId" [pageTitle]="'Betra Blogs'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+<app-page-shell [userId]="userId" [pageTitle]="'Betra Blogs'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
 
     <div class="matches-card" style="text-align: center;">
-        <div *ngIf="user && user.ownerFlg">
-            <button [routerLink]="['/blog-manage']" [queryParams]="{e: 'Y'}" class="btn btn-main-color spacer">Manage
-                Blog</button>
-        </div>
+        <app-top-header [topTitle]="'Blogs'"></app-top-header>
+        <button *ngIf="user && user.ownerFlg" [routerLink]="['/blog-manage']" [queryParams]="{e: 'Y'}"
+        class="btn btn-main-color spacer btn-small">Manage
+        Blog</button>
+
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
- 
+
         <app-blog-cell *ngFor="let blog of blogList" [blog]="blog" [shrinkSize]="1"></app-blog-cell>
 
         <app-blog-cell *ngIf="id > 0" [blog]="blog" [user]="user"></app-blog-cell>

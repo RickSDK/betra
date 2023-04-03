@@ -26,7 +26,6 @@ export class BetraBlogsComponent extends BaseComponent implements OnInit {
         this.getDataFromServer('getBlogs', 'blog.php', []);
     });
 
-    //window.scrollTo(0, 0);
   }
 
   override postSuccessApi(file: string, responseJson: any) {
@@ -39,7 +38,6 @@ export class BetraBlogsComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == "getBlog") {
       this.blog = new Blog(responseJson.blog);
-      window.scrollTo(0, 0);
     }
   }
 }

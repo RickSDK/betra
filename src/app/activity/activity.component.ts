@@ -23,7 +23,6 @@ export class ActivityComponent extends BaseComponent implements OnInit {
     document.addEventListener('scroll', () => {
       this.checkIsVisible();
     })
-    window.scrollTo(0, 0);
   }
 
   override postSuccessApi(file: string, responseJson: any) {

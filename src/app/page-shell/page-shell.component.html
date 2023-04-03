@@ -2,7 +2,8 @@
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
             <td *ngIf="pageTitle != 'Home'">
-                <i *ngIf="0 && platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button hide-back"></i>&nbsp;
+                <i *ngIf="0 && platform=='Web'" (mousedown)="goBack()"
+                    class="fa fa-arrow-left back-button hide-back"></i>&nbsp;
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
 
             </td>
@@ -14,11 +15,22 @@
                 </div>
             </td>
             <td align="center" width="100%">
-                <span *ngIf="!userId" [routerLink]="['/blogs']" class="top-link">Blogs</span>
-                <span *ngIf="!userId" [routerLink]="['/about']" class="top-link">About</span>
-                <span *ngIf="!userId" [routerLink]="['/join-team']" class="top-link hide-xs">Join</span>
-                <span *ngIf="!userId" [routerLink]="['/restaurant-promo']" class="top-link hide-xs">Promo</span>
-                <span class="hide-xs" *ngIf="userId>0 && pageTitle != 'Home'">{{pageTitle}}</span>
+                <span [routerLink]="['']" class="top-button"><i class="fa fa-home"></i>
+                    <div class="top-button-label">Home</div>
+                </span>
+                <span [routerLink]="['/about']" class="top-button"><i class="fa fa-info-circle"></i>
+                    <div class="top-button-label">About</div>
+                </span>
+                <span [routerLink]="['/blogs']" class="top-button"><i class="fa fa-book"></i>
+                    <div class="top-button-label">Blogs</div>
+                </span>
+                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button"><i class="fa fa-comment"></i>
+                    <div class="top-button-label">Chat Room</div>
+                </span>
+                <span *ngIf="!userId" [routerLink]="['/safety-features']" class="top-button"><i
+                        class="fa fa-exclamation-circle"></i>
+                    <div class="top-button-label">Safety Features</div>
+                </span>
             </td>
 
             <td align="right" valign="middle" *ngIf="userId==0 || !userId">
@@ -28,7 +40,7 @@
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
             <td *ngIf="userId>0 && userStatus == 'Active'">
-                <span class="menu-circle hide-xxs" [routerLink]="['/user-detail']">
+                <span class="menu-circle hide-xxs" [routerLink]="['/browse-singles']">
                     <i class="fa fa-search icon-button main-color"></i>
                     <span class="icon-label main-color-bg">Browse</span>
                 </span>
@@ -56,9 +68,10 @@
         </tr>
     </table>
 </div>
-<div class="outer-frame" >
+<div class="outer-frame">
     <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'40px':'0px'">
-        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Home' && pageTitle != 'Profile'" class="tan-box">
+        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Home' && pageTitle != 'Profile'"
+            class="tan-box">
             Finish Setting up your profile <button [routerLink]="['']" class="btn btn-danger">Profile</button>
         </div>
         <table *ngIf="showPageFlg" width="100%" border="0">
@@ -95,7 +108,7 @@
 
     <app-bottom-bar *ngIf="0 && pageTitle != 'Profile'" [stickyBottomFlg]="stickyBottomFlg"></app-bottom-bar>
 </div>
-<app-bottom-links></app-bottom-links>
+<app-bottom-links [userId]="userId"></app-bottom-links>
 
 
 <div class="menu-darkener" *ngIf="showMainMenuFlg" (mousedown)="showMainMenuFlg=false"></div>

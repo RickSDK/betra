@@ -107,9 +107,18 @@ import { SafetyFeaturesComponent } from './safety-features/safety-features.compo
 import { RecentUsersComponent } from './recent-users/recent-users.component';
 import { ReferralsComponent } from './referrals/referrals.component';
 import { IosInstallComponent } from './ios-install/ios-install.component';
-import { AdMobComponent } from './ad-mob/ad-mob.component';
+//import { AdMobComponent } from './ad-mob/ad-mob.component';
 import { MediaComponent } from './media/media.component';
 import { AdviceComponent } from './advice/advice.component';
+import { Advice1Component } from './advice1/advice1.component';
+import { Advice2Component } from './advice2/advice2.component';
+import { Advice3Component } from './advice3/advice3.component';
+import { ContestComponent } from './contest/contest.component';
+import { ChatRoomComponent } from './chat-room/chat-room.component';
+import { TopHeaderComponent } from './top-header/top-header.component';
+import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
+import { AdviceCellComponent } from './advice-cell/advice-cell.component';
+import { LocationCheckComponent } from './location-check/location-check.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -217,9 +226,17 @@ import { AdviceComponent } from './advice/advice.component';
     RecentUsersComponent,
     ReferralsComponent,
     IosInstallComponent,
-    AdMobComponent,
     MediaComponent,
     AdviceComponent,
+    Advice1Component,
+    Advice2Component,
+    Advice3Component,
+    ContestComponent,
+    ChatRoomComponent,
+    TopHeaderComponent,
+    BrowseSinglesComponent,
+    AdviceCellComponent,
+    LocationCheckComponent,
   ],
   imports: [
     BrowserModule,
