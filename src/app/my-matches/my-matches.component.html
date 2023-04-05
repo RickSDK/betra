@@ -82,8 +82,8 @@
         <div *ngIf="menuNum==1 && !loadingFlg">
             <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList"
                 class="person-box">
-                <img [src]="person.src" class="small-img">
-                <div class="name-title">{{person.name}}</div>
+                <img [src]="person.src" class="tiny-img">
+                <div class="gray-text" style="font-size: 10px;">{{person.name}}</div>
             </div>
             <div *ngIf="playerList && playerList.length>0" class="small-gray-text">
                 <p><span *ngIf="playerList.length>1">These people have</span><span *ngIf="playerList.length==1">This

@@ -1,6 +1,9 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Join the Team'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus">
     <div class="matches-card">
+        <app-top-header [topTitle]="'Join Team'"></app-top-header>
+        <hr>
+
         <div *ngIf="user && user.ownerFlg">
             <app-owners-menu [pageTitle]="'Overview'" [page]="1"></app-owners-menu>
         </div>
@@ -9,11 +12,17 @@
             the top dating sites in the world.
             The most popular dating sites currently generate about $1 million income per day.</p>
         <p class="gray-text" style="text-align: left;">
-            Our initial goal is to grow Betra to the point where it is generating $1 million per month, so this goal is
+            Our initial goal is to grow Betra to the point where it is generating $100,000 per month, so this goal is
             very achievable.
-            If we reach that goal, entry-level team members will be generating $5,000 per month.
+            If we reach that goal, entry-level team members will be generating $500 per month.
             Moving up through the ranks will increase your monthly payouts.
         </p>
+        <div class="tan-box" [routerLink]="['/owners']"
+            *ngIf="user.ownerFlg && user.adminLevel < 2"
+            style="color: #900; cursor: pointer;">
+            <i class="fa fa-exclamation-triangle"></i> Note: You have not completed your tasks to be an official owner
+            yet. Please click here to find out what is needed to reach Level 2.
+        </div>
         <div class="shaded-border-box">
             <div class="title-bar">Benefits</div>
             <div class="inside-box">
@@ -22,11 +31,7 @@
                 <li>*monthly cash payments</li>
             </div>
         </div>
-        <p class="gray-text" style="text-align: left;">
-            The following chart shows payouts based on a smaller amount of $100,000/month income, which we hope to
-            achieve within 90-days of launch.
-        </p>
-        <div class="gray-text">*Provided we get enough people signed up</div>
+        <div></div>
         <div class="shaded-border-box">
             <div class="title-bar">Ownership Positions</div>
             <div class="inside-box">
@@ -35,14 +40,12 @@
                         <th>Position</th>
                         <th>Rank</th>
                         <th align="center">%</th>
-                        <th># spots</th>
                         <th>Monthly Income</th>
                     </tr>
                     <tr *ngFor="let row of levels">
                         <td align="center">{{row.number}}</td>
                         <td>{{row.name}}</td>
                         <td align="center">{{row.percent}}</td>
-                        <td align="center">{{row.spots}}</td>
                         <td align="center">{{row.payouts}}</td>
                     </tr>
                 </table>
@@ -58,10 +61,10 @@
                 <li>Approve user submitted pictures.</li>
             </div>
         </div>
-        <p class="gray-text" style="text-align: left;">That's about it! Everything can be done from home. Work as much
-            or as little as you have time for and let's all help make this a success.</p>
+        <p class="gray-text" style="text-align: center;">To see what is needed to move up level, <a class="text-link"
+                [routerLink]="['/owners']">click here</a>.</p>
 
-        <table align="center" border="0">
+        <table *ngIf="!user || !user.ownerFlg" align="center" border="0">
             <tr>
                 <td align="center">
                     <div>Spots Remaining</div>

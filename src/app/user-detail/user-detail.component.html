@@ -54,7 +54,8 @@
         </app-advanced-filters>
         <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
 
-        <div *ngIf="profileViews > 0 && showExpandedSearchPopupFlg && !loadingFlg && matchUser" class="warning-search-popup">
+        <div *ngIf="profileViews > 0 && showExpandedSearchPopupFlg && !loadingFlg && matchUser"
+            class="warning-search-popup">
             <p>
                 Note: This is a new dating app that has just launched.
                 Your initial search returned very few potential matches so we expanded the search parameters to ignore
@@ -85,7 +86,8 @@
             </div>
         </div>
 
-        <div *ngIf="searchStarted && profileViews == 0 && user && !loadingFlg && !uid && !matchUser && id != 4" class="matches-card">
+        <div *ngIf="searchStarted && profileViews == 0 && user && !loadingFlg && !uid && !matchUser && id != 4"
+            class="matches-card">
             <div style="font-size: 64px;">🥲</div>
             <div>Swipes used up!</div>
             <div style="text-align: left;">
@@ -102,7 +104,8 @@
             </div>
         </div>
         <div *ngIf="user && !loadingFlg && !uid">
-            <div class="matches-card" *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']" style="cursor: pointer;">
+            <div class="matches-card" *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']"
+                style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
@@ -119,37 +122,35 @@
                     Dating Pool</button>
             </div>
             <div *ngIf="searchStarted">
-                <div class="matches-card" *ngIf="profileViews>0 && !matchUser">
-                    <div *ngIf="id != 4">
-                        <div>
-                            <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
-                            <p>Sorry, no more profiles found.</p>
-                            <p *ngIf="!showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
-                                joining
-                                constantly. Check back soon.</p>
-                            <div *ngIf="id == 2 && showExpandedSearchPopupFlg && !advancedSearchFlg && profileViews>0">
-                                <p class="gray-text">You have already said "Yes" or "No" to everyone in the database.
-                                    This
-                                    is a
-                                    new
-                                    app and people are just starting to sign up. Check back soon. If you would like to
-                                    reset
-                                    your
-                                    "No" matches and revisit the people you declined, visit the "<span
-                                        [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
-                            </div>
-                            <div *ngIf="advancedSearchFlg && profileViews>0">
-                                <p>Try expanding your search or simply
-                                    press
-                                    the "Browse" button to bring back possible matches.</p>
-                                <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI
-                                    that
-                                    continueously expands your search options until matches are returned.
-                                    If you are getting no results after pressing that button, it means you have already
-                                    viewed
-                                    every
-                                    person in the database meeting your gender requirements.</p>
-                            </div>
+                <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
+                    <div>
+                        <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
+                        <p>Sorry, no more profiles found.</p>
+                        <p *ngIf="!showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
+                            joining
+                            constantly. Check back soon.</p>
+                        <div *ngIf="id == 2 && showExpandedSearchPopupFlg && !advancedSearchFlg && profileViews>0">
+                            <p class="gray-text">You have already said "Yes" or "No" to everyone in the database.
+                                This
+                                is a
+                                new
+                                app and people are just starting to sign up. Check back soon. If you would like to
+                                reset
+                                your
+                                "No" matches and revisit the people you declined, visit the "<span
+                                    [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
+                        </div>
+                        <div *ngIf="advancedSearchFlg && profileViews>0">
+                            <p>Try expanding your search or simply
+                                press
+                                the "Browse" button to bring back possible matches.</p>
+                            <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI
+                                that
+                                continueously expands your search options until matches are returned.
+                                If you are getting no results after pressing that button, it means you have already
+                                viewed
+                                every
+                                person in the database meeting your gender requirements.</p>
                         </div>
                     </div>
                 </div>

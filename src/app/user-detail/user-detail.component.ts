@@ -135,9 +135,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.searchStarted = false;
     this.matchUser = null;
     if (this.id != 4 && (this.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
+      this.logUser('Y');
       return;
     }
     if (!this.user.lat) {
+      this.logUser('Y');
       return;
     }
     this.searchStarted = true;

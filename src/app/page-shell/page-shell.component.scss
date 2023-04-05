@@ -230,6 +230,9 @@
     .top-button-label {
         width: 50px;
     }
+    .hide-sm {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -239,7 +242,15 @@
     .hide-back {
         display: none;
     }
-    .top-button {
+}
+
+@media screen and (max-width: 400px) {
+    .hide-xs {
+        display: none;
+    }
+}
+@media screen and (max-width: 380px) {
+    .hide-xxs {
         display: none;
     }
 }

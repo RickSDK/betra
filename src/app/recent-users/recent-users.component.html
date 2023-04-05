@@ -2,7 +2,16 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card">
+        <app-top-header [topTitle]="'Recent Users'"></app-top-header>
+        <hr>
+        <app-owners-menu [pageTitle]="'Users'" [page]="1"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <hr>
+        <div class="tan-box" style="font-size: 10px; text-align: left;">
+            <p>The following table shows the latest 100 users to create an account.</p>
+            <p>A check mark indicates they made it all the way through the Profile Creation process and a 'Y' indicates
+                they are an owner.</p>
+        </div>
 
         <table style="font-size: 10px;" (mousedown)="showContactInfo=!showContactInfo">
             <tr>
@@ -13,10 +22,11 @@
                 <th>State</th>
                 <th>Lat</th>
                 <th>Pic</th>
-                <th>M.A.</th>
+                <th>Active</th>
                 <th>Owner</th>
                 <th>Swipes</th>
                 <th>Matches</th>
+                <th>Created</th>
             </tr>
             <tr *ngFor="let user of users">
                 <td>{{user.firstName}}</td>
@@ -30,6 +40,7 @@
                 <td>{{user.ownerFlg}}</td>
                 <td>{{user.statsObj.matchLevel1}}</td>
                 <td>{{user.statsObj.matchLevel2}}</td>
+                <td>{{user.localDate}}</td>
             </tr>
         </table>
 

@@ -13,12 +13,11 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
   public spotsLeft: number = 0;
 
   public levels = [
-    { number: 6, name: 'President', percent: '5%', spots: 1, payouts: '$5,000' },
-    { number: 5, name: 'VP', percent: '5%', spots: 2, payouts: '$5,000' },
-    { number: 4, name: 'Director', percent: '4%', spots: 2, payouts: '$4,000' },
+    { number: 5, name: 'VP', percent: '4%', spots: 4, payouts: '$4,000' },
+    { number: 4, name: 'Director', percent: '3%', spots: 8, payouts: '$3,000' },
     { number: 3, name: 'Manager', percent: '2%', spots: 8, payouts: '$2,000' },
-    { number: 2, name: 'Dev Team', percent: '2%', spots: 6, payouts: '$2,000' },
-    { number: 1, name: 'Owner', percent: '0.5%', spots: 30, payouts: '$500' }
+    { number: 2, name: 'Lead', percent: '1%', spots: 16, payouts: '$1,000' },
+    { number: 1, name: 'Owner', percent: '0.5%', spots: 32, payouts: '$500' }
   ]
 
   constructor(private router: Router) { super(); }
@@ -69,6 +68,8 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
 
   }
   override postSuccessApi(file: string, responseJson: any) {
+    console.log('xxx', responseJson);
+    this.responseJson = responseJson;
     if (responseJson.action == 'ownerSignup') {
       this.router.navigate(['']);
     }

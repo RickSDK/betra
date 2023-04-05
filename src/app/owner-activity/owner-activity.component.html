@@ -2,6 +2,9 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-top-header [topTitle]="'Activity'"></app-top-header>
+        <hr>
+
         <app-owners-menu [pageTitle]="'Activity'"></app-owners-menu>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>

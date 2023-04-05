@@ -18,6 +18,10 @@
             of 12, you will need to wait until tomorrow to get a new batch.
         </div>
     </div>
+    <div class="matches-card" *ngIf="!user.lat" [routerLink]="['/location']" style="cursor: pointer;">
+        <p class="red-text">Note: Something is not set up properly with your location</p>
+        <p>Click here to fix.</p>
+    </div>
     <div *ngIf="user" class="matches-card" style="text-align: center;">
 
 
@@ -41,7 +45,8 @@
             <div style="border: 1px solid gray; padding: 10px; margin: 5px; border-radius: 5px;">
                 <div class="gray-text">{{user.firstName}}'s Dating Pool</div>
                 <div *ngIf="user.datingPool.length==0">(empty)</div>
-                <img *ngFor="let person of user.datingPool" [src]="person.src" class="snapshot-img">
+                <img [routerLink]="['/user-detail']"
+                [queryParams]="{uid: person.user_id, s: 'Y'}" *ngFor="let person of user.datingPool" [src]="person.src" class="snapshot-img">
             </div>
             <div class="tan-box" *ngIf="user.exceededPoolSizeFlg">
                 <div class="red-text">You are over your limit!</div>
@@ -62,9 +67,9 @@
             </div>
             <div class="tan-box" *ngIf="user.datingPool.length == 1">
                 <div class="red-text">You found a match!</div>
-                <p class="small-text">This is very exciting. You have matched one person that you can now
-                    begin to communicate with.</p>
-                <p class="small-text">Click the "Browse Singles" button below to find more matches.
+                <p class="small-text">This is very exciting. You have a match and can now
+                    communicate with that person.</p>
+                <p class="small-text">Also, click the "Browse Singles" button below to find more matches.
                 </p>
             </div>
             <div class="tan-box" *ngIf="user.datingPool.length == 2">
@@ -74,8 +79,9 @@
                 </p>
             </div>
             <div class="tan-box" *ngIf="user.datingPool.length > 2 && user.datingPool.length < user.datingPoolLimit">
-                <div class="red-text">You now have {{user.datingPool.length}} matches.</div>
-                <p class="small-text">Click the "Browse Singles" button below to get more prospects into your dating pool.
+                <div class="red-text">You have {{user.datingPool.length}} matches in your Dating Pool.</div>
+                <p class="small-text">There's still room for {{user.datingPoolLimit - user.datingPool.length}} more!</p>
+                <p class="small-text">Click the "Browse Singles" button below.
                 </p>
             </div>
             <div class="tan-box" *ngIf="user.datingPool.length == user.datingPoolLimit">

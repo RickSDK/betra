@@ -1,7 +1,7 @@
 <div class="top-bar" *ngIf="headerObj">
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
-            <td *ngIf="pageTitle != 'Home'">
+            <td *ngIf="pageTitle != 'Home'" class="hide-sm">
                 <i *ngIf="0 && platform=='Web'" (mousedown)="goBack()"
                     class="fa fa-arrow-left back-button hide-back"></i>&nbsp;
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
@@ -10,18 +10,18 @@
             <td *ngIf="pageTitle == 'Home'" style="position: relative;">
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
 
-                <div *ngIf="1" style="font-size: 9px; position: absolute; left: 20px; top: 40px; color: gray;">
+                <div style="font-size: 9px; position: absolute; left: 20px; top: 40px; color: gray;">
                     v{{appVersion}}
                 </div>
             </td>
             <td align="center" width="100%">
-                <span [routerLink]="['']" class="top-button"><i class="fa fa-home"></i>
+                <span *ngIf="pageTitle != 'Home'" [routerLink]="['']" class="top-button"><i class="fa fa-home"></i>
                     <div class="top-button-label">Home</div>
                 </span>
-                <span [routerLink]="['/about']" class="top-button"><i class="fa fa-info-circle"></i>
+                <span [routerLink]="['/about']" class="top-button hide-xxs"><i class="fa fa-info-circle"></i>
                     <div class="top-button-label">About</div>
                 </span>
-                <span [routerLink]="['/blogs']" class="top-button"><i class="fa fa-book"></i>
+                <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
                     <div class="top-button-label">Blogs</div>
                 </span>
                 <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button"><i class="fa fa-comment"></i>
@@ -57,7 +57,7 @@
             <td *ngIf="userId>0">
                 <span class="menu-circle" [routerLink]="['/user-detail']" [queryParams]="{uid: userId}">
                     <img [src]="imgSrcFile" class="profilePic" alt="Profile Picture">
-                    <span *ngIf="headerObj.newReviewBy>0" class="red-circle">{{headerObj.newReviewBy}}</span>
+                    <span *ngIf="headerObj.newReviewBy>0" class="red-circle"><i class="fa fa-comment"></i></span>
                     <span class="icon-label main-color-bg">My Profile</span>
                 </span>
 
@@ -70,9 +70,12 @@
 </div>
 <div class="outer-frame">
     <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'40px':'0px'">
-        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Home' && pageTitle != 'Profile'"
+        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Profile'"
             class="tan-box">
-            Finish Setting up your profile <button [routerLink]="['']" class="btn btn-danger">Profile</button>
+            
+            <p>Finish Setting up your profile </p>
+            <button *ngIf="pageTitle != 'Home'" [routerLink]="['']" class="btn btn-danger">Home</button>
+            <button *ngIf="pageTitle == 'Home'" [routerLink]="['/profile']" class="btn btn-danger">Profile</button>
         </div>
         <table *ngIf="showPageFlg" width="100%" border="0">
             <tr>

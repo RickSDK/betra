@@ -1,19 +1,22 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owners'" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owners'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
-        <div style="text-align: center;">
-            <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
-            <img src="assets/images/betraLogo.png" height="25" style="float: right;">
-        </div>
+        <app-top-header [topTitle]="'Admin'"></app-top-header>
         <hr>
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
+        <div class="tan-box" [routerLink]="['/owners']"
+            *ngIf="user.adminLevel < 2"
+            style="color: #900; cursor: pointer;">
+            <i class="fa fa-exclamation-triangle"></i> Note: You have not completed your tasks to be an official owner
+            yet. Please click here to find out what is needed to reach Level 2.
+        </div>
         <div>
             <span [routerLink]="['/upgrade-member']" class="text-link">Membership Page</span>&nbsp;
             <span [routerLink]="['/media']" class="text-link">Media</span>&nbsp;
-            <span [routerLink]="['/reviews']" class="text-link">User Reviews</span>    
+            <span [routerLink]="['/reviews']" class="text-link">User Reviews</span>
         </div>
 
         <div *ngIf="menuNum==0 && !loadingFlg" style="display: inline-block; max-width: 380px;">
@@ -30,11 +33,11 @@
         </div>
         <div *ngIf="menuNum>0">{{adminLinks[menuNum-1].name}}</div>
         <div *ngIf="message" class="big-flashy">{{message}}</div>
-        
+
         <div *ngIf="menuNum==1">
             <div *ngIf="showRecordFlg">
                 <div>User's Name: <span class="text-highlight">{{responseJson.firstName}}</span></div>
-               <img [src]="src" height="320">
+                <img [src]="src" height="320">
                 <div class="gray-text">Look at the profile picture above and make sure it includes the person's face.
                     Then approve or reject the picture using the buttons below.</div>
 
@@ -204,8 +207,8 @@
                     </td>
                 </tr>
             </table>
-            <button (mousedown)="verifyUserPic(99)" class="btn btn-success"
-                style="margin: 5px; height: 60px;">Looks Good!</button>
+            <button (mousedown)="verifyUserPic(99)" class="btn btn-success" style="margin: 5px; height: 60px;">Looks
+                Good!</button>
             <button (mousedown)="verifyUserPic(-1)" class="btn btn-danger" style="margin: 5px;">No
                 Face</button>
             <button (mousedown)="verifyUserPic(-2)" class="btn btn-danger" style="margin: 5px;">Not same
@@ -220,13 +223,16 @@
             <div>Name: <span class="text-highlight">{{displayUser.firstName}}</span></div>
             <img [src]="src" height="300">
             <div *ngIf="responseJson.action == 'getFacebookUser'">
-                Facebook Link: <a [href]="displayUser.facebookUrl" target="new"><span class="text-link">{{displayUser.facebookUrl}}</span></a>
+                Facebook Link: <a [href]="displayUser.facebookUrl" target="new"><span
+                        class="text-link">{{displayUser.facebookUrl}}</span></a>
             </div>
             <div *ngIf="responseJson.action == 'getInstagramUser'">
-                Instagram Link: <a [href]="displayUser.instragramUrl" target="new"><span class="text-link">{{displayUser.instragramUrl}}</span></a>
+                Instagram Link: <a [href]="displayUser.instragramUrl" target="new"><span
+                        class="text-link">{{displayUser.instragramUrl}}</span></a>
             </div>
             <div *ngIf="responseJson.action == 'getLinkedInUser'">
-                linkedIn Link: <a [href]="displayUser.linkedInUrl" target="new"><span class="text-link">{{displayUser.linkedInUrl}}</span></a>
+                linkedIn Link: <a [href]="displayUser.linkedInUrl" target="new"><span
+                        class="text-link">{{displayUser.linkedInUrl}}</span></a>
             </div>
             <div class="gray-text">Verify the link above and then press one of these buttons</div>
             <button (mousedown)="approveLink(false)" class="btn btn-danger padded">No Good</button>

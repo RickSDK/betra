@@ -72,9 +72,8 @@
                 here</span>
         </div>
     </div>
-
     <div *ngIf="user.datingPool.length>datingPoolLimit" style="color: #900; font-size: 12px;">
-        <i class="fa fa-exclamation-triangle"></i> Dating pool has <b>{{datingPool.length}}</b> people, limit:
+        <i class="fa fa-exclamation-triangle"></i> Dating pool has <b>{{user.datingPool.length}}</b> people, limit:
         <b>{{datingPoolLimit}}</b>
     </div>
 </div>

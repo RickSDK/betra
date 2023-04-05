@@ -1,6 +1,6 @@
 <div (mouseup)="endPosition($event)" (mousemove)="moveMouse($event)">
     <div style="font-size: 12px;">Center and Crop image to your liking</div>
-
+    <div style="background-color: yellow; color: red;" *ngIf="errorMessage">{{errorMessage}}</div>
     <div class="dashed-line" [style.border]="isDragging?'4px dashed red':'4px dashed #000000'">
         <canvas (mousedown)="getPosition($event)" id="myCanvas" [width]="canvasWidth" [height]="canvasHeight"></canvas>
         <div *ngIf="showSelectButtonFlg" class="form-input">

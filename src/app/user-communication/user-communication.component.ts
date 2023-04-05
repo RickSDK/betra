@@ -137,6 +137,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
       this.messages = [];
       this.responseJson.messages.forEach((message: any) => {
         var dt = getDateObjFromJSDate(message.created);
+        //console.log('xxx', message.created, dt);
         if (!message.readDt)
           showDetailsFlg = true;
         if (message.uid == this.myUser.user_id && !message.readDt)

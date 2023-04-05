@@ -1,91 +1,113 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owners'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
     <div class="matches-card" *ngIf="user && user.ownerFlg">
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <app-top-header [topTitle]="'Owners'"></app-top-header>
+        <hr>
+
         <app-owners-menu [pageTitle]="'Details'" [page]="1"></app-owners-menu>
-        <p>Welcome to the Betra owner's team!</p>
-        <p>Our goal is to grow this app into one of the top dating sites in the world!</p>
-        Your current details:
+        <hr>
+        <div>Your current details:</div>
         <table align="center" style="font-size: 12px;">
             <tr>
                 <th>Name</th>
                 <th>Level</th>
+                <th>Title</th>
                 <th>ownership %</th>
                 <th>*monthly payout</th>
             </tr>
             <tr>
                 <td>{{user.firstName}}</td>
-                <td>{{user.ownerLevel}}</td>
-                <td>{{user.ownerPercent}}</td>
-                <td>*{{user.monthlyPayout}}</td>
+                <td>{{yourLevel.level}}</td>
+                <td>{{yourLevel.name}}</td>
+                <td>{{yourLevel.percentage}}</td>
+                <td>*{{yourLevel.payouts}}</td>
             </tr>
         </table>
-        <div class="gray-text">*Note payouts start once we reach 100,000 app users. Actual payout will be based on
+        <div class="gray-text">*Note payouts start once we reach 10,000 app users. Actual payout will be based on
             revenue generated.
-            The figure listed is our estimate based on 500,000 users.</div>
-        <hr>
-        <p><b>Current Plan</b></p>
-        <p class="gray-text">We want every single person helping out with the app to concentrate on the following tasks between now and February 14th.
-            Even if you are not single, complete these things. Its just for testing:
-        </p>
-        
-        <ol style="text-align: left;">
-            <li>Complete your profile</li>
-            <li>Click "Like" to as many people as possible.</li>
-            <li>Fill up your Dating Pool to 12 people.</li>
-            <li>Text people and test out the features.</li>
-            <li>Try adding and dropping people from the pool once you are over the limit.</li>
-            <li>Report any bugs or suggestions to make it better.</li>
-        </ol>
-        
-        <div class="shaded-border-box" style="padding: 10px;">
-            <p>30-minute weekly zoom meetings, every Thursday at 10am Pacific Time.</p>
-            <p>Join Zoom Meeting<br>
-                <a href="https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1">https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1</a>
-                <br>
-                Join Zoom Meeting
-                                
-                Meeting ID: 747 1563 8462
-                Passcode: 1234
-    
         </div>
-        <hr>
-        <div class="shaded-border-box">
-            <div class="title-bar">Phase 1: Pre-launch</div>
-            <div class="inside-box" style="font-size: 12px;">
-                <p>
-                    From now through Feb 13th will be our pre-launch phase. There will be no compensation for time
-                    during this phase. Do as much or as little work as you have time for. Things you can do to help:
-                </p>
-                <li>Click 'Broswe' button and click Yes to as many people as possible. Even if you aren't single, feel
-                    free to test out the features.</li>
-                <li>Get a feel for the "Dating Pool" concept and provide feedback. This is a unique concept that no
-                    other app has ever tried so we want to find out if it wil be popular.</li>
-                <li>Click 'Verify Pic' button to verify user profile pics.</li>
-                <li>Invite friends and family to try out the site.</li>
-                <li>Report any bugs or suggestions that might make the app better.</li>
+
+        <div *ngIf="showCongratulationsFlg" style="color: green; font-size: 22px; font-weight: 700;">Congratulations!
+            Promotion Achieved</div>
+
+        <div *ngIf="yourLevel.level==1 && !loadingFlg">
+            <div class="border-box">
+                <div class="red-text">How to get Promoted?</div>
+                <div>To get promoted to level <b class="text-highlight">2</b>, complete the following:</div>
+                <li>Fill up your dating pool with 12 people</li>
+            </div>
+            <div class="border-box">
+                <p>Currently in your dating pool: <b class="text-highlight">{{user.datingPool.length}}</b></p>
+                <div *ngIf="!goalReachedFlg">
+                    <div class="gray-text">In order to grow your dating pool, click thumbs up to as many people as
+                        possible. Once they give you a thumbs up back, they will show up in your dating pool.</div>
+                </div>
             </div>
         </div>
-        <div class="shaded-border-box">
-            <div class="title-bar">Phase 2: Launch</div>
-            <div class="inside-box" style="font-size: 12px;">
-                <p>Starting Feb 14th we will have a 90-day push to try to reach 100,000 users. Again there will be no
-                    compensation during this period, as all revenue generated will go back into advertising. We will do
-                    everything we can to generate new users.</p>
-                <p>Again do as much or as little as you have time for to try to promote the app and generate new
-                    customers.</p>
+
+        <div *ngIf="yourLevel.level==2 && !loadingFlg">
+            <div class="border-box">
+                <div class="red-text">How to get Promoted?</div>
+                <div>To get promoted to level <b class="text-highlight">3</b>, complete the following:</div>
+                <ul style="text-align: left; padding-left: 40px;">
+                    <li>At least 2 Blog comments</li>
+                    <li>At least 40 messages sent</li>
+                    <li>At least 3 user reviews</li>
+                    <li>At least 2 owner bugs and/or discussions</li>
+                </ul>
+            </div>
+            <div class="border-box">
+                <div class="red-text">Progress</div>
+                <div>Blog Comments: <b class="text-highlight">{{responseJson.blogComments}}</b> <i *ngIf="responseJson.blogComments > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div>Messages: <b class="text-highlight">{{responseJson.messageCount}}</b><i *ngIf="responseJson.messageCount > 39" style="color: green;" class="fa fa-check"></i></div>
+                <div>User Reviews: <b class="text-highlight">{{responseJson.reviewCount}}</b><i *ngIf="responseJson.reviewCount > 2" style="color: green;" class="fa fa-check"></i></div>
+                <div>Bugs/Discussion: <b class="text-highlight">{{responseJson.bugsCount}}</b><i *ngIf="responseJson.bugsCount > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
         </div>
-        <div class="shaded-border-box">
-            <div class="title-bar">Phase 3: Post-launch</div>
-            <div class="inside-box" style="font-size: 12px;">
-                <p>Starting May 14th we will transition to our normal business plan, provided we have reached at least
-                    100,000 users. Additional features of this phase include:</p>
-                <li>Monthly payouts to all owners, based on income.</li>
-                <li>We may transition some of our owners to employees.</li>
-                <li>Continue to improve and grow the business.</li>
+
+        <div *ngIf="yourLevel.level==3 && !loadingFlg">
+            <div class="border-box">
+                <div class="red-text">How to get Promoted?</div>
+                <div>To get promoted to level <b class="text-highlight">4</b>, complete the following:</div>
+                <ul style="text-align: left; padding-left: 40px;">
+                    <li>Messages with at least 20 different people</li>
+                    <li>At least 100 messages sent</li>
+                    <li>At least 25 profiles swiped yes</li>
+                    <li>At least 6 user reviews</li>
+                    <li>At least 4 blog comments</li>
+                </ul>
+            </div>
+            <div class="border-box">
+                <div class="red-text">Progress</div>
+                <div>People Messaged: <b class="text-highlight">{{responseJson.peopleMessaged}}</b> <i *ngIf="responseJson.peopleMessaged > 19" style="color: green;" class="fa fa-check"></i></div>
+                <div>Messages: <b class="text-highlight">{{responseJson.messageCount}}</b><i *ngIf="responseJson.messageCount > 99" style="color: green;" class="fa fa-check"></i></div>
+                <div>Profiles Swiped: <b class="text-highlight">{{responseJson.profilesSwiped}}</b><i *ngIf="responseJson.profilesSwiped > 24" style="color: green;" class="fa fa-check"></i></div>
+                <div>User Reviews: <b class="text-highlight">{{responseJson.reviewCount}}</b><i *ngIf="responseJson.reviewCount > 5" style="color: green;" class="fa fa-check"></i></div>
+                <div>Blog Comments: <b class="text-highlight">{{responseJson.blogComments}}</b> <i *ngIf="responseJson.blogComments > 3" style="color: green;" class="fa fa-check"></i></div>
+                <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
         </div>
+
+        <div *ngIf="yourLevel.level==4 && !loadingFlg">
+            <div class="border-box">
+                <div class="red-text">How to get Promoted?</div>
+                <div>To get promoted to level <b class="text-highlight">5</b>, complete the following:</div>
+                <ul style="text-align: left; padding-left: 40px;">
+                    <li>Requirements not yet figured out. coming soon.</li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <div *ngIf="goalReachedFlg">
+            <div style="color: green;"><i class="fa fa-check"></i> Goal Reached!</div>
+            <button (mousedown)="acceptPromotion()" class="btn btn-main-color">Accept Promotion</button>
+        </div>
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
 
     </div>
 </app-page-shell>

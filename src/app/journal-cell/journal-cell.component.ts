@@ -39,7 +39,7 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     this.level++;
-    console.log('+++', this.journal);
+ //   console.log('+++', this.journal);
   }
 
   ngClassPic(num: number) {

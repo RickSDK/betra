@@ -3,7 +3,9 @@
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
-
+        <hr>
+        <app-top-header [topTitle]="'Discussion/Bugs'"></app-top-header>
+        <div>&nbsp;</div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div class="border-box" style="font-size: 12px;">

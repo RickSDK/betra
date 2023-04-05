@@ -14,9 +14,6 @@ export class BrowseSinglesComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-
-    //    var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
-    //    this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
     this.getDataFromServer('logUser', 'appApiCode.php', { refreshFlg: 'Y' })
   }
 
@@ -25,7 +22,7 @@ export class BrowseSinglesComponent extends BaseComponent implements OnInit {
       this.user = new User(responseJson.user);
 
 
-      console.log('hey!!', this.user);
+      console.log('profileViews!!', this.user.profileViews, this.user);
     }
   }
 
@@ -40,6 +37,10 @@ export class BrowseSinglesComponent extends BaseComponent implements OnInit {
     }
     if(this.user.showHeartFormFlg) {
       this.errorMessage = 'Sorry, you must hand out a rose first. Visit your dating pool.'
+      return;
+    }
+    if(!this.user.lat) {
+      this.errorMessage = 'Sorry, you we can not pinpoint your location. Fix your browser settings or log in with another device to set your location.'
       return;
     }
     this.router.navigate(['/user-detail'], { queryParams: { id: 2 } });

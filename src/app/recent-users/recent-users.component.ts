@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
+declare var getDateObjFromJSDate: any;
+
 @Component({
   selector: 'app-recent-users',
   templateUrl: './recent-users.component.html',
@@ -9,7 +11,7 @@ import { BaseComponent } from '../base/base.component';
 export class RecentUsersComponent extends BaseComponent implements OnInit {
   public users: any = [];
   public showContactInfo: boolean = false;
-  
+
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -21,6 +23,10 @@ export class RecentUsersComponent extends BaseComponent implements OnInit {
     console.log('--postSuccessApi--', responseJson);
     if (responseJson.action == 'getRecentUsers') {
       this.users = responseJson.users;
+      this.users.forEach((element: any) => {
+        var dt = getDateObjFromJSDate(element.created);
+        element.localDate = dt.localDate;
+      });
     }
   }
 }

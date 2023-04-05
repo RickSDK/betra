@@ -9,16 +9,17 @@
                 matches to know how far apart they live. </p>
 
             <p>You should have green checkmarks under both
-                "Navigator" and "GeoPlugin" sections below.</p>
+                "Navigator" and "GeoPlugin" sections below. <span style="font-size: 8px; color: white;">{{locDist}}</span></p>
+            
         </div>
-        <table width="100%" *ngIf="responseJson" style="font-size: 10px;">
+        <table width="100%" style="font-size: 10px;">
             <tr>
                 <td valign="top" width="50%">
                     <div class="red-text">Navigator</div>
-                    <div *ngIf="!latitude || responseJson.navLat != latitude" style="color: #900; font-size: 16px;"><i
+                    <div *ngIf="!latitude || locDist>5" style="color: #900; font-size: 16px;"><i
                             class="fa fa-times"></i> Not Synced
                     </div>
-                    <div *ngIf="latitude && responseJson.navLat == latitude" style="color: green; font-size: 16px;"><i
+                    <div *ngIf="latitude && locDist<=5" style="color: green; font-size: 16px;"><i
                             class="fa fa-check"></i> Synced up
                     </div>
                     <div *ngIf="responseJson" class="border-box">
@@ -36,7 +37,7 @@
                         <button [disabled]="loadingFlg" (mousedown)="findLocation()"
                             class="btn btn-main-color btn-small">Find Location</button>
                     </div>
-                    <div *ngIf="latitudeFlg" class="border-box">
+                    <div *ngIf="responseJson && latitudeFlg" class="border-box">
                         <div>Current Local GPS</div>
                         <div>Lat: <span class="text-highlight">{{latitude}}</span></div>
                         <div>Lng: <span class="text-highlight">{{longitude}}</span></div>
@@ -44,11 +45,9 @@
                             class="btn btn-main-color btn-small spacer">Find Location</button>
                         <button [disabled]="loadingFlg || !latitudeFlg || latitude == responseJson.navLat"
                             (mousedown)="updateGps()" class="btn btn-primary btn-small spacer">Update</button>
-
-                    </div>
-
+                    </div><div id="geoError" style="background-color: yellow;"></div>
                 </td>
-                <td valign="top">
+                <td valign="top" *ngIf="responseJson">
                     <div class="red-text">GeoPlugin</div>
                     <div *ngIf="!responseJson.latitude || responseJson.latitude != localLat"
                         style="color: #900; font-size: 16px;"><i class="fa fa-times"></i> Not Synced
@@ -78,7 +77,7 @@
                     </div>
                 </td>
             </tr>
-        </table>
+        </table>       
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
     </div>

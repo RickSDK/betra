@@ -36,13 +36,16 @@ export class UploadImageCropComponent implements OnInit {
   public lastLeft: number = 0;
   public lastTop: number = 0;
   public disableUploadButton: boolean = true;
+  public errorMessage: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
     this.canvas = document.querySelector('canvas');
+    console.log('canavs!!!', this.canvas);
     if (this.canvas) {
       this.ctx = this.canvas.getContext('2d');
+
 
       /*if (this.ctx && this.src) {
         this.image = new Image();
@@ -56,7 +59,23 @@ export class UploadImageCropComponent implements OnInit {
         }, 100);
 
       }*/
+    } else {
+      console.log('no canvas!!');
+      this.errorMessage = 'no canvas!!';
+      setTimeout(() => {
+        this.tryToFindCanvas();
+      }, 1000);
     }
+  }
+
+  tryToFindCanvas() {
+    this.canvas = document.querySelector('canvas');
+    if (this.canvas) {
+      console.log('canavs found!!!', this.canvas);
+      this.ctx = this.canvas.getContext('2d');
+      this.errorMessage = '';
+    }
+
   }
 
   handleFileInput(event: any, id: string) {
@@ -80,13 +99,16 @@ export class UploadImageCropComponent implements OnInit {
         this.src = smallImgSrc;
         var smallImage = new Image();
         smallImage.src = smallImgSrc.toString();
+        this.disableUploadButton = false;
         smallImage.onload = () => {
           //$('#' + this.id).attr('src', smallImgSrc);
-          this.ctx.drawImage(smallImage, 0, 0);
-          this.imageWidth = smallImage.width;
-          this.imageHeight = smallImage.height;
-          this.disableUploadButton = false;
-          console.log('New Size: ', this.id, smallImage.src.length, smallImage.width, smallImage.height);
+          console.log('New Size: ', this.id, smallImage.src.length, smallImage.width, smallImage.height);  
+ 
+          if(this.ctx) {
+            this.ctx.drawImage(smallImage, 0, 0);
+            this.imageWidth = smallImage.width;
+            this.imageHeight = smallImage.height;
+         }
         };
 
       }
@@ -110,6 +132,8 @@ export class UploadImageCropComponent implements OnInit {
   }
 
   drawImage() {
+    if (!this.ctx)
+      return;
     this.ctx.fillStyle = 'gray';
     var rect = this.canvas.getBoundingClientRect();
     this.ctx.fillRect(0, 0, rect.right, rect.bottom);
@@ -133,11 +157,15 @@ export class UploadImageCropComponent implements OnInit {
     }
 
     this.ctx.drawImage(this.image, this.imageLeft, this.imageTop, width, height);
-    console.log('draw!');
+    //console.log('draw!');
 
   }
 
   centerImage() {
+    if(!this.ctx) {
+      console.log('error!');
+      return;
+    }
     this.ctx.fillStyle = 'gray';
     var rect = this.canvas.getBoundingClientRect();
     this.ctx.fillRect(0, 0, rect.right, rect.bottom);
@@ -154,6 +182,7 @@ export class UploadImageCropComponent implements OnInit {
   }
 
   getPosition(event: any) {
+//    console.log('getPosition', event);
     this.lastLeft = this.imageLeft;
     this.lastTop = this.imageTop;
     var x = event.offsetX;

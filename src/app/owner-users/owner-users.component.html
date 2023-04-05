@@ -1,17 +1,19 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Users'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
     <div class="matches-card2" *ngIf="user && user.ownerFlg">
+        <app-top-header [topTitle]="'Owners'"></app-top-header>
+        <hr>
+
         <app-owners-menu [pageTitle]="'Owners'" [page]="1"></app-owners-menu>
         <hr>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-        <app-owners-table-cell [ownersList]="managmentTeam" [user]="user" [tableName]="'Management'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="devTeam" [user]="user" [tableName]="'Dev Team'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="promotionsTeam" [user]="user" [tableName]="'Promotions Team'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="activityLeads" [user]="user" [tableName]="'Activity Leads'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="activityReps" [user]="user" [tableName]="'Activity Reps'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
-        <app-owners-table-cell [ownersList]="usList" [user]="user" [tableName]="'Others'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
-
+        <app-owners-table-cell [ownersList]="level5Owners" [user]="user" [tableName]="'Level 5 Owners'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="level4Owners" [user]="user" [tableName]="'Level 4 Owners'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="level3Owners" [user]="user" [tableName]="'Level 3 Owners'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="level2Owners" [user]="user" [tableName]="'Level 2 Owners'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+        <app-owners-table-cell [ownersList]="level1Owners" [user]="user" [tableName]="'Level 1 Owners'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>
+    
         <div style="font-size: 10px;">
             <div>*<b>Clicks</b> indicates the number of profiles you have browsed.</div>
             <div>*<b>Matches</b> indicates the number of dating pool matches.</div>

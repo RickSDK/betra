@@ -1,6 +1,8 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Stats'" [userId]="userId"
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
     <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-top-header [topTitle]="'Stats'"></app-top-header>
+        <hr>
         <app-owners-menu [pageTitle]="'Stats'" [page]="1"></app-owners-menu>
 
         <hr>

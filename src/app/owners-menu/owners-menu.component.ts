@@ -12,14 +12,14 @@ export class OwnersMenuComponent implements OnInit {
   public topButtons = [
     { name: 'Main Info', routerLink: '/owner-admin', id: 1 },
     { name: 'More Details', routerLink: '/join-team', id: 2 },
-    { name: 'Teams', routerLink: '/owner-teams', id: 3 },
+    //{ name: 'Teams', routerLink: '/owner-teams', id: 3 },
   ]
   public buttons = [
     { name: 'Admin', routerLink: '/owner-admin', id: 0 },
     { name: 'Discussion', routerLink: '/owner-bugs', id: 2 },
     { name: 'Bugs', routerLink: '/owner-bugs', id: 3 },
     { name: 'Analytics', routerLink: '/owner-analytics', id: 4 },
-    { name: 'Activity', routerLink: '/owner-activity', id: 5 },
+//    { name: 'Activity', routerLink: '/owner-activity', id: 5 },
   ]
   public buttons2 = [
     { name: 'Overview', routerLink: '/join-team', id: 1 },

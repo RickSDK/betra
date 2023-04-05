@@ -15,6 +15,8 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
   public localCity: string = '';
   public localLat: string = '';
   public localLng: string = '';
+  public locDist: number = 99;
+  public databaseLatitude: number = 0;
 
   constructor(public zone: NgZone) { super(); }
 
@@ -23,12 +25,9 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
     this.getLocation();
     this.findGeoInfo();
     this.getDataFromServer('getLocationInfo', 'geoScript.php', {});
-  }
-
-  override postSuccessApi(file: string, responseJson: any) {
-    console.log('XXX postSuccessApi', file, responseJson);
-    if (responseJson.action == 'getLocationInfo') {
-    }
+    setTimeout(() => {
+      this.checkValues();
+    }, 5000);
   }
 
   findLocation() {
@@ -52,6 +51,14 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
     this.latitudeFlg = !!(localStorage['latitude'] && localStorage['latitude'] != '');
     this.latitude = localStorage['latitude'];
     this.longitude = localStorage['longitude'];
+    this.findDistance();
+  }
+
+  findDistance() {
+    var lat1 = parseFloat(localStorage['latitude'] || 0);
+    if (lat1 != 0 && this.databaseLatitude != 0)
+      this.locDist = Math.abs((lat1 - this.databaseLatitude) * 10000);
+    console.log('locDist!!!!', this.locDist, lat1, this.databaseLatitude);
   }
 
   updateGeoPluginInfo() {

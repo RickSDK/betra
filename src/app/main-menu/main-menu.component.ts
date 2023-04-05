@@ -145,12 +145,14 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     this.responseJson = responseJson;
 
     if (responseJson.action == "logUser" && this.user) {
+      console.log('main menu!', this.userStatus, responseJson);
       this.userStatus = this.user.status;
-      if (this.user && this.user.ip == '')
+      if (this.user.ip == '')
         this.populateGeoInfo();
-      else {
+
+      if (this.user.refreshFlg == 'Y' || (this.user.infoObj && this.user.infoObj.refreshFlg == 'Y'))
         this.syncUserWithLocalStorage(responseJson);
-      }
+
     }
     if (responseJson.action == 'updateGeoInfo') {
       this.syncUserWithLocalStorage(responseJson);

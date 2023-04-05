@@ -203,8 +203,9 @@ export class User {
     public expiration: string = ''
     public exceededPoolSizeFlg: boolean = false;
     public datingPoolLimit: number = 8;
-    public profileViews:number = 0;
-    public yourTitle:string = '';
+    public profileViews: number = 0;
+    public yourTitle: string = '';
+    public adminLevel: number = 0;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -246,7 +247,7 @@ export class User {
             this.numTattoos = obj.numTattoos || '0';
             this.numPiercings = obj.numPiercings || '0';
             this.profileViews = obj.profileViews || 0;
-
+            this.adminLevel = obj.adminLevel || 0;
             this.personalityQuizAnswers = obj.personalityQuizAnswers || '';
             this.politicalQuizAnswers = obj.politicalQuizAnswers || '';
             this.stableScore = obj.stableScore || 0;
@@ -468,7 +469,7 @@ export class User {
         this.datingPoolLimit = (this.memberFlg) ? 12 : 8;
         this.exceededPoolSizeFlg = datingPool.length > this.datingPoolLimit;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
-    
+
         this.matchGender = (this.matchPreference == 'F') ? 'Women' : 'Men';
 
         if (this.matchPreference == 'A')

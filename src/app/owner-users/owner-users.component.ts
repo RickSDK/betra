@@ -25,6 +25,12 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   public activityLeads: any = [];
   public activityReps: any = [];
 
+  public level5Owners: any = [];
+  public level4Owners: any = [];
+  public level3Owners: any = [];
+  public level2Owners: any = [];
+  public level1Owners: any = [];
+
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -57,27 +63,48 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
       this.activityLeads = [];
       this.activityReps = [];
 
+      this.level5Owners = [];
+      this.level4Owners = [];
+      this.level3Owners = [];
+      this.level2Owners = [];
+      this.level1Owners = [];
+      var emailList: any = [];
+
+
       responseJson.playerList.forEach((element: any) => {
 
         var player = new User(element);
+        emailList.push(player.email);
 
-        if (element.user_id == 1 || element.user_id == 122 || element.user_id == 118 || element.user_id == 156 || element.user_id == 233 || element.user_id == 235)
-          this.managmentTeam.push(player);
-        else if (element.user_id == 161 || element.user_id == 141 || element.user_id == 85 || element.user_id == 155 || element.user_id == 65 || element.user_id == 73 || element.user_id == 74 || element.user_id == 75)
-          this.devTeam.push(player);
-        else if (element.user_id == 53 || element.user_id == 1)
-          this.promotionsTeam.push(player);
-        else if (element.activityRep > 10)
-          this.activityLeads.push(player);
-        else if (element.activityRep > 0 && element.activityRep <= 6)
-          this.activityReps.push(player);
+        if (element.adminLevel == 5)
+          this.level5Owners.push(player);
+        else if (element.adminLevel == 4)
+          this.level4Owners.push(player);
+        else if (element.adminLevel == 3)
+          this.level3Owners.push(player);
+        else if (element.adminLevel == 2)
+          this.level2Owners.push(player);
         else
-          this.usList.push(player);
+          this.level1Owners.push(player);
+        /*
+                if (element.user_id == 1 || element.user_id == 122 || element.user_id == 118 || element.user_id == 156 || element.user_id == 233 || element.user_id == 235)
+                  this.managmentTeam.push(player);
+                else if (element.user_id == 161 || element.user_id == 141 || element.user_id == 85 || element.user_id == 155 || element.user_id == 65 || element.user_id == 73 || element.user_id == 74 || element.user_id == 75)
+                  this.devTeam.push(player);
+                else if (element.user_id == 53 || element.user_id == 1)
+                  this.promotionsTeam.push(player);
+                else if (element.activityRep > 10)
+                  this.activityLeads.push(player);
+                else if (element.activityRep > 0 && element.activityRep <= 6)
+                  this.activityReps.push(player);
+                else
+                  this.usList.push(player);*/
       });
       console.log('total number owners: ', responseJson.playerList.length);
+      console.log(emailList.join('; '))
     }
-    
-    if (responseJson.action == 'updateUserRegion' || responseJson.action == 'sendEmail' || responseJson.action  == 'demoteUser') {
+
+    if (responseJson.action == 'updateUserRegion' || responseJson.action == 'sendEmail' || responseJson.action == 'demoteUser') {
       this.getDataFromServer('getOwnerUsers', 'owners.php', []);
     }
   }

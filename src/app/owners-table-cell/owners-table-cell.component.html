@@ -18,7 +18,7 @@
                     </app-profile-pic>
                 </td>
                 <td [title]="player.user_id">
-                    <b>{{player.firstName}}</b> <span *ngIf="user.user_id==1">{{player.activityRep}}</span>
+                    <b>{{player.firstName}}</b> 
                     <div *ngIf="user.activityRep>9" style="font-size: 8px; color: gray">{{player.email}}</div>
                     <div *ngIf="user.activityRep>9" style="font-size: 8px; color: gray">{{player.phone}}</div>
                 </td>

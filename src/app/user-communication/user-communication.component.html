@@ -35,7 +35,7 @@
                             class="emoji-button">
                     </span>
                 </div>
-                <div *ngIf="showDetailsFlg" class="top-text">{{message.name}}
+                <div *ngIf="showDetailsFlg" class="top-text" [style.text-align]="message.user_id == myUser.user_id?'right':'left'">{{message.name}}
                 </div>
 
                 <div (mousedown)="selectMessage(message.id)" [ngClass]="ngClassMessageBlob(message.user_id)"
@@ -44,7 +44,7 @@
                         style="position: absolute; top: -15px; right: 10px;" title="Added by {{message.emojiName}}">
                     {{message.message}}
                 </div>
-                <div *ngIf="showDetailsFlg" class="bottom-text">{{message.local}}
+                <div *ngIf="showDetailsFlg" class="bottom-text" [style.text-align]="message.user_id == myUser.user_id?'right':'left'">{{message.local}}
                     <span *ngIf="message.user_id == myUser.user_id && !message.readDt" style="color: #700;">Not
                         Read</span>
                     <span *ngIf="message.user_id == myUser.user_id && message.readDt">Read</span>

@@ -1,10 +1,23 @@
-<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Analytics'" [userId]="userId" [imgSrcFile]="imgSrcFile"
-    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Analytics'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-top-header [topTitle]="'Analytics'"></app-top-header>
+        <hr>
         <app-owners-menu [pageTitle]="'Analytics'"></app-owners-menu>
+
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-      <hr>
+        <hr>
+        <div class="tan-box" style="font-size: 10px; text-align: left;">
+            <p>The following table shows the number of new users who have signed up per week. Most recent
+                week (7 days) is at the top.</p>
+            <p>The columns in green represent steps in the Profile Creation process with the percentage number showing
+                the number of users who created an account and made it all the way through the signup process.</p>
+            <p>The thumbs up column indicates the number of users who swiped at least one profile and the final column
+                indicates the number
+                of users who made at least 1 match.
+            </p>
+        </div>
         <table *ngIf="statsArray" style="text-align: center;" border="1">
             <tr>
                 <td></td>
@@ -21,7 +34,7 @@
                 <th title="GPS data grabbed">
                     <i class="fa fa-globe"></i>
                 </th>
-               <th title="Basics filled out">
+                <th title="Basics filled out">
                     <i class="fa fa-phone"></i>
                 </th>
                 <th title="Details filled out">
@@ -83,6 +96,7 @@
                 <td>{{totalsObj.matches}}</td>
             </tr>
         </table>
-        <div class="gray-text">Table is generated dynmaically from the database. First row is all accounts created in the past 7 days (1 Week Back).</div>
+        <div class="gray-text">Table is generated dynmaically from the database. First row is all accounts created in
+            the past 7 days (1 Week Back).</div>
     </div>
 </app-page-shell>

@@ -9,8 +9,6 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <app-scroll-card (messageEvent)="clearItem(item)" *ngFor="let item of displayItems" [item]="item">
         </app-scroll-card>
-
-
     </div>
 
 </app-page-shell>

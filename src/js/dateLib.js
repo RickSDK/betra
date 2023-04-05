@@ -43,6 +43,14 @@ function getDateObjFromJSDate(dateStr = '') {
         time = segments[0];
     var tomorrowLocal = new Date(now.getTime() + (3600000 * 24)).toLocaleDateString();
     var yesterdayLocal = new Date(now.getTime() - (3600000 * 24)).toLocaleDateString();
+    var getTimezoneOffset = new Date().getTimezoneOffset();
+    // 420 for pacific TZ
+    //    getTimezoneOffset -= 480; // mountain time (no good)
+    var mountainTZ = 360;
+    var tzDiff = getTimezoneOffset - mountainTZ;
+    var localDt = new Date(dt.getTime() - tzDiff * 1000*60);
+
+
     if (dt.toLocaleDateString() == nowLocal)
         distanceAway = 'Today';
     if (dt.toLocaleDateString() == yesterdayLocal)
@@ -53,10 +61,11 @@ function getDateObjFromJSDate(dateStr = '') {
         jsDate: dt.toString(),
         legacy: convertDateToString(dt),
         oracle: oracleDateStampFromDate(dt),
-        local: dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString(),
-        localDate: dt.toLocaleDateString(),
-        localTime: dt.toLocaleTimeString(),
-        localTime2: dt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
+        local: localDt.toLocaleDateString() + ' ' + localDt.toLocaleTimeString(),
+        localDate: localDt.toLocaleDateString(),
+        localTime: localDt.toLocaleTimeString(),
+        localTime2: localDt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
+        localDt: localDt,
         time: time,
         getTime: dt.getTime(),
         mo: dt.getMonth() + 1,
@@ -74,6 +83,7 @@ function getDateObjFromJSDate(dateStr = '') {
         dayOfMonth: dt.getDate(),
         dayOfWeek: dayOfWeek(dt.getDay()),
         distanceAway: distanceAway,
+        getTimezoneOffset: getTimezoneOffset,
         lastLoginColor: lastLoginColorFromDaysAgo(daysAgo, parseInt(timeDiff / 1000))
     }
 }

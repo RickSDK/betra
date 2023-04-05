@@ -32,6 +32,7 @@ export class BaseComponent implements OnInit {
   public minutesToRefresh = 1;
   public infoObj: any = null;
   public outOfSyncFlg: boolean = false;
+  public geoError: string = '';
 
 
   public headerObj: any = {
@@ -216,7 +217,7 @@ export class BaseComponent implements OnInit {
           this.checkServerForChanges(now.toString());
         }, 60 * this.minutesToRefresh * 1000);
       }
-      if (responseJson.infoObj.refreshFlg == 'Y' && responseJson.user)
+      if ((responseJson.infoObj.refreshFlg == 'Y' || responseJson.refreshFlg == 'Y') && responseJson.user)
         this.refreshUserObj(responseJson.user);
     }
 
@@ -386,11 +387,32 @@ export class BaseComponent implements OnInit {
   }
 
   getLocation() {
-    console.log('finding location');
+    console.log('finding location', navigator.geolocation);
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.showPosition);
+      navigator.geolocation.getCurrentPosition(this.showPosition, this.browserGeolocationFail);
     } else {
+      console.log('Geolocation is not supported by this browser.');
       this.errorMessage = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  browserGeolocationFail(error: any) {
+    console.log('error!', error);
+    var e = document.getElementById('geoError');
+    if(e) {
+      e.innerHTML = error.message;
+    }
+
+    //tryAPIGeolocation();
+
+    switch (error.code) {
+      case error.TIMEOUT:
+        break;
+      case error.PERMISSION_DENIED:
+        //       tryAPIGeolocation();
+        break;
+      case error.POSITION_UNAVAILABLE:
+        break;
     }
   }
 
@@ -412,3 +434,12 @@ function getPostDataFromObj(obj: any) {
   };
   return postData;
 }
+
+var tryAPIGeolocation = function() {
+  $.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU", function(success:any) {
+      console.log(success.location.lat, success.location.lng);
+})
+.fail(function(err:any) {
+  console.log('error!!', err);
+});
+};

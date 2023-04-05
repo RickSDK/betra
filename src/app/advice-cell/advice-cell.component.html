@@ -9,7 +9,7 @@
                 <div class="red-text">{{person.firstName}}</div>
                 <div><b>Motto:</b> {{person.motto}}</div>
                 <div><b>Looking For:</b> {{person.lookingFor}}</div>
-                <div *ngIf="admin.ownerFlg" style="text-align: left;">
+                <div *ngIf="admin.ownerFlg && person.correctGender" style="text-align: left;">
                     <a (mousedown)="showReplyFlg=!showReplyFlg" class="text-link">reply</a>
                 </div>
             </td>
