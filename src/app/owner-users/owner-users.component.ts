@@ -54,6 +54,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getOwnerUsers') {
       this.usList = [];
       this.internationalList = [];
@@ -100,8 +101,8 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
                 else
                   this.usList.push(player);*/
       });
-      console.log('total number owners: ', responseJson.playerList.length);
-      console.log(emailList.join('; '))
+      //console.log('total number owners: ', responseJson.playerList.length);
+      //console.log(emailList.join('; '))
     }
 
     if (responseJson.action == 'updateUserRegion' || responseJson.action == 'sendEmail' || responseJson.action == 'demoteUser') {
@@ -110,7 +111,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   }
 
   ownersTableEvent(player: any) {
-    console.log('made it!');
+    //console.log('made it!');
     this.choosePlayer(player, 7);
   }
   choosePlayer(player: any, num: number) {
@@ -127,7 +128,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
       zone: $('#zone').val(),
       action: "updateUserRegion"
     };
-    console.log('params', params);
+    //console.log('params', params);
     this.executeApi('owners.php', params, true);
     this.selectedPlayer = null;
   }
@@ -138,7 +139,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
       uid: this.selectedPlayer.user_id,
       action: "sendEmail"
     };
-    console.log('params', params);
+    //console.log('params', params);
     this.executeApi('owners.php', params, true);
     this.selectedPlayer = null;
   }

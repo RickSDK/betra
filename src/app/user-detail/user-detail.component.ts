@@ -135,11 +135,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.searchStarted = false;
     this.matchUser = null;
     if (this.id != 4 && (this.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
-      this.logUser('Y');
+//      this.logUser('Y');
       return;
     }
     if (!this.user.lat) {
-      this.logUser('Y');
+  //    this.logUser('Y');
       return;
     }
     this.searchStarted = true;
@@ -179,7 +179,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
   //--------------------------------------------
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('--postSuccessApi--', responseJson);
+    super.postSuccessApi(file, responseJson);
     this.profileViews = responseJson.profileViews;
     if (this.profileViews < 0)
       this.profileViews = 0;
@@ -257,13 +257,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'banThisUser') {
       this.router.navigate(['']);
     }
-    if (responseJson.action == 'logUser') {
-      this.syncUserWithLocalStorage(responseJson);
-      if (this.exceededPoolSizeFlg) {
-        var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
-        this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
-      }
-    }
+
     if (responseJson.action == 'getThisUser') {
       this.matchUser = new User(responseJson.user, this.user);
       this.messageCount = responseJson.messages;
@@ -273,6 +267,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.dateObj = this.matchUser.matchObj.dateObj;
 
       this.displayThisProfile();
+      //this.logUser();
       if (this.matchUser.newReviewBy > 0 && this.matchUser.user_id == this.user.user_id) {
         this.showNewReviewPopup = true;
         this.getDataFromServer('clearNewReviewFlg', 'betraReviews.php', []);

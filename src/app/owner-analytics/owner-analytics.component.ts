@@ -17,7 +17,7 @@ export class OwnerAnalyticsComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('getAnalytics', 'owners.php', {})
   }
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('XXX postSuccessApi', file, responseJson);
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getAnalytics') {
       this.statsArray = responseJson.statsArray;
       this.statsArray.forEach((element: any) => {

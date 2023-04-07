@@ -58,10 +58,10 @@
             </div>
             <div class="border-box">
                 <div class="red-text">Progress</div>
-                <div>Blog Comments: <b class="text-highlight">{{responseJson.blogComments}}</b> <i *ngIf="responseJson.blogComments > 1" style="color: green;" class="fa fa-check"></i></div>
-                <div>Messages: <b class="text-highlight">{{responseJson.messageCount}}</b><i *ngIf="responseJson.messageCount > 39" style="color: green;" class="fa fa-check"></i></div>
-                <div>User Reviews: <b class="text-highlight">{{responseJson.reviewCount}}</b><i *ngIf="responseJson.reviewCount > 2" style="color: green;" class="fa fa-check"></i></div>
-                <div>Bugs/Discussion: <b class="text-highlight">{{responseJson.bugsCount}}</b><i *ngIf="responseJson.bugsCount > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i *ngIf="ownersPage.blogComments > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></div>
+                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></div>
+                <div>Bugs/Discussion: <b class="text-highlight">{{ownersPage.bugsCount}}</b><i *ngIf="ownersPage.bugsCount > 1" style="color: green;" class="fa fa-check"></i></div>
                 <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
         </div>
@@ -80,11 +80,11 @@
             </div>
             <div class="border-box">
                 <div class="red-text">Progress</div>
-                <div>People Messaged: <b class="text-highlight">{{responseJson.peopleMessaged}}</b> <i *ngIf="responseJson.peopleMessaged > 19" style="color: green;" class="fa fa-check"></i></div>
-                <div>Messages: <b class="text-highlight">{{responseJson.messageCount}}</b><i *ngIf="responseJson.messageCount > 99" style="color: green;" class="fa fa-check"></i></div>
-                <div>Profiles Swiped: <b class="text-highlight">{{responseJson.profilesSwiped}}</b><i *ngIf="responseJson.profilesSwiped > 24" style="color: green;" class="fa fa-check"></i></div>
-                <div>User Reviews: <b class="text-highlight">{{responseJson.reviewCount}}</b><i *ngIf="responseJson.reviewCount > 5" style="color: green;" class="fa fa-check"></i></div>
-                <div>Blog Comments: <b class="text-highlight">{{responseJson.blogComments}}</b> <i *ngIf="responseJson.blogComments > 3" style="color: green;" class="fa fa-check"></i></div>
+                <div>People Messaged: <b class="text-highlight">{{ownersPage.peopleMessaged}}</b> <i *ngIf="ownersPage.peopleMessaged > 19" style="color: green;" class="fa fa-check"></i></div>
+                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></div>
+                <div>Profiles Swiped: <b class="text-highlight">{{ownersPage.profilesSwiped}}</b><i *ngIf="ownersPage.profilesSwiped > 24" style="color: green;" class="fa fa-check"></i></div>
+                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></div>
+                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i *ngIf="ownersPage.blogComments > 3" style="color: green;" class="fa fa-check"></i></div>
                 <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
         </div>
@@ -105,6 +105,23 @@
             <div style="color: green;"><i class="fa fa-check"></i> Goal Reached!</div>
             <button (mousedown)="acceptPromotion()" class="btn btn-main-color">Accept Promotion</button>
         </div>
+
+        <hr>
+
+ 
+        Topic: Betra Planning Meeting<br>
+        Time: Thursdays 10:00 AM Pacific Time (US and Canada)<br>
+
+        <div class="border-box">
+            Join Zoom Meeting<br>
+            <a href="https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1">https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1</a><br>    
+        </div>
+        
+        Meeting ID: 747 1563 8462<br>
+        Passcode: 1234<br>
+        
+        
+        
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

@@ -9,6 +9,11 @@ import { BaseComponent } from '../base/base.component';
 export class ChatRoomComponent extends BaseComponent implements OnInit {
   public messages: any = [];
   public lastMessage: number = 0;
+  public chatRoom: any = null;
+  public happyHourNotice: string = '';
+  public showMoreFlg: boolean = false;
+  public lotsOfMessagesFlg: boolean = false;
+  public textValue: string = '';
 
   constructor() { super(); }
 
@@ -44,17 +49,56 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('sendMessage', 'chat.php', { message: message, room: 1, lastMessage: this.lastMessage });
   }
 
+  populateHappyHour(str: string) {
+    this.happyHourNotice = str;
+    var c = str.split(':');
+    if (c.length > 2) {
+      var hour = parseInt(c[0]);
+      var min = parseInt(c[1]);
+      var sec = parseInt(c[2]);
+
+      if (hour > 18)
+        this.happyHourNotice = 'Tomorrow at 5pm';
+      if (hour == 18)
+        this.happyHourNotice = 'Now!';
+      if (hour == 17) {
+        this.happyHourNotice = 'Starting In ' + (60 - min).toString() + ' minutes';
+      }
+      if (hour == 16) {
+        this.happyHourNotice = 'In about an hour';
+      }
+      if (hour < 16) {
+        this.happyHourNotice = 'In about ' + (18 - hour).toString() + ' hours';
+      }
+
+    }
+  }
+
+  messageClicked(message: any) {
+    console.log(message);
+    this.textValue = '@' + message.firstName + ': ';
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
-    //console.log('xxx', responseJson, this.lastMessage);
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == "chatLogin") {
-      //    this.playSound(0);
+      this.chatRoom = responseJson;
+      this.populateHappyHour(responseJson.currentTime);
       if (responseJson.messages && responseJson.messages.length > 0) {
         if (this.lastMessage == 0)
           this.playSound(0);
         else {
+          var allowSound = true;
+          var count = 0;
+          this.lotsOfMessagesFlg = false;
           responseJson.messages.forEach((element: any) => {
             //console.log(element.newMsg, element.type);
-            if (element.newMsg) {
+            if (count++ > 15) {
+              element.olderFlg = true;
+              this.lotsOfMessagesFlg = true;
+            }
+            if (element.newMsg && allowSound) {
+              allowSound = false;
               if (element.type == 'S')
                 this.playSound(0);
               if (!element.type)

@@ -8,6 +8,7 @@ import { BaseComponent } from '../base/base.component';
 })
 export class ContestComponent extends BaseComponent implements OnInit {
   public isIncluded: boolean = false;
+  public contestPage: any = null;
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -22,8 +23,10 @@ export class ContestComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == "getContestUsers") {
       this.isIncluded = responseJson.isIncluded;
+      this.contestPage = responseJson;
     }
   }
 }

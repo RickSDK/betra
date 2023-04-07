@@ -68,6 +68,7 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getOwnerUsers') {
       this.managmentTeam = [];
       this.devTeam = [];

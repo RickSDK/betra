@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class MessageInputComponent implements OnInit {
   @Input('placeHolder') placeHolder: string = 'Type message';
   @Input('maxLength') maxLength: number = 500;
+  @Input('value') value: string = '';
 
   @Output() messageEvent = new EventEmitter<string>();
 

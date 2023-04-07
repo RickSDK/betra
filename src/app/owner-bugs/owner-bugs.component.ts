@@ -75,7 +75,7 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
     this.executeApi('journal.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('XXX postSuccessApi', file, responseJson);
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getJournals' || responseJson.action == 'postJournalReply') {
       this.selectedJournal = null;
       this.allBugs = [];

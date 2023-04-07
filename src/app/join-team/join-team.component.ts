@@ -68,8 +68,7 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
 
   }
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('xxx', responseJson);
-    this.responseJson = responseJson;
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'ownerSignup') {
       this.router.navigate(['']);
     }

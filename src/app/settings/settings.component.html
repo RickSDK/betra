@@ -182,58 +182,6 @@
             <div>OS: <span class="text-highlight">{{os}}</span></div>
             <div>Platform: <span class="text-highlight">{{platform}}</span></div>
         </div>
-        <!--<div *ngIf="menuNum==1">
-            <div><b>Betra Stats</b></div>
-            <div style="font-size: 10px;">
-                <div>Version: <span class="text-highlight">{{version}}</span></div>
-                <div>Browser: <span class="text-highlight">{{browser}}</span></div>
-                <div>Platform: <span class="text-highlight">{{platform}}</span></div>
-            </div>
-            <table width="100%" *ngIf="responseJson && !loadingFlg">
-                <tr>
-                    <td valign="top">
-                        <div class="border-box" style="font-size: 12px;">
-                            <div class="tiny-text">Accounts</div>
-                            <div>Total Created: {{responseJson.accounts}}</div>
-                            <div>*Newly Created: {{responseJson.newThisWeek}}</div>
-                            <div>Active Status: {{responseJson.activeAccounts}}</div>
-                            <div>*Recently Logged In: {{responseJson.recentLogins}}</div>
-                            <div style="font-size: 8px; color: gray;">* past 7 days</div>
-                        </div>
-                        <div class="border-box">
-                            <div class="tiny-text">Likes: {{responseJson.likes}}</div>
-                            <div class="tiny-text">Matches: {{responseJson.matches}}</div>
-                            <div class="tiny-text">Messages: {{responseJson.messages}}</div>
-                            <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
-                        </div>
-                    </td>
-                    <td valign="top">
-                        <div class="border-box" style="font-size: 12px;">
-                            <div class="tiny-text">Countries</div>
-                            <div *ngFor="let country of responseJson.countryNames">
-                                <div>{{country.countryName}}<sup>{{country.count}}</sup></div>
-                            </div>
-                        </div>
-                        <div class="border-box" style="font-size: 12px;">
-                            <div class="tiny-text">States</div>
-                            <div *ngFor="let state of responseJson.stateName">
-                                <div>{{state.stateName}}<sup>{{state.count}}</sup></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td valign="top">
-                        <div class="border-box" style="font-size: 8px; max-width: 200px;">
-                            <div class="tiny-text">Cities</div>
-                            <span *ngFor="let city of responseJson.cities">
-                                {{city.name}}<sup>{{city.count}}</sup>
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>-->
-
-
 
         <div *ngIf="userId==1">
             <p>&nbsp;</p>

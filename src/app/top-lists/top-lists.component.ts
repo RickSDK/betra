@@ -8,6 +8,7 @@ import { BaseComponent } from '../base/base.component';
 })
 export class TopListsComponent extends BaseComponent implements OnInit {
   public override topButtons = ['Likes', 'Newest', 'Online Now!'];
+  public topListsPage: any = null;
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -27,6 +28,12 @@ export class TopListsComponent extends BaseComponent implements OnInit {
     this.menuNum = num;
     var actions = ['getStats', 'getNewestUsers', 'getRecentUsers'];
     this.getTop10List(actions[num]);
+  }
+  override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
+    if (responseJson.action != "logUser") {
+      this.topListsPage = responseJson;
+    }
   }
 
 }

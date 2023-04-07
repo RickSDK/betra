@@ -31,7 +31,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('XXX postSuccessApi', file, responseJson);
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getJournals' || responseJson.action == 'postMainJournal' || responseJson.action == 'postJournalReply') {
       this.selectedJournal = null;
       this.journalList = [];
@@ -41,7 +41,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
           journalList.push(new Journal(element, this.user.user_id));
       });
       this.journalList = journalList;
-      console.log('hey!!', journalList);
+//     console.log('hey!!', journalList);
 
     }
   }

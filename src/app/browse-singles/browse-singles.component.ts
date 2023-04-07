@@ -14,16 +14,6 @@ export class BrowseSinglesComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getDataFromServer('logUser', 'appApiCode.php', { refreshFlg: 'Y' })
-  }
-
-  override postSuccessApi(file: string, responseJson: any) {
-    if (responseJson.action == "logUser" && responseJson.user) {
-      this.user = new User(responseJson.user);
-
-
-      console.log('profileViews!!', this.user.profileViews, this.user);
-    }
   }
 
   browseSingles() {

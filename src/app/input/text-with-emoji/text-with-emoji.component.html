@@ -4,7 +4,7 @@
             <app-profile-pic [user_id]="user_id" [profilePic]="profilePic" [size]="30"></app-profile-pic>
         </td>
         <td style="position: relative;">
-            <app-message-input [maxLength]="maxLength" [placeHolder]="placeHolder" (messageEvent)="textValueChanged($event)"></app-message-input>
+            <app-message-input [maxLength]="maxLength" [placeHolder]="placeHolder" (messageEvent)="textValueChanged($event)" [value]="value"></app-message-input>
         </td>
         <td valign="top" style="padding: 3px; padding-top: 20px;">&nbsp;
             <button (mousedown)="submitValue()" class="btn btn-primary" [disabled]="submitDisabled"><i

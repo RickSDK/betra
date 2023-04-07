@@ -8,6 +8,7 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./owners.component.scss']
 })
 export class OwnersComponent extends BaseComponent implements OnInit {
+  public ownersPage: any = null;
   public zone: string = '';
   public ownerLevels = [
     { level: 1, name: 'Owner', percentage: '0.5%', payouts: '$500' },
@@ -50,7 +51,9 @@ export class OwnersComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getMyOwnerInfo') {
+      this.ownersPage = responseJson;
       console.log('getMyOwnerInfo!', responseJson);
       var level = responseJson.adminLevel || 1;
       this.yourLevel = this.ownerLevels[level - 1];

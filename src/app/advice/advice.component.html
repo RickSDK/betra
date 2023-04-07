@@ -27,25 +27,23 @@
             </tr>
         </table>
 
-
-
         <div class="tan-box" style="font-size: 12px;">
             Upgraded Gold Members get advice automatically from our experts! Feel free to post questions or tell us
             about your situation and we will be happy to help you find love!
-            <div *ngIf="user && responseJson && !responseJson.isIncluded" class="border-box">
+            <div *ngIf="user && advicePage && !advicePage.isIncluded" class="border-box">
                 <div>Would you like to sign up to receive advice?</div>
                 <button [disabled]="loadingFlg" (mousedown)="addMe()" class="btn btn-main-color btn-small">Add Me</button>&nbsp;
             
                 <button *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']" class="btn btn-main-color btn-small">Upgrade</button>    
             </div>
-            <div *ngIf="user && responseJson && responseJson.isIncluded" class="border-box">
+            <div *ngIf="user && advicePage && advicePage.isIncluded" class="border-box">
                 <div>Would you like to remove yourself from this page?</div>
                 <button [disabled]="loadingFlg" (mousedown)="removeMe()" class="btn btn-main-color btn-small">Remove Me</button>&nbsp;
             </div>
         </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="responseJson">
-            <app-advice-cell [admin]="user" [person]="person" *ngFor="let person of responseJson.users"></app-advice-cell>
+        <div *ngIf="advicePage">
+            <app-advice-cell [admin]="user" [person]="person" *ngFor="let person of advicePage.users"></app-advice-cell>
         </div>
 
     </div>

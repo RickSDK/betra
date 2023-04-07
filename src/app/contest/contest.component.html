@@ -23,9 +23,9 @@
             <p>Check back on June 1st to see who was selected to be in the contest!</p>
         </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="responseJson" class="border-box">
+        <div *ngIf="contestPage" class="border-box">
             <div>Users signed up:</div>
-            <app-profile-pic *ngFor="let person of responseJson.users" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+            <app-profile-pic *ngFor="let person of contestPage.users" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
             </app-profile-pic>
         </div>
 

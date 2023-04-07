@@ -7,7 +7,7 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./advice.component.scss']
 })
 export class AdviceComponent extends BaseComponent implements OnInit {
-
+  public advicePage: any = null;
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -16,7 +16,7 @@ export class AdviceComponent extends BaseComponent implements OnInit {
   }
 
   addMe() {
-    if(!this.user.memberFlg) {
+    if (!this.user.memberFlg) {
       this.errorMessage = 'You must upgrade to get this feature. Only $2!';
       return;
     }
@@ -26,8 +26,10 @@ export class AdviceComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('removeMe', 'advice.php', {});
   }
   override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == "getAdviceUsers") {
-      console.log('hey!', responseJson);
+      this.advicePage = responseJson;
+      //console.log('hey!', responseJson);
     }
   }
 }

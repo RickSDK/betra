@@ -9,19 +9,20 @@ import { BaseComponent } from '../base/base.component';
 export class ReferralsComponent extends BaseComponent implements OnInit {
   public users: any = [];
   public textCopiedFlg: boolean = false;
+  public referralText: string = '';
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.referralText = 'https://www.betradating.com/#/?referralId=' + this.userId;
     this.getDataFromServer('getReferralUsers', 'appApiCode.php', {});
   }
 
   copyText() {
-    var copyText = 'https://www.betradating.com?referralId=' + this.userId;
     // Copy the text inside the text field
     if (navigator && navigator.clipboard) {
-      navigator.clipboard.writeText(copyText);
+      navigator.clipboard.writeText(this.referralText);
       this.textCopiedFlg = true;
     }
 

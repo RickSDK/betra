@@ -30,19 +30,18 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
     //setTimeout(() => {
     //  (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
     // }, 1000);
+    this.route.queryParams.subscribe(params => {
+      this.login = params['login'] || 0;
+      this.referralId = params['referralId'] || 0;
+      console.log('landing page referralId', this.referralId);
+      if (this.referralId > 0) {
+        this.login = 2;
+      }
+    })
 
     if (this.userId > 0)
       this.gotoMainMenu();
-    else {
-      //this.getDataFromServer('getStats', 'blog.php', []);
-      this.route.queryParams.subscribe(params => {
-        this.login = params['login'] || 0;
-        this.referralId = params['referralId'] || 0;
-        if (this.referralId > 0) {
-          this.login = 2;
-        }
-      })
-    }
+
   }
   toggleBackground() {
     this.backgroundImg = (this.backgroundImg == 'assets/images/landing/background1.png') ? 'assets/images/landing/roseHome.png' : 'assets/images/landing/background1.png';

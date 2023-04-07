@@ -20,7 +20,7 @@ export class RecentUsersComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('--postSuccessApi--', responseJson);
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getRecentUsers') {
       this.users = responseJson.users;
       this.users.forEach((element: any) => {

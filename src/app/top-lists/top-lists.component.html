@@ -15,11 +15,11 @@
 
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <table width="100%" *ngIf="responseJson">
+        <table width="100%" *ngIf="topListsPage">
             <tr>
                 <td align="center">
                     <div class="tiny-text" style="text-align: center;"><b>Men</b></div>
-                    <div *ngFor="let person of responseJson.topMen; let i =index" style="display: inline-block;">
+                    <div *ngFor="let person of topListsPage.topMen; let i =index" style="display: inline-block;">
                         <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic"
                         [size]="100"></app-profile-pic>
                         <div style="font-size: 12px;"><span style="color: gray;">{{i+1}}:</span><span> {{person.firstName}} <sup>{{person.usersLiked}}</sup></span></div>
@@ -27,7 +27,7 @@
                 </td>
                 <td align="center">
                     <div class="tiny-text" style="text-align: center;"><b>Women</b></div>
-                    <div *ngFor="let person of responseJson.topWomen; let i =index" style="display: inline-block;">
+                    <div *ngFor="let person of topListsPage.topWomen; let i =index" style="display: inline-block;">
                         <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic"
                         [size]="100"></app-profile-pic>
                         <div style="font-size: 12px;"><span style="color: gray;">{{i+1}}:</span><span> {{person.firstName}} <sup>{{person.usersLiked}}</sup></span></div>

@@ -22,10 +22,10 @@
                     <div *ngIf="latitude && locDist<=5" style="color: green; font-size: 16px;"><i
                             class="fa fa-check"></i> Synced up
                     </div>
-                    <div *ngIf="responseJson" class="border-box">
+                    <div *ngIf="locationPage" class="border-box">
                         <div><b>Current database values</b></div>
-                        <div>Lat: <span class="text-highlight">{{responseJson.navLat}}</span></div>
-                        <div>Lng: <span class="text-highlight">{{responseJson.navLng}}</span></div>
+                        <div>Lat: <span class="text-highlight">{{locationPage.navLat}}</span></div>
+                        <div>Lng: <span class="text-highlight">{{locationPage.navLng}}</span></div>
                     </div>
 
                     <div *ngIf="!latitudeFlg" class="border-box">
@@ -37,34 +37,34 @@
                         <button [disabled]="loadingFlg" (mousedown)="findLocation()"
                             class="btn btn-main-color btn-small">Find Location</button>
                     </div>
-                    <div *ngIf="responseJson && latitudeFlg" class="border-box">
+                    <div *ngIf="locationPage && latitudeFlg" class="border-box">
                         <div>Current Local GPS</div>
                         <div>Lat: <span class="text-highlight">{{latitude}}</span></div>
                         <div>Lng: <span class="text-highlight">{{longitude}}</span></div>
                         <button [disabled]="loadingFlg" (mousedown)="findLocation()"
                             class="btn btn-main-color btn-small spacer">Find Location</button>
-                        <button [disabled]="loadingFlg || !latitudeFlg || latitude == responseJson.navLat"
+                        <button [disabled]="loadingFlg || !latitudeFlg || latitude == locationPage.navLat"
                             (mousedown)="updateGps()" class="btn btn-primary btn-small spacer">Update</button>
                     </div><div id="geoError" style="background-color: yellow;"></div>
                 </td>
-                <td valign="top" *ngIf="responseJson">
+                <td valign="top" *ngIf="locationPage">
                     <div class="red-text">GeoPlugin</div>
-                    <div *ngIf="!responseJson.latitude || responseJson.latitude != localLat"
+                    <div *ngIf="!locationPage.latitude || locationPage.latitude != localLat"
                         style="color: #900; font-size: 16px;"><i class="fa fa-times"></i> Not Synced
                     </div>
-                    <div *ngIf="responseJson.latitude && responseJson.latitude == localLat"
+                    <div *ngIf="locationPage.latitude && locationPage.latitude == localLat"
                         style="color: green; font-size: 16px;"><i class="fa fa-check"></i> Synced up
                     </div>
 
                     <div class="border-box">
                         <div><b>Current database values</b></div>
-                        <div>City: <span class="text-highlight">{{responseJson.city}}</span></div>
-                        <div>Lat: <span class="text-highlight">{{responseJson.latitude}}</span></div>
-                        <div>Lng: <span class="text-highlight">{{responseJson.longitude}}</span></div>
-                        <div>Country: <span class="text-highlight">{{responseJson.countryName}}</span></div>
-                        <div>State: <span class="text-highlight">{{responseJson.state}}</span></div>
-                        <div>Region: <span class="text-highlight">{{responseJson.region}}</span></div>
-                        <div>Continent: <span class="text-highlight">{{responseJson.continentName}}</span></div>
+                        <div>City: <span class="text-highlight">{{locationPage.city}}</span></div>
+                        <div>Lat: <span class="text-highlight">{{locationPage.latitude}}</span></div>
+                        <div>Lng: <span class="text-highlight">{{locationPage.longitude}}</span></div>
+                        <div>Country: <span class="text-highlight">{{locationPage.countryName}}</span></div>
+                        <div>State: <span class="text-highlight">{{locationPage.state}}</span></div>
+                        <div>Region: <span class="text-highlight">{{locationPage.region}}</span></div>
+                        <div>Continent: <span class="text-highlight">{{locationPage.continentName}}</span></div>
                     </div>
 
                     <div class="border-box">
@@ -72,7 +72,7 @@
                         <div>City: <span class="text-highlight">{{localCity}}</span></div>
                         <div>Lat: <span class="text-highlight">{{localLat}}</span></div>
                         <div>Lng: <span class="text-highlight">{{localLng}}</span></div>
-                        <button [disabled]="loadingFlg || localLat == responseJson.latitude"
+                        <button [disabled]="loadingFlg || localLat == locationPage.latitude"
                             (mousedown)="updateGeoPluginInfo()" class="btn btn-primary btn-small spacer">Update</button>
                     </div>
                 </td>

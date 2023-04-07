@@ -11,58 +11,58 @@
         <div class="shaded-border-box">
             <div class="title-bar">Overall Stats</div>
             <div class="inside-box">
-                <table width="100%" *ngIf="responseJson && !loadingFlg">
+                <table width="100%" *ngIf="statsPage && !loadingFlg">
                     <tr>
                         <td valign="top">
                             <div class="border-box" style="font-size: 12px;">
                                 <div style="text-align: center;"><b>Accounts</b></div>
                                 <div class="red-text">Total</div>
-                                <div>Total Created: {{responseJson.accounts}}</div>
-                                <div>Total Completed: {{responseJson.activeAccounts}}</div>
+                                <div>Total Created: {{statsPage.accounts}}</div>
+                                <div>Total Completed: {{statsPage.activeAccounts}}</div>
                                 <hr>
                                 <div class="red-text">Recent (Last 7 days)</div>
-                                <div>Visited: {{responseJson.recentLogins}} </div>
-                                <div>Created: {{responseJson.newThisWeek}}</div>
+                                <div>Visited: {{statsPage.recentLogins}} </div>
+                                <div>Created: {{statsPage.newThisWeek}}</div>
                                 <hr>
                                 <div class="red-text">Today</div>
-                                <div>Visited: {{responseJson.activeToday}}</div>
-                                <div>Created: {{responseJson.newToday}}</div>
+                                <div>Visited: {{statsPage.activeToday}}</div>
+                                <div>Created: {{statsPage.newToday}}</div>
                             </div>
                             <div>&nbsp;</div>
                             <div class="border-box">
                                 <div style="text-align: center;"><b>Interactions</b></div>
                                 <div class="red-text">Total</div>
-                                <div class="tiny-text">Likes: {{responseJson.likes}}</div>
-                                <div class="tiny-text">Matches: {{responseJson.matches}}</div>
-                                <div class="tiny-text">Messages: {{responseJson.messages}}</div>
-                                <div class="tiny-text">Reviews: {{responseJson.reviews}}</div>
-                                <div class="tiny-text">Journals: {{responseJson.journals}}</div>
+                                <div class="tiny-text">Likes: {{statsPage.likes}}</div>
+                                <div class="tiny-text">Matches: {{statsPage.matches}}</div>
+                                <div class="tiny-text">Messages: {{statsPage.messages}}</div>
+                                <div class="tiny-text">Reviews: {{statsPage.reviews}}</div>
+                                <div class="tiny-text">Journals: {{statsPage.journals}}</div>
                                 <hr>
                                 <div class="red-text">Recent (Last 7 days)</div>
-                                <div class="tiny-text">Likes: {{responseJson.likesRecent}}</div>
-                                <div class="tiny-text">Matches: {{responseJson.matchesRecent}}</div>
-                                <div class="tiny-text">Messages: {{responseJson.messagesRecent}}</div>
-                                <div class="tiny-text">Reviews: {{responseJson.reviewsRecent}}</div>
-                                <div class="tiny-text">Journals: {{responseJson.journalsRecent}}</div>
+                                <div class="tiny-text">Likes: {{statsPage.likesRecent}}</div>
+                                <div class="tiny-text">Matches: {{statsPage.matchesRecent}}</div>
+                                <div class="tiny-text">Messages: {{statsPage.messagesRecent}}</div>
+                                <div class="tiny-text">Reviews: {{statsPage.reviewsRecent}}</div>
+                                <div class="tiny-text">Journals: {{statsPage.journalsRecent}}</div>
                                 <hr>
                                 <div class="red-text">Today</div>
-                                <div class="tiny-text">Likes Today: {{responseJson.likesToday}}</div>
-                                <div class="tiny-text">Matches Today: {{responseJson.matchesToday}}</div>
-                                <div class="tiny-text">Messages Today: {{responseJson.messagesToday}}</div>
-                                <div class="tiny-text">Reviews Today: {{responseJson.reviewsToday}}</div>
-                                <div class="tiny-text">Journals Today: {{responseJson.journalsToday}}</div>
+                                <div class="tiny-text">Likes Today: {{statsPage.likesToday}}</div>
+                                <div class="tiny-text">Matches Today: {{statsPage.matchesToday}}</div>
+                                <div class="tiny-text">Messages Today: {{statsPage.messagesToday}}</div>
+                                <div class="tiny-text">Reviews Today: {{statsPage.reviewsToday}}</div>
+                                <div class="tiny-text">Journals Today: {{statsPage.journalsToday}}</div>
                             </div>
                         </td>
                         <td valign="top">
                             <div class="border-box">
                                 <div class="tiny-text">Countries</div>
-                                <div *ngFor="let country of responseJson.countryNames">
+                                <div *ngFor="let country of statsPage.countryNames">
                                     <div>{{country.countryName}}<sup>{{country.count}}</sup></div>
                                 </div>
                             </div>
                             <div class="border-box">
                                 <div class="tiny-text">States</div>
-                                <div *ngFor="let state of responseJson.stateName">
+                                <div *ngFor="let state of statsPage.stateName">
                                     <div>{{state.stateName}}<sup>{{state.count}}</sup></div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                         <td valign="top">
                             <div class="border-box" style="font-size: 8px; max-width: 150px;">
                                 <div class="tiny-text">Cities</div>
-                                <span *ngFor="let city of responseJson.cities">
+                                <span *ngFor="let city of statsPage.cities">
                                     {{city.name}}<sup>{{city.count}}</sup>
                                 </span>
                             </div>

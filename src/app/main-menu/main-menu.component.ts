@@ -38,13 +38,14 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public holidayScr: string = '';
   public browseScr: string = '';
   public banItemList: any = [];
+  public chatPeople: number = 0;
   public getPlatform: string = getPlatform();
   public buttons = [
-    {name: 'Dating Pool', routerLink: "/matches", src: 'assets/images/buttons/datePool.jpg'},
-    {name: 'Chat Room', routerLink: "/chat-room", src: 'assets/images/buttons/chat.jpg'},
-    {name: 'Advice', routerLink: "/advice", src: 'assets/images/buttons/advice.jpg'},
-    {name: 'Contest', routerLink: "/contest", src: 'assets/images/buttons/rose2.jpg'},
-    {name: 'View Activity', routerLink: "/activity", src: 'assets/images/buttons/activity.jpeg'},
+    { name: 'Dating Pool', routerLink: "/matches", src: 'assets/images/buttons/datePool.jpg' },
+    { name: 'Chat Room', routerLink: "/chat-room", src: 'assets/images/buttons/chat.jpg' },
+    { name: 'Advice', routerLink: "/advice", src: 'assets/images/buttons/advice.jpg' },
+    { name: 'Contest', routerLink: "/contest", src: 'assets/images/buttons/rose2.jpg' },
+    { name: 'View Activity', routerLink: "/activity", src: 'assets/images/buttons/activity.jpeg' },
   ]
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
@@ -80,7 +81,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (dt.mo == 7 && dt.dayOfMonth == 4)
       this.holidayScr = 'assets/images/holidays/july4.jpeg';
 
-     this.logUser();
+    this.logUser();
     this.loadUserObj();
     this.userStatus = this.user.status;
     this.popupNum = 1;
@@ -142,17 +143,11 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    this.responseJson = responseJson;
+    super.postSuccessApi(file, responseJson);
 
     if (responseJson.action == "logUser" && this.user) {
-      console.log('main menu!', this.userStatus, responseJson);
-      this.userStatus = this.user.status;
       if (this.user.ip == '')
         this.populateGeoInfo();
-
-      if (this.user.refreshFlg == 'Y' || (this.user.infoObj && this.user.infoObj.refreshFlg == 'Y'))
-        this.syncUserWithLocalStorage(responseJson);
-
     }
     if (responseJson.action == 'updateGeoInfo') {
       this.syncUserWithLocalStorage(responseJson);

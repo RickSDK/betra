@@ -17,6 +17,7 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
   public localLng: string = '';
   public locDist: number = 99;
   public databaseLatitude: number = 0;
+  public locationPage: any = null;
 
   constructor(public zone: NgZone) { super(); }
 
@@ -99,6 +100,11 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
     });
   }
 
-
+  override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
+    if (responseJson.action == 'getLocationInfo') {
+      this.locationPage = responseJson;
+    }
+  }
 
 }

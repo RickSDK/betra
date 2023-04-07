@@ -5,7 +5,7 @@
     <div class="matches-card">
         <app-top-header [topTitle]="'Referrals'"></app-top-header>
         <hr>
-        <div>Your referral Link: <span class="text-highlight">https://www.betradating.com?referralId={{userId}}</span>
+        <div>Your referral Link: <span class="text-highlight">{{referralText}}</span>
             <i class="fa fa-clipboard icon" (mousedown)="copyText()"></i>
             <span *ngIf="textCopiedFlg" style="color: green;">Copied</span>
         </div>

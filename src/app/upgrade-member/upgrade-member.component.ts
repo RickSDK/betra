@@ -125,7 +125,7 @@ export class UpgradeMemberComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    //    console.log('XXX postSuccessApi', file, responseJson);
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == "getCreditCardInfo") {
       //this.benefitExpDate = this.localDateFrommySqlDate(responseJson.creditObj.expiration);
       if (responseJson.creditObj.expiration) {

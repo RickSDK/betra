@@ -1,25 +1,42 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Chat Room'" [headerObj]="headerObj" [userStatus]="userStatus"
     [stickyBottomFlg]="true">
 
-   <div *ngIf="user" id="chat-room" class="matches-card" style="text-align: left;">
+    <div *ngIf="user" id="chat-room" class="matches-card" style="text-align: left;">
         <app-top-header [topTitle]="'Chat Room'"></app-top-header>
         <hr>
-        <div *ngIf="responseJson" class="border-box" style="text-align: center;">
+        <div class="happy-hour">
+            <div>Happy Hour: 5pm PST
+                <span style="float: right; color: aquamarine;">{{happyHourNotice}}</span>
+            </div>
+            <div style="color: #999; font-size: 10px; text-align: center;">Join us for an hour of chatting with other members of Betra!</div>
+        </div>
+        <div *ngIf="chatRoom" class="border-box" style="text-align: center;">
             <div class="gray-text">People in the chat room</div>
-            <app-profile-pic [title]="person.firstName" *ngFor="let person of responseJson.users" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+            <app-profile-pic [title]="person.firstName" *ngFor="let person of chatRoom.users" [user_id]="person.user_id"
+                [profilePic]="person.profilePic" [size]="30">
             </app-profile-pic>
         </div>
-        <div style="background-color: black; color: white; padding: 5px; margin: 5px; border-radius: 5px; min-height: 400px;">
-            <div *ngFor="let message of messages">
-                <div *ngIf="message.type" class="gray-text">**{{message.message}}**</div>
-                <div *ngIf="!message.type">
-                    <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic" [size]="25">
-                    </app-profile-pic> <span [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>: {{message.message}}    
+        <div *ngIf="lotsOfMessagesFlg" (mousedown)="showMoreFlg = !showMoreFlg" style="font-size: 12px;">
+            <span *ngIf="showMoreFlg" class="text-link">Show Less</span>
+            <span *ngIf="!showMoreFlg" class="text-link">Show More</span>
+        </div>
+        <div
+            style="background-color: black; color: white; padding: 5px; margin: 5px; border-radius: 5px; min-height: 400px;">
+            <div *ngFor="let message of messages" (mousedown)="messageClicked(message)"> 
+                <div *ngIf="!message.olderFlg || showMoreFlg">
+                    <div *ngIf="message.type" class="gray-text">**{{message.message}}**</div>
+                    <div *ngIf="!message.type">
+                        <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic" [size]="25">
+                        </app-profile-pic> <span
+                            [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:
+                        {{message.message}} 
+                    </div>
                 </div>
+
             </div>
         </div>
         <app-spinner *ngIf="errorMessage" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <app-text-with-emoji (messageEvent)="sumbitReply($event)"
-        [user_id]="user.user_id" [profilePic]="user.profilePic" [maxLength]="100"></app-text-with-emoji>
+        <app-text-with-emoji (messageEvent)="sumbitReply($event)" [user_id]="user.user_id" [value]="textValue"
+            [profilePic]="user.profilePic" [maxLength]="300"></app-text-with-emoji>
     </div>
 </app-page-shell>

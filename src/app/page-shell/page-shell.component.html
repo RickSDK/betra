@@ -1,10 +1,10 @@
 <div class="top-bar" *ngIf="headerObj">
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
-            <td *ngIf="pageTitle != 'Home'" class="hide-sm">
-                <i *ngIf="0 && platform=='Web'" (mousedown)="goBack()"
-                    class="fa fa-arrow-left back-button hide-back"></i>&nbsp;
-                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
+            <td *ngIf="pageTitle != 'Home'">
+                <i *ngIf="platform=='Web'" (mousedown)="goBack()"
+                    class="fa fa-arrow-left back-button"></i>&nbsp;
+                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-sm" height="50" style="cursor: pointer;">
 
             </td>
             <td *ngIf="pageTitle == 'Home'" style="position: relative;">
@@ -24,7 +24,9 @@
                 <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
                     <div class="top-button-label">Blogs</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button"><i class="fa fa-comment"></i>
+                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button">
+                    <i class="fa fa-comment"></i> <span *ngIf="headerObj.chatPeople>0"
+                        class="red-circle">{{headerObj.chatPeople}}</span>
                     <div class="top-button-label">Chat Room</div>
                 </span>
                 <span *ngIf="!userId" [routerLink]="['/safety-features']" class="top-button"><i

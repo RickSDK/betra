@@ -14,12 +14,12 @@ export class AppComponent {
     // check if back or forward button is pressed.
 
     //history.pushState(null, 'null', window.location.href);  
-    this.location.onPopState(() => {
-      console.log('back button pressed!!');
+    //this.location.onPopState(() => {
+   //   console.log('back button pressed!!');
       //history.pushState(null, 'null', window.location.href);
-      window.history.forward();
-      return false;
-    }); 
+    //  window.history.forward();
+    //  return false;
+   // }); 
 
 //    this.location.onPopState(() => {
       // set isBackButtonClicked to true.

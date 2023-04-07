@@ -7,21 +7,14 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./owner-stats.component.scss']
 })
 export class OwnerStatsComponent extends BaseComponent implements OnInit {
-
+  public statsPage: any = null;
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.getStats();
   }
-  getOwnerUsers() {
-    var params = {
-      userId: localStorage['user_id'],
-      code: localStorage['code'],
-      action: "getOwnerUsers"
-    };
-    this.executeApi('owners.php', params, true);
-  }
+
   getStats() {
     var params = {
       userId: localStorage['user_id'],
@@ -30,5 +23,12 @@ export class OwnerStatsComponent extends BaseComponent implements OnInit {
     };
     console.log(params);
     this.executeApi('appApiCode2.php', params, true);
+  }
+
+  override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
+    if (responseJson.action == 'getStats') {
+      this.statsPage = responseJson;
+    }
   }
 }

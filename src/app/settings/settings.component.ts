@@ -55,7 +55,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
 
   holdAccount() {
-    this.getDataFromServer('holdAccount', 'appApiCode.php', {}); 
+    this.getDataFromServer('holdAccount', 'appApiCode.php', {});
   }
 
   logout() {
@@ -136,8 +136,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('XXX postSuccessApi', file, responseJson);
-    this.successFlg = true;
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'deleteAccount' || responseJson.action == 'holdAccount') {
       this.logout();
     }

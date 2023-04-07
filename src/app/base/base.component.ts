@@ -52,6 +52,8 @@ export class BaseComponent implements OnInit {
       this.outOfSyncFlg = true;
     } else
       this.loadUserObj();
+
+    this.logUser();
     //this.notifications = localStorage['notifications'];
 
   }
@@ -80,6 +82,10 @@ export class BaseComponent implements OnInit {
     this.infoObj = infoObj;
     localStorage['infoObj'] = JSON.stringify(infoObj);
     localStorage['lastUpd'] = infoObj.lastUpd;
+    if(infoObj.user)
+      this.userStatus = infoObj.user.status;
+    this.headerObj.chatPeople = infoObj.chatPeople;
+
     this.headerObj.admirerCount = infoObj.admirerCount;
     this.headerObj.messageCount = infoObj.messageCount;
     this.headerObj.matchesAlerts = infoObj.matchesAlerts
@@ -184,6 +190,7 @@ export class BaseComponent implements OnInit {
       localStorage['timeStamp'] = now.toString();
       localStorage['lastUpd'] = responseJson.infoObj.lastUpd;
 
+      /*
       this.headerObj.notifications = responseJson.infoObj.notifications;
       this.headerObj.admirerCount = responseJson.infoObj.admirerCount;
       this.headerObj.messageCount = responseJson.infoObj.messageCount;
@@ -191,7 +198,6 @@ export class BaseComponent implements OnInit {
       this.headerObj.dateCount = responseJson.infoObj.dateCount
       this.headerObj.ownerAlerts = responseJson.infoObj.ownerAlerts
 
-      /*
       this.infoObj = responseJson.infoObj;
       localStorage['infoObj'] = JSON.stringify(responseJson.infoObj);
       //console.log('hey!!', this.infoObj);
@@ -322,13 +328,15 @@ export class BaseComponent implements OnInit {
     this.errorMessage = '';
     var url = this.getHostname() + file;
     var postData = getPostDataFromObj(params);
-    this.loadingFlg = true;
+    if (params.action != 'logUser')
+      this.loadingFlg = true;
     this.apiExecutedFlg = true;
     //console.log('fetch...', file, params.action);
     fetch(url, postData).then((resp) => resp.text())
       .then((data) => {
         //console.log('response:', data);
-        this.loadingFlg = false;
+        if (params.action != 'logUser')
+          this.loadingFlg = false;
         if (!data) {
           this.postErrorApi(file, 'No reponse received.');
         } else {
@@ -358,10 +366,16 @@ export class BaseComponent implements OnInit {
   }
 
   postSuccessApi(file: string, responseJson: any) {
-    console.log('postSuccessApi', responseJson);
-    this.successFlg = true;
-    //    if (this.spinnerComponent)
-    //      this.spinnerComponent.setApiMessage('Success!');
+    if (responseJson) {
+      console.log('+++postSuccessApi+++', responseJson.action, responseJson);
+      this.successFlg = true;
+      if (responseJson.action == 'logUser') {
+        if (responseJson.refreshFlg == 'Y')
+          this.syncUserWithLocalStorage(responseJson);
+        else
+          this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
+      }
+    }
   }
   postErrorApi(file: string, error: string, data: string = '') {
     //    if (this.spinnerComponent) {
@@ -399,7 +413,7 @@ export class BaseComponent implements OnInit {
   browserGeolocationFail(error: any) {
     console.log('error!', error);
     var e = document.getElementById('geoError');
-    if(e) {
+    if (e) {
       e.innerHTML = error.message;
     }
 
@@ -435,11 +449,11 @@ function getPostDataFromObj(obj: any) {
   return postData;
 }
 
-var tryAPIGeolocation = function() {
-  $.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU", function(success:any) {
-      console.log(success.location.lat, success.location.lng);
-})
-.fail(function(err:any) {
-  console.log('error!!', err);
-});
+var tryAPIGeolocation = function () {
+  $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU", function (success: any) {
+    console.log(success.location.lat, success.location.lng);
+  })
+    .fail(function (err: any) {
+      console.log('error!!', err);
+    });
 };

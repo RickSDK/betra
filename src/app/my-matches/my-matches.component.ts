@@ -200,6 +200,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'clearDroppedColumn') {
       this.infoObj.droppedBy = responseJson.droppedBy;
       this.firstName = responseJson.firstName;
@@ -220,9 +221,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'getThisUser') {
       this.displayUserPopup = true;
       this.matchUser = new User(responseJson.user);
-    }
-    if (responseJson.action == "logUser") {
-      this.syncUserWithLocalStorage(responseJson);
     }
     if (responseJson.action == 'assignHeart') {
       this.refreshUserObj(responseJson.user);

@@ -29,7 +29,7 @@ export class BetraBlogsComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    //console.log('xxx', responseJson);
+    super.postSuccessApi(file, responseJson);
     this.blogList = [];
     if (responseJson.action == "getBlogs") {
       responseJson.blogList.forEach((element: any) => {
