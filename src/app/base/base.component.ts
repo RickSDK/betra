@@ -61,7 +61,7 @@ export class BaseComponent implements OnInit {
     if (userObj && userObj.user_id > 0) {
       localStorage['User'] = JSON.stringify(userObj);
       this.user = new User(userObj);
-      console.log('user refreshed!', this.user);
+      //console.log('user refreshed!', this.user);
     } else {
       console.log('invalid object sent to refresh!!!');
     }
@@ -158,7 +158,7 @@ export class BaseComponent implements OnInit {
         this.headerObj.ownerAlerts = localStorage['ownerAlerts'];
         this.headerObj.ownerFlg = this.user.ownerFlg;
         this.popupNum = (this.user.status == 'Active') ? 0 : 3;
-        console.log('loadUserObjUser', this.user);
+        //console.log('loadUserObjUser', this.user);
       } else {
         console.log('Error - no localstorage!!!');
         this.userId = 0;
@@ -183,9 +183,8 @@ export class BaseComponent implements OnInit {
   }
   syncUserWithLocalStorage(responseJson: any) {
     var now = new Date();
-    console.log('xxx user synced with database xxx', responseJson);
+    //console.log('xxx user synced with database xxx', responseJson);
     if (responseJson.infoObj) {
-      console.log('ownerAlerts', responseJson.infoObj.ownerAlerts)
       this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
       localStorage['timeStamp'] = now.toString();
       localStorage['lastUpd'] = responseJson.infoObj.lastUpd;
@@ -291,7 +290,7 @@ export class BaseComponent implements OnInit {
         lastUpd: localStorage['lastUpd'],
         refreshFlg: refreshFlg
       };
-      console.log('params', params);
+      //console.log('params', params);
       this.executeApi('appApiCode.php', params, true);
     }
   }
@@ -401,7 +400,7 @@ export class BaseComponent implements OnInit {
   }
 
   getLocation() {
-    console.log('finding location', navigator.geolocation);
+    //console.log('finding location', navigator.geolocation);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition, this.browserGeolocationFail);
     } else {

@@ -16,6 +16,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public menuSubmitdisableFlg = true;
   public showSubmitButtonFlg: boolean = false;
   public fileToUpload: any;
+  public moreMatchOptionsFlg: boolean = false;
+  public showRequiredFieldsFlg: boolean = false;
+  public requiredFieldColor: string = '#ffffc0';
   public inputFieldObj: any;
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Your Match', 'Done'];
   public menuDesc = [
@@ -265,9 +268,17 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.menuValueChanged();
     this.apiSuccessFlg = false;
     if (!this.user.profileFlags[this.menuNum]) {
+      this.showRequiredFieldsFlg = true;
+      this.requiredFieldColor = '#ffff00';
       this.errorMessage = 'Fill out all required fields';
+      if (this.menuNum == 3)
+        this.errorMessage = 'Answer all of the questions.';
+      if (this.menuNum == 7)
+        this.errorMessage = 'What are you looking for? (Fill out box above)';
       return;
     }
+    this.requiredFieldColor = '#ffffc0';
+    this.showRequiredFieldsFlg = false;
     if (this.changesMadeFlg)
       this.profileSubmitPress();
     else
@@ -314,7 +325,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('XXX postSuccessApi', file, responseJson);
+    //console.log('XXX postSuccessApi', file, responseJson);
     if (responseJson.action == "logUser") {
       if (!this.user.email && responseJson.user.email) {
         console.log('fixing User!!', this.user.email, responseJson.user.email);
@@ -460,19 +471,22 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         this.user.profileFlags[this.menuNum] = (this.user.maritalStatus);
     }
     if (this.menuNum == 7) {
-      this.user.matchAge = $('#matchAge').val();
-      this.user.matchBody = $('#matchBody').val();
-      this.user.matchHeight = $('#matchHeight').val();
-      this.user.matchMarriage = $('#matchMarriage').val();
-      this.user.matchRelationship = $('#matchRelationship').val();
-      this.user.matchEducation = $('#matchEducation').val();
-      this.user.matchIncome = $('#matchIncome').val();
-      this.user.matchReligion = $('#matchReligion').val();
-      this.user.matchHasKids = $('#matchHasKids').val();
-      this.user.matchWantsKids = $('#matchWantsKids').val();
-      this.user.matchWantsKids = $('#matchWantsKids').val();
       this.user.story = $('#story').val();
-      this.user.profileFlags[this.menuNum] = (this.user.story && this.user.matchHasKids);
+      this.user.profileFlags[this.menuNum] = (this.user.story);
+
+      if(this.moreMatchOptionsFlg) {
+        this.user.matchAge = $('#matchAge').val();
+        this.user.matchBody = $('#matchBody').val();
+        this.user.matchHeight = $('#matchHeight').val();
+        this.user.matchMarriage = $('#matchMarriage').val();
+        this.user.matchRelationship = $('#matchRelationship').val();
+        this.user.matchEducation = $('#matchEducation').val();
+        this.user.matchIncome = $('#matchIncome').val();
+        this.user.matchReligion = $('#matchReligion').val();
+        this.user.matchHasKids = $('#matchHasKids').val();
+        this.user.matchWantsKids = $('#matchWantsKids').val();
+        this.user.matchWantsKids = $('#matchWantsKids').val();  
+      }
 
     }
   }
@@ -538,7 +552,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       longitude: localStorage['longitude'],
       action: 'updateProfile',
     };
-    console.log('xxParamsxx', params);
+    //console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
   }
 

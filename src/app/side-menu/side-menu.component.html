@@ -19,8 +19,6 @@
         <div *ngIf="item.id==0" [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i
                 [class]="item.icon"></i> &nbsp;
             {{item.name}} </div>
-
-
     </div>
     <div class="group-heading" (mousedown)="toggleInteractMenu=!toggleInteractMenu">Interact 
         <i [ngClass]="toggleInteractMenu?'fa fa-caret-down caret-icon':'fa fa-caret-right caret-icon'"></i>

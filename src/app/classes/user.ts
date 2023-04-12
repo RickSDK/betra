@@ -259,14 +259,14 @@ export class User {
 
             //match
             this.matchAge = obj.matchAge || 0;
-            this.matchBody = obj.matchBody || obj.bodyType;
-            this.matchHeight = obj.matchHeight || obj.bodyHeight;
-            this.matchMarriage = obj.matchMarriage || obj.marriageView;
-            this.matchRelationship = obj.matchRelationship || obj.desiredRelationship;
-            this.matchEducation = obj.matchEducation || obj.educationLevel;
-            this.matchIncome = obj.matchIncome || obj.income;
-            this.matchReligion = obj.matchReligion || obj.religion;
-            this.matchHasKids = obj.matchHasKids || '';
+            this.matchBody = obj.matchBody || 'No preference';
+            this.matchHeight = obj.matchHeight || 'No preference';
+            this.matchMarriage = obj.matchMarriage || 'No preference';
+            this.matchRelationship = obj.matchRelationship || 'No preference';
+            this.matchEducation = obj.matchEducation || 'No preference';
+            this.matchIncome = obj.matchIncome || 'No preference';
+            this.matchReligion = obj.matchReligion || 'No preference';
+            this.matchHasKids = obj.matchHasKids || obj.wantsKids;
             this.matchWantsKids = obj.matchWantsKids || obj.wantsKids;
 
             this.motto = obj.motto || '';
@@ -517,7 +517,7 @@ export class User {
             this.lastLoginColor = dateObj.lastLoginColor;
             this.lastLoginText = dateObj.daysAgo + ' Days ago';
             this.isGoodActivity = (dateObj.daysAgo <= 10);
-            if (dateObj.daysAgo <= 3)
+            if (dateObj.daysAgo <= 7)
                 this.matchQualityIndex++;
             if (dateObj.daysAgo == 0)
                 this.lastLoginText = 'Today';
@@ -663,16 +663,17 @@ export class User {
                     this.distance = 7 + this.firstName.length;
                 }
                 this.isGoodLocation = (this.distance < 200);
-                if (this.distance < 40)
+                if (this.distance < 60)
                     this.matchQualityIndex += 2;
                 this.distanceText = Math.round(this.distance) + ' miles';
             }
-            this.isGoodAge = (Math.abs(this.age - myUser.matchAge) <= 4);
+            var ageRange = myUser.matchAge/5;
+            this.isGoodAge = (Math.abs(this.age - myUser.matchAge) <= ageRange);
             if (Math.abs(this.age - myUser.matchAge) <= 8)
                 this.matchQualityIndex += 3;
         }
         if (this.isGoodAge)
-            this.matchQualityIndex += 3;
+            this.matchQualityIndex += 5;
         if (this.isGoodLocation)
             this.matchQualityIndex += 2;
         if (this.isGoodActivity)

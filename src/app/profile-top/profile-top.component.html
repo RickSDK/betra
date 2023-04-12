@@ -59,7 +59,8 @@
                     <i *ngIf="myUser.user_id == user.user_id" [routerLink]="['/profile']" title="Edit Profile"
                         style="float: right; cursor: pointer; margin: 3px; font-size: 18px;" class="fa fa-edit"></i>
 
-                    <div title="id: {{user.user_id}}" style="font-size: 16px; font-weight: 800;">
+                    <hr>
+                    <div title="id: {{user.user_id}}" style="font-size: 20px; font-weight: 600;">
                         <span class="name-bar"><img src="assets/images/rose5.png" height="20"
                                 *ngIf="user.user_id == myUser.heartId" alt="Rose" title="Rose">
                             <span><i [class]="user.icon" [title]="user.userTitle"></i></span>
@@ -68,144 +69,168 @@
                         </span>
 
                     </div>
-                    <span style="font-size: 7px; float: right;"><i class="fa fa-clock-o main-color"
-                            [title]="user.lastLoginText" style="font-size: 12px;"></i>
-                        {{user.lastLoginText}}</span>
+
                     <div style="font-size: 12px;">{{user.location}}</div>
                     <div style="font-size: 8px; color: gray;">
-                        <span>{{user.distanceText}}</span>
+                        <i class="fa fa-globe main-color"></i> {{user.distanceText}} ({{user.lastLoginText}})
                     </div>
-                    <div class="small-box">
-                        <div class="small-title main-color">Relationship</div>
+                    <div *ngIf="showProfileBasicsFlg"
+                        [ngClass]="profileBasicsClassFlg?'profile-basics':'profile-basics-off'">
+                        <div class="small-box">
+                            <div class="small-title main-color">Relationship</div>
 
-                        <div class="menu-circle">
-                            <span class="profile-icon">
-                                <i [class]="user.genderIcon"></i>
-                            </span>
-                            <span class="profile-text">
-                                {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp;
-                                <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i
-                                    *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
-                            </span>
-                            <span class="icon-label main-color-bg">{{user.lookingForTitle}}</span>
-                        </div>
-
-                        <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
-                            [showCheckFlg]="user.desiredRelationship == myUser.matchRelationship && myUser.user_id != user.user_id"
-                            [img]="'assets/images/profile/lookingFor.png'"></app-green-check>
-                        <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
-                            [showCheckFlg]="myUser.marriageView == user.marriageView && myUser.user_id != user.user_id"
-                            [img]="'assets/images/profile/marriage.png'"></app-green-check>
-                        <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText"
-                            [icon]="'fa fa-exchange'">
-                        </app-green-check>
-
-                        <div>
-                            <table width="100%">
-                                <tr>
-                                    <td>
-                                        <span class="menu-circle">
-                                            <span class="profile-icon">
-                                                <img [src]="'assets/images/profile/kids.png'" height="15">
-                                            </span>
-                                            <span class="profile-text">
-                                                <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
-                                                        class="fa fa-check main-color"></i></sup>
-                                                {{user.numKids}}
-                                            </span>
-                                            <span class="icon-label main-color-bg">{{hasKidsTitle}}</span>
-                                        </span>
-                                        &nbsp;
-                                        <span class="menu-circle">
-                                            <img [src]="'assets/images/profile/kids2.png'" height="15"
-                                                style="margin-right: 4px;">
-                                            <span *ngIf="user.wantsKids != 'Does Not Matter'"
-                                                style="font-size: 10px;">{{user.wantsKids}}</span>
-                                            <span *ngIf="user.wantsKids == 'Does Not Matter'"><i
-                                                    class="fa fa-question"></i></span>
-                                            <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
-                                                class="hide-xs"><i class="fa fa-check main-color"></i></sup>
-                                            <span class="icon-label main-color-bg">{{wantsKidsTitle}}</span>
-                                        </span>
-                                    </td>
-                                    <td align="right">
-                                        <span class="menu-circle" *ngIf="user.drinksIcon">
-                                            <img [src]="user.drinksIcon" class="dabauchery-icon">
-                                            <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
-                                        </span>
-                                        <span class="menu-circle" *ngIf="user.smokesIcon">
-                                            <img [src]="user.smokesIcon" class="dabauchery-icon">
-                                            <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
-                                        </span>
-                                        <span class="menu-circle" *ngIf="user.potIcon">
-                                            <img [src]="user.potIcon" class="dabauchery-icon">
-                                            <span class="icon-label main-color-bg">{{user.potTitle}}</span>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="small-box">
-                        <div class="small-title main-color">Background</div>
-                        <app-green-check [label]="'Education'" [text1]="user.educationLevel"
-                            [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
-                            [icon]="'fa fa-graduation-cap'"></app-green-check>
-                        <app-green-check *ngIf="1 || !myUser.memberFlg" [label]="'Income'" [text1]="user.incomeRange"
-                            [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
-                            [icon]="'fa fa-money'">
-                        </app-green-check>
-                        <app-green-check *ngIf="0 && myUser.memberFlg" [label]="'Income'" [text1]="user.income"
-                            [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
-                            [icon]="'fa fa-money'">
-                        </app-green-check>
-                        <app-green-check [label]="'Religion'" [text1]="user.religion"
-                            [showCheckFlg]="user.religion == myUser.matchReligion && myUser.user_id != user.user_id"
-                            [icon]="''" [img]="'assets/images/profile/religion.png'">
-                        </app-green-check>
-                    </div>
-
-                    <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;"
-                        class="important-notice">
-                        <div *ngIf="!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 2">
-                            <p *ngIf="user.matchObj.match_interested == 'B'">
-                                Sorry, but you have been placed on {{user.firstName}}'s back burner.
-                            </p>
-                            <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each other
-                                before texting. Click the green
-                                "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
+                            <div class="">
+                                <span class="profile-icon menu-circle">
+                                    <i [class]="user.genderIcon"></i>
+                                    <span class="icon-label main-color-bg">{{user.lookingForTitle}}</span>
+                                </span>
+                                <span class="profile-text">
+                                    {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp;
+                                    <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i
+                                        *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
+                                </span>
+                                
                             </div>
-                            <div *ngIf="user.matchObj.you_interested == 'Y' && user.matchObj.match_interested == 'N'">
-                                Unfortunately, this person is not
-                                interested in you. Keep browsing!</div>
-                            <div *ngIf="user.matchObj.you_interested == 'Y'">
-                                This person is aware that you are interested. If they say 'Yes' to you, you will be able to communicate. Keep your fingers crossed!</div>
-                            <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not interested
-                                in this person.
-                                If that is a mistake, go to the Settings tab and reset your matches.
+
+                            <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
+                                [showCheckFlg]="user.desiredRelationship == myUser.matchRelationship && myUser.user_id != user.user_id"
+                                [img]="'assets/images/profile/lookingFor.png'"></app-green-check>
+                            <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
+                                [showCheckFlg]="myUser.marriageView == user.marriageView && myUser.user_id != user.user_id"
+                                [img]="'assets/images/profile/marriage.png'"></app-green-check>
+                            <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText"
+                                [icon]="'fa fa-exchange'">
+                            </app-green-check>
+
+                            <div>
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <span class="menu-circle">
+                                                <span class="profile-icon">
+                                                    <img [src]="'assets/images/profile/kids.png'" height="15">
+                                                </span>
+                                                <span class="profile-text">
+                                                    <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
+                                                            class="fa fa-check main-color"></i></sup>
+                                                    {{user.numKids}}
+                                                </span>
+                                                <span class="icon-label main-color-bg">{{hasKidsTitle}}</span>
+                                            </span>
+                                            &nbsp;
+                                            <span class="menu-circle">
+                                                <img [src]="'assets/images/profile/kids2.png'" height="15"
+                                                    style="margin-right: 4px;">
+                                                <span *ngIf="user.wantsKids != 'Does Not Matter'"
+                                                    style="font-size: 10px;">{{user.wantsKids}}</span>
+                                                <span *ngIf="user.wantsKids == 'Does Not Matter'"><i
+                                                        class="fa fa-question"></i></span>
+                                                <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
+                                                    class="hide-xs"><i class="fa fa-check main-color"></i></sup>
+                                                <span class="icon-label main-color-bg">{{wantsKidsTitle}}</span>
+                                            </span>
+                                        </td>
+                                        <td align="right">
+                                            <span class="menu-circle" *ngIf="user.drinksIcon">
+                                                <img [src]="user.drinksIcon" class="dabauchery-icon">
+                                                <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
+                                            </span>
+                                            <span class="menu-circle" *ngIf="user.smokesIcon">
+                                                <img [src]="user.smokesIcon" class="dabauchery-icon">
+                                                <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
+                                            </span>
+                                            <span class="menu-circle" *ngIf="user.potIcon">
+                                                <img [src]="user.potIcon" class="dabauchery-icon">
+                                                <span class="icon-label main-color-bg">{{user.potTitle}}</span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
 
                         </div>
-                        <div *ngIf="user.matchObj.match_level == 2">
-                            With Betra, the first contact must be from a dropdown Ice Breaker. If you get a response back, you can begin to freely text! See Ice Breaker below.
+                        <div class="small-box">
+                            <div class="small-title main-color">Background</div>
+                            <app-green-check [label]="'Education'" [text1]="user.educationLevel"
+                                [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
+                                [icon]="'fa fa-graduation-cap'"></app-green-check>
+                            <app-green-check *ngIf="1 || !myUser.memberFlg" [label]="'Income'"
+                                [text1]="user.incomeRange"
+                                [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
+                                [icon]="'fa fa-money'">
+                            </app-green-check>
+                            <app-green-check *ngIf="0 && myUser.memberFlg" [label]="'Income'" [text1]="user.income"
+                                [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
+                                [icon]="'fa fa-money'">
+                            </app-green-check>
+                            <app-green-check [label]="'Religion'" [text1]="user.religion"
+                                [showCheckFlg]="user.religion == myUser.matchReligion && myUser.user_id != user.user_id"
+                                [icon]="''" [img]="'assets/images/profile/religion.png'">
+                            </app-green-check>
                         </div>
-                        <div *ngIf="user.matchObj.match_level == 3">
-                            Almost there! You must get a response back from each other's Ice Breaker questions to begin texting. See below.
-                        </div>
+                        <button (mousedown)="hideProfileBasics()" class="btn btn-main-color btn-profile"><i
+                                class="fa fa-times"></i> Close</button>
                     </div>
+
+
+
+
                     <div *ngIf="user.matchObj.match_level == 1 && user.matchObj.match_interested == 'Y'"
                         class="important-notice" style="text-align: center;">
                         <i class="fa fa-heart"></i> {{user.firstName}}<br>is interested in you!
                     </div>
-                    <div style="text-align: center;">
+                    <div *ngIf="!showProfileBasicsFlg" style="text-align: center; margin-top: 40px;">
+
+                        <button (mousedown)="showProfileBasics()" class="btn btn-main-color btn-profile"><i
+                                class="fa fa-user"></i> Profile Basics</button>
+
+                        <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-profile"><i
+                                class="fa fa-arrow-circle-down"></i> More Details</button>
+
                         <button
                             *ngIf="user.potentialLoveInterestFlg && !showTextWarning && (!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 4)"
-                            (mousedown)="showTextWarning=true;" class="btn btn-main-color btn-small"><i
+                            (mousedown)="showTextWarning=true;" class="btn btn-main-color btn-profile"><i
                                 class="fa fa-comment"></i> Text
                             {{user.firstName}}</button>
 
-                        <button
+                        <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;"
+                            class="important-notice">
+                            <div *ngIf="!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 2">
+                                <p *ngIf="user.matchObj.match_interested == 'B'">
+                                    Sorry, but you have been placed on {{user.firstName}}'s back burner.
+                                </p>
+                                <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each
+                                    other
+                                    before texting. Click the green
+                                    "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
+                                </div>
+                                <div
+                                    *ngIf="user.matchObj.you_interested == 'Y' && user.matchObj.match_interested == 'N'">
+                                    Unfortunately, this person is not
+                                    interested in you. Keep browsing!</div>
+                                <div *ngIf="user.matchObj.you_interested == 'Y'">
+                                    This person is aware that you are interested. If <span
+                                        *ngIf="user.gender=='F'">s</span>he says 'Yes' to you, you will be
+                                    able
+                                    to communicate. Keep your fingers crossed!</div>
+                                <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not
+                                    interested
+                                    in this person.
+                                    If that is a mistake, go to the Settings tab and reset your matches.
+                                </div>
+                            </div>
+                            <div *ngIf="user.matchObj.match_level == 2">
+                                With Betra, the first contact must be from a dropdown Ice Breaker. If you get a response
+                                back, you can begin to freely text! See Ice Breaker below.
+                            </div>
+                            <div *ngIf="user.matchObj.match_level == 3">
+                                Almost there! You must get a response back from each other's Ice Breaker questions to
+                                begin
+                                texting. See below.
+                            </div>
+                        </div>
+
+                        <!--<button
                             *ngIf="snapshotFlg && user.matchObj && user.matchObj.match_level >= 2 && user.matchObj.unreadMessages > 0"
                             [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
                             class="btn btn-main-color btn-small"><i class="fa fa-comment"></i> New
@@ -222,7 +247,7 @@
                             [ngClass]="'fa fa-arrow-circle-down clickable'"
                             [title]="(expandBottomFlg)?'Collapse Profile':'Expand Profile'"></i>
                         <div *ngIf="myUser.datingPool.length == 0" style="font-size: 10px;">[Click down arrow for more
-                            info]</div>
+                            info]</div>-->
                     </div>
                     <div *ngIf="showAdminButtonsFlg" class="border-box" style="text-align: center;">
                         <div><i class="fa fa-lock"></i> admin tools</div>

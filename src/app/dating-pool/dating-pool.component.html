@@ -28,7 +28,7 @@
                 <div style="font-size: 8px;">Intimacy Level: {{person.level}}</div>
             </div>
         </div>
-        <div>
+        <div *ngIf="datingPool.length>0">
             <table>
                 <tr>
                     <td>
@@ -37,6 +37,9 @@
                     </td>
                     <td style="font-size: 10px; color: gray;">
                         Show intimacy levels
+                    </td>
+                    <td style="padding-left: 20px;"> 
+                        <div class="red-text">Dating Pool: <span class="text-highlight">{{datingPool.length}}</span></div>
                     </td>
                 </tr>
             </table>

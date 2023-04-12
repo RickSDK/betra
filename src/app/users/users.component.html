@@ -11,7 +11,7 @@
         class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
         <img [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" [src]="player.imgSrc" alt="profile pic" class="small-image">
         <img *ngIf="player.picFlagged>0" [src]="player.flaggedImg" width="100%">
-        <div style="text-align: center; font-size: 16px;"><b>{{player.firstName}}</b></div>
+        <div style="text-align: center; font-size: 16px;"><b>{{player.firstName}}</b><sup>{{player.user_id}}</sup></div>
         <div style="text-align: center;"><i *ngIf="player.emailVerifyFlg" class="fa fa-check"
                 style="color: green;"></i>{{player.status}}</div>
         <div style="text-align: center; font-size: 11px; color: green;">{{player.lastLoginText}}</div>
@@ -24,6 +24,7 @@
             <div>{{player.phone}}</div>
             <div>Clicks: Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup></div>
             <div>matches: {{player.statsObj.matchLevel2}}</div>
+            <i *ngIf="player.gpsLat" class="fa fa-globe"></i> {{player.profileViews}} <i *ngIf="player.picFlagged" class="fa fa-times"></i> 
             <button *ngIf="player.statsObj.messages>0" class="btn btn-primary" (mousedown)="selectedId = (selectedId==player.user_id)?0:player.user_id">Stats</button>
             <div *ngIf="selectedId == player.user_id">
                 <div *ngIf="player.statsObj.messages>0">messages: {{player.statsObj.messages}}</div>

@@ -85,9 +85,7 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
       this.chatRoom = responseJson;
       this.populateHappyHour(responseJson.currentTime);
       if (responseJson.messages && responseJson.messages.length > 0) {
-        if (this.lastMessage == 0)
-          this.playSound(0);
-        else {
+        if (this.lastMessage > 0) {
           var allowSound = true;
           var count = 0;
           this.lotsOfMessagesFlg = false;

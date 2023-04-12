@@ -24,6 +24,23 @@
     border-radius: 5px;
 }
 
+.btn-profile {
+    font-size: 12px;
+    min-width: 140px;
+    height: 30px;
+    margin: 5px;
+}
+
+.profile-basics {
+    opacity: 1;
+    transition: all 1s ease;
+}
+
+.profile-basics-off {
+    opacity: 0;
+    transition: all 1s ease;
+}
+
 .verified-cirtificate {
     cursor: pointer;
     font-size: 32px; 
@@ -119,16 +136,9 @@
 .tiny-pic:hover {
     box-shadow: 2px 2px 5px black;
 }
-
 .icon-label {
-    top: 20px;
-    left: -10px;
-    z-index: 200;
+    white-space: nowrap;
 }
-.icon-label:hover {
-    opacity: 0;
-}
-
 .three-dots {
     float: right; 
     border-radius: 50%;

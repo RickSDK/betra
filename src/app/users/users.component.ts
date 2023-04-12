@@ -29,7 +29,8 @@ export class UsersComponent extends BaseComponent implements OnInit {
       userId: localStorage['user_id'],
       email: localStorage['email'],
       code: localStorage['code'],
-      action: 'getPlayers'
+      action: 'getPlayers',
+      menuNum: this.menuNum
     };
     this.executeApi('appApiCode.php', params, true);
   }

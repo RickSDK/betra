@@ -135,11 +135,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.searchStarted = false;
     this.matchUser = null;
     if (this.id != 4 && (this.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
-//      this.logUser('Y');
+      //      this.logUser('Y');
       return;
     }
     if (!this.user.lat) {
-  //    this.logUser('Y');
+      //    this.logUser('Y');
       return;
     }
     this.searchStarted = true;
@@ -180,18 +180,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   //--------------------------------------------
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
-    this.profileViews = responseJson.profileViews;
-    if (this.profileViews < 0)
-      this.profileViews = 0;
     this.action = responseJson.action;
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
-      /*
-      localStorage['admirerCount'] = responseJson.admirerCount;
-      localStorage['notifications'] = responseJson.notifications;
-      localStorage['matchesAlerts'] = responseJson.matchesAlerts;
-      this.headerObj.admirerCount = responseJson.admirerCount;
-      this.headerObj.matchesAlerts = responseJson.matchesAlerts;
-      this.headerObj.notifications = responseJson.notifications;*/
+      this.profileViews = responseJson.profileViews;
+
       if (this.id == 4 && responseJson.action == "yesToMatch") {
         //--Admirers
         this.router.navigate(['user-detail'], { queryParams: { 'uid': this.matchUser.user_id } });
@@ -206,6 +198,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
 
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
+      this.profileViews = responseJson.profileViews;
+      if (this.profileViews < 0)
+        this.profileViews = 0;
+
       this.showExpandedSearchPopupFlg = (responseJson.action == 'findMatches' && responseJson.count3 > 0);
       this.playerList = [];
       if (this.responseJson.playerList) {
@@ -216,14 +212,13 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.playerList.sort((a: any, b: any) => {
           return b.matchQualityIndex - a.matchQualityIndex;
         });
-        console.log('xxxthis.playerList', this.playerList);
+        console.log('xxxthis.playerList (sorted)', this.playerList);
         this.currentProfileIndex = 0;
         this.showCurrentProfile();
-
-
       }
     }
     if (responseJson.action == 'findMatchesAdvanced') {
+      this.profileViews = responseJson.profileViews;
       this.showFilter = false;
       this.matchesCount = 0;
 
@@ -263,7 +258,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.messageCount = responseJson.messages;
       this.pageTitle = this.matchUser.firstName;
       this.calculatingStatsFlg = true;
-      if(this.matchUser && this.matchUser.matchObj)
+      if (this.matchUser && this.matchUser.matchObj)
         this.dateObj = this.matchUser.matchObj.dateObj;
 
       this.displayThisProfile();
@@ -296,6 +291,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   showCurrentProfile() {
     console.log('++++showCurrentProfile', this.playerList.length, this.currentProfileIndex);
+    if (this.profileViews <= 0 && this.id == 2)
+      this.playerList = [];
     if (this.playerList.length > this.currentProfileIndex) {
 
       this.matchUser = this.playerList[this.currentProfileIndex];

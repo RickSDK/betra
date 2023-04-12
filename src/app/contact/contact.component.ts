@@ -10,6 +10,7 @@ declare var $: any;
 })
 export class ContactComponent extends BaseComponent implements OnInit {
   public showFormFlg: boolean = true;
+  public messageSentFlg: boolean = false;
   public staff: any = [
     { name: 'Rick Medved', email: 'rick@betradating.com', title: 'Founder', src: 'assets/images/team/rick.jpg', desc: '' },
     { name: 'Shawn Duncan', email: 'shawn@betradating.com', title: 'Vice President', src: 'assets/images/team/shawn.jpg', desc: '' },
@@ -31,8 +32,9 @@ export class ContactComponent extends BaseComponent implements OnInit {
 
   constructor() { super(); }
 
-  //  ngOnInit(): void {
-  //}
+  override ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   submitQuery() {
     var email = $('#email').val();
@@ -42,6 +44,7 @@ export class ContactComponent extends BaseComponent implements OnInit {
       return;
     }
     this.showFormFlg = false;
+    this.messageSentFlg = true;
     this.getDataFromServer('submitQuery', 'appApiCode.php', { email: email, message: message });
   }
 }

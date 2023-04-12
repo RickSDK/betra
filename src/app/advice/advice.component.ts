@@ -29,7 +29,6 @@ export class AdviceComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == "getAdviceUsers") {
       this.advicePage = responseJson;
-      //console.log('hey!', responseJson);
     }
   }
 }

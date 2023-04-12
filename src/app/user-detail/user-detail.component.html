@@ -8,7 +8,7 @@
         <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic"
             [size]="30"></app-profile-pic>
 
-        <div *ngIf="searchStarted && id == 2 && profileViews>0" class="match-card">
+        <div *ngIf="!loadingFlg && searchStarted && id == 2 && profileViews>0" class="match-card">
             <!--<div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
                 <i class="fa fa-times" style="float: right"></i>
                 <p style="font-size: 16px" class="red-text">Your <b><i class="fa fa-users"></i> Dating Pool</b> is
@@ -37,24 +37,40 @@
                 you
                 have 8 people in it. Until then keep viewing profiles and clicking thumbs up!
             </div>-->
-            <div *ngIf="!loadingFlg">Profile swipes remaining: <span class="text-highlight"
-                    style="font-size: 18px;">{{profileViews}}</span>
-                &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg" class="text-link">What's
-                    this?</span>
+            <div style="text-align: center; padding: 5px;">
+                <button style="float: left;" [routerLink]="['']"
+                    class="btn btn-main-color btn-small">Home</button>&nbsp;
+                <span *ngIf="playerList.length < 10 && playerList.length>0">Few profiles found
+                    &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg"
+                        class="text-link">What's
+                        this?</span>
+                </span>
+                <span *ngIf="playerList.length >= 10">Swipes remaining: <span class="text-highlight"
+                        style="font-size: 18px;">{{profileViews}}</span>
+                    &nbsp; <span (mousedown)="showProfileViewDetailsFlg=!showProfileViewDetailsFlg"
+                        class="text-link">What's
+                        this?</span>
+                </span>
+                <img src="assets/images/betraLogo.png" height="25" style="float: right;">
             </div>
+
             <div *ngIf="showProfileViewDetailsFlg" class="gray-text" style="padding-left: 10px; padding-right: 10px;">
                 <hr>
-                You can swipe up to 12 profiles per day. Say yes to as many as you like. If you get through your entire
-                batch
-                of 12, you will need to wait until tomorrow to get a new batch.
+                <div *ngIf="playerList.length < 10">
+                    Very few profiles found that match your requirements. This is a new app but people are signing up every day. Support Betra by telling your friends about it.
+                </div>
+                <div *ngIf="playerList.length >= 10">
+                    You can swipe up to 12 profiles per day. Say yes to as many as you like. If you get through your entire
+                    batch
+                    of 12, you will need to wait until tomorrow to get a new batch.    
+                </div>
             </div>
         </div>
-
         <app-advanced-filters *ngIf="showFilter" [user]="user" (messageEvent)="advancedSearch($event)">
         </app-advanced-filters>
         <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
 
-        <div *ngIf="profileViews > 0 && showExpandedSearchPopupFlg && !loadingFlg && matchUser"
+        <!--<div *ngIf="0 && profileViews > 0 && showExpandedSearchPopupFlg && !loadingFlg && matchUser"
             class="warning-search-popup">
             <p>
                 Note: This is a new dating app that has just launched.
@@ -63,7 +79,7 @@
             </p>
             <button (mousedown)="showExpandedSearchPopupFlg=false" class="btn btn-main-color">That's ok</button>&nbsp;
             <button (mousedown)="browseSingles('findMatches')" class="btn btn-warning">Show locals only</button>&nbsp;
-        </div>
+        </div>-->
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
@@ -85,7 +101,6 @@
                 </div>
             </div>
         </div>
-
         <div *ngIf="searchStarted && profileViews == 0 && user && !loadingFlg && !uid && !matchUser && id != 4"
             class="matches-card">
             <div style="font-size: 64px;">🥲</div>
@@ -104,7 +119,7 @@
             </div>
         </div>
         <div *ngIf="user && !loadingFlg && !uid">
-            <div class="matches-card" *ngIf="!user.lat" class="border-box" [routerLink]="['/settings']"
+            <div class="matches-card" *ngIf="!user.lat" [routerLink]="['/location']"
                 style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
@@ -160,7 +175,7 @@
 
 
 
-        <app-match-snapshot *ngIf="!commentsOnlyFlg && matchUser && user && (profileViews > 0 || uid > 0)"
+        <app-match-snapshot *ngIf="matchUser && user"
             (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id" [matchUser]="matchUser"
             [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [singleProfileFlg]="uid>0">
         </app-match-snapshot>

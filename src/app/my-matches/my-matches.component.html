@@ -56,7 +56,7 @@
         <div>&nbsp;</div>
 
         <div *ngIf="menuNum==0">
-            <div *ngIf="user.datingPool.length==0" class="tan-box">
+            <div *ngIf="user.datingPool.length==0 && playerList.length>0" class="tan-box">
                 <div>Waiting to hear back from the following people:</div>
                 <app-profile-pic *ngFor="let person of playerList" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
                 </app-profile-pic>

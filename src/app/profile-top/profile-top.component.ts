@@ -9,7 +9,7 @@ import { User } from '../classes/user';
 export class ProfileTopComponent implements OnInit {
   @Input('user') user: any = new User(null);
   @Input('myUser') myUser: any = new User(null);
-//  @Input('distance') distance: string = '';
+  //  @Input('distance') distance: string = '';
   @Input('adminFlg') adminFlg: boolean = false;
   @Input('expandBottomFlg') expandBottomFlg: boolean = false;
   @Input('snapshotFlg') snapshotFlg: boolean = false;
@@ -30,12 +30,15 @@ export class ProfileTopComponent implements OnInit {
   public wantsKidsTitle: string = '';
   public showNewUserPopupFlg: boolean = true;
   public showTextWarning = false;
+  public showProfileBasicsFlg: boolean = false;
+  public profileBasicsClassFlg: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
     this.pictureIndex = 1;
     this.showOptionsFlg = false;
+    this.showTextWarning = false;
     if (this.user) {
       this.pictureIndexMax = this.user.numPics + 1;
       this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
@@ -102,6 +105,19 @@ export class ProfileTopComponent implements OnInit {
   toggleImage() {
     this.showOptionsFlg = false;
     this.largeImageFlg = !this.largeImageFlg;
+  }
+  showProfileBasics() {
+    this.showProfileBasicsFlg = true;
+    this.profileBasicsClassFlg = false;
+    setTimeout(() => {
+      this.profileBasicsClassFlg = true;
+    }, 100);
+  }
+  hideProfileBasics() {
+    this.profileBasicsClassFlg = false;
+    setTimeout(() => {
+      this.showProfileBasicsFlg = false;
+    }, 1000);
   }
   viewImageThumbnail(num: number) {
     var pictures = [

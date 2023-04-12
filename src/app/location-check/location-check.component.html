@@ -4,11 +4,10 @@
     <div class="matches-card" style="text-align: center;">
         <app-top-header [topTitle]="'Location'"></app-top-header>
 
-        <div class="tan-box" style="font-size: 12px; text-align: left;">
-            <p>Note: Your GPS location is never shared with anyone, but is used for potential
-                matches to know how far apart they live. </p>
+        <div class="tan-box" style="font-size: 12px; text-align: center;">
+            <p>Note: Your GPS location is never shared with anyone, but is needed to find local matches. </p>
 
-            <p>You should have green checkmarks under both
+            <p class="gray-text">You should have green checkmarks under both
                 "Navigator" and "GeoPlugin" sections below. <span style="font-size: 8px; color: white;">{{locDist}}</span></p>
             
         </div>
@@ -73,7 +72,7 @@
                         <div>Lat: <span class="text-highlight">{{localLat}}</span></div>
                         <div>Lng: <span class="text-highlight">{{localLng}}</span></div>
                         <button [disabled]="loadingFlg || localLat == locationPage.latitude"
-                            (mousedown)="updateGeoPluginInfo()" class="btn btn-primary btn-small spacer">Update</button>
+                            (mousedown)="updateGeoPluginInfo()" class="btn btn-main-color spacer">Click to Update</button>
                     </div>
                 </td>
             </tr>

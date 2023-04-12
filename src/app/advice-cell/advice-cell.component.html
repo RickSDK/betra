@@ -9,20 +9,60 @@
                 <div class="red-text">{{person.firstName}}</div>
                 <div><b>Motto:</b> {{person.motto}}</div>
                 <div><b>Looking For:</b> {{person.lookingFor}}</div>
-                <div *ngIf="admin.ownerFlg && person.correctGender" style="text-align: left;">
+                <span *ngIf="person.messages.length>0" style="text-align: left;">
                     <a (mousedown)="showReplyFlg=!showReplyFlg" class="text-link">reply</a>
-                </div>
+                </span> &nbsp;
+                <span *ngIf="admin.ownerFlg && person.correctGender && person.isIncluded==0" style="text-align: left;">
+                    <a (mousedown)="showAdviceFlg=!showAdviceFlg" class="text-link">Leave Advice</a>
+                </span>
             </td>
         </tr>
     </table>
 
-    <app-text-with-emoji *ngIf="showReplyFlg && admin.ownerFlg" (messageEvent)="sumbitReply($event)"
+    <div *ngIf="showAdviceFlg && admin.ownerFlg" class="tan-box" style="font-size: 12px;">
+        <div>Offer some advice to {{person.firstName}}</div>
+        <hr>
+        <div style="text-align: left;"><b>Profile:</b> List some comments about {{person.firstName}}'s profile, good and bad.</div>
+        <textarea id="message" #message style="width: 100%;"></textarea>
+        <div style="text-align: left;"><b>Online dating advice: </b>What are your top online dating tips for {{person.firstName}}?</div>
+        <textarea id="online_tips" #online_tips style="width: 100%;"></textarea>
+        <div style="text-align: left;"><b>In-Person dating advice: </b>What are your top in-person dating tips for {{person.firstName}}?</div>
+        <textarea id="dating_tips" #dating_tips style="width: 100%;"></textarea>
+        <button (mousedown)="submitAdvice(message.value, online_tips.value, dating_tips.value)" class="btn btn-main-color">Submit</button>
+    </div>
+    <div *ngIf="advicePostedFlg" class="tan-box">Advice Posted!</div>
+
+    <app-text-with-emoji *ngIf="showReplyFlg" (messageEvent)="sumbitReply($event)"
         [user_id]="admin.user_id" [profilePic]="admin.profilePic" [maxLength]="400"></app-text-with-emoji>
+
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-    <div *ngFor="let message of person.messages" style="text-align: left; padding: 5px;">
-        <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic" [size]="30">
-        </app-profile-pic>
-        <span style="background-color: white; padding: 5px; border-radius: 5px; margin: 5px;">{{message.message}}</span>
-        <i (mousedown)="deleteMessage(message)" *ngIf="admin && message.user_id == admin.user_id" class="fa fa-trash"></i>
+    <div *ngFor="let message of person.messages" style="text-align: left; padding: 5px;" class="border-box">
+        <table>
+            <tr>
+                <td align="center">
+                    <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic" [size]="30">
+                    </app-profile-pic>
+                    <div *ngIf="message.online_tips" style="font-size: 10px;">
+                        Advice from {{message.firstName}}
+                    </div>
+                    <div>
+                        <i (mousedown)="deleteMessage(message)" *ngIf="message.user_id == admin.user_id" class="fa fa-trash"></i>
+                    </div>
+        
+                </td>
+                <td style="font-size: 10px;" *ngIf="message.online_tips">
+                    <div class="gray-text">About your profile:</div>
+                    <div class="white-blob" [innerHtml]="message.message"></div>
+                    <div class="gray-text">Online Dating tips:</div>
+                    <div class="white-blob" [innerHtml]="message.online_tips"></div>
+                    <div class="gray-text">In-Person dating tips:</div>
+                    <div class="white-blob" [innerHtml]="message.dating_tips"></div>
+            
+                </td>
+                <td *ngIf="!message.online_tips">
+                    <span style="background-color: white; padding: 5px; border-radius: 5px; margin: 5px;">{{message.message}}</span>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>

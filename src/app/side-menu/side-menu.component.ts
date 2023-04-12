@@ -50,6 +50,8 @@ export class SideMenuComponent implements OnInit {
       this.ownerAlerts = this.infoObj.ownerAlerts;
       picCertificateFlg = this.infoObj.picCertificateFlg;
     }
+    this.toggleInteractMenu = (this.messageCount + this.dateCount > 0);
+
     this.bottomItems.push({ name: 'Reputation', routerLink: '/reputation', icon: 'fa fa-certificate', id: 0 });
 
     if (this.date2Count > 0) {
@@ -62,7 +64,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   browseSelected(flag: boolean) {
-    this.router.navigate(['/browse-singles'], { queryParams: { id: 2, filter: flag } });
+    this.router.navigate(['/user-detail'], { queryParams: { id: 2, filter: flag } });
   }
 
   ngClassMenuItem(menuTitle: string) {

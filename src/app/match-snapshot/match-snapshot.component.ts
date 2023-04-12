@@ -91,18 +91,18 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     //---------------------
 
     var agePoints = Math.abs(user.matchAge - matchUser.age) <= 4 ? 1 : 0;
-    var religionPoints = (user.matchReligion == matchUser.religion) ? 1 : 0;
-    var educationPoints = (user.matchEducation == matchUser.educationLevel) ? 1 : 0;
+    var religionPoints = (user.matchReligion == matchUser.religion|| user.matchReligion == 'No preference') ? 1 : 0;
+    var educationPoints = (user.matchEducation == matchUser.educationLevel|| user.matchEducation == 'No preference') ? 1 : 0;
     var kidsPoints = (user.wantsKids == matchUser.wantsKids) ? 1 : 0;
     var hasKids = 1;
     if (user.wantsKids == 'No' && matchUser.numKids > 0)
       hasKids = 0;
     if (user.wantsKids == 'Yes' && matchUser.numKids == 0)
       hasKids = 0;
-    var marriagePoints = (user.matchMarriage == matchUser.marriageView) ? 1 : 0;
-    var relationshipPoints = (user.matchRelationship == matchUser.desiredRelationship) ? 1 : 0;
-    var heightPoints = (user.matchHeight == matchUser.bodyHeight) ? 1 : 0;
-    var bodyPoints = (user.matchBody == matchUser.bodyType) ? 1 : 0;
+    var marriagePoints = (user.matchMarriage == matchUser.marriageView|| user.matchMarriage == 'No preference') ? 1 : 0;
+    var relationshipPoints = (user.matchRelationship == matchUser.desiredRelationship|| user.matchRelationship == 'No preference') ? 1 : 0;
+    var heightPoints = (user.matchHeight == matchUser.bodyHeight|| user.matchHeight == 'No preference') ? 1 : 0;
+    var bodyPoints = (user.matchBody == matchUser.bodyType || user.matchBody == 'No preference') ? 1 : 0;
     var totalPoints = (agePoints + religionPoints + educationPoints + kidsPoints + hasKids + marriagePoints + relationshipPoints + heightPoints + bodyPoints);
 
     this.profileMatch = Math.round(100 * totalPoints / 9);

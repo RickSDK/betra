@@ -15,6 +15,7 @@
             <app-profile-pic [title]="person.firstName" *ngFor="let person of chatRoom.users" [user_id]="person.user_id"
                 [profilePic]="person.profilePic" [size]="30">
             </app-profile-pic>
+            <div class="tan-box" *ngIf="chatRoom.users.length<2">Sorry, no one else is in the chat room right now. Try back during happy hour!</div>
         </div>
         <div *ngIf="lotsOfMessagesFlg" (mousedown)="showMoreFlg = !showMoreFlg" style="font-size: 12px;">
             <span *ngIf="showMoreFlg" class="text-link">Show Less</span>
