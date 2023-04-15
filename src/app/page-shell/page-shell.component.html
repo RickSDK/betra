@@ -2,9 +2,9 @@
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
             <td *ngIf="pageTitle != 'Home'">
-                <i *ngIf="platform=='Web'" (mousedown)="goBack()"
-                    class="fa fa-arrow-left back-button"></i>&nbsp;
-                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-sm" height="50" style="cursor: pointer;">
+                <i *ngIf="1 || platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>&nbsp;
+                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-sm" height="50"
+                    style="cursor: pointer;">
 
             </td>
             <td *ngIf="pageTitle == 'Home'" style="position: relative;">
@@ -18,15 +18,18 @@
                 <span *ngIf="pageTitle != 'Home'" [routerLink]="['']" class="top-button"><i class="fa fa-home"></i>
                     <div class="top-button-label">Home</div>
                 </span>
-                <span [routerLink]="['/about']" class="top-button hide-xxs"><i class="fa fa-info-circle"></i>
+                <span *ngIf="!userId" [routerLink]="['/about']" class="top-button hide-xxs"><i class="fa fa-info-circle"></i>
                     <div class="top-button-label">About</div>
                 </span>
-                <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
+                <span *ngIf="userId" [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
                     <div class="top-button-label">Blogs</div>
                 </span>
+                <span [routerLink]="['/poll']" class="top-button hide-xxs"><i class="fa fa-question-circle"></i>
+                    <div class="top-button-label">Polls</div>
+                </span>
                 <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button">
-                    <i class="fa fa-comment"></i> <span *ngIf="headerObj.chatPeople>0"
-                        class="red-circle" style="background-color: green;">{{headerObj.chatPeople}}</span>
+                    <i class="fa fa-comment"></i> <span *ngIf="headerObj.chatPeople>0" class="red-circle"
+                        style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <div class="top-button-label">Chat Room</div>
                 </span>
                 <span *ngIf="!userId" [routerLink]="['/safety-features']" class="top-button"><i
@@ -57,7 +60,7 @@
                 </span>
             </td>
             <td *ngIf="userId>0">
-                <span class="menu-circle" [routerLink]="['/user-detail']" [queryParams]="{uid: userId}">
+                <span class="menu-circle" (mousedown)="showUserMenuFlg = !showUserMenuFlg">
                     <img [src]="imgSrcFile" class="profilePic" alt="Profile Picture">
                     <span *ngIf="headerObj.newReviewBy>0" class="red-circle"><i class="fa fa-comment"></i></span>
                     <span class="icon-label main-color-bg">My Profile</span>
@@ -72,17 +75,16 @@
 </div>
 <div class="outer-frame">
     <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'40px':'0px'">
-        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Profile'"
-            class="tan-box">
-            
+        <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Profile'" class="tan-box">
+
             <p>Finish Setting up your profile </p>
             <button *ngIf="pageTitle != 'Home'" [routerLink]="['']" class="btn btn-danger">Home</button>
             <button *ngIf="pageTitle == 'Home'" [routerLink]="['/profile']" class="btn btn-danger">Profile</button>
         </div>
+        <div *ngIf="showUserMenuFlg" class="gray-screen" (mousedown)="showUserMenuFlg=false"></div>
         <table *ngIf="showPageFlg" width="100%" border="0">
             <tr>
-                <td *ngIf="userId>0 && userStatus == 'Active'" class="hide-sm" width="200" style="width: 200px;"
-                    valign="top">
+                <td *ngIf="userId>0 && userStatus == 'Active'" class="side-menu" valign="top">
                     <div style="position: fixed; top: 60px; left: 0; width: 200px;">
                         <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
                             [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
@@ -119,7 +121,17 @@
 <div class="menu-darkener" *ngIf="showMainMenuFlg" (mousedown)="showMainMenuFlg=false"></div>
 <div [ngClass]="ngClassToggleMenu()" *ngIf="userId>0">
     <div style="padding: 10px;">
-        <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [headerObj]="headerObj"></app-side-menu>
+        <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [headerObj]="headerObj" [slideOverFlg]="true">
+        </app-side-menu>
     </div>
     <div (mousedown)="logout()" class="main-menu-item">Log Out</div>
+</div>
+<div [ngClass]="ngClassToggleMenu2()" *ngIf="userId>0" (mousedown)="showUserMenuFlg=false">
+    <div [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="main-menu-item"><i class="fa fa-user"></i> View Profile</div>
+    <div [routerLink]="['/profile']" class="main-menu-item"><i class="fa fa-pencil"></i> Edit Profile</div>
+    <div [routerLink]="['/profile']" [queryParams]="{num: 5}" class="main-menu-item"><i class="fa fa-picture-o"></i> Change Picture</div>
+    <div [routerLink]="['/location']" class="main-menu-item"><i class="fa fa-globe"></i> Change Location</div>
+    <div [routerLink]="['/reputation']" class="main-menu-item"><i class="fa fa-certificate"></i> Reputation</div>
+    <div class="main-menu-item"><i class="fa fa-times"></i> Close Menu</div>
+    <div (mousedown)="logout()" class="main-menu-item"><i class="fa fa-sign-out"></i> Log Out</div>
 </div>

@@ -249,7 +249,7 @@
 
 </app-page-shell>
 
-<div (mousedown)="showPopupFlg=false" *ngIf="showPopupFlg" class="over-limit-popup-outer">
+<div *ngIf="showPopupFlg" class="over-limit-popup-outer">
     <div class="over-limit-popup">
         <div style="font-size: 22px;">Over your limit!</div>
         <div style="text-align: left;">
@@ -263,7 +263,7 @@
                 pool!
             </p>
         </div>
-        <button class="btn btn-warning">Got it!</button>&nbsp;
+        <button (mousedown)="showPopupFlg=false" class="btn btn-warning">Got it!</button>&nbsp;
         <button *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']" class="btn btn-primary">Upgrade</button>
 
     </div>
@@ -279,7 +279,7 @@
     </div>
 </div>
 
-<div (mousedown)="showDroppedPopup=false" *ngIf="showDroppedPopup" class="over-limit-popup-outer">
+<div *ngIf="showDroppedPopup" class="over-limit-popup-outer">
     <div class="over-limit-popup" *ngIf="infoObj">
         <div>Sorry, but you have been dropped from someone's dating pool.</div>
         <app-profile-pic [user_id]="infoObj.droppedBy" [profilePic]="infoObj.profilePic" [size]="120">
@@ -290,6 +290,6 @@
             everyone. There are lots of more singles out there.
             Click the "Browse" button to start finding a better match!
         </div>
-        <button class="btn btn-warning">Ok</button>
+        <button (mousedown)="showDroppedPopup=false" class="btn btn-warning">Ok</button>
     </div>
 </div>

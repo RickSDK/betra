@@ -61,10 +61,14 @@ import { ContestComponent } from './contest/contest.component';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
 import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
 import { LocationCheckComponent } from './location-check/location-check.component';
+import { PollComponent } from './poll/poll.component';
+import { PollEditComponent } from './poll-edit/poll-edit.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'poll', component: PollComponent },
+  { path: 'poll-edit', component: PollEditComponent },
   { path: 'browse-singles', component: BrowseSinglesComponent },
   { path: 'referrals', component: ReferralsComponent },
   { path: 'location', component: LocationCheckComponent },

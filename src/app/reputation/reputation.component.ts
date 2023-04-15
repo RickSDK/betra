@@ -20,6 +20,7 @@ export class ReputationComponent extends BaseComponent implements OnInit {
   public facebookUrl: string = '';
   public instragramUrl: string = '';
   public linkedInUrl: string = '';
+  public updateSuccessfulFlg: boolean = false;
 
   public value: string = '';
   public searchLocFlg: boolean = false;
@@ -58,13 +59,13 @@ export class ReputationComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'updateLat') {
       this.selectedItemNum = 0;
-      this.successFlg = true;
+      this.updateSuccessfulFlg = true;
       this.refreshUserObj(responseJson.user);
       this.getDataFromServer('getReputationStats', 'reputation.php', {})
     }
     if (responseJson.action == 'postReputationUrl') {
       this.selectedItemNum = 0;
-      this.successFlg = true;
+      this.updateSuccessfulFlg = true;
       this.getDataFromServer('getReputationStats', 'reputation.php', {})
     }
     if (responseJson.action == 'getReputationStats') {

@@ -326,6 +326,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     //console.log('XXX postSuccessApi', file, responseJson);
+    this.loadingFlg = false;
     if (responseJson.action == "logUser") {
       if (!this.user.email && responseJson.user.email) {
         console.log('fixing User!!', this.user.email, responseJson.user.email);

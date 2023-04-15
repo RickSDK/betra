@@ -33,9 +33,9 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.login = params['login'] || 0;
       this.referralId = params['referralId'] || 0;
-      console.log('landing page referralId', this.referralId);
       if (this.referralId > 0) {
         this.login = 2;
+        localStorage['referralId'] = this.referralId;
       }
     })
 

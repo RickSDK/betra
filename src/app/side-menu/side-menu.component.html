@@ -1,5 +1,5 @@
-<div class="side-menu">
-    <div class="group-heading">discover</div>
+<div [ngClass]="slideOverFlg?'slide-in-menu':'side-menu'">
+    <div class="group-heading hidden-sm">discover</div>
     <div *ngFor="let item of topItems">
         <div *ngIf="item.id>0 && item.id != 2" [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}"
             [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i> &nbsp;
@@ -14,7 +14,7 @@
                 [class]="item.icon"></i> &nbsp;
             {{item.name}}</span>
             <span  (mousedown)="browseSelected(false)" style="background-color: transparent; position: absolute; left: 0; top: 0; width: 100%;">&nbsp;</span>
-            <i *ngIf="item.id==2" (mousedown)="browseSelected(true)" class="fa fa-cogs filter-icon"></i>
+            <i *ngIf="item.id==2" (mousedown)="browseSelected(true)" class="fa fa-cogs filter-icon hidden-sm"></i>
         </div>
         <div *ngIf="item.id==0" [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i
                 [class]="item.icon"></i> &nbsp;

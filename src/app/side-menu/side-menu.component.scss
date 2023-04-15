@@ -2,6 +2,10 @@
     text-align: left;
 }
 
+.slide-in-menu {
+    text-align: left;;
+}
+
 .side-menu-item {
     position: relative;
     height: 44px;
@@ -73,4 +77,20 @@
 
 .caret-icon:hover {
     color: black;
+}
+
+@media screen and (max-width: 600px) {
+    .side-menu {
+        width: 48px;
+        overflow: hidden;
+    }
+    .hidden-sm {
+        display: none;
+    }
+    .red-circle {
+        position: absolute;
+        display: inline-block;
+        left: 20px;
+        top: 0;
+    }
 }

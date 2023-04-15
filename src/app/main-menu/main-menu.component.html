@@ -2,10 +2,18 @@
     [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="user && user.showHeartFormFlg" class="tan-box">
+        <h1>Notice</h1>
+        <div>It's time for you to hand out a rose. Visit your dating pool.</div>
+        <hr>
+        <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
+            Dating Pool</button>
+    </div>
     <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click
         "settings" to log out and then try logging back in.</div>
     <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" class="holiday-banner">
     <img src="assets/images/betraLogo.png" height="25">
+        <span *ngIf="user && user.ownerFlg" style="font-size: 12px;">&nbsp;<span [routerLink]="['/owners']" class="text-link">Owner</span> <span class="text-highlight">{{user.adminLevel}}</span></span>
     <div class="red-text">What would you like to do?</div>
    <div class="button-box" [routerLink]="['/user-detail']">
         <img [src]="browseScr" height="100%" width="100%" class="button-pic">
@@ -25,3 +33,12 @@
 <app-login-popup *ngIf="login==1" (messageEvent)="userIsLoggedIn($event)"></app-login-popup>
 <app-welcome-popup *ngIf="userId > 0 && userStatus != 'Active'" (messageEvent)="userIsLoggedIn($event)">
 </app-welcome-popup>
+<div *ngIf="user && user.datingPool.length > user.datingPoolLimit" class="user-popup-outer ">
+    <div class="user-popup">
+        <h1>Notice</h1>
+        <div>You are over the limit in your dating pool. Visit your dating pool and move extras to your back burner.</div>
+        <hr>
+        <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
+            Dating Pool</button>
+    </div>
+</div>

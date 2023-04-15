@@ -11,6 +11,7 @@ export class SideMenuComponent implements OnInit {
   @Input('headerObj') headerObj: any = null;
   @Input('messageCount') messageCount: number = 0;
   @Input('matchCount') matchCount: number = 0;
+  @Input('slideOverFlg') slideOverFlg: boolean = false;
 
   public dateCount: number = 0;
   public date2Count: number = 0;
@@ -31,7 +32,8 @@ export class SideMenuComponent implements OnInit {
     { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
     { name: 'Blogs', routerLink: '/blogs', icon: 'fa fa-file-text', id: 0 },
     // { name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
-    //{ name: 'Advice', routerLink: '/advice', icon: 'fa fa-thumbs-up', id: 0 },
+    { name: 'Polls', routerLink: '/poll', icon: 'fa fa-question-circle', id: 0 },
+    { name: 'Advice', routerLink: '/advice', icon: 'fa fa-thumbs-up', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
   ];
   public bottomItems = [

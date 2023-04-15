@@ -1,0 +1,38 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Polls'" [headerObj]="headerObj" [userStatus]="userStatus">
+    <div class="matches-card" style="text-align: left;">
+        <app-top-header [topTitle]="'Polls'"></app-top-header>
+        <hr>
+        <button [routerLink]="['/poll-edit']" *ngIf="userId==1" class="btn btn-main-color">Edit</button>
+
+        <div *ngIf="noVotesYet">Cast vote to see results</div>
+        <div *ngFor="let poll of polls" class="poll-box">
+            <div><b>{{poll.name}}</b></div>
+            <table>
+                <tr *ngFor="let question of poll.questions">
+                    <td>
+                        <i *ngIf="poll.iVoted && question.votes == poll.highestVoteCount" class="fa fa-asterisk" style="color: red; font-size: 18px;"></i>
+                        <i *ngIf="poll.iVoted && question.number == poll.myVote" class="fa fa-check" style="color: green; font-size: 18px;"></i>
+                        <input *ngIf="!poll.iVoted" (mousedown)="selectPoll(poll, question.number)" type="radio" name="poll{{poll.poll_id}}" style="width: auto;"> 
+                    </td>
+                    <td>
+                        <div class="gray-text"> {{question.name}} <span *ngIf="poll.iVoted">(votes: {{question.votes}}) </span></div>
+                        <div *ngIf="selectedPoll && selectedPoll.poll_id == poll.poll_id">
+                            <app-profile-pic *ngFor="let person of question.responses" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+                            </app-profile-pic>   
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="font-size: 12px;">
+                <span>Votes: <span class="text-highlight">{{poll.votes}}</span></span>
+                <span *ngIf="poll.iVoted && (!selectedPoll || selectedPoll.poll_id != poll.poll_id)" style="float: right" class="text-link" (mousedown)="showResultsOfPoll(poll)">View Results</span>
+            </div>
+            <button *ngIf="!poll.iVoted" (mousedown)="voteForItem(poll)" class="btn btn-main-color" [disabled]="!poll.selected">Vote</button>
+        </div>
+        <i class="fa fa-asterisk" style="color: red; font-size: 18px;"></i> = highest vote,
+        <i class="fa fa-check" style="color: green; font-size: 18px;"></i> = my vote
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+     </div>
+</app-page-shell>

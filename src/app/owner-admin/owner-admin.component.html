@@ -7,16 +7,24 @@
         <app-owners-menu [pageTitle]="pageTitle"></app-owners-menu>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
-        <div class="tan-box" [routerLink]="['/owners']"
-            *ngIf="user.adminLevel < 2"
+        <div class="tan-box" [routerLink]="['/owners']" *ngIf="user.adminLevel < 2"
             style="color: #900; cursor: pointer;">
             <i class="fa fa-exclamation-triangle"></i> Note: You have not completed your tasks to be an official owner
             yet. Please click here to find out what is needed to reach Level 2.
         </div>
+        <div *ngIf="user.adminLevel < 2" class="tan-box" [routerLink]="['/owners']">
+            <span style="font-size: 12px;">&nbsp;<span class="text-link">Owner Level</span> <span
+                    class="text-highlight">{{user.adminLevel}}</span></span>
+            <div class="gray-text">Welcome new Betra Owner! You are currently a level 1 owner. Click here to see what is
+                needed to move up. If you are having trouble filling up your dating pool, email <a
+                href="mailto:rick@betradating.com">Rick@betradating.com</a> for help.</div>
+        </div>
+
         <div>
             <span [routerLink]="['/upgrade-member']" class="text-link">Membership Page</span>&nbsp;
             <span [routerLink]="['/media']" class="text-link">Media</span>&nbsp;
-            <span [routerLink]="['/reviews']" class="text-link">User Reviews</span>
+            <span [routerLink]="['/reviews']" class="text-link">User Reviews</span>&nbsp;
+            <span [routerLink]="['/join-team']" class="text-link">Owner Signup</span>&nbsp;
         </div>
 
         <div *ngIf="menuNum==0 && !loadingFlg" style="display: inline-block; max-width: 380px;">

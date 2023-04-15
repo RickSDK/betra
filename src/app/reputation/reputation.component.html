@@ -39,7 +39,7 @@
             </div>
         </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="successFlg" class="important-notice">Thank you. Your info has been submitted!</div>
+        <div *ngIf="updateSuccessfulFlg" class="important-notice">Thank you. Your info has been submitted!</div>
         <div *ngIf="!loadingFlg">
             <div *ngIf="selectedItemNum==1" class="tan-box">
                 <div>Your email address has not yet been confirmed. Go here to fix that:</div>

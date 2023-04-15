@@ -12,7 +12,7 @@
                 <span *ngIf="person.messages.length>0" style="text-align: left;">
                     <a (mousedown)="showReplyFlg=!showReplyFlg" class="text-link">reply</a>
                 </span> &nbsp;
-                <span *ngIf="admin.ownerFlg && person.correctGender && person.isIncluded==0" style="text-align: left;">
+                <span *ngIf="admin.ownerFlg && person.isIncluded==0" style="text-align: left;">
                     <a (mousedown)="showAdviceFlg=!showAdviceFlg" class="text-link">Leave Advice</a>
                 </span>
             </td>

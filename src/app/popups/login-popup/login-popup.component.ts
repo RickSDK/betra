@@ -49,6 +49,9 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.submitDisabled = !this.savedEmail;
     this.forgotPasswordFlg = false;
 
+    if(localStorage['referralId']>0)
+    this.referralId = localStorage['referralId'];
+
     /*
     this.socialAuthService.authState.subscribe((user) => {
       this.facebookToBetraLogin(user);

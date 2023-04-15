@@ -8,9 +8,7 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>
         <div class="tan-box" style="font-size: 10px; text-align: left;">
-            <p>The following table shows the latest 100 users to create an account.</p>
-            <p>A check mark indicates they made it all the way through the Profile Creation process and a 'Y' indicates
-                they are an owner.</p>
+            <div>The following table shows the latest 100 users to create an account.</div>
         </div>
 
         <table style="font-size: 10px;" (mousedown)="showContactInfo=!showContactInfo">
@@ -22,7 +20,7 @@
                 <th>State</th>
                 <th>Lat</th>
                 <th>Pic</th>
-                <th>Active</th>
+                <th>Status</th>
                 <th>Owner</th>
                 <th>Swipes</th>
                 <th>Matches</th>
@@ -36,7 +34,7 @@
                 <td>{{user.state}}</td>
                 <td>{{user.lat}}</td>
                 <td>{{user.profilePic}}</td>
-                <td><i class="fa fa-check" *ngIf="user.matchAge>0"></i></td>
+                <td>{{user.userStatus}}</td>
                 <td>{{user.ownerFlg}}</td>
                 <td>{{user.statsObj.matchLevel1}}</td>
                 <td>{{user.statsObj.matchLevel2}}</td>

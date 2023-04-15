@@ -61,7 +61,7 @@
                 <li>Approve user submitted pictures.</li>
             </div>
         </div>
-        <p class="gray-text" style="text-align: center;">To see what is needed to move up level, <a class="text-link"
+        <p *ngIf="user && user.ownerFlg" class="gray-text" style="text-align: center;">To see what is needed to move up level, <a class="text-link"
                 [routerLink]="['/owners']">click here</a>.</p>
 
         <table *ngIf="!user || !user.ownerFlg" align="center" border="0">
@@ -101,6 +101,7 @@
                                     *ngIf="user && user.emailVerifyFlg" class="fa fa-check"
                                     style="color: green; font-size: 32px;"></i> (check your junk
                                 email address)</li>
+                            <li>Fill up your <span class="text-link" [routerLink]="['/matches']">dating pool</span> with at least 4 people</li>
                             <li>Click Join button below</li>
                             <div style="text-align: center">
                                 <button (mousedown)="signupPressed()" class="btn btn-primary"

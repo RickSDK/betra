@@ -119,6 +119,8 @@ import { TopHeaderComponent } from './top-header/top-header.component';
 import { BrowseSinglesComponent } from './browse-singles/browse-singles.component';
 import { AdviceCellComponent } from './advice-cell/advice-cell.component';
 import { LocationCheckComponent } from './location-check/location-check.component';
+import { PollComponent } from './poll/poll.component';
+import { PollEditComponent } from './poll-edit/poll-edit.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -237,6 +239,8 @@ import { LocationCheckComponent } from './location-check/location-check.componen
     BrowseSinglesComponent,
     AdviceCellComponent,
     LocationCheckComponent,
+    PollComponent,
+    PollEditComponent,
   ],
   imports: [
     BrowserModule,

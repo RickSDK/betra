@@ -54,6 +54,7 @@
                     <li>At least 40 messages sent</li>
                     <li>At least 3 user reviews</li>
                     <li>At least 2 owner bugs and/or discussions</li>
+                    <li>At least 2 Poll Votes</li>
                 </ul>
             </div>
             <div class="border-box">
@@ -62,6 +63,7 @@
                 <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></div>
                 <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></div>
                 <div>Bugs/Discussion: <b class="text-highlight">{{ownersPage.bugsCount}}</b><i *ngIf="ownersPage.bugsCount > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div>Poll Votes: <b class="text-highlight">{{ownersPage.voteCount}}</b><i *ngIf="ownersPage.voteCount > 1" style="color: green;" class="fa fa-check"></i></div>
                 <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
         </div>

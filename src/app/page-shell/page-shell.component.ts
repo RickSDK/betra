@@ -52,6 +52,7 @@ export class PageShellComponent implements OnInit {
   public adsbygoogle: any;
   public platform: string = getPlatform();
   public showPageFlg: boolean = true;
+  public showUserMenuFlg: boolean = false;
 
   constructor(private router: Router, private location: Location) { }
 
@@ -87,9 +88,9 @@ export class PageShellComponent implements OnInit {
       this.showAboutInfoFlg = true;
     }
 
-    setTimeout(() => {
-      (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
-    }, 1000);
+//    setTimeout(() => {
+ //     (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
+ //   }, 1000);
   }
 
   goBack() {
@@ -103,7 +104,12 @@ export class PageShellComponent implements OnInit {
     else
       return 'main-menu-popup popup-hide';
   }
-
+  ngClassToggleMenu2() {
+    if (this.showUserMenuFlg)
+      return 'main-menu-popup popup-show';
+    else
+      return 'main-menu-popup popup-hide';
+  }
   toggleMainMenu() {
     this.showMainMenuFlg = !this.showMainMenuFlg;
   }

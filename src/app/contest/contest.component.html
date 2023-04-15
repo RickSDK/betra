@@ -17,17 +17,26 @@
         <div *ngIf="!isIncluded" style="text-align: center; padding: 10px;">
             <button [disabled]="loadingFlg" (mousedown)="signUp()" class="btn-main-color btn btn-large">Sign Up!</button>
         </div>
-        <div *ngIf="isIncluded" class="border-box gray-text" style="text-align: center">
+
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <table width="100%">
+            <tr>
+                <td width="50%" align="center" valign="top">
+                    <div><b>Potential Bachelors</b></div>
+                    <app-profile-pic *ngFor="let person of bachelors" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+                    </app-profile-pic>        
+                </td>
+                <td align="center" valign="top">
+                    <div><b>Potential Bachelorettes</b></div>
+                    <app-profile-pic *ngFor="let person of bachelorettes" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+                    </app-profile-pic>        
+                </td>
+            </tr>
+        </table>
+        <div *ngIf="isIncluded" class="border-box gray-text" style="text-align: center; margin-top: 20px;">
             <div>Note: You are now signed up for this contest! If, for any reason you decide not to participate, simply click the remove me button below.</div>
             <button [disabled]="loadingFlg" (mousedown)="removeMe()" class="btn-main-color btn btn-small">Remove Me</button>
             <p>Check back on June 1st to see who was selected to be in the contest!</p>
         </div>
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="contestPage" class="border-box">
-            <div>Users signed up:</div>
-            <app-profile-pic *ngFor="let person of contestPage.users" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
-            </app-profile-pic>
-        </div>
-
     </div>
 </app-page-shell>

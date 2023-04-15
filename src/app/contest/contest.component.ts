@@ -9,6 +9,8 @@ import { BaseComponent } from '../base/base.component';
 export class ContestComponent extends BaseComponent implements OnInit {
   public isIncluded: boolean = false;
   public contestPage: any = null;
+  public bachelors: any = [];
+  public bachelorettes: any = [];
   constructor() { super(); }
 
   override ngOnInit(): void {
@@ -27,6 +29,15 @@ export class ContestComponent extends BaseComponent implements OnInit {
     if (responseJson.action == "getContestUsers") {
       this.isIncluded = responseJson.isIncluded;
       this.contestPage = responseJson;
+      this.bachelors = [];
+      this.bachelorettes = [];
+      this.responseJson.users.forEach((user: any) => {
+        if (user.gender == 'F')
+          this.bachelorettes.push(user);
+        else
+          this.bachelors.push(user);
+
+      });
     }
   }
 }

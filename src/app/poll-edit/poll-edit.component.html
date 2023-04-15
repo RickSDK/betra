@@ -1,0 +1,27 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Press'" [headerObj]="headerObj" [userStatus]="userStatus">
+    <div class="matches-card" style="text-align: left;">
+        <app-top-header [topTitle]="'Poll Edit'"></app-top-header>
+        <hr>
+        <button [routerLink]="['/poll']" *ngIf="userId==1" class="btn btn-main-color">Polls</button>
+        <div *ngIf="!selectedPoll" class="border-box">
+            <div>Create a new poll</div>
+            <app-text-with-enter [value]="pollTitle" [placeHolder]="'Poll Title'" (messageEvent)="textValueSubmitted($event)">
+            </app-text-with-enter>    
+        </div>
+ 
+        <div *ngFor="let poll of polls" class="text-link" (mousedown)="selectedPoll=poll">
+            {{poll.name}}
+        </div>
+        <hr>
+        <div *ngIf="selectedPoll">
+            <div><b>{{selectedPoll.name}}</b></div>
+            <div *ngFor="let question of selectedPoll.questions">
+                <li>{{question.name}}</li>
+            </div>
+            <app-text-with-enter [value]="pollTitle" [placeHolder]="'New Answer'" (messageEvent)="answerSubmitted($event)">
+            </app-text-with-enter>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+    </div>
+</app-page-shell>

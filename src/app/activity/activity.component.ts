@@ -26,11 +26,11 @@ export class ActivityComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
-//    console.log('xxx', responseJson);
-  //  this.responseJson = responseJson;
-  /*  if (responseJson.action == "logUser") {
-      this.syncUserWithLocalStorage(responseJson);
-    }*/
+    //    console.log('xxx', responseJson);
+    //  this.responseJson = responseJson;
+    /*  if (responseJson.action == "logUser") {
+        this.syncUserWithLocalStorage(responseJson);
+      }*/
 
     if (responseJson.action == "getScrollData") {
       //this.blog1 = new Blog(responseJson.blogList[0]);
@@ -50,6 +50,8 @@ export class ActivityComponent extends BaseComponent implements OnInit {
           this.scrollItems.push(this.responseJson.reviewItems.shift());
         if (this.responseJson.journalItems.length > 0)
           this.scrollItems.push(this.responseJson.journalItems.shift());
+        if (this.responseJson.pollItems.length > 0)
+          this.scrollItems.push(this.responseJson.pollItems.shift());
         if (this.responseJson.blogCommentItems.length > 0)
           this.scrollItems.push(this.responseJson.blogCommentItems.shift());
 

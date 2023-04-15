@@ -13,6 +13,8 @@
                             <div [routerLink]="['/about']" class="white-link">About</div>
                             <div [routerLink]="['/safety-features']" class="white-link">Safety <span
                                     class="hide-xs">Features</span></div>
+                            <div [routerLink]="['/join-team']" class="white-link">Join <span
+                                    class="hide-xs">Team</span></div>
                             <!--<div [routerLink]="['/press']" class="white-link">Press</div>-->
                         </div>
                     </td>
@@ -44,14 +46,14 @@
                         class="fa fa-instagram social-media"></i></a>
                 <a href="https://twitter.com/BetraDating"><i class="fa fa-twitter social-media"></i></a>
             </div>
-        
+
             <div *ngIf="platform=='Web'">
                 <img [routerLink]="['/ios-install']" src="assets/images/landing/appStore1.png" height="44"
                     class="app-store">&nbsp;
                 <a href="https://play.google.com/store/apps/details?id=com.betradating" target="new"><img
                         src="assets/images/landing/appStore2.png" height="44" class="app-store"></a>
             </div>
-        
+
             <div style="padding: 20px; color: gray;">&copy; 2023 Betra, llc</div>
 
             <td class="hide-md" width="200" style="width: 200px; min-width: 200px; max-width: 200px;">&nbsp;

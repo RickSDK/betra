@@ -43,7 +43,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public buttons = [
     { name: 'Dating Pool', routerLink: "/matches", src: 'assets/images/buttons/datePool.jpg' },
     { name: 'Chat Room', routerLink: "/chat-room", src: 'assets/images/buttons/chat.jpg' },
-    { name: 'Advice', routerLink: "/advice", src: 'assets/images/buttons/advice.jpg' },
+    { name: 'Polls', routerLink: "/poll", src: 'assets/images/buttons/polls.jpeg' },
     { name: 'Contest', routerLink: "/contest", src: 'assets/images/buttons/rose2.jpg' },
     { name: 'View Activity', routerLink: "/activity", src: 'assets/images/buttons/activity.jpeg' },
   ]
@@ -56,8 +56,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (!this.user || !this.userId) {
       this.router.navigate(['']);
       return;
-
     }
+ 
     var race = this.user.race;
     if (this.user.race == 'Middle Eastern' || this.user.race == 'Other')
       race = 'Arab';
@@ -81,8 +81,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (dt.mo == 7 && dt.dayOfMonth == 4)
       this.holidayScr = 'assets/images/holidays/july4.jpeg';
 
-    this.logUser();
-    this.loadUserObj();
+   // this.logUser();
+   // this.loadUserObj();
     this.userStatus = this.user.status;
     this.popupNum = 1;
 

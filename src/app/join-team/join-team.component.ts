@@ -58,6 +58,10 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
       this.errorMessage = 'Error - Make sure you fully complete your profile. Click "Profile" link above to get finish.';
       return;  
     }
+    if(this.user && this.user.datingPool.length < 4) {
+      this.errorMessage = 'Error - You need at least 4 people in your dating pool. Click your Dating Pool for details.';
+      return;  
+    }
     this.signupDisabledFlg = true;
     var params = {
       userId: localStorage['user_id'],
