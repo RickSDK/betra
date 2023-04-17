@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { reduce } from 'rxjs';
 import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
 
@@ -10,7 +11,7 @@ import { User } from '../classes/user';
 export class UsersComponent extends BaseComponent implements OnInit {
   public playerlist: any = [];
   public toggle: boolean = false;
-  public menuButtons = ['Active', 'Pending', 'Started', 'Deleted'];
+  public menuButtons = ['Last 50', 'Last 100', 'Online Today'];
   public sortedlist: any = [];
   public selectedId: number = 0;
 
@@ -22,8 +23,22 @@ export class UsersComponent extends BaseComponent implements OnInit {
   }
   changeMenu(num: number) {
     this.menuNum = num;
-    this.sortList();
+    this.sortedlist = [];
+    this.getDataFromServer('getPlayers', 'appApiCode.php', { menuNum: this.menuNum });
+    //this.sortList();
   }
+
+  ngStyle(status: string) {
+    if (status == 'Deleted')
+      return { 'background-color': 'red' };
+    if (status == 'Active')
+      return { 'background-color': '#cfc' };
+    if (status == 'Pending')
+      return { 'background-color': 'yellow' };
+
+    return { 'background-color': 'white' };
+  }
+
   loadPlayers() {
     var params = {
       userId: localStorage['user_id'],
@@ -46,14 +61,14 @@ export class UsersComponent extends BaseComponent implements OnInit {
     this.executeApi('owners.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
+    console.log('xxx', responseJson);
     if (responseJson.action == 'getPlayers') {
-      this.playerlist = [];
+      this.sortedlist = [];
       responseJson.playerList.forEach((element: any) => {
         var player = new User(element);
-        this.playerlist.push(player);
+        this.sortedlist.push(player);
       });
-      this.sortList();
-      console.log('xxx playerlist', this.playerlist);
+      console.log('xxx playerlist', this.sortedlist);
     }
     if (responseJson.action == 'deleteUser') {
       this.loadPlayers();

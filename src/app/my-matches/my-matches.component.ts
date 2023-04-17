@@ -27,6 +27,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public selectedPerson: any = null;
   public origSelectedPerson: number = 0;
   public showDroppedPopup: boolean = false;
+  public topTitle: string = '';
   public firstName: string = '';
   public currentRoseHolder: string = '';
   public newlyAssignedRoseFlg: boolean = false;
@@ -37,6 +38,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.topTitle = this.user.gender=='F'?'My Dating Pool':'Dating Pool';
     this.firstName = '';
     this.user.datingPool.forEach((element: any) => {
       if (element.heartFlg) {

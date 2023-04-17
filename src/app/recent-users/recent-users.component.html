@@ -11,7 +11,7 @@
             <div>The following table shows the latest 100 users to create an account.</div>
         </div>
 
-        <table style="font-size: 10px;" (mousedown)="showContactInfo=!showContactInfo">
+        <table style="font-size: 10px;">
             <tr>
                 <th>Name</th>
                 <th *ngIf="showContactInfo && userId==1">Email</th>
@@ -25,6 +25,7 @@
                 <th>Swipes</th>
                 <th>Matches</th>
                 <th>Created</th>
+                <th *ngIf="userId==1">Email</th>
             </tr>
             <tr *ngFor="let user of users">
                 <td>{{user.firstName}}</td>
@@ -39,6 +40,11 @@
                 <td>{{user.statsObj.matchLevel1}}</td>
                 <td>{{user.statsObj.matchLevel2}}</td>
                 <td>{{user.localDate}}</td>
+                <td  *ngIf="userId==1">
+                    <button *ngIf="user.userStatus != 'Deleted' && (!user.emailNum || (user.emailNum==1 && user.userStatus=='Active'))" class="btn btn-primary" (mousedown)="sendWelcomeEmail(user)" [disabled]="loadingFlg"><i class="fa fa-envelope"></i></button>
+                    {{user.emailNum}}
+                </td>
+                
             </tr>
         </table>
 

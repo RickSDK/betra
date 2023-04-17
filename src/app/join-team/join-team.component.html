@@ -17,8 +17,7 @@
             If we reach that goal, entry-level team members will be generating $500 per month.
             Moving up through the ranks will increase your monthly payouts.
         </p>
-        <div class="tan-box" [routerLink]="['/owners']"
-            *ngIf="user.ownerFlg && user.adminLevel < 2"
+        <div class="tan-box" [routerLink]="['/owners']" *ngIf="user && user.ownerFlg && user.adminLevel < 2"
             style="color: #900; cursor: pointer;">
             <i class="fa fa-exclamation-triangle"></i> Note: You have not completed your tasks to be an official owner
             yet. Please click here to find out what is needed to reach Level 2.
@@ -61,19 +60,14 @@
                 <li>Approve user submitted pictures.</li>
             </div>
         </div>
-        <p *ngIf="user && user.ownerFlg" class="gray-text" style="text-align: center;">To see what is needed to move up level, <a class="text-link"
-                [routerLink]="['/owners']">click here</a>.</p>
+        <p *ngIf="user && user.ownerFlg" class="gray-text" style="text-align: center;">To see what is needed to move up
+            level, <a class="text-link" [routerLink]="['/owners']">click here</a>.</p>
 
-        <table *ngIf="!user || !user.ownerFlg" align="center" border="0">
+        <table *ngIf="1 || !user || !user.ownerFlg" align="center" border="0">
             <tr>
                 <td align="center">
                     <div>Spots Remaining</div>
                     <div class="spots-remaining" *ngIf="ownerCount>0"> {{spotsLeft}}</div>
-                </td>
-                <td>&nbsp;</td>
-                <td align="center">
-                    <div>Monthly Income</div>
-                    <div class="spots-remaining">$0</div>
                 </td>
             </tr>
         </table>
@@ -93,15 +87,16 @@
                             <li *ngIf="!user"><a [routerLink]="['']">Create a Betra account</a> <i
                                     *ngIf="user && user.user_id > 0" class="fa fa-check"
                                     style="color: green; font-size: 32px;"></i></li>
-                            <li *ngIf="!user || user && user.status != 'Active'"> Complete your <a
+                            <li *ngIf="user && user.status != 'Active'"> Complete your <a
                                     [routerLink]="'/profile'">profile</a> <i *ngIf="user && user.status == 'Active'"
                                     class="fa fa-check" style="color: green; font-size: 32px;"></i></li>
-                            <li *ngIf="!user || (user && !user.emailVerifyFlg)"> Verify your <a
-                                    [routerLink]="'/profile'" [queryParams]="{num: 1}">email address</a> <i
-                                    *ngIf="user && user.emailVerifyFlg" class="fa fa-check"
-                                    style="color: green; font-size: 32px;"></i> (check your junk
+                            <li *ngIf="(user && !user.emailVerifyFlg)"> Verify your <a [routerLink]="'/profile'"
+                                    [queryParams]="{num: 1}">email address</a> <i *ngIf="user && user.emailVerifyFlg"
+                                    class="fa fa-check" style="color: green; font-size: 32px;"></i> (check your junk
                                 email address)</li>
-                            <li>Fill up your <span class="text-link" [routerLink]="['/matches']">dating pool</span> with at least 4 people</li>
+                            <li *ngIf="!user">Fill up your dating pool</li>
+                            <li *ngIf="user">Fill up your <span class="text-link" [routerLink]="['/matches']">dating
+                                    pool</span> with at least 4 people</li>
                             <li>Click Join button below</li>
                             <div style="text-align: center">
                                 <button (mousedown)="signupPressed()" class="btn btn-primary"

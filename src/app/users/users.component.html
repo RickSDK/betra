@@ -8,8 +8,9 @@
     <hr>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngFor="let player of sortedlist"
-        class="playerCard" [style.background-color]="player.lastLoginText=='Today'?'yellow':'white'">
-        <img [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" [src]="player.imgSrc" alt="profile pic" class="small-image">
+        class="playerCard" [ngStyle]="ngStyle(player.status)">
+        <img *ngIf="!player.picFlagged" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" [src]="player.imgSrc" alt="profile pic" class="small-image">
+        <div *ngIf="player.picFlagged>0" style="background-color: yellow;">Flagged</div>
         <img *ngIf="player.picFlagged>0" [src]="player.flaggedImg" width="100%">
         <div style="text-align: center; font-size: 16px;"><b>{{player.firstName}}</b><sup>{{player.user_id}}</sup></div>
         <div style="text-align: center;"><i *ngIf="player.emailVerifyFlg" class="fa fa-check"
@@ -20,11 +21,12 @@
             <div style="text-align: center;">{{player.adventureStableText}}</div>
             <div style="text-align: center;">{{player.polyText}}</div>
         </div>
-        <div *ngIf="player.statsObj" style="font-size: 10px;">
-            <div>{{player.phone}}</div>
-            <div>Clicks: Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup></div>
+        <div *ngIf="player.statsObj && (player.statsObj.interestYes>0 || player.statsObj.interestNo > 0)" style="font-size: 10px;">
+            <div>Swipes: Yes<sup>{{player.statsObj.interestYes}}</sup> No<sup>{{player.statsObj.interestNo}}</sup></div>
             <div>matches: {{player.statsObj.matchLevel2}}</div>
-            <i *ngIf="player.gpsLat" class="fa fa-globe"></i> {{player.profileViews}} <i *ngIf="player.picFlagged" class="fa fa-times"></i> 
+            <div>
+                <i *ngIf="player.gpsLat" class="fa fa-globe"></i>, profileViews {{player.profileViews}}
+            </div>
             <button *ngIf="player.statsObj.messages>0" class="btn btn-primary" (mousedown)="selectedId = (selectedId==player.user_id)?0:player.user_id">Stats</button>
             <div *ngIf="selectedId == player.user_id">
                 <div *ngIf="player.statsObj.messages>0">messages: {{player.statsObj.messages}}</div>

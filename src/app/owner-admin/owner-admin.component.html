@@ -246,7 +246,11 @@
             <button (mousedown)="approveLink(false)" class="btn btn-danger padded">No Good</button>
             <button (mousedown)="approveLink(true)" class="btn btn-success padded">Good</button>
         </div>
-
+        <div class="border-box">
+            <div>Users Online Now</div>
+            <app-profile-pic *ngFor="let person of usersOnline" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+            </app-profile-pic>   
+        </div>
         <hr>
         <button *ngIf="menuNum>0" (mousedown)="backToTop()" class="btn btn-warning">Back to top</button>
     </div>

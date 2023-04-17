@@ -576,6 +576,12 @@ select {
     }
 }
 
+@media screen and (min-width: 600px) {
+    .show-sm {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .hide-sm {
         display: none;

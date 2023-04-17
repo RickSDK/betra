@@ -42,7 +42,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public getPlatform: string = getPlatform();
   public buttons = [
     { name: 'Dating Pool', routerLink: "/matches", src: 'assets/images/buttons/datePool.jpg' },
-    { name: 'Chat Room', routerLink: "/chat-room", src: 'assets/images/buttons/chat.jpg' },
+    { name: 'Chat Room', routerLink: "/chat-room", src: 'assets/images/buttons/coffeeShop.jpg' },
     { name: 'Polls', routerLink: "/poll", src: 'assets/images/buttons/polls.jpeg' },
     { name: 'Contest', routerLink: "/contest", src: 'assets/images/buttons/rose2.jpg' },
     { name: 'View Activity', routerLink: "/activity", src: 'assets/images/buttons/activity.jpeg' },

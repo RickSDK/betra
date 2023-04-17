@@ -1,9 +1,8 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Chat Room'" [headerObj]="headerObj" [userStatus]="userStatus"
     [stickyBottomFlg]="true">
 
-    <div *ngIf="user" id="chat-room" class="matches-card" style="text-align: left;">
-        <app-top-header [topTitle]="'Chat Room'"></app-top-header>
-        <hr>
+    <div *ngIf="user" id="chat-room" class="matches-card" style="text-align: left; padding: 0;">
+        <app-top-header2 [topTitle]="'Chat Room'"></app-top-header2>
         <div class="happy-hour">
             <div>Happy Hour: 5pm PST
                 <span style="float: right; color: aquamarine;">{{happyHourNotice}}</span>

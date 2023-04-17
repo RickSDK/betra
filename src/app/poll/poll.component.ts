@@ -24,7 +24,7 @@ export class PollComponent extends BaseComponent implements OnInit {
   }
   voteForItem(poll: any) {
     poll.selected = false;
-    //this.getDataFromServer('registerVote', 'polls.php', { poll_id: poll.poll_id, num: poll.selectedNum });
+    this.getDataFromServer('registerVote', 'polls.php', { poll_id: poll.poll_id, num: poll.selectedNum });
   }
   showResultsOfPoll(poll: any) {
     this.selectedPoll = poll;

@@ -41,6 +41,8 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
 
     if (this.userId > 0)
       this.gotoMainMenu();
+    else
+      window.scrollTo(0, 0);
 
   }
   toggleBackground() {

@@ -206,10 +206,12 @@ export class User {
     public profileViews: number = 0;
     public yourTitle: string = '';
     public adminLevel: number = 0;
+    public emailNum: number = 0;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
+            this.emailNum = obj.emailNum || 0;
             this.firstName = obj.firstName;
             this.phone = obj.phone || '';
             this.facebookId = obj.facebookId;
@@ -667,7 +669,7 @@ export class User {
                     this.matchQualityIndex += 2;
                 this.distanceText = Math.round(this.distance) + ' miles';
             }
-            var ageRange = myUser.matchAge/5;
+            var ageRange = myUser.matchAge / 5;
             this.isGoodAge = (Math.abs(this.age - myUser.matchAge) <= ageRange);
             if (Math.abs(this.age - myUser.matchAge) <= 8)
                 this.matchQualityIndex += 3;

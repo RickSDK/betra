@@ -19,6 +19,11 @@ export class RecentUsersComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('getRecentUsers', 'owners.php', {});
   }
 
+  sendWelcomeEmail(user: any) {
+    console.log('xxx', user.user_id);
+    this.getDataFromServer('sendWelcomeEmail', 'owners.php', {uid: user.user_id});
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getRecentUsers') {

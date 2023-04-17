@@ -2,20 +2,56 @@
     [stickyBottomFlg]="true">
 
 
-    <div class="matches-card" style="text-align: left; font-size: 12px;">
-        <app-top-header [topTitle]="'Contest'"></app-top-header>
+    <div class="matches-card" style="text-align: left; font-size: 12px; padding: 0;">
+        <app-top-header2 [topTitle]="'Contest'"></app-top-header2>
 
-        <img src="assets/images/pics/bachelor.jpg" width="100%">
-        <div class="red-text" style="text-align: center; font-size: 16px;">Would you like to be a contestant on our first ever Bachelor/Bachelorette contest?</div>
-        <p><b>Here's how it works:</b> Anyone can sign up to join the contest. On <b>May 31st</b> we will pick one lucky Bachelor and one lucky Bachelorette to compete in the contest.</p>
-        <p>We will also pick an additional 12 bachelors and 12 bacheloretts to fill their dating pools.</p>
-        <p>The 2 main contestants will then eliminate 2 people from their dating pools each week until the reach the final winner.</p>
-        <p>All members of our community will get to watch this play out in real time, and the contestants will fill out a weekly blog to describe their reasons for who they kept and eliminated. This will be a lot of fun for everyone!</p>
-        <p>For this first contest, it will be nation-wide and instead of going on real dates, they will simply have virtual dates. In the future, we hope to pick one city and do the contest on a more local level.</p>
-        <p>Good luck to everyone!</p>
+        <div style="padding: 10px;">
+            <div class="red-text" style="text-align: center; font-size: 16px;">Become our first ever
+                Bachelor/Bachelorette!</div>
+        </div>
+        <table>
+            <tr>
+                <td width="45%">
+                    <img src="assets/images/bachelor/rose1.png" width="100%">
+                </td>
+                <td style="padding: 5px;">
+                    <p><b>Here's how it works:</b> Anyone can sign up to join the contest. On <b>May 31st</b> we will
+                        pick one
+                        lucky Bachelor and one lucky Bachelorette to compete in the contest.</p>
+                    <p>We will also pick an additional 12 bachelors and 12 bacheloretts to fill their dating pools.</p>
+
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td width="55%" style="padding: 5px;">
+                    <p>The 2 main contestants will then eliminate 2 people from their dating pools each week until the
+                        reach the
+                        final winner.</p>
+                    <p>All members of our community will get to watch this play out in real time, and the contestants
+                        will fill
+                        out a weekly blog to describe their reasons for who they kept and eliminated. This will be a lot
+                        of fun
+                        for everyone!</p>
+
+                </td>
+                <td>
+                    <img src="assets/images/bachelor/girl2.jpg" width="100%">
+
+
+                </td>
+            </tr>
+        </table>
+        <div style="padding: 10px;">
+            <p>For this first contest, it will be nation-wide and instead of going on real dates, they will simply have
+                virtual dates. In the future, we hope to pick one city and do the contest on a more local level.</p>
+            <p>Good luck to everyone!</p>
+        </div>
 
         <div *ngIf="!isIncluded" style="text-align: center; padding: 10px;">
-            <button [disabled]="loadingFlg" (mousedown)="signUp()" class="btn-main-color btn btn-large">Sign Up!</button>
+            <button [disabled]="loadingFlg" (mousedown)="signUp()" class="btn-main-color btn btn-large">Sign
+                Up!</button>
         </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
@@ -23,20 +59,26 @@
             <tr>
                 <td width="50%" align="center" valign="top">
                     <div><b>Potential Bachelors</b></div>
-                    <app-profile-pic *ngFor="let person of bachelors" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
-                    </app-profile-pic>        
+                    <app-profile-pic *ngFor="let person of bachelors" [user_id]="person.user_id"
+                        [profilePic]="person.profilePic" [size]="30">
+                    </app-profile-pic>
                 </td>
                 <td align="center" valign="top">
                     <div><b>Potential Bachelorettes</b></div>
-                    <app-profile-pic *ngFor="let person of bachelorettes" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
-                    </app-profile-pic>        
+                    <app-profile-pic *ngFor="let person of bachelorettes" [user_id]="person.user_id"
+                        [profilePic]="person.profilePic" [size]="30">
+                    </app-profile-pic>
                 </td>
             </tr>
         </table>
         <div *ngIf="isIncluded" class="border-box gray-text" style="text-align: center; margin-top: 20px;">
-            <div>Note: You are now signed up for this contest! If, for any reason you decide not to participate, simply click the remove me button below.</div>
-            <button [disabled]="loadingFlg" (mousedown)="removeMe()" class="btn-main-color btn btn-small">Remove Me</button>
+            <div>Note: You are now signed up for this contest! If, for any reason you decide not to participate, simply
+                click the remove me button below.</div>
+            <button [disabled]="loadingFlg" (mousedown)="removeMe()" class="btn-main-color btn btn-small">Remove
+                Me</button>
             <p>Check back on June 1st to see who was selected to be in the contest!</p>
         </div>
+        <img src="assets/images/bachelor/girl1.jpg" width="100%">
+
     </div>
 </app-page-shell>

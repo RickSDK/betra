@@ -27,6 +27,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   public showRecordFlg = false;
   public showFakePicOptionsFlg: boolean = false;
   public displayUser: any = null;
+  public usersOnline: any = [];
 
   constructor() { super(); }
 
@@ -133,6 +134,8 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
+    //console.log('xxx', responseJson);
     this.showRecordFlg = false;
     this.responseJson = responseJson;
     if (responseJson.action == 'approveRejectLink') {
@@ -153,6 +156,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       this.getDataFromServer('getNewReview', 'betraReviews.php', []);
     }
     if (responseJson.action == 'getInfoObj') {
+      this.usersOnline = responseJson.users;
       this.updateFormBasedOnObj(responseJson.infoObj);
       localStorage['infoObj'] = JSON.stringify(responseJson.infoObj);
       this.syncUserWithLocalStorage(responseJson);
@@ -176,6 +180,10 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
         this.message = 'no profiles waiting to be approved.';
       }
     }
+  }
+
+  sendWelcomeEmail() {
+    this.getDataFromServer('sendWelcomeEmail', 'owners.php', {uid: 1});
   }
 
   approveLink(flag: boolean) {

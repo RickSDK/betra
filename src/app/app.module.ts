@@ -121,6 +121,7 @@ import { AdviceCellComponent } from './advice-cell/advice-cell.component';
 import { LocationCheckComponent } from './location-check/location-check.component';
 import { PollComponent } from './poll/poll.component';
 import { PollEditComponent } from './poll-edit/poll-edit.component';
+import { TopHeader2Component } from './top-header2/top-header2.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -241,6 +242,7 @@ import { PollEditComponent } from './poll-edit/poll-edit.component';
     LocationCheckComponent,
     PollComponent,
     PollEditComponent,
+    TopHeader2Component,
   ],
   imports: [
     BrowserModule,

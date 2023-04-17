@@ -1,8 +1,8 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Polls'" [headerObj]="headerObj" [userStatus]="userStatus">
-    <div class="matches-card" style="text-align: left;">
-        <app-top-header [topTitle]="'Polls'"></app-top-header>
-        <hr>
-        <button [routerLink]="['/poll-edit']" *ngIf="userId==1" class="btn btn-main-color">Edit</button>
+    <div class="matches-card" style="text-align: left; padding: 0;">
+        
+        <app-top-header2 [topTitle]="'Polls'"></app-top-header2>
+        <button [routerLink]="['/poll-edit']" *ngIf="0 && userId==1" class="btn btn-main-color">Edit</button>
 
         <div *ngIf="noVotesYet">Cast vote to see results</div>
         <div *ngFor="let poll of polls" class="poll-box">

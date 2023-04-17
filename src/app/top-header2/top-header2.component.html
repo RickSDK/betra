@@ -1,0 +1,13 @@
+
+<div style="text-align: center; position: relative;">
+    <img *ngIf="topTitle == 'Polls'" src="assets/images/topPics/polls.jpeg" width="100%">
+    <img *ngIf="topTitle == 'Activity'" src="assets/images/topPics/activity.jpeg" width="100%">
+    <img *ngIf="topTitle == 'Chat Room'" src="assets/images/topPics/chat.jpg" width="100%">
+    <img *ngIf="topTitle == 'Contest' || topTitle == 'Dating Pool'" src="assets/images/bachelor/group2.jpg" width="100%">
+    <img *ngIf="topTitle == 'My Dating Pool'" src="assets/images/bachelor/group3.jpg" width="100%">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; padding: 0px;">
+        <button style="float: left; margin: 5px;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
+        <span class="main-title">{{topTitle}}</span>
+        <img src="assets/images/betraLogo.png" height="25" style="float: right; margin: 5px;">        
+    </div>
+</div>
