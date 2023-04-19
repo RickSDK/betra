@@ -18,13 +18,18 @@
                 <span *ngIf="pageTitle != 'Home'" [routerLink]="['']" class="top-button"><i class="fa fa-home"></i>
                     <div class="top-button-label">Home</div>
                 </span>
-                <span *ngIf="!userId" [routerLink]="['/about']" class="top-button hide-xxs"><i class="fa fa-info-circle"></i>
+                <span *ngIf="!userId" [routerLink]="['/about']" class="top-button hide-xxs"><i
+                        class="fa fa-info-circle"></i>
                     <div class="top-button-label">About</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
+                <span *ngIf="!userId" [routerLink]="['/safety-features']" class="top-button"><i
+                        class="fa fa-exclamation-circle"></i>
+                    <div class="top-button-label">Safety Features</div>
+                </span>
+                <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
                     <div class="top-button-label">Blogs</div>
                 </span>
-                <span [routerLink]="['/poll']" class="top-button hide-xxs"><i class="fa fa-question-circle"></i>
+                <span *ngIf="userId" [routerLink]="['/poll']" class="top-button hide-xs"><i class="fa fa-question-circle"></i>
                     <div class="top-button-label">Polls</div>
                 </span>
                 <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button">
@@ -32,10 +37,14 @@
                         style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <div class="top-button-label">Chat Room</div>
                 </span>
-                <span *ngIf="!userId" [routerLink]="['/safety-features']" class="top-button"><i
-                        class="fa fa-exclamation-circle"></i>
-                    <div class="top-button-label">Safety Features</div>
+                <span *ngIf="userId" [routerLink]="['/coins']" class="top-button">
+                    <img id="coinImg" src="assets/images/pics/coinSmall.png" height="30">
+                    <span class="red-circle"
+                        style="background-color: green; margin-left: -15px;">{{headerObj.points}}</span>
+                    <div class="top-button-label">Coins</div>
                 </span>
+
+                
             </td>
 
             <td align="right" valign="middle" *ngIf="userId==0 || !userId">
@@ -45,11 +54,11 @@
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
             <td *ngIf="userId>0 && userStatus == 'Active'">
-                <span class="menu-circle hide-xxs" [routerLink]="['/user-detail']">
+                <span class="menu-circle hide-xs" [routerLink]="['/user-detail']">
                     <i class="fa fa-search icon-button main-color"></i>
                     <span class="icon-label main-color-bg">Browse</span>
                 </span>
-                <span class="menu-circle" [routerLink]="['/matches']">
+                <span class="menu-circle hide-xxs" [routerLink]="['/matches']">
                     <i class="fa fa-users icon-button main-color"></i>
                     <span class="icon-label main-color-bg">My Dating Pool</span>
                 </span>
@@ -127,11 +136,37 @@
     <div (mousedown)="logout()" class="main-menu-item">Log Out</div>
 </div>
 <div [ngClass]="ngClassToggleMenu2()" *ngIf="userId>0" (mousedown)="showUserMenuFlg=false">
-    <div [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="main-menu-item"><i class="fa fa-user"></i> View Profile</div>
+    <div [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="main-menu-item"><i class="fa fa-user"></i>
+        View Profile</div>
     <div [routerLink]="['/profile']" class="main-menu-item"><i class="fa fa-pencil"></i> Edit Profile</div>
-    <div [routerLink]="['/profile']" [queryParams]="{num: 5}" class="main-menu-item"><i class="fa fa-picture-o"></i> Change Picture</div>
+    <div [routerLink]="['/profile']" [queryParams]="{num: 5}" class="main-menu-item"><i class="fa fa-picture-o"></i>
+        Change Picture</div>
     <div [routerLink]="['/location']" class="main-menu-item"><i class="fa fa-globe"></i> Change Location</div>
     <div [routerLink]="['/reputation']" class="main-menu-item"><i class="fa fa-certificate"></i> Reputation</div>
     <div class="main-menu-item"><i class="fa fa-times"></i> Close Menu</div>
     <div (mousedown)="logout()" class="main-menu-item"><i class="fa fa-sign-out"></i> Log Out</div>
+</div>
+
+<div *ngIf="displayBrowsePopupFlg" class="user-browse-popup">
+    <i (mousedown)="displayBrowsePopupFlg=false" class="fa fa-times" style="font-size: 22px; float: right; margin: 5px;"></i>
+    <div class="red-text">Notice!</div>
+    <div class="gray-text">Someone is browsing your profile right now!</div>
+    <app-profile-pic [user_id]="headerObj.browseObj.user_id" [profilePic]="headerObj.browseObj.profilePic" [size]="200">
+    </app-profile-pic>
+    <div style="font-size: 22px; font-weight: 700;">{{headerObj.browseObj.firstName}}</div>
+    <div *ngIf="displayBasicsFlg && headerObj.browseObj.basicsFlg=='Y'">
+        {{headerObj.browseObj.firstName}} clicked on basic profile items
+    </div>
+    <div *ngIf="displayDetailsFlg && headerObj.browseObj.detailsFlg=='Y'">
+        {{headerObj.browseObj.firstName}} clicked on your profile details
+    </div>
+    <div *ngIf="popupInProgress" style="font-size: 32px;">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <div *ngIf="!popupInProgress" style="padding: 20px;">
+        <div *ngIf="headerObj.browseObj.thumbsUpFlg == 'Y'">You got a thumbs up!</div>
+        <div *ngIf="headerObj.browseObj.thumbsDownFlg == 'Y'">Sorry, it's a thumbs down.</div>
+        <div *ngIf="!headerObj.browseObj.thumbsUpFlg && !headerObj.browseObj.thumbsDownFlg">{{headerObj.browseObj.firstName}} is no longer viewing your page.</div>
+        <button class="btn btn-main-color btn-small" (mousedown)="displayBrowsePopupFlg=false">Close</button>
+    </div>
 </div>

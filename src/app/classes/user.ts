@@ -207,11 +207,15 @@ export class User {
     public yourTitle: string = '';
     public adminLevel: number = 0;
     public emailNum: number = 0;
+    public consecutiveDays: number = 0;
+    public points: number = 0;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.emailNum = obj.emailNum || 0;
+            this.consecutiveDays = obj.consecutiveDays || 0;
+            this.points = obj.points || 0;
             this.firstName = obj.firstName;
             this.phone = obj.phone || '';
             this.facebookId = obj.facebookId;

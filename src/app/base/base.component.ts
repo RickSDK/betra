@@ -61,7 +61,7 @@ export class BaseComponent implements OnInit {
     if (userObj && userObj.user_id > 0) {
       localStorage['User'] = JSON.stringify(userObj);
       this.user = new User(userObj);
-      //console.log('user refreshed!', this.user);
+      console.log('user refreshed!', this.user.points);
     } else {
       console.log('invalid object sent to refresh!!!');
     }
@@ -82,16 +82,17 @@ export class BaseComponent implements OnInit {
     this.infoObj = infoObj;
     localStorage['infoObj'] = JSON.stringify(infoObj);
     localStorage['lastUpd'] = infoObj.lastUpd;
-    if(infoObj.user)
+    if (infoObj.user)
       this.userStatus = infoObj.user.status;
     this.headerObj.chatPeople = infoObj.chatPeople;
 
     this.headerObj.admirerCount = infoObj.admirerCount;
     this.headerObj.messageCount = infoObj.messageCount;
-    this.headerObj.matchesAlerts = infoObj.matchesAlerts
-    this.headerObj.dateCount = infoObj.dateCount
-    this.headerObj.ownerAlerts = infoObj.ownerAlerts
-    this.headerObj.newReviewBy = infoObj.newReviewBy
+    this.headerObj.matchesAlerts = infoObj.matchesAlerts;
+    this.headerObj.dateCount = infoObj.dateCount;
+    this.headerObj.ownerAlerts = infoObj.ownerAlerts;
+    this.headerObj.newReviewBy = infoObj.newReviewBy;
+    this.headerObj.points = infoObj.points;
     localStorage['admirerCount'] = this.headerObj.admirerCount;
     localStorage['messageCount'] = this.headerObj.messageCount;
     localStorage['matchesAlerts'] = this.headerObj.matchesAlerts;
@@ -149,6 +150,8 @@ export class BaseComponent implements OnInit {
         this.user = new User(userObj);
         this.imgSrcFile = this.user.imgSrc;
         this.userStatus = this.user.status;
+        if(this.infoObj)
+          this.headerObj.browseObj = this.infoObj.browseObj;
         this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
         this.headerObj.notifications = localStorage['notifications'];
         this.headerObj.messageCount = localStorage['messageCount'];
@@ -183,7 +186,7 @@ export class BaseComponent implements OnInit {
   }
   syncUserWithLocalStorage(responseJson: any) {
     var now = new Date();
-    //console.log('xxx user synced with database xxx', responseJson);
+    console.log('xxx user synced!');
     if (responseJson.infoObj) {
       this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
       localStorage['timeStamp'] = now.toString();
@@ -276,10 +279,28 @@ export class BaseComponent implements OnInit {
       this.executeApi('geoScript.php', params, true);
     });
   }
+  getPage() {
+    console.log('href!!!', window.location.href);
+    var page = 'Unknown';
+    if (window && window.location && window.location.href) {
+      var e = window.location.href.split('/');
+      if (e.length > 0) {
+        page = e[e.length - 1];
+        var e2 = page.split('?');
+        if(e2.length>0)
+          page = e2[0];
+      }
+    }
+    if (page == 'matches')
+      page = 'Dating Pool';
+    console.log('page!!!', page);
+    return page;
+  }
   logUser(refreshFlg: string = '') {
     var uid = localStorage['user_id'];
     var email = localStorage['email'];
     var code = localStorage['code'];
+
 
     if (uid > 0 && email && code) {
       var params = {
@@ -287,6 +308,7 @@ export class BaseComponent implements OnInit {
         email: localStorage['email'],
         code: localStorage['code'],
         action: 'logUser',
+        page: this.getPage(),
         lastUpd: localStorage['lastUpd'],
         refreshFlg: refreshFlg
       };

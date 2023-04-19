@@ -63,11 +63,13 @@ import { BrowseSinglesComponent } from './browse-singles/browse-singles.componen
 import { LocationCheckComponent } from './location-check/location-check.component';
 import { PollComponent } from './poll/poll.component';
 import { PollEditComponent } from './poll-edit/poll-edit.component';
+import { CoinsComponent } from './coins/coins.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'poll', component: PollComponent },
+  { path: 'coins', component: CoinsComponent },
   { path: 'poll-edit', component: PollEditComponent },
   { path: 'browse-singles', component: BrowseSinglesComponent },
   { path: 'referrals', component: ReferralsComponent },

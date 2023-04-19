@@ -202,6 +202,20 @@
     z-index: 500;
 }
 
+.user-browse-popup {
+    display: inline-block;
+    position: fixed;
+    top: 30px;
+    left: 60px;
+    width: 300px;
+    z-index: 500;
+    background-color: white;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px black;
+}
+
 .popup-show {
     opacity: 1;
     right: 10px;

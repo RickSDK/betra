@@ -107,6 +107,7 @@ export class ProfileTopComponent implements OnInit {
     this.largeImageFlg = !this.largeImageFlg;
   }
   showProfileBasics() {
+    this.messageEvent.emit('show-basics');
     this.showProfileBasicsFlg = true;
     this.profileBasicsClassFlg = false;
     setTimeout(() => {

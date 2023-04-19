@@ -53,8 +53,11 @@
             <div>Owners</div>
             <span *ngFor="let user of users"><span *ngIf="user.ownerFlg=='Y'">{{user.email}}; </span></span>
             <hr>
-            <div>Non-Owners</div>
-            <span *ngFor="let user of users"><span *ngIf="user.ownerFlg!='Y'">{{user.email}}; </span></span>
+            <div>Non-Owners (Pending)</div>
+            <span *ngFor="let user of users"><span *ngIf="user.ownerFlg!='Y' && !user.userStatus">{{user.email}}; </span></span>
+            <hr>
+            <div>Non-Owners (Active)</div>
+            <span *ngFor="let user of users"><span *ngIf="user.ownerFlg!='Y' && user.userStatus=='Active'">{{user.email}}; </span></span>
         </div>
 
     </div>

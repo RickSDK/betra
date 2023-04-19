@@ -113,6 +113,11 @@
                     you!
                 </p>
                 <div style="text-align: center;">
+                    <div *ngIf="user.points > 0" class="tan-box">
+                        <div >Would you like to buy a swipe for 1 coin?</div>
+                        <button (mousedown)="buySwipe()" class="btn btn-success btn-large">Yes!</button>
+                    </div>
+
                     <p>In the mean time, check out these other Betra features</p>
                     <button [routerLink]="['/poll']" class="btn btn-main-color spacer">Polls</button>
                     <button [routerLink]="['/activity']" class="btn btn-main-color spacer">Activity</button>
@@ -149,10 +154,10 @@
                     <div>
                         <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
                         <p>Sorry, no more profiles found.</p>
-                        <p *ngIf="!showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
+                        <p *ngIf="0 && !showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
                             joining
                             constantly. Check back soon.</p>
-                        <div *ngIf="id == 2 && showExpandedSearchPopupFlg && !advancedSearchFlg && profileViews>0">
+                        <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
                             <p class="gray-text">You have already said "Yes" or "No" to everyone in the database.
                                 This
                                 is a

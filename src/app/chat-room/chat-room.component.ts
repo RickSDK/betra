@@ -14,11 +14,14 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   public showMoreFlg: boolean = false;
   public lotsOfMessagesFlg: boolean = false;
   public textValue: string = '';
+  public isConnected: boolean = true;
+  public usersOnline: any = [];
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.isConnected = true;
     this.getDataFromServer('chatLogin', 'chat.php', { room: 1 });
   }
 
@@ -37,11 +40,12 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   loginToChat() {
     var e = document.getElementById('chat-room');
     if (e) {
+      this.isConnected = true;
       this.getDataFromServer('chatLogin', 'chat.php', { room: 1, lastMessage: this.lastMessage });
-    } else {
+    } else if (this.isConnected) {
       console.log('no chat!!!');
+      this.isConnected = false;
       this.getDataFromServer('exitChat', 'chat.php', {});
-
     }
   }
 
@@ -113,6 +117,10 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
       this.messages = responseJson.messages;
 
       this.messages.sort((a: any, b: any) => {
+        return (parseInt(a.row_id) > parseInt(b.row_id)) ? 1 : (parseInt(a.row_id) < parseInt(b.row_id)) ? -1 : 0;
+      });
+
+      this.chatRoom.activity.sort((a: any, b: any) => {
         return (parseInt(a.row_id) > parseInt(b.row_id)) ? 1 : (parseInt(a.row_id) < parseInt(b.row_id)) ? -1 : 0;
       });
 

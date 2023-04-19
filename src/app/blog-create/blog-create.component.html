@@ -27,6 +27,13 @@
             <div class="gray-text">Section 3</div>
             <app-text-area-input [id]="'section3'" [maxLength]="2000" [value]="blogSection3"></app-text-area-input>
             <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+            <div class="border-box">
+                <div class="red-text">Admin Panel</div>
+                Status: <span class="text-highlight">{{blog.status}}</span>
+                <div *ngIf="blog.status == 'New'" class="gray-text">Note: Be sure to add 3 pictures before publishing Blog. 'Edit Pictures' button can be found at the top. Click 'Publish' button below to make live.</div>
+            </div>
+
             <table width="100%">
                 <tr>
                     <td>
@@ -62,6 +69,7 @@
         </div>
 
         <div *ngIf="menuNum==2">
+            <div class="border-box">Note: You only need to fill this out if the author is not one of us. If you wrote the blog yourself, leave this blank and you will automatically get credit for it.</div>
             <div class="gray-text">Author</div>
             <app-text-input [id]="'blogAuthor'" [placeHolder]="'Author'" [value]="blogAuthor"></app-text-input>
             <div class="gray-text">Url</div>

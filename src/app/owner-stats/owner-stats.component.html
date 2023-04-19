@@ -39,9 +39,9 @@
                                 <div class="tiny-text">Journals: {{statsPage.journals}}</div>
                                 <hr>
                                 <div class="red-text">Recent (Last 7 days)</div>
-                                <div class="tiny-text">Likes: {{statsPage.likesRecent}}</div>
-                                <div class="tiny-text">Matches: {{statsPage.matchesRecent}}</div>
-                                <div class="tiny-text">Messages: {{statsPage.messagesRecent}}</div>
+                                <div class="tiny-text">Likes: {{statsPage.likesRecent}} ({{statsPage.likesRecent/7 | number:'1.0-0'}} per day)</div>
+                                <div class="tiny-text">Matches: {{statsPage.matchesRecent}} ({{statsPage.matchesRecent/7 | number:'1.0-0'}} per day)</div>
+                                <div class="tiny-text">Messages: {{statsPage.messagesRecent}} ({{statsPage.messagesRecent/7 | number:'1.0-0'}} per day)</div>
                                 <div class="tiny-text">Reviews: {{statsPage.reviewsRecent}}</div>
                                 <div class="tiny-text">Journals: {{statsPage.journalsRecent}}</div>
                                 <hr>
@@ -65,14 +65,6 @@
                                 <div *ngFor="let state of statsPage.stateName">
                                     <div>{{state.stateName}}<sup>{{state.count}}</sup></div>
                                 </div>
-                            </div>
-                        </td>
-                        <td valign="top">
-                            <div class="border-box" style="font-size: 8px; max-width: 150px;">
-                                <div class="tiny-text">Cities</div>
-                                <span *ngFor="let city of statsPage.cities">
-                                    {{city.name}}<sup>{{city.count}}</sup>
-                                </span>
                             </div>
                         </td>
                     </tr>

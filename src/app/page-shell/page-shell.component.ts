@@ -53,6 +53,10 @@ export class PageShellComponent implements OnInit {
   public platform: string = getPlatform();
   public showPageFlg: boolean = true;
   public showUserMenuFlg: boolean = false;
+  public displayBrowsePopupFlg: boolean = false;
+  public displayBasicsFlg: boolean = false;
+  public displayDetailsFlg: boolean = false;
+  public popupInProgress: boolean = false;
 
   constructor(private router: Router, private location: Location) { }
 
@@ -88,14 +92,33 @@ export class PageShellComponent implements OnInit {
       this.showAboutInfoFlg = true;
     }
 
-//    setTimeout(() => {
- //     (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
- //   }, 1000);
+    if (this.headerObj && this.headerObj.browseObj && this.headerObj.browseObj.user_id)
+      this.displayBrowsePopup();
+
+    //    setTimeout(() => {
+    //     (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
+    //   }, 1000);
   }
 
   goBack() {
     console.log('go back!!!', this.location.getState());
     this.location.back();
+  }
+
+  displayBrowsePopup() {
+    this.displayBrowsePopupFlg = true;
+    this.displayBasicsFlg = false;
+    this.displayDetailsFlg = false;
+    this.popupInProgress = true;
+    setTimeout(() => {
+      this.displayBasicsFlg = true;
+    }, 8000);
+    setTimeout(() => {
+      this.displayDetailsFlg = true;
+    }, 16000);
+    setTimeout(() => {
+      this.popupInProgress = false;
+    }, 24000);
   }
 
   ngClassToggleMenu() {

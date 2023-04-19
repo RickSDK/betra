@@ -38,8 +38,7 @@
     overflow: hidden;
     box-shadow: 2px 2px 10px black;
     margin: 5px;
-    width: 100%;
-    max-width: 165px; 
+    width: 165px; 
     height: 165px;
     cursor: pointer;
 }
@@ -129,4 +128,43 @@
     cursor: pointer;
 }
 
+.coin-spin {
+    cursor: pointer;
+    opacity: 1;
+    transition: ease-in-out all .8s;
+    position: fixed;
+    top: 70px;
+    width: 200px;
+    height: 200px;
+    z-index: 500;
+}
 
+.off {
+    transition: ease-in-out all .8s;
+    opacity: .2;
+    top: 0;
+    width: 100px;
+    height: 100px;
+}
+
+@media screen and (max-width: 540px) {
+    .button-box { 
+        width: 140px;
+        height: 140px;
+    }
+    .button-text {
+        width: 140px;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .button-box { 
+        width: 120px;
+        height: 120px;
+    }
+    .button-text {
+        width: 120px;
+        font-size: 18px;
+    }
+}

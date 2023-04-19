@@ -177,6 +177,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.logUser();
     }
   }
+
+  buySwipe() {
+    this.getDataFromServer('buySwipe', 'findMatches.php', {});
+  }
   //--------------------------------------------
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
@@ -312,6 +316,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   displayThisProfile() {
     console.log('displayThisProfile', this.matchUser);
+    if(this.matchUser) {
+      this.getDataFromServer('logUserView', 'chat.php', {uid: this.matchUser.user_id});
+    }
 
     if (this.matchSnapshotModal)
       this.populateViewChildren();

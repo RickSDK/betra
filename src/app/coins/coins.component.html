@@ -1,0 +1,43 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Coins'" [headerObj]="headerObj" [userStatus]="userStatus"
+    [stickyBottomFlg]="true">
+
+    <div *ngIf="user" class="matches-card" style="padding: 0;">
+        <app-top-header2 [topTitle]="'Coins'"></app-top-header2>
+        <div style="padding: 10px;">
+            <div class="gray-box">
+                <div class="small-title">Your Coins</div>
+                <img src="assets/images/pics/coin.png" height="50">
+                <div>
+                    <span style="font-size: 32px;" class="text-highlight">{{user.points}}</span>
+                </div>
+                <div style="font-size: 10px;">
+                    Consecutive days logged in: <span class="text-highlight">{{user.consecutiveDays}}</span>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="gray-box">
+                            <div class="small-title">How you get them</div>
+                            <div style="text-align: left; font-size: 12px; color: gray;">
+                                <li>Each day you log in, you get <span class="red-text">1</span> coin.</li>
+                                <li>Log in 7 consecutive days, get <span class="red-text">10</span> bonus coins.</li>
+                                <li>Get them from other users (coming soon)</li>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="gray-box">
+                            <div class="small-title">How you spend them</div>
+                            <div style="text-align: left; font-size: 12px; color: gray;">
+                                <li>Free Swipe = <span class="red-text">1</span> coin.</li>
+                                <li>Purchase gifts (coming soon)</li>
+                                <li>Sell them to users (coming soon)</li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-page-shell>

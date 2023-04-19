@@ -57,10 +57,12 @@
                     </td>
                 </tr>
             </table>
-            <a *ngIf="editFlg" [routerLink]="['/blog-create']" [queryParams]="{id: blog.row_id}"
-                class="text-link">edit</a>&nbsp;
-            <span *ngIf="editFlg"
-                class="text-highlight">{{blog.status}}</span>
+            <div *ngIf="editFlg" class="border-box">
+                <div class="red-text">Admin Panel</div>
+                <a [routerLink]="['/blog-create']" [queryParams]="{id: blog.row_id}" class="text-link">edit</a>&nbsp;
+                Status: <span class="text-highlight">{{blog.status}}</span>
+                <div *ngIf="blog.status == 'New'" class="gray-text">Note: Be sure to add 3 pictures before publishing Blog. Click edit to publish</div>
+            </div>
         </div>
         <div *ngIf="shrinkSize==0">
             <div [routerLink]="['/blogs']" [queryParams]="{id: 0}" class="text-link">Betra Blogs</div>

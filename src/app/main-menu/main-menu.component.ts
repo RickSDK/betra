@@ -3,9 +3,7 @@ import { BaseComponent } from '../base/base.component';
 //import { User } from '../classes/user';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Blog } from '../classes/blog';
 //import { AdvancedFiltersComponent } from '../advanced-filters/advanced-filters.component';
-import { ScrollItem } from '../classes/scroll-item';
 
 declare var getDateObjFromJSDate: any;
 declare var getPlatform: any;
@@ -39,6 +37,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public browseScr: string = '';
   public banItemList: any = [];
   public chatPeople: number = 0;
+  public coinX: string = '';
+  public coinVisible: boolean = true;
   public getPlatform: string = getPlatform();
   public buttons = [
     { name: 'Dating Pool', routerLink: "/matches", src: 'assets/images/buttons/datePool.jpg' },
@@ -57,7 +57,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
- 
+
     var race = this.user.race;
     if (this.user.race == 'Middle Eastern' || this.user.race == 'Other')
       race = 'Arab';
@@ -81,8 +81,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (dt.mo == 7 && dt.dayOfMonth == 4)
       this.holidayScr = 'assets/images/holidays/july4.jpeg';
 
-   // this.logUser();
-   // this.loadUserObj();
+    // this.logUser();
+    // this.loadUserObj();
     this.userStatus = this.user.status;
     this.popupNum = 1;
 
@@ -105,6 +105,27 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       else if (!this.user.navLat)
         this.uploadCoordinates();
     }
+  }
+
+  positionCoin() {
+    this.coinX = '200px';
+    var e = document.getElementById('coinImg');
+    if (e) {
+      var box = e.getBoundingClientRect();
+      if (box)
+        this.coinX = box.x.toString() + 'px';
+    }
+  }
+
+  annimateCoin() {
+    this.positionCoin();
+    this.coinVisible = false;
+    var audio = new Audio('assets/sounds/coins.mp3');
+    audio.loop = false;
+    audio.play();
+    setTimeout(() => {
+      this.coinX = ''
+    }, 1000);
   }
 
   logoutUser() {
@@ -146,6 +167,12 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
 
     if (responseJson.action == "logUser" && this.user) {
+      if(responseJson.coinsNewFlg) {
+        this.coinX = '200px';
+        setTimeout(() => {
+          this.annimateCoin();          
+        }, 500);
+      }
       if (this.user.ip == '')
         this.populateGeoInfo();
     }

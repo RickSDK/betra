@@ -257,8 +257,8 @@
             </p>
         </div>
         <button (mousedown)="showPopupFlg=false" class="btn btn-warning">Got it!</button>&nbsp;
-        <button *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']" class="btn btn-primary">Upgrade</button>
-
+        <span style="font-size: 12px; text-decoration: underline;" *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']">Upgrade</span>
+ 
     </div>
 </div>
 

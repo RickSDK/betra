@@ -158,11 +158,16 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
       this.getDataFromServer('getSnoopData', 'appApiCode.php', {uid: this.matchUser.user_id});
   }
   actionButtonClicked(action: string) {
-    if (action == "show-more") {
+    if (action == "show-more" && this.matchUser) {
+      this.getDataFromServer('showMore', 'appApiCode2.php', {uid: this.matchUser.user_id});
       if (this.showMoreFlg)
         this.collpaseBottom();
       else
         this.expandBottom();
+      return;
+    }
+    if (action == "show-basics") {
+      this.getDataFromServer('showBasics', 'appApiCode2.php', {uid: this.matchUser.user_id});
       return;
     }
     if (action == 'yesToMatch' && this.matchUser.matchObj.match_interested == 'Y') {

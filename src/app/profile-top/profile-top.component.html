@@ -229,6 +229,8 @@
                                 texting. See below.
                             </div>
                         </div>
+                        <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
+                        *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
 
                         <!--<button
                             *ngIf="snapshotFlg && user.matchObj && user.matchObj.match_level >= 2 && user.matchObj.unreadMessages > 0"
@@ -240,8 +242,7 @@
                             [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
                             class="btn btn-main-color btn-small"><i class="fa fa-comment"></i> Send Message
                         </button>
-                        <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
-                            *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
+
 
                         <i (mousedown)="showMoreClicked()" style="float: right; font-size: 32px; margin-top: -3px;"
                             [ngClass]="'fa fa-arrow-circle-down clickable'"
