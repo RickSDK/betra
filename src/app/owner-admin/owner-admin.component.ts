@@ -88,7 +88,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       action: 'confirmPic'
     };
     //console.log('params', params);
-    this.executeApi('appApiCode.php', params, true);
+    this.executeApi('owners.php', params, true);
   }
   rejectPic() {
     var reason = $('#picOption').val();

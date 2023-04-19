@@ -114,8 +114,14 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
         this.lastMessage = responseJson.messages[0].row_id;
 
       }
-      this.messages = responseJson.messages;
-
+      this.messages = [];
+      var messageHash: any = {};
+      responseJson.messages.forEach((element: any) => {
+        if (!messageHash[element.message])
+          this.messages.push(element);
+        messageHash[element.message] = true;
+      });
+ 
       this.messages.sort((a: any, b: any) => {
         return (parseInt(a.row_id) > parseInt(b.row_id)) ? 1 : (parseInt(a.row_id) < parseInt(b.row_id)) ? -1 : 0;
       });

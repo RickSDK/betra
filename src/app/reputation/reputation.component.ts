@@ -8,7 +8,7 @@ import { BaseComponent } from '../base/base.component';
 })
 export class ReputationComponent extends BaseComponent implements OnInit {
   public items = [
-    { id: 1, name: 'Email Address', score: 0, icon: 'fa fa-envelope' },
+    { id: 1, name: 'Email', score: 0, icon: 'fa fa-envelope' },
     { id: 2, name: 'Phone', score: 0, icon: 'fa fa-phone' },
     { id: 3, name: 'Picture', score: 0, icon: 'fa fa-certificate' },
     { id: 4, name: 'Location', score: 0, icon: 'fa fa-globe' },

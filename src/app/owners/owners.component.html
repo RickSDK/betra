@@ -34,13 +34,27 @@
             <div class="border-box">
                 <div class="red-text">How to get Promoted?</div>
                 <div>To get promoted to level <b class="text-highlight">2</b>, complete the following:</div>
-                <li>Fill up your dating pool with 12 people</li>
+                <ul style="text-align: left; padding-left: 40px; font-size: 12px; color: gray;">
+                    <li>Fill up your dating pool with 12 people</li>
+                </ul>
             </div>
             <div class="border-box">
+                <div class="red-text">Progress</div>
                 <p>Currently in your dating pool: <b class="text-highlight">{{user.datingPool.length}}</b></p>
                 <div *ngIf="!goalReachedFlg">
-                    <div class="gray-text">In order to grow your dating pool, click thumbs up to as many people as
-                        possible. Once they give you a thumbs up back, they will show up in your dating pool.</div>
+                    <p class="gray-text" style="text-align: left;">In order to grow your dating pool, click thumbs up to
+                        as many people as
+                        possible. Once they give you a thumbs up, they will show up in your dating pool.</p>
+                    <div *ngIf="emailButtonPressed" class="tan-box">
+                        Emails have been sent! Check back in a couple hours.
+                    </div>
+                    <div *ngIf="!emailButtonPressed && ownersPage.points > 0">
+                        <p class="gray-text" style="text-align: left;">Having trouble filling your pool? Press this
+                            button to let everyone on the team know you are trying to get your pool filled.</p>
+                        <button (mousedown)="sendEmails()" class="btn btn-main-color">Email Team</button>
+                        <div style="font-size: 10px; color: gray;">Note: Pressing this button will use up all your coins
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,11 +73,16 @@
             </div>
             <div class="border-box">
                 <div class="red-text">Progress</div>
-                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i *ngIf="ownersPage.blogComments > 1" style="color: green;" class="fa fa-check"></i></div>
-                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></div>
-                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></div>
-                <div>Bugs/Discussion: <b class="text-highlight">{{ownersPage.bugsCount}}</b><i *ngIf="ownersPage.bugsCount > 1" style="color: green;" class="fa fa-check"></i></div>
-                <div>Poll Votes: <b class="text-highlight">{{ownersPage.voteCount}}</b><i *ngIf="ownersPage.voteCount > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i
+                        *ngIf="ownersPage.blogComments > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i
+                        *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></div>
+                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i
+                        *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></div>
+                <div>Bugs/Discussion: <b class="text-highlight">{{ownersPage.bugsCount}}</b><i
+                        *ngIf="ownersPage.bugsCount > 1" style="color: green;" class="fa fa-check"></i></div>
+                <div>Poll Votes: <b class="text-highlight">{{ownersPage.voteCount}}</b><i
+                        *ngIf="ownersPage.voteCount > 1" style="color: green;" class="fa fa-check"></i></div>
                 <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
         </div>
@@ -82,11 +101,16 @@
             </div>
             <div class="border-box">
                 <div class="red-text">Progress</div>
-                <div>People Messaged: <b class="text-highlight">{{ownersPage.peopleMessaged}}</b> <i *ngIf="ownersPage.peopleMessaged > 19" style="color: green;" class="fa fa-check"></i></div>
-                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></div>
-                <div>Profiles Swiped: <b class="text-highlight">{{ownersPage.profilesSwiped}}</b><i *ngIf="ownersPage.profilesSwiped > 24" style="color: green;" class="fa fa-check"></i></div>
-                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></div>
-                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i *ngIf="ownersPage.blogComments > 3" style="color: green;" class="fa fa-check"></i></div>
+                <div>People Messaged: <b class="text-highlight">{{ownersPage.peopleMessaged}}</b> <i
+                        *ngIf="ownersPage.peopleMessaged > 19" style="color: green;" class="fa fa-check"></i></div>
+                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i
+                        *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></div>
+                <div>Profiles Swiped: <b class="text-highlight">{{ownersPage.profilesSwiped}}</b><i
+                        *ngIf="ownersPage.profilesSwiped > 24" style="color: green;" class="fa fa-check"></i></div>
+                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i
+                        *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></div>
+                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i
+                        *ngIf="ownersPage.blogComments > 3" style="color: green;" class="fa fa-check"></i></div>
                 <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
         </div>
@@ -110,20 +134,21 @@
 
         <hr>
 
- 
+
         Topic: Betra Planning Meeting<br>
         Time: Thursdays 10:00 AM Pacific Time (US and Canada)<br>
 
         <div class="border-box">
             Join Zoom Meeting<br>
-            <a href="https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1">https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1</a><br>    
+            <a
+                href="https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1">https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1</a><br>
         </div>
-        
+
         Meeting ID: 747 1563 8462<br>
         Passcode: 1234<br>
-        
-        
-        
+
+
+
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

@@ -20,21 +20,26 @@
                 None of these items will be shared or visible to anyone.
             </p>
         </div>
-        <div class="border-box">
-            <div *ngFor="let item of items; let i = index;">
-                <i [class]="item.icon"></i> {{item.name}}
-                <i class="fa fa-check" *ngIf="item.score>0" style="color: green;"></i>
-                <button (mousedown)="editItemNum(item.id)" *ngIf="item.score==0"
-                    class="btn btn-main-color btn-small">confirm</button>
-                <div *ngIf="i==1" style="font-size: 8px; color: gray;">
-                    <div>Note: Your email address and phone will not be seen by anyone.</div>
-                </div>
-                <div *ngIf="i==3" style="font-size: 8px; color: gray;">
-                    <div>Note: Your gps location will not be seen by anyone. Only used to calculate distance from other
-                        users.</div>
-                </div>
-                <div *ngIf="i==6" style="font-size: 8px; color: gray;">
-                    <div>Note: Your social links will not be seen by anyone. Only used for your reputation score.</div>
+        <div >
+            <div style="display: inline-block; text-align: left; max-width: 300px;" class="border-box">
+                <div *ngFor="let item of items; let i = index;">
+                    <span style="display: inline-block; width: 100px;"><i
+                            [class]="item.icon"></i> {{item.name}}</span>
+                    <i class="fa fa-check" *ngIf="item.score>0" style="color: green;"></i>
+                    <button (mousedown)="editItemNum(item.id)" *ngIf="item.score==0"
+                        class="btn btn-main-color btn-small">confirm</button>
+                    <div *ngIf="i==1" style="font-size: 8px; color: gray;">
+                        <div>Note: Your email address and phone will not be seen by anyone.</div>
+                    </div>
+                    <div *ngIf="i==3" style="font-size: 8px; color: gray;">
+                        <div>Note: Your gps location will not be seen by anyone. Only used to calculate distance from
+                            other
+                            users.</div>
+                    </div>
+                    <div *ngIf="i==6" style="font-size: 8px; color: gray;">
+                        <div>Note: Your social links will not be seen by anyone. Only used for your reputation score.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

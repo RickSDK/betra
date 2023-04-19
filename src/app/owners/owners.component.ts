@@ -20,6 +20,7 @@ export class OwnersComponent extends BaseComponent implements OnInit {
   public yourLevel: any = this.ownerLevels[0];
   public showCongratulationsFlg: boolean = false;
   public goalReachedFlg: boolean = false;
+  public emailButtonPressed: boolean = false;
 
   constructor() { super(); }
 
@@ -39,6 +40,11 @@ export class OwnersComponent extends BaseComponent implements OnInit {
     };
     console.log('params', params);
     this.executeApi('owners.php', params, true);
+  }
+
+  sendEmails() {
+    this.emailButtonPressed = true;
+    this.getDataFromServer('emailTeamBoost', 'owners.php', {});
   }
 
   acceptPromotion() {

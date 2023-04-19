@@ -323,6 +323,8 @@ export class User {
             this.adminZone = obj.adminZone || 0;
             this.ownerFlg = obj.ownerFlg && obj.ownerFlg == 'Y';
             this.ownerLevel = obj.ownerLevel || 0;
+            if (this.ownerFlg && this.ownerLevel == 0)
+                this.ownerLevel = 1;
             this.picFlagged = obj.picFlagged || 0;
             this.numReviews = obj.numReviews || 0;
             this.roseAssignedBy = obj.roseAssignedBy || 0;
