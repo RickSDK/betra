@@ -57,12 +57,14 @@
             <div *ngIf="showProfileViewDetailsFlg" class="gray-text" style="padding-left: 10px; padding-right: 10px;">
                 <hr>
                 <div *ngIf="playerList.length < 10">
-                    Very few profiles found that match your requirements. This is a new app but people are signing up every day. Support Betra by telling your friends about it.
+                    Very few profiles found that match your requirements. This is a new app but people are signing up
+                    every day. Support Betra by telling your friends about it.
                 </div>
                 <div *ngIf="playerList.length >= 10">
-                    You can swipe up to 12 profiles per day. Say yes to as many as you like. If you get through your entire
+                    You can swipe up to 12 profiles per day. Say yes to as many as you like. If you get through your
+                    entire
                     batch
-                    of 12, you will need to wait until tomorrow to get a new batch.    
+                    of 12, you will need to wait until tomorrow to get a new batch.
                 </div>
             </div>
         </div>
@@ -114,7 +116,7 @@
                 </p>
                 <div style="text-align: center;">
                     <div *ngIf="user.points > 0" class="tan-box">
-                        <div >Would you like to buy a swipe for 1 coin?</div>
+                        <div>Would you like to buy a swipe for 1 coin?</div>
                         <button (mousedown)="buySwipe()" class="btn btn-success btn-large">Yes!</button>
                     </div>
 
@@ -123,7 +125,7 @@
                     <button [routerLink]="['/activity']" class="btn btn-main-color spacer">Activity</button>
                     <button [routerLink]="['/blogs']" class="btn btn-main-color spacer">Blogs</button>
                     <button [routerLink]="['/chat-room']" class="btn btn-main-color spacer">Chat</button>
-                    </div>
+                </div>
                 <hr>
                 <p *ngIf="!user.memberFlg" class="gray-text">Note: <span [routerLink]="['/upgrade-member']"
                         class="text-link">Upgrading</span> to
@@ -132,12 +134,11 @@
             </div>
         </div>
         <div *ngIf="user && !loadingFlg && !uid">
-            <div class="matches-card" *ngIf="!user.lat" [routerLink]="['/location']"
-                style="cursor: pointer;">
+            <div class="matches-card" *ngIf="!user.lat" [routerLink]="['/location']" style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
-            <div class="matches-card" *ngIf="exceededPoolSizeFlg">
+            <div class="matches-card" *ngIf="user.exceededPoolSizeFlg">
                 <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
                 <p>Note: Visit your Dating Pool. You are over your limit and need to drop someone.</p>
                 <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
@@ -188,9 +189,9 @@
 
 
 
-        <app-match-snapshot *ngIf="matchUser && user"
-            (messageEvent)="matchSnapshotEvent($event)" [user]="user" [id]="id" [matchUser]="matchUser"
-            [loadingFlg]="loadingFlg" [errorMessage]="errorMessage" [singleProfileFlg]="uid>0">
+        <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
+            [id]="id" [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
+            [singleProfileFlg]="uid>0">
         </app-match-snapshot>
 
         <div *ngIf="matchUser && matchUser.matchObj && uid>0">
@@ -199,17 +200,14 @@
                 [matchUser]="matchUser">
             </app-user-private-pics>
 
-            <app-user-requests
-                *ngIf="!commentsOnlyFlg && (matchUser.reviewsCount>0 || matchUser.matchObj.match_level>3)"
-                [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
-            </app-user-requests>
-
-            <app-user-communication
-                *ngIf="1 || matchUser.matchObj.match_level>=2 || matchUser.matchObj.messagesSentFlg == 'Y' || messageCount>0"
-                [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
-            </app-user-communication>
-
         </div>
+        <app-user-requests
+            [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
+        </app-user-requests>
+
+        <app-user-communication [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
+        </app-user-communication>
+
         <div (mousedown)="showNewReviewPopup=false" *ngIf="showNewReviewPopup" class="betra-popup">
             <div style="font-size: 18px;"><b>New Review!</b></div>
             <app-profile-pic [user_id]="matchUser.newReviewBy" [profilePic]="matchUser.newReviewProfilePic" [size]="80">

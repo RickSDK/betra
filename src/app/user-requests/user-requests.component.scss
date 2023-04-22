@@ -17,6 +17,7 @@ input {
     color: white;
     height: 30px;
     padding: 2px 10px 2px 10px;
+    font-size: 12px;
 }
 
 .request-btn:hover {
@@ -26,4 +27,36 @@ input {
 
 .gray-bar {
     background-color: #444;
+}
+
+.small-title {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.gift-cell {
+    cursor: pointer;
+    display: inline-block; 
+    border: 1px solid gray; 
+    border-radius: 10px; 
+    padding: 5px;
+    background-color: #eee;
+    margin: 5px;
+    text-align: center;
+}
+
+.gift-cell:hover {
+    box-shadow: 2px 2px 5px black;
+}
+
+.gray-box {
+    display: inline-block; border: 1px solid gray; border-radius: 10px; padding: 5px;
+    background-color: #eee;
+    margin: 5px;
+    text-align: center;
+}
+@media screen and (max-width: 540px) {
+    .request-btn {
+        font-size: 10px;
+    }
 }

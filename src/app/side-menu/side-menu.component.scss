@@ -16,6 +16,7 @@
     border-radius: 5px;
     padding-left: 10px;
     background-color: #eee;
+    overflow: hidden;
 }
 
 .side-menu-item:hover {
@@ -84,7 +85,7 @@
         width: 48px;
         overflow: hidden;
     }
-    .hidden-sm {
+    .hidden-xs {
         display: none;
     }
     .red-circle {

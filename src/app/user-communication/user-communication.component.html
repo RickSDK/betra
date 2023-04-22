@@ -1,4 +1,4 @@
-<div class="match-card" *ngIf="displayThisComponentFlg" style="position: relative; padding-bottom: 45px;">
+<div class="match-card" *ngIf="displayThisComponentFlg && matchUser" style="position: relative; padding-bottom: 45px;">
     <div class="gray-title" style="position: relative;" [style.color]="unreadMessagesFlg?'yellow':'white'"><i
             class="fa fa-comment"></i> <span *ngIf="unreadMessagesFlg">New</span> Messages <span
             style="font-size: 8px; font-weight: 200;">{{firstName}}</span>

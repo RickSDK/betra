@@ -133,7 +133,7 @@
             [ngClass]="showDetailsNumber>0?'bottom-details-panal-open':'bottom-details-panal-closed'">
             <div *ngIf="showDetailsNumber==1">
                 <div class="red-text">Dating Pool</div>
-                <div style="font-size: 12px; color: gray; text-align: left">
+                <div style="text-align: left">
                     <p>'Dating Pool' is a feature unique to Betra and makes this like no other dating app!</p>
                     <p>You can actively be matched up with no more than 8 people at a time, which allows you to focus on
                         your best prospects and helps you manage your dating life.</p>
@@ -158,7 +158,7 @@
             </div>
             <div *ngIf="showDetailsNumber==2">
                 <div class="red-text">Intimacy Levels</div>
-                <div style="font-size: 12px; color: gray; text-align: left">
+                <div style="text-align: left">
                     <p>Intimacy Level indicates how far into the Betra app features you have made it with this match. It
                         is simply a small indicator, letting everyone know how serious the relationship might be
                         getting.</p>
@@ -178,7 +178,7 @@
             </div>
             <div *ngIf="showDetailsNumber==3">
                 <div class="red-text">FAQ</div>
-                <div style="font-size: 12px; color: gray; text-align: left">
+                <div style="text-align: left">
                     <div class="red-text">Question: How do I get people added to my date pool?</div>
                     <div class="answer">Answer: Click 'Browse' and begin liking profiles. As soon as one of the people
                         you like, also likes you back, the two of you are matched up and in each other's dating pools.
@@ -215,12 +215,12 @@
             </div>
             <div *ngIf="showDetailsNumber==4">
                 <div class="red-text">Roses</div>
-                <div style="font-size: 12px; color: gray; text-align: left">
+                <div style="text-align: left">
                     <p>
                         Once you have at least 5 people in your dating pool, you must assign a rose to your favorite.
                         Everyone in your dating pool will get to see who got your rose.
                     </p>
-                    <p>Does this seem scary? Yes! But its also a way of being transparent with everyone in the dating
+                    <p>Does this seem scary? Yes, a little. But its also a way of being transparent with everyone in the dating
                         pool.</p>
                     <p>Not only does everyone in your dating pool get to see who you assigned your rose to, but you can
                         view the dating pools of everyone you are interested in to see who they gave roses to. It's fun
@@ -246,9 +246,9 @@
     <div class="over-limit-popup">
         <div style="font-size: 22px;">Over your limit!</div>
         <div style="text-align: left;">
-            <p>You are only allowed {{datingPoolLimit}} people in your dating pool. Select
+            <p>You are only allowed {{user.datingPoolLimit}} people in your dating pool. Select
                 someone to drop. </p>
-            <p style="font-size: 12px;">Keep your top {{datingPoolLimit}} interests
+            <p style="font-size: 12px;">Keep your top {{user.datingPoolLimit}} interests
                 and move the rest to your back burner, by pressing the 'X' button.
             </p>
             <p *ngIf="!user.memberFlg" style="font-size: 12px;">

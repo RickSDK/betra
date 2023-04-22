@@ -1,9 +1,9 @@
-<div class="top-bar" *ngIf="headerObj">
+<div class="top-bar">
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
             <td *ngIf="pageTitle != 'Home'">
-                <i *ngIf="1 || platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>&nbsp;
-                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-sm" height="50"
+                <i *ngIf="platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>&nbsp;
+                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-md" height="50"
                     style="cursor: pointer;">
 
             </td>
@@ -33,13 +33,13 @@
                     <div class="top-button-label">Polls</div>
                 </span>
                 <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button">
-                    <i class="fa fa-comment"></i> <span *ngIf="headerObj.chatPeople>0" class="red-circle"
+                    <i class="fa fa-comment"></i> <span *ngIf="headerObj && headerObj.chatPeople>0" class="red-circle"
                         style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <div class="top-button-label">Chat Room</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/coins']" class="top-button">
+                <span *ngIf="headerObj && userId" [routerLink]="['/coins']" class="top-button">
                     <img id="coinImg" src="assets/images/pics/coinSmall.png" height="30">
-                    <span class="red-circle"
+                    <span class="red-circle" *ngIf="headerObj.points>0"
                         style="background-color: green; margin-left: -15px;">{{headerObj.points}}</span>
                     <div class="top-button-label">Coins</div>
                 </span>
@@ -53,7 +53,7 @@
             <td *ngIf="(userId==0 || userStatus != 'Active') && pageTitle != 'Home'" width="44">
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
-            <td *ngIf="userId>0 && userStatus == 'Active'">
+            <td *ngIf="headerObj && userId>0 && userStatus == 'Active'">
                 <span class="menu-circle hide-xs" [routerLink]="['/user-detail']">
                     <i class="fa fa-search icon-button main-color"></i>
                     <span class="icon-label main-color-bg">Browse</span>
@@ -68,8 +68,8 @@
                     <span class="icon-label main-color-bg">Notifications</span>
                 </span>
             </td>
-            <td *ngIf="userId>0">
-                <span class="menu-circle" (mousedown)="showUserMenuFlg = !showUserMenuFlg">
+            <td *ngIf="headerObj && userId>0">
+                <span id="myProfile" class="menu-circle" (mousedown)="showUserMenuFlg = !showUserMenuFlg">
                     <img [src]="imgSrcFile" class="profilePic" alt="Profile Picture">
                     <span *ngIf="headerObj.newReviewBy>0" class="red-circle"><i class="fa fa-comment"></i></span>
                     <span class="icon-label main-color-bg">My Profile</span>
@@ -93,7 +93,7 @@
         <div *ngIf="showUserMenuFlg" class="gray-screen" (mousedown)="showUserMenuFlg=false"></div>
         <table *ngIf="showPageFlg" width="100%" border="0">
             <tr>
-                <td *ngIf="userId>0 && userStatus == 'Active'" class="side-menu" valign="top">
+                <td *ngIf="headerObj && userId>0 && userStatus == 'Active'" class="side-menu" valign="top">
                     <div style="position: fixed; top: 60px; left: 0; width: 200px;">
                         <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
                             [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>
@@ -122,7 +122,6 @@
         </table>
     </div>
 
-    <app-bottom-bar *ngIf="0 && pageTitle != 'Profile'" [stickyBottomFlg]="stickyBottomFlg"></app-bottom-bar>
 </div>
 <app-bottom-links [userId]="userId"></app-bottom-links>
 
@@ -135,6 +134,7 @@
     </div>
     <div (mousedown)="logout()" class="main-menu-item">Log Out</div>
 </div>
+
 <div [ngClass]="ngClassToggleMenu2()" *ngIf="userId>0" (mousedown)="showUserMenuFlg=false">
     <div [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="main-menu-item"><i class="fa fa-user"></i>
         View Profile</div>
@@ -147,7 +147,7 @@
     <div (mousedown)="logout()" class="main-menu-item"><i class="fa fa-sign-out"></i> Log Out</div>
 </div>
 
-<div *ngIf="displayBrowsePopupFlg" class="user-browse-popup">
+<div *ngIf="headerObj && headerObj.browseObj && displayBrowsePopupFlg" class="user-browse-popup">
     <i (mousedown)="displayBrowsePopupFlg=false" class="fa fa-times" style="font-size: 22px; float: right; margin: 5px;"></i>
     <div class="red-text">Notice!</div>
     <div class="gray-text">Someone is browsing your profile right now!</div>
@@ -170,3 +170,17 @@
         <button class="btn btn-main-color btn-small" (mousedown)="displayBrowsePopupFlg=false">Close</button>
     </div>
 </div>
+<div *ngIf="headerObj && displayGiftPopupFlg" class="user-browse-popup">
+    <div class="red-text">You have received a gift!</div>
+    <img src="assets/images/gifts/gift{{headerObj.giftObj.gift_id}}.png" width="150">
+    <div style="font-size: 8px;">{{headerObj.giftObj.name}}</div>
+    <app-profile-pic [user_id]="headerObj.giftObj.user_id" [profilePic]="headerObj.giftObj.profilePic" [size]="150">
+    </app-profile-pic>
+
+    <div style="padding: 20px;">
+        <button class="btn btn-warning spacer" (mousedown)="displayGiftPopupFlg=false">Close</button>
+        <button [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="btn btn-main-color spacer">See my Gifts</button>
+    </div>
+
+</div>
+

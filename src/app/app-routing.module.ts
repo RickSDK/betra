@@ -64,10 +64,14 @@ import { LocationCheckComponent } from './location-check/location-check.componen
 import { PollComponent } from './poll/poll.component';
 import { PollEditComponent } from './poll-edit/poll-edit.component';
 import { CoinsComponent } from './coins/coins.component';
+import { FraudPreventionComponent } from './fraud-prevention/fraud-prevention.component';
+import { LatestUsersComponent } from './latest-users/latest-users.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'fraud', component: FraudPreventionComponent },
+  { path: 'latest-users', component: LatestUsersComponent },
   { path: 'poll', component: PollComponent },
   { path: 'coins', component: CoinsComponent },
   { path: 'poll-edit', component: PollEditComponent },

@@ -1,0 +1,58 @@
+<app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="'Location'"
+    [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+
+    <div class="matches-card" style="text-align: center;">
+        <app-top-header [topTitle]="'Latest Users'"></app-top-header>
+        <hr>
+        <app-owners-menu [pageTitle]="'Latest'" [page]="1"></app-owners-menu>
+
+        <div class="tan-box" style="font-size: 12px; text-align: left;">
+            <p>Here are most recently logged in users (non-owners) and how their experince is going</p>
+            <p>The rows highlighted in green are active AND in your target gender, so you should have a green
+                checkmark
+                in the last column indicating you have swiped them. If you haven't, please click on their picture on the
+                left and give them a thumbs up.
+            </p>
+            <div *ngIf="actionCount>0">
+                <div># of users you should take action on: <span style="font-size: 24px;" class="text-highlight">{{actionCount}}</span> </div>
+                <div class="gray-text">(Click on the profiles in green below and give a thumbs up)</div>
+            </div>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <table style="font-size: 12px;">
+            <tr>
+                <th>Pic</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>lastLogin</th>
+                <th>Yes</th>
+                <th>No</th>
+                <th>Matches</th>
+                <th>Likes Reveived</th>
+                <th>Swiped by You</th>
+            </tr>
+            <tr *ngFor="let person of users" [ngStyle]="ngStyleRow(person)">
+                <td>
+                    <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="20">
+                    </app-profile-pic>
+                </td>
+                <td>{{person.firstName}}</td>
+                <td>{{person.gender}}, {{person.age}}</td>
+                <td>{{person.created}}</td>
+                <td>{{person.status}}</td>
+                <td>{{person.lastDay}}</td>
+                <td>{{person.statsObj.interestYes}}</td>
+                <td>{{person.statsObj.interestNo}}</td>
+                <td class="red-text"><b>{{person.statsObj.matchLevel2}}</b></td>
+                <td>{{person.statsObj.likesReceived}}</td>
+                <td>
+                    <i *ngIf="person.matchObj && person.matchObj.you_interested=='Y'" class="fa fa-check"
+                        style="font-size: 16px; color: green;"></i>
+                        <i *ngIf="person.matchObj && person.matchObj.you_interested=='N'" class="fa fa-times"
+                        style="font-size: 16px; color: red;"></i></td>
+            </tr>
+        </table>
+    </div>
+</app-page-shell>

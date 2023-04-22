@@ -209,11 +209,15 @@ export class User {
     public emailNum: number = 0;
     public consecutiveDays: number = 0;
     public points: number = 0;
+    public giftCount: number = 0;
+    public created: string = '';
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
+            this.created = obj.created || '';
             this.emailNum = obj.emailNum || 0;
+            this.giftCount = obj.giftCount || 0;
             this.consecutiveDays = obj.consecutiveDays || 0;
             this.points = obj.points || 0;
             this.firstName = obj.firstName;
@@ -454,6 +458,8 @@ export class User {
             this.userTitle = 'Admin';
         }
 
+        var createDt = getDateObjFromJSDate(this.created);
+        this.created = createDt.localDate;
         //var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
 
         this.notifications = Math.round(this.users_interested) + Math.round(this.users_matched) + Math.round(this.questions_asked) + Math.round(this.dates_requested) + Math.round(this.messages_received) + Math.round(this.info_requested);
@@ -475,6 +481,8 @@ export class User {
         });
         this.datingPool = datingPool;
         this.datingPoolLimit = (this.memberFlg) ? 12 : 8;
+        if (this.ownerFlg)
+            this.datingPoolLimit = 16;
         this.exceededPoolSizeFlg = datingPool.length > this.datingPoolLimit;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
 
@@ -666,7 +674,7 @@ export class User {
             if (this.latitude && myUser.latitude) {
                 this.distance = distanceInKmBetweenEarthCoordinates(parseFloat(this.latitude), parseFloat(this.longitude), parseFloat(myUser.latitude), parseFloat(this.longitude));
 
-                if (this.ownerFlg) {
+                if (this.ownerFlg && !myUser.ownerFlg) {
                     this.location = myUser.location;
                     this.distance = 7 + this.firstName.length;
                 }

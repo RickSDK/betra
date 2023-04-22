@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { User } from '../classes/user';
 
 declare var $: any;
 
@@ -28,6 +29,10 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   public showFakePicOptionsFlg: boolean = false;
   public displayUser: any = null;
   public usersOnline: any = [];
+  public ownersOnline: any = [];
+  public potentialUsers: number = 0;
+  public likedUsers: number = 0;
+  public pageDetail: any = null;
 
   constructor() { super(); }
 
@@ -35,6 +40,16 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
     this.menuNum = 0;
     this.getDataFromServer('getInfoObj', 'owners.php', []);
+  }
+
+  ngStyleReport() {
+    if (this.likedUsers == this.potentialUsers)
+      return { 'background-color': 'green', 'color': 'white' };
+
+    if (this.likedUsers < this.potentialUsers / 2)
+      return { 'background-color': 'red', 'color': 'white' };
+
+    return { 'background-color': 'yellow', 'color': 'black' };
   }
 
   updateFormBasedOnObj(infoObj: any) {
@@ -156,7 +171,27 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       this.getDataFromServer('getNewReview', 'betraReviews.php', []);
     }
     if (responseJson.action == 'getInfoObj') {
-      this.usersOnline = responseJson.users;
+      this.pageDetail = responseJson;
+      this.usersOnline = [];
+      this.ownersOnline = [];
+      responseJson.users.forEach((element: { ownerFlg: string; }) => {
+        if (element.ownerFlg == 'Y')
+          this.ownersOnline.push(element);
+        else
+          this.usersOnline.push(element);
+      });
+      this.potentialUsers = 0;
+      this.likedUsers = 0;
+      responseJson.recentUsers.forEach((element: any) => {
+        var usr = new User(element, this.user);
+        if (usr.potentialLoveInterestFlg) {
+
+          this.potentialUsers++;
+          if (usr.matchObj && usr.matchObj.you_interested && usr.matchObj.you_interested != '')
+            this.likedUsers++;
+        }
+      });
+
       this.updateFormBasedOnObj(responseJson.infoObj);
       localStorage['infoObj'] = JSON.stringify(responseJson.infoObj);
       this.syncUserWithLocalStorage(responseJson);
@@ -183,7 +218,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   }
 
   sendWelcomeEmail() {
-    this.getDataFromServer('sendWelcomeEmail', 'owners.php', {uid: 1});
+    this.getDataFromServer('sendWelcomeEmail', 'owners.php', { uid: 1 });
   }
 
   approveLink(flag: boolean) {

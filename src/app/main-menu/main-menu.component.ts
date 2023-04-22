@@ -39,6 +39,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public chatPeople: number = 0;
   public coinX: string = '';
   public coinVisible: boolean = true;
+  public popupNotice: boolean = false;
   public getPlatform: string = getPlatform();
   public buttons = [
     { name: 'Dating Pool', routerLink: "/matches", src: 'assets/images/buttons/datePool.jpg' },
@@ -58,10 +59,11 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       return;
     }
 
+    this.popupNotice = (this.user.datingPool.length > this.user.datingPoolLimit);
     var race = this.user.race;
     if (this.user.race == 'Middle Eastern' || this.user.race == 'Other')
       race = 'Arab';
-    if (this.user.race == 'Pacific Islander' || this.user.race == 'South-Asian')
+    if (this.user.race == 'Pacific Islander' || this.user.race == 'South-Asian' || this.user.race == 'Asian-Indian')
       race = 'Asian';
     if (this.user.race == 'Native American')
       race = 'White';
@@ -167,10 +169,10 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
 
     if (responseJson.action == "logUser" && this.user) {
-      if(responseJson.coinsNewFlg) {
+      if (responseJson.coinsNewFlg) {
         this.coinX = '200px';
         setTimeout(() => {
-          this.annimateCoin();          
+          this.annimateCoin();
         }, 500);
       }
       if (this.user.ip == '')

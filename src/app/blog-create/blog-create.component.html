@@ -3,7 +3,7 @@
 
     <div class="matches-card" style="text-align: left;">
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <button [routerLink]="['/blogs']" class="btn btn-main-color spacer">Blog</button>
+        <button [routerLink]="['/blogs']" class="btn btn-main-color spacer">Blogs</button>
 
         <div *ngIf="blog && blog.row_id>0">
             <div class="btn-group">
@@ -15,7 +15,7 @@
         <div *ngIf="!loadingFlg && menuNum==0">
             <div *ngIf="!blog">
                 <div>Create a new blog</div>
-                <div class="gray-text">Fill out the form below and press submit. Pictures will be added later.</div>
+                <div class="gray-text">Fill out the form below and press submit. Then add 3 pictures after its created.</div>
             </div>
             <hr>
             <div class="gray-text">Title</div>
@@ -28,7 +28,7 @@
             <app-text-area-input [id]="'section3'" [maxLength]="2000" [value]="blogSection3"></app-text-area-input>
             <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-            <div class="border-box">
+            <div class="border-box" *ngIf="blog">
                 <div class="red-text">Admin Panel</div>
                 Status: <span class="text-highlight">{{blog.status}}</span>
                 <div *ngIf="blog.status == 'New'" class="gray-text">Note: Be sure to add 3 pictures before publishing Blog. 'Edit Pictures' button can be found at the top. Click 'Publish' button below to make live.</div>

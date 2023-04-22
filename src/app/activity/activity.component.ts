@@ -56,7 +56,9 @@ export class ActivityComponent extends BaseComponent implements OnInit {
           this.scrollItems.push(this.responseJson.blogCommentItems.shift());
         if (this.responseJson.contestItems.length > 0)
           this.scrollItems.push(this.responseJson.contestItems.shift());
-        
+        if (this.responseJson.giftItems.length > 0)
+          this.scrollItems.push(this.responseJson.giftItems.shift());
+
       });
       this.scrollItems.sort((a: any, b: any) => {
         return (a.created < b.created) ? 1 : (a.created > b.created) ? -1 : 0;

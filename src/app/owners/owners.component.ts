@@ -67,10 +67,10 @@ export class OwnersComponent extends BaseComponent implements OnInit {
       if (level == 1)
         this.goalReachedFlg = (this.user.datingPool.length >= 12);
       if (level == 2)
-        this.goalReachedFlg = (responseJson.blogComments >= 2 && responseJson.messageCount >= 40 && responseJson.reviewCount >= 3 && responseJson.bugsCount >= 2 && responseJson.voteCount >= 2);
+        this.goalReachedFlg = (responseJson.blogComments >= 2 && responseJson.messageCount >= 40 && responseJson.reviewCount >= 3 && responseJson.bugsCount >= 2 && responseJson.voteCount >= 2 && responseJson.consecutiveDays>3);
 
       if (level == 3)
-        this.goalReachedFlg = (responseJson.peopleMessaged >= 20 && responseJson.messageCount >= 100 && responseJson.profilesSwiped >= 25 && responseJson.reviewCount >= 6 && responseJson.blogComments >= 4);
+        this.goalReachedFlg = (responseJson.peopleMessaged >= 20 && responseJson.messageCount >= 100 && responseJson.profilesSwiped >= 25 && responseJson.reviewCount >= 6 && responseJson.blogComments >= 4 && responseJson.consecutiveDays>6);
 
       if (responseJson.refreshFlg == 'Y') {
         this.refreshUserObj(responseJson.user);

@@ -10,6 +10,8 @@
                 <th>*Matches</th>
                 <th>*Messages</th>
                 <th>*Pics</th>
+                <th>*cd</th>
+                <th>*sw</th>
                 <th>Last Login</th>
             </tr>
             <tr *ngFor="let player of ownersList; let i = index;" (mousedown)="selectPlayer(player)">
@@ -36,6 +38,8 @@
                 <td style="color: #900; font-weight: 700; font-size: 14px;" align="center">
                     {{player.statsObj.picVerifiedCount}}
                 </td>
+                <td>{{player.consecutiveDays}}</td>
+                <td>{{player.statsObj.swipesToday}}</td>
                 <td>
                     <span class="gray-text" style="font-size: 8px;">{{player.lastDay}}</span>
                     <button *ngIf="user.user_id == 1 && player.daysAgo > 10" class="btn btn-main-color btn-small">Demote</button>

@@ -13,7 +13,6 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
 
   public datingPool: any = [];
-  public datingPoolLimit: number = 8;
   public datingPoolSize: number = 8;
   public displayPicsSize: number = 8;
   public panRight: boolean = false;
@@ -24,13 +23,14 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   override ngOnInit(): void {
+    if (!this.user)
+      return;
     var showIntimacyLevelsFlg = localStorage['showIntimacyLevelsFlg'];
     this.showIntimacyLevelsFlg = showIntimacyLevelsFlg && showIntimacyLevelsFlg == 'Y';
     this.showIntimacyValuesFlg = this.showIntimacyLevelsFlg; // messes up toggle switch otherwise
-    this.datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
 
     this.datingPoolSize = this.user.datingPool.length;
-    this.exceededPoolSizeFlg = this.user.datingPool.length > this.datingPoolLimit;
+    this.exceededPoolSizeFlg = this.user.datingPool.length > this.user.datingPoolLimit;
     var width = window.innerWidth;
     if (width > 812)
       width -= 400;
@@ -104,7 +104,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
         datingPool.push(element);
     });
     this.datingPool = datingPool;
-    this.exceededPoolSizeFlg = this.datingPool.length > this.datingPoolLimit;
+    this.exceededPoolSizeFlg = this.datingPool.length > this.user.datingPoolLimit;
 
     var params = {
       matchId: person.user_id,

@@ -12,19 +12,51 @@
             <i class="fa fa-exclamation-triangle"></i> Note: You have not completed your tasks to be an official owner
             yet. Please click here to find out what is needed to reach Level 2.
         </div>
-        <div *ngIf="user.adminLevel < 2" class="tan-box" [routerLink]="['/owners']">
-            <span style="font-size: 12px;">&nbsp;<span class="text-link">Owner Level</span> <span
-                    class="text-highlight">{{user.adminLevel}}</span></span>
-            <div class="gray-text">Welcome new Betra Owner! You are currently a level 1 owner. Click here to see what is
-                needed to move up. If you are having trouble filling up your dating pool, email <a
-                href="mailto:rick@betradating.com">Rick@betradating.com</a> for help.</div>
-        </div>
+        <div class="tan-box" [routerLink]="['/owners']" style="cursor: pointer;">
+            <table>
+                <tr>
+                    <td width="100" align="center">
+                        <div class="text-link">Owner Level</div>
+                        <span
+                                class="text-highlight" style="font-size: 32px;">{{user.adminLevel}}</span>            
+                    </td>
+                    <td>
+                        <div class="gray-text">Welcome Betra Owner! You are currently a level {{user.adminLevel}} owner. Click
+                            here to see what is
+                            needed to move up.</div>
+                    </td>
+                </tr>
+            </table>
 
+        </div>
+        <div class="tan-box" [routerLink]="['/latest-users']" style="cursor: pointer;">
+            <table width="100%">
+                <tr>
+                    <td>
+                        <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="80">
+                        </app-profile-pic>
+                    </td>
+                    <td align="center">
+                        <div>Status Report for <b class="red-text">{{user.firstName}}</b></div>
+                        <div *ngIf="pageDetail" class="gray-text">Consecutive days logged in: <span
+                                class="text-highlight">{{pageDetail.consecutiveDays}}</span></div>
+                        <div *ngIf="pageDetail" class="gray-text">Recent Swipes: <span
+                                class="text-highlight">{{pageDetail.swipesToday}}</span> (past 48 hours)</div>
+                        <div class="gray-text"># recent users you have liked</div>
+                        <div *ngIf="potentialUsers>0" style="font-size: 18px;" [ngStyle]="ngStyleReport()"
+                            class="border-box">
+                            <div>{{likedUsers}} / {{potentialUsers}}</div>
+                            <div *ngIf="likedUsers==potentialUsers" style="font-size: 12px;">Good!</div>
+                        </div>
+                        <div *ngIf="potentialUsers > likedUsers">Click here to see the recent users</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div>
-            <span [routerLink]="['/upgrade-member']" class="text-link">Membership Page</span>&nbsp;
             <span [routerLink]="['/media']" class="text-link">Media</span>&nbsp;
             <span [routerLink]="['/reviews']" class="text-link">User Reviews</span>&nbsp;
-            <span [routerLink]="['/join-team']" class="text-link">Owner Signup</span>&nbsp;
+            <span *ngIf="userId==1" [routerLink]="['/fraud']" class="text-link">Fraud</span>&nbsp;
         </div>
 
         <div *ngIf="menuNum==0 && !loadingFlg" style="display: inline-block; max-width: 380px;">
@@ -247,9 +279,16 @@
             <button (mousedown)="approveLink(true)" class="btn btn-success padded">Good</button>
         </div>
         <div class="border-box">
-            <div>Users Online Now</div>
-            <app-profile-pic *ngFor="let person of usersOnline" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
-            </app-profile-pic>   
+            <div>Owners Online</div>
+            <app-profile-pic *ngFor="let person of ownersOnline" [user_id]="person.user_id"
+                [profilePic]="person.profilePic" [size]="30">
+            </app-profile-pic>
+        </div>
+        <div class="border-box">
+            <div>Customers Online</div>
+            <app-profile-pic *ngFor="let person of usersOnline" [user_id]="person.user_id"
+                [profilePic]="person.profilePic" [size]="30">
+            </app-profile-pic>
         </div>
         <hr>
         <button *ngIf="menuNum>0" (mousedown)="backToTop()" class="btn btn-warning">Back to top</button>

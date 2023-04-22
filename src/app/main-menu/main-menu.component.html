@@ -33,8 +33,9 @@
 <app-login-popup *ngIf="login==1" (messageEvent)="userIsLoggedIn($event)"></app-login-popup>
 <app-welcome-popup *ngIf="userId > 0 && userStatus != 'Active'" (messageEvent)="userIsLoggedIn($event)">
 </app-welcome-popup>
-<div *ngIf="user && user.datingPool.length > user.datingPoolLimit" class="user-popup-outer ">
+<div *ngIf="popupNotice" class="user-popup-outer ">
     <div class="user-popup">
+        <i class="fa fa-times" (mousedown)="popupNotice=false" style="float: right;"></i>
         <h1>Notice</h1>
         <div>You are over the limit in your dating pool. Visit your dating pool and move extras to your back burner.</div>
         <hr>

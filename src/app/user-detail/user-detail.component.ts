@@ -26,7 +26,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public matchObj = { status: 'not started', matchesFound: 0, progressPercent: 0, currentMatch: 0 };
   public playerList: any = [];
   public currentProfileIndex = 0;
-  public exceededPoolSizeFlg: boolean = false;
+  //public exceededPoolSizeFlg: boolean = false;
   public showMatchLevelInfoFlg: boolean = false;
   public showFakePicOptionsFlg: boolean = false;
   public showFilter: boolean = false;
@@ -50,9 +50,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
     this.matchUser = null;
-    if (!this.user)
+    if (!this.user) {
+      this.router.navigate(['']);
       return;
-    this.showEmptyDatingPoolFlg = this.user.datingPool.length == 0;
+    }
+   this.showEmptyDatingPoolFlg = this.user.datingPool.length == 0;
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
@@ -61,8 +63,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.showBackButton = params['s'] && params['s'] == 'Y';
       this.advancedSearchFlg = (params['filter'] == 'true');
       this.showFilter = this.advancedSearchFlg;
-      var datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
-      this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
+      //this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
       this.searchStarted = !this.showFilter;
 
 
@@ -95,7 +96,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   advancedSearch(event: any) {
-    if (this.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
+    if (this.user.exceededPoolSizeFlg || this.user.showHeartFormFlg) {
       return;
     }
     if (!this.user.lat)
@@ -134,7 +135,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   browseSingles(action: string) {
     this.searchStarted = false;
     this.matchUser = null;
-    if (this.id != 4 && (this.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
+    if (this.id != 4 && (this.user.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
       //      this.logUser('Y');
       return;
     }
@@ -161,7 +162,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   loadThisUser() {
-    this.exceededPoolSizeFlg = false;
+//    this.exceededPoolSizeFlg = false;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],

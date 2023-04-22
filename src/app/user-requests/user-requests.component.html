@@ -1,5 +1,5 @@
 <div [ngClass]="openPanelFlg?'match-card3 open-card':'match-card3'" *ngIf="myUser && matchUser && matchUser.matchObj">
-    <div class="gray-bar2" style="position: relative;">
+    <div style="position: relative;">
         <table width="100%">
             <tr>
                 <td *ngIf="matchUser.matchObj.match_level>4">
@@ -14,18 +14,78 @@
                             class="fa fa-calendar"></i> Date</button>
                 </td>
                 <td align="right">
+                    <button (mousedown)="openPanel(6)"
+                        [ngClass]="requestNum==6?'btn request-btn btn-main-color':'btn request-btn'"><i
+                            class="fa fa-gift"></i> Gifts<sup
+                            style="font-size: 10px;">{{matchUser.giftCount}}</sup></button>
                     <button (mousedown)="openPanel(4)"
                         [ngClass]="requestNum==4?'btn request-btn btn-main-color':'btn request-btn'"><i
-                            class="fa fa-comments"></i> Reviews<sup>{{matchUser.reviewsCount}}</sup></button>
-                    <button *ngIf="matchUser.matchObj.match_level>1" (mousedown)="openPanel(5)"
-                        [ngClass]="requestNum==5?'btn request-btn btn-main-color':'btn request-btn'"><i
-                            class="fa fa-pencil"></i></button>
+                            class="fa fa-comments"></i> Reviews<sup
+                            style="font-size: 10px;">{{matchUser.reviewsCount}}</sup></button>
                 </td>
             </tr>
         </table>
     </div>
+    <div *ngIf="requestNum==6" class="matches-card">
+        <table width="100%" *ngIf="showGiftsFlg">
+            <tr>
+                <td>
+                    <div class="gray-box">
+                        <div class="small-title">Your Coins</div>
+                        <img src="assets/images/pics/coin.png" height="50">
+                        <div>
+                            <span style="font-size: 32px;" class="text-highlight">{{coins}}</span>
+                        </div>
+                    </div>
+                </td>
+                <td align="center" valign="top">
+                    <div class="red-text"><i class="fa fa-gift"></i> {{matchUser.firstName}}'s Gifts</div>
+                    <div class="border-box">
+                        <div *ngIf="userGifts && userGifts.length==0">{{matchUser.firstName}} has not received any gifts
+                        </div>
+                        <div class="gift-cell" *ngFor="let gift of userGifts">
+                            <img src="assets/images/gifts/gift{{gift.gift_id}}.png" width="50">
+                            <div style="font-size: 8px;">{{gift.name}}</div>
+                            <app-profile-pic [user_id]="gift.user_id" [profilePic]="gift.profilePic" [size]="30">
+                            </app-profile-pic>
+                            <div *ngIf="!gift.receivedFlg" style="font-size: 8px; color: green;">Not Seen</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
+        <div *ngIf="gifts.length==0">
+            <button (mousedown)="loadGifts()" class="btn btn-main-color btn-small spacer">Send Gift!</button>
+            <button (mousedown)="openPanel(6)" class="btn btn-main-color btn-small spacer">Close</button>
+        </div>
+        <div *ngIf="giftSentFlg" style="font-size: 24px; color: green;">Gift has been sent!</div>
+        <div *ngIf="gifts.length>0">
+            <hr>
+            <div class="red-text"><i class="fa fa-gift"></i> Gift Store</div>
+            <div (mousedown)="selectGift(gift)" class="gift-cell"
+                [style.background-color]="gift.canAfford?'#ffffc0':'#ccc'"
+                [style.border]="selectedGift && selectedGift.row_id == gift.row_id?'4px solid red':'1px solid gray'"
+                *ngFor="let gift of gifts">
+                <img src="assets/images/gifts/gift{{gift.row_id}}.png" width="70">
+                <div style="font-size: 14px; font-weight: 700;">{{gift.name}}</div>
+                <div><img src="assets/images/pics/coin.png" height="20"> {{gift.cost}}</div>
+            </div>
+
+            <div *ngIf="selectedGift && selectedGift.row_id == 8" class="gray-text">Note: Sending poop means the user
+                will not be able to remove it from their gift section. Only you can remove it once sent.</div>
+
+
+            <div>
+                <button [disabled]="sendGiftDisabledFlg" (mousedown)="sendGift()" class="btn btn-main-color spacer">Send
+                    <span *ngIf="selectedGift">{{selectedGift.name}}</span></button>
+                <button (mousedown)="openPanel(6)" class="btn btn-warning btn-small spacer">Cancel</button>
+            </div>
+        </div>
+    </div>
     <div *ngIf="requestNum==4">
+        <button class="btn request-btn" *ngIf="matchUser.matchObj.match_level>1" (mousedown)="openPanel(5)"><i
+            class="fa fa-pencil"></i> Write Review</button>
         <p *ngIf="reviewList.length==0" class="basic-cell">No reviews on {{matchUser.firstName}} at this time.</p>
         <app-review-cell (messageEvent)="reviewCellEvent($event)" *ngFor="let review of reviewList; let i = index;"
             [review]="review" [index]="i">

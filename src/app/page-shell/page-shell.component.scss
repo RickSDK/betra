@@ -218,11 +218,23 @@
 
 .popup-show {
     opacity: 1;
-    right: 10px;
+    left: 10px;
     transition: all 1s ease;
 }
 
 .popup-hide {
+    opacity: 0;
+    left: -220px;
+    transition: all 1s ease;
+}
+
+.popup-show-right {
+    opacity: 1;
+    right: 10px;
+    transition: all 1s ease;
+}
+
+.popup-hide-right {
     opacity: 0;
     right: -220px;
     transition: all 1s ease;

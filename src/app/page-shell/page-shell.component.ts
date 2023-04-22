@@ -57,6 +57,8 @@ export class PageShellComponent implements OnInit {
   public displayBasicsFlg: boolean = false;
   public displayDetailsFlg: boolean = false;
   public popupInProgress: boolean = false;
+  public displayGiftPopupFlg: boolean = false;
+  
 
   constructor(private router: Router, private location: Location) { }
 
@@ -101,8 +103,11 @@ export class PageShellComponent implements OnInit {
   }
 
   goBack() {
-    console.log('go back!!!', this.location.getState());
-    this.location.back();
+    if (this.location) {
+      this.location.back();
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
   displayBrowsePopup() {
@@ -120,6 +125,9 @@ export class PageShellComponent implements OnInit {
       this.popupInProgress = false;
     }, 24000);
   }
+  displayGiftPopup() {
+    this.displayGiftPopupFlg = true;
+  }
 
   ngClassToggleMenu() {
     if (this.showMainMenuFlg)
@@ -129,9 +137,9 @@ export class PageShellComponent implements OnInit {
   }
   ngClassToggleMenu2() {
     if (this.showUserMenuFlg)
-      return 'main-menu-popup popup-show';
+      return 'main-menu-popup popup-show-right';
     else
-      return 'main-menu-popup popup-hide';
+      return 'main-menu-popup popup-hide-right';
   }
   toggleMainMenu() {
     this.showMainMenuFlg = !this.showMainMenuFlg;

@@ -13,7 +13,7 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   @Input('myUser') myUser: any = null;
   @Input('matchUser') matchUser: any = null;
   @Input('dateObj') dateObj: any = null;
-  
+
 
   public requestNum: number = 0;
   public messageSentFlg: boolean = false;
@@ -23,8 +23,16 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   public openPanelFlg: boolean = false;
 
   public reviewList: any = [];
+  public userGifts: any = [];
+  public gifts: any = [];
   public experienceRating: number = 0;
+  public coins: number = 0;
   public reviewText: string = '';
+  public sendGiftDisabledFlg: boolean = true;
+  public selectedGift: any = null;
+  public showGiftsFlg: boolean = false;
+  public giftSentFlg: boolean = false;
+  
 
   constructor() { super(); }
 
@@ -37,6 +45,7 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   }
 
   openPanel(num: number) {
+    this.showGiftsFlg = false;
     this.sendMessage = '';
     if (this.requestNum == num) {
       this.openPanelFlg = false;
@@ -49,6 +58,8 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
         this.processAPIRequest('getReviews');
       if (num == 5)
         this.processAPIRequest('getMyReview');
+      if (num == 6)
+        this.getDataFromServer('giftsForUser', 'gifts.php', { uid: this.matchUser.user_id });
     }
   }
 
@@ -65,6 +76,19 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
 
   reviewCellEvent(event: any) {
     this.openPanel(5);
+  }
+
+  selectGift(gift: any) {
+    this.giftSentFlg = false;
+    this.selectedGift = gift;
+    this.sendGiftDisabledFlg = parseInt(gift.cost) > this.coins;
+    if (this.sendGiftDisabledFlg)
+      this.selectedGift = null;
+  }
+
+  sendGift() {
+    this.sendGiftDisabledFlg = true;
+    this.getDataFromServer('sendGift', 'gifts.php', { uid: this.matchUser.user_id, giftId: this.selectedGift.row_id });
   }
 
   checkButtons() {
@@ -89,9 +113,26 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
     console.log('made it back to top', action);
     this.checkButtons();
   }
+  loadGifts() {
+    this.getDataFromServer('loadGifts', 'gifts.php', {});
+  }
 
   override postSuccessApi(file: string, responseJson: any) {
-    if(responseJson.action == 'getMyReview') {
+    console.log(file, responseJson);
+    if (responseJson.action == 'loadGifts') {
+      this.gifts = responseJson.gifts;
+      this.coins = responseJson.coins;
+    }
+    if (responseJson.action == 'giftsForUser' || responseJson.action == 'sendGift') {
+      this.gifts = [];
+      this.userGifts = responseJson.gifts;
+      this.coins = responseJson.coins;
+      this.showGiftsFlg = true;
+    }
+    if (responseJson.action == 'sendGift') {
+      this.giftSentFlg = true;
+    }
+    if (responseJson.action == 'getMyReview') {
       if (responseJson.review) {
         this.experienceRating = responseJson.review.rating;
         this.reviewText = responseJson.review.message || '';

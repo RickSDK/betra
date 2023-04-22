@@ -1,0 +1,25 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Fraud'" [headerObj]="headerObj" [userStatus]="userStatus">
+
+    <div class="matches-card" style="text-align: left;">
+        <app-top-header [topTitle]="'Fraud'"></app-top-header>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+        <div>Duplicate IP Addresses</div>
+        <div *ngFor="let ip of ipList">
+            {{ip}}
+            <table style="font-size: 10px;">
+                <tr *ngFor="let ipUser of ipUsers">
+                    <td *ngIf="ipUser.ip==ip">{{ipUser.user_id}}</td>
+                    <td *ngIf="ipUser.ip==ip">{{ipUser.firstName}}</td>
+                    <td *ngIf="ipUser.ip==ip">{{ipUser.ip}}</td>
+                    <td *ngIf="ipUser.ip==ip">{{ipUser.lastLogin}}</td>
+                    <td *ngIf="ipUser.ip==ip">{{ipUser.city}}</td>
+                    <td *ngIf="ipUser.ip==ip">{{ipUser.countryName}}</td>
+                    <td *ngIf="ipUser.ip==ip">{{ipUser.status}}</td>
+                    <td *ngIf="ipUser.ip==ip"><button class="btn btn-danger"><i (mousedown)="hardDeleteUser(ipUser)" class="fa fa-trash"></i></button></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</app-page-shell>

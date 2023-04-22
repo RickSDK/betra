@@ -4,7 +4,7 @@
         <app-top-header [topTitle]="'Owners'"></app-top-header>
         <hr>
 
-        <app-owners-menu [pageTitle]="'Details'" [page]="1"></app-owners-menu>
+        <app-owners-menu [pageTitle]="'Details'" [page]="0"></app-owners-menu>
         <hr>
         <div>Your current details:</div>
         <table align="center" style="font-size: 12px;">
@@ -17,9 +17,9 @@
             </tr>
             <tr>
                 <td>{{user.firstName}}</td>
-                <td>{{yourLevel.level}}</td>
+                <td align="center">{{yourLevel.level}}</td>
                 <td>{{yourLevel.name}}</td>
-                <td>{{yourLevel.percentage}}</td>
+                <td align="center">{{yourLevel.percentage}}</td>
                 <td>*{{yourLevel.payouts}}</td>
             </tr>
         </table>
@@ -34,13 +34,16 @@
             <div class="border-box">
                 <div class="red-text">How to get Promoted?</div>
                 <div>To get promoted to level <b class="text-highlight">2</b>, complete the following:</div>
-                <ul style="text-align: left; padding-left: 40px; font-size: 12px; color: gray;">
-                    <li>Fill up your dating pool with 12 people</li>
-                </ul>
-            </div>
-            <div class="border-box">
-                <div class="red-text">Progress</div>
-                <p>Currently in your dating pool: <b class="text-highlight">{{user.datingPool.length}}</b></p>
+                <table>
+                    <tr>
+                        <th>Item</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td>Fill up your dating pool with 12 people</td>
+                        <td><b class="text-highlight">{{user.datingPool.length}}</b></td>
+                    </tr>
+                </table>
                 <div *ngIf="!goalReachedFlg">
                     <p class="gray-text" style="text-align: left;">In order to grow your dating pool, click thumbs up to
                         as many people as
@@ -63,55 +66,89 @@
             <div class="border-box">
                 <div class="red-text">How to get Promoted?</div>
                 <div>To get promoted to level <b class="text-highlight">3</b>, complete the following:</div>
-                <ul style="text-align: left; padding-left: 40px;">
-                    <li>At least 2 Blog comments</li>
-                    <li>At least 40 messages sent</li>
-                    <li>At least 3 user reviews</li>
-                    <li>At least 2 owner bugs and/or discussions</li>
-                    <li>At least 2 Poll Votes</li>
-                </ul>
-            </div>
-            <div class="border-box">
-                <div class="red-text">Progress</div>
-                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i
-                        *ngIf="ownersPage.blogComments > 1" style="color: green;" class="fa fa-check"></i></div>
-                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i
-                        *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></div>
-                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i
-                        *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></div>
-                <div>Bugs/Discussion: <b class="text-highlight">{{ownersPage.bugsCount}}</b><i
-                        *ngIf="ownersPage.bugsCount > 1" style="color: green;" class="fa fa-check"></i></div>
-                <div>Poll Votes: <b class="text-highlight">{{ownersPage.voteCount}}</b><i
-                        *ngIf="ownersPage.voteCount > 1" style="color: green;" class="fa fa-check"></i></div>
+                <table border="1">
+                    <tr>
+                        <th>Item</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td>At least 2 Blog comments</td>
+                        <td><b class="text-highlight">{{ownersPage.blogComments}}</b> <i
+                                *ngIf="ownersPage.blogComments > 1" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 40 messages sent</td>
+                        <td><b class="text-highlight">{{ownersPage.messageCount}}</b><i
+                            *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 3 user reviews</td>
+                        <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
+                            *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 2 owner bugs and/or discussions</td>
+                        <td><b class="text-highlight">{{ownersPage.bugsCount}}</b><i
+                            *ngIf="ownersPage.bugsCount > 1" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 2 Poll Votes</td>
+                        <td><b class="text-highlight">{{ownersPage.voteCount}}</b><i
+                            *ngIf="ownersPage.voteCount > 1" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 4 Consecutive days on app</td>
+                        <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
+                            *ngIf="ownersPage.consecutiveDays > 3" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                </table>
                 <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
             </div>
+
         </div>
 
         <div *ngIf="yourLevel.level==3 && !loadingFlg">
             <div class="border-box">
                 <div class="red-text">How to get Promoted?</div>
                 <div>To get promoted to level <b class="text-highlight">4</b>, complete the following:</div>
-                <ul style="text-align: left; padding-left: 40px;">
-                    <li>Messages with at least 20 different people</li>
-                    <li>At least 100 messages sent</li>
-                    <li>At least 25 profiles swiped yes</li>
-                    <li>At least 6 user reviews</li>
-                    <li>At least 4 blog comments</li>
-                </ul>
-            </div>
-            <div class="border-box">
-                <div class="red-text">Progress</div>
-                <div>People Messaged: <b class="text-highlight">{{ownersPage.peopleMessaged}}</b> <i
-                        *ngIf="ownersPage.peopleMessaged > 19" style="color: green;" class="fa fa-check"></i></div>
-                <div>Messages: <b class="text-highlight">{{ownersPage.messageCount}}</b><i
-                        *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></div>
-                <div>Profiles Swiped: <b class="text-highlight">{{ownersPage.profilesSwiped}}</b><i
-                        *ngIf="ownersPage.profilesSwiped > 24" style="color: green;" class="fa fa-check"></i></div>
-                <div>User Reviews: <b class="text-highlight">{{ownersPage.reviewCount}}</b><i
-                        *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></div>
-                <div>Blog Comments: <b class="text-highlight">{{ownersPage.blogComments}}</b> <i
-                        *ngIf="ownersPage.blogComments > 3" style="color: green;" class="fa fa-check"></i></div>
-                <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
+
+
+                <table border="1">
+                    <tr>
+                        <th>Item</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td>Messages with at least 25 different people</td>
+                        <td><b class="text-highlight">{{ownersPage.peopleMessaged}}</b> <i
+                            *ngIf="ownersPage.peopleMessaged > 24" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 100 messages sent</td>
+                        <td><b class="text-highlight">{{ownersPage.messageCount}}</b><i
+                            *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 50 profiles swiped yes</td>
+                        <td><b class="text-highlight">{{ownersPage.profilesSwiped}}</b><i
+                            *ngIf="ownersPage.profilesSwiped > 49" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 6 user reviews</td>
+                        <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
+                            *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 4 blog comments</td>
+                        <td><b class="text-highlight">{{ownersPage.blogComments}}</b> <i
+                            *ngIf="ownersPage.blogComments > 3" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 8 Consecutive days on app</td>
+                        <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
+                            *ngIf="ownersPage.consecutiveDays > 7" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                </table>
             </div>
         </div>
 
@@ -141,7 +178,7 @@
         <div class="border-box">
             Join Zoom Meeting<br>
             <a
-                href="https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1">https://us04web.zoom.us/j/74715638462?pwd=ab0NozuvLVISbIXKOvUpsFogM4hKIq.1</a><br>
+                href="https://us04web.zoom.us/j/72352899982?pwd=l8U2x581KwdZhcK2Cw4pCVyunAvwO0.1">https://us04web.zoom.us/j/72352899982?pwd=l8U2x581KwdZhcK2Cw4pCVyunAvwO0.1</a><br>
         </div>
 
         Meeting ID: 747 1563 8462<br>

@@ -1,5 +1,5 @@
 <div class="login-shell" style="position: relative; width: 100%; max-width: 500px; ">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!--<script src="https://accounts.google.com/gsi/client" async defer></script>-->
     <div *ngIf="login>0" [ngStyle]="ngStyleGrayScreen()" class="gray-screen">
     </div>
 
@@ -23,7 +23,7 @@
                         <i *ngIf="!facebookButtonPressedFlg" (click)="facebookSignin()"
                             class="fa fa-facebook facebook-btn login-button" title="Continue with Facebook"></i>
                     </td>
-                    <td>
+                    <td *ngIf="googleFoundFlg">
                         <i *ngIf="googleButtonPressedFlg" class="fa fa-spinner fa-spin" style="font-size: 32px;"></i>
                         <img *ngIf="!googleButtonPressedFlg" (click)="loginWithGoogle()"
                             src="assets/images/googleButton.png" height="42" style="cursor: pointer"

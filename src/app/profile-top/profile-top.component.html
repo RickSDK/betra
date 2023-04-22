@@ -214,9 +214,8 @@
                                     able
                                     to communicate. Keep your fingers crossed!</div>
                                 <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not
-                                    interested
-                                    in this person.
-                                    If that is a mistake, go to the Settings tab and reset your matches.
+                                    interested in {{user.firstName}}.
+                                    Change your mind? <a (mousedown)="likeButtonClicked(true)" class="text-link">click here</a>.
                                 </div>
                             </div>
                             <div *ngIf="user.matchObj.match_level == 2">
@@ -291,7 +290,7 @@
             {{user.numPics+1}} pics total&nbsp;</div>
     </div>
 
-    <div *ngIf="user.matchObj && user.matchObj.showButtonsFlg" style="position: absolute; top: 330px; left: 100px;">
+    <div *ngIf="user.matchObj && user.matchObj.showButtonsFlg" style="position: absolute; top: 350px; left: 80px; z-index: 100;">
         <i (mousedown)="likeButtonClicked(false)" class="fa fa-thumbs-o-down circle-button no-button"></i>&nbsp;
         <i (mousedown)="likeButtonClicked(true)" class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
     </div>

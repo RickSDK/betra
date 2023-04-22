@@ -91,7 +91,8 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     this.messages = [];
     this.matchUser = matchUser;
 
-    this.firstName = this.matchUser.firstName;
+    if (this.matchUser)
+      this.firstName = this.matchUser.firstName;
 
     if (this.matchUser && this.matchUser.matchObj) {
       this.checkTextFlags();

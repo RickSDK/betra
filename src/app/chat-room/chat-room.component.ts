@@ -31,7 +31,6 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
       'assets/sounds/Blop.mp3',
       'assets/sounds/doorClose.mp3'
     ];
-    //console.log(sounds[num])
     var audio = new Audio(sounds[num]);
     audio.loop = false;
     audio.play();
@@ -43,7 +42,6 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
       this.isConnected = true;
       this.getDataFromServer('chatLogin', 'chat.php', { room: 1, lastMessage: this.lastMessage });
     } else if (this.isConnected) {
-      console.log('no chat!!!');
       this.isConnected = false;
       this.getDataFromServer('exitChat', 'chat.php', {});
     }
@@ -79,7 +77,6 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   }
 
   messageClicked(message: any) {
-    console.log(message);
     this.textValue = '@' + message.firstName + ': ';
   }
 
@@ -94,7 +91,6 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
           var count = 0;
           this.lotsOfMessagesFlg = false;
           responseJson.messages.forEach((element: any) => {
-            //console.log(element.newMsg, element.type);
             if (count++ > 15) {
               element.olderFlg = true;
               this.lotsOfMessagesFlg = true;
@@ -121,7 +117,7 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
           this.messages.push(element);
         messageHash[element.message] = true;
       });
- 
+
       this.messages.sort((a: any, b: any) => {
         return (parseInt(a.row_id) > parseInt(b.row_id)) ? 1 : (parseInt(a.row_id) < parseInt(b.row_id)) ? -1 : 0;
       });
@@ -130,9 +126,12 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
         return (parseInt(a.row_id) > parseInt(b.row_id)) ? 1 : (parseInt(a.row_id) < parseInt(b.row_id)) ? -1 : 0;
       });
 
-      setTimeout(() => {
-        this.loginToChat();
-      }, 8000);
+      if (!responseJson.noRefresh) {
+        setTimeout(() => {
+          console.log('refresh chat');
+          this.loginToChat();
+        }, 8000);
+      }
     }
   }
 }

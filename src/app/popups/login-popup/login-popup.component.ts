@@ -20,7 +20,7 @@ declare let getPlatform: any;
 export class LoginPopupComponent extends BaseComponent implements OnInit {
   @Input('login') login: number = 0;
   @Input('referralId') referralId: number = 0;
-  
+
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -38,6 +38,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public googleButtonPressedFlg: boolean = false;
   public appleButtonPressedFlg: boolean = false;
   public policyCheckboxChecked: boolean = false;
+  public googleFoundFlg: boolean = false;
   public platform: string = getPlatform();
 
 
@@ -49,8 +50,14 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     this.submitDisabled = !this.savedEmail;
     this.forgotPasswordFlg = false;
 
-    if(localStorage['referralId']>0)
-    this.referralId = localStorage['referralId'];
+    setTimeout(() => {
+      if (google)
+        this.googleFoundFlg = true;
+    }, 1000);
+
+
+    if (localStorage['referralId'] > 0)
+      this.referralId = localStorage['referralId'];
 
     /*
     this.socialAuthService.authState.subscribe((user) => {
@@ -109,9 +116,10 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
         this.errorMessage = 'Sorry, google login not working. Try again later';
         this.googleButtonPressedFlg = false;
       }
-    }, 10000);
+    }, 15000);
     console.log('loginWithGoogle', google);
     if (google) {
+      this.googleFoundFlg = true;
       google.accounts.id.initialize({
         client_id: "859791760375-osmm35erl5lvdbisu2ofd8rfgk343vac.apps.googleusercontent.com",
         callback: (window as any)['handleCredentialResponse'] =
@@ -317,7 +325,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
   signupPressed() {
     this.resetFlags(2);
-    if(!this.policyCheckboxChecked) {
+    if (!this.policyCheckboxChecked) {
       this.errorMessage = 'Please accept the policy disclaimer by checking the box above the signup button.';
       return;
     }

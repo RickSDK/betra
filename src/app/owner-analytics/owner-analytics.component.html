@@ -4,7 +4,7 @@
     <div class="matches-card" *ngIf="user && user.ownerFlg">
         <app-top-header [topTitle]="'Analytics'"></app-top-header>
         <hr>
-        <app-owners-menu [pageTitle]="'Analytics'"></app-owners-menu>
+        <app-owners-menu [pageTitle]="'Analytics'" [page]="1"></app-owners-menu>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <hr>

@@ -12,7 +12,7 @@ export class AdviceComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getDataFromServer('getAdviceUsers', 'advice.php', {});
+    //this.getDataFromServer('getAdviceUsers', 'advice.php', {});
   }
 
   addMe() {

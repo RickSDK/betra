@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../classes/user';
+import { PageShellComponent } from '../page-shell/page-shell.component';
+
 
 declare var $: any;
 declare var betraImageFromId: any;
@@ -11,6 +13,10 @@ declare var getDateObjFromJSDate: any;
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit {
+
+  @ViewChild(PageShellComponent, { static: true })
+  pageShellComponent!: PageShellComponent;
+
   public userId: number = 0;
   public apiMessage: string = '';
   public loadingFlg: boolean = false;
@@ -29,7 +35,7 @@ export class BaseComponent implements OnInit {
   //  public notifications: number = 0;
   public menuNum: number = 0;
   public topButtons: any = ['one', 'two', 'three'];
-  public minutesToRefresh = 1;
+  public secondsToRefresh = 20;
   public infoObj: any = null;
   public outOfSyncFlg: boolean = false;
   public geoError: string = '';
@@ -150,7 +156,7 @@ export class BaseComponent implements OnInit {
         this.user = new User(userObj);
         this.imgSrcFile = this.user.imgSrc;
         this.userStatus = this.user.status;
-        if(this.infoObj)
+        if (this.infoObj)
           this.headerObj.browseObj = this.infoObj.browseObj;
         this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
         this.headerObj.notifications = localStorage['notifications'];
@@ -185,11 +191,9 @@ export class BaseComponent implements OnInit {
       return 'btn btn-secondary';
   }
   syncUserWithLocalStorage(responseJson: any) {
-    var now = new Date();
     console.log('xxx user synced!');
     if (responseJson.infoObj) {
       this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
-      localStorage['timeStamp'] = now.toString();
       localStorage['lastUpd'] = responseJson.infoObj.lastUpd;
 
       /*
@@ -220,11 +224,7 @@ export class BaseComponent implements OnInit {
       localStorage['ownerAlerts'] = this.headerObj.ownerAlerts;
       */
       //console.log('xxxdateCount', this.headerObj.dateCount);
-      if (responseJson.user && responseJson.user.status == 'Active') {
-        setTimeout(() => {
-          this.checkServerForChanges(now.toString());
-        }, 60 * this.minutesToRefresh * 1000);
-      }
+
       if ((responseJson.infoObj.refreshFlg == 'Y' || responseJson.refreshFlg == 'Y') && responseJson.user)
         this.refreshUserObj(responseJson.user);
     }
@@ -243,14 +243,15 @@ export class BaseComponent implements OnInit {
   }
 
   checkServerForChanges(lastUpd: string) {
-    var e = document.getElementById('logo');
+    var e = document.getElementById('myProfile');
+
     if (e && lastUpd == localStorage['timeStamp'] && this.user.status == 'Active') {
-      this.minutesToRefresh *= 2;
-      console.log('---relog---', this.minutesToRefresh);
+      this.secondsToRefresh *= 2;
+      console.log('---relog---', this.secondsToRefresh);
       this.logUser();
     } else {
-      this.minutesToRefresh = 1;
-      console.log('--nolog--', this.user.status);
+      this.secondsToRefresh = 20;
+      console.log('--nolog--');
     }
   }
   populateGeoInfo() {
@@ -280,20 +281,18 @@ export class BaseComponent implements OnInit {
     });
   }
   getPage() {
-    console.log('href!!!', window.location.href);
     var page = 'Unknown';
     if (window && window.location && window.location.href) {
       var e = window.location.href.split('/');
       if (e.length > 0) {
         page = e[e.length - 1];
         var e2 = page.split('?');
-        if(e2.length>0)
+        if (e2.length > 0)
           page = e2[0];
       }
     }
     if (page == 'matches')
       page = 'Dating Pool';
-    console.log('page!!!', page);
     return page;
   }
   logUser(refreshFlg: string = '') {
@@ -391,10 +390,32 @@ export class BaseComponent implements OnInit {
       console.log('+++postSuccessApi+++', responseJson.action, responseJson);
       this.successFlg = true;
       if (responseJson.action == 'logUser') {
+
+        if(responseJson.infoObj && responseJson.infoObj.browseObj && responseJson.infoObj.browseObj.user_id > 0) {
+          console.log('xxx!!!xxx user snooping!', responseJson.infoObj.browseObj.firstName);
+          this.headerObj.browseObj = responseJson.infoObj.browseObj;
+          if (this.pageShellComponent)
+            this.pageShellComponent.displayBrowsePopup();  
+        }
+        if(responseJson.infoObj && responseJson.infoObj.giftObj && responseJson.infoObj.giftObj.user_id > 0) {
+          console.log('xxx!!!xxx user giftObj!', responseJson.infoObj.giftObj.firstName);
+          this.headerObj.giftObj = responseJson.infoObj.giftObj;
+          if (this.pageShellComponent)
+            this.pageShellComponent.displayGiftPopup();  
+        }
         if (responseJson.refreshFlg == 'Y')
           this.syncUserWithLocalStorage(responseJson);
         else
           this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
+
+        console.log('wait...', this.secondsToRefresh);
+        var now = new Date();
+        localStorage['timeStamp'] = now.toString();
+        setTimeout(() => {
+          this.checkServerForChanges(now.toString());
+        }, this.secondsToRefresh * 1000);
+
+
       }
     }
   }

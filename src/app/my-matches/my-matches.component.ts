@@ -21,7 +21,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public disableFormFlg: boolean = true;
   public showPopupFlg: boolean = false;
   public showDetailsNumber: number = 0;
-  public datingPoolLimit: number = 8;
+  //public datingPoolLimit: number = 8;
   public displayUserPopup: boolean = false;
   public matchUser: any = null;
   public selectedPerson: any = null;
@@ -232,8 +232,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       console.log('xxxrefreshDatingPool', responseJson);
       this.refreshUserObj(responseJson.user);
       this.updateMatches();
-      this.datingPoolLimit = (this.user.memberFlg) ? 12 : 8;
-      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length > this.datingPoolLimit;
+      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length > this.user.datingPoolLimit;
       this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {

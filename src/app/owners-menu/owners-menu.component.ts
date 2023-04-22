@@ -10,23 +10,24 @@ export class OwnersMenuComponent implements OnInit {
   @Input('page') page: number = 0;
 
   public topButtons = [
-    { name: 'Main Info', routerLink: '/owner-admin', id: 1 },
-    { name: 'More Details', routerLink: '/join-team', id: 2 },
+    { name: 'Admin Info', routerLink: '/owner-admin', id: 1 },
+    { name: 'Statistics', routerLink: '/latest-users', id: 2 },
     //{ name: 'Teams', routerLink: '/owner-teams', id: 3 },
   ]
   public buttons = [
     { name: 'Admin', routerLink: '/owner-admin', id: 0 },
+    { name: 'Overview', routerLink: '/join-team', id: 1 },
+    { name: 'Details', routerLink: '/owners', id: 1 },
     { name: 'Discussion', routerLink: '/owner-bugs', id: 2 },
     { name: 'Bugs', routerLink: '/owner-bugs', id: 3 },
-    { name: 'Analytics', routerLink: '/owner-analytics', id: 4 },
 //    { name: 'Activity', routerLink: '/owner-activity', id: 5 },
   ]
   public buttons2 = [
-    { name: 'Overview', routerLink: '/join-team', id: 1 },
-    { name: 'Details', routerLink: '/owners', id: 1 },
+    { name: 'Latest', routerLink: '/latest-users', id: 1 },
     { name: 'Owners', routerLink: '/owner-users', id: 1 },
     { name: 'Stats', routerLink: '/owner-stats', id: 1 },
     { name: 'Users', routerLink: '/recent-users', id: 1 },
+    { name: 'Analytics', routerLink: '/owner-analytics', id: 4 },
   ]
   public buttons3 = [
     { name: 'Org Chart', routerLink: '/owner-teams', id: 0 },
