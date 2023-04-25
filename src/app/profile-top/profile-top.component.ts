@@ -79,6 +79,7 @@ export class ProfileTopComponent implements OnInit {
     this.messageEvent.emit('cancel');
   }
   showMoreClicked() {
+    this.hideProfileBasics();
     this.showOptionsFlg = false;
     this.messageEvent.emit('show-more');
   }

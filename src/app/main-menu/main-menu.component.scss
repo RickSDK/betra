@@ -147,24 +147,13 @@
     height: 100px;
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 420px) {
     .button-box { 
         width: 140px;
         height: 140px;
     }
     .button-text {
         width: 140px;
-        font-size: 20px;
-    }
-}
-
-@media screen and (max-width: 420px) {
-    .button-box { 
-        width: 120px;
-        height: 120px;
-    }
-    .button-text {
-        width: 120px;
         font-size: 18px;
     }
 }

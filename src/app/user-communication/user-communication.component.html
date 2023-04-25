@@ -125,6 +125,7 @@
         <div>&nbsp;</div>
     </div>
     <div *ngIf="messageSentFlg">Message Sent!</div>
+    <div>&nbsp;</div>
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="matchUser.matchObj && matchUser.matchObj.match_level == 3" class="purple-text">Getting a response back

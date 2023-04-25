@@ -4,40 +4,43 @@
     <div *ngIf="user" class="matches-card" style="padding: 0;">
         <app-top-header2 [topTitle]="'Coins'"></app-top-header2>
         <div style="padding: 10px;">
-            <div class="gray-box">
-                <div class="small-title">Your Coins</div>
-                <img src="assets/images/pics/coin.png" height="50">
-                <div>
-                    <span style="font-size: 32px;" class="text-highlight">{{user.points}}</span>
-                </div>
-                <div style="font-size: 10px;">
-                    Consecutive days logged in: <span class="text-highlight">{{user.consecutiveDays}}</span>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md">
-                        <div class="gray-box">
-                            <div class="small-title">How you get them</div>
-                            <div style="text-align: left; font-size: 12px; color: gray;">
-                                <li>Each day you log in, you get <span class="red-text">1</span> coin.</li>
-                                <li>Log in 7 consecutive days, get <span class="red-text">10</span> bonus coins.</li>
-                                <li>Get them from other users (coming soon)</li>
-                            </div>
-                        </div>
+            <div>
+                <div class="gray-box" style="position: relative;">
+                    <div class="small-title">Your Coins</div>
+                    <img src="assets/images/pics/coin.png" height="100">
+                    <div>
+                        <span class="red-circle"
+                            style="font-size: 16px; position: absolute; bottom: 30px; right: 30px;">{{user.points}}</span>
                     </div>
-                    <div class="col-md">
-                        <div class="gray-box">
-                            <div class="small-title">How you spend them</div>
-                            <div style="text-align: left; font-size: 12px; color: gray;">
-                                <li>Free Swipe = <span class="red-text">1</span> coin.</li>
-                                <li>Purchase gifts (coming soon)</li>
-                                <li>Sell them to users (coming soon)</li>
-                            </div>
-                        </div>
+                    <div style="font-size: 10px;">
+                        Consecutive days logged in: <span class="text-highlight">{{user.consecutiveDays}}</span>
                     </div>
                 </div>
             </div>
+
+
+            <div *ngIf="menuNum==1" class="gray-box">
+                <div class="small-title">How you get coins?</div>
+                <div style="text-align: left; font-size: 12px; color: gray;">
+                    <li>Each day you log in, you get <span class="red-text">1</span> coin.</li>
+                    <li>Log in 7 consecutive days, get <span class="red-text">10</span> bonus coins.</li>
+                    <li>Get them from other users (coming soon)</li>
+                </div>
+            </div>
+            <div *ngIf="menuNum==2" class="col-md">
+                <div class="gray-box">
+                    <div class="small-title">How you spend coins?</div>
+                    <div style="text-align: left; font-size: 12px; color: gray;">
+                        <li>Free Swipe = <span class="red-text">1</span> coin.</li>
+                        <li>Send someone a gifts!</li>
+                        <li>Sell them to users (coming soon)</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #444;">
+            <button (mousedown)="changeMenuNum(1)" class="btn btn-main-color spacer btn-small">Get Coins</button>
+            <button (mousedown)="changeMenuNum(2)" class="btn btn-main-color spacer btn-small">Spend Coins</button>
         </div>
     </div>
 </app-page-shell>

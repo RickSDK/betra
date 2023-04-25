@@ -10,12 +10,13 @@ export class PollEditComponent extends BaseComponent implements OnInit {
   public pollTitle: string = '';
   public polls: any = [];
   public selectedPoll: any = null;
+  public pollPublished: boolean = false;
 
   constructor() { super(); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getDataFromServer('getAllPolls', 'polls.php', {});
+    this.getDataFromServer('getEveryPoll', 'polls.php', {});
   }
 
   textValueSubmitted(event: any) {
@@ -30,10 +31,29 @@ export class PollEditComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('answerSubmitted', 'polls.php', { poll_id: this.selectedPoll.poll_id, name: event });
   }
 
+  deleteQuestion(question: any) {
+    console.log(question, this.selectedPoll);
+    this.getDataFromServer('deleteQuestion', 'polls.php', { num: question.number, poll_id: this.selectedPoll.poll_id });
+  }
+
+  publishPoll() {
+    this.getDataFromServer('publishPoll', 'polls.php', { poll_id: this.selectedPoll.poll_id });
+    this.pollPublished = true;
+    this.selectedPoll = null;
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
-    if (responseJson.action == 'getAllPolls') {
+    if (responseJson.action == 'getEveryPoll') {
       this.polls = responseJson.polls;
+      if (this.selectedPoll) {
+        this.polls.forEach((element: any) => {
+          if (element.poll_id == this.selectedPoll.poll_id)
+            this.selectedPoll = element;
+          this.pollTitle = '';
+
+        });
+      }
     }
   }
 }

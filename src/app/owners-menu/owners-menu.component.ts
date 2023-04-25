@@ -11,7 +11,7 @@ export class OwnersMenuComponent implements OnInit {
 
   public topButtons = [
     { name: 'Admin Info', routerLink: '/owner-admin', id: 1 },
-    { name: 'Statistics', routerLink: '/latest-users', id: 2 },
+    { name: 'Reports', routerLink: '/latest-users', id: 2 },
     //{ name: 'Teams', routerLink: '/owner-teams', id: 3 },
   ]
   public buttons = [
@@ -24,6 +24,7 @@ export class OwnersMenuComponent implements OnInit {
   ]
   public buttons2 = [
     { name: 'Latest', routerLink: '/latest-users', id: 1 },
+    { name: 'Activity', routerLink: '/owner-activity', id: 1 },
     { name: 'Owners', routerLink: '/owner-users', id: 1 },
     { name: 'Stats', routerLink: '/owner-stats', id: 1 },
     { name: 'Users', routerLink: '/recent-users', id: 1 },

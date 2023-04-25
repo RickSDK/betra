@@ -482,7 +482,7 @@ export class User {
         this.datingPool = datingPool;
         this.datingPoolLimit = (this.memberFlg) ? 12 : 8;
         if (this.ownerFlg)
-            this.datingPoolLimit = 16;
+            this.datingPoolLimit = 18;
         this.exceededPoolSizeFlg = datingPool.length > this.datingPoolLimit;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
 

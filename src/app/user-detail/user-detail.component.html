@@ -134,7 +134,7 @@
             </div>
         </div>
         <div *ngIf="user && !loadingFlg && !uid">
-            <div class="matches-card" *ngIf="!user.lat" [routerLink]="['/location']" style="cursor: pointer;">
+            <div class="matches-card" *ngIf="noLocationInfoFoundFlg" [routerLink]="['/location']" style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>

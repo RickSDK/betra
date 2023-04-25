@@ -2,25 +2,31 @@
     <div class="matches-card" style="text-align: left;">
         <app-top-header [topTitle]="'Poll Edit'"></app-top-header>
         <hr>
-        <button [routerLink]="['/poll']" *ngIf="userId==1" class="btn btn-main-color">Polls</button>
+        <button [routerLink]="['/poll']" class="btn btn-main-color btn-small">Back</button>
         <div *ngIf="!selectedPoll" class="border-box">
             <div>Create a new poll</div>
+            <div class="gray-text">What would you like the title of your poll to be?</div>
             <app-text-with-enter [value]="pollTitle" [placeHolder]="'Poll Title'" (messageEvent)="textValueSubmitted($event)">
             </app-text-with-enter>    
         </div>
  
-        <div *ngFor="let poll of polls" class="text-link" (mousedown)="selectedPoll=poll">
-            {{poll.name}}
+        <div>Your existing pools:</div>
+        <div class="gray-text">Click on poll below to add question options</div>
+        <div *ngFor="let poll of polls" class="text-link" style="font-size: 16px;" (mousedown)="selectedPoll=poll">
+            <div *ngIf="poll.user_id == userId">{{poll.name}}</div>
         </div>
         <hr>
         <div *ngIf="selectedPoll">
             <div><b>{{selectedPoll.name}}</b></div>
             <div *ngFor="let question of selectedPoll.questions">
-                <li>{{question.name}}</li>
+                <li>{{question.name}} <button (mousedown)="deleteQuestion(question)" class="btn btn-main-color btn-small"><i class="fa fa-trash"></i></button></li>
             </div>
+            <div class="gray-text">Enter a new option for this poll</div>
             <app-text-with-enter [value]="pollTitle" [placeHolder]="'New Answer'" (messageEvent)="answerSubmitted($event)">
             </app-text-with-enter>
         </div>
+        <button (mousedown)="publishPoll()" *ngIf="selectedPoll && selectedPoll.status=='New'" class="btn btn-main-color">Publish</button>
+        <div *ngIf="pollPublished" style="font-size: 22px; color: green;">Poll has been published!</div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
     </div>

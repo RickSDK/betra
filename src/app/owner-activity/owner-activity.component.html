@@ -5,23 +5,70 @@
         <app-top-header [topTitle]="'Activity'"></app-top-header>
         <hr>
 
-        <app-owners-menu [pageTitle]="'Activity'"></app-owners-menu>
+        <app-owners-menu [pageTitle]="'Activity'" [page]="1"></app-owners-menu>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-        <div *ngIf="!loadingFlg">
-            <div>Teams</div>
-            <div *ngFor="let team of teams" class="team-box">
-                <div style="background-color: #444; color: white;">{{team.name}}</div>
-                <app-owner-activity-user [owner]="team.lead" [leaderFlg]="true"></app-owner-activity-user>
-                <app-owner-activity-user *ngFor="let member of team.members" [owner]="member"></app-owner-activity-user>
-                <div class="gray-text">clicks: {{team.clicks}}</div>
-                <div class="gray-text">matches: {{team.matches}}</div>
-                <div class="gray-text">messages: {{team.messages}}</div>
-                <div class="gray-text">pics: {{team.picVerifiedCount}}</div>
-                <div><b>Score: {{team.total}}</b></div>
-            </div>
-        </div>
+        <div class="tan-box">This shows all owners Level 2 and higher, indicating total swipes and swipes in the past 48 hours. Green means active in the past 2 days.</div>
+        <div>Women</div>
+        <table style="font-size: 12px;" border="1">
+            <tr style="background-color: #ccc;">
+                <th></th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Last Login</th>
+                <th>CD</th>
+                <th>DP</th>
+                <th>Msg</th>
+                <th>Swipes</th>
+                <th><i class="fa fa-thumbs-o-up"></i> Recent</th>
+            </tr>
+            <tr *ngFor="let person of women" [style.background-color]="person.lastLoginText=='Today' || person.lastLoginText=='Yesterday' || person.lastLoginText=='Online Now!'?'#cfc':'white'">
+                <td><app-profile-pic [user_id]="person.user_id"
+                    [profilePic]="person.profilePic" [size]="30">
+                </app-profile-pic></td>
+                <td>{{person.firstName}}</td>
+                <td>{{person.adminLevel}}</td>
+                <td>{{person.lastLoginText}}</td>
+                <td>{{person.consecutiveDays}}</td>
+                <td class="red-text">{{person.datingPool.length}}</td>
+                <td>{{person.statsObj.messages}}</td>
+                <td><b>{{person.statsObj.matchLevel1}}</b></td>
+                <td>{{person.statsObj.swipesToday}}</td>
+            </tr>
+        </table>
+        <div class="gray-text">CD = Consecutive days logged in, DP = Dating Pool</div>
+        <div class="gray-text">Recent = thumbs up last 48 hours</div>
+
+        <div>Men</div>
+        <table style="font-size: 12px;" border="1">
+            <tr style="background-color: #ccc;">
+                <th></th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Last Login</th>
+                <th>CD</th>
+                <th>DP</th>
+                <th>Msg</th>
+                <th>Swipes</th>
+                <th><i class="fa fa-thumbs-o-up"></i> Recent</th>
+            </tr>
+            <tr *ngFor="let person of men" [style.background-color]="person.lastLoginText=='Today' || person.lastLoginText=='Yesterday'  || person.lastLoginText=='Online Now!'?'#cfc':'white'">
+                <td><app-profile-pic [user_id]="person.user_id"
+                    [profilePic]="person.profilePic" [size]="30">
+                </app-profile-pic></td>
+                <td>{{person.firstName}}</td>
+                <td>{{person.adminLevel}}</td>
+                <td>{{person.lastLoginText}}</td>
+                <td>{{person.consecutiveDays}}</td>
+                <td class="red-text">{{person.datingPool.length}}</td>
+                <td>{{person.statsObj.messages}}</td>
+                <td><b>{{person.statsObj.matchLevel1}}</b></td>
+                <td>{{person.statsObj.swipesToday}}</td>
+            </tr>
+        </table>
+        <div class="gray-text">CD = Consecutive days logged in, DP = Dating Pool</div>
+        <div class="gray-text">Recent = thumbs up last 48 hours</div>
 
     </div>
 </app-page-shell>

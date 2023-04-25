@@ -19,6 +19,8 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   public exceededPoolSizeFlg: boolean = false;
   public showIntimacyLevelsFlg: boolean = false;
   public showIntimacyValuesFlg: boolean = false;
+  public showDeleteButtonsFlg: boolean = false;
+  public toggleDeleteButtonsFlg: boolean = false;
 
   constructor() { super(); }
 
@@ -31,6 +33,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
 
     this.datingPoolSize = this.user.datingPool.length;
     this.exceededPoolSizeFlg = this.user.datingPool.length > this.user.datingPoolLimit;
+    this.toggleDeleteButtonsFlg = this.exceededPoolSizeFlg;
     var width = window.innerWidth;
     if (width > 812)
       width -= 400;
@@ -95,6 +98,10 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     this.showIntimacyValuesFlg = !this.showIntimacyValuesFlg;
     var showIntimacyLevelsFlg = localStorage['showIntimacyLevelsFlg'];
     localStorage['showIntimacyLevelsFlg'] = (showIntimacyLevelsFlg && showIntimacyLevelsFlg == 'Y') ? 'N' : 'Y';
+  }
+
+  toggleRemoveUsers() {
+    this.toggleDeleteButtonsFlg = !this.toggleDeleteButtonsFlg;
   }
 
   dropPersonFromDP(person: any) {

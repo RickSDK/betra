@@ -44,6 +44,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public messageCount: number = 0;
   public showBigPopupFlg: boolean = false;
   public showYesNoButtonsFlg: boolean = false;
+  public noLocationInfoFoundFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { super(); }
 
@@ -54,7 +55,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-   this.showEmptyDatingPoolFlg = this.user.datingPool.length == 0;
+    this.showEmptyDatingPoolFlg = this.user.datingPool.length == 0;
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
       this.id = params['id'] || 0;
@@ -162,7 +163,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   loadThisUser() {
-//    this.exceededPoolSizeFlg = false;
+    //    this.exceededPoolSizeFlg = false;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
@@ -204,6 +205,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
       this.profileViews = responseJson.profileViews;
+      this.noLocationInfoFoundFlg = responseJson.noLocationInfoFoundFlg;
       if (this.profileViews < 0)
         this.profileViews = 0;
 
@@ -317,8 +319,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   displayThisProfile() {
     console.log('displayThisProfile', this.matchUser);
-    if(this.matchUser) {
-      this.getDataFromServer('logUserView', 'chat.php', {uid: this.matchUser.user_id});
+    if (this.matchUser) {
+      this.getDataFromServer('logUserView', 'chat.php', { uid: this.matchUser.user_id });
     }
 
     if (this.matchSnapshotModal)

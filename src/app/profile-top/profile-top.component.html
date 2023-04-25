@@ -76,6 +76,10 @@
                     </div>
                     <div *ngIf="showProfileBasicsFlg"
                         [ngClass]="profileBasicsClassFlg?'profile-basics':'profile-basics-off'">
+
+                        <button (mousedown)="hideProfileBasics()" class="btn" style="float: right;"><i
+                            class="fa fa-times"></i></button>
+
                         <div class="small-box">
                             <div class="small-title main-color">Relationship</div>
 
@@ -168,8 +172,10 @@
                                 [icon]="''" [img]="'assets/images/profile/religion.png'">
                             </app-green-check>
                         </div>
-                        <button (mousedown)="hideProfileBasics()" class="btn btn-main-color btn-profile"><i
-                                class="fa fa-times"></i> Close</button>
+                        <div style="text-align: center">
+                            <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-profile"><i
+                                class="fa fa-arrow-circle-down"></i> More Details</button>
+                        </div>
                     </div>
 
 

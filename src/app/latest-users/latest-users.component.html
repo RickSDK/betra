@@ -19,6 +19,16 @@
             </div>
         </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div>Color Legend:</div>
+        <table width="100%" style="font-size: 10px;" border="1">
+            <tr>
+                <td>&nbsp;</td>
+                <td style="background-color: #fff;">Not active</td>
+                <td style="background-color: #ffffc0;">Not your target gender</td>
+                <td style="background-color: #cfc;">Is your target Gender</td>
+                <td style="background-color: red;">Deleted</td>
+            </tr>
+        </table>
         <table style="font-size: 12px;">
             <tr>
                 <th>Pic</th>

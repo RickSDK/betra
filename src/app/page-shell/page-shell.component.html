@@ -1,6 +1,9 @@
 <div class="top-bar">
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
+            <td *ngIf="userId>0" class="hide-md-up">
+                <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu"></i>
+            </td>
             <td *ngIf="pageTitle != 'Home'">
                 <i *ngIf="platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>&nbsp;
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-md" height="50"
@@ -32,8 +35,8 @@
                 <span *ngIf="userId" [routerLink]="['/poll']" class="top-button hide-xs"><i class="fa fa-question-circle"></i>
                     <div class="top-button-label">Polls</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button">
-                    <i class="fa fa-comment"></i> <span *ngIf="headerObj && headerObj.chatPeople>0" class="red-circle"
+                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button"><img src="assets/images/pics/chat_room.png" height="40">
+                    <i *ngIf="0" class="fa fa-comment"></i> <span *ngIf="headerObj && headerObj.chatPeople>0" class="red-circle"
                         style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <div class="top-button-label">Chat Room</div>
                 </span>
@@ -76,9 +79,6 @@
                 </span>
 
             </td>
-            <td *ngIf="userId>0" class="hide-md-up">
-                <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu"></i>
-            </td>
         </tr>
     </table>
 </div>
@@ -93,7 +93,7 @@
         <div *ngIf="showUserMenuFlg" class="gray-screen" (mousedown)="showUserMenuFlg=false"></div>
         <table *ngIf="showPageFlg" width="100%" border="0">
             <tr>
-                <td *ngIf="headerObj && userId>0 && userStatus == 'Active'" class="side-menu" valign="top">
+                <td *ngIf="headerObj && userId>0 && userStatus == 'Active'" class="side-menu hide-sm" valign="top">
                     <div style="position: fixed; top: 60px; left: 0; width: 200px;">
                         <app-side-menu *ngIf="headerObj" [pageTitle]="pageTitle" [messageCount]="headerObj.messageCount"
                             [matchCount]="headerObj.matchCount" [headerObj]="headerObj"></app-side-menu>

@@ -35,6 +35,7 @@
     color: gray;
     border-bottom: 1px solid gray;
     cursor: pointer;
+    position: relative;
 }
 
 .group-heading:hover {
@@ -69,11 +70,12 @@
 }
 
 .caret-icon {
-    float: right;
+    position: absolute;
     font-size: 28px;
     cursor: pointer;
-    margin-right: 5px;
-    margin-top: -7px;
+    top: -6px;
+    right: 5px;
+    z-index: 200;
 }
 
 .caret-icon:hover {

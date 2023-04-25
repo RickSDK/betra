@@ -8,6 +8,8 @@ import { BaseComponent } from '../base/base.component';
 })
 export class PollComponent extends BaseComponent implements OnInit {
   public polls: any = [];
+  public betraPolls: any = [];
+  public userPolls: any = [];
   public selectedPoll: any = null;
   public pollResponses: any = null;
   public noVotesYet: boolean = true;
@@ -16,6 +18,7 @@ export class PollComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.menuNum = 1;
     this.getDataFromServer('getAllPolls', 'polls.php', {});
   }
   selectPoll(poll: any, num: number) {
@@ -33,12 +36,30 @@ export class PollComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getAllPolls') {
-      this.polls = responseJson.polls;
-      this.polls.forEach((element: any) => {
-        if (element.iVoted)
-          this.noVotesYet = false;
-
-      });
+      this.betraPolls = responseJson.polls;
+      this.userPolls = responseJson.userPolls;
+      this.loadPolls(this.menuNum);
     }
+  }
+
+  deletePoll(poll:any) {
+    this.getDataFromServer('deletePoll', 'polls.php', { poll_id: poll.poll_id });
+  }
+
+  loadPolls(num: number) {
+    this.menuNum = num;
+    this.polls = [];
+
+    if (num == 1)
+      this.polls = this.betraPolls;
+    else
+      this.polls = this.userPolls;
+
+    this.polls.forEach((element: any) => {
+      if (element.iVoted)
+        this.noVotesYet = false;
+
+    });
+
   }
 }

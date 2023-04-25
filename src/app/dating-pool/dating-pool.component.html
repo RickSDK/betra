@@ -1,7 +1,7 @@
 <div *ngIf="user && user.datingPool && user.datingPool.length>0">
     <div *ngIf="largeFlg">
         <div *ngFor="let person of datingPool" class="pool-large menu-circle" style="position: relative;">
-            <i *ngIf="exceededPoolSizeFlg" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
+            <i *ngIf="exceededPoolSizeFlg || toggleDeleteButtonsFlg" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
             <img [src]="person.src" class="large-img" [routerLink]="['/user-detail']"
                 [queryParams]="{uid: person.user_id, s: 'Y'}"
                 [style.border]="person.heartFlg?'7px solid #990000':'none'">
@@ -29,18 +29,22 @@
             </div>
         </div>
         <div *ngIf="datingPool.length>0">
-            <table>
+            <table align="center">
                 <tr>
-                    <td>
+                    <td align="center">
                         <input type="checkbox" id="switch" class="checkbox" [checked]="showIntimacyLevelsFlg" />
                         <label (mousedown)="toggleIntimacyFlg()" for="switch" class="toggle"></label>
+                        <div style="font-size: 10px; margin-top: -5px;">Show intimacy levels</div>
                     </td>
-                    <td style="font-size: 10px; color: gray;">
-                        Show intimacy levels
-                    </td>
-                    <td style="padding-left: 20px;"> 
+                    <td style="padding-left: 20px;" valign="middle"> 
                         <div class="red-text">Dating Pool: <span class="text-highlight">{{datingPool.length}}</span></div>
                     </td>
+                    <td align="center">
+                        <input type="checkbox" id="switch2" class="checkbox" [checked]="showDeleteButtonsFlg" />
+                        <label (mousedown)="toggleRemoveUsers()" for="switch2" class="toggle"></label>
+                        <div style="font-size: 10px; margin-top: -5px;">Remove Someone</div>
+                    </td>
+
                 </tr>
             </table>
 

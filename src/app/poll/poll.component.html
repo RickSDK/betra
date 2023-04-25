@@ -4,10 +4,17 @@
         <app-top-header2 [topTitle]="'Polls'"></app-top-header2>
         <button [routerLink]="['/poll-edit']" *ngIf="0 && userId==1" class="btn btn-main-color">Edit</button>
 
+        <div style="text-align: center;">
+            <button (mousedown)="loadPolls(1)" class="btn btn-main-color btn-small spacer">Betra Polls</button>
+            <button (mousedown)="loadPolls(2)" class="btn btn-main-color btn-small spacer">User Polls</button>
+            <button *ngIf="menuNum==2" [routerLink]="['/poll-edit']" class="btn btn-main-color btn-small spacer">Create
+                Poll</button>
+        </div>
         <div *ngIf="noVotesYet" style="text-align: center;"><i class="fa fa-check"></i> Cast your vote to see results
         </div>
         <div *ngFor="let poll of polls" class="poll-box">
-            <div><b>{{poll.name}}</b></div>
+            <div><b>{{poll.name}}</b> <button *ngIf="userId==1 && menuNum==2" (mousedown)="deletePoll(poll)"
+                    class="btn btn-main-color btn-small"><i class="fa fa-trash"></i></button></div>
             <table>
                 <tr *ngFor="let question of poll.questions">
                     <td valign="middle">
@@ -19,7 +26,8 @@
                             name="poll{{poll.poll_id}}" style="width: auto;">
                     </td>
                     <td valign="middle">
-                        <div class="gray-text" style="margin-bottom: 3px;"> &nbsp;{{question.name}} <span *ngIf="poll.iVoted">(votes: {{question.votes}})
+                        <div class="gray-text" style="margin-bottom: 3px;"> &nbsp;{{question.name}} <span
+                                *ngIf="poll.iVoted">(votes: {{question.votes}})
                             </span></div>
                         <div *ngIf="selectedPoll && selectedPoll.poll_id == poll.poll_id">
                             <app-profile-pic *ngFor="let person of question.responses" [user_id]="person.user_id"

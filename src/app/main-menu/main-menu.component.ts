@@ -120,7 +120,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   }
 
   annimateCoin() {
-    this.positionCoin();
     this.coinVisible = false;
     var audio = new Audio('assets/sounds/coins.mp3');
     audio.loop = false;
@@ -172,7 +171,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       if (responseJson.coinsNewFlg) {
         this.coinX = '200px';
         setTimeout(() => {
-          this.annimateCoin();
+          this.positionCoin();
         }, 500);
       }
       if (this.user.ip == '')
