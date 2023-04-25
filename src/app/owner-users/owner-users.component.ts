@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var lastLoginText: any;
@@ -31,7 +32,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   public level2Owners: any = [];
   public level1Owners: any = [];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

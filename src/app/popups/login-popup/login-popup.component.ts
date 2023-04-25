@@ -5,6 +5,7 @@ import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig, Soci
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { BaseLoginProvider } from 'angularx-social-login';
+import { DatabaseService } from '../../services/database.service';
 
 declare var $: any;
 declare var google: any;
@@ -44,7 +45,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
 
   constructor(private router: Router, private ngZone: NgZone,
     private socialAuthService: SocialAuthService,
-    private googleAuthService: SocialAuthService) { super(); }
+    private googleAuthService: SocialAuthService, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     this.submitDisabled = !this.savedEmail;

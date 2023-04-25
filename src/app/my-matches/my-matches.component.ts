@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../classes/user';
 import { DatingPoolComponent } from '../dating-pool/dating-pool.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var lastLoginText: any;
@@ -31,10 +32,11 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public firstName: string = '';
   public currentRoseHolder: string = '';
   public newlyAssignedRoseFlg: boolean = false;
+  @ViewChild(DatingPoolComponent)
+  private datingPoolComponent = {} as DatingPoolComponent;
+  //@ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
 
-  @ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
-
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

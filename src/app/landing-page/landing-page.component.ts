@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { Blog } from '../classes/blog';
 import { Meta, Title } from '@angular/platform-browser';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -20,8 +21,8 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
   public referralId: number = 0
   //public bgImg = 'assets/images/landing/logoBlack.png';
 
-  constructor(private meta: Meta, private title: Title, private route: ActivatedRoute, private router: Router) {
-    super();
+  constructor(private meta: Meta, private title: Title, private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) {
+    super(databaseService);
     //this.meta.addTags([{name: 'description', content: 'Betra - Login'}]);
     //this.title.setTitle('Betra - Login');
   }

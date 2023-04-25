@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var getVersion: any;
@@ -35,7 +36,7 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   public appVersion: string = getVersion();
   public addEntryFlg: boolean = false;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     this.level++;

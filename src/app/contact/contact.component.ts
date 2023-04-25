@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -30,7 +31,7 @@ export class ContactComponent extends BaseComponent implements OnInit {
     { name: 'Tammy Otsubo', email: 'tammy@betradating.com', title: '', src: 'assets/images/team/tammy.jpg', desc: '' },
   ];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

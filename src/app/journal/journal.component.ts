@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
 import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -18,7 +19,7 @@ export class JournalComponent extends BaseComponent implements OnInit {
   public region: string = 'main';
   public journalId: number = 0;
 
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

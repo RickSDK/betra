@@ -12,7 +12,7 @@
             <i class="fa fa-exclamation-triangle"></i> Note: You have not completed your tasks to be an official owner
             yet. Please click here to find out what is needed to reach Level 2.
         </div>
-        <div class="tan-box" [routerLink]="['/owners']" style="cursor: pointer;">
+        <div *ngIf="user.adminLevel > 1" class="tan-box" [routerLink]="['/owners']" style="cursor: pointer;">
             <table>
                 <tr>
                     <td width="100" align="center">

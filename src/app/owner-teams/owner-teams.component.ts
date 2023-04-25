@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var lastLoginText: any;
@@ -55,7 +56,7 @@ export class OwnerTeamsComponent extends BaseComponent implements OnInit {
   public ownerHalle: any = null;
 
 
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

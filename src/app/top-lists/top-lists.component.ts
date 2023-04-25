@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-top-lists',
@@ -9,7 +10,7 @@ import { BaseComponent } from '../base/base.component';
 export class TopListsComponent extends BaseComponent implements OnInit {
   public override topButtons = ['Likes', 'Newest', 'Online Now!'];
   public topListsPage: any = null;
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

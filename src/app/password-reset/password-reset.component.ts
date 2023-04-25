@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-password-reset',
@@ -11,7 +12,7 @@ export class PasswordResetComponent extends BaseComponent implements OnInit {
   public emailVerifyCode: number = 0;
   public newPassword: string = '';
 
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

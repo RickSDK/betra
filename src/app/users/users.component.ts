@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { reduce } from 'rxjs';
 import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +16,7 @@ export class UsersComponent extends BaseComponent implements OnInit {
   public sortedlist: any = [];
   public selectedId: number = 0;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     this.loadUserObj();

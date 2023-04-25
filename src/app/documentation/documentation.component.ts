@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var FB: any;
 
@@ -21,7 +22,7 @@ export class DocumentationComponent extends BaseComponent implements OnInit {
     'Went on date'
   ];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   /*
   window.fbAsyncInit = function () {

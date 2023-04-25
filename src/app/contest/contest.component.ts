@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-contest',
@@ -11,7 +12,7 @@ export class ContestComponent extends BaseComponent implements OnInit {
   public contestPage: any = null;
   public bachelors: any = [];
   public bachelorettes: any = [];
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

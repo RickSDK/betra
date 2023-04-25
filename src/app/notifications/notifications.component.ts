@@ -1,6 +1,7 @@
 import { not } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-notifications',
@@ -11,7 +12,7 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
  
   public notificationsTypes: any = [];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

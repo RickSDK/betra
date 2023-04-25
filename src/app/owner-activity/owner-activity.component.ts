@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
+import { DatabaseService } from '../services/database.service';
 
 declare var lastLoginText: any;
 
@@ -14,7 +15,7 @@ export class OwnerActivityComponent extends BaseComponent implements OnInit {
   public men: any = [];
   public women: any = [];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

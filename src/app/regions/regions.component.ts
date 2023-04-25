@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-regions',
@@ -139,7 +140,7 @@ export class RegionsComponent extends BaseComponent implements OnInit {
     },
   ];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   ngClassButton(num1: number, num2: number) {
     if (num1 == num2)

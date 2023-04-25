@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Platform, AlertController } from '@ionic/angular';
 import { InAppPurchase2, IAPProduct } from '@ionic-native/in-app-purchase-2/ngx';
+import { DatabaseService } from '../services/database.service';
 
 declare var getPlatform: any;
 const PLAN1MONTH = 'plan1';
@@ -32,7 +33,7 @@ export class UpgradeMemberComponent extends BaseComponent implements OnInit {
   public gems: number = 0;
   public appStore: any = null;
 
-  constructor(private plt: Platform, private store: InAppPurchase2, private alertController: AlertController, private ref: ChangeDetectorRef) { super(); }
+  constructor(private plt: Platform, private store: InAppPurchase2, private alertController: AlertController, private ref: ChangeDetectorRef, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

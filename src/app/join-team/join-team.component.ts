@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Router } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-join-team',
@@ -20,7 +21,7 @@ export class JoinTeamComponent extends BaseComponent implements OnInit {
     { number: 1, name: 'Owner', percent: '0.5%', spots: 32, payouts: '$500' }
   ]
 
-  constructor(private router: Router) { super(); }
+  constructor(private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

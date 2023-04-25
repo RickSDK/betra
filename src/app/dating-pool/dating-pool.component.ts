@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-dating-pool',
@@ -22,7 +23,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   public showDeleteButtonsFlg: boolean = false;
   public toggleDeleteButtonsFlg: boolean = false;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     if (!this.user)

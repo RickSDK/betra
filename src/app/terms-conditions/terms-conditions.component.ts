@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-terms-conditions',
@@ -12,7 +13,7 @@ export class TermsConditionsComponent extends BaseComponent implements OnInit {
   public legalEmail = 'info@betradating.com';
   public supportEmail = 'info@betradating.com';
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
 
 }

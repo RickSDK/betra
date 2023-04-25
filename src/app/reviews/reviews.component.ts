@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
 import { Review } from '../classes/review';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-reviews',
@@ -12,7 +13,7 @@ export class ReviewsComponent extends BaseComponent implements OnInit {
   public reviewList: any = [];
   public reviewId: number = 0;
 
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

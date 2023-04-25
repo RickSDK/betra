@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -17,7 +18,7 @@ export class UserPrivatePicsComponent extends BaseComponent implements OnInit {
   public myPics: any = [];
   public matchPics: any = [];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
   }

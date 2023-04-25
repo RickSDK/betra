@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-media',
@@ -15,7 +16,7 @@ export class MediaComponent extends BaseComponent implements OnInit {
     'assets/images/ads/splash.png',
     'assets/images/ads/table3.png',
   ]
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
 
 

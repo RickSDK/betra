@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -34,7 +35,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   public likedUsers: number = 0;
   public pageDetail: any = null;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

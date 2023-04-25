@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -15,7 +16,7 @@ export class AdviceCellComponent extends BaseComponent implements OnInit {
   public showAdviceFlg: boolean = false;
   public advicePostedFlg: boolean = false;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
   }

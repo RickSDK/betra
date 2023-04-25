@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var getVersion: any;
 
@@ -11,7 +12,7 @@ declare var getVersion: any;
 export class BuildAppComponent extends BaseComponent implements OnInit {
   public appVersion: string = getVersion();
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   //ngOnInit(): void {
   //}

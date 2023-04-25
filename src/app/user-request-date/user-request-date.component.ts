@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var getDateObjFromJSDate: any;
@@ -32,7 +33,7 @@ export class UserRequestDateComponent extends BaseComponent implements OnInit {
     state: 'empty',
     zip: 'empty',
   }
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     this.dateObjExists = (this.dateObj && this.dateObj.row_id > 0);

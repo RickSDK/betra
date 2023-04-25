@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-referrals',
@@ -11,7 +12,7 @@ export class ReferralsComponent extends BaseComponent implements OnInit {
   public textCopiedFlg: boolean = false;
   public referralText: string = '';
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

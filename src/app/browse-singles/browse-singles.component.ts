@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 import { User } from '../classes/user';
 import { Router } from '@angular/router';
 
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class BrowseSinglesComponent extends BaseComponent implements OnInit {
   public showProfileViewDetailsFlg: boolean = false;
-  constructor(private router: Router) { super(); }
+  constructor(private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-latest-users',
@@ -11,7 +12,7 @@ export class LatestUsersComponent extends BaseComponent implements OnInit {
   public users: any = [];
   public actionCount: number = 0;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

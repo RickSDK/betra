@@ -1,6 +1,7 @@
 <div class="match-user-card" *ngIf="matchUser && user">
 
-    <app-profile-top [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)"
+    <div *ngIf="matchUser.status=='Deleted'">Sorry, this profile is no longer available.</div>
+    <app-profile-top *ngIf="matchUser.status!='Deleted'" [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)"
         [expandBottomFlg]="expandBottomFlg" [snapshotFlg]="snapshotFlg">
     </app-profile-top>
 

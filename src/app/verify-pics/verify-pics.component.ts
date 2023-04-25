@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 @Component({
@@ -27,7 +28,7 @@ export class VerifyPicsComponent extends BaseComponent implements OnInit {
     'Wrong Pose'
   ]
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     this.loadUserObj();

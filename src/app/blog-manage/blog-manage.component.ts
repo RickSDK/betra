@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 import { Blog } from '../classes/blog';
 
 @Component({
@@ -10,7 +11,7 @@ import { Blog } from '../classes/blog';
 export class BlogManageComponent extends BaseComponent implements OnInit {
   public blogList: any = [];
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

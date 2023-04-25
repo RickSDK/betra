@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { Router } from '@angular/router';
 import { UserCommunicationComponent } from '../user-communication/user-communication.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -14,8 +15,15 @@ declare var $: any;
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent extends BaseComponent implements OnInit {
-  @ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = new (MatchSnapshotComponent);
-  @ViewChild(UserCommunicationComponent) messagesModal: UserCommunicationComponent = new (UserCommunicationComponent);
+
+  @ViewChild(MatchSnapshotComponent)
+  private matchSnapshotModal = {} as MatchSnapshotComponent;
+  @ViewChild(UserCommunicationComponent)
+  private messagesModal = {} as UserCommunicationComponent;
+
+  //@ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = null;
+  //  @ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = new (MatchSnapshotComponent(this.databaseService));
+  //@ViewChild(UserCommunicationComponent) messagesModal: UserCommunicationComponent = new (UserCommunicationComponent(this.databaseService));
 
   public uid: number = 0;
   public id: number = 0;
@@ -46,7 +54,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showYesNoButtonsFlg: boolean = false;
   public noLocationInfoFoundFlg: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router) { super(); }
+  constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-messages',
@@ -12,7 +13,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   public messageCount: number = 0;
   public override topButtons: any = ['Dating Pool', 'Unread messages'];
 
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

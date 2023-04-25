@@ -2,7 +2,7 @@ function getHostname() {
 	return 'https://www.betradating.com/betraPhp/';
 }
 function getVersion() {
-	return '2.36';
+	return '2.37';
 }
 function getPlatform() {
 	var platform = 0; // edit this line, 0 = web, 1 = android, 2 = ios

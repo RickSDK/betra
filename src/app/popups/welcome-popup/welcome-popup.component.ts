@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-welcome-popup',
@@ -9,7 +10,7 @@ import { BaseComponent } from '../../base/base.component';
 export class WelcomePopupComponent extends BaseComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
 
   logout() {

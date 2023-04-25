@@ -1,6 +1,7 @@
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-owners',
@@ -22,7 +23,7 @@ export class OwnersComponent extends BaseComponent implements OnInit {
   public goalReachedFlg: boolean = false;
   public emailButtonPressed: boolean = false;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

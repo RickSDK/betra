@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-poll',
@@ -14,7 +15,7 @@ export class PollComponent extends BaseComponent implements OnInit {
   public pollResponses: any = null;
   public noVotesYet: boolean = true;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

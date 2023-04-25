@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var getDateObjFromJSDate: any;
@@ -123,7 +124,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public cityDisabledFlg = false;
   public browser: string = '';
 
-  constructor(private router: Router, private route: ActivatedRoute) { super(); }
+  constructor(private router: Router, private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

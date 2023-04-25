@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { User } from '../classes/user';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var cropper: any;
@@ -12,7 +13,7 @@ declare var cropper: any;
 })
 export class ProfileEditPicsComponent extends BaseComponent implements OnInit {
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

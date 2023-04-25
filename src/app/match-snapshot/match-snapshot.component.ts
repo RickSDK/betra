@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ProfileTopComponent } from '../profile-top/profile-top.component';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-match-snapshot',
@@ -37,7 +38,7 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   public distance: string = '';
 
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     if (this.user && this.matchUser)

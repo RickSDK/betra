@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -22,7 +23,7 @@ export class BlogCommentsComponent extends BaseComponent implements OnInit {
   public currentComment: string = '';
   public commentId: number = 0;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     console.log('xxx', this.blog);

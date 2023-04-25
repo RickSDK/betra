@@ -4,6 +4,7 @@ import { BaseComponent } from '../base/base.component';
 import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.component';
 import { ActivatedRoute, Router } from '@angular/router';
 //import { AdvancedFiltersComponent } from '../advanced-filters/advanced-filters.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var getDateObjFromJSDate: any;
 declare var getPlatform: any;
@@ -14,7 +15,9 @@ declare var getPlatform: any;
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent extends BaseComponent implements OnInit {
-  @ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = new (MatchSnapshotComponent);
+  @ViewChild(MatchSnapshotComponent)
+  private matchSnapshotModal = {} as MatchSnapshotComponent;
+  //@ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = new (MatchSnapshotComponent);
 
   public playerlist: any = [];
   public toggle: boolean = false;
@@ -49,7 +52,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     { name: 'View Activity', routerLink: "/activity", src: 'assets/images/buttons/activity.jpeg' },
   ]
 
-  constructor(private route: ActivatedRoute, private router: Router) { super(); }
+  constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

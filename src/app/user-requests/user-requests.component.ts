@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 import { Review } from '../classes/review';
 
 declare var $: any;
@@ -34,7 +35,7 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   public giftSentFlg: boolean = false;
   
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
   }

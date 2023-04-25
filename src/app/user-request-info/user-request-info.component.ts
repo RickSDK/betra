@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ export class UserRequestInfoComponent extends BaseComponent implements OnInit {
   public messageSentFlg: boolean = false;
   public sendMessage: string = '';
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
   }

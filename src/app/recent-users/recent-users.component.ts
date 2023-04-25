@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var getDateObjFromJSDate: any;
 
@@ -12,7 +13,7 @@ export class RecentUsersComponent extends BaseComponent implements OnInit {
   public users: any = [];
   public showContactInfo: boolean = false;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

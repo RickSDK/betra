@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -20,7 +21,7 @@ export class MembershipConfirmationComponent extends BaseComponent implements On
   public plan: any = null;
   public showFormFlg: boolean = true;
 
-  constructor(private route: ActivatedRoute) { super() }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService) }
 
   override ngOnInit(): void {
     super.ngOnInit();

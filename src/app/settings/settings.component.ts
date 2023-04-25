@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 import { Router } from '@angular/router';
 
 declare var getVersion: any;
@@ -35,7 +36,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   public buddyEmail: string = '';
   public announcement: string = '';
 
-  constructor(private router: Router) { super(); }
+  constructor(private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -50,12 +51,16 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
   }
 
-  deleteAccount() {
-    this.getDataFromServer('deleteAccount', 'appApiCode.php', {});
-  }
-
-  holdAccount() {
-    this.getDataFromServer('holdAccount', 'appApiCode.php', {});
+  deleteAccount(action: string) {
+    var deleteReason = $('#deleteReason').val();
+    var deleteComment = $('#deleteComment').val();
+    this.errorMessage = '';
+    if(!deleteReason) {
+      this.errorMessage = 'Please provide a reason from the dropdown';
+      return;
+    }
+    console.log('xxx', action, deleteReason, deleteComment);
+    this.getDataFromServer(action, 'appApiCode.php', {type: deleteReason, message: deleteComment});
   }
 
   logout() {

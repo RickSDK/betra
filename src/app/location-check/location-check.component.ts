@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 
@@ -19,7 +20,7 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
   public databaseLatitude: number = 0;
   public locationPage: any = null;
 
-  constructor(public zone: NgZone) { super(); }
+  constructor(public zone: NgZone, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

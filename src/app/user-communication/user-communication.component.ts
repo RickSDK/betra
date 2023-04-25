@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var getDateObjFromJSDate: any;
@@ -69,7 +70,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
   public emojiBatch = 0;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     //super.ngOnInit();

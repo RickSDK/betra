@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../classes/user';
 import { PageShellComponent } from '../page-shell/page-shell.component';
-
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var betraImageFromId: any;
@@ -10,7 +10,8 @@ declare var getDateObjFromJSDate: any;
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
-  styleUrls: ['./base.component.scss']
+  styleUrls: ['./base.component.scss'],
+  providers: [DatabaseService]
 })
 export class BaseComponent implements OnInit {
 
@@ -49,9 +50,10 @@ export class BaseComponent implements OnInit {
     matchesAlerts: localStorage['matchesAlerts'] || 0
   };
 
-  constructor() { }
+  constructor(private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
+
     window.scrollTo(0, 0);
     if (!localStorage['code']) {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
@@ -323,20 +325,17 @@ export class BaseComponent implements OnInit {
       this.loadUserObj();
   }
 
-  getHostname() {
-    return 'https://www.betradating.com/betraPhp/';
-  }
   selectValueChanged() {
     this.changesMadeFlg = true;
   }
-  getAPIData(user: any, action: string, noCacheFlg: boolean) {
+  /*getAPIData(user: any, action: string, noCacheFlg: boolean) {
     var params = {
       userId: user.id,
       code: user.code,
       action: action
     };
     this.executeApi('festApi.php', params, true);
-  }
+  }*/
   executeApi(file: string, params: any = null, displaySuccessFlg: boolean = false) {
     if (!params) {
       params =
@@ -346,7 +345,7 @@ export class BaseComponent implements OnInit {
       };
     }
     this.errorMessage = '';
-    var url = this.getHostname() + file;
+    var url = this.databaseService.getHostname() + file;
     var postData = getPostDataFromObj(params);
     if (params.action != 'logUser')
       this.loadingFlg = true;

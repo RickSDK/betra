@@ -37,18 +37,35 @@
                     </td>
                 </tr>
             </table>
-            <div style="font-size: 12px; text-align: center;">
-                <div>
-                    <span>Votes: <span class="text-highlight">{{poll.votes}}</span></span>
-                    <span *ngIf="poll.iVoted && (!selectedPoll || selectedPoll.poll_id != poll.poll_id)"
-                        style="float: right" class="text-link" (mousedown)="showResultsOfPoll(poll)">View Results</span>
-                </div>
-                <button *ngIf="!poll.iVoted" (mousedown)="voteForItem(poll)" class="btn btn-main-color"
-                    [disabled]="!poll.selected">Vote</button>
-            </div>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                        <app-profile-pic *ngIf="poll.user_id>1" [user_id]="poll.user_id" [profilePic]="poll.profilePic"
+                            [size]="30">
+                        </app-profile-pic>
+                        <div *ngIf="poll.user_id>1" style="font-size: 10px; color: gray;">Created by</div>
+                    </td>
+                    <td align="center" style="font-size: 12px;">
+                        <span>Votes: <span class="text-highlight">{{poll.votes}}</span></span>
+                        <span *ngIf="poll.iVoted && (!selectedPoll || selectedPoll.poll_id != poll.poll_id)"
+                            style="float: right" class="text-link" (mousedown)="showResultsOfPoll(poll)">View
+                            Results</span>
+                        <span *ngIf="selectedPoll && selectedPoll.poll_id == poll.poll_id"
+                            style="float: right" class="text-link" (mousedown)="selectedPoll=null">Hide
+                            Results</span>
+
+                    </td>
+                    <td align="right">
+                        <button *ngIf="!poll.iVoted" (mousedown)="voteForItem(poll)" class="btn btn-main-color"
+                            [disabled]="!poll.selected">Vote</button>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <i class="fa fa-asterisk" style="color: red; font-size: 18px;"></i> = highest vote,
-        <i class="fa fa-check" style="color: green; font-size: 18px;"></i> = my vote
+        <div style="font-size: 12px;">
+            <i class="fa fa-asterisk" style="color: red; font-size: 18px;"></i> = highest vote,
+            <i class="fa fa-check" style="color: green; font-size: 18px;"></i> = my vote
+        </div>
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 

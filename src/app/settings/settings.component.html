@@ -1,7 +1,7 @@
 <app-page-shell (messageEvent)="loginClicked ($event)" [userId]="userId" [imgSrcFile]="imgSrcFile"
     [pageTitle]="'Settings'" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-     <div class="matches-card" *ngIf="user">
+    <div class="matches-card" *ngIf="user">
         <div style="text-align: center;">
             <button style="float: left;" [routerLink]="['']" class="btn btn-main-color btn-small">Home</button>&nbsp;
             <span class="main-title">Settings</span>
@@ -34,9 +34,27 @@
             <div class="gray-text">Are you sure you want to delete your account? This action is permanent and cannot be
                 un-done. Alternatively you can place the account on hold and then re-activiate it whenever you like.
             </div>
-            <button (mousedown)="changeMenuNum(0)" class="btn btn-success spacer">Cancel</button>
-            <button (mousedown)="holdAccount()" class="btn btn-warning spacer">Place on Hold</button>
-            <button (mousedown)="deleteAccount()" class="btn btn-danger spacer">Yes, Delete</button>
+            <div>
+                <div>Select Reason</div>
+                <select name="deleteReason" id="deleteReason">
+                    <option disabled selected>select</option>
+                    <option>Trouble getting started</option>
+                    <option>Privacy Concerns</option>
+                    <option>Too busy</option>
+                    <option>Found someone!</option>
+                    <option>Can't find anyone</option>
+                    <option>Didn't like the app</option>
+                    <option>Other</option>
+                </select>
+                <div>Comments</div>
+                <input type="text" name="deleteComment" id="deleteComment" maxlength="150" placeholder="Comments">
+            </div>
+            <div>
+                <button (mousedown)="changeMenuNum(0)" class="btn btn-success spacer">Cancel</button>
+                <button (mousedown)="deleteAccount('holdAccount')" class="btn btn-warning spacer">Place on Hold</button>
+                <button (mousedown)="deleteAccount('deleteAccount')" class="btn btn-danger spacer">Yes, Delete</button>
+            </div>
+
         </div>
         <div *ngIf="menuNum == 5" class="tan-box">
             <div>Buddy Notification</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 import { ScrollItem } from '../classes/scroll-item';
 
 @Component({
@@ -14,7 +15,7 @@ export class ActivityComponent extends BaseComponent implements OnInit {
   public currentIndex: number = 0;
   public showLoadMoreButton: boolean = false;
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -58,6 +59,8 @@ export class ActivityComponent extends BaseComponent implements OnInit {
           this.scrollItems.push(this.responseJson.contestItems.shift());
         if (this.responseJson.giftItems.length > 0)
           this.scrollItems.push(this.responseJson.giftItems.shift());
+        if (this.responseJson.polls.length > 0)
+          this.scrollItems.push(this.responseJson.polls.shift());
 
       });
       this.scrollItems.sort((a: any, b: any) => {

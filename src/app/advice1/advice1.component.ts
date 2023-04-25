@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-advice1',
@@ -8,7 +9,7 @@ import { BaseComponent } from '../base/base.component';
 })
 export class Advice1Component extends BaseComponent implements OnInit {
 
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
 
 

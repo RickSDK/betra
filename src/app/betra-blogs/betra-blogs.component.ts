@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Blog } from '../classes/blog';
 
@@ -13,7 +14,7 @@ export class BetraBlogsComponent extends BaseComponent implements OnInit {
   public id: number = 0;
   public blog: any;
 
-  constructor(private router: Router, private route: ActivatedRoute) { super(); }
+  constructor(private router: Router, private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

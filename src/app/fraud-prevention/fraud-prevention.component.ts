@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-fraud-prevention',
@@ -9,7 +10,7 @@ import { BaseComponent } from '../base/base.component';
 export class FraudPreventionComponent extends BaseComponent implements OnInit {
   public ipUsers: any = [];
   public ipList: any = [];
-  constructor() { super(); }
+  constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

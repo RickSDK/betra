@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
 import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 declare var $: any;
 declare var getVersion: any;
@@ -23,7 +24,7 @@ export class OwnerBugsComponent extends BaseComponent implements OnInit {
   public region: string = 'Bug';
   public pageTitle: string = 'Bugs';
 
-  constructor(private route: ActivatedRoute) { super(); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();

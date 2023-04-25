@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-owner-analytics',
@@ -10,7 +11,7 @@ export class OwnerAnalyticsComponent extends BaseComponent implements OnInit {
   public statsArray:any = null;
   public totalsObj:any = {accounts: 0, city: 0, emailVerifyFlg: 0, match: 0, matches: 0,
     personality: 0, phone: 0, pic: 0, politics: 0, race: 0, swipes: 0}
-  constructor() { super(); }
+    constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();
