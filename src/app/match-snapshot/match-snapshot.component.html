@@ -23,6 +23,19 @@
                         </tr>
                     </table>
 
+                    <div *ngIf="matchUser.aboutme" class="small-box" style="font-size: 12px; text-align: left;">
+                        <div class="small-title main-color">About Me</div>
+                        <div [innerHtml]="matchUser.aboutme"></div>
+                    </div>
+                    <div *ngIf="matchUser.history" class="small-box" style="font-size: 12px; text-align: left;">
+                        <div class="small-title main-color">Dating History</div>
+                        <div [innerHtml]="matchUser.history"></div>
+                    </div>
+                    <div *ngIf="matchUser.lookingFor" class="small-box" style="font-size: 12px; text-align: left;">
+                        <div class="small-title main-color">Looking For</div>
+                        <div [innerHtml]="matchUser.lookingFor"></div>
+                    </div>
+
                     <table width="100%">
                         <tr>
                             <td>

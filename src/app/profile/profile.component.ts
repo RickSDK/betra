@@ -21,7 +21,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public showRequiredFieldsFlg: boolean = false;
   public requiredFieldColor: string = '#ffffc0';
   public inputFieldObj: any;
-  public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Your Match', 'Done'];
+  public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Bio', 'Your Match', 'Done'];
   public menuDesc = [
     'Ready to find love? Yes you are! Let\'s start with your basic infomation',
     'We want to verify your email to know you are legit. Feel free to skip for now if you want. We trust you!',
@@ -30,11 +30,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     'You might not care about politics, but this is just one more tool you can use when looking at matches. NO ONE will be able to see your answers to these questions. The scores are only meant to tell you how close or far away you are from potential matches on the political spectrum.',
     'Take a selfie! And make it a good one. Make sure you show your beautiful face.',
     'This is optional, but feel free to add up to 4 more pictures',
-    'Final Step! Tell us what you are looking for in a match. And don\'t worry, these are simply used to tell you how close each potential match is to your ideal.',
+    'Tell us about yourself! (Optional)',
+    'Final Step! Tell us what you are looking for in a match.',
     'That\'s it! You are ready to find love.',
     'end'
   ]
-  public menuTitles2 = ['Basics', 'Email', 'Details', 'Personality', 'Politics', 'Image', 'Pics', 'Match'];
+  public menuTitles2 = ['Basics', 'Email', 'Details', 'Personality', 'Politics', 'Image', 'Pics', 'Bio', 'Match'];
   public educationLevels = ['No Education', 'High School Grad', 'Some College', '2-year Degree', '4-year Degree', 'Masters Degree', 'PhD'];
   public incomes = ['Under $20K', '$20K - $49K', '$50K - $99K', '$100K - $199K', 'over $200K'];
   public maritalStatus = ['Single', 'Married', 'Divorced'];
@@ -326,10 +327,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    //console.log('XXX postSuccessApi', file, responseJson);
+    console.log('XXX postSuccessApi', file, responseJson);
     this.loadingFlg = false;
     if (responseJson.action == "logUser") {
-      if (!this.user.email && responseJson.user.email) {
+      if (!this.user.email && responseJson.user && responseJson.user.email) {
         console.log('fixing User!!', this.user.email, responseJson.user.email);
         this.user.email = responseJson.user.email;
         this.user.phone = responseJson.user.phone;
@@ -472,7 +473,15 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       else
         this.user.profileFlags[this.menuNum] = (this.user.maritalStatus);
     }
-    if (this.menuNum == 7) {
+
+    if(this.menuNum == 7) {
+      this.user.aboutme = $('#aboutme').val();
+      this.user.history = $('#history').val();
+      this.user.lookingFor = $('#lookingFor').val();
+      //action: "postMainJournal"
+    }
+
+    if (this.menuNum == 8) {
       this.user.story = $('#story').val();
       this.user.profileFlags[this.menuNum] = (this.user.story);
 
@@ -489,8 +498,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         this.user.matchWantsKids = $('#matchWantsKids').val();
         this.user.matchWantsKids = $('#matchWantsKids').val();  
       }
-
     }
+
+
   }
   profileSubmitPress() {
     this.loadingFlg = true;
@@ -498,6 +508,11 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
     this.menuSubmitdisableFlg = true;
     this.menuDisableFlg = true;
+
+    if(this.menuNum == 7) {
+      this.getDataFromServer('updateProfile', 'appApiCode.php', {aboutme: this.user.aboutme, history: this.user.history, lookingFor: this.user.lookingFor, updateNum: 99});
+      return;
+    }
 
     var params = {
       userId: this.user.user_id,
@@ -554,7 +569,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       longitude: localStorage['longitude'],
       action: 'updateProfile',
     };
-    //console.log('xxParamsxx', params);
+    console.log('xxParamsxx', params);
     this.executeApi('appApiCode.php', params, true);
   }
 

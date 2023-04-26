@@ -45,7 +45,7 @@
                 for this payment and future payments in accordance with their terms. You can always cancel at any time.
             </div>
         </div>
-        <div *ngIf="successFlg">
+        <div *ngIf="paymentSuccessFlg">
             <div style="font-size: 32px; color: green;">Success!</div>
             <div>You are now a gold member! Enjoy your membership</div>
             <button [routerLink]="['/home']" class="btn btn-main-color">Home</button>

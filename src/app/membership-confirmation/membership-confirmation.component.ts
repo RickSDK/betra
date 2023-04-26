@@ -20,6 +20,7 @@ export class MembershipConfirmationComponent extends BaseComponent implements On
   public id: number = 0;
   public plan: any = null;
   public showFormFlg: boolean = true;
+  public paymentSuccessFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService) }
 
@@ -118,4 +119,11 @@ export class MembershipConfirmationComponent extends BaseComponent implements On
     }
     this.getDataFromServer('processPayment', 'payments.php', params);
   }
+  override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
+    if (responseJson.action == 'processPayment') {
+      this.paymentSuccessFlg = true;
+    }
+  }
+
 }

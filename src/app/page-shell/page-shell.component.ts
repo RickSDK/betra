@@ -39,7 +39,7 @@ export class PageShellComponent implements OnInit {
   @Input('userId') userId: number = 0;
   @Input('userStatus') userStatus: string = '';
   @Input('pageTitle') pageTitle: string = '';
-  @Input('imgSrcFile') imgSrcFile: string = 'assets/images/theRock.png';
+  @Input('imgSrcFile') imgSrcFile: string = 'assets/images/profile/man.jpg';
   @Input('headerObj') headerObj: any = null;
   @Input('popupNum') popupNum: number = 0;
   @Input('stickyBottomFlg') stickyBottomFlg: boolean = false;

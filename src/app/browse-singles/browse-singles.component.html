@@ -13,9 +13,8 @@
         </div>
         <div *ngIf="showProfileViewDetailsFlg" class="gray-text" style="padding-left: 10px; padding-right: 10px;">
             <hr>
-            You can swipe up to 12 profiles per day. Say yes to as many as you like. If you get through your entire
-            batch
-            of 12, you will need to wait until tomorrow to get a new batch.
+            You can like up to 12 profiles per day. If you get through your entire
+            batch of 12, you will need to wait until tomorrow to get a new batch.
         </div>
     </div>
     <div class="matches-card" *ngIf="!user.lat" [routerLink]="['/location']" style="cursor: pointer;">

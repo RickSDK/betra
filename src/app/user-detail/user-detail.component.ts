@@ -92,7 +92,6 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.pageTitle = 'Browse';
         this.showBigPopupFlg = true;
         this.showYesNoButtonsFlg = true;
-
         if (!this.showFilter)
           this.browseSingles('findMatches');
       }
@@ -145,11 +144,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.searchStarted = false;
     this.matchUser = null;
     if (this.id != 4 && (this.user.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
+      console.log('exxeced!');
       //      this.logUser('Y');
-      return;
-    }
-    if (!this.user.lat) {
-      //    this.logUser('Y');
       return;
     }
     this.searchStarted = true;

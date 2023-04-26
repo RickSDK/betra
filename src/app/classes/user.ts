@@ -211,11 +211,17 @@ export class User {
     public points: number = 0;
     public giftCount: number = 0;
     public created: string = '';
+    public aboutme: string = '';
+    public history: string = '';
+    public lookingFor: string = '';
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.created = obj.created || '';
+            this.aboutme = obj.aboutme || '';
+            this.history = obj.history || '';
+            this.lookingFor = obj.lookingFor || '';
             this.emailNum = obj.emailNum || 0;
             this.giftCount = obj.giftCount || 0;
             this.consecutiveDays = obj.consecutiveDays || 0;
@@ -460,7 +466,6 @@ export class User {
 
         var createDt = getDateObjFromJSDate(this.created);
         this.created = createDt.localDate;
-        //var poolImg = (this.matchPreference == 'F') ? 'assets/images/woman.jpeg' : 'assets/images/man.jpg';
 
         this.notifications = Math.round(this.users_interested) + Math.round(this.users_matched) + Math.round(this.questions_asked) + Math.round(this.dates_requested) + Math.round(this.messages_received) + Math.round(this.info_requested);
 
@@ -756,7 +761,7 @@ export class User {
             this.status = 'Pending';
         }
 
-        this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, profilePicFlg, additionalPicsFlg, matchFlg, true];
+        this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, profilePicFlg, additionalPicsFlg, true, matchFlg, true];
     }
     userObjFromText(line: string) {
         var obj = {};
@@ -840,7 +845,7 @@ export class User {
     }
 }
 function betraImageFromId(user_id: number, profilePic: number, gender: string, picFlagged: number) {
-    var imgSrc = (gender && gender == 'M') ? 'assets/images/theRock.png' : 'assets/images/galGadot.png';
+    var imgSrc = (gender && gender == 'M') ? 'assets/images/profile/man.jpg' : 'assets/images/profile/woman.jpeg';
 
     if (user_id > 0 && profilePic > 0)
         imgSrc = 'https://www.betradating.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';

@@ -50,10 +50,11 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   }
 
   initModal(matchUser: any, user: any, matchObj: any) {
-    this.user = user;
+   this.user = user;
     this.matchUser = matchUser;
     this.showSnoopFlg = false;
-
+    //console.log('xxxinitModal', this.matchUser);
+ 
     if (this.profileTopComponent) {
       this.profileTopComponent.ngOnInit();
     }

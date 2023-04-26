@@ -14,6 +14,17 @@
     box-shadow: 1px 0px 1px #ccc;
 }
 
+.image {
+    box-shadow: 2px 2px 3px black;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.image:hover {
+    box-shadow: 3px 3px 5px black;
+    border: 1px solid white;
+}
+
 .top-link {
     cursor: pointer;
     color: gray;

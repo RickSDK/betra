@@ -2,7 +2,7 @@ function getHostname() {
 	return 'https://www.betradating.com/betraPhp/';
 }
 function getVersion() {
-	return '2.37';
+	return '2.38';
 }
 function getPlatform() {
 	var platform = 0; // edit this line, 0 = web, 1 = android, 2 = ios
@@ -84,7 +84,7 @@ function betraImageFromId(user_id, profilePic) {
 	if (user_id > 0 && profilePic > 0)
 		return 'https://www.betradating.com/betraPhp/profileImages/profile' + user_id.toString() + '_' + profilePic.toString() + '.jpg';
 	else
-		return 'assets/images/theRock.png';
+		return 'assets/images/profile/man.jpg';
 }
 function getIPInfo2(userName, pwd) {
 	showAlertPopup('ip Request!!', 1);
