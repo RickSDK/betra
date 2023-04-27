@@ -223,11 +223,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.playerList.sort((a: any, b: any) => {
           return b.matchQualityIndex - a.matchQualityIndex;
         });
-        console.log('xxxthis.playerList (sorted)', this.playerList);
+        //console.log('xxxthis.playerList (sorted)', this.playerList);
 
-        this.playerList.forEach((element: any) => {
-          console.log(element.firstName, element.matchQualityIndex, element.lastLoginText, element.isGoodActivity, element.age, element.isGoodAge, element.distanceText, element.isGoodLocation);
-        });
+        //this.playerList.forEach((element: any) => {
+          //console.log(element.firstName, element.matchQualityIndex, element.lastLoginText, element.isGoodActivity, element.age, element.isGoodAge, element.distanceText, element.isGoodLocation);
+        //});
         this.currentProfileIndex = 0;
         if (this.playerList.length > 0)
           this.showCurrentProfile();

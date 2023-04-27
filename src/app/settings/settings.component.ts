@@ -63,6 +63,10 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     this.getDataFromServer(action, 'appApiCode.php', {type: deleteReason, message: deleteComment});
   }
 
+  testFunction() {
+    this.getDataFromServer('testAction', 'betraReviews.php', {});
+  }
+
   logout() {
     this.userId = 0;
     localStorage['user_id'] = '';

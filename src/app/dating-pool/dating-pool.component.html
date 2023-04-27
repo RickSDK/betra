@@ -13,7 +13,7 @@
             <i class="fa fa-phone alert-icon" *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
             <i class="fa fa-picture-o alert-icon" *ngIf="person.pictureAlert"></i>
 
-            <div class="name-plate">
+            <div class="name-plate main-color-bg">
                 <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">
                     <i *ngIf="person.heartFlg2" class="fa fa-heart"></i>
                     {{person.name}} <sup *ngIf="showIntimacyValuesFlg" class="intimacyValue">{{person.level}}</sup>

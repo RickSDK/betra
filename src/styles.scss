@@ -26,13 +26,23 @@ $button-highlight: #ff4444;
 }
 
 body {
-    background-color: #eee !important;
+    background-color: #ccc !important;
     padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .main-color {
     color: $main-color;
+}
+
+.matches-card {
+    background-color: #fff;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 5px;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+    margin-bottom: 15px;
 }
 
 .light-box {
@@ -301,16 +311,6 @@ body {
     font-weight: 700;
     border-top: 1px solid #aaa;
     border-left: 1px solid #aaa;
-}
-
-.matches-card {
-    background-color: #fff;
-    box-shadow: 1px 1px 10px gray;
-    border-radius: 5px;
-    width: 100%;
-    overflow: hidden;
-    padding: 10px;
-    margin-bottom: 15px;
 }
 
 .large-img {

@@ -27,8 +27,8 @@
                 <th>Created</th>
                 <th *ngIf="userId==1">Email</th>
             </tr>
-            <tr *ngFor="let user of users">
-                <td>{{user.firstName}}</td>
+            <tr *ngFor="let user of users" [ngStyle]="ngStyleUser(user.userStatus)">
+                <td [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}" style="text-decoration: underline; cursor: pointer;">{{user.firstName}}</td>
                 <td *ngIf="showContactInfo && userId==1">{{user.email}}</td>
                 <td *ngIf="showContactInfo && userId==1">{{user.phone}}</td>
                 <td>{{user.gender}}</td>

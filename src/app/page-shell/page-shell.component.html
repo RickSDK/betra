@@ -2,11 +2,11 @@
     <table width="100%" border="0" style="margin-top: 5px;">
         <tr>
             <td *ngIf="userId>0" class="hide-md-up">
-                <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu"></i>
+                <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu main-color"></i>
             </td>
             <td *ngIf="pageTitle != 'Home'">
-                <i *ngIf="platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button"></i>&nbsp;
-                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-md" height="50"
+                <i *ngIf="1 || platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button main-color"></i>&nbsp;
+                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-sm" height="50"
                     style="cursor: pointer;">
 
             </td>

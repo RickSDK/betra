@@ -3,6 +3,8 @@
 
     <div class="matches-card" style="text-align: left;">
         <div>Version: <span class="text-highlight">{{appVersion}}</span></div>
+        <div>https://betra-workspace.slack.com</div>
+
         <div class="tan-box">
             <div><b>Create Angular Project</b>
                 <i (mousedown)="changeMenuNum(1)" class="fa fa-plus plus-sign"></i>
@@ -30,8 +32,9 @@
             </div>
             <div *ngIf="menuNum==2">
                 <li>git clone https://github.com/RickSDK/betra.git</li>
-                <li>npm install --save angularx-social-login --force </li>
-                <li>npm install</li>
+                <!--<li>npm install --save angularx-social-login --force </li>-->
+                <li>npm install --legacy-peer-deps</li>
+                <li>export NODE_OPTIONS=--openssl-legacy-provider</li>
                 <li>ng serve -o</li>
             </div>
         </div>

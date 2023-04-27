@@ -32,11 +32,15 @@ export class ProfileTopComponent implements OnInit {
   public showTextWarning = false;
   public showProfileBasicsFlg: boolean = false;
   public profileBasicsClassFlg: boolean = false;
+  public showPopupQuote: boolean = true;
+  public displayPopupQuote: boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
     this.pictureIndex = 1;
+    this.showPopupQuote = true;
+    this.displayPopupQuote = true;
     this.showOptionsFlg = false;
     this.showTextWarning = false;
     if (this.user) {
@@ -78,7 +82,16 @@ export class ProfileTopComponent implements OnInit {
   cancelMatches() {
     this.messageEvent.emit('cancel');
   }
+  toggleQuote() {
+    this.showPopupQuote=!this.showPopupQuote;
+    if(!this.showPopupQuote) {
+      setTimeout(() => {
+        this.displayPopupQuote = false;
+      }, 1000);
+    }
+  }
   showMoreClicked() {
+    this.displayPopupQuote = true;
     this.hideProfileBasics();
     this.showOptionsFlg = false;
     this.messageEvent.emit('show-more');

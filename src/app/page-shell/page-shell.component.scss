@@ -3,7 +3,7 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-color: #f8f8f8;
+    background-color: #222;
     padding: 0px 10px;
     color: black;
     vertical-align: middle;
@@ -44,29 +44,19 @@
 }
 
 .hamburger-menu:hover {
-    color: #900;
+    color: #fff;
 }
 
 .back-button {
-    font-size: 32px;
-    color: black;
+    font-size: 28px;
     cursor: pointer;
 }
 
 .back-button:hover {
-    color: #900;
-}
-
-.product-logo {
-    line-height: 36px;
-    font-size: 36px;
-    font-weight: 800;
-    cursor: pointer;
+    color: #ccc;
 }
 
 .icon-button {
-    background-color: #ddd;
-    border-radius: 50%;
     padding: 8px;
     font-size: 28px;
     font-weight: 800;
@@ -75,22 +65,12 @@
 }
 
 .icon-button:hover {
-    color: #444;
-}
-
-.login-button {
-    background-color: white;
-    border: 1px solid #b7121f;
-    color: black;
-}
-
-.login-button:hover {
-    background-color: #ccc;
+    color: #fff;
 }
 
 .profilePic {
     width: 44px;
-    max-height: 44px;
+    height: 44px;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
@@ -137,7 +117,8 @@
 }
 
 .top-button:hover {
-    background-color: #eee;
+    background-color: #444;
+    color: #ccc;
 }
 
 .top-button:hover .top-button-label {

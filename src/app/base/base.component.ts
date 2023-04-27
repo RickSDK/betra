@@ -364,14 +364,17 @@ export class BaseComponent implements OnInit {
           try {
             this.responseJson = JSON.parse(data);
           } catch (e) {
-            console.log('error!', e);
+            console.log('error parsing json!', e);
+            console.log('data', data);
+            this.errorMessage = 'unable to parse json: ' + data;
+            return;
           }
 
           //console.log('responseJson', this.responseJson);
           if (this.responseJson && this.responseJson.status == 'Success') {
             this.postSuccessApi(file, this.responseJson);
           } else {
-            console.log('Error!!', this.responseJson);
+            console.log('Error no success!!', this.responseJson);
             var error = (this.responseJson && this.responseJson.error) ? this.responseJson.error : 'No Success status received from ' + file;
             this.postErrorApi(file, error, data);
           }
@@ -452,9 +455,9 @@ export class BaseComponent implements OnInit {
   }
 
   browserGeolocationFail(error: any) {
-    console.log('error!', error);
+    console.log('browserGeolocationFail', error);
     var e = document.getElementById('geoError');
-    if (e) {
+    if (e && error) {
       e.innerHTML = error.message;
     }
 

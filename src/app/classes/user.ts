@@ -721,7 +721,7 @@ export class User {
             politicsFlg = false;
 
         var matchFlg = true;
-        if (this.status != 'Active') {
+        if (this.status != 'Active' && this.status != 'Deleted') {
             this.story = '';
             matchFlg = false;
         }

@@ -1,41 +1,50 @@
-<div class="match-user-card" *ngIf="matchUser && user">
+<div class="match-user-card2" *ngIf="matchUser && user">
 
-    <div *ngIf="matchUser.status=='Deleted'">Sorry, this profile is no longer available.</div>
-    <app-profile-top *ngIf="matchUser.status!='Deleted'" [user]="matchUser" [myUser]="user" (messageEvent)="actionButtonClicked($event)"
-        [expandBottomFlg]="expandBottomFlg" [snapshotFlg]="snapshotFlg">
-    </app-profile-top>
-
-    <div>
+    <div class="match-user-card">
+        <div *ngIf="matchUser.status=='Deleted'">Sorry, this profile is no longer available.</div>
+        <app-profile-top *ngIf="user.user_id==1 || matchUser.status!='Deleted'" [user]="matchUser" [myUser]="user"
+            (messageEvent)="actionButtonClicked($event)" [expandBottomFlg]="expandBottomFlg"
+            [snapshotFlg]="snapshotFlg">
+        </app-profile-top>
+    </div>
+    
+    <div style="margin-top: 20px;">
         <div [ngClass]="expandBottomFlg?'bottom-expanded':'bottom-collpased'">
             <div *ngIf="showMoreFlg">
-                <div style="display: inline-block; width: 100%; max-width: 540px;">
+                <div style="display: inline-block; width: 100%; max-width: 540px; padding: 10px;" class="match-user-card">
+                    <div><b>More about {{matchUser.firstName}}</b> &nbsp;<span *ngIf="matchUser.user_id == user.user_id" class="text-link" [routerLink]="['/profile']" [queryParams]="{num: 7}">edit section</span></div>
+                    <div class="small-box" style="font-size: 12px; text-align: left;">
+                        <div class="small-title main-color"><i class="fa fa-eye"></i>&nbsp;Hoping to find</div>
+                        <div [innerHtml]="matchUser.story" style="font-size: 14px; font-weight: 700;"></div>
+                    </div>
 
-                    <table>
-                        <tr>
-                            <td width="100%" style="text-align: center;">
-                                <div class="motto-text" title="Motto"><i class="fa fa-bullhorn"></i>&nbsp;
-                                    <b>{{matchUser.motto}}</b>
-                                </div>
-                                <div class="motto-text" title="Looking for"><i class="fa fa-eye"></i>&nbsp;
-                                    <b>{{matchUser.story}}</b>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div *ngIf="matchUser.aboutme" class="small-box" style="font-size: 12px; text-align: left;">
+                    <div *ngIf="matchUser.aboutme" class="small-box"
+                        style="font-size: 12px; text-align: left; color: #555;">
                         <div class="small-title main-color">About Me</div>
                         <div [innerHtml]="matchUser.aboutme"></div>
                     </div>
-                    <div *ngIf="matchUser.history" class="small-box" style="font-size: 12px; text-align: left;">
+                    <div *ngIf="matchUser.history" class="small-box"
+                        style="font-size: 12px; text-align: left; color: #555;">
                         <div class="small-title main-color">Dating History</div>
                         <div [innerHtml]="matchUser.history"></div>
                     </div>
-                    <div *ngIf="matchUser.lookingFor" class="small-box" style="font-size: 12px; text-align: left;">
+                    <div *ngIf="matchUser.lookingFor" class="small-box"
+                        style="font-size: 12px; text-align: left; color: #555;">
                         <div class="small-title main-color">Looking For</div>
                         <div [innerHtml]="matchUser.lookingFor"></div>
                     </div>
+                </div>
 
+                <div *ngIf="questions.length>0" class="match-user-card" style="margin-top: 20px; padding: 20px;">
+                    <div class="red-text"><b>{{matchUser.firstName}}'s answers to Betra Polls</b></div>
+                    <div *ngFor="let question of questions" style="text-align: left;">
+                        <li><b>{{question.question}}</b></li>
+                        <div class="gray-text">{{question.answer}}</div>
+                    </div>
+                </div>
+
+                <div class="match-user-card" style="margin-top: 20px;">
+                    <div><b>Additional info about {{matchUser.firstName}}</b></div>
                     <table width="100%">
                         <tr>
                             <td>
@@ -64,8 +73,7 @@
                                         [img]="'assets/images/profile/bodyType.png'">
                                     </app-green-check>
                                     <!--[icon]="matchUser.genderIcon" -->
-                                    <app-green-check [label]="'Race'" [text1]="matchUser.race"
-                                        [showCheckFlg]="false"
+                                    <app-green-check [label]="'Race'" [text1]="matchUser.race" [showCheckFlg]="false"
                                         [icon]="'fa fa-user'">
                                     </app-green-check>
                                     <table width="100%">
@@ -93,7 +101,8 @@
                                 <tr>
                                     <td width="50%">
                                         <app-percent-text [label]="'Personality Mt'" [amount]="personalityMatch"
-                                            [loadingFlg]="loadingFlg" [img]="'assets/images/profile/personalityMatch.png'">
+                                            [loadingFlg]="loadingFlg"
+                                            [img]="'assets/images/profile/personalityMatch.png'">
                                         </app-percent-text>
                                         <app-percent-text [img]="'assets/images/profile/politicsMatch.png'"
                                             [label]="'Politics Match'" [amount]="polyMatch" [loadingFlg]="loadingFlg">
@@ -120,7 +129,8 @@
                                     <div><i class="fa fa-user"></i> Profiles:
                                         Yes<sup>{{matchUser.statsObj.interestYes}}</sup>
                                         No<sup>{{matchUser.statsObj.interestNo}}</sup>&nbsp;
-                                        <button (mousedown)="snoopPressed()" class="btn btn-main-color btn-small"><i class="fa fa-search"></i> Snoop</button>
+                                        <button (mousedown)="snoopPressed()" class="btn btn-main-color btn-small"><i
+                                                class="fa fa-search"></i> Snoop</button>
                                     </div>
                                     <div><i class="fa fa-comments"></i> Matches
                                         <sup>{{matchUser.statsObj.matchLevel2}}</sup>
@@ -147,12 +157,14 @@
                             <tr>
                                 <td valign="top">
                                     <div><i style="font-size: 32px; color: green;" class="fa fa-thumbs-up"></i></div>
-                                    <app-profile-pic *ngFor="let person of responseJson.usersLiked" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+                                    <app-profile-pic *ngFor="let person of responseJson.usersLiked"
+                                        [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
                                     </app-profile-pic>
-                                 </td>
+                                </td>
                                 <td valign="top">
                                     <div><i style="font-size: 32px; color: orange;" class="fa fa-thumbs-down"></i></div>
-                                    <app-profile-pic *ngFor="let person of responseJson.usersDisliked" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+                                    <app-profile-pic *ngFor="let person of responseJson.usersDisliked"
+                                        [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
                                     </app-profile-pic>
                                 </td>
                             </tr>
@@ -160,8 +172,12 @@
                     </div>
                 </div>
 
-                <app-match-dating-pool *ngIf="matchUser.matchObj && matchUser.matchObj.match_level > 1"
-                    [firstName]="matchUser.firstName" [datingPool]="matchUser.datingPool"></app-match-dating-pool>
+                <div *ngIf="matchUser.matchObj && matchUser.matchObj.match_level > 1" class="match-user-card" style="margin-top: 20px;">
+                    <app-match-dating-pool 
+                        [firstName]="matchUser.firstName" [datingPool]="matchUser.datingPool"></app-match-dating-pool>
+                </div>
+
+
 
                 <div *ngIf="matchUser.matchObj && !snapshotFlg">
 

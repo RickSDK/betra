@@ -36,6 +36,7 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   public showBottumButtonsFlg: boolean = false;
   public showSnoopFlg: boolean = false;
   public distance: string = '';
+  public questions: any = [];
 
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
@@ -50,17 +51,17 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   }
 
   initModal(matchUser: any, user: any, matchObj: any) {
-   this.user = user;
+    this.user = user;
     this.matchUser = matchUser;
     this.showSnoopFlg = false;
     //console.log('xxxinitModal', this.matchUser);
- 
+
     if (this.profileTopComponent) {
       this.profileTopComponent.ngOnInit();
     }
 
     this.calculateMatches(user, matchUser, matchObj);
-  
+
   }
 
   buttonPressed(action: string) {
@@ -93,17 +94,17 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     //---------------------
 
     var agePoints = Math.abs(user.matchAge - matchUser.age) <= 4 ? 1 : 0;
-    var religionPoints = (user.matchReligion == matchUser.religion|| user.matchReligion == 'No preference') ? 1 : 0;
-    var educationPoints = (user.matchEducation == matchUser.educationLevel|| user.matchEducation == 'No preference') ? 1 : 0;
+    var religionPoints = (user.matchReligion == matchUser.religion || user.matchReligion == 'No preference') ? 1 : 0;
+    var educationPoints = (user.matchEducation == matchUser.educationLevel || user.matchEducation == 'No preference') ? 1 : 0;
     var kidsPoints = (user.wantsKids == matchUser.wantsKids) ? 1 : 0;
     var hasKids = 1;
     if (user.wantsKids == 'No' && matchUser.numKids > 0)
       hasKids = 0;
     if (user.wantsKids == 'Yes' && matchUser.numKids == 0)
       hasKids = 0;
-    var marriagePoints = (user.matchMarriage == matchUser.marriageView|| user.matchMarriage == 'No preference') ? 1 : 0;
-    var relationshipPoints = (user.matchRelationship == matchUser.desiredRelationship|| user.matchRelationship == 'No preference') ? 1 : 0;
-    var heightPoints = (user.matchHeight == matchUser.bodyHeight|| user.matchHeight == 'No preference') ? 1 : 0;
+    var marriagePoints = (user.matchMarriage == matchUser.marriageView || user.matchMarriage == 'No preference') ? 1 : 0;
+    var relationshipPoints = (user.matchRelationship == matchUser.desiredRelationship || user.matchRelationship == 'No preference') ? 1 : 0;
+    var heightPoints = (user.matchHeight == matchUser.bodyHeight || user.matchHeight == 'No preference') ? 1 : 0;
     var bodyPoints = (user.matchBody == matchUser.bodyType || user.matchBody == 'No preference') ? 1 : 0;
     var totalPoints = (agePoints + religionPoints + educationPoints + kidsPoints + hasKids + marriagePoints + relationshipPoints + heightPoints + bodyPoints);
 
@@ -141,6 +142,9 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     this.polyMatch = 0;
     this.personalityMatch = 0;
     this.totalMatch = 0;
+    this.getDataFromServer('getPollDataForUser', 'polls.php', { uid: this.matchUser.user_id });
+    //this.getDataFromServer('updateProfileDataForUser', 'polls.php', { uid: this.matchUser.user_id });
+
     setTimeout(() => {
       this.showMoreFlg = true;
     }, 400);
@@ -154,14 +158,21 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
       this.showMoreFlg = false;
     }, 400);
   }
+  override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
+    if (responseJson.action == 'getPollDataForUser') {
+      this.questions = responseJson.questions;
+
+    }
+  }
   snoopPressed() {
     this.showSnoopFlg = !this.showSnoopFlg;
-    if(this.showSnoopFlg)
-      this.getDataFromServer('getSnoopData', 'appApiCode.php', {uid: this.matchUser.user_id});
+    if (this.showSnoopFlg)
+      this.getDataFromServer('getSnoopData', 'appApiCode.php', { uid: this.matchUser.user_id });
   }
   actionButtonClicked(action: string) {
     if (action == "show-more" && this.matchUser) {
-      this.getDataFromServer('showMore', 'appApiCode2.php', {uid: this.matchUser.user_id});
+      this.getDataFromServer('showMore', 'appApiCode2.php', { uid: this.matchUser.user_id });
       if (this.showMoreFlg)
         this.collpaseBottom();
       else
@@ -169,7 +180,7 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
       return;
     }
     if (action == "show-basics") {
-      this.getDataFromServer('showBasics', 'appApiCode2.php', {uid: this.matchUser.user_id});
+      this.getDataFromServer('showBasics', 'appApiCode2.php', { uid: this.matchUser.user_id });
       return;
     }
     if (action == 'yesToMatch' && this.matchUser.matchObj.match_interested == 'Y') {
