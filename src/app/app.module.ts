@@ -107,7 +107,7 @@ import { SafetyFeaturesComponent } from './safety-features/safety-features.compo
 import { RecentUsersComponent } from './recent-users/recent-users.component';
 import { ReferralsComponent } from './referrals/referrals.component';
 import { IosInstallComponent } from './ios-install/ios-install.component';
-//import { AdMobComponent } from './ad-mob/ad-mob.component';
+import { AdMobComponent } from './ad-mob/ad-mob.component';
 import { MediaComponent } from './media/media.component';
 import { AdviceComponent } from './advice/advice.component';
 import { Advice1Component } from './advice1/advice1.component';

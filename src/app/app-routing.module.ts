@@ -66,11 +66,13 @@ import { PollEditComponent } from './poll-edit/poll-edit.component';
 import { CoinsComponent } from './coins/coins.component';
 import { FraudPreventionComponent } from './fraud-prevention/fraud-prevention.component';
 import { LatestUsersComponent } from './latest-users/latest-users.component';
+import { AdMobComponent } from './ad-mob/ad-mob.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'fraud', component: FraudPreventionComponent },
+  { path: 'admob', component: AdMobComponent },
   { path: 'latest-users', component: LatestUsersComponent },
   { path: 'poll', component: PollComponent },
   { path: 'coins', component: CoinsComponent },

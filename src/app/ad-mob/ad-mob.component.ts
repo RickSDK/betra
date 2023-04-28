@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
 
 @Component({
   selector: 'app-ad-mob',
@@ -10,17 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class AdMobComponent implements OnInit {
 
   constructor() { }
-  /*
+  
     async initialize() {
       const { status } = await AdMob.trackingAuthorizationStatus();
       console.log('admob status', status);
       if(status == 'authorized') {
-        console.log('admob init');
+        console.log('+++admob init');
         AdMob.initialize({
           requestTrackingAuthorization: true,
           initializeForTesting: true,
         });
-        //this.showBanner();
+        this.showBanner();
       }
     }
   
@@ -40,6 +40,9 @@ export class AdMobComponent implements OnInit {
     }
   
     ngOnInit(): void {
+
+      console.log('admob ngOnInit');
+      this.initialize();
       
       AdMob.addListener(BannerAdPluginEvents.Loaded, () => {
         // Subscribe Banner Event Listener
@@ -51,7 +54,4 @@ export class AdMobComponent implements OnInit {
   
   
     }
-  */
-  ngOnInit(): void {
-  }
 }
