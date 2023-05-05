@@ -1,0 +1,350 @@
+<app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
+    [userStatus]="userStatus">
+
+    <div class="matches-card" *ngIf="user" style="padding: 0;">
+
+        <app-top-header2 [topTitle]="'Photography Club'"></app-top-header2>
+        <div style="padding: 10px;">
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            <div *ngIf="result" class="important-notice">{{result}}</div>
+
+            <div *ngIf="activity==0">
+                <div class="red-text">Welcome to the Betra Photography Club!</div>
+                <img src="assets/images/pics/photography1.jpeg" width="100" align="right">
+                <p class="gray-text" style="text-align: left;">Want to trade pictures with other Betra members for fun?
+                    There's no cost to join and no cost to trade pictures. The more pictures you exchange
+                    the more coins you collect and coins can be redeemed for real cash!</p>
+                <p class="gray-text" style="text-align: left;">How it works: Sign up below to start trading pictures.
+                </p>
+                <p class="gray-text" style="text-align: left;">You decide what pictures you want to
+                    specialize in
+                    and how many coins it will cost someone to receive one of your pictures.
+                    If someone is interested, they will send you a request. You simply send them a picture to get your
+                    coins.
+                    Its easy and fun. You can then exchange your coins for real cash at the
+                    <span [routerLink]="['/market']" class="text-link">marketplace</span>.
+                </p>
+                <img src="assets/images/pics/photography2.jpg" width="100" align="left" style="margin: 3px;">
+                <p class="gray-text" style="text-align: left;">
+                    Feel free to exchange as many pictures as you like, until you run out of coins, which you get for
+                    free every day just for logging in.
+                    You can purchase
+                    addtional coins at the <span [routerLink]="['/market']" class="text-link">marketplace</span>.
+                </p>
+                <p class="gray-text" style="text-align: left;">Keep in mind these are private pictures and only the
+                    person
+                    taking the picture and receiving the picture will be able to see it.
+                </p>
+                <hr>
+                <div *ngIf="sellerFlg=='Y'">
+                    <div *ngIf="editSellerFlg" class="tan-box">
+                        <table border="1" *ngIf="myPicTypes.length>0">
+                            <tr>
+                                <th>Type</th>
+                                <th>Cost</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tr *ngFor="let myPicType of myPicTypes">
+                                <td>{{myPicType.type}}</td>
+                                <td align="center">{{myPicType.cost}}</td>
+                                <td><button class="btn btn-danger" (mousedown)="deletePicType(myPicType)"><i
+                                            class="fa fa-trash"></i></button></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="small-label">Type</div>
+                                    <select id="picType" (change)="picTypeChanged()">
+                                        <option *ngFor="let picType of picTypes">{{picType}}</option>
+                                    </select>
+                                    <input type="text" id="picTypeOther" *ngIf="picTypeOtherFlg" maxlength="20"
+                                        style="width: 100px;">
+                                </td>
+                                <td>
+                                    <div class="small-label">Cost (coins)</div>
+                                    <select id="picCost" (change)="selectCoinsChanged()">
+                                        <option *ngFor="let picCost of picCosts">{{picCost}}</option>
+                                    </select>
+
+                                </td>
+                                <td valign="bottom">
+                                    <button (mousedown)="addPicTypeToList()" class="btn btn-primary">Add</button>
+                                </td>
+                            </tr>
+                        </table>
+                        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+                        <div>&nbsp;</div>
+                        <button [disabled]="loadingFlg" (mousedown)="becomeSeller()"
+                            class="btn btn-success btn-large">Update Types</button>
+                        <div>&nbsp;</div>
+                        <button [disabled]="loadingFlg" (mousedown)="editSellerFlg=false"
+                            class="btn btn-warning spacer">Cancel
+                        </button>
+                        <button [disabled]="loadingFlg" (mousedown)="exitClub()" class="btn btn-danger spacer">Quit
+                            Photography
+                            Club</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="buyerFlg=='Y'">
+                <table class="betra-table" style="font-size: 12px;">
+                    <tr>
+                        <td colspan="6" style="background-color: #444; color: white; text-align: center">My Orders</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="background-color: #fff; color: black; text-align: center">These are the
+                            pictures you have requested. Once delivered, they will show up here.</td>
+                    </tr>
+                    <tr *ngIf="myOrders.length>0">
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>Cost</th>
+                        <th>Status</th>
+                        <th>Instructions</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr *ngFor="let order of myOrders">
+                        <td>
+                            <app-profile-pic [user_id]="order.uid" [profilePic]="order.profilePic" [size]="30">
+                            </app-profile-pic>
+                        </td>
+                        <td>{{order.type}}</td>
+                        <td style="color: green;">{{order.cost}} coins</td>
+                        <td><span class="text-highlight">{{order.status}}</span></td>
+                        <td>{{order.instructions}}</td>
+                        <td>
+                            <a [href]="order.src" *ngIf="order.status=='Delivered'"><img [src]="order.src"
+                                    height="40"></a>
+                            <button *ngIf="order.status=='New' || order.status=='Accepted'" [disabled]="loadingFlg"
+                                (mousedown)="cancelPlacedOrder(order)"
+                                class="btn btn-main-color btn-small">Cancel</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="myOrders.length==0">
+                        <td colspan="6" align="center">
+                            <div class="red-text" style="font-size: 18px;">You are a buyer</div>
+                            <div>No orders placed yet. Click one of the blue "View" buttons below to place an order.
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div *ngIf="sellerFlg=='Y'">
+                <table class="betra-table" style="font-size: 12px;">
+                    <tr>
+                        <td colspan="6" style="background-color: #444; color: white; text-align: center">
+                            My Offers
+                            <button (mousedown)="editSellerProfile()" class="btn btn-main-color btn-small"
+                                style="float: right;">Edit Your
+                                Profile</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="background-color: #fff; color: black; text-align: center">These are the
+                            requests other people have made. In order for you to fullfill the deal, you will need to
+                            send them a picture.</td>
+                    </tr>
+                    <tr>
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>Cost</th>
+                        <th>Status</th>
+                        <th>Instructions</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr *ngFor="let order of myOffers">
+                        <td>
+                            <app-profile-pic [user_id]="order.user_id" [profilePic]="order.profilePic" [size]="30">
+                            </app-profile-pic>
+                        </td>
+                        <td>{{order.type}}</td>
+                        <td style="color: green;">{{order.cost}} coins</td>
+                        <td><span class="text-highlight">{{order.status}}</span></td>
+                        <td>{{order.instructions}}</td>
+                        <td>
+                            <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
+                                (mousedown)="acceptPlacedOrder(order)"
+                                class="btn btn-success btn-small spacer">Accept</button>
+                            <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
+                                (mousedown)="declinePlacedOrder(order)"
+                                class="btn btn-danger btn-small spacer">Decline</button>
+                            <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
+                                (mousedown)="deleteCancelledOrder(order)"
+                                class="btn btn-main-color btn-small">Delete</button>
+                            <button *ngIf="order.status=='Accepted'" [disabled]="loadingFlg"
+                                (mousedown)="deliverOrder(order)" class="btn btn-main-color btn-small">Deliver</button>
+                            <a [href]="order.src" *ngIf="order.status=='Delivered'"><img [src]="order.src"
+                                    height="40"></a>
+                        </td>
+                    </tr>
+                    <tr *ngIf="myOffers.length==0">
+                        <td colspan="6" align="center">No offers placed yet.</td>
+                    </tr>
+                </table>
+            </div>
+            <div *ngIf="selectedOrder">
+                <div>{{selectedOrder.type}}</div>
+                <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'"
+                    (messageEvent)="uploadPicButtonClicked(1, 'updateBlogImage', 'Image1')"></app-upload-image>
+
+                <div>
+                    <button [disabled]="loadingFlg || disableUploadButton" (mousedown)="uploadImage()"
+                        class="btn btn-main-color btn-large">Upload</button>
+                </div>
+
+            </div>
+            <div *ngIf="activity==0 && !sellerFlg&& !buyerFlg" class="tan-box">
+                <div class="red-text">Join the Betra Photography Club!</div>
+                <div class="gray-text">Click one or both buttons below to join. Both are free! Signing up as a
+                    photographer means you are able to send pictures. Signing up as a customers means you can ask and
+                    receive pictures.</div>
+                <button *ngIf="sellerFlg!='Y'" (mousedown)="changeActivity(3)" class="btn btn-main-color spacer">
+                    <div style="font-size: 24px; font-weight: 700;">Join Club!</div>
+                    <div style="font-size: 12px;">(as a photographer)</div>
+                </button>
+                <button *ngIf="buyerFlg!='Y'" (mousedown)="changeActivity(4)" class="btn btn-main-color spacer">
+                    <div style="font-size: 24px; font-weight: 700;">Join Club!</div>
+                    <div style="font-size: 12px;">(as a customer)</div>
+                </button>
+            </div>
+            <div *ngIf="activity==3">
+                <div class="gray-text">
+                    <p class="red-text" style="font-size: 22px;">I want to be a phtographer</p>
+                    <p style="text-align: left;">Simply sign up here and indicate which types of pictures you are
+                        willing to take, and the price
+                        for
+                        each one. Other users can then start sending you requests for pictures, which gives you coins. Coins can be redeemed for real cash!</p>
+                </div>
+                <div class="tan-box">
+                    <div>What types of pictures are you willing to send? </div>
+                    <div class="gray-text">Click the "Add Type" button.</div>
+                    <table border="1" *ngIf="myPicTypes.length>0">
+                        <tr>
+                            <th>Type</th>
+                            <th>Cost</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tr *ngFor="let myPicType of myPicTypes">
+                            <td>{{myPicType.type}}</td>
+                            <td align="center">{{myPicType.cost}}</td>
+                            <td><button class="btn btn-danger" (mousedown)="deletePicType(myPicType)"><i
+                                        class="fa fa-trash"></i></button></td>
+                        </tr>
+                    </table>
+
+                    <button *ngIf="!showNewTypeFlg" (mousedown)="addPicType()" class="btn btn-primary">Add type</button>
+                    <div *ngIf="showNewTypeFlg">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="small-label">Type</div>
+                                    <select id="picType" (change)="picTypeChanged()">
+                                        <option *ngFor="let picType of picTypes">{{picType}}</option>
+                                    </select>
+                                    <input type="text" id="picTypeOther" *ngIf="picTypeOtherFlg" maxlength="20"
+                                        style="width: 100px;">
+                                </td>
+                                <td>
+                                    <div class="small-label">Cost (coins)</div>
+                                    <select id="picCost" (change)="selectCoinsChanged()">
+                                        <option *ngFor="let picCost of picCosts">{{picCost}}</option>
+                                    </select>
+
+                                </td>
+                                <td valign="bottom">
+                                    <button (mousedown)="addPicTypeToList()" class="btn btn-primary">Add</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <button (mousedown)="changeActivity(0)" class="btn btn-warning spacer">Cancel</button>
+                <button [disabled]="loadingFlg" (mousedown)="becomeSeller()" class="btn btn-main-color spacer btn-large"
+                    [disabled]="totalCost<=0">Sign up!</button>
+            </div>
+            <div *ngIf="activity==4">
+                <div class="red-text" style="font-size: 22px;">I would love to get pictures!</div>
+                <div class="gray-text">Simply press the button below to enter the program. Then you will see which
+                    users are available to request pictures.</div>
+                <button (mousedown)="changeActivity(0)" class="btn btn-warning spacer">Cancel</button>
+                <button [disabled]="loadingFlg" (mousedown)="becomeBuyer()" class="btn btn-main-color spacer btn-large"
+                    [disabled]="totalCost<=0">Join Now!</button>
+            </div>
+        </div>
+
+        <div *ngIf="selectedPerson" class="tan-box">
+            <table>
+                <tr>
+                    <td>
+                        <app-profile-pic [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic"
+                            [size]="100">
+                        </app-profile-pic>
+                    </td>
+                    <td>
+                        <div class="gray-text"><b>{{selectedPerson.firstName}}</b> is offering to sell pictures. If you
+                            are interested in purchasing one, click on the button below.</div>
+                        <table class="betra-table" *ngIf="!selectedType">
+                            <tr>
+                                <th>Type</th>
+                                <th>Cost</th>
+                                <th>Buy</th>
+                            </tr>
+                            <tr *ngFor="let type of selectedPerson.types">
+                                <td>{{type.type}}</td>
+                                <td>{{type.cost}} coins</td>
+                                <td><button (mousedown)="buyPicture(type)"
+                                        class="btn btn-warning btn-small">Buy</button></td>
+                            </tr>
+                        </table>
+                        <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
+                        <div *ngIf="selectedType">
+                            <div>Type: <span class="text-highlight">{{selectedType.type}}</span></div>
+                            <div>Cost: <span class="text-highlight">{{selectedType.cost}} coins</span></div>
+                            <input type="text" maxlength="100" id="instructions" placeholder="Instructions">
+                            <button (mousedown)="placeOrder()" [disabled]="loadingFlg"
+                                class="btn btn-main-color btn-large" style="margin: 10px;">Place Order</button>
+                            <button (mousedown)="selectedType=null"
+                                class="btn btn-warning btn-small spacer">Cancel</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table *ngIf="activity==0 && (sellerFlg=='Y' || buyerFlg=='Y')" width="100%">
+            <tr>
+                <td *ngIf="buyerFlg=='Y'" align="center" valign="top">
+                    <div class="super-title"><b>Photographers</b></div>
+                    <div *ngFor="let seller of sellers" style="display: inline-block;">
+                        <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
+                        </app-profile-pic>
+                        <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
+                    </div>
+                </td>
+                <td *ngIf="sellerFlg=='Y'" align="center" valign="top">
+                    <div class="super-title"><b>Customers</b></div>
+                    <app-profile-pic *ngFor="let buyer of buyers" [user_id]="buyer.user_id"
+                        [profilePic]="buyer.profilePic" [size]="30">
+                    </app-profile-pic>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</app-page-shell>
+
+<div *ngIf="newOfferReceivedFlg">
+    <div class="gray-screen3"></div>
+    <div class="popup-outer">
+        <div class="popup-inner">
+            <p style="font-size: 18px;">You have a new picture request!</p>
+            <p style="font-size: 12px;">Check for your new requests under the "My Offers" section and click "Accept" or
+                "Decline" to complete
+                the transaction.</p>
+            <button (mousedown)="newOfferReceivedFlg=false" class="btn btn-warning btn-large">Ok</button>
+        </div>
+    </div>
+</div>

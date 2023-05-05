@@ -129,6 +129,18 @@ body {
     border-radius: 5px;
 }
 
+.betra-table {
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px black;
+
+    tr:nth-child(odd) {
+        background-color: #ffeeee;
+    }
+}
+
 .red-text {
     color: $main-color;
     font-weight: 700;
@@ -140,7 +152,7 @@ body {
 }
 
 .small-box {
-    background-color: #f7f7f7;
+    background-color: #e7e7e7;
     border-radius: 5px;
     padding: 3px;
     margin: 2px;

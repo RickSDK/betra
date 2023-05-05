@@ -19,4 +19,8 @@ export class ProfilePicComponent implements OnInit {
     this.src = betraImageFromId(this.user_id, this.profilePic);
   }
 
+  ngOnChanges(changes: any) {
+    this.ngOnInit();
+  }
+
 }

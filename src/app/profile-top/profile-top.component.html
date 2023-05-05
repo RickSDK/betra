@@ -69,6 +69,11 @@
                         </span>
 
                     </div>
+                    <div *ngIf="user.status == 'Deleted'" class="tan-box">
+                        <div><b>Status:</b> {{user.status}}</div>
+                        <div><b>Reason:</b> {{user.alias_name}}</div>
+                        <div><b>Details:</b> {{user.story}}</div>
+                    </div>
 
                     <div style="font-size: 12px;">{{user.location}}</div>
                     <div style="font-size: 8px; color: gray;">

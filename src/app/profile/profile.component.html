@@ -10,6 +10,8 @@
             <div class="inside-box2">
 
                 <div class="profile-main-menu main-color-bg">
+                    <button *ngIf="user && user.status == 'Active'" class="btn" style="float: right;" [routerLink]="['']"><i class="fa fa-times"></i></button>
+
                     <i [ngClass]="profileItemStatusClass(user.profileFlags[menuNum])"
                         [style.color]="user.profileFlags[menuNum]?'#7f7':'yellow'"></i>
                     {{menuTitles[menuNum]}}
@@ -475,11 +477,11 @@
                 <!--------------------------Bio------------------>
                 <div class="menu-section" *ngIf="menuNum==7" style="text-align: left; font-size: 12px;">
 
-                    <div>Tell us a little about yourself:</div>
+                    <div class="red-text">Tell us a little about yourself:</div>
                     <app-text-area-input [id]="'aboutme'" (messageEvent)="menuValueChanged()" [value]="user.aboutme"></app-text-area-input>
-                    <div>Tell us a little about your recent dating situation:</div>
+                    <div class="red-text">Tell us a little about your recent dating situation:</div>
                     <app-text-area-input [id]="'history'" (messageEvent)="menuValueChanged()" [value]="user.history"></app-text-area-input>
-                    <div>What are you hoping to find:</div>
+                    <div class="red-text">What are you hoping to find:</div>
                     <app-text-area-input [id]="'lookingFor'" (messageEvent)="menuValueChanged()" [value]="user.lookingFor"></app-text-area-input>
 
                 </div>

@@ -1,0 +1,290 @@
+<app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
+    [userStatus]="userStatus">
+
+    <div class="matches-card" *ngIf="user" style="padding: 0;">
+
+        <app-top-header2 [topTitle]="'Marketplace'"></app-top-header2>
+        <div style="padding: 10px;">
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            <div *ngIf="result" class="important-notice">{{result}}</div>
+            <div *ngIf="activity < 3" class="main-headline"><i class="fa fa-line-chart"></i> Buy and Sell Coins</div>
+            <div *ngIf="activity==0">
+                <table>
+                    <tr>
+                        <td valign="top" width="33%">
+                            <div class="tan-box" style="text-align: center;">
+                                <div class="gray-text">Last Sale Price</div>
+                                <div
+                                    style="font-size: 22px; border: 1px solid #ccc; display: inline-block; padding: 10px; border-radius: 5px;">
+                                    <b>{{lastSalePrice}}¢</b>
+                                </div>
+                                <div style="font-size: 8px;">(cents/coin)</div>
+                            </div>
+                        </td>
+                        <td valign="top" width="33%">
+                            <div class="tan-box" style="text-align: center;">
+                                <div class="gray-text">Your Coins</div>
+                                <div
+                                    style="font-size: 22px; border: 1px solid #ccc; display: inline-block; padding: 10px; border-radius: 5px;">
+                                    <b>{{myCoins}}</b>
+                                </div>
+                                <div style="font-size: 8px;">(current value: ${{myCurrentValueText}})</div>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div class="tan-box" style="text-align: center;">
+                                <div class="gray-text">Your wallet</div>
+                                <div
+                                    style="font-size: 22px; border: 1px solid #ccc; display: inline-block; padding: 10px; border-radius: 5px; color: green;">
+                                    <b>${{yourWalletAmountText}}</b>
+                                </div>
+                                <div>
+                                    <button (mousedown)="showDepositFormFlg=!showDepositFormFlg"
+                                        class="btn btn-primary btn-small">Deposit</button>
+                                    <button [disabled]="yourWalletAmount==0" (mousedown)="showWithdrawFormFlg=!showWithdrawFormFlg"
+                                        class="btn btn-success btn-small">Withdraw</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div *ngIf="showWithdrawFormFlg" class="tan-box">
+                    Withdraw feature coming tomorrow
+                </div>
+                <div *ngIf="showDepositFormFlg" class="tan-box">
+                    <div>How much money would you like to deposit in your account?</div>
+                    <select id="depositAmount">
+                        <option *ngFor="let amount of depositAmounts">{{amount}}</option>
+                    </select>
+
+                    <app-credit-card-form *ngIf="ccId==0"></app-credit-card-form>
+
+                    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+                    <div>&nbsp;</div>
+                    <div>
+                        <button [disabled]="loadingFlg" class="btn btn-main-color btn-large" (mousedown)="depositSubmitButtonPressed()">Deposit</button>
+                    </div>
+
+                </div>
+                <table width="100%">
+                    <tr>
+                        <td colspan="5">
+                            <div *ngIf="buyErrorMessage" style="background-color: yellow">{{buyErrorMessage}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            <div class="super-title">Current bids & offers</div>
+                            <table class="betra-table" width="100%">
+                                <tr>
+                                    <th>Person</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr *ngFor="let offer of offers">
+                                    <td>
+                                        <app-profile-pic [user_id]="offer.user_id" [profilePic]="offer.profilePic"
+                                            [size]="30">
+                                        </app-profile-pic>
+                                    </td>
+                                    <td style="font-size: 10px;">
+                                        <div *ngIf="offer.type=='Offer'">Selling Coins</div>
+                                        <div *ngIf="offer.type=='Bid'">Wants to buy</div>
+                                    </td>
+                                    <td>
+                                        {{offer.amount}} coins
+                                    </td>
+                                    <td>
+                                        <div>${{offer.totalCost}}</div>
+                                        <div style="font-size: 10px; color: gray;">({{offer.price}}¢/coin)</div>
+                                    </td>
+                                    <td>
+                                        <button [disabled]="loadingFlg" (mousedown)="cancelOrder(offer)"
+                                            *ngIf="offer.isMine" class="btn btn-main-color btn-small">Cancel</button>
+                                        <button [disabled]="loadingFlg" (mousedown)="acceptOrder(offer)"
+                                            *ngIf="!offer.isMine && offer.type=='Offer'"
+                                            class="btn btn-warning btn-small">Buy</button>
+                                            
+                                        <button [disabled]="loadingFlg" (mousedown)="acceptOrder(offer)"
+                                            *ngIf="!offer.isMine && offer.type=='Bid'"
+                                            class="btn btn-success btn-small">Sell</button>
+                                    </td>
+
+                                </tr>
+                            </table>
+                            <div *ngIf="offers.length==0 && bids.length==0">No bids or offers at this time</div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="gray-text">Want to buy or sell your coins? Click on any of the bids above if you find an offer you like. Or, alternatively create an offer of your own. It can get accepted by any user.</div>
+                <button (mousedown)="iWantToBuy()" class="btn btn-main-color spacer"><i class="fa fa-arrow-down"></i> Create Bid
+                    <div style="font-size: 10px;">(To Buy Coins)</div></button>
+                <button (mousedown)="changeActivity(2)" class="btn btn-main-color spacer"><i class="fa fa-arrow-up"></i> Create Offer
+                    <div style="font-size: 10px;">(To Sell Coins)</div></button>
+            </div>
+            <div class="light-box" *ngIf="activity==1">
+                <div style="font-size: 16px; color: green;"><b>I would like to buy coins</b></div>
+
+                <table>
+                    <tr>
+                        <td>
+                            Amount of coins:
+                        </td>
+                        <td>
+                            <select id="amountCoins" (change)="selectCoinsChanged()">
+                                <option *ngFor="let i of numbers">{{i}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Cost (cents) per coin:
+                        </td>
+                        <td>
+                            <button [disabled]="currentPrice<=1" (mousedown)="changeCost(-1)"
+                                class="btn btn-primary spacer"><i class="fa fa-minus"></i></button>
+                            <input type="text" [value]="currentPrice" [disabled]="true"
+                                style="width: 50px; padding: 5px; text-align: center">
+                            <button (mousedown)="changeCost(1)" class="btn btn-primary spacer"><i
+                                    class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total Cost:
+                        </td>
+                        <td>
+                            <span class="text-highlight"
+                                style="font-size: 24px; color: green;">${{totalCostDisplay}}</span>
+                        </td>
+                    </tr>
+                </table>
+                <div *ngIf="yourWalletAmount < totalCost" style="background-color: yellow;">Note: You do not have enough money in your wallet. Deposit more funds.</div>
+                <button (mousedown)="changeActivity(0)" class="btn btn-warning spacer">Cancel</button>
+                <button (mousedown)="placeBid()" class="btn btn-main-color spacer btn-large"
+                    [disabled]="loadingFlg || totalCost<=0 || yourWalletAmount < totalCost">Place my bid</button>
+
+            </div>
+
+            <div class="light-box" *ngIf="activity==2">
+                <div style="font-size: 16px; color: green;"><b>I would like to sell my coins</b></div>
+                <div *ngIf="myCoins<10" style="background-color: yellow;">Sorry, coins are sold in batches of 10 and you do not yet have enough coins.</div>
+                <table *ngIf="myCoins>=10">
+                    <tr>
+                        <td>
+                            Amount of coins:
+                        </td>
+                        <td>
+                            <select id="amountCoins" (change)="selectCoinsChanged()">
+                                <option *ngFor="let i of sellableCoins">{{i}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Cost (cents) per coin:
+                        </td>
+                        <td>
+                            <button [disabled]="currentPrice<=1" (mousedown)="changeCost(-1)"
+                                class="btn btn-primary spacer"><i class="fa fa-minus"></i></button>
+                            <input type="text" [value]="currentPrice" [disabled]="true"
+                                style="width: 50px; padding: 5px; text-align: center">
+                            <button (mousedown)="changeCost(1)" class="btn btn-primary spacer"><i
+                                    class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total Value:
+                        </td>
+                        <td>
+                            <span class="text-highlight"
+                                style="font-size: 24px; color: green;">${{totalCostDisplay}}</span>
+                        </td>
+                    </tr>
+                </table>
+                <button (mousedown)="changeActivity(0)" class="btn btn-warning spacer">Cancel</button>
+                <button *ngIf="myCoins>=10" (mousedown)="placeOffer()" [disabled]="loadingFlg" class="btn btn-main-color spacer btn-large"
+                    [disabled]="totalCost<=0">Place my offer</button>
+                <div class="gray-text">Note: placing an offer will put your coins up for sale. They will have to be
+                    accepted by another user for you to get paid. You can cancel your offer at any time, if it hasn't
+                    yet been accepted by anyone.</div>
+
+            </div>
+
+
+        <table align="center">
+            <tr>
+                <td colspan="5">
+                    <div *ngIf="buyErrorMessage" style="background-color: yellow">{{buyErrorMessage}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="top">
+                    <div class="super-title">Completed bids & offers</div>
+                    <table class="betra-table" width="100%">
+                        <tr>
+                            <th>Person</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Price</th>
+                            <th>Accepted By</th>
+                        </tr>
+                        <tr *ngFor="let offer of completedRecords">
+                            <td align="center">
+                                <app-profile-pic [user_id]="offer.user_id" [profilePic]="offer.profilePic"
+                                    [size]="30">
+                                </app-profile-pic>
+                            </td>
+                            <td style="font-size: 10px;" align="center">
+                                <div *ngIf="offer.type=='Offer'">Selling Coins</div>
+                                <div *ngIf="offer.type=='Bid'">Wants to buy</div>
+                            </td>
+                            <td align="center">
+                                {{offer.amount}} coins
+                            </td>
+                            <td align="center">
+                                <div style="font-size: 10px; color: gray;">({{offer.price}}¢/coin)</div>
+                            </td>
+                            <td align="center">
+                                <app-profile-pic [user_id]="offer.accepted_by" [profilePic]="offer.profilePic2"
+                                    [size]="30">
+                                </app-profile-pic>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <div *ngIf="offers.length==0 && bids.length==0">No bids or offers at this time</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+        <hr>
+        <table class="betra-table">
+            <tr>
+                <td colspan="2" style="background-color: #444; color: pink; padding: 5px;">Richest Betra Users</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <th align="center">Coins</th>
+            </tr>
+            <tr *ngFor="let user of coinLeaders">
+                <td>
+                    <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic"
+                    [size]="30">
+                </app-profile-pic>
+                </td>
+                <td align="center">
+                    {{user.points}}
+                </td>
+            </tr>
+        </table>
+ 
+
+    </div>
+</app-page-shell>

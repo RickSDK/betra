@@ -1,0 +1,33 @@
+<div class="small-text">Card information
+    <span style="float: right; font-size: 16px;">
+        <i class="fa fa-cc-visa"></i>&nbsp;
+        <i class="fa fa-cc-mastercard"></i>&nbsp;
+        <i class="fa fa-cc-amex"></i>&nbsp;
+        <i class="fa fa-cc-jcb"></i>
+    </span>
+</div>
+<input id="ccNumber" type="text" placeholder="1234 1234 1234 1234" (input)="ccValueChanged($event)" maxLength="19">
+<table>
+    <tr>
+        <td>
+            <input id="expNumber" type="text" placeholder="MM / YY" (input)="expValueChanged($event)" maxLength="7">
+        </td>
+        <td>
+            <input id="cvcNumber" type="text" placeholder="CVC" (input)="cvcValueChanged($event)" maxLength="4">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="small-text">Name on card</div>
+            <input id="customerName" type="text" placeholder="John Doe" maxLength="100">
+        </td>
+        <td>
+            <div class="small-text">Zip code</div>
+            <input type="text" id="zipcode" placeholder="12345" (input)="zipcodeValueChanged($event)" maxLength="5">
+        </td>
+    </tr>
+</table>
+<div>&nbsp;</div>
+<app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+<!--<button class="btn btn-main-color btn-large" (mousedown)="submitButtonPressed()">Add Credit Card</button>-->
+

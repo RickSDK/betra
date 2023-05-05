@@ -10,9 +10,19 @@
         <div class="tan-box" style="font-size: 10px; text-align: left;">
             <div>The following table shows the latest 100 users to create an account.</div>
         </div>
+        <div>Color Legend:</div>
+        <table width="100%" style="font-size: 10px;" border="1">
+            <tr>
+                <td>&nbsp;</td>
+                <td style="background-color: #fff;">Not active</td>
+                <td style="background-color: #cfc;">Active</td>
+                <td style="background-color: red;">Deleted</td>
+            </tr>
+        </table>
 
         <table style="font-size: 10px;">
             <tr>
+                <th>Pic</th>
                 <th>Name</th>
                 <th *ngIf="showContactInfo && userId==1">Email</th>
                 <th *ngIf="showContactInfo && userId==1">Phone</th>
@@ -28,7 +38,14 @@
                 <th *ngIf="userId==1">Email</th>
             </tr>
             <tr *ngFor="let user of users" [ngStyle]="ngStyleUser(user.userStatus)">
-                <td [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}" style="text-decoration: underline; cursor: pointer;">{{user.firstName}}</td>
+                <td>
+                    <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic"
+                    [size]="30"></app-profile-pic>
+                </td>
+                <td>
+                    <div>{{user.firstName}}</div>
+                    <div style="font-size: 8px;">{{user.email}}</div>
+                </td>
                 <td *ngIf="showContactInfo && userId==1">{{user.email}}</td>
                 <td *ngIf="showContactInfo && userId==1">{{user.phone}}</td>
                 <td>{{user.gender}}</td>

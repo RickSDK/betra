@@ -53,7 +53,7 @@ export class BaseComponent implements OnInit {
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
-
+    
     window.scrollTo(0, 0);
     if (!localStorage['code']) {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
@@ -445,9 +445,15 @@ export class BaseComponent implements OnInit {
   }
 
   getLocation() {
-    //console.log('finding location', navigator.geolocation);
+    console.log('finding location', navigator.geolocation);
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+    
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.showPosition, this.browserGeolocationFail);
+      navigator.geolocation.getCurrentPosition(this.showPosition, this.browserGeolocationFail, options);
     } else {
       console.log('Geolocation is not supported by this browser.');
       this.errorMessage = "Geolocation is not supported by this browser.";
@@ -475,9 +481,10 @@ export class BaseComponent implements OnInit {
   }
 
   showPosition(position: any) {
-    console.log('here are the coordinates', position.coords.latitude, position.coords.longitude);
+    console.log('here are the coordinates', position.coords.latitude, position.coords.longitude, position.coords.accuracy);
     localStorage['latitude'] = position.coords.latitude;
     localStorage['longitude'] = position.coords.longitude;
+    localStorage['accuracy'] = position.coords.accuracy;
     //this.uploadCoordinates();
   }
 

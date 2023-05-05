@@ -167,7 +167,6 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     // var YOUR_REDIRECT_ID = `${window.location.origin}/#/?login=1`;
     var YOUR_REDIRECT_ID = 'https://www.betradating.com';
 
-    console.log('hey!!', YOUR_REDIRECT_ID);
     window.open(
       'https://appleid.apple.com/auth/authorize?' +
       `client_id=${YOUR_CLIENT_ID}&` +

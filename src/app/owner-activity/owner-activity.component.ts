@@ -22,6 +22,28 @@ export class OwnerActivityComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('getOwnerActivity', 'owners.php', []);
   }
 
+  emailReports() {
+    this.loadingFlg = true;
+    var count=0;
+    this.women.forEach((element: { user_id: any; firstName: any; }) => {
+      count++;
+      setTimeout(() => {
+        console.log('emailing ', element.user_id, element.firstName);
+        this.getDataFromServer('emailReport', 'report.php', { uid: element.user_id });
+        
+      }, count*1000);
+   });
+
+    this.men.forEach((element: { user_id: any; firstName: any; }) => {
+      count++;
+      setTimeout(() => {
+        console.log('emailing ', element.user_id, element.firstName);
+        this.getDataFromServer('emailReport', 'report.php', { uid: element.user_id });
+        
+      }, count*1000);
+    });
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     console.log('xxx', responseJson);
     if (responseJson.action == 'getOwnerActivity') {

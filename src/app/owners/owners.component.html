@@ -166,7 +166,7 @@
 
         <div *ngIf="goalReachedFlg">
             <div style="color: green;"><i class="fa fa-check"></i> Goal Reached!</div>
-            <button (mousedown)="acceptPromotion()" class="btn btn-main-color">Accept Promotion</button>
+            <button [disabled]="loadingFlg" (mousedown)="acceptPromotion()" class="btn btn-main-color">Accept Promotion</button>
         </div>
 
         <hr>

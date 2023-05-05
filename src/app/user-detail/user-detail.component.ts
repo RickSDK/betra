@@ -53,6 +53,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showBigPopupFlg: boolean = false;
   public showYesNoButtonsFlg: boolean = false;
   public noLocationInfoFoundFlg: boolean = false;
+  public showOverflowPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
@@ -72,9 +73,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.showBackButton = params['s'] && params['s'] == 'Y';
       this.advancedSearchFlg = (params['filter'] == 'true');
       this.showFilter = this.advancedSearchFlg;
-      //this.exceededPoolSizeFlg = this.user.datingPool.length > datingPoolLimit;
       this.searchStarted = !this.showFilter;
 
+      if (this.user.datingPool.length > 20) {
+        this.showOverflowPopup = true;
+      }
 
       if (this.uid > 0)
         this.loadThisUser();
@@ -191,6 +194,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     this.action = responseJson.action;
+    if (responseJson.profileViews && responseJson.profileViews > 0)
+      this.profileViews = responseJson.profileViews;
+
     if (responseJson.action == "yesToMatch" || responseJson.action == "noToMatch") {
       this.profileViews = responseJson.profileViews;
 
@@ -226,7 +232,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         //console.log('xxxthis.playerList (sorted)', this.playerList);
 
         //this.playerList.forEach((element: any) => {
-          //console.log(element.firstName, element.matchQualityIndex, element.lastLoginText, element.isGoodActivity, element.age, element.isGoodAge, element.distanceText, element.isGoodLocation);
+        //console.log(element.firstName, element.matchQualityIndex, element.lastLoginText, element.isGoodActivity, element.age, element.isGoodAge, element.distanceText, element.isGoodLocation);
         //});
         this.currentProfileIndex = 0;
         if (this.playerList.length > 0)
@@ -271,6 +277,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
 
     if (responseJson.action == 'getThisUser') {
+      this.profileViews = responseJson.profileViews;
+
       this.matchUser = new User(responseJson.user, this.user);
       this.messageCount = responseJson.messages;
       this.pageTitle = this.matchUser.firstName;

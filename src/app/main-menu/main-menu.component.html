@@ -13,20 +13,27 @@
         "settings" to log out and then try logging back in.</div>
     <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" class="holiday-banner">
     <img src="assets/images/betraLogo.png" height="25">
-        
+
     <div class="red-text">What would you like to do?</div>
-   <div class="button-box" [routerLink]="['/user-detail']">
-        <img [src]="browseScr" height="100%" width="100%" class="button-pic">
-        <div class="gray-screen2">&nbsp;</div>
-        <div class="button-text">Find Singles</div>
+    <div style="display: inline-block; max-width: 600px;">
+        <div class="button-box" [routerLink]="['/user-detail']">
+            <img [src]="browseScr" height="100%" width="100%" class="button-pic">
+            <div class="gray-screen2">&nbsp;</div>
+            <div class="button-text">Find Singles</div>
+        </div>
+        <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
+            <img [src]="button.src" height="200" width="200" class="button-pic">
+            <div class="gray-screen2">&nbsp;</div>
+            <div class="button-text">{{button.name}}</div>
+        </div>
+        <div *ngIf="user && user.ownerFlg" style="font-size: 12px;">&nbsp;<span [routerLink]="['/owners']"
+                class="text-link">Owner</span> <span class="text-highlight">{{user.adminLevel}}</span></div>
+
+        <img src="assets/images/landing/table3.webp" class="hide-md" width="100%" style="border-radius: 10px; box-shadow: 2px 2px 3px gray;">
     </div>
-    <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
-        <img [src]="button.src" height="200" width="200" class="button-pic">
-        <div class="gray-screen2">&nbsp;</div>
-        <div class="button-text">{{button.name}}</div>
-    </div>
-    <div *ngIf="user && user.ownerFlg" style="font-size: 12px;">&nbsp;<span [routerLink]="['/owners']" class="text-link">Owner</span> <span class="text-highlight">{{user.adminLevel}}</span></div>
-<img (mousedown)="annimateCoin()" *ngIf="coinX" src="assets/images/pics/coinSpin.gif"  [style.left]="coinX" [ngClass]="coinVisible?'coin-spin':'coin-spin off'">
+
+    <img (mousedown)="annimateCoin()" *ngIf="coinX" src="assets/images/pics/coinSpin.gif" [style.left]="coinX"
+        [ngClass]="coinVisible?'coin-spin':'coin-spin off'">
 </app-page-shell>
 
 
@@ -37,7 +44,8 @@
     <div class="user-popup">
         <i class="fa fa-times" (mousedown)="popupNotice=false" style="float: right;"></i>
         <h1>Notice</h1>
-        <div>You are over the limit in your dating pool. Visit your dating pool and move extras to your back burner.</div>
+        <div>You are over the limit in your dating pool. Visit your dating pool and move extras to your back burner.
+        </div>
         <hr>
         <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
             Dating Pool</button>

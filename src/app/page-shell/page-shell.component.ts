@@ -58,11 +58,15 @@ export class PageShellComponent implements OnInit {
   public displayDetailsFlg: boolean = false;
   public popupInProgress: boolean = false;
   public displayGiftPopupFlg: boolean = false;
-  
+  public previousRoute: string = '';
+
 
   constructor(private router: Router, private location: Location) { }
 
   ngOnInit(): void {
+    this.previousRoute = localStorage['previousRoute'];
+    localStorage['previousRoute'] = this.router.url;
+
     //AdMob.initialize('ca-app-pub-3940256099942544/6300978111');
     this.appVersion = getVersion();
     this.showPromotionalBoxesFlg = true;
@@ -108,6 +112,14 @@ export class PageShellComponent implements OnInit {
     } else {
       this.router.navigate(['']);
     }
+  }
+
+  goBackAndroid() {
+    var c = this.previousRoute.split('?');
+
+    if (c.length > 1)
+      this.previousRoute = c[0];
+    this.router.navigate([this.previousRoute]);
   }
 
   displayBrowsePopup() {

@@ -1,0 +1,26 @@
+input {
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.main-headline {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(23, 66, 185);
+}
+
+.small-label {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+th {
+    background-color: #ccc;
+}
+
+.super-title {
+    background-color: #700;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+}

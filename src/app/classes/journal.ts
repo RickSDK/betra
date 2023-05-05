@@ -31,6 +31,7 @@ export class Journal {
     public history: string = '';
     public lookingFor: string = '';
     public likeList: any = [];
+    public dislikeList: any = [];
     public iLikeFlg: boolean = false;
     public iDislikeFlg: boolean = false;
     public likeTitle: string = '';
@@ -38,11 +39,15 @@ export class Journal {
     public isMineFlg: boolean = false;
     public comments: any = [];
     public updates: any = [];
+    public journal_id: number = 0;
+    public newFlg: boolean = false;
 
 
     constructor(obj: any, userId: number = 0) {
         if (obj) {
             this.row_id = obj.row_id;
+            this.journal_id = obj.journal_id;
+            this.newFlg = obj.newFlg;
             this.user_id = obj.user_id;
             this.replyTo = obj.replyTo;
             this.postId = obj.postId;
@@ -52,9 +57,9 @@ export class Journal {
             this.profilePic = obj.profilePic;
             this.postFlagged = obj.postFlagged;
             this.postFlaggedBy = obj.postFlaggedBy;
-            this.likes = obj.likes;
-            this.dislikes = obj.dislikes;
-            this.replies = this.comments.length;
+            this.likes = obj.likes || 0;
+            this.dislikes = obj.dislikes || 0;
+            this.replies = this.comments?.length || 0;
 
             this.status = obj.status;
             this.region = obj.region;
@@ -65,8 +70,16 @@ export class Journal {
             this.fixedVersion = obj.fixedVersion;
             this.fixedDate = obj.fixedDate;
             this.history = obj.history;
+            this.updates = obj.updates;
             this.lookingFor = obj.lookingFor;
             this.likeList = obj.likeList || [];
+            this.dislikeList = obj.dislikeList || [];
+
+            if (this.likes == 0)
+                this.likes = this.likeList.length;
+
+            if (this.dislikes == 0)
+                this.dislikes = this.dislikeList.length;
 
             if (this.imageNum > 0)
                 this.imageSrc = "https://www.betradating.com/betraPhp/bugImages/pic" + obj.row_id + "_" + this.imageNum + ".jpg";
@@ -95,16 +108,19 @@ export class Journal {
                 });
             }
 
-            obj.comments.forEach((element: any) => {
-                var dtObj = getDateObjFromJSDate(element.created);
-                element.localDate = dtObj.localDate;
-    
-                if (element.updateFlg == 'Y')
-                    this.updates.push(element);
-                else
+            if (obj.comments) {
+                obj.comments.forEach((element: any) => {
+                    var dtObj = getDateObjFromJSDate(element.created);
+                    element.localDate = dtObj.localDate;
+
+                    //                if (element.updateFlg == 'Y')
+                    //                  this.updates.push(element);
+                    //            else
                     this.comments.push(element);
 
-            });
+                });
+
+            }
             this.likeTitle = likeNames.join('\n');
             this.dislikeTitle = dislikeNames.join('\n');
 

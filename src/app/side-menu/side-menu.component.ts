@@ -16,6 +16,7 @@ export class SideMenuComponent implements OnInit {
   public dateCount: number = 0;
   public date2Count: number = 0;
   public ownerAlerts: number = 0;
+  public journalCount: number = 0;
   public infoObj: any = null
   public toggleInteractMenu: boolean = true;
 
@@ -33,8 +34,10 @@ export class SideMenuComponent implements OnInit {
     { name: 'Blogs', routerLink: '/blogs', icon: 'fa fa-file-text', id: 0 },
     // { name: 'Reviews', routerLink: '/reviews', icon: 'fa fa-pencil', id: 0 },
     { name: 'Polls', routerLink: '/poll', icon: 'fa fa-question-circle', id: 0 },
-    { name: 'Advice', routerLink: '/advice', icon: 'fa fa-thumbs-up', id: 0 },
-    { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 0 },
+    //{ name: 'Advice', routerLink: '/advice', icon: 'fa fa-thumbs-up', id: 0 },
+    { name: 'Photography', routerLink: '/photography', icon: 'fa fa-picture-o', id: 0 },
+    { name: 'Marketplace', routerLink: '/market', icon: 'fa fa-line-chart', id: 0 },
+    { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 14 },
   ];
   public bottomItems = [
     { name: 'Settings', routerLink: '/settings', icon: 'fa fa-cog', id: 0 },
@@ -45,14 +48,16 @@ export class SideMenuComponent implements OnInit {
     if (localStorage['infoObj'])
       this.infoObj = JSON.parse(localStorage['infoObj']);
 
+      console.log('XXXside menu', this.infoObj);
     var picCertificateFlg: string = '';
     if (this.infoObj) {
       this.dateCount = this.infoObj.dateCount;
       this.date2Count = this.infoObj.date2Count;
       this.ownerAlerts = this.infoObj.ownerAlerts;
+      this.journalCount = this.infoObj.journalCount;
       picCertificateFlg = this.infoObj.picCertificateFlg;
     }
-    this.toggleInteractMenu = (this.messageCount + this.dateCount > 0);
+    this.toggleInteractMenu = (this.messageCount + this.dateCount + this.journalCount > 0);
 
     this.bottomItems.push({ name: 'Reputation', routerLink: '/reputation', icon: 'fa fa-certificate', id: 0 });
 

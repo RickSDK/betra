@@ -214,6 +214,7 @@ export class User {
     public aboutme: string = '';
     public history: string = '';
     public lookingFor: string = '';
+    public alias_name: string = '';
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -221,6 +222,7 @@ export class User {
             this.created = obj.created || '';
             this.aboutme = obj.aboutme || '';
             this.history = obj.history || '';
+            this.alias_name = obj.alias_name || '';
             this.lookingFor = obj.lookingFor || '';
             this.emailNum = obj.emailNum || 0;
             this.giftCount = obj.giftCount || 0;
@@ -317,8 +319,10 @@ export class User {
             this.gpsLng = obj.longitude || '';
             this.navLat = obj.navLat || '';
             this.navLng = obj.navLng || '';
-            this.latitude = obj.navLat || obj.latitude || '';
-            this.longitude = obj.navLng || obj.longitude || '';
+            this.latitude = obj.latitude || obj.navLat || '';
+            this.longitude = obj.longitude || obj.navLng || '';
+//            this.latitude = obj.navLat || obj.latitude || '';
+//            this.longitude = obj.navLng || obj.longitude || '';
 
             this.region = obj.region || '';
             this.state = obj.state || '';
@@ -487,7 +491,7 @@ export class User {
         this.datingPool = datingPool;
         this.datingPoolLimit = (this.memberFlg) ? 12 : 8;
         if (this.ownerFlg)
-            this.datingPoolLimit = 18;
+            this.datingPoolLimit = 20;
         this.exceededPoolSizeFlg = datingPool.length > this.datingPoolLimit;
         this.showHeartFormFlg = (this.datingPool.length >= 5 && this.heartId == 0);
 

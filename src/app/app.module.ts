@@ -125,6 +125,11 @@ import { TopHeader2Component } from './top-header2/top-header2.component';
 import { CoinsComponent } from './coins/coins.component';
 import { FraudPreventionComponent } from './fraud-prevention/fraud-prevention.component';
 import { LatestUsersComponent } from './latest-users/latest-users.component';
+import { JournalCell2Component } from './journal-cell2/journal-cell2.component';
+import { BetraCommentComponent } from './betra-comment/betra-comment.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { CreditCardFormComponent } from './credit-card-form/credit-card-form.component';
+import { PictureExchangeComponent } from './picture-exchange/picture-exchange.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -153,6 +158,7 @@ import { LatestUsersComponent } from './latest-users/latest-users.component';
     UserDetailComponent,
     SideMenuComponent,
     SettingsComponent,
+    AdMobComponent,
     MessagesComponent,
     PercentTextComponent,
     UserCommunicationComponent,
@@ -249,6 +255,11 @@ import { LatestUsersComponent } from './latest-users/latest-users.component';
     CoinsComponent,
     FraudPreventionComponent,
     LatestUsersComponent,
+    JournalCell2Component,
+    BetraCommentComponent,
+    MarketplaceComponent,
+    CreditCardFormComponent,
+    PictureExchangeComponent,
   ],
   imports: [
     BrowserModule,

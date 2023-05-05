@@ -26,14 +26,14 @@ export class AdMobComponent implements OnInit {
   
     async showBanner() {
       var unitId = 'ca-app-pub-2626924352662007/1324088676'; // betra android
-      unitId = 'ca-app-pub-3940256099942544/6300978111'; //test
+      //unitId = 'ca-app-pub-3940256099942544/6300978111'; //test
   
       const options: BannerAdOptions = {
         adId: unitId,
         adSize: BannerAdSize.ADAPTIVE_BANNER,
         position: BannerAdPosition.BOTTOM_CENTER,
         margin: 0,
-        isTesting: true,
+        isTesting: false,
         // npa: true
       };
       await AdMob.showBanner(options);

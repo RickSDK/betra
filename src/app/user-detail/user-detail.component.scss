@@ -43,6 +43,22 @@
     background-color: greenyellow;
 }
 
+.popup {
+    display: inline-block;
+    position: fixed;
+    top: 20px;
+    left: 100px;
+    width: 100%;
+    max-width: 440px;
+    background-color: #900;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    box-shadow: 4px 3px 10px black;
+    z-index: 500;
+    border-radius: 10px;
+}
+
 .no-button {
     background-color: orange;
 }

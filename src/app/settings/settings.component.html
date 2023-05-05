@@ -8,28 +8,44 @@
             <img src="assets/images/betraLogo.png" height="25" style="float: right;">
         </div>
         <hr>
-        <button (mousedown)="logout()" class="btn btn-main-color spacer"><i class="fa fa-sign-out"></i>
+        <button (mousedown)="logout()" class="btn btn-main-color spacer btn-settings"><i class="fa fa-sign-out"></i>
             Logout</button>
-        <button (mousedown)="changeMenuNum(1)" class="btn btn-main-color spacer"><i class="fa fa-trash"></i>
+        <button (mousedown)="changeMenuNum(1)" class="btn btn-main-color spacer btn-settings"><i
+                class="fa fa-trash"></i>
             Delete Account</button>
-        <button [routerLink]="['/location']" class="btn btn-main-color spacer"><i class="fa fa-globe"></i>
+        <button [routerLink]="['/location']" class="btn btn-main-color spacer btn-settings"><i class="fa fa-globe"></i>
             location</button>
-        <button (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer"><i class="fa fa-refresh"></i>
+        <button (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer btn-settings"><i
+                class="fa fa-refresh"></i>
             Redo Matches</button>
-        <button (mousedown)="changeBuddy()" class="btn btn-main-color spacer"><i class="fa fa-envelope-o"></i>
+        <button (mousedown)="changeBuddy()" class="btn btn-main-color spacer btn-settings"><i
+                class="fa fa-envelope-o"></i>
             Buddy Notification</button>
-        <button (mousedown)="changeMenuNum(6)" class="btn btn-main-color spacer"><i class="fa fa-star"></i>
+        <button (mousedown)="changeMenuNum(6)" class="btn btn-main-color spacer btn-settings"><i class="fa fa-star"></i>
             Change Password</button>
 
-        <button [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer"><i class="fa fa-arrow-up"></i>
+        <button [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer btn-settings"><i
+                class="fa fa-arrow-up"></i>
             Upgrade</button>
-        <button [routerLink]="'/referrals'" class="btn btn-main-color spacer"><i class="fa fa-users"></i>
+        <button [routerLink]="'/referrals'" class="btn btn-main-color spacer btn-settings"><i class="fa fa-users"></i>
             Referrals</button>
 
-        <div *ngIf="announcement">
-            <div class="light-box">{{announcement}}</div>
+        <div *ngIf="announcement" class="light-box">
+            <div>{{announcement}}</div>
+            <hr>
+            <div><button [routerLink]="['/user-detail']" class="btn btn-main-color">Browse</button></div>
         </div>
         <div *ngIf="menuNum == 1" class="tan-box">
+            <div style="color: green; text-align: left; font-size: 12px;">
+                <p>Sorry to hear you want to delete your account. Keep in mind this is a brand new start-up that we are
+                    trying to get off the ground. We are actively working to improve the site and bring in new
+                    customers.</p>
+                <p>
+                    Instead of quiting, we would love to have your help growing the site. More info can be found <span
+                        [routerLink]="['/join-team']" class="text-link">here</span>.
+                </p>
+            </div>
+
             <div>Delete Account?</div>
             <div class="gray-text">Are you sure you want to delete your account? This action is permanent and cannot be
                 un-done. Alternatively you can place the account on hold and then re-activiate it whenever you like.
@@ -212,8 +228,8 @@
                 Documentation</button>
             <button [routerLink]="['/build-app']" class="btn btn-primary spacer"><i class="fa fa-mobile"></i>
                 App Setup</button>
-            <button (mousedown)="testFunction()" class="btn btn-primary spacer"><i class="fa fa-mobile"></i>
-                Test</button>
+            <button (mousedown)="testFunction()" class="btn btn-primary spacer"><i class="fa fa-envelope"></i>
+                Email Reports</button>
         </div>
 
 

@@ -255,7 +255,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
           element.match = match;
           element.lastLoginText = lastLoginText(match.lastLogin);
           element.lastLoginColor = lastLoginColor(match.lastLogin);
-          //console.log('+++M!+++', match);
+          console.log('+++M!+++', match);
           var alerts = 0;
           if (match.newMatchFlg == 'Y')
             alerts++;

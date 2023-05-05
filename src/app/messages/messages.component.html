@@ -14,6 +14,7 @@
  
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngIf="!loadingFlg">
+            <div class="tan-box" *ngIf="showUnreadMessageFlg">Note you have unread messages from someone who is no longer in your dating pool. Click "Unread Messages" above to see all unread messages</div>
             <div *ngIf="menuNum == 0" class="gray-text">Most recent message from each person</div>
             <div *ngIf="menuNum == 1 && playerList.length==0" class="special-box">
                 No unread messages.

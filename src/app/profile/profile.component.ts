@@ -136,16 +136,18 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.logUser('Y');
     this.browser = getBrowser();
 
-    if (!localStorage['latitude'])
-      this.getLocation();
-    else if (!this.user.navLat)
-      this.uploadCoordinates();
 
     this.cityDisabledFlg = this.user.city && this.user.city.length > 0;
 
     this.route.queryParams.subscribe(params => {
       this.menuNum = parseInt(params['num']) || 0;
     });
+
+    if (this.menuNum == 0 || !localStorage['latitude'])
+      this.getLocation();
+    else if (!this.user.navLat)
+      this.uploadCoordinates();
+
     //getIPInfo('test', 'test');
     //this.refreshUser();
   }
@@ -474,7 +476,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         this.user.profileFlags[this.menuNum] = (this.user.maritalStatus);
     }
 
-    if(this.menuNum == 7) {
+    if (this.menuNum == 7) {
       this.user.aboutme = $('#aboutme').val();
       this.user.history = $('#history').val();
       this.user.lookingFor = $('#lookingFor').val();
@@ -485,7 +487,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.story = $('#story').val();
       this.user.profileFlags[this.menuNum] = (this.user.story);
 
-      if(this.moreMatchOptionsFlg) {
+      if (this.moreMatchOptionsFlg) {
         this.user.matchAge = $('#matchAge').val();
         this.user.matchBody = $('#matchBody').val();
         this.user.matchHeight = $('#matchHeight').val();
@@ -496,7 +498,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         this.user.matchReligion = $('#matchReligion').val();
         this.user.matchHasKids = $('#matchHasKids').val();
         this.user.matchWantsKids = $('#matchWantsKids').val();
-        this.user.matchWantsKids = $('#matchWantsKids').val();  
+        this.user.matchWantsKids = $('#matchWantsKids').val();
       }
     }
 
@@ -509,8 +511,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.menuSubmitdisableFlg = true;
     this.menuDisableFlg = true;
 
-    if(this.menuNum == 7) {
-      this.getDataFromServer('updateProfile', 'appApiCode.php', {aboutme: this.user.aboutme, history: this.user.history, lookingFor: this.user.lookingFor, updateNum: 99});
+    if (this.menuNum == 7) {
+      this.getDataFromServer('updateProfile', 'appApiCode.php', { aboutme: this.user.aboutme, history: this.user.history, lookingFor: this.user.lookingFor, updateNum: 99 });
       return;
     }
 
@@ -567,6 +569,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       browser: this.browser,
       latitude: localStorage['latitude'],
       longitude: localStorage['longitude'],
+      accuracy: localStorage['accuracy'],
       action: 'updateProfile',
     };
     console.log('xxParamsxx', params);

@@ -55,7 +55,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     var deleteReason = $('#deleteReason').val();
     var deleteComment = $('#deleteComment').val();
     this.errorMessage = '';
-    if(!deleteReason) {
+    if(!deleteReason || deleteReason=="") {
       this.errorMessage = 'Please provide a reason from the dropdown';
       return;
     }

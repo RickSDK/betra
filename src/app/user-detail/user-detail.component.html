@@ -134,7 +134,8 @@
             </div>
         </div>
         <div *ngIf="user && !loadingFlg && !uid">
-            <div class="matches-card" *ngIf="noLocationInfoFoundFlg" [routerLink]="['/location']" style="cursor: pointer;">
+            <div class="matches-card" *ngIf="noLocationInfoFoundFlg" [routerLink]="['/location']"
+                style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
@@ -201,8 +202,7 @@
             </app-user-private-pics>
 
         </div>
-        <app-user-requests
-            [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
+        <app-user-requests [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
         </app-user-requests>
 
         <app-user-communication [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
@@ -254,4 +254,13 @@
             </tr>
         </table>
     </div>
+</div>
+
+<div *ngIf="showOverflowPopup" class="gray-screen">
+</div>
+<div *ngIf="showOverflowPopup" [routerLink]="['/matches']" class="popup">
+    <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
+    <p>Note: Visit your Dating Pool. You are over your limit and need to drop someone.</p>
+    <button class="btn btn-main-color"><i class="fa fa-users"></i>
+        Dating Pool</button>
 </div>

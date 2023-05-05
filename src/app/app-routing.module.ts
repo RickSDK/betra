@@ -67,11 +67,15 @@ import { CoinsComponent } from './coins/coins.component';
 import { FraudPreventionComponent } from './fraud-prevention/fraud-prevention.component';
 import { LatestUsersComponent } from './latest-users/latest-users.component';
 import { AdMobComponent } from './ad-mob/ad-mob.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { PictureExchangeComponent } from './picture-exchange/picture-exchange.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'fraud', component: FraudPreventionComponent },
+  { path: 'photography', component: PictureExchangeComponent },
+  { path: 'market', component: MarketplaceComponent },
   { path: 'admob', component: AdMobComponent },
   { path: 'latest-users', component: LatestUsersComponent },
   { path: 'poll', component: PollComponent },

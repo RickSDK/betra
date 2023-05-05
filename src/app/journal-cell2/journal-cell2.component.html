@@ -1,0 +1,69 @@
+<div class="matches-card">
+
+    <table *ngIf="journalItem" width="100%" style="margin-top: 3px; padding: 0; border: none;">
+        <tr>
+            <td width="80" style="padding: 0;">
+                <img *ngIf="journalItem.journal_id==0" [routerLink]="['/user-detail']"
+                    [queryParams]="{uid: journalItem.user_id}" [src]="journalItem.src" class="profile-big">
+                <img *ngIf="journalItem.journal_id>0" [routerLink]="['/user-detail']"
+                    [queryParams]="{uid: journalItem.user_id}" [src]="journalItem.src" class="profile-circle">
+            </td>
+            <td valign="top" style="padding: 10px; position: relative;">
+                <div class="journal-text">
+                    <div *ngIf="journalItem.journal_id==0"><b>{{journalItem.firstName}}</b> <span
+                            *ngIf="journalItem.newFlg" class="newFlg">New</span></div>
+                    <div style="color: pink; font-size: 10px;">{{journalItem.localDt}}</div>
+                    <div class="gray-text">{{journalItem.messageText}}</div>
+                </div>
+                <div
+                    style="color: gray; font-size: 12px; padding-left: 20px; position: absolute; left: 0; bottom: 5px;">
+
+                    <span (mousedown)="replyToFlg=!replyToFlg" class="text-link">Reply</span>&nbsp;
+                    <span *ngIf="!journalItem.iLikeFlg" (mousedown)="likePost(journalItem)"
+                        class="text-link">Like</span>&nbsp;
+                    <span *ngIf="!journalItem.iDislikeFlg" (mousedown)="dislikePost(journalItem)"
+                        class="text-link">Dislike</span>&nbsp;
+
+                    <span *ngIf="journalItem.comments.length>=0" style="padding: 6px;"><i class="fa fa-comment"></i>
+                        {{journalItem.comments.length}}</span>
+                    <span *ngIf="journalItem.likes>=0" style="padding: 6px;"><i class="fa fa-thumbs-o-up"></i>
+                        {{journalItem.likes}}</span>
+                    <span *ngIf="journalItem.dislikes>=0" style="padding: 6px;"><i class="fa fa-thumbs-o-down"></i>
+                        {{journalItem.dislikes}}</span>
+
+                </div>
+            </td>
+            <td valign="top" style="padding: 5px; position: relative;">
+                <span (mousedown)="showOptionsFlg=!showOptionsFlg" class="three-dots"><i
+                        class="fa fa-ellipsis-v"></i></span>
+                <span *ngIf="showOptionsFlg" class="three-dots-menu">
+                    <div (mousedown)="menuOptionPressed('flag')" class="three-dots-menu-option">Flag</div>
+                    <div *ngIf="userId == journalItem.user_id" (mousedown)="menuOptionPressed('delete')"
+                        class="three-dots-menu-option">
+                        Delete</div>
+                    <div *ngIf="userId == journalItem.user_id" (mousedown)="menuOptionPressed('edit')"
+                        class="three-dots-menu-option">
+                        Edit</div>
+                </span>
+            </td>
+        </tr>
+    </table>
+    <div class="confirmation-popup" *ngIf="showConfirmationFlg">
+        <div>Are you sure you want to {{adminAction}} this entry?</div>
+        <button (mousedown)="showConfirmationFlg=false" class="btn btn-warning">Cancel</button>&nbsp;
+        <button (mousedown)="optionConfirmPressed()" class="btn btn-success">Yes</button>
+    </div>
+    <div *ngIf="commentPostedFlg" style="color: green; font-size: 16px;">Comment Posted!</div>
+    <app-text-with-emoji *ngIf="replyToFlg" (messageEvent)="sumbitReply($event)" [user_id]="userId"
+        [profilePic]="profilePic" [maxLength]="400"></app-text-with-emoji>
+    <div *ngIf="journalItem">
+        <app-betra-comment *ngFor="let comment of journalItem.comments" [comment]="comment" [userId]="userId">
+        </app-betra-comment>
+    </div>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="showUpdatesFlg && journalItem">
+        <app-journal-cell2 *ngFor="let update of journalItem.updates" [journal]="update" [userId]="userId"
+            [profilePic]="profilePic">
+        </app-journal-cell2>
+    </div>
+</div>

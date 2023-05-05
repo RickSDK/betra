@@ -4,19 +4,33 @@
     <div *ngIf="user" class="matches-card" style="padding: 0;">
         <app-top-header2 [topTitle]="'Coins'"></app-top-header2>
         <div style="padding: 10px;">
-            <div>
-                <div class="gray-box" style="position: relative;">
-                    <div class="small-title">Your Coins</div>
-                    <img src="assets/images/pics/coin.png" height="100">
-                    <div>
-                        <span class="red-circle"
-                            style="font-size: 16px; position: absolute; bottom: 30px; right: 30px;">{{user.points}}</span>
-                    </div>
-                    <div style="font-size: 10px;">
-                        Consecutive days logged in: <span class="text-highlight">{{user.consecutiveDays}}</span>
-                    </div>
-                </div>
-            </div>
+            <table width="100%">
+                <tr>
+                    <td valign="top" align="center">
+                        <div class="gray-box" style="position: relative;">
+                            <div class="small-title">Your Coins</div>
+                            <img src="assets/images/pics/coin.png" height="100">
+                            <div>
+                                <span class="red-circle"
+                                    style="font-size: 16px; position: absolute; bottom: 30px; right: 30px;">{{user.points}}</span>
+                            </div>
+                            <div style="font-size: 10px;">
+                                Consecutive days logged in: <span class="text-highlight">{{user.consecutiveDays}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td valign="top" align="center">
+                        <img [routerLink]="['/market']"src="assets/images/buttons/market.jpg" class="image-btn">
+                        <div>Marketplace</div>
+                        <div class="gray-text">Visit the marketplace to buy and sell coins</div>
+                    </td>
+                    <td valign="top" align="center">
+                        <img [routerLink]="['/photography']"src="assets/images/buttons/photography.jpg" class="image-btn">
+                        <div>Photography Club</div>
+                        <div class="gray-text">Trade pictures for coins</div>
+                    </td>
+                </tr>
+            </table>
 
 
             <div *ngIf="menuNum==1" class="gray-box">

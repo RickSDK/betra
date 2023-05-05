@@ -11,6 +11,7 @@ import { DatabaseService } from '../services/database.service';
 export class MessagesComponent extends BaseComponent implements OnInit {
   public playerList: any = [];
   public messageCount: number = 0;
+  public showUnreadMessageFlg: boolean = false;
   public override topButtons: any = ['Dating Pool', 'Unread messages'];
 
   constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
@@ -22,7 +23,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
       this.menuNum = parseInt(params['id']) || 0;
     });
     this.selectMenuOption(this.menuNum);
- //   this.logUser();
+    //   this.logUser();
   }
 
   selectMenuOption(num: number) {
@@ -38,12 +39,15 @@ export class MessagesComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'loadUserMessages' || responseJson.action == 'loadUnreadMessages') {
       this.playerList = [];
-      if (responseJson.players && responseJson.players.length > 0 && responseJson.players[0].user_id > 0)
+      this.showUnreadMessageFlg = (responseJson.unreadMessageCount > 0 && responseJson.unreadMessageCount > responseJson.unreadMessages);
+      if (responseJson.players && responseJson.players.length > 0 && responseJson.players[0].user_id > 0) {
         this.playerList = responseJson.players;
 
-      this.playerList.sort((a: any, b: any) => {
-        return b.row_id - a.row_id;
-      });
+        this.playerList.sort((a: any, b: any) => {
+          return b.row_id - a.row_id;
+        });
+
+      }
     }
   }
 

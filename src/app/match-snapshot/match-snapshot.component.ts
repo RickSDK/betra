@@ -85,6 +85,8 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     if (this.id == 7)
       this.showInterestedButtonsFlg = false; // verify pics
 
+    if (this.matchUser.status != 'Active')
+      this.showInterestedButtonsFlg = false; // verify pics
 
     this.youAreInterestedFlg = !!(this.matchUser.matchObj && this.matchUser.matchObj.you_interested);
 

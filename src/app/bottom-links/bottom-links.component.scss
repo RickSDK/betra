@@ -40,3 +40,13 @@
 .white-link:hover {
     text-decoration: underline;
 }
+
+.bottom-banner {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.bottom-banner:hover {
+    border: 1px solid white;
+}
