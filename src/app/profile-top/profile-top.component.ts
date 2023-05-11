@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { User } from '../classes/user';
 
 @Component({
@@ -13,7 +13,6 @@ export class ProfileTopComponent implements OnInit {
   @Input('adminFlg') adminFlg: boolean = false;
   @Input('expandBottomFlg') expandBottomFlg: boolean = false;
   @Input('snapshotFlg') snapshotFlg: boolean = false;
-
 
   @Output() messageEvent = new EventEmitter<string>();
   public largeImageFlg: boolean = false;
@@ -83,8 +82,8 @@ export class ProfileTopComponent implements OnInit {
     this.messageEvent.emit('cancel');
   }
   toggleQuote() {
-    this.showPopupQuote=!this.showPopupQuote;
-    if(!this.showPopupQuote) {
+    this.showPopupQuote = !this.showPopupQuote;
+    if (!this.showPopupQuote) {
       setTimeout(() => {
         this.displayPopupQuote = false;
       }, 1000);
@@ -118,7 +117,7 @@ export class ProfileTopComponent implements OnInit {
   }
   toggleImage() {
     this.showOptionsFlg = false;
-    this.largeImageFlg = !this.largeImageFlg;
+    this.messageEvent.emit('showImage');
   }
   showProfileBasics() {
     this.messageEvent.emit('show-basics');

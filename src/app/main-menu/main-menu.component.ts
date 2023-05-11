@@ -5,6 +5,7 @@ import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.compone
 import { ActivatedRoute, Router } from '@angular/router';
 //import { AdvancedFiltersComponent } from '../advanced-filters/advanced-filters.component';
 import { DatabaseService } from '../services/database.service';
+import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
 
 declare var getDateObjFromJSDate: any;
 declare var getPlatform: any;
@@ -17,7 +18,9 @@ declare var getPlatform: any;
 export class MainMenuComponent extends BaseComponent implements OnInit {
   @ViewChild(MatchSnapshotComponent)
   private matchSnapshotModal = {} as MatchSnapshotComponent;
-  //@ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = new (MatchSnapshotComponent);
+
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
 
   public playerlist: any = [];
   public toggle: boolean = false;
@@ -42,7 +45,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   public chatPeople: number = 0;
   public coinX: string = '';
   public coinVisible: boolean = true;
-  public popupNotice: boolean = false;
+  //  public popupNotice: boolean = false;
   public getPlatform: string = getPlatform();
   public buttons = [
     { name: 'Dating Pool', routerLink: "/matches", src: 'assets/images/buttons/datePool.jpg' },
@@ -64,7 +67,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    this.popupNotice = (this.user.datingPool.length > this.user.datingPoolLimit);
     var race = this.user.race;
     if (this.user.race == 'Middle Eastern' || this.user.race == 'Other')
       race = 'Arab';
@@ -173,6 +175,14 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
 
     if (responseJson.action == "logUser" && this.user) {
+      console.log('xxx', this.user.heartId)
+      if (responseJson.infoObj) {
+        if (!responseJson.infoObj.roseCeremonyDt || responseJson.infoObj.daysTillRoseCeremony == 0)
+          this.router.navigate(['/intro']);
+        else if (responseJson.infoObj.daysTillRoseCeremony <= 4 && this.user.heartId == 0 && this.betraPopupComponent) {
+          this.betraPopupComponent.showPopup('Time to assign a rose!', 'You need to hand out a rose to your favorite person.', 2);
+        }
+      }
       if (responseJson.coinsNewFlg) {
         this.coinX = '200px';
         setTimeout(() => {

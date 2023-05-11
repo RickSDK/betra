@@ -130,6 +130,11 @@ import { BetraCommentComponent } from './betra-comment/betra-comment.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { CreditCardFormComponent } from './credit-card-form/credit-card-form.component';
 import { PictureExchangeComponent } from './picture-exchange/picture-exchange.component';
+import { BetraPopupComponent } from './popups/betra-popup/betra-popup.component';
+import { PicturePopupComponent } from './popups/picture-popup/picture-popup.component';
+import { IntroScreenComponent } from './intro-screen/intro-screen.component';
+import { RoseCeremonyComponent } from './rose-ceremony/rose-ceremony.component';
+import { ProfilePopupComponent } from './popups/profile-popup/profile-popup.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -260,6 +265,11 @@ import { PictureExchangeComponent } from './picture-exchange/picture-exchange.co
     MarketplaceComponent,
     CreditCardFormComponent,
     PictureExchangeComponent,
+    BetraPopupComponent,
+    PicturePopupComponent,
+    IntroScreenComponent,
+    RoseCeremonyComponent,
+    ProfilePopupComponent,
   ],
   imports: [
     BrowserModule,

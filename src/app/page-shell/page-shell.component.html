@@ -5,8 +5,10 @@
                 <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu main-color"></i>
             </td>
             <td *ngIf="pageTitle != 'Home'">
-                <i *ngIf="platform=='Web'" (mousedown)="goBack()" class="fa fa-arrow-left back-button main-color"></i>&nbsp;
-                <i *ngIf="platform=='Android'" (mousedown)="goBackAndroid()" class="fa fa-arrow-left back-button main-color"></i>&nbsp;
+                <i *ngIf="platform=='Web'" (mousedown)="goBack()"
+                    class="fa fa-arrow-left back-button main-color"></i>&nbsp;
+                <i *ngIf="platform=='Android'" (mousedown)="goBackAndroid()"
+                    class="fa fa-arrow-left back-button main-color"></i>&nbsp;
                 <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-sm" height="50"
                     style="cursor: pointer;">
 
@@ -33,12 +35,13 @@
                 <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
                     <div class="top-button-label">Blogs</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/photography']" class="top-button"><i class="fa fa-picture-o"></i>
+                <span *ngIf="userId" [routerLink]="['/photography']" class="top-button hide-xs"><i class="fa fa-picture-o"></i>
                     <div class="top-button-label">Photography</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button hide-xs"><img src="assets/images/pics/chat_room.png" height="40">
-                    <i *ngIf="0" class="fa fa-comment"></i> <span *ngIf="headerObj && headerObj.chatPeople>0" class="red-circle"
-                        style="background-color: green;">{{headerObj.chatPeople}}</span>
+                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button hide-xs"><img
+                        src="assets/images/pics/chat_room.png" height="40">
+                    <i *ngIf="0" class="fa fa-comment"></i> <span *ngIf="headerObj && headerObj.chatPeople>0"
+                        class="red-circle" style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <div class="top-button-label">Chat Room</div>
                 </span>
                 <span *ngIf="headerObj && userId" [routerLink]="['/coins']" class="top-button">
@@ -48,7 +51,7 @@
                     <div class="top-button-label">Coins</div>
                 </span>
 
-                
+
             </td>
 
             <td align="right" valign="middle" *ngIf="userId==0 || !userId">
@@ -58,10 +61,18 @@
                 <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
             </td>
             <td *ngIf="headerObj && userId>0 && userStatus == 'Active'">
-                <span class="menu-circle hide-xs" [routerLink]="['/user-detail']">
+                <div [routerLink]="['/matches']"
+                    style="cursor: pointer; display: inline-block; border: 1px solid pink; border-radius: 5px; text-align: center; padding: 0 5px 0 5px; margin-right: 10px;">
+                    <div class="red-text" style="font-size: 8px;">Days</div>
+                    <div  class="menu-circle">
+                        <div class="red-text">{{headerObj.daysTillRoseCeremony}}</div>
+                        <span class="icon-label main-color-bg">Rose Ceremony</span>    
+                    </div>
+                </div>
+                <!--<span class="menu-circle hide-xs" [routerLink]="['/user-detail']">
                     <i class="fa fa-search icon-button main-color"></i>
                     <span class="icon-label main-color-bg">Browse</span>
-                </span>
+                </span>-->
                 <span class="menu-circle hide-xxs" [routerLink]="['/matches']">
                     <i class="fa fa-users icon-button main-color"></i>
                     <span class="icon-label main-color-bg">My Dating Pool</span>
@@ -114,12 +125,13 @@
                     style="width: 200px;">
                     <div style="position: fixed; top: 60px; right: 0; width: 200px; padding: 7px;">
                         <div style="color: gray;">Sponsored</div>
-                        <a href="https://www.superpowersgame.com"><img src="assets/images/ads/ad.png" width="100%" class="image"></a>
+                        <a href="https://www.superpowersgame.com"><img src="assets/images/ads/ad.png" width="100%"
+                                class="image"></a>
                         <div style="font-size: 12px; font-weight: 700;">War with friends!</div>
                         <!--<app-ad-mob></app-ad-mob>-->
                         <div>Google ads</div>
                         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2626924352662007"
-                        data-ad-slot="3410873039" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                            data-ad-slot="3410873039" data-ad-format="auto" data-full-width-responsive="true"></ins>
                     </div>
                 </td>
             </tr>
@@ -152,7 +164,8 @@
 </div>
 
 <div *ngIf="headerObj && headerObj.browseObj && displayBrowsePopupFlg" class="user-browse-popup">
-    <i (mousedown)="displayBrowsePopupFlg=false" class="fa fa-times" style="font-size: 22px; float: right; margin: 5px;"></i>
+    <i (mousedown)="displayBrowsePopupFlg=false" class="fa fa-times"
+        style="font-size: 22px; float: right; margin: 5px;"></i>
     <div class="red-text">Notice!</div>
     <div class="gray-text">Someone is browsing your profile right now!</div>
     <app-profile-pic [user_id]="headerObj.browseObj.user_id" [profilePic]="headerObj.browseObj.profilePic" [size]="200">
@@ -170,7 +183,8 @@
     <div *ngIf="!popupInProgress" style="padding: 20px;">
         <div *ngIf="headerObj.browseObj.thumbsUpFlg == 'Y'">You got a thumbs up!</div>
         <div *ngIf="headerObj.browseObj.thumbsDownFlg == 'Y'">Sorry, it's a thumbs down.</div>
-        <div *ngIf="!headerObj.browseObj.thumbsUpFlg && !headerObj.browseObj.thumbsDownFlg">{{headerObj.browseObj.firstName}} is no longer viewing your page.</div>
+        <div *ngIf="!headerObj.browseObj.thumbsUpFlg && !headerObj.browseObj.thumbsDownFlg">
+            {{headerObj.browseObj.firstName}} is no longer viewing your page.</div>
         <button class="btn btn-main-color btn-small" (mousedown)="displayBrowsePopupFlg=false">Close</button>
     </div>
 </div>
@@ -183,8 +197,8 @@
 
     <div style="padding: 20px;">
         <button class="btn btn-warning spacer" (mousedown)="displayGiftPopupFlg=false">Close</button>
-        <button [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="btn btn-main-color spacer">See my Gifts</button>
+        <button [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" class="btn btn-main-color spacer">See my
+            Gifts</button>
     </div>
-
 </div>
-
+<app-betra-popup></app-betra-popup>

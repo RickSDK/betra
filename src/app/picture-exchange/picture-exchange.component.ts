@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
+import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
+import { PicturePopupComponent } from '../popups/picture-popup/picture-popup.component';
 
 declare var $: any;
 
@@ -10,6 +12,11 @@ declare var $: any;
   styleUrls: ['./picture-exchange.component.scss']
 })
 export class PictureExchangeComponent extends BaseComponent implements OnInit {
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
+
+  @ViewChild(PicturePopupComponent, { static: true })
+  picturePopupComponent!: PicturePopupComponent;
 
   public numbers = [10, 20, 40, 50, 100, 200, 500, 1000];
   public costAmounts = [1, 5, 7, 9, 10, 11, 12, 15, 20, 40, 50, 60, 80, 100];
@@ -28,7 +35,8 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public offers: any = [];
   public bids: any = [];
   public buyers: any = [];
-  public sellers: any = [];
+  public sellersM: any = [];
+  public sellersF: any = [];
   public result: string = '';
   public yourWalletAmount: number = 0;
   public showNewTypeFlg: boolean = false;
@@ -36,6 +44,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public picCosts: any = [1, 3, 5, 10, 20, 40, 100, 200, 500, 1000];
   public myPicTypes: any = [];
   public picTypeOtherFlg: boolean = false;
+  public showImagePopup: boolean = false;
   public selectedPerson: any = null;
   public selectedType: any = null;
   public myOrders: any = [];
@@ -70,6 +79,11 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     }
   }
 
+  viewImage(order: any) {
+    if (this.picturePopupComponent)
+      this.picturePopupComponent.showPopup(order.src);
+  }
+
   picTypeChanged() {
     var picType = $('#picType').val();
     this.picTypeOtherFlg = (picType == 'Other');
@@ -82,6 +96,10 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     var picCost = $('#picCost').val();
     if (picType == 'Other') {
       picType = $('#picTypeOther').val();
+    }
+    if(picType == '') {
+      this.errorMessage = 'Fill out a picture type in the field above';
+      return;
     }
     var allowType = true;
     this.myPicTypes.forEach((element: any) => {
@@ -241,13 +259,16 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     this.calculateCost(amount);
   }
   calculateCost(amount: number) {
-
     this.totalCost = ((amount * this.currentPrice) / 100);
     this.totalCostDisplay = this.totalCost.toFixed(2);
   }
 
   cancelOrder(order: any) {
     this.getDataFromServer('cancelOrder', 'market.php', { orderId: order.row_id });
+  }
+
+  confirmPlacedOrder(order: any) {
+    this.getDataFromServer('confirmPlacedOrder', 'market.php', { orderId: order.row_id });
   }
 
   cancelPlacedOrder(order: any) {
@@ -325,9 +346,17 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.buyerFlg = responseJson.buyerFlg;
       this.sellerFlg = responseJson.sellerFlg;
       this.buyers = responseJson.buyers;
-      this.sellers = responseJson.sellers;
       this.myOrders = responseJson.myOrders;
       this.myOffers = responseJson.myOffers;
+
+      this.sellersM = [];
+      this.sellersF = [];
+      responseJson.sellers.forEach((element: any) => {
+        if (element.gender == 'F')
+          this.sellersF.push(element);
+        else
+          this.sellersM.push(element);
+      });
       this.myOrders.forEach((element: any) => {
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.uid + '_' + element.row_id + '.jpg';
       });
@@ -341,6 +370,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
         element.totalCost = (element.amount * element.price / 100).toFixed(2);
       });
       this.calculateSellableCoins(this.myCoins);
+
+      if (this.newOfferReceivedFlg && this.betraPopupComponent)
+        this.betraPopupComponent.showPopup('You have a new picture request!', 'Check for your new requests under the "My Offers" section and click "Accept" or "Decline" to complete the transaction.');
 
       console.log('lastSalePrice', this.lastSalePrice);
     }

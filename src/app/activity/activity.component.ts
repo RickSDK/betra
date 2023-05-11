@@ -41,8 +41,8 @@ export class ActivityComponent extends BaseComponent implements OnInit {
         this.scrollItems.push(element);
         if (this.responseJson.blogItems.length > 0)
           this.scrollItems.push(this.responseJson.blogItems.shift());
-        if (this.responseJson.matchItems.length > 0)
-          this.scrollItems.push(this.responseJson.matchItems.shift());
+   //     if (this.responseJson.matchItems.length > 0)
+     //     this.scrollItems.push(this.responseJson.matchItems.shift());
         if (this.responseJson.roseItems.length > 0)
           this.scrollItems.push(this.responseJson.roseItems.shift());
         if (this.responseJson.dateItems.length > 0)
@@ -61,6 +61,8 @@ export class ActivityComponent extends BaseComponent implements OnInit {
           this.scrollItems.push(this.responseJson.giftItems.shift());
         if (this.responseJson.polls.length > 0)
           this.scrollItems.push(this.responseJson.polls.shift());
+        if (this.responseJson.clubItems.length > 0)
+          this.scrollItems.push(this.responseJson.clubItems.shift());
 
       });
       this.scrollItems.sort((a: any, b: any) => {

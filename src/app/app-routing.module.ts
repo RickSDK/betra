@@ -69,10 +69,14 @@ import { LatestUsersComponent } from './latest-users/latest-users.component';
 import { AdMobComponent } from './ad-mob/ad-mob.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { PictureExchangeComponent } from './picture-exchange/picture-exchange.component';
+import { IntroScreenComponent } from './intro-screen/intro-screen.component';
+import { RoseCeremonyComponent } from './rose-ceremony/rose-ceremony.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'intro', component: IntroScreenComponent },
+  { path: 'rose-ceremony', component: RoseCeremonyComponent },
   { path: 'fraud', component: FraudPreventionComponent },
   { path: 'photography', component: PictureExchangeComponent },
   { path: 'market', component: MarketplaceComponent },

@@ -1,0 +1,155 @@
+<img id="roseBg" src="assets/images/landing/roseHome.png"
+    style="width: 100%; height: 100vh; object-fit: cover; position: fixed; z-index: -1;">
+
+<div *ngIf="menuNum==99">
+    <div class="outter-div">
+        <div class="inner-block">
+            <div class="red-text">Sorry, it is not yet time for your Rose Ceremony. Come back in {{daysTillCeremony}}
+                days.</div>
+            <div>&nbsp;</div>
+            <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="menuNum==0">
+    <div [ngClass]="ngClassMain()">
+        <div class="inner-block">
+            <div *ngIf="displayUser">
+                <div
+                    style="display: inline-block; position: relative; background-color: orange;  text-align: center; border-radius: 15px; overflow: hidden; width: 100%; max-width: 300px; box-shadow: 2px 2px 5px black;">
+                    <img [src]="displayUser.imgSrc"
+                        style="width: 100%; max-width: 320px; height: 400px; object-fit: cover;">
+                    <div
+                        style="background-color: black; position: absolute; left: 0; bottom: 0; padding: 5px; color: white; width: 100%;">
+                        {{displayUser.firstName}}, {{displayUser.age}} {{displayUser.city}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="outter-div" style="color: white;">
+        <div *ngIf="!showBeginCeremonyButtonFlg">
+            <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 80px;">
+            <div class="red-text">Welcome to the Rose Ceremony!</div>
+            <div>&nbsp;</div>
+        </div>
+        <button *ngIf="showBeginCeremonyButtonFlg" [disabled]="!previewModeFlg2" (mousedown)="beginCeremony()"
+            class="btn btn-main-color btn-large">Begin Rose Ceremony</button>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    </div>
+</div>
+
+<div *ngIf="menuNum==1">
+    <div style="position: fixed; top: 0; left: 0; height: 55px; background-color: black; z-index: 499; width: 100%;">
+        &nbsp;</div>
+    <button [disabled]="users.length==0 || !startHandingRosesFlg || rosesRemaining<0" (mousedown)="endRoseCeremony()"
+    [ngClass]="rosesRemaining>0?'btn btn-main-color':'btn btn-main-color btn-large'" style="position: fixed; top: 5px; left: 4px; z-index: 500;">End Rose
+        Ceremony</button>
+
+    <div style="position: fixed; top: 0; right: 85px; z-index: 500; background-color: black;">
+        <img src="assets/images/rose5.png" width="15">
+        <span class="red-text" style="font-size: 12px; ">Roses Remaining</span>
+    </div>
+    <div
+        style="position: fixed; width: 80px; padding: 0; top: 0; z-index: 500; background-color: black; right: 0; display: inline-block; border: 1px solid gray; border-radius: 5px; text-align: center;">
+        <span class="red-text" style="font-size: 28px;">{{rosesRemaining}}</span>
+    </div>
+    <div style="position: fixed; top: 40px; left: 0; z-index: 500; width: 100%; text-align: center;">
+        <div style="border: 1px solid pink; display: inline-block; background-color: black; padding: 0 5px 0 5px; margin: 10px; border-radius: 10px; font-size: 10px;"
+            class="red-text">Choose the {{user.genderMatch}} you are most interested in, then press "End Rose Ceremony"
+            button.
+        </div>
+    </div>
+    <div *ngIf="!startHandingRosesFlg" style="text-align: center;">
+        <div class="inner-block">
+            <div>&nbsp;</div>
+            <div *ngIf="users.length>0" style="width: 100%; max-width: 380px; display: inline-block;" class="red-text">
+                You
+                have
+                {{rosesRemaining}} roses to hand out. This is simply to choose the people you might be interested in
+                getting to know a little bit more. Anyone left without a rose will be removed from your dating pool.
+            </div>
+            <div *ngIf="users.length==0" style="width: 100%; max-width: 380px; display: inline-block;" class="red-text">
+                Sorry, there is no one left in your dating pool. Click Start Over to try again with a new batch of
+                singles.</div>
+            <div>&nbsp;</div>
+            <div *ngIf="users.length<4 && users.length > 0">
+                <div style="width: 100%; max-width: 380px; display: inline-block; background-color: black;"
+                    class="red-text">Note: you are down to a
+                    very small dating pool. Did you want to continue handing out roses to this pool, or say goodbye to
+                    them
+                    and start with a new batch of singles?</div>
+                <div>&nbsp;</div>
+            </div>
+            <img src="assets/images/rose1.png" style="width: 100%; max-width: 100px;">
+
+            <button *ngIf="users.length>0" [disabled]="users.length==0" (mousedown)="startHandingRosesFlg=true"
+                class="btn btn-main-color btn-large">Hand out your
+                roses</button>
+
+            <div *ngIf="users.length<4">
+                <div>&nbsp;</div>
+                <button (mousedown)="startNewGame()" class="btn btn-main-color btn-large">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="startHandingRosesFlg" style="padding: 90px 5px 5px 5px; text-align: center; color: white;">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngFor="let user of users" class="user-div" [style.border]="user.hasRose?'3px solid yellow':'none'">
+            <img (mousedown)="toggleRose(user)" [src]="user.imgSrc" [ngClass]="ngClassImage(user)">
+            <button (mousedown)="viewImage(user)" class="btn btn-main-color"
+                style="position: absolute; top: 2px; right: 2px;"><i class="fa fa-picture-o"></i></button>
+            <img *ngIf="user.hasRose" (mousedown)="toggleRose(user)" src="assets/images/rose5.png"
+                style="position: absolute; top: 0; left: 0;" width="50">
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white; font-size: 12px;">
+                <div style="text-shadow: 1px 1px black; font-weight: 700; padding-left: 5px;">{{user.firstName}},
+                    {{user.age}}</div>
+                <div style="font-size: 9px; text-shadow: 1px 1px black;" class="red-text">Last active:
+                    {{user.lastLoginText}}</div>
+                <div><button (mousedown)="viewProfilePopup(user, true)"
+                        class="btn btn-main-color btn-small">Basics</button>
+                    <button (mousedown)="viewProfilePopup(user, false)" class="btn btn-main-color btn-small"
+                        style="float: right;">Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <div
+                style="background-color: black; padding: 20px; margin: 20px; border-radius: 20px; display: inline-block; max-width: 420px;">
+                <div *ngIf="rosesRemaining>0" class="red-text">Keep handing out roses. You have {{rosesRemaining}} remaining.</div>
+                <div style="font-size: 12px; color: pink">Keep in mind you are only choosing your starting pool of
+                    people you might be interested in. There's no obligation to meet or even chat with anyone unless you
+                    decide to.</div>
+                <div>&nbsp;</div>
+                <button [disabled]="users.length==0 || !startHandingRosesFlg || rosesRemaining<0"
+                    (mousedown)="endRoseCeremony()" [ngClass]="rosesRemaining>0?'btn btn-main-color':'btn btn-main-color btn-large'">End Rose
+                    Ceremony</button>
+                    <div>&nbsp;</div>
+                    <span [routerLink]="'/profile'" class="text-link">Exit</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="menuNum==2" style="text-align: center;">
+    <div class="inner-block">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    </div>
+</div>
+<div *ngIf="menuNum==3" style="text-align: center;">
+    <div class="inner-block">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div class="red-text">Congratulations! You have completed your Rose Ceremony. Visit your dating pool to begin
+            communicating. Let the fun begin!</div>
+        <div>&nbsp;</div>
+        <button [routerLink]="['/matches']" class="btn btn-main-color btn-large">View your Dating Pool</button>
+    </div>
+</div>
+
+
+<app-picture-popup></app-picture-popup>
+<app-betra-popup></app-betra-popup>
+<app-profile-popup></app-profile-popup>

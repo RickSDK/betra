@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../classes/user';
 import { DatingPoolComponent } from '../dating-pool/dating-pool.component';
 import { DatabaseService } from '../services/database.service';
+import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
 
 declare var $: any;
 declare var lastLoginText: any;
@@ -15,14 +16,15 @@ declare var lastLoginColor: any;
   styleUrls: ['./my-matches.component.scss']
 })
 export class MyMatchesComponent extends BaseComponent implements OnInit {
-  public menuButtons: any = ['Dating Pool', 'My Likes', 'Back Burner'];
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
+
+  public menuButtons: any = ['Dating Pool'];
   public playerList: any = [];
   public showMoreFlg = false;
-  //public showHeartFormFlg: boolean = false;
   public disableFormFlg: boolean = true;
   public showPopupFlg: boolean = false;
   public showDetailsNumber: number = 0;
-  //public datingPoolLimit: number = 8;
   public displayUserPopup: boolean = false;
   public matchUser: any = null;
   public selectedPerson: any = null;
@@ -32,15 +34,15 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public firstName: string = '';
   public currentRoseHolder: string = '';
   public newlyAssignedRoseFlg: boolean = false;
+  public daysTillRoseCeremony: number = 7;
   @ViewChild(DatingPoolComponent)
   private datingPoolComponent = {} as DatingPoolComponent;
-  //@ViewChild(DatingPoolComponent) datingPoolComponent: DatingPoolComponent = new (DatingPoolComponent);
 
   constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.topTitle = this.user.gender=='F'?'My Dating Pool':'Dating Pool';
+    this.topTitle = this.user.gender == 'F' ? 'My Dating Pool' : 'Dating Pool';
     this.firstName = '';
     this.user.datingPool.forEach((element: any) => {
       if (element.heartFlg) {
@@ -55,7 +57,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
-//      this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
+      //      this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
     });
 
     if (localStorage['infoObj']) {
@@ -64,8 +66,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         this.getDataFromServer('clearDroppedColumn', 'appApiCode2.php', []);
       }
     }
-    if (this.user.datingPool && this.user.datingPool.length == 0)
-      this.getDataFromServer('getMyLikes', 'appApiCode2.php', {});
+    //   if (this.user.datingPool && this.user.datingPool.length == 0)
+    //      this.getDataFromServer('getMyLikes', 'appApiCode2.php', {});
   }
 
   chooseForRose(person: any) {
@@ -232,9 +234,11 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'refreshDatingPool') {
       console.log('xxxrefreshDatingPool', responseJson);
+      this.daysTillRoseCeremony = parseInt(responseJson.daysTillRoseCeremony);
+
       this.refreshUserObj(responseJson.user);
       this.updateMatches();
-      this.showPopupFlg = this.user.datingPool && this.user.datingPool.length > this.user.datingPoolLimit;
+
       this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe') {
@@ -255,7 +259,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
           element.match = match;
           element.lastLoginText = lastLoginText(match.lastLogin);
           element.lastLoginColor = lastLoginColor(match.lastLogin);
-          console.log('+++M!+++', match);
+          //console.log('+++M!+++', match);
           var alerts = 0;
           if (match.newMatchFlg == 'Y')
             alerts++;

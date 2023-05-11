@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../classes/user';
 import { Location } from "@angular/common";
+import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
+
 //import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
 
 //import { AdsenseModule } from 'ng2-adsense';
@@ -43,6 +45,9 @@ export class PageShellComponent implements OnInit {
   @Input('headerObj') headerObj: any = null;
   @Input('popupNum') popupNum: number = 0;
   @Input('stickyBottomFlg') stickyBottomFlg: boolean = false;
+
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
 
   public showMainMenuFlg: boolean = false;
   public showPromotionalBoxesFlg: boolean = false;
@@ -101,6 +106,14 @@ export class PageShellComponent implements OnInit {
     if (this.headerObj && this.headerObj.browseObj && this.headerObj.browseObj.user_id)
       this.displayBrowsePopup();
 
+    if (this.userStatus == 'Active' && this.headerObj && this.headerObj.daysTillRoseCeremony == 0 && this.pageTitle == 'Dating Pool') {
+      setTimeout(() => {
+        if (this.betraPopupComponent) {
+          //this.router.navigate(['/intro']);
+          this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It\'s time for an exciting rose ceremony. Give roses to your top picks and say goodbye to the others.', 99);
+        }
+      }, 1000);
+    }
     //    setTimeout(() => {
     //     (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
     //   }, 1000);

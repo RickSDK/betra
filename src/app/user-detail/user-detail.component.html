@@ -85,7 +85,10 @@
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
-        <div *ngIf="id == 4 && !matchUser" class="matches-card">
+        <div *ngIf="id == 4 && matchUser" class="matches-card">
+            This person is interested in you and wants to be added to your dating pool. Press Thumbs up or thumbs down.
+        </div>
+        <div *ngIf="id == 4 && !matchUser && !loadingFlg" class="matches-card">
             <p>No admirers at the moment.</p>
             <div style="text-align: left;" class="small-gray-text">
                 <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
@@ -139,18 +142,7 @@
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
-            <div class="matches-card" *ngIf="user.exceededPoolSizeFlg">
-                <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
-                <p>Note: Visit your Dating Pool. You are over your limit and need to drop someone.</p>
-                <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
-                    Dating Pool</button>
-            </div>
-            <div class="matches-card" *ngIf="user.showHeartFormFlg">
-                <div><img src="assets/images/rose1.png" width="100"></div>
-                <p>Note: Visit your Dating Pool. You need to give someone a rose before proceeding.</p>
-                <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
-                    Dating Pool</button>
-            </div>
+
             <div *ngIf="searchStarted">
                 <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
                     <div>
@@ -202,10 +194,10 @@
             </app-user-private-pics>
 
         </div>
-        <app-user-requests [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
+        <app-user-requests *ngIf="!loadingFlg" [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
         </app-user-requests>
 
-        <app-user-communication [myUser]="user" [matchUser]="matchUser" (messageEvent)="messagesEvent($event)">
+        <app-user-communication *ngIf="!loadingFlg" (messageEvent)="messagesEvent($event)">
         </app-user-communication>
 
         <div (mousedown)="showNewReviewPopup=false" *ngIf="showNewReviewPopup" class="betra-popup">
@@ -256,11 +248,3 @@
     </div>
 </div>
 
-<div *ngIf="showOverflowPopup" class="gray-screen">
-</div>
-<div *ngIf="showOverflowPopup" [routerLink]="['/matches']" class="popup">
-    <div><i class="fa fa-exclamation-triangle red-text" style="font-size: 60px; padding: 40px;"></i></div>
-    <p>Note: Visit your Dating Pool. You are over your limit and need to drop someone.</p>
-    <button class="btn btn-main-color"><i class="fa fa-users"></i>
-        Dating Pool</button>
-</div>

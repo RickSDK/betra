@@ -1,0 +1,9 @@
+<div *ngIf="showBetraPopup">
+    <div [ngClass]="ngClassScreen()"></div>
+    <div [ngClass]="ngClassPopup()">
+        <div (mousedown)="hidePopup()" class="bg-clickable"></div>
+        <div class="popup-inner" (mousedown)="hidePopup()">
+            <img [src]="src" width="100%" style="max-height: 85vh; object-fit: cover;">
+         </div>
+    </div>
+</div>

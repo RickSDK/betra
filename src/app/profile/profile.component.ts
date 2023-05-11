@@ -424,6 +424,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
       this.user.birthdate = year + '-' + month + '-' + day + ' 00:00:00';
       //this.user.firstName = $('#firstName').val();
+      this.user.firstName = $('#firstName').val();
       this.user.phone = $('#phone').val();
       this.user.zipcode = $('#zipcode').val();
 

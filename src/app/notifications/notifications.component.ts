@@ -31,6 +31,7 @@ export class NotificationsComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'getNotifications' && responseJson.infoObj) {
+      console.log('notifications', responseJson.infoObj);
       this.notificationsTypes = this.getNotificationsTypesFromInfoObj(responseJson.infoObj);
     }
   }

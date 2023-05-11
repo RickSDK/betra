@@ -156,7 +156,8 @@ export class UploadImageCropComponent implements OnInit {
       this.imageTop = this.canvasHeight - height;
     }
 
-    this.ctx.drawImage(this.image, this.imageLeft, this.imageTop, width, height);
+    if(this.ctx)
+      this.ctx.drawImage(this.image, this.imageLeft, this.imageTop, width, height);
     //console.log('draw!');
 
   }

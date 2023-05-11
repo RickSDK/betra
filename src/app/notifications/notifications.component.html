@@ -18,9 +18,11 @@
                     Likes Me?</button>
                 <button *ngIf="i==4" [routerLink]="['/messages']" [queryParams]="{id: 1}"
                     class="btn btn-main-color">Messages</button>
-                <button *ngIf="i != 0 && i != 4" [routerLink]="['/matches']" [queryParams]="{menu: 0}"
+                <button *ngIf="i != 0 && i != 4 && i != 10 && i != 11" [routerLink]="['/matches']" [queryParams]="{menu: 0}"
                     class="btn btn-main-color">Dating
                     Pool</button>
+                <button *ngIf="i == 10 || i == 11" [routerLink]="['/photography']"
+                    class="btn btn-main-color">Photography</button>
             </div>
         </div>
     </div>

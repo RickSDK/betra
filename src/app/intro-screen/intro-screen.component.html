@@ -1,0 +1,89 @@
+<img src="assets/images/landing/roseHome.png" style="width: 100%; height: 100vh; object-fit: cover;">
+
+<div [ngClass]="ngClassMain()">
+    <div style="width: 100%; max-width: 400px; display: inline-block;">
+        <div *ngIf="menuNum==0">
+            <div>&nbsp;</div>
+            <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
+            <div>&nbsp;</div>
+            <button (mousedown)="beginTheShow()" class="btn btn-main-color btn-large">Begin your Journey</button>
+        </div>
+        <div *ngIf="menuNum==2">
+            <div class="red-text" style="font-size: 22px;">Welcome to</div>
+            <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 300px;">
+        </div>
+        <div *ngIf="menuNum==3">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">Here's how it works...</div>
+        </div>
+        <div *ngIf="menuNum==4">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">We are going to start by showing you {{numSingles}} eligible {{user.genderMatch}}.</div>
+        </div>
+        <div *ngIf="menuNum==5">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">Then we give you {{numRoses}} roses.</div>
+        </div>
+        <div *ngIf="menuNum==6">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">Hand them out to the {{user.genderMatch2}} you are interested in.</div>
+        </div>
+        <div *ngIf="menuNum==7">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">Once all your roses are handed out, the game begins.</div>
+        </div>
+        <div *ngIf="menuNum==8">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">Those {{numRoses}} {{user.genderMatch}} will make up your dating pool, available to text, call or date. </div>
+        </div>
+        <div *ngIf="menuNum==9">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">New {{user.genderMatch2}} might be added to your pool as the game goes on.</div>
+        </div>
+        <div *ngIf="menuNum==10">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">After 7 days, you will have your 2nd rose ceremony.</div>
+        </div>
+        <div *ngIf="menuNum==11">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">And you will have to eliminate 3 of them from your dating pool.</div>
+        </div>
+        <div *ngIf="menuNum==12">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">The process continues until you reach your final match!</div>
+        </div>
+        <div *ngIf="menuNum==13">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">Are you ready to begin?</div>
+        </div>
+        <div *ngIf="menuNum==14">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 22px;">It's time to begin the game</div>
+            <div>&nbsp;</div>
+            <button class="btn btn-primary" (mousedown)="watchAgain()">Watch Intro again</button>
+            <div>&nbsp;</div>
+            <button (mousedown)="startTheGame()" class="btn btn-main-color btn-large">Let's Go!</button>
+        </div>
+
+        <div *ngIf="menuNum==20">
+            <div>&nbsp;</div>
+            <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
+            <div>&nbsp;</div>
+            <div class="red-text"><i class="fa fa-spinner fa-spin"></i> Searching for singles...</div>
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 12px;">Singles found</div>
+            <div class="red-text"  style="font-size: 48px;">{{singlesFound}}</div>
+        </div>
+        <div *ngIf="menuNum==21">
+            <div>&nbsp;</div>
+            <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
+            <div>&nbsp;</div>
+            <div class="red-text" style="font-size: 12px;">Singles found</div>
+            <div class="red-text"  style="font-size: 48px;">{{singlesFound}}</div>
+            <button (mousedown)="meetTheSingles()" [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large">Meet the {{user.genderMatch}}</button>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+ 
+    </div>
+</div>
+<i [routerLink]="['/rose-ceremony']" class="fa fa-arrow-right red-text" style="position: fixed; top: 5px; right: 5px; font-size: 24px; cursor: pointer;"></i>

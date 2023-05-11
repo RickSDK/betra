@@ -3,7 +3,7 @@
 
     <div class="matches-card"
         style="font-size: 14px; color: #444; position: relative; min-height: 510px; padding: 0 0 50px 0;" *ngIf="user">
-        <app-top-header2 [topTitle]="topTitle"></app-top-header2>
+        <app-top-header2 [topTitle]="topTitle" [daysTillRoseCeremony]="user.daysTillRoseCeremony" [rosesToHandOut]="user.rosesToHandOut"></app-top-header2>
         <div class="btn-group" role="group" aria-label="Menu" style="box-shadow: 2px 2px 3px black; margin-top: 5px;">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
@@ -12,7 +12,7 @@
             </button>
         </div>
 
-        <div *ngIf="user.showHeartFormFlg || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
+        <div *ngIf="(user.showHeartFormFlg && daysTillRoseCeremony <= 4) || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
             <img src="assets/images/rose1.png" height="120" alt="Rose" title="Rose">
             <div style="font-size: 20px;">Give someone a rose!</div>
             <p class="tiny-text">Pick one person to indicate they are your favorite. Everyone
@@ -242,26 +242,6 @@
 
 </app-page-shell>
 
-<div *ngIf="showPopupFlg" class="over-limit-popup-outer">
-    <div class="over-limit-popup">
-        <div style="font-size: 22px;">Over your limit!</div>
-        <div style="text-align: left;">
-            <p>You are only allowed {{user.datingPoolLimit}} people in your dating pool. Select
-                someone to drop. </p>
-            <p style="font-size: 12px;">Keep your top {{user.datingPoolLimit}} interests
-                and move the rest to your back burner, by pressing the 'X' button.
-            </p>
-            <p *ngIf="!user.memberFlg" style="font-size: 12px;">
-                Upgrading to Gold Member allows you to have 12 people in your
-                pool!
-            </p>
-        </div>
-        <button (mousedown)="showPopupFlg=false" class="btn btn-warning">Got it!</button>&nbsp;
-        <span style="font-size: 12px; text-decoration: underline;" *ngIf="!user.memberFlg" [routerLink]="['/upgrade-member']">Upgrade</span>
- 
-    </div>
-</div>
-
 <div *ngIf="displayUserPopup" (mousedown)="displayUserPopup=false" class="dark-backdrop">&nbsp;</div>
 <div *ngIf="displayUserPopup" class="user-popup-outer" (mousedown)="userClickedOnPage($event)">
     <div class="user-popup" id="user-popup">
@@ -286,3 +266,5 @@
         <button (mousedown)="showDroppedPopup=false" class="btn btn-warning">Ok</button>
     </div>
 </div>
+
+<app-betra-popup></app-betra-popup>

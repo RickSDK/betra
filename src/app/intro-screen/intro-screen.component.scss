@@ -1,0 +1,17 @@
+.outter-div {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    transition: all 2.5s ease;
+
+}
+
+.out {
+    opacity: 0;
+}
+
+.in {
+    opacity: 1;
+}

@@ -11,8 +11,8 @@ declare var getDateObjFromJSDate: any;
   styleUrls: ['./user-communication.component.scss']
 })
 export class UserCommunicationComponent extends BaseComponent implements OnInit {
-  @Input('myUser') myUser: any = null;
-  @Input('matchUser') matchUser: any = null;
+  //@Input('myUser') myUser: any = null;
+  //@Input('matchUser') matchUser: any = null;
   @Output() messageEvent = new EventEmitter<string>();
 
   public showDetailsFlg: boolean = false;
@@ -23,6 +23,8 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public showDetailsNumber: number = 0;
   public messageToDelete: number = 0;
   public displayThisComponentFlg: boolean = false;
+  public myUser: any = null;
+  public matchUser: any = null;
 
   public greetings = [
     'Hi!',
@@ -74,8 +76,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
   override ngOnInit(): void {
     //super.ngOnInit();
-    this.populateModal(this.matchUser);
-    this.displayThisComponentFlg = this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.match_level > 1;
+    //this.populateModal(this.matchUser);
   }
 
   emojiSrcForId(id: string) {
@@ -86,8 +87,11 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     this.ngOnInit();
   }
 
-  populateModal(matchUser: any) {
-    console.log('populate modal');
+  populateModal(matchUser: any, myUser: any) {
+    this.matchUser = matchUser;
+    this.myUser = myUser;
+    console.log('populate modal', this.matchUser);
+    this.displayThisComponentFlg = this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.match_level > 1;
     this.messageSentFlg = false;
     this.messages = [];
     this.matchUser = matchUser;
@@ -129,11 +133,11 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
       loadMoreFlg: (loadMoreFlg) ? 'Y' : '',
       action: "readMessages"
     };
-    console.log(params);
+    console.log('+++loading messages', params);
     this.executeApi('betraMessages.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('got messages');
+    console.log('got messages', responseJson);
     if (responseJson.action == "readMessages" || responseJson.action == "sendMessage" || responseJson.action == "deleteMessage") {
       var showDetailsFlg = false;
       this.messages = [];

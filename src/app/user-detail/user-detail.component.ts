@@ -53,7 +53,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showBigPopupFlg: boolean = false;
   public showYesNoButtonsFlg: boolean = false;
   public noLocationInfoFoundFlg: boolean = false;
-  public showOverflowPopup: boolean = false;
+//  public showOverflowPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
@@ -75,15 +75,11 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.showFilter = this.advancedSearchFlg;
       this.searchStarted = !this.showFilter;
 
-      if (this.user.datingPool.length > 20) {
-        this.showOverflowPopup = true;
-      }
-
       if (this.uid > 0)
         this.loadThisUser();
       else if (this.id == 4) {
         this.pageTitle = 'Admirers';
-        this.browseSingles('getMyAdmirers');
+        this.browseSingles('getMyAdmirers2');
       } else if (this.id == 5) {
         this.pageTitle = 'Online Today';
         this.browseSingles('getOnlineSingles');
@@ -213,7 +209,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       }
     }
 
-    if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'verifyPictures') {
+    if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'getMyAdmirers2') {
       this.profileViews = responseJson.profileViews;
       this.noLocationInfoFoundFlg = responseJson.noLocationInfoFoundFlg;
       if (this.profileViews < 0)
@@ -307,7 +303,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
   populateViewChildren() {
     if (this.messagesModal)
-      this.messagesModal.populateModal(this.matchUser);
+      this.messagesModal.populateModal(this.matchUser, this.user);
 
     if (this.matchSnapshotModal) {
       this.matchSnapshotModal.initModal(this.matchUser, this.user, this.matchObj);
@@ -374,7 +370,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       action: action
     };
     console.log('this params!', params);
-    if (this.user.user_id == this.matchUser.user_id) {
+    if (this.user.user_id == this.matchUser.user_id && this.user.user_id != 1) {
       this.errorMessage = 'Invalid User for action ' + action;
     } else
       this.executeApi('appApiCode2.php', params, true);

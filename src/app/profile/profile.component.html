@@ -10,7 +10,8 @@
             <div class="inside-box2">
 
                 <div class="profile-main-menu main-color-bg">
-                    <button *ngIf="user && user.status == 'Active'" class="btn" style="float: right;" [routerLink]="['']"><i class="fa fa-times"></i></button>
+                    <button *ngIf="user && user.status == 'Active'" class="btn" style="float: right;"
+                        [routerLink]="['']"><i class="fa fa-times"></i></button>
 
                     <i [ngClass]="profileItemStatusClass(user.profileFlags[menuNum])"
                         [style.color]="user.profileFlags[menuNum]?'#7f7':'yellow'"></i>
@@ -23,32 +24,33 @@
                     back in.</div>
                 <!-------------------------0------------------------->
                 <div class="menu-section" *ngIf="menuNum==0">
-                    <div class="gray-text">Name: <span class="text-highlight">{{user.firstName}}</span> Email: <span
-                            class="text-highlight">{{user.email}}</span> </div>
-
                     <div>
                         <div class="container-fluid" style="padding: 0;">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="tiny-text">Phone</div>
+                                    <div class="tiny-text">First Name</div>
+                                    <app-first-name-input (messageEvent)="menuValueChanged2()"
+                                        [firstName]="user.firstName">
+                                    </app-first-name-input>
+                                    <div class="tiny-text"><i class="fa fa-asterisk" style="color: red;"></i> Phone</div>
                                     <app-phone-input (messageEvent)="menuValueChanged2()" [phone]="user.phone">
                                     </app-phone-input>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="tiny-text">Birthdate</div>
+                                    <div class="tiny-text">Email: </div>
+                                    <div><span class="text-highlight">{{user.email}}</span></div>
+                                    <div>&nbsp;</div>
+
+                                    <div class="tiny-text"><i class="fa fa-asterisk" style="color: red;"></i> Birthdate</div>
                                     <app-birthday-input (messageEvent)="menuValueChanged2()"
                                         [birthdate]="user.birthdate"></app-birthday-input>
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="container-fluid" style="padding: 0;">
                             <div class="row">
-
                                 <div class="col-sm-6">
-                                    <div class="tiny-text">My Gender</div>
+                                    <div class="tiny-text"><i class="fa fa-asterisk" style="color: red;"></i> My Gender</div>
                                     <table>
                                         <tr>
                                             <td>
@@ -68,7 +70,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div *ngIf="user.findLoveFlg">
-                                        <div class="tiny-text">Show Me (I want to date)</div>
+                                        <div class="tiny-text"><i class="fa fa-asterisk" style="color: red;"></i> Show Me (I want to date)</div>
                                         <table>
                                             <tr>
                                                 <td>
@@ -478,11 +480,14 @@
                 <div class="menu-section" *ngIf="menuNum==7" style="text-align: left; font-size: 12px;">
 
                     <div class="red-text">Tell us a little about yourself:</div>
-                    <app-text-area-input [id]="'aboutme'" (messageEvent)="menuValueChanged()" [value]="user.aboutme"></app-text-area-input>
+                    <app-text-area-input [id]="'aboutme'" (messageEvent)="menuValueChanged()" [value]="user.aboutme">
+                    </app-text-area-input>
                     <div class="red-text">Tell us a little about your recent dating situation:</div>
-                    <app-text-area-input [id]="'history'" (messageEvent)="menuValueChanged()" [value]="user.history"></app-text-area-input>
+                    <app-text-area-input [id]="'history'" (messageEvent)="menuValueChanged()" [value]="user.history">
+                    </app-text-area-input>
                     <div class="red-text">What are you hoping to find:</div>
-                    <app-text-area-input [id]="'lookingFor'" (messageEvent)="menuValueChanged()" [value]="user.lookingFor"></app-text-area-input>
+                    <app-text-area-input [id]="'lookingFor'" (messageEvent)="menuValueChanged()"
+                        [value]="user.lookingFor"></app-text-area-input>
 
                 </div>
                 <!-------------------------------Your match------------------------>
@@ -615,7 +620,7 @@
                 <div class="menu-section" *ngIf="menuNum==9">
                     <h1>Congratulations!</h1>
                     <div> Your profile is now active. Enjoy your journey.</div>
-                    <button [routerLink]="['']" class="btn red-button">Get
+                    <button [routerLink]="['/intro']" class="btn red-button">Get
                         Started!</button>
 
                 </div>

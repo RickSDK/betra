@@ -37,7 +37,7 @@
                     <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
                         class="three-dots" title="Menu Options"><i class="fa fa-ellipsis-v"></i></span>
                     <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
-                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
+                        <div *ngIf="0 && user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
                             (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
                             Dating Pool</div>
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y' && myUser.heartId != user.user_id"
@@ -46,7 +46,7 @@
                         <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
                             (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
                             Add to Dating Pool</div>
-                        <div *ngIf="user.matchObj.you_interested != 'X'" (mousedown)="menuOptionClicked(1)"
+                        <div *ngIf="0 && user.matchObj.you_interested != 'X'" (mousedown)="menuOptionClicked(1)"
                             class="three-dots-menu-option">
                             Block</div>
                         <div *ngIf="!snapshotFlg" (mousedown)="menuOptionClicked(2)" class="three-dots-menu-option">
@@ -114,44 +114,56 @@
                             <div>
                                 <table width="100%">
                                     <tr>
-                                        <td>
+                                        <td align="center">
                                             <span class="menu-circle">
-                                                <span class="profile-icon">
-                                                    <img [src]="'assets/images/profile/kids.png'" height="15">
-                                                </span>
-                                                <span class="profile-text">
-                                                    <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
-                                                            class="fa fa-check main-color"></i></sup>
-                                                    {{user.numKids}}
-                                                </span>
+                                                <img [src]="'assets/images/profile/kids.png'" height="15">
+                                                {{user.numKids}}
                                                 <span class="icon-label main-color-bg">{{hasKidsTitle}}</span>
                                             </span>
-                                            &nbsp;
+                                            <div style="font-size: 6px;">Has kids?</div>
+                                        </td>
+                                        <td align="center">
                                             <span class="menu-circle">
                                                 <img [src]="'assets/images/profile/kids2.png'" height="15"
                                                     style="margin-right: 4px;">
                                                 <span *ngIf="user.wantsKids != 'Does Not Matter'"
                                                     style="font-size: 10px;">{{user.wantsKids}}</span>
+ 
                                                 <span *ngIf="user.wantsKids == 'Does Not Matter'"><i
                                                         class="fa fa-question"></i></span>
                                                 <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
                                                     class="hide-xs"><i class="fa fa-check main-color"></i></sup>
                                                 <span class="icon-label main-color-bg">{{wantsKidsTitle}}</span>
+                                                <div style="font-size: 6px;">Wants kids?</div>
+
                                             </span>
                                         </td>
                                         <td align="right">
-                                            <span class="menu-circle" *ngIf="user.drinksIcon">
-                                                <img [src]="user.drinksIcon" class="dabauchery-icon">
-                                                <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
-                                            </span>
-                                            <span class="menu-circle" *ngIf="user.smokesIcon">
-                                                <img [src]="user.smokesIcon" class="dabauchery-icon">
-                                                <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
-                                            </span>
-                                            <span class="menu-circle" *ngIf="user.potIcon">
-                                                <img [src]="user.potIcon" class="dabauchery-icon">
-                                                <span class="icon-label main-color-bg">{{user.potTitle}}</span>
-                                            </span>
+                                            <table>
+                                                <tr>
+                                                    <td align="center">
+                                                        <span class="menu-circle" *ngIf="user.drinksIcon">
+                                                            <img [src]="user.drinksIcon" class="dabauchery-icon">
+                                                            <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
+                                                        </span>
+                                                        <div style="font-size: 6px;">{{user.drinksTitle}}</div>
+                                                    </td>
+                                                    <td align="center">
+                                                        <span class="menu-circle" *ngIf="user.smokesIcon">
+                                                            <img [src]="user.smokesIcon" class="dabauchery-icon">
+                                                            <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
+                                                        </span>
+                                                        <div style="font-size: 6px;">{{user.smokesTitle}}</div>
+                                                    </td>
+                                                    <td align="center">
+                                                        <span class="menu-circle" *ngIf="user.potIcon">
+                                                            <img [src]="user.potIcon" class="dabauchery-icon">
+                                                            <span class="icon-label main-color-bg">{{user.potTitle}}</span>
+                                                        </span>
+                                                        <div style="font-size: 6px;">{{user.potTitle}}</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
                                 </table>
@@ -280,6 +292,11 @@
                         </div>
                         <div style="text-align: center; display: inline-block;">
                             <button (mousedown)="sendClickEventUp('refreshDatePools')" class="btn btn-primary">Refresh
+                                DPs</button>
+                            <div style="font-size: 8px;">Reset DP & matches DP.</div>
+                        </div>
+                        <div style="text-align: center; display: inline-block;">
+                            <button (mousedown)="sendClickEventUp('refreshDatePool')" class="btn btn-primary">Refresh
                                 DP</button>
                             <div style="font-size: 8px;">Reset DP & matches DP.</div>
                         </div>

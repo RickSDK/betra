@@ -1,0 +1,236 @@
+<div *ngIf="showBetraPopup">
+    <div [ngClass]="ngClassScreen()"></div>
+    <div [ngClass]="ngClassPopup()" *ngIf="user">
+        <div (mousedown)="hidePopup()" class="bg-clickable"></div>
+        <div class="popup-inner" (mousedown)="hidePopup()">
+            <div *ngIf="basicsFlg">
+                <table>
+                    <tr>
+                        <td width="100" style="padding: 0;">
+                            <img [src]="user.imgSrc" width="100%">
+                        </td>
+                        <td align="left" valign="top" style="padding: 10px;">
+                            <div style="font-size: 16px;"><b>{{user.firstName}}, {{user.age}}</b></div>
+                            <div style="font-size: 12px;">{{user.location}} ({{user.distanceText}})</div>
+                            <div style="font-size: 10px; color: gray;">Last Login: {{user.lastLoginText}}</div>
+                            <div style="font-size: 12px;"> {{user.lookingForTitle}} </div>
+                            <div style="position: relative">
+                                <img src="assets/images/profile/bubble.png"
+                                    style="width: 100%; max-width: 300px; height: 100px;">
+                                <div [style.font-size]="user.motto.length>30?'12px':'14px'"
+                                    style="position: absolute; left: 0; top: 25px; width: 100%; height: 60px; text-align: center; overflow: hidden; border-radius: 20px; padding: 10px 25px 20px 25px;">
+                                    "{{user.motto}}"</div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                <div style="background-color: #444;">
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <div class="small-box" style="text-align: left;">
+                                    <div class="small-title main-color">Relationship</div>
+
+                                    <div class="">
+                                        <span class="profile-icon menu-circle">
+                                            <i [class]="user.genderIcon"></i>
+                                            <span class="icon-label main-color-bg">{{user.lookingForTitle}}</span>
+                                        </span>
+                                        <span class="profile-text">
+                                            {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp;
+                                            <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i
+                                                *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
+                                        </span>
+
+                                    </div>
+
+                                    <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
+                                        [showCheckFlg]="user.desiredRelationship == myUser.matchRelationship && myUser.user_id != user.user_id"
+                                        [img]="'assets/images/profile/lookingFor.png'"></app-green-check>
+                                    <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
+                                        [showCheckFlg]="myUser.marriageView == user.marriageView && myUser.user_id != user.user_id"
+                                        [img]="'assets/images/profile/marriage.png'"></app-green-check>
+                                    <app-green-check [label]="'Longest Relationship'"
+                                        [text1]="user.longestRelationshipText" [icon]="'fa fa-exchange'">
+                                    </app-green-check>
+                                    <table width="100%">
+                                        <tr>
+                                            <td align="center">
+                                                <span class="profile-icon">
+                                                    <img [src]="'assets/images/profile/kids.png'" height="15">
+                                                </span>
+                                                <span class="profile-text">
+                                                    <sup *ngIf="0 && myUser.kidsNum==user.numKids" class="hide-xs"><i
+                                                            class="fa fa-check main-color"></i></sup>
+                                                    {{user.numKids}}
+                                                </span>
+                                                <div style="font-size: 6px;">Has kids</div>
+                                            </td>
+                                            <td align="center">
+                                                <img [src]="'assets/images/profile/kids2.png'" height="15"
+                                                    style="margin-right: 4px;">
+                                                <span *ngIf="user.wantsKids != 'Does Not Matter'"
+                                                    style="font-size: 10px;">{{user.wantsKids}}</span>
+                                                <span *ngIf="user.wantsKids == 'Does Not Matter'"><i
+                                                        class="fa fa-question"></i></span>
+                                                <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
+                                                    class="hide-xs"><i class="fa fa-check main-color"></i></sup>
+                                                <div style="font-size: 6px;">Wants kids</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td valign="top" align="left">
+                                <div class="small-box">
+                                    <div class="small-title main-color">Background</div>
+                                    <app-green-check [label]="'Education'" [text1]="user.educationLevel"
+                                        [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
+                                        [icon]="'fa fa-graduation-cap'"></app-green-check>
+                                    <app-green-check *ngIf="1 || !myUser.memberFlg" [label]="'Income'"
+                                        [text1]="user.incomeRange"
+                                        [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
+                                        [icon]="'fa fa-money'">
+                                    </app-green-check>
+                                    <app-green-check *ngIf="0 && myUser.memberFlg" [label]="'Income'"
+                                        [text1]="user.income"
+                                        [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
+                                        [icon]="'fa fa-money'">
+                                    </app-green-check>
+                                    <app-green-check [label]="'Religion'" [text1]="user.religion"
+                                        [showCheckFlg]="user.religion == myUser.matchReligion && myUser.user_id != user.user_id"
+                                        [icon]="''" [img]="'assets/images/profile/religion.png'">
+                                    </app-green-check>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td align="center">
+                                                    <span class="menu-circle" *ngIf="user.drinksIcon">
+                                                        <img [src]="user.drinksIcon" class="dabauchery-icon">
+                                                    </span>
+                                                    <div style="font-size: 6px;">{{user.drinks}}</div>
+                                                </td>
+                                                <td align="center">
+                                                    <span class="menu-circle" *ngIf="user.smokesIcon">
+                                                        <img [src]="user.smokesIcon" class="dabauchery-icon">
+                                                    </span>
+                                                    <div style="font-size: 6px;">{{user.smokes}}</div>
+                                                </td>
+                                                <td align="center">
+                                                    <span class="menu-circle" *ngIf="user.potIcon">
+                                                        <img [src]="user.potIcon" class="dabauchery-icon">
+                                                    </span>
+                                                    <div style="font-size: 6px;">{{user.cannabis}}</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+            <div *ngIf="!basicsFlg">
+                <div><b>More about {{user.firstName}}</b> &nbsp;</div>
+                <div class="small-box" style="font-size: 12px; text-align: left;">
+                    <div class="small-title main-color"><i class="fa fa-eye"></i>&nbsp;Hoping to find</div>
+                    <div [innerHtml]="user.story" style="font-size: 14px; font-weight: 700;"></div>
+                </div>
+
+                <div *ngIf="user.aboutme" class="small-box"
+                    style="font-size: 12px; text-align: left; color: #555;">
+                    <div class="small-title main-color">About Me</div>
+                    <div [innerHtml]="user.aboutme"></div>
+                </div>
+                <div *ngIf="user.history" class="small-box"
+                    style="font-size: 12px; text-align: left; color: #555;">
+                    <div class="small-title main-color">Dating History</div>
+                    <div [innerHtml]="user.history"></div>
+                </div>
+                <div *ngIf="user.lookingFor" class="small-box"
+                    style="font-size: 12px; text-align: left; color: #555;">
+                    <div class="small-title main-color">Looking For</div>
+                    <div [innerHtml]="user.lookingFor"></div>
+                </div>
+               <table width="100%">
+                    <tr>
+                        <td>
+                            <div class="small-box" style="font-size: 12px;">
+                                <div class="small-title main-color">Personality</div>
+                                <app-green-check [label]="'Personality Quiz Type'"
+                                    [text1]="user.adventureStableText"
+                                    [showCheckFlg]="user.adventureStableText == user.adventureStableText && user.user_id != user.user_id"
+                                    [img]="'assets/images/profile/personality.png'">
+                                </app-green-check>
+                                <app-green-check [label]="'Politics'" [text1]="user.polyText"
+                                    [showCheckFlg]="user.polyText == user.polyText && user.user_id != user.user_id"
+                                    [icon]="'fa fa-university'">
+                                </app-green-check>
+                                <div title="Astrological Sign">
+                                    <span class="profile-icon"><i class="fa fa-star"></i></span>
+                                    <span class="profile-text"> {{user.astrologicalSign}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="small-box" style="font-size: 12px;">
+                                <div class="small-title main-color">Body</div>
+                                <div><b>Body Type:</b> {{user.bodyType}}</div>
+                                <div><b>Race:</b> {{user.race}}</div>
+
+                                <table width="100%">
+                                    <tr>
+                                        <td title="tattoos">
+                                            <span class="profile-icon"><img src="assets/images/profile/tattoo.png"
+                                                    height="18"></span>
+                                            <span class="profile-text"> {{user.numTattoos}}</span>
+                                            <div style="font-size: 6px;">Tattoos</div>
+                                        </td>
+                                        <td title="piercings">
+                                            <span class="profile-icon"><img src="assets/images/profile/piercing.png"
+                                                    height="18"></span>
+                                            <span class="profile-text"> {{user.numPiercings}}</span>
+                                            <div style="font-size: 6px;">Piercings</div>
+    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div *ngIf="0 && user" class="small-box"
+                    style="text-align: center; font-size: 12px;">
+                    <div *ngIf="user.matchObj">
+                        <table width="100%" align="center">
+                            <tr>
+                                <td width="50%">
+                                    <app-percent-text [label]="'Personality Mt'" [amount]="user.personalityMatch"
+                                        [loadingFlg]="false"
+                                        [img]="'assets/images/profile/personalityMatch.png'">
+                                    </app-percent-text>
+                                    <app-percent-text [img]="'assets/images/profile/politicsMatch.png'"
+                                        [label]="'Politics Match'" [amount]="user.polyMatch" [loadingFlg]="false">
+                                    </app-percent-text>
+                                </td>
+                                <td>
+                                    <app-percent-text [img]="'assets/images/profile/profileMatch.png'"
+                                        [label]="'Profile Match'" [amount]="user.profileMatch" [loadingFlg]="false">
+                                    </app-percent-text>
+                                    <app-percent-text [img]="'assets/images/profile/totalMatch.png'"
+                                        [label]="'Overall Match'" [amount]="user.totalMatch" [loadingFlg]="false">
+                                    </app-percent-text>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

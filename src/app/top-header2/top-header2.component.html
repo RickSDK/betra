@@ -15,6 +15,20 @@
         <span class="main-title">{{topTitle}}</span>
         <img src="assets/images/betraLogo.png" height="25" style="float: right; margin: 5px;">
     </div>
-    <div *ngIf="topTitle == 'My Dating Pool' || topTitle == 'Dating Pool'" style="position: absolute; bottom: 10px; left: 0; width: 100%; padding: 0px;"><button [routerLink]="['/user-detail']" class="btn btn-main-color btn-small">Browse Singles</button></div> 
+    <div *ngIf="topTitle == 'My Dating Pool' || topTitle == 'Dating Pool'" style="position: absolute; bottom: 10px; left: 0; width: 100%; padding: 0px;">
+        <table width="100%">
+            <tr>
+                <td align="center" width="170">
+                    <div><span class="red-text black-bg" style="font-size: 8px;">Days until next Rose Ceremony</span></div>
+                    <div><span class="red-text black-bg" style="font-size: 16px;">{{daysTillRoseCeremony}}</span></div>
+                </td>
+                <td align="center">&nbsp;</td>
+                <td align="center"  width="170">
+                    <div><span class="red-text black-bg" style="font-size: 8px;">Roses to hand out</span></div>
+                    <div><span class="red-text black-bg" style="font-size: 16px;">{{rosesToHandOut}}</span></div>
+                </td>
+            </tr>
+        </table>
+    </div> 
 
 </div>

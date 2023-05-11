@@ -33,8 +33,6 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     this.showIntimacyValuesFlg = this.showIntimacyLevelsFlg; // messes up toggle switch otherwise
 
     this.datingPoolSize = this.user.datingPool.length;
-    this.exceededPoolSizeFlg = this.user.datingPool.length > this.user.datingPoolLimit;
-    this.toggleDeleteButtonsFlg = this.exceededPoolSizeFlg;
     var width = window.innerWidth;
     if (width > 812)
       width -= 400;

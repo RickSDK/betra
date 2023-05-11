@@ -215,13 +215,22 @@ export class User {
     public history: string = '';
     public lookingFor: string = '';
     public alias_name: string = '';
+    public rosesToHandOut: number = 0;
+    public numSingles: number = 0;
+    public genderMatch: string = 'singles';
+    public genderMatch2: string = 'people';
+    public daysTillRoseCeremony: number = 0;
+    public roseCeremonyDate: string = '';
+    public roseCeremonyDt: string = '';
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
+            this.roseCeremonyDt = obj.roseCeremonyDt || '';
             this.created = obj.created || '';
             this.aboutme = obj.aboutme || '';
             this.history = obj.history || '';
+            this.daysTillRoseCeremony = obj.daysTillRoseCeremony || 0;
             this.alias_name = obj.alias_name || '';
             this.lookingFor = obj.lookingFor || '';
             this.emailNum = obj.emailNum || 0;
@@ -239,6 +248,18 @@ export class User {
             this.genderIcon = (obj.gender == 'M') ? 'fa fa-male' : 'fa fa-female';
             this.genderName = (obj.gender == 'M') ? 'male' : 'female';
             this.yourTitle = (obj.gender == 'M') ? 'Bachelor' : 'Bachelorette';
+
+            if (obj.matchPreference == 'F') {
+                this.genderMatch = 'women';
+                this.genderMatch2 = 'ladies';
+            }
+            if (obj.matchPreference == 'M') {
+                this.genderMatch = 'men';
+                this.genderMatch2 = 'gentlemen';
+            }
+            this.numSingles = (obj.gender == 'F') ? 20 : 40;
+            this.rosesToHandOut = (obj.gender == 'F') ? 10 : 20;
+
             //this.findLoveFlg = obj.findLoveFlg == 'Y';
             this.findLoveFlg = true; // always true for this version
             this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
@@ -321,8 +342,8 @@ export class User {
             this.navLng = obj.navLng || '';
             this.latitude = obj.latitude || obj.navLat || '';
             this.longitude = obj.longitude || obj.navLng || '';
-//            this.latitude = obj.navLat || obj.latitude || '';
-//            this.longitude = obj.navLng || obj.longitude || '';
+            //            this.latitude = obj.navLat || obj.latitude || '';
+            //            this.longitude = obj.navLng || obj.longitude || '';
 
             this.region = obj.region || '';
             this.state = obj.state || '';
@@ -486,9 +507,16 @@ export class User {
                 var heartFlg2 = (items.length >= 6 && items[5] == 'Y');
                 datingPool.push({ name: name, src: src, user_id: user_id, heartFlg: heartFlg, level: level, heartFlg2: heartFlg2 });
             }
-
         });
         this.datingPool = datingPool;
+        if (datingPool.length > 0) {
+            this.rosesToHandOut = datingPool.length - 3;
+            if (this.rosesToHandOut > 17)
+                this.rosesToHandOut = 17;
+            if (this.rosesToHandOut < 1)
+                this.rosesToHandOut = 1;
+            //game in progress
+        }
         this.datingPoolLimit = (this.memberFlg) ? 12 : 8;
         if (this.ownerFlg)
             this.datingPoolLimit = 20;
@@ -541,9 +569,9 @@ export class User {
             this.daysAgo = dateObj.daysAgo;
             this.lastLoginColor = dateObj.lastLoginColor;
             this.lastLoginText = dateObj.daysAgo + ' Days ago';
-            this.isGoodActivity = (dateObj.daysAgo <= 10);
-            if (dateObj.daysAgo <= 7)
-                this.matchQualityIndex++;
+            this.isGoodActivity = (dateObj.daysAgo <= 12);
+            if (dateObj.daysAgo <= 4)
+                this.matchQualityIndex += 2;
             if (dateObj.daysAgo == 0)
                 this.lastLoginText = 'Today';
             if (dateObj.daysAgo == 1)
@@ -560,10 +588,18 @@ export class User {
                 this.lastLoginText = 'Online Now!';
             }
         }
-        if (this.status == 'Active' && !this.matchAge) {
-            this.pendingStatusReason = 'Enter your ideal match age';
-            this.pendingStatusPage = 7;
-            this.status = 'Pending';
+
+        if (!this.story) {
+            this.pendingStatusReason = 'Enter your match section';
+            this.pendingStatusPage = 8;
+            //this.status = 'Pending';
+        }
+
+
+        if (this.status == 'Started' && !this.matchAge) {
+            this.pendingStatusReason = 'Enter your match section';
+            this.pendingStatusPage = 8;
+            //this.status = 'Pending';
         }
 
         if (this.matchAge == 0) {
@@ -702,7 +738,7 @@ export class User {
         if (this.isGoodLocation)
             this.matchQualityIndex += 2;
         if (this.isGoodActivity)
-            this.matchQualityIndex++;
+            this.matchQualityIndex += 2;
 
         //----Basics
         var basicsFlg = !!(this.gender && this.matchPreference);

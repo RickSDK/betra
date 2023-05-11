@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { ProfileTopComponent } from '../profile-top/profile-top.component';
 import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
+import { PicturePopupComponent } from '../popups/picture-popup/picture-popup.component';
 
 @Component({
   selector: 'app-match-snapshot',
@@ -10,6 +11,8 @@ import { DatabaseService } from '../services/database.service';
 })
 export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   @ViewChild(ProfileTopComponent) profileTopComponent: ProfileTopComponent = new (ProfileTopComponent);
+  @ViewChild(PicturePopupComponent, { static: true })
+  picturePopupComponent!: PicturePopupComponent;
 
   @Input('matchUser') matchUser: any = null;
   @Input('user') override user: any = null;
@@ -85,8 +88,8 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     if (this.id == 7)
       this.showInterestedButtonsFlg = false; // verify pics
 
-    if (this.matchUser.status != 'Active')
-      this.showInterestedButtonsFlg = false; // verify pics
+   // if (this.matchUser.status != 'Active')
+   //   this.showInterestedButtonsFlg = false; // verify pics
 
     this.youAreInterestedFlg = !!(this.matchUser.matchObj && this.matchUser.matchObj.you_interested);
 
@@ -173,6 +176,12 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
       this.getDataFromServer('getSnoopData', 'appApiCode.php', { uid: this.matchUser.user_id });
   }
   actionButtonClicked(action: string) {
+    if (action == 'showImage') {
+      if (this.picturePopupComponent)
+        this.picturePopupComponent.showPopup(this.matchUser.mainImageSrc);
+
+      return;
+    }
     if (action == "show-more" && this.matchUser) {
       this.getDataFromServer('showMore', 'appApiCode2.php', { uid: this.matchUser.user_id });
       if (this.showMoreFlg)

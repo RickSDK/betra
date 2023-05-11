@@ -14,7 +14,8 @@
                 left and give them a thumbs up.
             </p>
             <div *ngIf="actionCount>0">
-                <div># of users you should take action on: <span style="font-size: 24px;" class="text-highlight">{{actionCount}}</span> </div>
+                <div># of users you should take action on: <span style="font-size: 24px;"
+                        class="text-highlight">{{actionCount}}</span> </div>
                 <div class="gray-text">(Click on the profiles in green below and give a thumbs up)</div>
             </div>
         </div>
@@ -34,7 +35,7 @@
                 <th>Pic</th>
                 <th>Name</th>
                 <th>Gender</th>
-                <th>Created</th>
+                <th class="hide-sm">Created</th>
                 <th>Status</th>
                 <th>lastLogin</th>
                 <th>Yes</th>
@@ -42,15 +43,18 @@
                 <th>Matches</th>
                 <th>Likes Reveived</th>
                 <th>Swiped by You</th>
+                <th class="hide-sm">Rose</th>
             </tr>
             <tr *ngFor="let person of users" [ngStyle]="ngStyleRow(person)">
                 <td>
                     <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="20">
                     </app-profile-pic>
                 </td>
-                <td>{{person.firstName}}</td>
+                <td [title]="person.user_id">{{person.firstName}}
+                    <div style="font-size: 6px; color: gray;">{{person.email}}</div>
+                </td>
                 <td>{{person.gender}}, {{person.age}}</td>
-                <td>{{person.created}}</td>
+                <td class="hide-sm">{{person.created}}</td>
                 <td>{{person.status}}</td>
                 <td>{{person.lastDay}}</td>
                 <td>{{person.statsObj.interestYes}}</td>
@@ -60,8 +64,10 @@
                 <td>
                     <i *ngIf="person.matchObj && person.matchObj.you_interested=='Y'" class="fa fa-check"
                         style="font-size: 16px; color: green;"></i>
-                        <i *ngIf="person.matchObj && person.matchObj.you_interested=='N'" class="fa fa-times"
-                        style="font-size: 16px; color: red;"></i></td>
+                    <i *ngIf="person.matchObj && person.matchObj.you_interested=='N'" class="fa fa-times"
+                        style="font-size: 16px; color: red;"></i>
+                </td>
+                <td class="hide-sm"><i class="fa fa-check" *ngIf="person.roseCeremonyDt"></i></td>
             </tr>
         </table>
     </div>

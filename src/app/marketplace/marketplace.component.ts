@@ -129,8 +129,8 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
   }
   acceptOrder(order: any) {
     this.errorMessage = '';
-    console.log('xxx', order);
-    if (order.type == 'Offer' && this.yourWalletAmount < order.amount) {
+    var cashValue = order.amount * order.price / 100;
+    if (order.type == 'Offer' && this.yourWalletAmount < cashValue) {
       //buy
       this.buyErrorMessage = 'Not enough cash in your wallet to buy these coins. Click the deposit button above.';
       return;

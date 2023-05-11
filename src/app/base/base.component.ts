@@ -53,7 +53,7 @@ export class BaseComponent implements OnInit {
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
-    
+
     window.scrollTo(0, 0);
     if (!localStorage['code']) {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
@@ -109,7 +109,7 @@ export class BaseComponent implements OnInit {
 
     var notificationsTypes = [
       { name: 'Users Interested', amount: 0, desc: 'You have someone interested in you!' },
-      { name: 'Users Matched', amount: 0, desc: 'You have a new match!' },
+      { name: 'New to Dating Pool', amount: 0, desc: 'You have a new match!' },
       { name: 'Questions Asked', amount: 0, desc: 'Someone has asked you a question!' },
       { name: 'Dates Requested', amount: 0, desc: 'Someone has requested a date!' },
       { name: 'Messages Received', amount: 0, desc: 'You have received new messages!' },
@@ -118,6 +118,8 @@ export class BaseComponent implements OnInit {
       { name: 'Picture Received', amount: 0, desc: 'Someone has sent you a picture!' },
       { name: 'Dropped', amount: 0, desc: 'Sorry, but someone has dropped you from their dating pool.' },
       { name: 'New Review', amount: 0, desc: 'Someone has written a new review on you!' },
+      { name: 'New Pic Request', amount: 0, desc: 'New picture request for you!' },
+      { name: 'Picture Delivered', amount: 0, desc: 'Someone has delivered a picture for you!' },
     ];
 
     notificationsTypes[0].amount = infoObj.admirerCount;
@@ -129,6 +131,8 @@ export class BaseComponent implements OnInit {
     notificationsTypes[7].amount = infoObj.newPicsCount;
     notificationsTypes[8].amount = (infoObj.droppedBy > 0) ? 1 : 0;
     notificationsTypes[9].amount = (infoObj.newReviewBy > 0) ? 1 : 0;
+    notificationsTypes[10].amount = infoObj.newPicCount;
+    notificationsTypes[11].amount = infoObj.deliveredPicCount;
 
     var notifications = 0;
     notificationsTypes.forEach(element => {
@@ -156,10 +160,13 @@ export class BaseComponent implements OnInit {
       if (userLocalStorage) {
         var userObj = JSON.parse(localStorage['User']);
         this.user = new User(userObj);
+        console.log('xxx', this.user);
         this.imgSrcFile = this.user.imgSrc;
         this.userStatus = this.user.status;
-        if (this.infoObj)
+        if (this.infoObj) {
           this.headerObj.browseObj = this.infoObj.browseObj;
+          this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;
+        }
         this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
         this.headerObj.notifications = localStorage['notifications'];
         this.headerObj.messageCount = localStorage['messageCount'];
@@ -393,17 +400,21 @@ export class BaseComponent implements OnInit {
       this.successFlg = true;
       if (responseJson.action == 'logUser') {
 
-        if(responseJson.infoObj && responseJson.infoObj.browseObj && responseJson.infoObj.browseObj.user_id > 0) {
+        if (responseJson.infoObj) {
+          this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;
+        }
+
+        if (responseJson.infoObj && responseJson.infoObj.browseObj && responseJson.infoObj.browseObj.user_id > 0) {
           console.log('xxx!!!xxx user snooping!', responseJson.infoObj.browseObj.firstName);
           this.headerObj.browseObj = responseJson.infoObj.browseObj;
           if (this.pageShellComponent)
-            this.pageShellComponent.displayBrowsePopup();  
+            this.pageShellComponent.displayBrowsePopup();
         }
-        if(responseJson.infoObj && responseJson.infoObj.giftObj && responseJson.infoObj.giftObj.user_id > 0) {
+        if (responseJson.infoObj && responseJson.infoObj.giftObj && responseJson.infoObj.giftObj.user_id > 0) {
           console.log('xxx!!!xxx user giftObj!', responseJson.infoObj.giftObj.firstName);
           this.headerObj.giftObj = responseJson.infoObj.giftObj;
           if (this.pageShellComponent)
-            this.pageShellComponent.displayGiftPopup();  
+            this.pageShellComponent.displayGiftPopup();
         }
         if (responseJson.refreshFlg == 'Y')
           this.syncUserWithLocalStorage(responseJson);
@@ -451,7 +462,7 @@ export class BaseComponent implements OnInit {
       timeout: 5000,
       maximumAge: 0,
     };
-    
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition, this.browserGeolocationFail, options);
     } else {
@@ -484,7 +495,7 @@ export class BaseComponent implements OnInit {
     console.log('here are the coordinates', position.coords.latitude, position.coords.longitude, position.coords.accuracy);
     localStorage['latitude'] = position.coords.latitude;
     localStorage['longitude'] = position.coords.longitude;
-    localStorage['accuracy'] = position.coords.accuracy;
+    localStorage['accuracy'] = Math.round(position.coords.accuracy);
     //this.uploadCoordinates();
   }
 
