@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-betra-popup',
@@ -11,6 +11,8 @@ export class BetraPopupComponent implements OnInit {
   public title: string = '';
   public message: string = '';
   public type: number = 0;
+
+  @Output() messageEvent = new EventEmitter<string>();
 
   constructor() { }
 
@@ -41,6 +43,11 @@ export class BetraPopupComponent implements OnInit {
       return 'popup-outer popup-on';
     else
       return 'popup-outer popup-off'
+  }
+
+  specialButtonClicked(value: string) {
+    this.hidePopup();
+    this.messageEvent.emit(value);
   }
 
   hidePopup() {

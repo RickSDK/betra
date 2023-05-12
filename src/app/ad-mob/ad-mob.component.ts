@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
 
+declare var getPlatform: any;
+
 @Component({
   selector: 'app-ad-mob',
   templateUrl: './ad-mob.component.html',
@@ -25,8 +27,13 @@ export class AdMobComponent implements OnInit {
     }
   
     async showBanner() {
+      var platform = getPlatform();
+      console.log('platform', platform);
       var unitId = 'ca-app-pub-2626924352662007/1324088676'; // betra android
       //unitId = 'ca-app-pub-3940256099942544/6300978111'; //test
+      if(platform == 'IOS')
+        unitId = 'ca-app-pub-2626924352662007/3670479598'; //ios
+  
   
       const options: BannerAdOptions = {
         adId: unitId,

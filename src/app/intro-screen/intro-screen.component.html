@@ -38,25 +38,21 @@
         </div>
         <div *ngIf="menuNum==9">
             <div>&nbsp;</div>
-            <div class="red-text" style="font-size: 22px;">New {{user.genderMatch2}} might be added to your pool as the game goes on.</div>
+            <div class="red-text" style="font-size: 22px;">After 7 days, you will have your 2nd rose ceremony.</div>
         </div>
         <div *ngIf="menuNum==10">
             <div>&nbsp;</div>
-            <div class="red-text" style="font-size: 22px;">After 7 days, you will have your 2nd rose ceremony.</div>
+            <div class="red-text" style="font-size: 22px;">And you will eliminate 3 of them.</div>
         </div>
         <div *ngIf="menuNum==11">
             <div>&nbsp;</div>
-            <div class="red-text" style="font-size: 22px;">And you will have to eliminate 3 of them from your dating pool.</div>
+            <div class="red-text" style="font-size: 22px;">The process continues until you reach your final match!</div>
         </div>
         <div *ngIf="menuNum==12">
             <div>&nbsp;</div>
-            <div class="red-text" style="font-size: 22px;">The process continues until you reach your final match!</div>
-        </div>
-        <div *ngIf="menuNum==13">
-            <div>&nbsp;</div>
             <div class="red-text" style="font-size: 22px;">Are you ready to begin?</div>
         </div>
-        <div *ngIf="menuNum==14">
+        <div *ngIf="menuNum==13">
             <div>&nbsp;</div>
             <div class="red-text" style="font-size: 22px;">It's time to begin the game</div>
             <div>&nbsp;</div>
@@ -82,8 +78,16 @@
             <div class="red-text"  style="font-size: 48px;">{{singlesFound}}</div>
             <button (mousedown)="meetTheSingles()" [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large">Meet the {{user.genderMatch}}</button>
         </div>
+        <div *ngIf="menuNum==44">
+            <div>&nbsp;</div>
+            <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
+            <div>&nbsp;</div>
+            <div class="red-text">Please finish setting up your profile first</div>
+            <div>&nbsp;</div>
+            <button [routerLink]="['/profile']" class="btn btn-main-color btn-large">Profile</button>
+        </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
  
     </div>
 </div>
-<i [routerLink]="['/rose-ceremony']" class="fa fa-arrow-right red-text" style="position: fixed; top: 5px; right: 5px; font-size: 24px; cursor: pointer;"></i>
+<i [routerLink]="['/rose-ceremony']" (mousedown)="stopMusic()" class="fa fa-arrow-right red-text" style="position: fixed; top: 10px; right: 10px; font-size: 24px; cursor: pointer;"></i>

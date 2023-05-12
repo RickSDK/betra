@@ -39,10 +39,21 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
 
   }
 
+  stopMusic() {
+    this.audio.pause();
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'checkRoseCeremonyDt') {
-      if(responseJson.roseCeremonyDt && responseJson.roseCeremonyDt != null)
+      if(this.user.status != 'Active') {
+        this.menuNum = 44;
+        return;
+      } else {
+        if(responseJson.roseCeremonyDt && responseJson.roseCeremonyDt != null)
         this.router.navigate(['/rose-ceremony']);
+
+      }
+
     }
   }
 
@@ -71,12 +82,12 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
 
   displayMenuItem() {
     this.menuNum++;
-    if (this.menuNum <= 14) {
+    if (this.menuNum <= 13) {
       this.showWritingFlg = false;
       setTimeout(() => {
         this.showWritingFlg = true;
       }, 50);
-      if (this.menuNum < 14) {
+      if (this.menuNum < 13) {
         setTimeout(() => {
           this.showWritingFlg = false;
         }, 5000);

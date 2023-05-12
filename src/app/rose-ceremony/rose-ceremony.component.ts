@@ -28,6 +28,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
   public previewModeFlg2: boolean = false;
   public numSingles: number = 0;
   public rosesRemaining: number = 0;
+  public roseCeremonyDt: string = '';
   public daysTillCeremony: number = 0;
   public displayUserCounter: number = 0;
   public users: any = [];
@@ -44,6 +45,11 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
     if (!this.user || !this.user.user_id) {
       this.router.navigate(['']);
       return
+    }
+
+    if(this.user.status != 'Active') {
+      this.menuNum = 101;
+      return;
     }
     this.rosesRemaining = this.user.rosesToHandOut;
     this.numSingles = this.user.numSingles;
@@ -88,7 +94,6 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
 
 
   endRoseCeremony() {
-
     var rosesHandedOut = 0;
     var picks: any = [];
     this.users.forEach((element: any) => {
@@ -101,8 +106,15 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       picks.push(item);
     });
     if (this.rosesRemaining > 0 && rosesHandedOut < this.users.length) {
+      this.users.forEach((element: any) => {
+        if (!element.hasRose && this.rosesRemaining > 0) {
+          element.hasRose = true;
+          this.rosesRemaining--;
+        }
+      });
+
       if (this.picturePopupComponent)
-        this.betraPopupComponent.showPopup('Keep handing our roses', 'You still have ' + this.rosesRemaining + ' roses to hand out. Click the check-mark next to pictures of people you are interested in meeting. If you aren\'t interested in anyone else, randomly pic a few just to fill your pool. You can drop them at your next rose ceremony.');
+        this.betraPopupComponent.showPopup('End your Rose Ceremony?', 'We have gone ahead and completed the picks for your dating pool. Would you like to end the Rose Cenermony now?', 3);
       return;
     }
 
@@ -111,6 +123,12 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('roseCeremonyCompleted', 'roseCeremony.php', { list: list });
 
 
+  }
+
+  popupButtonPressed(event: string) {
+    if (event == 'end') {
+      this.endRoseCeremony();
+    }
   }
 
   showThisUser() {
@@ -169,8 +187,18 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
 
 
     if (responseJson.action == 'registerForRoseCeremony') {
+      // not sure this will ever execute
       this.menuNum = 99;
       this.daysTillCeremony = responseJson.daysTillCeremony;
+      this.numSingles = responseJson.dpCount;
+      this.roseCeremonyDt = responseJson.roseCeremonyDt;
+      if (responseJson.roseCeremonyDt != "") {
+        this.rosesRemaining = this.numSingles - 3;
+        if (this.rosesRemaining > 17)
+          this.rosesRemaining = 17;
+      } else {
+        this.rosesRemaining = this.user.gender == 'F' ? 10 : 20;
+      }
 
     }
     if (responseJson.action == 'roseCeremonyCompleted') {

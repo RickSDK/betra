@@ -1,13 +1,42 @@
 <img id="roseBg" src="assets/images/landing/roseHome.png"
     style="width: 100%; height: 100vh; object-fit: cover; position: fixed; z-index: -1;">
 
-<div *ngIf="menuNum==99">
-    <div class="outter-div">
-        <div class="inner-block">
-            <div class="red-text">Sorry, it is not yet time for your Rose Ceremony. Come back in {{daysTillCeremony}}
-                days.</div>
+<div *ngIf="menuNum==101">
+    <div style="width: 100%; text-align: center;">
+        <div class="inner-block" style="text-align: center; background-color: black; padding: 20px; border-radius: 20px;">
+            <div>
+                <img src="assets/images/rose1.png" height="80">
+            </div>
+            <p class="red-text">Looks like your account is not set up yet.</p>
             <div>&nbsp;</div>
-            <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>
+            <div>
+                <button [routerLink]="['/profile']" class="btn btn-main-color btn-large">Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="menuNum==99">
+    <div style="width: 100%; text-align: center;">
+        <div class="inner-block" style="text-align: left; background-color: black; padding: 20px; border-radius: 20px;">
+            <div style="text-align: center;">
+                <img src="assets/images/rose1.png" height="80">
+            </div>
+            <p class="red-text" style="font-size: 16px;">Your next rose ceremony happens in <span
+                    style="color: white; font-size: 18px;">{{daysTillCeremony}}</span>
+                days.</p>
+            <p class="red-text"><span style="color: white;">How it works:</span> You currently have {{numSingles}}
+                people in your dating pool and {{rosesRemaining}} roses
+                to hand out. This means you will be handing out roses to {{rosesRemaining}}
+                {{user.genderMatch}} and the others will be let go.</p>
+            <p class="red-text"> <span style="color: white;">Next Week:</span> You will then have another week to better
+                get to know the
+                {{user.genderMatch2}} remaining, at which time there will be another Rose Ceremony and you will further
+                reduce the size of your dating pool.</p>
+            <p class="red-text" style="color: white;">Enjoy the game!</p>
+            <div>&nbsp;</div>
+            <div style="text-align: center;">
+                <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>
+            </div>
         </div>
     </div>
 </div>
@@ -44,7 +73,8 @@
     <div style="position: fixed; top: 0; left: 0; height: 55px; background-color: black; z-index: 499; width: 100%;">
         &nbsp;</div>
     <button [disabled]="users.length==0 || !startHandingRosesFlg || rosesRemaining<0" (mousedown)="endRoseCeremony()"
-    [ngClass]="rosesRemaining>0?'btn btn-main-color':'btn btn-main-color btn-large'" style="position: fixed; top: 5px; left: 4px; z-index: 500;">End Rose
+        [ngClass]="rosesRemaining>0?'btn btn-main-color':'btn btn-main-color btn-large'"
+        style="position: fixed; top: 5px; left: 4px; z-index: 500;">End Rose
         Ceremony</button>
 
     <div style="position: fixed; top: 0; right: 85px; z-index: 500; background-color: black;">
@@ -119,16 +149,18 @@
         <div style="text-align: center;">
             <div
                 style="background-color: black; padding: 20px; margin: 20px; border-radius: 20px; display: inline-block; max-width: 420px;">
-                <div *ngIf="rosesRemaining>0" class="red-text">Keep handing out roses. You have {{rosesRemaining}} remaining.</div>
+                <div *ngIf="rosesRemaining>0" class="red-text">Keep handing out roses. You have {{rosesRemaining}}
+                    remaining.</div>
                 <div style="font-size: 12px; color: pink">Keep in mind you are only choosing your starting pool of
                     people you might be interested in. There's no obligation to meet or even chat with anyone unless you
                     decide to.</div>
                 <div>&nbsp;</div>
                 <button [disabled]="users.length==0 || !startHandingRosesFlg || rosesRemaining<0"
-                    (mousedown)="endRoseCeremony()" [ngClass]="rosesRemaining>0?'btn btn-main-color':'btn btn-main-color btn-large'">End Rose
+                    (mousedown)="endRoseCeremony()"
+                    [ngClass]="rosesRemaining>0?'btn btn-main-color':'btn btn-main-color btn-large'">End Rose
                     Ceremony</button>
-                    <div>&nbsp;</div>
-                    <span [routerLink]="'/profile'" class="text-link">Exit</span>
+                <div>&nbsp;</div>
+                <span [routerLink]="'/profile'" class="text-link">Exit</span>
             </div>
         </div>
     </div>
@@ -151,5 +183,5 @@
 
 
 <app-picture-popup></app-picture-popup>
-<app-betra-popup></app-betra-popup>
+<app-betra-popup (messageEvent)="popupButtonPressed($event)"></app-betra-popup>
 <app-profile-popup></app-profile-popup>

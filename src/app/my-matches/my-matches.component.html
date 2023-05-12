@@ -11,6 +11,7 @@
                 <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
             </button>
         </div>
+        <button class="btn btn-main-color btn-small" [routerLink]="'/rose-ceremony'" style="margin: 10px;">Rose Ceremony</button>
 
         <div *ngIf="(user.showHeartFormFlg && daysTillRoseCeremony <= 4) || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
             <img src="assets/images/rose1.png" height="120" alt="Rose" title="Rose">

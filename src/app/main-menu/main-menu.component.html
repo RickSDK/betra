@@ -17,6 +17,16 @@
 
     <div class="red-text">What would you like to do?</div>
     <div style="display: inline-block; max-width: 600px;">
+        <div class="button-box" [routerLink]="['/matches']">
+            <img [src]="browseScr" height="200" width="200" class="button-pic">
+            <div class="gray-screen2">&nbsp;</div>
+            <div class="button-text">Dating Pool</div>
+        </div>
+        <div class="button-box" [routerLink]="['/rose-ceremony']">
+            <img [src]="'assets/images/buttons/datePool.jpg'" height="200" width="200" class="button-pic">
+            <div class="gray-screen2">&nbsp;</div>
+            <div class="button-text" style="font-size: 20px;">Rose Ceremony</div>
+        </div>
         <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
             <img [src]="button.src" height="200" width="200" class="button-pic">
             <div class="gray-screen2">&nbsp;</div>

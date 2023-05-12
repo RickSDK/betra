@@ -106,14 +106,14 @@ export class PageShellComponent implements OnInit {
     if (this.headerObj && this.headerObj.browseObj && this.headerObj.browseObj.user_id)
       this.displayBrowsePopup();
 
-    if (this.userStatus == 'Active' && this.headerObj && this.headerObj.daysTillRoseCeremony == 0 && this.pageTitle == 'Dating Pool') {
-      setTimeout(() => {
-        if (this.betraPopupComponent) {
+//    if (this.userStatus == 'Active' && this.headerObj && this.headerObj.daysTillRoseCeremony == 0 && this.pageTitle == 'Dating Pool') {
+//      setTimeout(() => {
+//        if (this.betraPopupComponent) {
           //this.router.navigate(['/intro']);
-          this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It\'s time for an exciting rose ceremony. Give roses to your top picks and say goodbye to the others.', 99);
-        }
-      }, 1000);
-    }
+ //         this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It\'s time for an exciting rose ceremony. Give roses to your top picks and say goodbye to the others.', 99);
+  //      }
+  //    }, 1000);
+  //  }
     //    setTimeout(() => {
     //     (this.adsbygoogle = (window as any).adsbygoogle || []).push({});
     //   }, 1000);
