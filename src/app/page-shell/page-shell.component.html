@@ -35,10 +35,10 @@
                 <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
                     <div class="top-button-label">Blogs</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/photography']" class="top-button hide-xs"><i class="fa fa-picture-o"></i>
+                <span *ngIf="0" [routerLink]="['/photography']" class="top-button hide-xs"><i class="fa fa-picture-o"></i>
                     <div class="top-button-label">Photography</div>
                 </span>
-                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button hide-xs"><img
+                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button hide-sm"><img
                         src="assets/images/pics/chat_room.png" height="40">
                     <i *ngIf="0" class="fa fa-comment"></i> <span *ngIf="headerObj && headerObj.chatPeople>0"
                         class="red-circle" style="background-color: green;">{{headerObj.chatPeople}}</span>
@@ -73,6 +73,12 @@
                     <i class="fa fa-search icon-button main-color"></i>
                     <span class="icon-label main-color-bg">Browse</span>
                 </span>-->
+                <span class="menu-circle" [routerLink]="['/messages']">
+                    <i class="fa fa-comments icon-button main-color"></i>
+                    <span *ngIf="headerObj.messageCount>0"
+                        class="red-circle">{{headerObj.messageCount}}</span>
+                    <span class="icon-label main-color-bg">Messages</span>
+                </span>
                 <span class="menu-circle hide-xxs" [routerLink]="['/matches']">
                     <i class="fa fa-users icon-button main-color"></i>
                     <span class="icon-label main-color-bg">My Dating Pool</span>

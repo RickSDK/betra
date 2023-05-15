@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
 import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
 import { PicturePopupComponent } from '../popups/picture-popup/picture-popup.component';
+import { Photographer } from '../classes/photographer';
 
 declare var $: any;
 
@@ -40,9 +41,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public result: string = '';
   public yourWalletAmount: number = 0;
   public showNewTypeFlg: boolean = false;
-  public picTypes: any = ['Nature', 'Animals', 'Still Life', 'Selfie', 'Fashion', 'Outdoors', 'Swim Suit', 'Lingerie', 'NSFW', 'Other'];
-  public picCosts: any = [1, 3, 5, 10, 20, 40, 100, 200, 500, 1000];
-  public myPicTypes: any = [];
+  public picTypes: any = ['Nature', 'Animals', 'Still Life', 'Fashion', 'Outdoors', 'Swim Suit', 'Lingerie', 'NSFW', 'Other'];
+  public picCosts: any = [1, 2, 3, 4, 5, 10, 20, 40, 100, 200, 500, 1000];
+  public myPicTypes: any = [{ type: 'selfie', cost: 1 }];
   public picTypeOtherFlg: boolean = false;
   public showImagePopup: boolean = false;
   public selectedPerson: any = null;
@@ -57,6 +58,10 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public showWithdrawFormFlg: boolean = false;
   public newOfferReceivedFlg: boolean = false;
   public editSellerFlg: boolean = false;
+  public updateMadeFg: boolean = false;
+  public addPortfolioImageFlg: boolean = false;
+  public details: string = '';
+  public myPhotographer: any = null;
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -79,9 +84,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     }
   }
 
-  viewImage(order: any) {
+  viewImage(src: string) {
     if (this.picturePopupComponent)
-      this.picturePopupComponent.showPopup(order.src);
+      this.picturePopupComponent.showPopup(src);
   }
 
   picTypeChanged() {
@@ -92,12 +97,13 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     this.showNewTypeFlg = true;
   }
   addPicTypeToList() {
+    console.log('here');
     var picType = $('#picType').val();
     var picCost = $('#picCost').val();
     if (picType == 'Other') {
       picType = $('#picTypeOther').val();
     }
-    if(picType == '') {
+    if (picType == '') {
       this.errorMessage = 'Fill out a picture type in the field above';
       return;
     }
@@ -108,6 +114,8 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     });
     if (allowType)
       this.myPicTypes.push({ type: picType, cost: picCost });
+    else
+      this.errorMessage = 'Duplicate pic type. Delete old one first.';
   }
 
   viewBuyer(person: any) {
@@ -168,15 +176,38 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
   }
 
+  uploadPortfilioPicButtonClicked() {
+    this.addPortfolioImageFlg = false;
+    this.getDataFromServer('uploadPortfolioImage', 'market.php', { image: $('#Image1').attr('src') });
+  }
+  updateAboutMe() {
+    this.errorMessage = '';
+    var details = $('#details').val();
+
+    if (details.length == 0) {
+      this.errorMessage = 'Details cannot be blank.';
+      return;
+    }
+    this.updateMadeFg = true;
+    this.getDataFromServer('updateAboutMe', 'market.php', { details: details });
+
+  }
+
   becomeSeller() {
     this.errorMessage = '';
-    console.log('hey', this.myPicTypes);
+    var details = $('#details').val();
+
+    //console.log('hey', this.myPicTypes);
+    if (details.length == 0) {
+      this.errorMessage = 'Tell us a little about yourself.';
+      return;
+    }
     if (this.myPicTypes.length == 0) {
       this.errorMessage = 'Add at least 1 type of picture';
       return;
     }
     var types = JSON.stringify(this.myPicTypes);
-    this.getDataFromServer('becomeSeller', 'market.php', { types: types });
+    this.getDataFromServer('becomeSeller', 'market.php', { types: types, details: details });
   }
 
   exitClub() {
@@ -336,6 +367,11 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.ccId = responseJson.ccId;
       if (responseJson.items && responseJson.items.length > 0)
         this.myPicTypes = JSON.parse(responseJson.items);
+
+      this.myPicTypes.forEach((element: any) => {
+        if (element.type == 'Selfie' && element.cost != 1)
+          element.cost = 1;
+      });
       this.myCurrentValueText = (this.myCoins * this.lastSalePrice / 100).toFixed(2);
       this.calculateCost(10);
       this.changeActivity(0);
@@ -348,16 +384,22 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.buyers = responseJson.buyers;
       this.myOrders = responseJson.myOrders;
       this.myOffers = responseJson.myOffers;
+      this.details = responseJson.details;
+      this.myPhotographer = new Photographer(responseJson);
+      console.log('xxx', this.myPhotographer);
 
       this.sellersM = [];
       this.sellersF = [];
       responseJson.sellers.forEach((element: any) => {
         if (element.gender == 'F')
-          this.sellersF.push(element);
+          this.sellersF.push(new Photographer(element));
         else
-          this.sellersM.push(element);
+          this.sellersM.push(new Photographer(element));
       });
+      var newOrdersDeliveredFlg: boolean = false;
       this.myOrders.forEach((element: any) => {
+        if (element.status == 'Delivered')
+          newOrdersDeliveredFlg = true;
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.uid + '_' + element.row_id + '.jpg';
       });
       this.myOffers.forEach((element: any) => {
@@ -373,8 +415,10 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
       if (this.newOfferReceivedFlg && this.betraPopupComponent)
         this.betraPopupComponent.showPopup('You have a new picture request!', 'Check for your new requests under the "My Offers" section and click "Accept" or "Decline" to complete the transaction.');
+      else if (newOrdersDeliveredFlg && this.betraPopupComponent)
+        this.betraPopupComponent.showPopup('You have a new picture delivered!', 'Check the "My Orders" section and click "Confirm" to complete the transaction.');
 
-      console.log('lastSalePrice', this.lastSalePrice);
+      console.log('lastSalePrice', this.lastSalePrice, this.sellersM);
     }
 
   }

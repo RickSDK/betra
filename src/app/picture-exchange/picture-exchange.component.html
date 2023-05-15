@@ -39,6 +39,16 @@
                 <hr>
                 <div *ngIf="sellerFlg=='Y'">
                     <div *ngIf="editSellerFlg" class="tan-box">
+                        <div>{{user.firstName}}'s Photography Profile</div>
+                        <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="60">
+                        </app-profile-pic>
+                        <div>About me</div>
+                        <app-text-area-input [id]="'details'" [value]="details"></app-text-area-input>
+                        <div *ngIf="updateMadeFg">Update successful!</div>
+                        <button *ngIf="!updateMadeFg" [disabled]="loadingFlg" (mousedown)="updateAboutMe()"
+                            class="btn btn-warning spacer">Update About Me
+                        </button>
+                        <hr>
                         <table border="1" *ngIf="myPicTypes.length>0">
                             <tr>
                                 <th>Type</th>
@@ -79,8 +89,21 @@
                         <button [disabled]="loadingFlg" (mousedown)="becomeSeller()"
                             class="btn btn-success btn-large">Update Types</button>
                         <div>&nbsp;</div>
+                        <hr>
+
+                        <div>
+                            <img (mousedown)="viewImage(src)"  class="thumbnail-img" *ngFor="let src of myPhotographer.portfolioItems" [src]="src" height="40" width="40">
+                        </div>
+            
+                        <app-upload-image *ngIf="addPortfolioImageFlg" [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'"
+                        (messageEvent)="uploadPortfilioPicButtonClicked()"></app-upload-image>
+                            
+                        <button *ngIf="!addPortfolioImageFlg" [disabled]="loadingFlg" (mousedown)="addPortfolioImageFlg=true"
+                            class="btn btn-warning spacer">Add Portfolio Image
+                        </button>
+                        <hr>
                         <button [disabled]="loadingFlg" (mousedown)="editSellerFlg=false"
-                            class="btn btn-warning spacer">Cancel
+                            class="btn btn-primary spacer">Cancel
                         </button>
                         <button [disabled]="loadingFlg" (mousedown)="exitClub()" class="btn btn-danger spacer">Quit
                             Photography
@@ -90,7 +113,7 @@
             </div>
 
 
-            <div *ngIf="buyerFlg=='Y'">
+            <div *ngIf="myOrders.length>0">
                 <table class="betra-table" style="font-size: 12px;">
                     <tr>
                         <td colspan="6" style="background-color: #444; color: white; text-align: center">My Orders</td>
@@ -117,8 +140,8 @@
                         <td><span class="text-highlight">{{order.status}}</span></td>
                         <td>{{order.instructions}}</td>
                         <td>
-                            <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src" (mousedown)="viewImage(order)"
-                                [src]="order.src" height="40" style="cursor: pointer;">
+                            <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src"
+                                (mousedown)="viewImage(order.src)" [src]="order.src" class="thumbnail-img">
                             <button *ngIf="order.status=='Delivered'" [disabled]="loadingFlg"
                                 (mousedown)="confirmPlacedOrder(order)"
                                 class="btn btn-main-color btn-small">Confirm</button>
@@ -180,8 +203,8 @@
                                 class="btn btn-main-color btn-small">Delete</button>
                             <button *ngIf="order.status=='Accepted'" [disabled]="loadingFlg"
                                 (mousedown)="deliverOrder(order)" class="btn btn-main-color btn-small">Deliver</button>
-                            <img *ngIf="order.status=='Delivered' && order.src" (mousedown)="viewImage(order)"
-                                [src]="order.src" height="40" style="cursor: pointer;">
+                            <img *ngIf="order.status=='Delivered' && order.src" (mousedown)="viewImage(order.src)"
+                                [src]="order.src" height="40" style="cursor: pointer;" class="thumbnail-img">
                         </td>
                     </tr>
                     <tr *ngIf="myOffers.length==0">
@@ -200,19 +223,19 @@
                 </div>
 
             </div>
-            <div *ngIf="activity==0 && !sellerFlg&& !buyerFlg" class="tan-box">
+            <div *ngIf="activity==0 && !sellerFlg" class="tan-box">
                 <div class="red-text">Join the Betra Photography Club!</div>
-                <div class="gray-text">Click one or both buttons below to join. Both are free! Signing up as a
-                    photographer means you are able to send pictures. Signing up as a customers means you can ask and
-                    receive pictures.</div>
+                <div class="gray-text">Signing up as a
+                    photographer means others can request pictures from you, which you can send in exchange for coins.
+                </div>
                 <button *ngIf="sellerFlg!='Y'" (mousedown)="changeActivity(3)" class="btn btn-main-color spacer">
                     <div style="font-size: 24px; font-weight: 700;">Join Club!</div>
                     <div style="font-size: 12px;">(as a photographer)</div>
                 </button>
-                <button *ngIf="buyerFlg!='Y'" (mousedown)="changeActivity(4)" class="btn btn-main-color spacer">
+                <!--<button *ngIf="buyerFlg!='Y'" (mousedown)="changeActivity(4)" class="btn btn-main-color spacer">
                     <div style="font-size: 24px; font-weight: 700;">Join Club!</div>
                     <div style="font-size: 12px;">(as a customer)</div>
-                </button>
+                </button>-->
             </div>
             <div *ngIf="activity==3">
                 <div class="gray-text">
@@ -221,21 +244,25 @@
                         willing to take, and the price
                         for
                         each one. Other users can then start sending you requests for pictures, which gives you coins.
-                        Coins can be redeemed for real cash!</p>
+                        Coins can be redeemed for real cash! The actual value of the coins is set by the marketplace,
+                        but if you are just getting started, assume $1/coin for now.</p>
                 </div>
                 <div class="tan-box">
+                    <div class="gray-text"><i class="fa fa-asterisk" style="color: red;"></i> Tell us a little about
+                        yourself</div>
+                    <app-text-area-input [id]="'details'" [value]="''"></app-text-area-input>
                     <div>What types of pictures are you willing to send? </div>
-                    <div class="gray-text">Click the "Add Type" button.</div>
+                    <div class="gray-text">Note: selfie's always cost 1 coin. Click the "Add Type" button, then select a type and click "Add".</div>
                     <table border="1" *ngIf="myPicTypes.length>0">
                         <tr>
                             <th>Type</th>
                             <th>Cost</th>
-                            <th>Delete</th>
+                            <th></th>
                         </tr>
                         <tr *ngFor="let myPicType of myPicTypes">
                             <td>{{myPicType.type}}</td>
                             <td align="center">{{myPicType.cost}}</td>
-                            <td><button class="btn btn-danger" (mousedown)="deletePicType(myPicType)"><i
+                            <td><button class="btn btn-danger" *ngIf="myPicType.type != 'selfie'" (mousedown)="deletePicType(myPicType)"><i
                                         class="fa fa-trash"></i></button></td>
                         </tr>
                     </table>
@@ -266,6 +293,7 @@
                         </table>
                     </div>
                 </div>
+                <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
                 <button (mousedown)="changeActivity(0)" class="btn btn-warning spacer">Cancel</button>
                 <button [disabled]="loadingFlg" (mousedown)="becomeSeller()" class="btn btn-main-color spacer btn-large"
                     [disabled]="totalCost<=0">Sign up!</button>
@@ -281,7 +309,8 @@
         </div>
 
         <div *ngIf="selectedPerson" class="tan-box">
-            <i (mousedown)="selectedPerson=null" class="fa fa-times" style="font-size: 18px; cursor: pointer; float: right;"></i>
+            <i (mousedown)="selectedPerson=null" class="fa fa-times"
+                style="font-size: 18px; cursor: pointer; float: right;"></i>
             <table>
                 <tr>
                     <td width="120">
@@ -293,7 +322,8 @@
                         </app-profile-pic>
                     </td>
                     <td>
-                         <table class="betra-table" *ngIf="!selectedType">
+                        <div class="gray-text">{{selectedPerson.details}}</div>
+                        <table class="betra-table" *ngIf="!selectedType">
                             <tr>
                                 <th>Type</th>
                                 <th>Cost</th>
@@ -301,12 +331,13 @@
                             </tr>
                             <tr *ngFor="let type of selectedPerson.types">
                                 <td>{{type.type}}</td>
-                                <td>{{type.cost}} coins</td>
+                                <td style="font-size: 10px;">{{type.cost}} coins</td>
                                 <td><button (mousedown)="buyPicture(type)"
                                         class="btn btn-warning btn-small">Buy</button></td>
                             </tr>
                         </table>
                         <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
+                        <div><span [routerLink]="['/market']" class="text-link">Get more coins</span></div>
                         <div *ngIf="selectedType">
                             <div>Type: <span class="text-highlight">{{selectedType.type}}</span></div>
                             <div>Cost: <span class="text-highlight">{{selectedType.cost}} coins</span></div>
@@ -317,33 +348,33 @@
                                 class="btn btn-warning btn-small spacer">Cancel</button>
                         </div>
                     </td>
+                    <td *ngIf="selectedPerson.portfolioItems && selectedPerson.portfolioItems.length>0">
+                        <div style="font-size: 10px;"><b>Portfolio</b></div>
+                        <img (mousedown)="viewImage(src)"  class="thumbnail-img" *ngFor="let src of selectedPerson.portfolioItems" [src]="src" height="40" width="40">
+                    </td>
                 </tr>
             </table>
         </div>
 
-        <table *ngIf="activity==0 && (sellerFlg=='Y' || buyerFlg=='Y')" width="100%">
+        <table *ngIf="activity==0" width="100%">
             <tr>
-                <td *ngIf="buyerFlg=='Y'" align="center" valign="top">
+                <td align="center" valign="top">
                     <div class="super-title"><b>Photographers (F)</b></div>
+                    <div style="font-size: 10px;">These users have been active recently</div>
                     <div *ngFor="let seller of sellersF" style="display: inline-block; padding: 3px;">
                         <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
                         </app-profile-pic>
                         <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
                     </div>
                 </td>
-                <td *ngIf="buyerFlg=='Y'" align="center" valign="top">
+                <td align="center" valign="top">
                     <div class="super-title"><b>Photographers (M)</b></div>
+                    <div style="font-size: 10px;">These users have been active recently</div>
                     <div *ngFor="let seller of sellersM" style="display: inline-block; padding: 3px;">
                         <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
                         </app-profile-pic>
                         <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
                     </div>
-                </td>
-                <td *ngIf="sellerFlg=='Y'" align="center" valign="top">
-                    <div class="super-title"><b>Customers</b></div>
-                    <app-profile-pic *ngFor="let buyer of buyers" [user_id]="buyer.user_id"
-                        [profilePic]="buyer.profilePic" [size]="30">
-                    </app-profile-pic>
                 </td>
             </tr>
         </table>

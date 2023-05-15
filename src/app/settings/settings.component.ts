@@ -64,7 +64,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
 
   testFunction() {
-    this.getDataFromServer('testAction', 'betraReviews.php', {});
+    this.getDataFromServer('testAction', 'owners.php', {});
   }
 
   logout() {

@@ -48,6 +48,7 @@
                             <div style="font-size: 8px;">{{gift.name}}</div>
                             <app-profile-pic [user_id]="gift.user_id" [profilePic]="gift.profilePic" [size]="30">
                             </app-profile-pic>
+                            <div *ngIf="gift.message" class="red-text" style="font-size: 8px;">"{{gift.message}}"</div>
                             <div *ngIf="!gift.receivedFlg" style="font-size: 8px; color: green;">Not Seen</div>
                         </div>
                     </div>
@@ -77,6 +78,10 @@
 
 
             <div>
+                <div style="font-size: 12px; text-align: left;"><i class="fa fa-asterisk" style="color: red;"></i>Message</div>
+                <app-text-input [maxLength]="25"></app-text-input>
+            </div>
+            <div>
                 <button [disabled]="sendGiftDisabledFlg" (mousedown)="sendGift()" class="btn btn-main-color spacer">Send
                     <span *ngIf="selectedGift">{{selectedGift.name}}</span></button>
                 <button (mousedown)="openPanel(6)" class="btn btn-warning btn-small spacer">Cancel</button>
@@ -85,7 +90,7 @@
     </div>
     <div *ngIf="requestNum==4">
         <button class="btn request-btn" *ngIf="matchUser.matchObj.match_level>1" (mousedown)="openPanel(5)"><i
-            class="fa fa-pencil"></i> Write Review</button>
+                class="fa fa-pencil"></i> Write Review</button>
         <p *ngIf="reviewList.length==0" class="basic-cell">No reviews on {{matchUser.firstName}} at this time.</p>
         <app-review-cell (messageEvent)="reviewCellEvent($event)" *ngFor="let review of reviewList; let i = index;"
             [review]="review" [index]="i">

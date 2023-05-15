@@ -1,10 +1,11 @@
-<div class="match-card" *ngIf="displayThisComponentFlg && matchUser" style="position: relative; padding-bottom: 45px;">
+<div class="match-card" *ngIf="displayThisComponentFlg && matchUser && matchUser.matchObj" style="position: relative; padding-bottom: 45px;">
     <div class="gray-title" style="position: relative;" [style.color]="unreadMessagesFlg?'yellow':'white'"><i
             class="fa fa-comment"></i> <span *ngIf="unreadMessagesFlg">New</span> Messages <span
             style="font-size: 8px; font-weight: 200;">{{firstName}}</span>
         <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg"
             class="fa fa-info-circle more-options"></i>
     </div>
+    <div *ngIf="showDetailsFlg" style="font-size: 10px; color: gray;">Intimacy Level: {{matchUser.matchObj.match_level}}</div> 
     <div *ngIf="messages.length==6" (mousedown)="loadMessages(true)" class="text-link"
         style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">

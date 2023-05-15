@@ -6,6 +6,9 @@ import { DatabaseService } from '../services/database.service';
 declare var $: any;
 declare var betraImageFromId: any;
 declare var getDateObjFromJSDate: any;
+declare var getVersion: any;
+declare var getBrowser: any;
+declare var getPlatform: any;
 
 @Component({
   selector: 'app-base',
@@ -120,6 +123,7 @@ export class BaseComponent implements OnInit {
       { name: 'New Review', amount: 0, desc: 'Someone has written a new review on you!' },
       { name: 'New Pic Request', amount: 0, desc: 'New picture request for you!' },
       { name: 'Picture Delivered', amount: 0, desc: 'Someone has delivered a picture for you!' },
+      { name: 'New Gift', amount: 0, desc: 'Someone has sent you a gift!' },
     ];
 
     notificationsTypes[0].amount = infoObj.admirerCount;
@@ -133,6 +137,7 @@ export class BaseComponent implements OnInit {
     notificationsTypes[9].amount = (infoObj.newReviewBy > 0) ? 1 : 0;
     notificationsTypes[10].amount = infoObj.newPicCount;
     notificationsTypes[11].amount = infoObj.deliveredPicCount;
+    notificationsTypes[12].amount = infoObj.newGifts;
 
     var notifications = 0;
     notificationsTypes.forEach(element => {
@@ -317,6 +322,9 @@ export class BaseComponent implements OnInit {
         code: localStorage['code'],
         action: 'logUser',
         page: this.getPage(),
+        platform: getPlatform(),
+        version: getVersion(),
+        browser: getBrowser(),
         lastUpd: localStorage['lastUpd'],
         refreshFlg: refreshFlg
       };

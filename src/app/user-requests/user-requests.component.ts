@@ -33,7 +33,7 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   public selectedGift: any = null;
   public showGiftsFlg: boolean = false;
   public giftSentFlg: boolean = false;
-  
+
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -88,8 +88,14 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   }
 
   sendGift() {
+    this.errorMessage = '';
+    var message = $('#textField').val();
+    if (message == '') {
+      this.errorMessage = 'Please add a short message.';
+      return;
+    }
     this.sendGiftDisabledFlg = true;
-    this.getDataFromServer('sendGift', 'gifts.php', { uid: this.matchUser.user_id, giftId: this.selectedGift.row_id });
+    this.getDataFromServer('sendGift', 'gifts.php', { uid: this.matchUser.user_id, giftId: this.selectedGift.row_id, message: message });
   }
 
   checkButtons() {

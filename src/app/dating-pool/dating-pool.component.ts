@@ -66,6 +66,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     for (var i = 0; i < this.displayPicsSize; i++) {
       var dpItem = this.user.datingPool[i];
       if (dpItem.match) {
+        dpItem.newGifts = dpItem.match.newGifts
         if (dpItem.match.newMatchFlg == 'Y')
           dpItem.lastLoginText = 'New Match!';
         if (dpItem.match.you_date_request == 'Y')
@@ -86,7 +87,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     if (this.datingPool.length != this.user.datingPool.length) {
       console.log('DP: out of sync!');
     }
-    //console.log('+++', this.datingPool);
+    //console.log('+++dp', this.user.datingPool);
   }
 
   ngOnChanges(changes: any) {

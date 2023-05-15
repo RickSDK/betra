@@ -69,6 +69,8 @@ export class PageShellComponent implements OnInit {
   constructor(private router: Router, private location: Location) { }
 
   ngOnInit(): void {
+
+    //console.log('xxxXXX', this.headerObj);
     this.previousRoute = localStorage['previousRoute'];
     localStorage['previousRoute'] = this.router.url;
 

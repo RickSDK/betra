@@ -67,7 +67,6 @@
                             {{user.firstName}},
                             {{user.age}}&nbsp;
                         </span>
-
                     </div>
                     <div *ngIf="user.status == 'Deleted'" class="tan-box">
                         <div><b>Status:</b> {{user.status}}</div>
@@ -83,7 +82,7 @@
                         [ngClass]="profileBasicsClassFlg?'profile-basics':'profile-basics-off'">
 
                         <button (mousedown)="hideProfileBasics()" class="btn" style="float: right;"><i
-                            class="fa fa-times"></i></button>
+                                class="fa fa-times"></i></button>
 
                         <div class="small-box">
                             <div class="small-title main-color">Relationship</div>
@@ -98,7 +97,7 @@
                                     <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i
                                         *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
                                 </span>
-                                
+
                             </div>
 
                             <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
@@ -128,7 +127,7 @@
                                                     style="margin-right: 4px;">
                                                 <span *ngIf="user.wantsKids != 'Does Not Matter'"
                                                     style="font-size: 10px;">{{user.wantsKids}}</span>
- 
+
                                                 <span *ngIf="user.wantsKids == 'Does Not Matter'"><i
                                                         class="fa fa-question"></i></span>
                                                 <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
@@ -144,21 +143,24 @@
                                                     <td align="center">
                                                         <span class="menu-circle" *ngIf="user.drinksIcon">
                                                             <img [src]="user.drinksIcon" class="dabauchery-icon">
-                                                            <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
+                                                            <span
+                                                                class="icon-label main-color-bg">{{user.drinksTitle}}</span>
                                                         </span>
                                                         <div style="font-size: 6px;">{{user.drinksTitle}}</div>
                                                     </td>
                                                     <td align="center">
                                                         <span class="menu-circle" *ngIf="user.smokesIcon">
                                                             <img [src]="user.smokesIcon" class="dabauchery-icon">
-                                                            <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
+                                                            <span
+                                                                class="icon-label main-color-bg">{{user.smokesTitle}}</span>
                                                         </span>
                                                         <div style="font-size: 6px;">{{user.smokesTitle}}</div>
                                                     </td>
                                                     <td align="center">
                                                         <span class="menu-circle" *ngIf="user.potIcon">
                                                             <img [src]="user.potIcon" class="dabauchery-icon">
-                                                            <span class="icon-label main-color-bg">{{user.potTitle}}</span>
+                                                            <span
+                                                                class="icon-label main-color-bg">{{user.potTitle}}</span>
                                                         </span>
                                                         <div style="font-size: 6px;">{{user.potTitle}}</div>
                                                     </td>
@@ -191,7 +193,7 @@
                         </div>
                         <div style="text-align: center">
                             <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-profile"><i
-                                class="fa fa-arrow-circle-down"></i> More Details</button>
+                                    class="fa fa-arrow-circle-down"></i> More Details</button>
                         </div>
                     </div>
 
@@ -203,6 +205,10 @@
                         <i class="fa fa-heart"></i> {{user.firstName}}<br>is interested in you!
                     </div>
                     <div *ngIf="!showProfileBasicsFlg" style="text-align: center; margin-top: 40px;">
+
+                        <div style="font-size: 10px;">🌹 Rose Ceremony in <span
+                                class="text-highlight">{{user.daysTillRoseCeremony}}</span> day<span
+                                *ngIf="user.daysTillRoseCeremony != 1">s</span></div>
 
                         <button (mousedown)="showProfileBasics()" class="btn btn-main-color btn-profile"><i
                                 class="fa fa-user"></i> Profile Basics</button>
@@ -238,7 +244,8 @@
                                     to communicate. Keep your fingers crossed!</div>
                                 <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not
                                     interested in {{user.firstName}}.
-                                    Change your mind? <a (mousedown)="likeButtonClicked(true)" class="text-link">click here</a>.
+                                    Change your mind? <a (mousedown)="likeButtonClicked(true)" class="text-link">click
+                                        here</a>.
                                 </div>
                             </div>
                             <div *ngIf="user.matchObj.match_level == 2">
@@ -252,7 +259,7 @@
                             </div>
                         </div>
                         <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
-                        *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
+                            *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
 
                         <!--<button
                             *ngIf="snapshotFlg && user.matchObj && user.matchObj.match_level >= 2 && user.matchObj.unreadMessages > 0"
@@ -318,7 +325,8 @@
             {{user.numPics+1}} pics total&nbsp;</div>
     </div>
 
-    <div *ngIf="user.matchObj && user.matchObj.showButtonsFlg" style="position: absolute; top: 350px; left: 80px; z-index: 100;">
+    <div *ngIf="user.matchObj && user.matchObj.showButtonsFlg"
+        style="position: absolute; top: 350px; left: 80px; z-index: 100;">
         <i (mousedown)="likeButtonClicked(false)" class="fa fa-thumbs-o-down circle-button no-button"></i>&nbsp;
         <i (mousedown)="likeButtonClicked(true)" class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
     </div>
@@ -346,12 +354,16 @@
         <div>Thank you for reporting this user.</div>
         <button (mousedown)="showFlagPopup2Flg=false" class="btn btn-warning">Ok</button> &nbsp;
     </div>
-    <div *ngIf="expandBottomFlg && displayPopupQuote" (mousedown)="toggleQuote()" [style.opacity]="showPopupQuote?'1':'0'" style="cursor: pointer; transition: all 1s ease; position: absolute; bottom: 20px; right: 20px; z-index: 300; width: 100%; max-width: 350px;">
+    <div *ngIf="expandBottomFlg && displayPopupQuote" (mousedown)="toggleQuote()"
+        [style.opacity]="showPopupQuote?'1':'0'"
+        style="cursor: pointer; transition: all 1s ease; position: absolute; bottom: 20px; right: 20px; z-index: 300; width: 100%; max-width: 350px;">
         <img src="assets/images/profile/bubble.png" style="width: 100%;">
-        <div style="position: absolute; bottom: 10px; right: 10px; z-index: 301; width: 100%; max-width: 330px; font-size: 24px;">
+        <div
+            style="position: absolute; bottom: 10px; right: 10px; z-index: 301; width: 100%; max-width: 330px; font-size: 24px;">
             <table width="100%">
                 <tr>
-                    <td valign="middle" align="center" style="height: 200px; border-radius: 50px; padding: 20px;" [style.font-size]="user.motto.length>80?'18px':'24px'">
+                    <td valign="middle" align="center" style="height: 200px; border-radius: 50px; padding: 20px;"
+                        [style.font-size]="user.motto.length>80?'18px':'24px'">
                         <i class="fa fa-quote-left"></i> {{user.motto}}<i class="fa fa-quote-right"></i>
                     </td>
                 </tr>

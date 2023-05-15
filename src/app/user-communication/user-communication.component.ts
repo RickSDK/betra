@@ -90,7 +90,6 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   populateModal(matchUser: any, myUser: any) {
     this.matchUser = matchUser;
     this.myUser = myUser;
-    console.log('populate modal', this.matchUser);
     this.displayThisComponentFlg = this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.match_level > 1;
     this.messageSentFlg = false;
     this.messages = [];
@@ -164,6 +163,11 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
       if (responseJson.refreshFlg == 'Y') {
         this.messageEvent.emit('refresh');
+      }
+
+      if (this.matchUser.matchObj.match_level == 2 && this.messages.length > 0) {
+        this.getDataFromServer('fixMatchLevel', 'betraMessages.php', { uid: this.matchUser.user_id })
+        console.log('fix this!');
       }
 
     }

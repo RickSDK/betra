@@ -43,6 +43,10 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
     this.topTitle = this.user.gender == 'F' ? 'My Dating Pool' : 'Dating Pool';
+
+   // this.getDataFromServer('loadMyDatingPool', 'appApiCode2.php', []);
+
+    
     this.firstName = '';
     this.user.datingPool.forEach((element: any) => {
       if (element.heartFlg) {
@@ -57,7 +61,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
       this.changeMenu(menu);
-      //      this.showHeartFormFlg = (this.user.datingPool.length >= 5 && this.user.heartId == 0);
     });
 
     if (localStorage['infoObj']) {
@@ -66,8 +69,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         this.getDataFromServer('clearDroppedColumn', 'appApiCode2.php', []);
       }
     }
-    //   if (this.user.datingPool && this.user.datingPool.length == 0)
-    //      this.getDataFromServer('getMyLikes', 'appApiCode2.php', {});
+    
+
   }
 
   chooseForRose(person: any) {
@@ -235,6 +238,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'refreshDatingPool') {
       console.log('xxxrefreshDatingPool', responseJson);
       this.daysTillRoseCeremony = parseInt(responseJson.daysTillRoseCeremony);
+      if(this.daysTillRoseCeremony <= 0)
+        this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
+ 
 
       this.refreshUserObj(responseJson.user);
       this.updateMatches();
@@ -263,6 +269,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
           var alerts = 0;
           if (match.newMatchFlg == 'Y')
             alerts++;
+          if(match.newGifts > 0)
+            alerts += parseInt(match.newGifts);
           if (match.unreadMessages > 0)
             alerts += parseInt(match.unreadMessages);
           if (match.you_date_request == 'M' || match.match_date_request == 'M' || match.you_date_request == 'Y')

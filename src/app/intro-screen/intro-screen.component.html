@@ -86,6 +86,24 @@
             <div>&nbsp;</div>
             <button [routerLink]="['/profile']" class="btn btn-main-color btn-large">Profile</button>
         </div>
+        <div *ngIf="menuNum==60">
+            <div>&nbsp;</div>
+            <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
+            <div>&nbsp;</div>
+            <div *ngIf="daysTillCeremony>0">
+                <div class="red-text">You have {{daysTillCeremony}} days left until your next Rose Ceremony.</div>
+                <div>&nbsp;</div>
+                <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>    
+            </div>
+            <div *ngIf="daysTillCeremony <= 0">
+                <div class="red-text">Are you ready for your Rose Ceremony?</div>
+                <div>&nbsp;</div>
+                <button [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large spacer">Enter Rose Ceremony</button>
+                <div>&nbsp;</div>
+                <span [routerLink]="['']" class="text-link">Home</span>    
+            </div>
+        </div>
+        
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
  
     </div>

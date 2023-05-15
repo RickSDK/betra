@@ -16,6 +16,7 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
   public numRoses: number = 0;
   public audio = new Audio('assets/music/song1.mp3');
   public displayUser: any = null;
+  public daysTillCeremony: number = 0;
 
   constructor(private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
@@ -44,13 +45,17 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
+    console.log('hey!', responseJson);
     if (responseJson.action == 'checkRoseCeremonyDt') {
       if(this.user.status != 'Active') {
         this.menuNum = 44;
         return;
       } else {
-        if(responseJson.roseCeremonyDt && responseJson.roseCeremonyDt != null)
-        this.router.navigate(['/rose-ceremony']);
+        if(responseJson.roseCeremonyDt && responseJson.roseCeremonyDt != null) {
+          this.daysTillCeremony = responseJson.daysTillCeremony;
+          this.menuNum = 60;
+          //this.router.navigate(['/rose-ceremony']);
+        }
 
       }
 
