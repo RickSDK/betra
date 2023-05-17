@@ -180,8 +180,6 @@
         </div>
         <!--- match card user && !matchUser -->
 
-
-
         <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
             [id]="id" [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
             [singleProfileFlg]="uid>0">
@@ -194,10 +192,10 @@
             </app-user-private-pics>
 
         </div>
-        <app-user-requests *ngIf="!loadingFlg" [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
+        <app-user-requests *ngIf="!loadingFlg" [newGifts]="newGifts" [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
         </app-user-requests>
 
-        <app-user-communication *ngIf="!loadingFlg" (messageEvent)="messagesEvent($event)">
+        <app-user-communication *ngIf="!loadingFlg" (messageEvent)="messagesEvent($event)" [myUser]="user" [matchUser]="matchUser">
         </app-user-communication>
 
         <div (mousedown)="showNewReviewPopup=false" *ngIf="showNewReviewPopup" class="betra-popup">

@@ -64,10 +64,49 @@ export class BaseComponent implements OnInit {
     } else
       this.loadUserObj();
 
+    if (this.user.user_id > 0)
+      this.checkLocationStuff();
+
     this.logUser();
     //this.notifications = localStorage['notifications'];
 
   }
+  checkLocationStuff() {
+    var lat = localStorage['latitude'];
+    console.log('checkLocationStuff', lat, this.user.iprFlg);
+
+
+    if (this.user.firstName && !this.user.iprFlg) {
+      if (!localStorage['ipr_latitude'])
+        this.ipregistryLocation();
+      else {
+        this.updateIpregistryLocation();
+      }
+    }
+
+    if (!this.user.latitude) {
+      this.populateGeoInfo();
+    }
+
+    if (!this.user.navLat)
+    this.uploadCoordinates();
+
+    if (!localStorage['latitude']) {
+      this.getLocation();
+    }
+
+    if (localStorage['latitude'] && !localStorage['city']) {
+      this.getGoogleAPILoc(localStorage['latitude'], localStorage['longitude']);
+      setTimeout(() => {
+        this.updateGoogleAPILoc();
+      }, 5000);
+    }
+
+    if (localStorage['city'] && !localStorage['updateGoogleAPILoc']) {
+      this.updateGoogleAPILoc();
+    }
+  }
+
   refreshUserObj(userObj: any) {
     if (userObj && userObj.user_id > 0) {
       localStorage['User'] = JSON.stringify(userObj);
@@ -158,6 +197,7 @@ export class BaseComponent implements OnInit {
     this.userStatus = '';
     this.popupNum = 1;
     if (this.userId > 0) {
+
       if (localStorage['infoObj'])
         this.infoObj = JSON.parse(localStorage['infoObj']);
 
@@ -166,6 +206,7 @@ export class BaseComponent implements OnInit {
         var userObj = JSON.parse(localStorage['User']);
         this.user = new User(userObj);
         console.log('xxx', this.user);
+
         this.imgSrcFile = this.user.imgSrc;
         this.userStatus = this.user.status;
         if (this.infoObj) {
@@ -187,6 +228,90 @@ export class BaseComponent implements OnInit {
         this.userId = 0;
         localStorage['user_id'] = 0;
       }
+    }
+  }
+
+  ipregistryLocation() {
+    //https://dashboard.ipregistry.co/overview
+    fetch('https://api.ipregistry.co/?key=e3g5924vcw4im7di')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (payload) {
+        if (payload && payload.location) {
+          var ipr_city = payload.location.city;
+          var ipr_latitude = payload.location.latitude;
+          var ipr_longitude = payload.location.longitude;
+          var ipr_postal = payload.location.postal;
+          var ipr_region = '';
+          if (payload.location.region)
+            ipr_region = payload.location.region.name;
+          localStorage['ipr_city'] = ipr_city;
+          localStorage['ipr_latitude'] = ipr_latitude;
+          localStorage['ipr_longitude'] = ipr_longitude;
+          localStorage['ipr_postal'] = ipr_postal;
+          localStorage['ipr_region'] = ipr_region;
+          var params = { ipr_city: ipr_city, ipr_latitude: ipr_latitude, ipr_longitude: ipr_longitude, ipr_postal: ipr_postal, ipr_region: ipr_region };
+          console.log('location found!!!', params);
+        }
+
+      });
+  }
+
+  updateIpregistryLocation() {
+    if (localStorage['ipr_city'] != "") {
+      var params = { ipr_city: localStorage['ipr_city'], ipr_latitude: localStorage['ipr_latitude'], ipr_longitude: localStorage['ipr_longitude'], ipr_postal: localStorage['ipr_postal'], ipr_region: localStorage['ipr_region'] };
+      console.log('updateIpregistryLocation', params);
+      this.getDataFromServer('updateIpregistryLocation', 'geoScript.php', params);
+    }
+  }
+
+  getGoogleAPILoc(lat: string, lng: string) {
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyA5BdPE0WV-WbG6h__avPvjzS7QZEuCVno')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (payload) {
+        console.log('payload!!!', payload.results);
+        var city = '';
+        var state = '';
+        var stateName = '';
+        var countryName = '';
+        var countryCode = '';
+        if (payload && payload.results) {
+          payload.results.forEach((result: any) => {
+            result.address_components.forEach((address: any) => {
+              if (address.types[0] == 'locality')
+                city = address.long_name;
+              if (address.types[0] == 'administrative_area_level_1') {
+                stateName = address.long_name;
+                state = address.short_name;
+              }
+              if (address.types[0] == 'country') {
+                countryName = address.long_name;
+                countryCode = address.short_name;
+              }
+            });
+          });
+        }
+        localStorage['city'] = city;
+        localStorage['state'] = state;
+        localStorage['stateName'] = stateName;
+        localStorage['countryName'] = countryName;
+        localStorage['countryCode'] = countryCode;
+        console.log('results!', city, state, stateName, countryName, countryCode);
+
+      });
+  }
+
+  updateGoogleAPILoc() {
+    if (localStorage['city'] != "" && localStorage['latitude']) {
+      localStorage['updateGoogleAPILoc'] = true;
+      var params = { latitude: localStorage['latitude'], longitude: localStorage['longitude'], city: localStorage['city'], state: localStorage['state'], stateName: localStorage['stateName'], countryName: localStorage['countryName'], countryCode: localStorage['countryCode'] };
+      console.log('updateGoogleAPILoc', params);
+      this.getDataFromServer('updateGoogleAPILoc', 'geoScript.php', params);
+    } else {
+      this.errorMessage = 'no data found!';
     }
   }
 
@@ -413,10 +538,22 @@ export class BaseComponent implements OnInit {
         }
 
         if (responseJson.infoObj && responseJson.infoObj.browseObj && responseJson.infoObj.browseObj.user_id > 0) {
-          console.log('xxx!!!xxx user snooping!', responseJson.infoObj.browseObj.firstName);
-          this.headerObj.browseObj = responseJson.infoObj.browseObj;
-          if (this.pageShellComponent)
-            this.pageShellComponent.displayBrowsePopup();
+          console.log('xxx!!!xxx user snooping!', responseJson.infoObj.browseObj);
+          var gender = responseJson.infoObj.browseObj.gender;
+          var gender2 = responseJson.infoObj.browseObj.gender2;
+          var matchPreference = responseJson.infoObj.browseObj.matchPreference;
+          var matchPreference2 = responseJson.infoObj.browseObj.matchPreference2;
+          if (matchPreference == 'A')
+            matchPreference = gender2;
+          if (matchPreference2 == 'A')
+            matchPreference = gender;
+
+          if (matchPreference == gender2 && matchPreference2 == gender) {
+            this.headerObj.browseObj = responseJson.infoObj.browseObj;
+            if (this.pageShellComponent)
+              this.pageShellComponent.displayBrowsePopup();
+          }
+
         }
         if (responseJson.infoObj && responseJson.infoObj.giftObj && responseJson.infoObj.giftObj.user_id > 0) {
           console.log('xxx!!!xxx user giftObj!', responseJson.infoObj.giftObj.firstName);

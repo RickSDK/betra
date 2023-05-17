@@ -60,8 +60,6 @@
 
     <div *ngIf="matchUser.matchObj.match_level==3 && matchUser.matchObj.you_action=='message sent'">Awaiting response
         from {{matchUser.firstName}}.</div>
-    <div *ngIf="matchUser.matchObj.match_level==3 && matchUser.matchObj.you_action=='Interested'">Respond to
-        {{matchUser.firstName}}!</div>
     <div *ngIf="matchUser.matchObj.match_level==4 && matchUser.matchObj.you_action=='reply sent'">Awaiting response. If
         you get a response, the two of you can
         text freely.</div>
@@ -96,8 +94,7 @@
         Sorry, you are unable to send text messages to {{matchUser.firstName}} at this time. Click the pink down-arrow
         button above to find out more info.
     </p>
-
-    <div *ngIf="matchUser.matchObj.match_level==2 && !messageSentFlg" style="padding: 10px;">
+    <div *ngIf="showIceBreakerFlg" style="padding: 10px;">
         <div style="font-size: 18px;"><b><i class="fa fa-cube"></i> Ice Breaker!</b></div>
         <div class="gray-text">Break the ice with a question! Here is your chance to start the conversation.</div>
         <table align="center">

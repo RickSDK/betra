@@ -11,20 +11,21 @@ declare var getDateObjFromJSDate: any;
   styleUrls: ['./user-communication.component.scss']
 })
 export class UserCommunicationComponent extends BaseComponent implements OnInit {
-  //@Input('myUser') myUser: any = null;
-  //@Input('matchUser') matchUser: any = null;
+  @Input('myUser') myUser: any = null;
+  @Input('matchUser') matchUser: any = null;
   @Output() messageEvent = new EventEmitter<string>();
 
   public showDetailsFlg: boolean = false;
   public showTextInputFlg = false;
+  public showIceBreakerFlg: boolean = false;
   public selectedMessage: number = 0;
   public firstName: string = '';
   public unreadMessagesFlg: boolean = false;
   public showDetailsNumber: number = 0;
   public messageToDelete: number = 0;
   public displayThisComponentFlg: boolean = false;
-  public myUser: any = null;
-  public matchUser: any = null;
+  //public myUser: any = null;
+  //public matchUser: any = null;
 
   public greetings = [
     'Hi!',
@@ -76,7 +77,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
   override ngOnInit(): void {
     //super.ngOnInit();
-    //this.populateModal(this.matchUser);
+    this.populateModal(this.matchUser, this.myUser);
   }
 
   emojiSrcForId(id: string) {
@@ -90,18 +91,19 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   populateModal(matchUser: any, myUser: any) {
     this.matchUser = matchUser;
     this.myUser = myUser;
-    this.displayThisComponentFlg = this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.match_level > 1;
     this.messageSentFlg = false;
     this.messages = [];
-    this.matchUser = matchUser;
 
-    if (this.matchUser)
+    if (this.matchUser) {
       this.firstName = this.matchUser.firstName;
+      this.displayThisComponentFlg = this.matchUser && this.matchUser.matchObj && this.matchUser.matchObj.match_level > 1;
 
-    if (this.matchUser && this.matchUser.matchObj) {
-      this.checkTextFlags();
+      if (this.matchUser && this.matchUser.matchObj) {
+        this.checkTextFlags();
 
-      this.loadMessages();
+        this.loadMessages();
+
+      }
     }
   }
 
@@ -114,11 +116,11 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
   checkTextFlags() {
     this.showTextInputFlg = false;
-    if (this.matchUser.matchObj.match_level == 3 && this.matchUser.matchObj.you_action == 'Interested')
+    if (this.matchUser.matchObj.match_level == 3) // && this.matchUser.matchObj.you_action == 'Interested'
       this.showTextInputFlg = true;
     if (this.matchUser.matchObj.match_level == 3 && this.matchUser.matchObj.you_action == 'message sent' && this.matchUser.matchObj.match_action == 'message sent')
       this.showTextInputFlg = true; // out of sync situation
-    if (this.matchUser.matchObj.match_level == 4 && this.matchUser.matchObj.match_action == 'reply sent')
+    if (this.matchUser.matchObj.match_level == 4) //  && this.matchUser.matchObj.match_action == 'reply sent'
       this.showTextInputFlg = true;
     if (this.matchUser.matchObj.match_level > 4)
       this.showTextInputFlg = true;
@@ -132,11 +134,11 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
       loadMoreFlg: (loadMoreFlg) ? 'Y' : '',
       action: "readMessages"
     };
-    console.log('+++loading messages', params);
+    //console.log('+++loading messages', params);
     this.executeApi('betraMessages.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('got messages', responseJson);
+    //console.log('got messages', responseJson);
     if (responseJson.action == "readMessages" || responseJson.action == "sendMessage" || responseJson.action == "deleteMessage") {
       var showDetailsFlg = false;
       this.messages = [];
@@ -165,10 +167,28 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         this.messageEvent.emit('refresh');
       }
 
+      //console.log('this.messages', this.messages);
+      this.showIceBreakerFlg = this.messages.length == 0;
+      this.showTextInputFlg = this.matchUser.matchObj.match_level >= 5 || this.messages.length >= 3;
+
+      var lastMessageFromOtherPerson = false;
+      if (this.messages.length > 0 && this.messages[this.messages.length - 1].user_id != this.myUser.user_id)
+        lastMessageFromOtherPerson = true;
+
+      if (this.matchUser.matchObj.match_level == 3 && this.messages.length > 0)
+        this.showTextInputFlg = this.messages[0].user_id != this.myUser.user_id;
+
+      if (lastMessageFromOtherPerson)
+        this.showTextInputFlg = true;
+
+      /*
       if (this.matchUser.matchObj.match_level == 2 && this.messages.length > 0) {
         this.getDataFromServer('fixMatchLevel', 'betraMessages.php', { uid: this.matchUser.user_id })
-        console.log('fix this!');
       }
+      if (this.matchUser.matchObj.match_level == 3 && this.messages.length == 1 && this.messages[0].uid == this.myUser.user_id) {
+        this.showTextInputFlg = true;
+        this.getDataFromServer('fixMatchLevel', 'betraMessages.php', { uid: this.matchUser.user_id })
+      }*/
 
     }
   }
@@ -177,6 +197,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     this.showTextInputFlg = (this.matchUser.matchObj.match_level >= 4);
     $('#messageInput').val('');
     this.disabledButtonFlg = true;
+    this.showIceBreakerFlg = false;
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
@@ -184,7 +205,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
       message: this.messageStr,
       action: "sendMessage"
     };
-    console.log('params', params);
+    //console.log('params', params);
     this.executeApi('betraMessages.php', params, true);
   }
   ngClassMessage(user_id: number) {
@@ -247,7 +268,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
         emoji: emoji,
         action: "addEmoji"
       };
-      console.log('params', params);
+      //console.log('params', params);
       this.executeApi('betraMessages.php', params, true);
     }
   }

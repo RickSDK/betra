@@ -14,6 +14,7 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   @Input('myUser') myUser: any = null;
   @Input('matchUser') matchUser: any = null;
   @Input('dateObj') dateObj: any = null;
+  @Input('newGifts') newGifts: boolean = false;
 
 
   public requestNum: number = 0;
@@ -38,6 +39,8 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
+    if (this.newGifts)
+      this.openPanel(6);
   }
 
   ngOnChanges(changes: any) {

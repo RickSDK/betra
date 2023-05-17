@@ -57,7 +57,7 @@
         </table>
 
         <div *ngIf="gifts.length==0">
-            <button (mousedown)="loadGifts()" class="btn btn-main-color btn-small spacer">Send Gift!</button>
+            <button *ngIf="myUser.user_id != matchUser.user_id" (mousedown)="loadGifts()" class="btn btn-main-color btn-small spacer">Send Gift!</button>
             <button (mousedown)="openPanel(6)" class="btn btn-main-color btn-small spacer">Close</button>
         </div>
         <div *ngIf="giftSentFlg" style="font-size: 24px; color: green;">Gift has been sent!</div>

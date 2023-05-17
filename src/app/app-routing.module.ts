@@ -71,11 +71,13 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { PictureExchangeComponent } from './picture-exchange/picture-exchange.component';
 import { IntroScreenComponent } from './intro-screen/intro-screen.component';
 import { RoseCeremonyComponent } from './rose-ceremony/rose-ceremony.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'intro', component: IntroScreenComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'rose-ceremony', component: RoseCeremonyComponent },
   { path: 'fraud', component: FraudPreventionComponent },
   { path: 'photography', component: PictureExchangeComponent },

@@ -1,0 +1,11 @@
+<app-page-shell [userId]="userId" [imgSrcFile]="imgSrcFile" [pageTitle]="'Users'"
+    [headerObj]="headerObj" [userStatus]="userStatus">
+
+    <div class="matches-card">
+        userId <span class="text-highlight">{{userId}}</span> code <span class="text-highlight">{{code}}</span>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="verifySuccessFlg" style="font-size: 24px; color: green;">Email Verified! Thank you.</div>
+        <div>&nbsp;</div>
+        <button class="btn btn-main-color btn-large" [routerLink]="['']">Home</button>
+    </div>
+</app-page-shell>

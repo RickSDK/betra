@@ -53,7 +53,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showBigPopupFlg: boolean = false;
   public showYesNoButtonsFlg: boolean = false;
   public noLocationInfoFoundFlg: boolean = false;
-//  public showOverflowPopup: boolean = false;
+  public newGifts: boolean = false;
+  //  public showOverflowPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
@@ -273,6 +274,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
 
     if (responseJson.action == 'getThisUser') {
+      //console.log('hey!', responseJson);
+      this.newGifts = responseJson.newGifts > 0;
       this.profileViews = responseJson.profileViews;
 
       this.matchUser = new User(responseJson.user, this.user);

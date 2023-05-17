@@ -40,25 +40,16 @@
                         <th>Progress</th>
                     </tr>
                     <tr>
-                        <td>Fill up your dating pool with 12 people</td>
-                        <td><b class="text-highlight">{{user.datingPool.length}}</b></td>
+                        <td>Send at least 10 text messages</td>
+                        <td><b class="text-highlight">{{ownersPage.messageCount}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>At least 3 Consecutive days on app</td>
+                        <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
+                                *ngIf="ownersPage.consecutiveDays > 3" style="color: green;" class="fa fa-check"></i>
+                        </td>
                     </tr>
                 </table>
-                <div *ngIf="!goalReachedFlg">
-                    <p class="gray-text" style="text-align: left;">In order to grow your dating pool, click thumbs up to
-                        as many people as
-                        possible. Once they give you a thumbs up, they will show up in your dating pool.</p>
-                    <div *ngIf="emailButtonPressed" class="tan-box">
-                        Emails have been sent! Check back in a couple hours.
-                    </div>
-                    <div *ngIf="!emailButtonPressed && ownersPage.points > 0">
-                        <p class="gray-text" style="text-align: left;">Having trouble filling your pool? Press this
-                            button to let everyone on the team know you are trying to get your pool filled.</p>
-                        <button (mousedown)="sendEmails()" class="btn btn-main-color">Email Team</button>
-                        <div style="font-size: 10px; color: gray;">Note: Pressing this button will use up all your coins
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -79,27 +70,28 @@
                     <tr>
                         <td>At least 40 messages sent</td>
                         <td><b class="text-highlight">{{ownersPage.messageCount}}</b><i
-                            *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.messageCount > 39" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 3 user reviews</td>
                         <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
-                            *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.reviewCount > 2" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 2 owner bugs and/or discussions</td>
-                        <td><b class="text-highlight">{{ownersPage.bugsCount}}</b><i
-                            *ngIf="ownersPage.bugsCount > 1" style="color: green;" class="fa fa-check"></i></td>
+                        <td><b class="text-highlight">{{ownersPage.bugsCount}}</b><i *ngIf="ownersPage.bugsCount > 1"
+                                style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 2 Poll Votes</td>
-                        <td><b class="text-highlight">{{ownersPage.voteCount}}</b><i
-                            *ngIf="ownersPage.voteCount > 1" style="color: green;" class="fa fa-check"></i></td>
+                        <td><b class="text-highlight">{{ownersPage.voteCount}}</b><i *ngIf="ownersPage.voteCount > 1"
+                                style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 4 Consecutive days on app</td>
                         <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
-                            *ngIf="ownersPage.consecutiveDays > 3" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.consecutiveDays > 3" style="color: green;" class="fa fa-check"></i>
+                        </td>
                     </tr>
                 </table>
                 <div *ngIf="!goalReachedFlg" class="gray-text">Complete above items to get promoted.</div>
@@ -121,32 +113,35 @@
                     <tr>
                         <td>Messages with at least 25 different people</td>
                         <td><b class="text-highlight">{{ownersPage.peopleMessaged}}</b> <i
-                            *ngIf="ownersPage.peopleMessaged > 24" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.peopleMessaged > 24" style="color: green;" class="fa fa-check"></i>
+                        </td>
                     </tr>
                     <tr>
                         <td>At least 100 messages sent</td>
                         <td><b class="text-highlight">{{ownersPage.messageCount}}</b><i
-                            *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 50 profiles swiped yes</td>
                         <td><b class="text-highlight">{{ownersPage.profilesSwiped}}</b><i
-                            *ngIf="ownersPage.profilesSwiped > 49" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.profilesSwiped > 49" style="color: green;" class="fa fa-check"></i>
+                        </td>
                     </tr>
                     <tr>
                         <td>At least 6 user reviews</td>
                         <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
-                            *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 4 blog comments</td>
                         <td><b class="text-highlight">{{ownersPage.blogComments}}</b> <i
-                            *ngIf="ownersPage.blogComments > 3" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.blogComments > 3" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 8 Consecutive days on app</td>
                         <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
-                            *ngIf="ownersPage.consecutiveDays > 7" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.consecutiveDays > 7" style="color: green;" class="fa fa-check"></i>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -156,9 +151,55 @@
             <div class="border-box">
                 <div class="red-text">How to get Promoted?</div>
                 <div>To get promoted to level <b class="text-highlight">5</b>, complete the following:</div>
-                <ul style="text-align: left; padding-left: 40px;">
-                    <li>Requirements not yet figured out. coming soon.</li>
-                </ul>
+
+
+                <table border="1">
+                    <tr>
+                        <th>Item</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td>At least 250 messages sent</td>
+                        <td><b class="text-highlight">{{ownersPage.messageCount}}</b><i
+                                *ngIf="ownersPage.messageCount > 249" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 10 user reviews</td>
+                        <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
+                                *ngIf="ownersPage.reviewCount > 9" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 10 profile pics approved</td>
+                        <td><b class="text-highlight">{{ownersPage.picVerifiedCount}}</b> <i
+                                *ngIf="ownersPage.picVerifiedCount > 9" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 2 people referred to app</td>
+                        <td><b class="text-highlight">{{ownersPage.referralCount}}</b> <i
+                                *ngIf="ownersPage.referralCount > 1" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 5 gifts given</td>
+                        <td><b class="text-highlight">{{ownersPage.giftsGiven}}</b> <i
+                                *ngIf="ownersPage.giftsGiven > 4" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 12 photography club pics requested</td>
+                        <td><b class="text-highlight">{{ownersPage.picsRequested}}</b> <i
+                                *ngIf="ownersPage.picsRequested > 11" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 2 photography club pics taken</td>
+                        <td><b class="text-highlight">{{ownersPage.picsTaken}}</b> <i
+                                *ngIf="ownersPage.picsTaken > 1" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 14 Consecutive days on app</td>
+                        <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
+                                *ngIf="ownersPage.consecutiveDays > 13" style="color: green;" class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
         </div>
@@ -166,7 +207,8 @@
 
         <div *ngIf="goalReachedFlg">
             <div style="color: green;"><i class="fa fa-check"></i> Goal Reached!</div>
-            <button [disabled]="loadingFlg" (mousedown)="acceptPromotion()" class="btn btn-main-color">Accept Promotion</button>
+            <button [disabled]="loadingFlg" (mousedown)="acceptPromotion()" class="btn btn-main-color">Accept
+                Promotion</button>
         </div>
 
         <hr>

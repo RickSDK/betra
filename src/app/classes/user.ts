@@ -222,12 +222,28 @@ export class User {
     public daysTillRoseCeremony: number = 0;
     public roseCeremonyDate: string = '';
     public roseCeremonyDt: string = '';
+    public ipr_city: string = '';
+    public ipr_latitude: string = '';
+    public ipr_longitude: string = '';
+    public ipr_postal: string = '';
+    public ipr_region: string = '';
+    public g1: string = '';
+    public g2: string = '';
+    public iprFlg: boolean = false;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.roseCeremonyDt = obj.roseCeremonyDt || '';
             this.created = obj.created || '';
+            this.g1 = obj.g1 || '';
+            this.g2 = obj.g2 || '';
+            this.ipr_city = obj.ipr_city || '';
+            this.ipr_latitude = obj.ipr_latitude || '';
+            this.iprFlg = obj.iprFlg == 'Y';
+            this.ipr_longitude = obj.ipr_longitude || '';
+            this.ipr_postal = obj.ipr_postal || '';
+            this.ipr_region = obj.ipr_region || '';
             this.aboutme = obj.aboutme || '';
             this.history = obj.history || '';
             this.daysTillRoseCeremony = obj.daysTillRoseCeremony || 0;
@@ -278,7 +294,7 @@ export class User {
             this.bodyType = obj.bodyType || '';
             this.bodyHeight = obj.bodyHeight || '';
             this.desiredRelationship = obj.desiredRelationship || '';
-            this.city = obj.city || '';
+            this.city = obj.ipr_city || obj.city || '';
             this.longestRelationship = obj.longestRelationship || '0';
             this.longestRelationshipText = this.longestRelationship + ' years';
             if (this.longestRelationship == '1')
@@ -340,14 +356,14 @@ export class User {
             this.gpsLng = obj.longitude || '';
             this.navLat = obj.navLat || '';
             this.navLng = obj.navLng || '';
-            this.latitude = obj.latitude || obj.navLat || '';
-            this.longitude = obj.longitude || obj.navLng || '';
+            this.latitude = obj.ipr_latitude || obj.latitude || obj.navLat || '';
+            this.longitude = obj.ipr_longitude || obj.longitude || obj.navLng || '';
             //            this.latitude = obj.navLat || obj.latitude || '';
             //            this.longitude = obj.navLng || obj.longitude || '';
 
             this.region = obj.region || '';
             this.state = obj.state || '';
-            this.stateName = obj.stateName || '';
+            this.stateName = obj.ipr_region || obj.stateName || '';
             this.ip = obj.ip || '';
 
             this.regionCode = obj.regionCode || '';
@@ -717,8 +733,12 @@ export class User {
 
 
             if (this.latitude && myUser.latitude) {
-                this.distance = distanceInKmBetweenEarthCoordinates(parseFloat(this.latitude), parseFloat(this.longitude), parseFloat(myUser.latitude), parseFloat(this.longitude));
-
+                var lat1 = parseInt(this.g1)/9000;
+                var lng1 = parseInt(this.g2)/-9000;
+                var lat2 = parseInt(myUser.g1)/9000;
+                var lng2 = parseInt(myUser.g2)/-9000;
+                this.distance = distanceInKmBetweenEarthCoordinates(lat1, lng1, lat2, lng2);
+ 
                 if (this.ownerFlg && !myUser.ownerFlg) {
                     this.location = myUser.location;
                     this.distance = 7 + this.firstName.length;

@@ -143,11 +143,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.menuNum = parseInt(params['num']) || 0;
     });
 
-    if (this.menuNum == 0 || !localStorage['latitude'])
-      this.getLocation();
-    else if (!this.user.navLat)
-      this.uploadCoordinates();
-
     //getIPInfo('test', 'test');
     //this.refreshUser();
   }

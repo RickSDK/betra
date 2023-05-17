@@ -9,6 +9,7 @@ import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component
 
 declare var getDateObjFromJSDate: any;
 declare var getPlatform: any;
+declare var $: any;
 
 @Component({
   selector: 'app-main-menu',
@@ -107,11 +108,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (this.user && this.user.status == 'Active') {
       this.popupNum = 0;
       this.headerObj.notifications = this.user.notifications;
-
-      if (!localStorage['latitude'])
-        this.getLocation();
-      else if (!this.user.navLat)
-        this.uploadCoordinates();
     }
   }
 
@@ -174,10 +170,9 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
 
     if (responseJson.action == "logUser" && this.user) {
-      console.log('xxx', this.user.heartId)
       if (responseJson.infoObj) {
         if (!responseJson.infoObj.roseCeremonyDt || responseJson.infoObj.daysTillRoseCeremony <= 0)
-        this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
+          this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
         else if (responseJson.infoObj.daysTillRoseCeremony <= 4 && this.user.heartId == 0 && this.betraPopupComponent) {
           this.betraPopupComponent.showPopup('Time to assign a rose!', 'You need to hand out a rose to your favorite person.', 2);
         }
@@ -188,8 +183,8 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
           this.positionCoin();
         }, 500);
       }
-      if (this.user.ip == '')
-        this.populateGeoInfo();
+      // if (this.user.ip == '')
+      //   this.populateGeoInfo();
     }
     if (responseJson.action == 'updateGeoInfo') {
       this.syncUserWithLocalStorage(responseJson);

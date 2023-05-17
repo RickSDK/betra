@@ -15,9 +15,9 @@
                 <p class="gray-text" style="text-align: left;">Want to trade pictures with other Betra members for fun?
                     There's no cost to join and no cost to trade pictures. The more pictures you exchange
                     the more coins you collect and coins can be redeemed for real cash!</p>
-                <p class="gray-text" style="text-align: left;">How it works: Sign up below to start trading pictures.
+                <p class="gray-text" style="text-align: left;">Want to receive pictures? Simply click one of the photographers below to request a picture.
                 </p>
-                <p class="gray-text" style="text-align: left;">You decide what pictures you want to
+                <p class="gray-text" style="text-align: left;">Want to send pictures? You decide what pictures you want to
                     specialize in
                     and how many coins it will cost someone to receive one of your pictures.
                     If someone is interested, they will send you a request. You simply send them a picture to get your
@@ -39,6 +39,7 @@
                 <hr>
                 <div *ngIf="sellerFlg=='Y'">
                     <div *ngIf="editSellerFlg" class="tan-box">
+                        <i class="fa fa-times" (mousedown)="editSellerFlg=false" style="font-size: 18px; float: right; cursor: pointer;"></i>
                         <div>{{user.firstName}}'s Photography Profile</div>
                         <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="60">
                         </app-profile-pic>
@@ -116,13 +117,21 @@
             <div *ngIf="myOrders.length>0">
                 <table class="betra-table" style="font-size: 12px;">
                     <tr>
-                        <td colspan="6" style="background-color: #444; color: white; text-align: center">My Orders</td>
+                        <td colspan="6" style="background-color: #444; color: white; text-align: center">
+                            <div>Pics I have requested</div>
+                            <div class="btn-group">
+                                <button (mousedown)="filterOrderItems(0)"
+                                    [ngClass]="ngClassMenuButton(0, menuNum)">New</button>
+                                    <button (mousedown)="filterOrderItems(1)"
+                                    [ngClass]="ngClassMenuButton(1, menuNum)">Completed</button>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="6" style="background-color: #fff; color: black; text-align: center">These are the
-                            pictures you have requested. Once delivered, they will show up here.</td>
+                            pictures you have requested (orders). Once delivered, they will show up here.</td>
                     </tr>
-                    <tr *ngIf="myOrders.length>0">
+                    <tr *ngIf="displayOrders.length>0">
                         <th>User</th>
                         <th>Type</th>
                         <th>Cost</th>
@@ -130,7 +139,7 @@
                         <th>Instructions</th>
                         <th>Action</th>
                     </tr>
-                    <tr *ngFor="let order of myOrders">
+                    <tr *ngFor="let order of displayOrders">
                         <td>
                             <app-profile-pic [user_id]="order.uid" [profilePic]="order.profilePic" [size]="30">
                             </app-profile-pic>
@@ -159,11 +168,26 @@
                     </tr>
                 </table>
             </div>
+            
+            <div *ngIf="newOfferReceivedFlg" style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
+                You have a new offer. Press the 'Accept' or 'Decline' button below.
+            </div>
+            <div *ngIf="ordersReadyForDelivery" style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
+                You have an offer that needs to be delivered. Press the 'Deliver' button below when you are ready to send the picture
+            </div>
             <div *ngIf="sellerFlg=='Y'">
                 <table class="betra-table" style="font-size: 12px;">
                     <tr>
                         <td colspan="6" style="background-color: #444; color: white; text-align: center">
-                            My Offers
+                            
+                            <div>My Jobs to Do</div>
+                            <div class="btn-group">
+                                <button (mousedown)="filterOfferItems(0)"
+                                    [ngClass]="ngClassMenuButton(0, offerMenuNum)">New</button>
+                                    <button (mousedown)="filterOfferItems(1)"
+                                    [ngClass]="ngClassMenuButton(1, offerMenuNum)">Completed</button>
+                            </div>
+
                             <button (mousedown)="editSellerProfile()" class="btn btn-main-color btn-small"
                                 style="float: right;">Edit Your
                                 Profile</button>
@@ -171,10 +195,10 @@
                     </tr>
                     <tr>
                         <td colspan="6" style="background-color: #fff; color: black; text-align: center">These are the
-                            requests other people have made. In order for you to fullfill the deal, you will need to
+                            requests (offers) other people have made. In order for you to fullfill the deal, you will need to
                             send them a picture.</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="displayOffers.length>0">
                         <th>User</th>
                         <th>Type</th>
                         <th>Cost</th>
@@ -182,7 +206,7 @@
                         <th>Instructions</th>
                         <th>Action</th>
                     </tr>
-                    <tr *ngFor="let order of myOffers">
+                    <tr *ngFor="let order of displayOffers">
                         <td>
                             <app-profile-pic [user_id]="order.user_id" [profilePic]="order.profilePic" [size]="30">
                             </app-profile-pic>
@@ -201,9 +225,9 @@
                             <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
                                 (mousedown)="deleteCancelledOrder(order)"
                                 class="btn btn-main-color btn-small">Delete</button>
-                            <button *ngIf="order.status=='Accepted'" [disabled]="loadingFlg"
+                            <button *ngIf="order.status=='Accepted' && !selectedOrder" [disabled]="loadingFlg"
                                 (mousedown)="deliverOrder(order)" class="btn btn-main-color btn-small">Deliver</button>
-                            <img *ngIf="order.status=='Delivered' && order.src" (mousedown)="viewImage(order.src)"
+                            <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src" (mousedown)="viewImage(order.src)"
                                 [src]="order.src" height="40" style="cursor: pointer;" class="thumbnail-img">
                         </td>
                     </tr>
@@ -338,6 +362,8 @@
                         </table>
                         <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
                         <div><span [routerLink]="['/market']" class="text-link">Get more coins</span></div>
+                        <div>&nbsp;</div>
+                        <div class="gray-text">(More photographers below)</div>
                         <div *ngIf="selectedType">
                             <div>Type: <span class="text-highlight">{{selectedType.type}}</span></div>
                             <div>Cost: <span class="text-highlight">{{selectedType.cost}} coins</span></div>

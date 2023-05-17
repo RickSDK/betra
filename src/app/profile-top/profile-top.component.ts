@@ -9,12 +9,12 @@ import { User } from '../classes/user';
 export class ProfileTopComponent implements OnInit {
   @Input('user') user: any = new User(null);
   @Input('myUser') myUser: any = new User(null);
-  //  @Input('distance') distance: string = '';
   @Input('adminFlg') adminFlg: boolean = false;
   @Input('expandBottomFlg') expandBottomFlg: boolean = false;
   @Input('snapshotFlg') snapshotFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
+
   public largeImageFlg: boolean = false;
   public showSmallerPicsFlg: boolean = true;
   public unblurPicsFlg: boolean = false;
@@ -63,6 +63,10 @@ export class ProfileTopComponent implements OnInit {
 
   ngOnChanges(changes: any) {
     this.ngOnInit();
+  }
+
+  showMyReputation() {
+    this.messageEvent.emit('showReputation');
   }
 
   menuOptionClicked(num: number) {

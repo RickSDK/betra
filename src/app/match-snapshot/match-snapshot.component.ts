@@ -3,6 +3,7 @@ import { ProfileTopComponent } from '../profile-top/profile-top.component';
 import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
 import { PicturePopupComponent } from '../popups/picture-popup/picture-popup.component';
+import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
 
 @Component({
   selector: 'app-match-snapshot',
@@ -23,6 +24,9 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   @Input('singleProfileFlg') singleProfileFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
+
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
 
   public personalityMatch = 0;
   public polyMatch = 0;
@@ -163,19 +167,41 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
       this.showMoreFlg = false;
     }, 400);
   }
+
+
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getPollDataForUser') {
       this.questions = responseJson.questions;
+    }
+    if (responseJson.action == 'getReputationStats') {
+      var data = {
+        emailVerifyFlg: responseJson.emailVerifyFlg && responseJson.emailVerifyFlg=='Y',
+        facebookUrlFlg: responseJson.facebookUrlFlg=='Y',
+        instragramUrlFlg: responseJson.instragramUrlFlg=='Y',
+        linkedInUrlFlg: responseJson.linkedInUrlFlg=='Y',
+        navLat: responseJson.navLat != "",
+        picCertificateFlg: responseJson.picCertificateFlg =='Y',
+      };
+      
+      console.log(data);
+      if (this.betraPopupComponent)
+        this.betraPopupComponent.showPopup(this.matchUser.firstName + ' Reputation Score', JSON.stringify(data), 4);
 
     }
   }
+
+
   snoopPressed() {
     this.showSnoopFlg = !this.showSnoopFlg;
     if (this.showSnoopFlg)
       this.getDataFromServer('getSnoopData', 'appApiCode.php', { uid: this.matchUser.user_id });
   }
   actionButtonClicked(action: string) {
+    if (action == 'showReputation') {
+      this.getDataFromServer('getReputationStats2', 'reputation.php', {uid: this.matchUser.user_id});
+      return;
+    }
     if (action == 'showImage') {
       if (this.picturePopupComponent)
         this.picturePopupComponent.showPopup(this.matchUser.mainImageSrc);

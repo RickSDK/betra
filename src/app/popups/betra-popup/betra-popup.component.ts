@@ -11,6 +11,7 @@ export class BetraPopupComponent implements OnInit {
   public title: string = '';
   public message: string = '';
   public type: number = 0;
+  public data: any = null;
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -23,6 +24,10 @@ export class BetraPopupComponent implements OnInit {
     this.title = title;
     this.message = message;
     this.type = type;
+
+    if (type == 4) {
+      this.data = JSON.parse(message);
+    }
 
     this.showBetraPopup = true;
     this.popupIsFullyDisplayed = false;
