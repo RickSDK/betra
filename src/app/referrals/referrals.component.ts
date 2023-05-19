@@ -11,6 +11,8 @@ export class ReferralsComponent extends BaseComponent implements OnInit {
   public users: any = [];
   public textCopiedFlg: boolean = false;
   public referralText: string = '';
+  public selectedUser: any = null;
+  public referredUsers:any = [];
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -29,9 +31,18 @@ export class ReferralsComponent extends BaseComponent implements OnInit {
 
   }
 
+  loadReferredMembers(user: any) {
+    this.referredUsers = [];
+    this.selectedUser = user;
+    this.getDataFromServer('loadReferredMembers', 'owners.php', { uid: user.user_id });
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'getReferralUsers') {
       this.users = responseJson.users;
+    }
+    if (responseJson.action == 'loadReferredMembers') {
+      this.referredUsers = responseJson.users;
     }
   }
 }

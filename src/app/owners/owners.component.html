@@ -2,10 +2,9 @@
     [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
     <div class="matches-card" *ngIf="user && user.ownerFlg">
         <app-top-header [topTitle]="'Owners'"></app-top-header>
-        <hr>
 
         <app-owners-menu [pageTitle]="'Details'" [page]="0"></app-owners-menu>
-        <hr>
+            <hr>
         <div>Your current details:</div>
         <table align="center" style="font-size: 12px;">
             <tr>
@@ -111,9 +110,9 @@
                         <th>Progress</th>
                     </tr>
                     <tr>
-                        <td>Messages with at least 25 different people</td>
+                        <td>Messages with at least 18 different people</td>
                         <td><b class="text-highlight">{{ownersPage.peopleMessaged}}</b> <i
-                                *ngIf="ownersPage.peopleMessaged > 24" style="color: green;" class="fa fa-check"></i>
+                                *ngIf="ownersPage.peopleMessaged > 17" style="color: green;" class="fa fa-check"></i>
                         </td>
                     </tr>
                     <tr>
@@ -122,14 +121,14 @@
                                 *ngIf="ownersPage.messageCount > 99" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
-                        <td>At least 50 profiles swiped yes</td>
-                        <td><b class="text-highlight">{{ownersPage.profilesSwiped}}</b><i
-                                *ngIf="ownersPage.profilesSwiped > 49" style="color: green;" class="fa fa-check"></i>
+                        <td>At least 5 gifts handed out</td>
+                        <td><b class="text-highlight">{{ownersPage.giftsGiven}}</b><i
+                                *ngIf="ownersPage.giftsGiven > 4" style="color: green;" class="fa fa-check"></i>
                         </td>
                     </tr>
                     <tr>
-                        <td>At least 6 user reviews</td>
-                        <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
+                        <td>At least 4 pictures requested from photography club</td>
+                        <td><b class="text-highlight">{{ownersPage.picsRequested}}</b><i
                                 *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>

@@ -230,6 +230,7 @@ export class User {
     public g1: string = '';
     public g2: string = '';
     public iprFlg: boolean = false;
+    public navLatFlg: boolean = false;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
@@ -247,6 +248,8 @@ export class User {
             this.aboutme = obj.aboutme || '';
             this.history = obj.history || '';
             this.daysTillRoseCeremony = obj.daysTillRoseCeremony || 0;
+            if (this.daysTillRoseCeremony < 0)
+                this.daysTillRoseCeremony = 0;
             this.alias_name = obj.alias_name || '';
             this.lookingFor = obj.lookingFor || '';
             this.emailNum = obj.emailNum || 0;
@@ -354,8 +357,7 @@ export class User {
             this.countryName = obj.countryName || '';
             this.gpsLat = obj.latitude || '';
             this.gpsLng = obj.longitude || '';
-            this.navLat = obj.navLat || '';
-            this.navLng = obj.navLng || '';
+            this.navLatFlg = (this.navLat != "");
             this.latitude = obj.ipr_latitude || obj.latitude || obj.navLat || '';
             this.longitude = obj.ipr_longitude || obj.longitude || obj.navLng || '';
             //            this.latitude = obj.navLat || obj.latitude || '';
@@ -733,12 +735,16 @@ export class User {
 
 
             if (this.latitude && myUser.latitude) {
-                var lat1 = parseInt(this.g1)/9000;
-                var lng1 = parseInt(this.g2)/-9000;
-                var lat2 = parseInt(myUser.g1)/9000;
-                var lng2 = parseInt(myUser.g2)/-9000;
-                this.distance = distanceInKmBetweenEarthCoordinates(lat1, lng1, lat2, lng2);
+                var lat1 = parseInt(this.g1) / 9000;
+                var lng1 = parseInt(this.g2) / -9000;
+                var lat2 = parseInt(myUser.g1) / 9000;
+                var lng2 = parseInt(myUser.g2) / -9000;
  
+                //console.log('match', lat1, this.latitude, lng1, this.longitude);
+                //console.log('me', lat2, myUser.latitude, lng2, myUser.longitude);
+ 
+                this.distance = distanceInKmBetweenEarthCoordinates(lat1, lng1, lat2, lng2);
+
                 if (this.ownerFlg && !myUser.ownerFlg) {
                     this.location = myUser.location;
                     this.distance = 7 + this.firstName.length;

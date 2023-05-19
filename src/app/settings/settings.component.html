@@ -148,64 +148,7 @@
         </div>
         <div *ngIf="menuNum==2" class="border-box">
             <div>Location</div>
-            <div class="gray-text">If you have moved to a new location and want to update the database, click the "Find
-                Location" button below,
-                and then press "Update" to update the database.
-            </div>
-            <div *ngIf="geoUpdatedFlg">Your location data has been updated!</div>
-            <div id="gpsDataError" style="background-color: yellow;">{{gpsDataError}}</div>
-            <table *ngIf="!geoUpdatedFlg" style="font-size: 12px;">
-                <tr>
-                    <th>Item</th>
-                    <th>Current Location</th>
-                    <th>New Location</th>
-                </tr>
-                <tr>
-                    <td>City</td>
-                    <td><span class="text-highlight">{{user.city}}</span></td>
-                    <td><span class="text-highlight">{{city}}</span></td>
-                </tr>
-                <tr>
-                    <td>State</td>
-                    <td><span class="text-highlight">{{user.state}}</span></td>
-                    <td><span class="text-highlight">{{state}}</span></td>
-                </tr>
-                <tr>
-                    <td>Country</td>
-                    <td><span class="text-highlight">{{user.countryName}}</span></td>
-                    <td><span class="text-highlight">{{country}}</span></td>
-                </tr>
-                <tr>
-                    <td>GPS1</td>
-                    <td><span class="text-highlight">{{user.gpsLat}}</span></td>
-                    <td><span class="text-highlight">{{lat1}}</span></td>
-                </tr>
-                <tr>
-                    <td>GPS2</td>
-                    <td><span class="text-highlight">{{user.navLat}}</span></td>
-                    <td><span class="text-highlight" id="lat2">{{lat2}}</span></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td align="center">
-                        <button class="btn btn-main-color" *ngIf="!findingLocationDataFlg"
-                            (mousedown)="findLocalData()">
-                            <i class="fa fa-globe"></i> Find Location</button>
-                        <i *ngIf="findingLocationDataFlg" class="fa fa-spinner fa-spin"></i>
-                        <div style="margin-top: 2px;">
-                            <button (mousedown)="updateLocation()" [disabled]="updateLocationDisabledFlg"
-                                class="btn btn-success" style="height: 60px;"><i class="fa fa-map-pin"></i>
-                                Update</button>&nbsp;
-                        </div>
-                        <div class="gray-text">Update to this new location</div>
-
-                    </td>
-                </tr>
-            </table>
-
-
-            <div style="color: #eee; font-size: 10px;">{{user.latitude}} {{user.longitude}}</div>
+ 
 
         </div>
 

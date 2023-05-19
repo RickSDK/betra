@@ -167,8 +167,6 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       this.announcement = 'Your Matches have been reset. Click the browse link to continue.';
     }
     if (responseJson.action == 'updateLat' || responseJson.action == 'updateNewGeoInfo') {
-      this.user.navLat = responseJson.user.navLat;
-      this.user.navLng = responseJson.user.navLng;
       this.syncUserWithLocalStorage(responseJson);
       this.geoUpdatedFlg = true;
     }
@@ -195,7 +193,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     if (!this.lat1)
       this.gpsDataError = "unable to get your location. Try logging in using adifferent browser or change your settings.";
 
-    this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1 && this.user.navLat == this.lat2);
+    this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1);
     this.findingLocationDataFlg = false;
   }
   errorCallback() {
@@ -222,7 +220,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       this.lat1 = data.geoplugin_latitude;
       this.lng1 = data.geoplugin_longitude;
       this.ip = data.geoplugin_request;
-      this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1 && (!this.lat2 || this.user.navLat == this.lat2));
+      this.updateLocationDisabledFlg = (this.user.city == this.city && this.user.state == this.state && this.user.countryName == this.country && this.user.gpsLat == this.lat1 && (!this.lat2));
       setTimeout(() => {
         this.checkDisabledButton();
       }, 2000);

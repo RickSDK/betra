@@ -35,7 +35,7 @@ export class ReputationComponent extends BaseComponent implements OnInit {
       this.items[0].score = 1;
     if (this.user.picCertificateFlg)
       this.items[2].score = 1;
-    if (this.user.navLat && this.user.navLat.length > 0)
+    if (this.user.navLatFlg)
       this.items[3].score = 1;
 
     if (this.user.facebookUrlFlg)

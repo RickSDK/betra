@@ -5,7 +5,7 @@ import { PicturePopupComponent } from '../popups/picture-popup/picture-popup.com
 import { ProfilePopupComponent } from '../popups/profile-popup/profile-popup.component';
 import { DatabaseService } from '../services/database.service';
 import { BaseComponent } from '../base/base.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-rose-ceremony',
@@ -32,10 +32,11 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
   public daysTillCeremony: number = 0;
   public displayUserCounter: number = 0;
   public users: any = [];
+  public skip: string = '';
   public showBeginCeremonyButtonFlg: boolean = false;
   public startHandingRosesFlg = false;
 
-  constructor(private router: Router, databaseService: DatabaseService) { super(databaseService) }
+  constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService) }
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -47,13 +48,17 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       return
     }
 
-    if(this.user.status != 'Active') {
+    if (this.user.status != 'Active') {
       this.menuNum = 101;
       return;
     }
+
+    this.route.queryParams.subscribe(params => {
+      this.skip = params['skip'];
+    });
+
     this.rosesRemaining = this.user.rosesToHandOut;
     this.numSingles = this.user.numSingles;
-    console.log('this.rosesRemaining', this.rosesRemaining, this.numSingles);
     this.getDataFromServer('registerForRoseCeremony', 'roseCeremony.php', {});
 
   }
@@ -166,14 +171,23 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
   }
 
   beginCeremony() {
+    console.log('begin ceremony!');
     this.showBeginCeremonyButtonFlg = false;
     this.showWritingFlg = false;
     this.previewModeFlg2 = false;
-    this.startHandingRosesFlg = false;
 
-    setTimeout(() => {
+    if (this.skip == 'Y') {
+      this.startHandingRosesFlg = true;
       this.menuNum = 1;
-    }, 2000);
+      this.endRoseCeremony();
+    } else {
+      this.startHandingRosesFlg = false;
+      setTimeout(() => {
+        this.menuNum = 1;
+      }, 2000);
+
+    }
+
   }
 
   beginHandingOutRoses() {
@@ -188,8 +202,9 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == 'registerForRoseCeremony') {
       // not sure this will ever execute
-      this.menuNum = 99;
       this.daysTillCeremony = responseJson.daysTillCeremony;
+      this.menuNum = (this.daysTillCeremony > 0) ? 99 : 0;
+
       this.numSingles = responseJson.dpCount;
       this.roseCeremonyDt = responseJson.roseCeremonyDt;
       if (responseJson.roseCeremonyDt != "") {
@@ -199,8 +214,10 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       } else {
         this.rosesRemaining = this.user.gender == 'F' ? 10 : 20;
       }
-
+      if (this.skip == 'Y')
+        this.beginCeremony();
     }
+
     if (responseJson.action == 'roseCeremonyCompleted') {
       this.menuNum = 3;
       this.syncUserWithLocalStorage(responseJson);
@@ -243,7 +260,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
 
         this.previewModeFlg2 = true;
 
-        if (this.users.length > 0) {
+        if (this.users.length > 0 && !this.skip) {
           this.showThisUser();
           setTimeout(() => {
             this.showBeginCeremonyButtonFlg = true;

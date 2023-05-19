@@ -23,12 +23,11 @@ export class SideMenuComponent implements OnInit {
 
   public topItems = [
     { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
- //   { name: 'Browse', routerLink: '/browse-singles', icon: 'fa fa-search', id: 2 },
+    //   { name: 'Browse', routerLink: '/browse-singles', icon: 'fa fa-search', id: 2 },
     { name: 'Dating Pool', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
-    { name: 'Admirers', routerLink: '/user-detail', icon: 'fa fa-heart', id: 4 },
     //    { name: 'Online Today', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
     { name: 'Photography', routerLink: '/photography', icon: 'fa fa-picture-o', id: 15 },
-     { name: 'Top 10', routerLink: '/top-lists', icon: 'fa fa-list-ol', id: 6 },
+    { name: 'Top 10', routerLink: '/top-lists', icon: 'fa fa-list-ol', id: 6 },
 
   ];
   public middleItems = [
@@ -37,7 +36,7 @@ export class SideMenuComponent implements OnInit {
     { name: 'Blogs', routerLink: '/blogs', icon: 'fa fa-file-text', id: 0 },
     { name: 'Polls', routerLink: '/poll', icon: 'fa fa-question-circle', id: 0 },
     //{ name: 'Advice', routerLink: '/advice', icon: 'fa fa-thumbs-up', id: 0 },
-   { name: 'Marketplace', routerLink: '/market', icon: 'fa fa-line-chart', id: 0 },
+    { name: 'Marketplace', routerLink: '/market', icon: 'fa fa-line-chart', id: 0 },
     { name: 'Journal', routerLink: '/journal', icon: 'fa fa-book', id: 14 },
   ];
   public bottomItems = [
@@ -49,7 +48,7 @@ export class SideMenuComponent implements OnInit {
     if (localStorage['infoObj'])
       this.infoObj = JSON.parse(localStorage['infoObj']);
 
-   var picCertificateFlg: string = '';
+    var picCertificateFlg: string = '';
     if (this.infoObj) {
       this.dateCount = this.infoObj.dateCount;
       this.date2Count = this.infoObj.date2Count;
@@ -58,8 +57,11 @@ export class SideMenuComponent implements OnInit {
       this.photographyCount = parseInt(this.infoObj.newPicCount) + parseInt(this.infoObj.deliveredPicCount);
       picCertificateFlg = this.infoObj.picCertificateFlg;
     }
+
+    if (this.headerObj && this.headerObj.admirerCount > 0)
+      this.topItems.push({ name: 'Admirers', routerLink: '/user-detail', icon: 'fa fa-heart', id: 4 });
     //console.log('XXXside menu', this.photographyCount, this.infoObj);
- 
+
     this.toggleInteractMenu = (this.messageCount + this.dateCount + this.journalCount > 0);
 
     this.bottomItems.push({ name: 'Reputation', routerLink: '/reputation', icon: 'fa fa-certificate', id: 0 });

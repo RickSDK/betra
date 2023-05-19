@@ -15,7 +15,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="menuNum==99">
+<div *ngIf="daysTillCeremony > 0">
     <div style="width: 100%; text-align: center;">
         <div class="inner-block" style="text-align: left; background-color: black; padding: 20px; border-radius: 20px;">
             <div style="text-align: center;">
@@ -180,6 +180,7 @@
         <button [routerLink]="['/matches']" class="btn btn-main-color btn-large">View your Dating Pool</button>
     </div>
 </div>
+<i [routerLink]="['']" class="fa fa-arrow-left red-text" style="position: fixed; top: 10px; left: 10px; font-size: 24px; cursor: pointer;"></i>
 
 
 <app-picture-popup></app-picture-popup>

@@ -174,7 +174,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
         if (!responseJson.infoObj.roseCeremonyDt || responseJson.infoObj.daysTillRoseCeremony <= 0)
           this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
         else if (responseJson.infoObj.daysTillRoseCeremony <= 4 && this.user.heartId == 0 && this.betraPopupComponent) {
-          this.betraPopupComponent.showPopup('Time to assign a rose!', 'You need to hand out a rose to your favorite person.', 2);
+          this.betraPopupComponent.showPopup('Time to assign a rose!', 'At this point in the process, you are expected to hand out a rose to your favorite person. Everyone in your dating pool gets to see who you picked.', 2);
         }
       }
       if (responseJson.coinsNewFlg) {

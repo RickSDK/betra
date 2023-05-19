@@ -64,11 +64,10 @@ export class BaseComponent implements OnInit {
     } else
       this.loadUserObj();
 
-    if (this.user.user_id > 0)
+    if (this.user && this.user.user_id > 0) {
       this.checkLocationStuff();
-
-    this.logUser();
-    //this.notifications = localStorage['notifications'];
+      this.logUser();
+    }
 
   }
   checkLocationStuff() {
@@ -88,8 +87,8 @@ export class BaseComponent implements OnInit {
       this.populateGeoInfo();
     }
 
-    if (!this.user.navLat)
-    this.uploadCoordinates();
+    if (!this.user.navLatFlg)
+      this.uploadCoordinates();
 
     if (!localStorage['latitude']) {
       this.getLocation();

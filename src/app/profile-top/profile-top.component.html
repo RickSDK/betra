@@ -9,7 +9,7 @@
         <button (mousedown)="showNewUserPopupFlg=false" class="btn btn-main-color">Got it!</button>
     </div>
 
-    <table width="100%" border="0">
+    <table width="100%" border="0" *ngIf="user.matchObj">
         <tr>
             <td style="padding: 0; position: relative;" valign="top" width="50%">
                 <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle plus-icon"></i>

@@ -17,6 +17,7 @@ export class Photographer {
     public portfolio: string = '';
     public portfolioItems: any = [];
     public firstName: string = '';
+    public hasOrderPlaced: boolean = false;
 
     constructor(obj: any) {
         if (obj) {
@@ -37,12 +38,13 @@ export class Photographer {
             this.items = obj.items || '';
             this.firstName = obj.firstName;
             this.portfolio = obj.portfolio;
+            this.hasOrderPlaced = obj.hasOrderPlaced || false;
             this.portfolioItems = [];
 
             if (this.portfolio) {
                 var items = this.portfolio.split('+');
                 items.forEach(element => {
-                    this.portfolioItems.push('https://www.betradating.com/betraPhp/portfolioPics/pic' + this.user_id + '_' + element + '.jpg');
+                    this.portfolioItems.push({id: element, src: 'https://www.betradating.com/betraPhp/portfolioPics/pic' + this.user_id + '_' + element + '.jpg'});
                 });
 
             }

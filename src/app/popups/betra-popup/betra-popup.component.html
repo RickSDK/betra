@@ -16,16 +16,20 @@
                         style="color: #0f0;"></i> Linked-In verified</div>
                 <div *ngIf="data.picCertificateFlg"><i class="fa fa-picture-o"></i> <i class="fa fa-check"
                         style="color: #0f0;"></i> Photo verified</div>
-                <div *ngIf="data.navLat"><i class="fa fa-globe"></i> <i class="fa fa-check"
-                        style="color: #0f0;"></i> GPS located</div>
+                <div *ngIf="data.navLat"><i class="fa fa-globe"></i> <i class="fa fa-check" style="color: #0f0;"></i>
+                    GPS located</div>
                 <div>&nbsp;</div>
             </div>
             <button *ngIf="type==0 || type==4" (mousedown)="hidePopup()"
                 class="btn btn-main-color btn-large">Ok</button>
             <button *ngIf="type==2" [routerLink]="['/matches']" class="btn btn-main-color btn-large">Dating
                 Pool</button>
-            <button *ngIf="type==99" [routerLink]="['/intro']" class="btn btn-main-color btn-large">Rose
-                Ceremony</button>
+            <div *ngIf="type==99">
+                <button [routerLink]="['/intro']" class="btn btn-main-color btn-large">Rose
+                    Ceremony</button>
+                <div>&nbsp;</div>
+                <span class="text-link" [routerLink]="['/rose-ceremony']" [queryParams]="{skip: 'Y'}">Skip Ceremony</span>
+            </div>
             <div *ngIf="type==3">
                 <button (mousedown)="hidePopup()" class="btn btn-warning spacer">Cancel</button>
                 <button (mousedown)="specialButtonClicked('end')" class="btn btn-main-color spacer">End Rose

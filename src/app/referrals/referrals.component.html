@@ -15,7 +15,25 @@
         <div>Leading Referral Users</div>
         <div *ngFor="let user of users">
             <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="44">
-            </app-profile-pic> {{user.referralCount}}
+            </app-profile-pic> {{user.referralCount}} <span class="text-link" (mousedown)="loadReferredMembers(user)">View users</span>
+        </div>
+
+        <div *ngIf="selectedUser">
+            <hr>
+            <table>
+                <tr>
+                    <td>
+                        <app-profile-pic [user_id]="selectedUser.user_id" [profilePic]="selectedUser.profilePic" [size]="100">
+                        </app-profile-pic>
+                    </td>
+                    <td>
+                        <div>Referred Users</div>
+                        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+                        <app-profile-pic *ngFor="let user of referredUsers" [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="44">
+                        </app-profile-pic>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 

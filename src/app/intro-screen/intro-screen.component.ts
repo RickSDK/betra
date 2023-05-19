@@ -33,11 +33,14 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
 
     //console.log('hey', this.numSingles, this.numRoses);
 
-    this.menuNum = 0;
+    this.menuNum = -1;
     this.showWritingFlg = true;
 
-    this.getDataFromServer('checkRoseCeremonyDt', 'roseCeremony.php', {});
-
+    if(this.user.status == 'Active') {
+      this.getDataFromServer('checkRoseCeremonyDt', 'roseCeremony.php', {});
+    } else {
+      this.menuNum = 44;
+    }
   }
 
   stopMusic() {
@@ -45,20 +48,15 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
   }
 
   override postSuccessApi(file: string, responseJson: any) {
-    console.log('hey!', responseJson);
     if (responseJson.action == 'checkRoseCeremonyDt') {
-      if(this.user.status != 'Active') {
-        this.menuNum = 44;
-        return;
-      } else {
         if(responseJson.roseCeremonyDt && responseJson.roseCeremonyDt != null) {
           this.daysTillCeremony = responseJson.daysTillCeremony;
           this.menuNum = 60;
-          //this.router.navigate(['/rose-ceremony']);
+        } else {
+          //start
+          this.daysTillCeremony = 0;
+          this.menuNum = 0;
         }
-
-      }
-
     }
   }
 

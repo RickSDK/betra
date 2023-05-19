@@ -5,38 +5,14 @@
     <div style="max-width: 600px;">
         <app-dating-pool *ngIf="!showFilter && !commentsOnlyFlg" [user]="user" [largeFlg]="false"></app-dating-pool>
 
-        <app-profile-pic *ngIf="commentsOnlyFlg" [user_id]="matchUser.user_id" [profilePic]="matchUser.profilePic"
-            [size]="30"></app-profile-pic>
+        <app-profile-pic *ngIf="matchUser && commentsOnlyFlg" [user_id]="matchUser.user_id"
+            [profilePic]="matchUser.profilePic" [size]="30"></app-profile-pic>
 
-        <div *ngIf="!loadingFlg && searchStarted && id == 2 && profileViews>0" class="match-card">
-            <!--<div *ngIf="showEmptyDatingPoolFlg" class="special-box" (mousedown)="showEmptyDatingPoolFlg=false">
-                <i class="fa fa-times" style="float: right"></i>
-                <p style="font-size: 16px" class="red-text">Your <b><i class="fa fa-users"></i> Dating Pool</b> is
-                    currently
-                    empty.</p>
-                <p style="text-align: left;">Let's change that!
-                    Begin to fill it with interesting singles. You get to swipe through 12
-                    profiles per day. Click thumbs up <i class="fa fa-thumbs-up"></i> if you are interested.
-                    They will instantly be notified, and if they click "Yes" back, the two of you can begin
-                    communicating.
-                </p>
-            </div>
-            <div *ngIf="user.datingPool.length==1" class="important-notice">Congratulations! You now have 1 person in
-                your
-                <b>Dating Pool</b>! This is very exciting
-                as you can now start communicating with that person. Click on the profile circle above to meet them, or
-                continue clicking thumbs up to
-                anyone who catches your eye.
-            </div>
-            <div *ngIf="user.datingPool.length==2" class="important-notice">Great work! You are now have 2 people in
-                your
-                <b>Dating Pool</b>! Who's the new popular
-                kid on the block? You are! Keep clicking through profiles and get your dating pool filled up.
-            </div>
-            <div *ngIf="user.datingPool.length==3" class="important-notice">Your <b>Dating Pool</b> gets maxed out when
-                you
-                have 8 people in it. Until then keep viewing profiles and clicking thumbs up!
-            </div>-->
+        <div *ngIf="uid>0 && !matchUser && !loadingFlg" class="match-card">
+            No user found!
+        </div>
+        <div *ngIf="matchUser && !loadingFlg && searchStarted && id == 2 && profileViews>0" class="match-card">
+
             <div style="text-align: center; padding: 5px;">
                 <button style="float: left;" [routerLink]="['']"
                     class="btn btn-main-color btn-small">Home</button>&nbsp;
@@ -71,17 +47,6 @@
         <app-advanced-filters *ngIf="showFilter" [user]="user" (messageEvent)="advancedSearch($event)">
         </app-advanced-filters>
         <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
-
-        <!--<div *ngIf="0 && profileViews > 0 && showExpandedSearchPopupFlg && !loadingFlg && matchUser"
-            class="warning-search-popup">
-            <p>
-                Note: This is a new dating app that has just launched.
-                Your initial search returned very few potential matches so we expanded the search parameters to ignore
-                location.
-            </p>
-            <button (mousedown)="showExpandedSearchPopupFlg=false" class="btn btn-main-color">That's ok</button>&nbsp;
-            <button (mousedown)="browseSingles('findMatches')" class="btn btn-warning">Show locals only</button>&nbsp;
-        </div>-->
 
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
@@ -180,32 +145,39 @@
         </div>
         <!--- match card user && !matchUser -->
 
-        <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
-            [id]="id" [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
-            [singleProfileFlg]="uid>0">
-        </app-match-snapshot>
+        <div *ngIf="matchUser">
+            <app-match-snapshot *ngIf="matchUser && user" (messageEvent)="matchSnapshotEvent($event)" [user]="user"
+                [id]="id" [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
+                [singleProfileFlg]="uid>0">
+            </app-match-snapshot>
 
-        <div *ngIf="matchUser && matchUser.matchObj && uid>0">
+            <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 
-            <app-user-private-pics *ngIf="!commentsOnlyFlg && matchUser.matchObj.numPics > 0" [myUser]="user"
+                <app-user-private-pics *ngIf="!commentsOnlyFlg && matchUser.matchObj.numPics > 0" [myUser]="user"
+                    [matchUser]="matchUser">
+                </app-user-private-pics>
+
+            </div>
+            <app-user-requests *ngIf="!loadingFlg" [newGifts]="newGifts" [myUser]="user" [matchUser]="matchUser"
+                [dateObj]="dateObj">
+            </app-user-requests>
+
+            <app-user-communication *ngIf="!loadingFlg" (messageEvent)="messagesEvent($event)" [myUser]="user"
                 [matchUser]="matchUser">
-            </app-user-private-pics>
+            </app-user-communication>
 
+            <div (mousedown)="showNewReviewPopup=false" *ngIf="showNewReviewPopup" class="betra-popup">
+                <div style="font-size: 18px;"><b>New Review!</b></div>
+                <app-profile-pic [user_id]="matchUser.newReviewBy" [profilePic]="matchUser.newReviewProfilePic"
+                    [size]="80">
+                </app-profile-pic>
+                <p style="font-size: 12px;">You have a new review. Click the "Reviews" button below to see what they
+                    said.
+                </p>
+                <button class="btn btn-light">Ok</button>
+            </div>
         </div>
-        <app-user-requests *ngIf="!loadingFlg" [newGifts]="newGifts" [myUser]="user" [matchUser]="matchUser" [dateObj]="dateObj">
-        </app-user-requests>
 
-        <app-user-communication *ngIf="!loadingFlg" (messageEvent)="messagesEvent($event)" [myUser]="user" [matchUser]="matchUser">
-        </app-user-communication>
-
-        <div (mousedown)="showNewReviewPopup=false" *ngIf="showNewReviewPopup" class="betra-popup">
-            <div style="font-size: 18px;"><b>New Review!</b></div>
-            <app-profile-pic [user_id]="matchUser.newReviewBy" [profilePic]="matchUser.newReviewProfilePic" [size]="80">
-            </app-profile-pic>
-            <p style="font-size: 12px;">You have a new review. Click the "Reviews" button below to see what they said.
-            </p>
-            <button class="btn btn-light">Ok</button>
-        </div>
     </div>
 
 </app-page-shell>
@@ -245,4 +217,3 @@
         </table>
     </div>
 </div>
-

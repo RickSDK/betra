@@ -13,9 +13,6 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
   public latitudeFlg = !!(localStorage['latitude'] && localStorage['latitude'] != '');
   public latitude = localStorage['latitude'];
   public longitude = localStorage['longitude'];
-  ////  public localCity: string = '';
-  //  public localLat: string = '';
-  //  public localLng: string = '';
   public locDist: number = 99;
   public databaseLatitude: number = 0;
   public locationPage: any = null;
@@ -44,15 +41,25 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
   }
 
   setLocationOption() {
-    console.log('setLocationOption', localStorage['ipr_latitude'], this.geopluginObj.city, this.googleApiObj.city, this.latitude);
-    if (localStorage['ipr_latitude'])
+    var options = { navigator: false, geoplugin: false, ipr: false };
+
+    if (localStorage['ipr_latitude']) {
       this.showLocationOption = 2;
+      options.ipr = true;
+    }
 
-    if (this.geopluginObj.latitude)
+    if (this.geopluginObj.latitude) {
       this.showLocationOption = 1;
+      options.geoplugin = true;
+    }
 
-    if(this.googleApiObj.city && this.latitude)
+    if (this.googleApiObj.city && this.latitude) {
       this.showLocationOption = 0;
+      options.navigator = true;
+    }
+
+    console.log('>>>>>>>setLocationOption', options);
+
   }
 
   findLocation() {
@@ -90,7 +97,7 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
 
     this.setLocationOption();
 
-    console.log('checkValues', this.ipRegistry);
+    //console.log('checkValues', this.ipRegistry);
   }
 
   updateGeoPluginInfo() {

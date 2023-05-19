@@ -66,6 +66,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public displayOrders: any = [];
   public displayOffers: any = [];
   public offerMenuNum: number = 0;
+  public deletePortfolioImageFlg: boolean = false;
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -134,6 +135,12 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       return;
     }
     this.selectedType = type;
+  }
+
+  deleteThisImage(item: any) {
+    this.getDataFromServer('deleteThisImage', 'market.php', { orderId: item.id });
+    this.selectedPerson = null;
+    this.editSellerFlg = false;
   }
 
   placeOrder() {
@@ -325,7 +332,12 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   }
 
   confirmPlacedOrder(order: any) {
-    this.getDataFromServer('confirmPlacedOrder', 'market.php', { orderId: order.row_id });
+    order.confirmFlg = true;
+  }
+
+  textValueSubmitted(order:any, comments: string) {
+    console.log(order.row_id)
+    this.getDataFromServer('confirmPlacedOrder', 'market.php', { orderId: order.row_id, details: comments });
   }
 
   cancelPlacedOrder(order: any) {
@@ -414,30 +426,24 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.myOffers = responseJson.myOffers;
       this.details = responseJson.details;
       this.myPhotographer = new Photographer(responseJson);
+      var orderList: any = {}
 
-      this.sellersM = [];
-      this.sellersF = [];
-      responseJson.sellers.forEach((element: any) => {
-        if (element.gender == 'F')
-          this.sellersF.push(new Photographer(element));
-        else
-          this.sellersM.push(new Photographer(element));
-      });
+      console.log('myPhotographer', this.myPhotographer);
 
-      if (this.sellersF.length > 0) {
-        this.viewSeller(this.sellersF[this.sellersF.length - 1]);
-      }
       var newOrdersDeliveredFlg: boolean = false;
       this.myOrders.forEach((element: any) => {
+        if (element.status == 'New' || element.status == 'Accepted')
+          orderList[element.uid] = true;
+
         if (element.status == 'Delivered')
           newOrdersDeliveredFlg = true;
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.uid + '_' + element.row_id + '.jpg';
       });
+      console.log('orderList', orderList);
       this.myOrders.sort((a: any, b: any) => a.status.localeCompare(b.status));
       this.filterOrderItems(0);
 
       this.myOffers.forEach((element: any) => {
-        console.log('xxx', element.status, element);
         if (element.status == 'New')
           this.newOfferReceivedFlg = true;
 
@@ -452,6 +458,21 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       });
       this.offers.sort((a: any, b: any) => a.status.localeCompare(b.status));
       this.filterOfferItems(0);
+
+      //------------------------------------------
+      this.sellersM = [];
+      this.sellersF = [];
+      responseJson.sellers.forEach((element: any) => {
+        element.hasOrderPlaced = orderList[element.user_id];
+        if (element.gender == 'F')
+          this.sellersF.push(new Photographer(element));
+        else
+          this.sellersM.push(new Photographer(element));
+      });
+
+      if (this.sellersF.length > 0) {
+        this.viewSeller(this.sellersF[this.sellersF.length - 1]);
+      }
 
       this.calculateSellableCoins(this.myCoins);
 

@@ -2,11 +2,11 @@
 
 <div [ngClass]="ngClassMain()">
     <div style="width: 100%; max-width: 400px; display: inline-block;">
-        <div *ngIf="menuNum==0">
+        <div *ngIf="menuNum <= 0">
             <div>&nbsp;</div>
             <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
             <div>&nbsp;</div>
-            <button (mousedown)="beginTheShow()" class="btn btn-main-color btn-large">Begin your Journey</button>
+            <button *ngIf="menuNum == 0" (mousedown)="beginTheShow()" class="btn btn-main-color btn-large">Begin your Journey</button>
         </div>
         <div *ngIf="menuNum==2">
             <div class="red-text" style="font-size: 22px;">Welcome to</div>
@@ -108,4 +108,6 @@
  
     </div>
 </div>
+<i [routerLink]="['']" (mousedown)="stopMusic()" class="fa fa-arrow-left red-text" style="position: fixed; top: 10px; left: 10px; font-size: 24px; cursor: pointer;"></i>
 <i [routerLink]="['/rose-ceremony']" (mousedown)="stopMusic()" class="fa fa-arrow-right red-text" style="position: fixed; top: 10px; right: 10px; font-size: 24px; cursor: pointer;"></i>
+

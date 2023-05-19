@@ -3,7 +3,7 @@
     <div [ngClass]="ngClassPopup()">
         <div (mousedown)="hidePopup()" class="bg-clickable"></div>
         <div class="popup-inner" (mousedown)="hidePopup()">
-            <img [src]="src" width="100%" style="max-height: 85vh; object-fit: cover;">
+            <img [src]="src" width="100%" style="max-height: 85vh; object-fit: contain;">
          </div>
     </div>
 </div>

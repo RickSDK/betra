@@ -20,6 +20,10 @@
     transition: all 1s ease;
 }
 
+.image-large {
+    max-height: 85vh; object-fit: cover;
+}
+
 .screen-on {
     opacity: .7;
 }
@@ -44,7 +48,6 @@
     margin-top: 80px;
     display: inline-block;
     background-color: #fff;
-    width: 100%;
     max-width: 800px;
     z-index: 500;
     box-shadow: 3px 3px 7px black;

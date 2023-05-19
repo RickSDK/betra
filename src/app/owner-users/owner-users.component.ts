@@ -16,6 +16,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   public selectedPlayer: any = null;
   public option: number = 0;
   public menuButtons: any = ['United States', 'International'];
+  public allTeam: any = [];
   public usList: any = [];
   public internationalList: any = [];
   public regionFlg: boolean = false;
@@ -54,6 +55,22 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
     this.selectedPlayer = null;
   }
 
+  emailUpdates() {
+    this.loadingFlg = true;
+    var count=0;
+    this.allTeam.forEach((element: { user_id: any; firstName: any; }) => {
+      count++;
+      setTimeout(() => {
+        console.log('emailing ', element.user_id, element.firstName);
+        this.getDataFromServer('emailUpdates', 'report.php', { uid: element.user_id });
+        
+      }, count*1000);
+   });
+
+   //this.getDataFromServer('emailUpdates', 'report.php', { uid: 1 });
+   console.log('count: ', count);
+  }
+
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getOwnerUsers') {
@@ -72,6 +89,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
       this.level1Owners = [];
       var emailList: any = [];
 
+      this.allTeam = responseJson.playerList;
 
       responseJson.playerList.forEach((element: any) => {
 

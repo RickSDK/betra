@@ -73,7 +73,7 @@ export class OwnersComponent extends BaseComponent implements OnInit {
         this.goalReachedFlg = (responseJson.blogComments >= 2 && responseJson.messageCount >= 40 && responseJson.reviewCount >= 3 && responseJson.bugsCount >= 2 && responseJson.voteCount >= 2 && responseJson.consecutiveDays > 3);
 
       if (level == 3)
-        this.goalReachedFlg = (responseJson.peopleMessaged >= 20 && responseJson.messageCount >= 100 && responseJson.profilesSwiped >= 25 && responseJson.reviewCount >= 6 && responseJson.blogComments >= 4 && responseJson.consecutiveDays > 7);
+        this.goalReachedFlg = (responseJson.peopleMessaged >= 18 && responseJson.messageCount >= 100 && responseJson.giftsGiven >= 5 && responseJson.picsRequested >= 4 && responseJson.blogComments >= 4 && responseJson.consecutiveDays > 7);
 
       if (level == 4)
         this.goalReachedFlg = (responseJson.messageCount > 249 && responseJson.reviewCount > 9 && responseJson.picVerifiedCount > 9 && responseJson.referralCount >= 2 && responseJson.giftsGiven > 4 && responseJson.picsRequested > 11 && responseJson.picsTaken > 1 && responseJson.consecutiveDays > 13);

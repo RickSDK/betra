@@ -277,23 +277,21 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       //console.log('hey!', responseJson);
       this.newGifts = responseJson.newGifts > 0;
       this.profileViews = responseJson.profileViews;
-
-      this.matchUser = new User(responseJson.user, this.user);
       this.messageCount = responseJson.messages;
-      this.pageTitle = this.matchUser.firstName;
-      this.calculatingStatsFlg = true;
-      if (this.matchUser && this.matchUser.matchObj)
-        this.dateObj = this.matchUser.matchObj.dateObj;
 
-      this.displayThisProfile();
-      //this.logUser();
-      if (this.matchUser.newReviewBy > 0 && this.matchUser.user_id == this.user.user_id) {
-        this.showNewReviewPopup = true;
-        this.getDataFromServer('clearNewReviewFlg', 'betraReviews.php', []);
-      } else {
-        //this.logUser(); // this syncs up notifications
+      if (responseJson.user && responseJson.user.user_id > 0) {
+        this.matchUser = new User(responseJson.user, this.user);
+        this.pageTitle = this.matchUser.firstName;
+        this.calculatingStatsFlg = true;
+        if (this.matchUser && this.matchUser.matchObj)
+          this.dateObj = this.matchUser.matchObj.dateObj;
+
+        this.displayThisProfile();
+        if (this.matchUser.newReviewBy > 0 && this.matchUser.user_id == this.user.user_id) {
+          this.showNewReviewPopup = true;
+          this.getDataFromServer('clearNewReviewFlg', 'betraReviews.php', []);
+        }
       }
-
     }
     if (responseJson.action == "yesToMatch" && responseJson.action2 == "match made") {
     }
