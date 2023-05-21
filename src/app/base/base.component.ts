@@ -71,9 +71,6 @@ export class BaseComponent implements OnInit {
 
   }
   checkLocationStuff() {
-    var lat = localStorage['latitude'];
-    console.log('checkLocationStuff', lat, this.user.iprFlg);
-
 
     if (this.user.firstName && !this.user.iprFlg) {
       if (!localStorage['ipr_latitude'])
@@ -83,15 +80,16 @@ export class BaseComponent implements OnInit {
       }
     }
 
-    if (!this.user.latitude) {
+    if (!localStorage['checkGeoInfo']) {
       this.populateGeoInfo();
     }
 
-    if (!this.user.navLatFlg)
-      this.uploadCoordinates();
+   //--- not sure what this one does
+   // if (!this.user.navLatFlg)
+   //   this.uploadCoordinates();
 
     if (!localStorage['latitude']) {
-      this.getLocation();
+      this.getLocationUsingNavigatorGeolocation();
     }
 
     if (localStorage['latitude'] && !localStorage['city']) {
@@ -237,20 +235,29 @@ export class BaseComponent implements OnInit {
         return response.json();
       })
       .then(function (payload) {
-        if (payload && payload.location) {
+        if (payload && payload.location && payload.location.country) {
           var ipr_city = payload.location.city;
           var ipr_latitude = payload.location.latitude;
           var ipr_longitude = payload.location.longitude;
           var ipr_postal = payload.location.postal;
           var ipr_region = '';
-          if (payload.location.region)
+          var ipr_region_code = '';
+          var ipr_country =  payload.location.country.name;
+          var ipr_country_code = payload.location.country.code;
+          if (payload.location.region) {
             ipr_region = payload.location.region.name;
+            ipr_region_code = payload.location.region.code.replace('US-','');
+          }
           localStorage['ipr_city'] = ipr_city;
           localStorage['ipr_latitude'] = ipr_latitude;
           localStorage['ipr_longitude'] = ipr_longitude;
           localStorage['ipr_postal'] = ipr_postal;
           localStorage['ipr_region'] = ipr_region;
-          var params = { ipr_city: ipr_city, ipr_latitude: ipr_latitude, ipr_longitude: ipr_longitude, ipr_postal: ipr_postal, ipr_region: ipr_region };
+          localStorage['ipr_country'] = ipr_country;
+          localStorage['ipr_country_code'] = ipr_country_code;
+          localStorage['ipr_region_code'] = ipr_region_code;
+          var params = { ipr_country: ipr_country, ipr_country_code: ipr_country_code, ipr_city: ipr_city, ipr_region_code: ipr_region_code, ipr_latitude: ipr_latitude, ipr_longitude: ipr_longitude, ipr_postal: ipr_postal, ipr_region: ipr_region };
+          console.log('ipregistryLocation!!!', payload);
           console.log('location found!!!', params);
         }
 
@@ -259,7 +266,16 @@ export class BaseComponent implements OnInit {
 
   updateIpregistryLocation() {
     if (localStorage['ipr_city'] != "") {
-      var params = { ipr_city: localStorage['ipr_city'], ipr_latitude: localStorage['ipr_latitude'], ipr_longitude: localStorage['ipr_longitude'], ipr_postal: localStorage['ipr_postal'], ipr_region: localStorage['ipr_region'] };
+      var params = { 
+        ipr_city: localStorage['ipr_city'], 
+        ipr_latitude: localStorage['ipr_latitude'], 
+        ipr_longitude: localStorage['ipr_longitude'], 
+        ipr_postal: localStorage['ipr_postal'], 
+        ipr_region: localStorage['ipr_region'],
+        state: localStorage['ipr_region_code'],
+        countryName: localStorage['ipr_country'],
+        countryCode: localStorage['ipr_country_code'],
+      };
       console.log('updateIpregistryLocation', params);
       this.getDataFromServer('updateIpregistryLocation', 'geoScript.php', params);
     }
@@ -298,7 +314,7 @@ export class BaseComponent implements OnInit {
         localStorage['stateName'] = stateName;
         localStorage['countryName'] = countryName;
         localStorage['countryCode'] = countryCode;
-        console.log('results!', city, state, stateName, countryName, countryCode);
+        console.log('getGoogleAPILoc results!', city, state, stateName, countryName, countryCode);
 
       });
   }
@@ -393,6 +409,7 @@ export class BaseComponent implements OnInit {
     }
   }
   populateGeoInfo() {
+    localStorage['checkGeoInfo'] = true;
     console.log('>>>>>populateGeoInfo<<<<<');
     //https://ssl.geoplugin.net/json.gp?k=cee1887eb4490f28
     //http://www.geoplugin.net/json.gp?jsoncallback=?
@@ -493,8 +510,9 @@ export class BaseComponent implements OnInit {
     fetch(url, postData).then((resp) => resp.text())
       .then((data) => {
         //console.log('response:', data);
-        if (params.action != 'logUser')
+        if (params.action != 'logUser') {
           this.loadingFlg = false;
+        }
         if (!data) {
           this.postErrorApi(file, 'No reponse received.');
         } else {
@@ -599,7 +617,7 @@ export class BaseComponent implements OnInit {
       this.errorMessage = 'No Coordinates found. Try using a browser that supports geolocation.';
   }
 
-  getLocation() {
+  getLocationUsingNavigatorGeolocation() {
     console.log('finding location', navigator.geolocation);
     const options = {
       enableHighAccuracy: true,
@@ -636,7 +654,7 @@ export class BaseComponent implements OnInit {
   }
 
   showPosition(position: any) {
-    console.log('here are the coordinates', position.coords.latitude, position.coords.longitude, position.coords.accuracy);
+    console.log('getLocation: here are the coordinates', position.coords.latitude, position.coords.longitude, position.coords.accuracy);
     localStorage['latitude'] = position.coords.latitude;
     localStorage['longitude'] = position.coords.longitude;
     localStorage['accuracy'] = Math.round(position.coords.accuracy);

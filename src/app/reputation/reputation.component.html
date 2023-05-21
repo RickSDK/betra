@@ -44,7 +44,7 @@
             </div>
         </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <div *ngIf="updateSuccessfulFlg" class="important-notice">Thank you. Your info has been submitted!</div>
+        <div *ngIf="0" class="important-notice">Thank you. Your info has been submitted!</div>
         <div *ngIf="!loadingFlg">
             <div *ngIf="selectedItemNum==1" class="tan-box">
                 <div>Your email address has not yet been confirmed. Go here to fix that:</div>
@@ -79,6 +79,6 @@
         </div>
         <div>&nbsp;</div>
         <div style="font-size: 12px;" class="red-text">Your Reputation Score</div>
-        <div><span class="text-highlight" style="font-size: 48px;">{{user.reputationScore}}</span></div>
+        <div><span class="text-highlight" style="font-size: 48px;">{{reputationScore}}</span></div>
     </div>
 </app-page-shell>

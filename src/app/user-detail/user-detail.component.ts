@@ -280,7 +280,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.messageCount = responseJson.messages;
 
       if (responseJson.user && responseJson.user.user_id > 0) {
+        console.log('city1', responseJson.user.city);
         this.matchUser = new User(responseJson.user, this.user);
+        console.log('city2', this.matchUser.city);
         this.pageTitle = this.matchUser.firstName;
         this.calculatingStatsFlg = true;
         if (this.matchUser && this.matchUser.matchObj)
@@ -303,7 +305,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   populateViewChildren() {
-    if (this.messagesModal)
+    if (this.messagesModal && this.messagesModal.populateModal)
       this.messagesModal.populateModal(this.matchUser, this.user);
 
     if (this.matchSnapshotModal) {
@@ -327,7 +329,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   displayThisProfile() {
-    console.log('displayThisProfile', this.matchUser);
+    console.log('displayThisProfile', this.matchUser.city, this.matchUser);
     if (this.matchUser) {
       this.getDataFromServer('logUserView', 'chat.php', { uid: this.matchUser.user_id });
     }

@@ -7,10 +7,14 @@
         <div class="tan-box" style="font-size: 12px; text-align: center;">
             <p>Note: Your GPS location is never shared with anyone, but is needed to find local matches. </p>
         </div>
-        <div *ngIf="showLocationOption==3">Sorry, we are unable to find your location. Try logging in with a different browser or change your location settings on your device.</div>
+        <div *ngIf="noGoodOptionsFlg">Sorry, we are unable to find your location. Try logging in with a different browser or change your location settings on your device.</div>
+        <div class="btn-group">
+            <button (mousedown)="menuNum = i" *ngFor="let button of topButtons; let i = index;"
+                    [ngClass]="ngClassMenuButton(i, menuNum)"><i class="fa fa-check" *ngIf="locationPage && locationPage.locationNum == i+1"></i> {{button}}</button>
+        </div>
         <table width="100%" style="font-size: 10px;">
             <tr>
-                <td valign="top" *ngIf="1" width="50%">
+                <td valign="top" *ngIf="menuNum==0" width="50%">
                     <div class="red-text">Navigator</div>
                     <div *ngIf="!latitude || locDist>5" style="color: #900; font-size: 16px;"><i
                             class="fa fa-times"></i> Not Synced
@@ -23,10 +27,11 @@
                         <div><b>Current database values</b></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{locationPage.navLat}}</span></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{locationPage.navLng}}</span></div>
-                        <div><span class="text-highlight">{{locationPage.city}}</span></div>
+                        <div><span class="text-highlight" style="font-size: 20px;">{{locationPage.city}}</span></div>
                         <div><span class="text-highlight">{{locationPage.state}}</span></div>
                         <div><span class="text-highlight">{{locationPage.region}}</span></div>
                         <div><span class="text-highlight">{{locationPage.countryName}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.countryCode}}</span></div>
                     </div>
 
                     <div *ngIf="!latitudeFlg" class="border-box">
@@ -35,25 +40,26 @@
                             doesn't show up,
                             you may need to adjust your browser settings or try logging in with a different
                             browser.</div>
-                        <button [disabled]="loadingFlg" (mousedown)="findLocation()"
+                        <button [disabled]="loadingFlg" (mousedown)="findLocationUsingNavigator()"
                             class="btn btn-main-color btn-small">Find Location</button>
                     </div>
                     <div *ngIf="locationPage && latitudeFlg" class="border-box">
                         <div>Current Local GPS</div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{latitude}}</span></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{longitude}}</span></div>
-                        <div><span class="text-highlight">{{googleApiObj.city}}</span></div>
+                        <div><span class="text-highlight" style="font-size: 20px;">{{googleApiObj.city}}</span></div>
                         <div><span class="text-highlight">{{googleApiObj.state}}</span></div>
                         <div><span class="text-highlight">{{googleApiObj.stateName}}</span></div>
                         <div><span class="text-highlight">{{googleApiObj.country}}</span></div>
-                        <button [disabled]="loadingFlg" (mousedown)="findLocation()"
+                        <div><span class="text-highlight">{{googleApiObj.countryCode}}</span></div>
+                        <button [disabled]="loadingFlg" (mousedown)="findLocationUsingNavigator()"
                             class="btn btn-primary btn-small spacer">Find Location</button>
-                        <button [disabled]="loadingFlg || (locDist<=5 && googleApiObj.city == locationPage.city)"
+                        <button [disabled]="loadingFlg || (locDist<=5 && googleApiObj.city == locationPage.city && locationPage.locationNum==1) || !googleApiObj.city"
                             (mousedown)="updateGps()" class="btn btn-main-color spacer">Use this location</button>
                     </div>
                     <div id="geoError" style="background-color: yellow;"></div>
                 </td>
-                <td valign="top" *ngIf="showLocationOption==1 && locationPage">
+                <td valign="top" *ngIf="menuNum==1 && locationPage">
                     <div class="red-text">GeoPlugin</div>
                     <div *ngIf="!locationPage.latitude || locationPage.latitude != geopluginObj.latitude"
                         style="color: #900; font-size: 16px;"><i class="fa fa-times"></i> Not Synced
@@ -66,28 +72,34 @@
                         <div><b>Current database values</b></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{locationPage.latitude}}</span></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{locationPage.longitude}}</span></div>
-                        <div><span class="text-highlight">{{locationPage.city}}</span></div>
-                        <div><span class="text-highlight">{{locationPage.state}}</span></div>
-                        <div><span class="text-highlight">{{locationPage.region}}</span></div>
-                        <div><span class="text-highlight">{{locationPage.countryName}}</span></div>
-                        <div><span class="text-highlight">{{locationPage.continentName}}</span></div>
+                        <div><span class="text-highlight" style="font-size: 20px;">{{locationPage.geo_city}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.geo_state}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.geo_state_name}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.geo_country}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.geo_country_code}}</span></div>
                     </div>
 
                     <div class="border-box" *ngIf="geopluginObj">
                         <div><b>Your current Location</b></div>
                         <div *ngIf="showGPSFlg"> <span class="text-highlight">{{geopluginObj.latitude}}</span></div>
                         <div *ngIf="showGPSFlg"> <span class="text-highlight">{{geopluginObj.longitude}}</span></div>
-                        <div> <span class="text-highlight">{{geopluginObj.city}}</span></div>
+                        <div> <span class="text-highlight" style="font-size: 20px;">{{geopluginObj.city}}</span></div>
                         <div> <span class="text-highlight">{{geopluginObj.state}}</span></div>
                         <div> <span class="text-highlight">{{geopluginObj.region}}</span></div>
                         <div> <span class="text-highlight">{{geopluginObj.countryName}}</span></div>
+                        <div> <span class="text-highlight">{{geopluginObj.countryCode}}</span></div>
+                        
                         <div> <span class="text-highlight">{{geopluginObj.continentName}}</span></div>
-                        <button [disabled]="loadingFlg || (geopluginObj.latitude == locationPage.latitude && locationPage.city == geopluginObj.city)"
+
+                        <button [disabled]="loadingFlg" (mousedown)="findGeoPluginLocation()"
+                        class="btn btn-primary btn-small spacer">Find Location</button>
+
+                        <button [disabled]="loadingFlg || (geopluginObj.latitude == locationPage.latitude && locationPage.geo_city == geopluginObj.city && locationPage.locationNum==2) || !geopluginObj.city"
                             (mousedown)="updateGeoPluginInfo()" class="btn btn-main-color spacer">Use this
                             Location</button>
                     </div>
                 </td>
-                <td valign="top" *ngIf="showLocationOption==2 && locationPage">
+                <td valign="top" *ngIf="menuNum==2 && locationPage">
                     <div class="red-text">IPregistry</div>
                     <div *ngIf="locationPage.ipr_latitude && locationPage.ipr_latitude == ipRegistry.ipr_latitude"
                         style="color: green; font-size: 16px;"><i class="fa fa-check"></i> Synced up
@@ -96,21 +108,30 @@
                         <div><b>Current database values</b></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{locationPage.ipr_latitude}}</span></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{locationPage.ipr_longitude}}</span></div>
-                        <div><span class="text-highlight">{{locationPage.ipr_city}}</span></div>
+                        <div><span class="text-highlight" style="font-size: 20px;">{{locationPage.ipr_city}}</span></div>
                         <div><span class="text-highlight">{{locationPage.ipr_postal}}</span></div>
                         <div><span class="text-highlight">{{locationPage.ipr_region}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.ipr_region_code}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.ipr_country}}</span></div>
+                        <div><span class="text-highlight">{{locationPage.ipr_country_code}}</span></div>
                     </div>
 
                     <div class="border-box" *ngIf="ipRegistry">
                         <div><b>Your current Location</b></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{ipRegistry.ipr_latitude}}</span></div>
                         <div *ngIf="showGPSFlg"><span class="text-highlight">{{ipRegistry.ipr_longitude}}</span></div>
-                        <div><span class="text-highlight">{{ipRegistry.ipr_city}}</span></div>
+                        <div><span class="text-highlight" style="font-size: 20px;">{{ipRegistry.ipr_city}}</span></div>
                         <div><span class="text-highlight">{{ipRegistry.ipr_postal}}</span></div>
                         <div><span class="text-highlight">{{ipRegistry.ipr_region}}</span></div>
+                        <div><span class="text-highlight">{{ipRegistry.ipr_region_code}}</span></div>
+                        <div><span class="text-highlight">{{ipRegistry.ipr_country}}</span></div>
+                        <div><span class="text-highlight">{{ipRegistry.ipr_country_code}}</span></div>
+                        <button [disabled]="loadingFlg" (mousedown)="findIPRegistryLocation()"
+                        class="btn btn-primary btn-small spacer">Find Location</button>
+
                         <button
-                            [disabled]="loadingFlg || (locationPage.ipr_latitude == ipRegistry.ipr_latitude && locationPage.ipr_city == ipRegistry.ipr_city)"
-                            (mousedown)="updateIpregistryLocation()" class="btn btn-main-color spacer">Use this
+                            [disabled]="loadingFlg || (locationPage.ipr_latitude == ipRegistry.ipr_latitude && locationPage.ipr_city == ipRegistry.ipr_city && locationPage.locationNum==3) || !ipRegistry.ipr_latitude"
+                            (mousedown)="updateIpregistryLocation2()" class="btn btn-main-color spacer">Use this
                             Location</button>
                     </div>
 

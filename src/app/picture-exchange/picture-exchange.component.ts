@@ -67,6 +67,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public displayOffers: any = [];
   public offerMenuNum: number = 0;
   public deletePortfolioImageFlg: boolean = false;
+  public newOrdersDeliveredFlg: boolean = false;
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -335,7 +336,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     order.confirmFlg = true;
   }
 
-  textValueSubmitted(order:any, comments: string) {
+  textValueSubmitted(order: any, comments: string) {
     console.log(order.row_id)
     this.getDataFromServer('confirmPlacedOrder', 'market.php', { orderId: order.row_id, details: comments });
   }
@@ -397,7 +398,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
+
     if (responseJson.action != 'logUser') {
+      this.newOrdersDeliveredFlg = false;
       this.ordersReadyForDelivery = false;
       this.newOfferReceivedFlg = false;
 
@@ -430,13 +433,12 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
       console.log('myPhotographer', this.myPhotographer);
 
-      var newOrdersDeliveredFlg: boolean = false;
       this.myOrders.forEach((element: any) => {
         if (element.status == 'New' || element.status == 'Accepted')
           orderList[element.uid] = true;
 
         if (element.status == 'Delivered')
-          newOrdersDeliveredFlg = true;
+          this.newOrdersDeliveredFlg = true;
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.uid + '_' + element.row_id + '.jpg';
       });
       console.log('orderList', orderList);
@@ -478,7 +480,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
       if (this.newOfferReceivedFlg && this.betraPopupComponent)
         this.betraPopupComponent.showPopup('You have a new picture request!', 'Check for your new requests under the "My Jobs to Do" section and click "Accept" or "Decline" to complete the transaction.');
-      else if (newOrdersDeliveredFlg && this.betraPopupComponent)
+      else if (this.newOrdersDeliveredFlg && this.betraPopupComponent)
         this.betraPopupComponent.showPopup('You have a new picture delivered!', 'Check the "My Orders" section and click "Confirm" to complete the transaction.');
 
       console.log('lastSalePrice', this.lastSalePrice, this.sellersM);

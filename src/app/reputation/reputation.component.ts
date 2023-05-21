@@ -22,6 +22,7 @@ export class ReputationComponent extends BaseComponent implements OnInit {
   public instragramUrl: string = '';
   public linkedInUrl: string = '';
   public updateSuccessfulFlg: boolean = false;
+  public reputationScore: number = 0;
 
   public value: string = '';
   public searchLocFlg: boolean = false;
@@ -30,7 +31,7 @@ export class ReputationComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getDataFromServer('getReputationStats', 'reputation.php', {})
+
     if (this.user.emailVerifyFlg)
       this.items[0].score = 1;
     if (this.user.picCertificateFlg)
@@ -40,7 +41,12 @@ export class ReputationComponent extends BaseComponent implements OnInit {
 
     if (this.user.facebookUrlFlg)
       this.items[4].score = 1;
+
+    this.reputationScore = this.user.reputationScore;
+    this.getDataFromServer('getReputationStats', 'reputation.php', {});
+
   }
+
   editItemNum(num: number) {
     this.selectedItemNum = (this.selectedItemNum == num) ? 0 : num;
 
@@ -52,10 +58,12 @@ export class ReputationComponent extends BaseComponent implements OnInit {
     if (this.selectedItemNum == 7)
       this.value = this.linkedInUrl;
   }
+
   textValueSubmitted(value: string) {
     var type = this.items[this.selectedItemNum - 1].name;
     this.getDataFromServer('postReputationUrl', 'reputation.php', { value: value, type: type });
   }
+
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'updateLat') {
@@ -88,12 +96,11 @@ export class ReputationComponent extends BaseComponent implements OnInit {
       if (responseJson.linkedInUrlFlg == 'Y')
         this.items[6].score = 1;
 
-      var reputationsScore = 0;
+      var reputationScore = 0;
       this.items.forEach(element => {
-        reputationsScore += element.score;
+        reputationScore += element.score;
       });
-      if (reputationsScore > this.user, reputationsScore)
-        this.user.reputationsScore = reputationsScore;
+      this.reputationScore = reputationScore;
     }
   }
 

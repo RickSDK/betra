@@ -222,29 +222,25 @@ export class User {
     public daysTillRoseCeremony: number = 0;
     public roseCeremonyDate: string = '';
     public roseCeremonyDt: string = '';
-    public ipr_city: string = '';
-    public ipr_latitude: string = '';
-    public ipr_longitude: string = '';
-    public ipr_postal: string = '';
-    public ipr_region: string = '';
     public g1: string = '';
     public g2: string = '';
     public iprFlg: boolean = false;
     public navLatFlg: boolean = false;
+    public version: string = '';
+    public platform: string = '';
+    public miles: number = 0;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
+            this.miles = obj.miles || 0;
             this.roseCeremonyDt = obj.roseCeremonyDt || '';
             this.created = obj.created || '';
+            this.version = obj.version || '';
+            this.platform = obj.platform || '';
             this.g1 = obj.g1 || '';
             this.g2 = obj.g2 || '';
-            this.ipr_city = obj.ipr_city || '';
-            this.ipr_latitude = obj.ipr_latitude || '';
             this.iprFlg = obj.iprFlg == 'Y';
-            this.ipr_longitude = obj.ipr_longitude || '';
-            this.ipr_postal = obj.ipr_postal || '';
-            this.ipr_region = obj.ipr_region || '';
             this.aboutme = obj.aboutme || '';
             this.history = obj.history || '';
             this.daysTillRoseCeremony = obj.daysTillRoseCeremony || 0;
@@ -297,7 +293,7 @@ export class User {
             this.bodyType = obj.bodyType || '';
             this.bodyHeight = obj.bodyHeight || '';
             this.desiredRelationship = obj.desiredRelationship || '';
-            this.city = obj.ipr_city || obj.city || '';
+            this.city = obj.city || '';
             this.longestRelationship = obj.longestRelationship || '0';
             this.longestRelationshipText = this.longestRelationship + ' years';
             if (this.longestRelationship == '1')
@@ -357,7 +353,7 @@ export class User {
             this.countryName = obj.countryName || '';
             this.gpsLat = obj.latitude || '';
             this.gpsLng = obj.longitude || '';
-            this.navLatFlg = (this.navLat != "");
+            this.navLatFlg = (obj.navLatFlg == "Y");
             this.latitude = obj.ipr_latitude || obj.latitude || obj.navLat || '';
             this.longitude = obj.ipr_longitude || obj.longitude || obj.navLng || '';
             //            this.latitude = obj.navLat || obj.latitude || '';
@@ -734,15 +730,15 @@ export class User {
                 this.potentialLoveInterestFlg = false;
 
 
-            if (this.latitude && myUser.latitude) {
+            /*if (this.g1 && myUser.g1) {
                 var lat1 = parseInt(this.g1) / 9000;
                 var lng1 = parseInt(this.g2) / -9000;
                 var lat2 = parseInt(myUser.g1) / 9000;
                 var lng2 = parseInt(myUser.g2) / -9000;
- 
-                //console.log('match', lat1, this.latitude, lng1, this.longitude);
-                //console.log('me', lat2, myUser.latitude, lng2, myUser.longitude);
- 
+
+               // console.log('match', this.firstName, lat1, this.latitude, lng1, this.longitude);
+               // console.log('me', myUser.firstName, lat2, myUser.latitude, lng2, myUser.longitude);
+
                 this.distance = distanceInKmBetweenEarthCoordinates(lat1, lng1, lat2, lng2);
 
                 if (this.ownerFlg && !myUser.ownerFlg) {
@@ -753,7 +749,11 @@ export class User {
                 if (this.distance < 60)
                     this.matchQualityIndex += 2;
                 this.distanceText = Math.round(this.distance) + ' miles';
-            }
+            }*/
+
+            this.distance = this.miles;
+            this.distanceText = Math.round(this.distance) + ' miles';
+            
             var ageRange = myUser.matchAge / 5;
             this.isGoodAge = (Math.abs(this.age - myUser.matchAge) <= ageRange);
             if (Math.abs(this.age - myUser.matchAge) <= 8)
@@ -944,6 +944,7 @@ function distanceInKmBetweenEarthCoordinates(lat1: number, lon1: number, lat2: n
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
     return earthRadiusKm * c;
 }
 

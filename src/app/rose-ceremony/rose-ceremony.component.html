@@ -3,7 +3,8 @@
 
 <div *ngIf="menuNum==101">
     <div style="width: 100%; text-align: center;">
-        <div class="inner-block" style="text-align: center; background-color: black; padding: 20px; border-radius: 20px;">
+        <div class="inner-block"
+            style="text-align: center; background-color: black; padding: 20px; border-radius: 20px;">
             <div>
                 <img src="assets/images/rose1.png" height="80">
             </div>
@@ -65,6 +66,16 @@
         </div>
         <button *ngIf="showBeginCeremonyButtonFlg" [disabled]="!previewModeFlg2" (mousedown)="beginCeremony()"
             class="btn btn-main-color btn-large">Begin Rose Ceremony</button>
+
+        <div style="background-color: black; padding: 20px; border-radius: 20px;" *ngIf="0">
+            <div class="red-text">Your dating pool has dwindled down. You have the option of ditching all your current picks and starting over with a new batch of singles.</div>
+            <div>&nbsp;</div>
+            <div class="red-text">Click "Begin Rose Ceremony" to continue with your current dating pool, or "Start Over" to begin a new game.</div>
+            <div>&nbsp;</div>
+            <button *ngIf="showBeginCeremonyButtonFlg" [disabled]="!previewModeFlg2" (mousedown)="startNewGame()"
+                class="btn btn-main-color btn-large">Start Over!</button>
+        </div>
+
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     </div>
 </div>
@@ -180,7 +191,8 @@
         <button [routerLink]="['/matches']" class="btn btn-main-color btn-large">View your Dating Pool</button>
     </div>
 </div>
-<i [routerLink]="['']" class="fa fa-arrow-left red-text" style="position: fixed; top: 10px; left: 10px; font-size: 24px; cursor: pointer;"></i>
+<i [routerLink]="['']" class="fa fa-arrow-left red-text"
+    style="position: fixed; top: 10px; left: 10px; font-size: 24px; cursor: pointer;"></i>
 
 
 <app-picture-popup></app-picture-popup>

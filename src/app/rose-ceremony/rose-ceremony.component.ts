@@ -223,6 +223,12 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       this.syncUserWithLocalStorage(responseJson);
     }
     if (responseJson.action == 'findSingles' || responseJson.action == 'loadMyDatingPool') {
+      this.daysTillCeremony = responseJson.daysTillCeremony;
+      if(this.daysTillCeremony > 0) {
+        this.numSingles = responseJson.playerList.length;
+        this.menuNum = -1;
+        return;
+      }
       var fullList: any = [];
       if (this.responseJson.playerList) {
         this.responseJson.playerList.forEach((element: any) => {

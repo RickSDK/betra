@@ -19,52 +19,57 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
   public ipRegistry: any = {};
   public googleApiObj: any = {};
   public geopluginObj: any = {};
-  public showLocationOption: number = 3;
   public showGPSFlg: boolean = false;
+  public noGoodOptionsFlg = true;
+  public override topButtons:any = ['Navigator', 'GeoPlugin', 'IPRegistry'];
 
   constructor(public zone: NgZone, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getLocation();
+
+    this.getDataFromServer('getLocationInfo', 'geoScript.php', {});
+    this.showGPSFlg = this.user.user_id == 1;
+    this.checkValues();
+
+    this.findLocationUsingNavigator();
     this.findGeoInfo();
     this.ipregistryLocation();
 
-    this.setLocationOption();
-
-    this.getGoogleAPILoc(this.user.latitude, this.user.longitude);
-
-    this.getDataFromServer('getLocationInfo', 'geoScript.php', {});
-    setTimeout(() => {
-      this.checkValues();
-    }, 2000);
   }
 
-  setLocationOption() {
-    var options = { navigator: false, geoplugin: false, ipr: false };
 
-    if (localStorage['ipr_latitude']) {
-      this.showLocationOption = 2;
-      options.ipr = true;
-    }
-
-    if (this.geopluginObj.latitude) {
-      this.showLocationOption = 1;
-      options.geoplugin = true;
-    }
-
-    if (this.googleApiObj.city && this.latitude) {
-      this.showLocationOption = 0;
-      options.navigator = true;
-    }
-
-    console.log('>>>>>>>setLocationOption', options);
-
+  findIPRegistryLocation() {
+    this.ipregistryLocation();
   }
 
-  findLocation() {
+  updateIpregistryLocation2() {
+    var params = {
+      city: localStorage['ipr_city'],
+      latitude: localStorage['ipr_latitude'],
+      longitude: localStorage['ipr_longitude'],
+      postal: localStorage['ipr_postal'],
+      stateName: localStorage['ipr_region'],
+      countryName: localStorage['ipr_country'],
+      countryCode: localStorage['ipr_country_code'],
+      state: localStorage['ipr_region_code'],
+      locationNum: 3
+    }
+    this.getDataFromServer('updateIpregistryLocation2', 'geoScript.php', params);
+    console.log(params);
+  }
+
+  findLocationUsingNavigator() {
     this.loadingFlg = true;
-    this.getLocation();
+    this.getLocationUsingNavigatorGeolocation();
+
+    setTimeout(() => {
+      var latitude = localStorage['latitude'];
+      var longitude = localStorage['longitude'];
+      console.log('xxx', latitude, longitude);
+      if(latitude != "")
+        this.getGoogleAPILoc(latitude, longitude);      
+    }, 1000);
     setTimeout(() => {
       this.checkValues();
       this.loadingFlg = false;
@@ -72,11 +77,9 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
   }
 
   updateGps() {
-    this.loadingFlg = true;
-    this.updateGoogleAPILoc();
-    //setTimeout(() => {
-    //this.getDataFromServer('getLocationInfo', 'geoScript.php', {});
-    //}, 1000);
+    var params = { latitude: localStorage['latitude'], longitude: localStorage['longitude'], city: localStorage['city'], state: localStorage['state'], stateName: localStorage['stateName'], countryName: localStorage['countryName'], countryCode: localStorage['countryCode'], locationNum: 1 };
+    console.log(params);
+    this.getDataFromServer('updateNavigatorLocation', 'geoScript.php', params);
   }
 
   checkValues() {
@@ -89,23 +92,40 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
     this.ipRegistry.ipr_longitude = localStorage['ipr_longitude'];
     this.ipRegistry.ipr_postal = localStorage['ipr_postal'];
     this.ipRegistry.ipr_region = localStorage['ipr_region'];
+    this.ipRegistry.ipr_region_code = localStorage['ipr_region_code'];
+    this.ipRegistry.ipr_country = localStorage['ipr_country'];
+    this.ipRegistry.ipr_country_code = localStorage['ipr_country_code'];
 
     this.googleApiObj.city = localStorage['city'];
     this.googleApiObj.state = localStorage['state'];
     this.googleApiObj.stateName = localStorage['stateName'];
     this.googleApiObj.country = localStorage['country'];
-
-    this.setLocationOption();
+    this.googleApiObj.countryCode = localStorage['countryCode'];
+    
+    //this.setLocationOption();
 
     //console.log('checkValues', this.ipRegistry);
   }
 
   updateGeoPluginInfo() {
-    this.loadingFlg = true;
-    this.populateGeoInfo();
-    setTimeout(() => {
-      this.getDataFromServer('getLocationInfo', 'geoScript.php', {});
-    }, 1000);
+//    this.populateGeoInfo();
+    var params = {
+      latitude: this.geopluginObj.latitude,
+      longitude: this.geopluginObj.longitude,
+      city: this.geopluginObj.city,
+      countryCode: this.geopluginObj.countryCode,
+      countryName: this.geopluginObj.countryName,
+      region: this.geopluginObj.region,
+      state: this.geopluginObj.state,
+      stateName: this.geopluginObj.stateName,
+      locationNum: 2,
+    }
+    console.log(params);
+    this.getDataFromServer('updateGeoPluginInfo', 'geoScript.php', params);
+  }
+
+  findGeoPluginLocation() {
+    this.findGeoInfo();
   }
 
   findGeoInfo() {
@@ -132,19 +152,25 @@ export class LocationCheckComponent extends BaseComponent implements OnInit {
       };
 
       console.log('>>>>>populateGeoInfo<<<<<', this.geopluginObj);
-      this.setLocationOption();
+      //this.setLocationOption();
     });
   }
 
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
 
+    if(responseJson.action ==  'updateNavigatorLocation' || responseJson.action == 'updateGeoPluginInfo' || responseJson.action == 'updateIpregistryLocation2') {
+      this.getDataFromServer('getLocationInfo', 'geoScript.php', {});
+      this.syncUserWithLocalStorage(responseJson);
+    }
     if (responseJson.action == 'updateGoogleAPILoc') {
       this.getDataFromServer('getLocationInfo', 'geoScript.php', {});
       this.syncUserWithLocalStorage(responseJson);
     }
     if (responseJson.action == 'getLocationInfo') {
       this.locationPage = responseJson;
+      if(responseJson.locationNum>0)
+        this.menuNum = responseJson.locationNum-1;
 
       var lat1 = parseFloat(localStorage['latitude'] || 0);
       this.locDist = Math.round(Math.abs((lat1 - this.responseJson.navLat) * 10000));

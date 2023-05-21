@@ -136,6 +136,7 @@ import { IntroScreenComponent } from './intro-screen/intro-screen.component';
 import { RoseCeremonyComponent } from './rose-ceremony/rose-ceremony.component';
 import { ProfilePopupComponent } from './popups/profile-popup/profile-popup.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { OwnerRetentionComponent } from './owner-retention/owner-retention.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -272,6 +273,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     RoseCeremonyComponent,
     ProfilePopupComponent,
     VerifyEmailComponent,
+    OwnerRetentionComponent,
   ],
   imports: [
     BrowserModule,

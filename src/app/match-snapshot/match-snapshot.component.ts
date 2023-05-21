@@ -61,6 +61,9 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     this.user = user;
     this.matchUser = matchUser;
     this.showSnoopFlg = false;
+
+    if (this.showMoreFlg)
+      this.collpaseBottom()
     //console.log('xxxinitModal', this.matchUser);
 
     if (this.profileTopComponent) {
@@ -92,8 +95,8 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     if (this.id == 7)
       this.showInterestedButtonsFlg = false; // verify pics
 
-   // if (this.matchUser.status != 'Active')
-   //   this.showInterestedButtonsFlg = false; // verify pics
+    // if (this.matchUser.status != 'Active')
+    //   this.showInterestedButtonsFlg = false; // verify pics
 
     this.youAreInterestedFlg = !!(this.matchUser.matchObj && this.matchUser.matchObj.you_interested);
 
@@ -176,14 +179,14 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'getReputationStats') {
       var data = {
-        emailVerifyFlg: responseJson.emailVerifyFlg && responseJson.emailVerifyFlg=='Y',
-        facebookUrlFlg: responseJson.facebookUrlFlg=='Y',
-        instragramUrlFlg: responseJson.instragramUrlFlg=='Y',
-        linkedInUrlFlg: responseJson.linkedInUrlFlg=='Y',
+        emailVerifyFlg: responseJson.emailVerifyFlg && responseJson.emailVerifyFlg == 'Y',
+        facebookUrlFlg: responseJson.facebookUrlFlg == 'Y',
+        instragramUrlFlg: responseJson.instragramUrlFlg == 'Y',
+        linkedInUrlFlg: responseJson.linkedInUrlFlg == 'Y',
         navLat: responseJson.navLat != "",
-        picCertificateFlg: responseJson.picCertificateFlg =='Y',
+        picCertificateFlg: responseJson.picCertificateFlg == 'Y',
       };
-      
+
       console.log(data);
       if (this.betraPopupComponent)
         this.betraPopupComponent.showPopup(this.matchUser.firstName + ' Reputation Score', JSON.stringify(data), 4);
@@ -199,7 +202,7 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   }
   actionButtonClicked(action: string) {
     if (action == 'showReputation') {
-      this.getDataFromServer('getReputationStats2', 'reputation.php', {uid: this.matchUser.user_id});
+      this.getDataFromServer('getReputationStats2', 'reputation.php', { uid: this.matchUser.user_id });
       return;
     }
     if (action == 'showImage') {

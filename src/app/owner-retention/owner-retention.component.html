@@ -1,0 +1,54 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Stats'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-top-header [topTitle]="'Rentention'"></app-top-header>
+        <hr>
+        <app-owners-menu [pageTitle]="'Ret'" [page]="1"></app-owners-menu>
+
+        <hr>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+
+        <div class="border-box" style="font-size: 10px; text-align: left; margin: 10px;">
+            <p>This table shows how long users are using the app before they stop using it. When looking at just "Active non-owners" we can see
+            how long they used the app from created date to last login date.</p>
+            <li><b>1-day:</b> this number of users only logged on a single day</li>
+            <li><b>3-day:</b> this number of users only logged over a 3 day period</li>
+            <li><b>7-day:</b> at least 1 login a week after creating account</li>
+            <li><b>14-day:</b> still active at least 2 weeks after creation</li>
+        </div>
+        <table class="betra-table" style="font-size: 12px;" *ngIf="statsPage">
+            <tr>
+                <td colspan="5"></td>
+                <td colspan="7" style="background-color: #cfc;">Active non-owner users</td>
+            </tr>
+            <tr>
+                <th>WB</th>
+                <th>Accounts</th>
+                <th>Deleted</th>
+                <th>Pending</th>
+                <th>Owners</th>
+                <th>Active</th>
+                <th>Males</th>
+                <th>Females</th>
+                <th>1-day</th>
+                <th>3-days</th>
+                <th>7-days</th>
+                <th>14-days</th>
+            </tr>
+            <tr *ngFor="let row of statsPage.statsArray">
+                <td>{{row.weeksBack}}</td>
+                <td>{{row.accounts}}</td>
+                <td>{{row.deleted}}</td>
+                <td>{{row.pending}}</td>
+                <td>{{row.owners}}</td>
+                <td>{{row.active}}</td>
+                <td>{{row.males}}</td>
+                <td>{{row.females}} ({{row.femPercent}}%)</td>
+                <td>{{row.days1}} ({{row.days1Percent}}%)</td>
+                <td>{{row.days3}}</td>
+                <td>{{row.days7}}</td>
+                <td>{{row.days14}} ({{row.days14Percent}}%)</td>
+            </tr>
+        </table>
+    </div>
+</app-page-shell>

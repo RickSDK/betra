@@ -54,7 +54,10 @@
                     <div style="font-size: 6px; color: gray;">{{person.email}}</div>
                 </td>
                 <td>{{person.gender}}, {{person.age}}</td>
-                <td class="hide-sm">{{person.created}}</td>
+                <td class="hide-sm">
+                    {{person.created}}
+                    <div style="font-size: 6px; color: gray;">{{person.version}} {{person.platform}}</div>
+                </td>
                 <td>{{person.status}}</td>
                 <td>{{person.lastDay}}</td>
                 <td>{{person.statsObj.interestYes}}</td>

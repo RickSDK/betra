@@ -54,7 +54,7 @@ export class PageShellComponent implements OnInit {
   public showAboutInfoFlg: boolean = false;
   public firstName: string = '';
   public appVersion: string = '';
-  public adsbygoogle: any;
+  //public adsbygoogle: any;
   public platform: string = getPlatform();
   public showPageFlg: boolean = true;
   public showUserMenuFlg: boolean = false;
