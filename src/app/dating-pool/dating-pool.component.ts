@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
+import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
 
 @Component({
   selector: 'app-dating-pool',
@@ -12,6 +13,9 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   @Input('largeFlg') largeFlg: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
+
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
 
   public datingPool: any = [];
   public datingPoolSize: number = 8;
@@ -105,6 +109,9 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   }
 
   dropPersonFromDP(person: any) {
+    if (this.betraPopupComponent)
+      this.betraPopupComponent.showPopup('Not able to drop user at this time', 'You will have a chance to drop any unwanted users during your next rose ceremony.');
+    /*
     var datingPool: any = [];
     this.datingPool.forEach((element: any) => {
       if (element.user_id != person.user_id)
@@ -117,7 +124,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
       matchId: person.user_id,
     };
     this.getDataFromServer('removeThisUser', 'appApiCode2.php', params);
-
+*/
   }
 
   userClicked(person: any) {

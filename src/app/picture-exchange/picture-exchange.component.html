@@ -163,8 +163,10 @@
                         <td *ngIf="!order.confirmFlg" style="color: green;">{{order.cost}} coins</td>
                         <td *ngIf="!order.confirmFlg"><span class="text-highlight">{{order.status}}</span></td>
                         <td *ngIf="!order.confirmFlg">
-                            <div class="gray-text">{{order.instructions}}</div>
-                            <div *ngIf="order.comments"><b>Final Reaction:</b> {{order.comments}}</div>
+                            <div *ngIf="order.instructions"><b>{{user.firstName}}:</b> {{order.instructions}}</div>
+                            <div *ngIf="order.seller_comments"><b>{{order.firstName}}:</b> {{order.seller_comments}}
+                            </div>
+                            <div *ngIf="order.comments"><b>{{user.firstName}}:</b> {{order.comments}}</div>
                         </td>
                         <td *ngIf="order.confirmFlg" colspan="4">
                             <div class="gray-text">What did you think of the picture?</div>
@@ -179,6 +181,8 @@
                                 class="btn btn-main-color btn-small">Confirm</button>
                             <button *ngIf="order.status=='New' || order.status=='Accepted'" [disabled]="loadingFlg"
                                 (mousedown)="cancelPlacedOrder(order)" class="btn btn-main-color">Cancel</button>
+                            <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
+                                (mousedown)="deleteCancelledOrder(order)" class="btn btn-main-color">Delete</button>
                         </td>
 
 
@@ -248,7 +252,12 @@
                         <td>{{order.type}}</td>
                         <td style="color: green;">{{order.cost}} coins</td>
                         <td><span class="text-highlight">{{order.status}}</span></td>
-                        <td>{{order.instructions}}</td>
+                        <td>
+                            <div *ngIf="order.instructions"><b>{{order.firstName}}:</b> {{order.instructions}}</div>
+                            <div *ngIf="order.seller_comments"><b>{{user.firstName}}:</b> {{order.seller_comments}}
+                            </div>
+                            <div *ngIf="order.comments"><b>{{order.firstName}}:</b> {{order.comments}}</div>
+                        </td>
                         <td style="white-space: nowrap;">
                             <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
                                 (mousedown)="acceptPlacedOrder(order)" class="btn btn-success spacer">Accept</button>
@@ -269,13 +278,18 @@
                 </table>
             </div>
             <div *ngIf="selectedOrder">
-                <div>{{selectedOrder.type}}</div>
-                <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'"
-                    (messageEvent)="uploadPicButtonClicked(1, 'updateBlogImage', 'Image1')"></app-upload-image>
+                <div class="border-box" style="max-width: 400px;">
 
-                <div>
-                    <button [disabled]="loadingFlg || disableUploadButton" (mousedown)="uploadImage()"
-                        class="btn btn-main-color btn-large">Upload</button>
+                    <div><b>Picture Type:</b> {{selectedOrder.type}}</div>
+                    <div class="gray-text">Leave some comments:</div>
+                    <input type="text" maxlength="150" id="comments" placeholder="Comments on picture">
+                    <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'"
+                        (messageEvent)="uploadPicButtonClicked(1, 'updateBlogImage', 'Image1')"></app-upload-image>
+
+                    <div>
+                        <button [disabled]="loadingFlg || disableUploadButton" (mousedown)="uploadImage()"
+                            class="btn btn-main-color btn-large">Upload</button>
+                    </div>
                 </div>
 
             </div>
@@ -377,10 +391,11 @@
                         <app-profile-pic [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic"
                             [size]="100">
                         </app-profile-pic>
+                        <div style="font-size: 10px;">Orders {{selectedPerson.firstName}} has delivered: <span class="text-highlight">{{selectedPerson.ordersDelivered}}</span></div>
                     </td>
                     <td>
                         <div class="gray-text">{{selectedPerson.details}}</div>
-                        <table class="betra-table" *ngIf="!selectedType">
+                        <table class="betra-table" *ngIf="!selectedType" style="background-color: white;">
                             <tr>
                                 <th>Type</th>
                                 <th>Cost</th>
@@ -388,7 +403,7 @@
                             </tr>
                             <tr *ngFor="let type of selectedPerson.types">
                                 <td>{{type.type}}</td>
-                                <td style="font-size: 10px;">{{type.cost}} coins</td>
+                                <td style="font-size: 10px;" align="center">{{type.cost}} coins</td>
                                 <td><button *ngIf="!selectedPerson.hasOrderPlaced" (mousedown)="buyPicture(type)"
                                         class="btn btn-warning btn-small">Buy</button></td>
                             </tr>

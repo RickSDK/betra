@@ -137,6 +137,8 @@ import { RoseCeremonyComponent } from './rose-ceremony/rose-ceremony.component';
 import { ProfilePopupComponent } from './popups/profile-popup/profile-popup.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { OwnerRetentionComponent } from './owner-retention/owner-retention.component';
+import { GameRoomComponent } from './game-room/game-room.component';
+import { CheckListComponent } from './check-list/check-list.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -274,6 +276,8 @@ import { OwnerRetentionComponent } from './owner-retention/owner-retention.compo
     ProfilePopupComponent,
     VerifyEmailComponent,
     OwnerRetentionComponent,
+    GameRoomComponent,
+    CheckListComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,7 +6,8 @@
             <div>&nbsp;</div>
             <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
             <div>&nbsp;</div>
-            <button *ngIf="menuNum == 0" (mousedown)="beginTheShow()" class="btn btn-main-color btn-large">Begin your Journey</button>
+            <button *ngIf="menuNum == 0" (mousedown)="beginTheShow()" class="btn btn-main-color btn-large">Begin your
+                Journey</button>
         </div>
         <div *ngIf="menuNum==2">
             <div class="red-text" style="font-size: 22px;">Welcome to</div>
@@ -18,7 +19,8 @@
         </div>
         <div *ngIf="menuNum==4">
             <div>&nbsp;</div>
-            <div class="red-text" style="font-size: 22px;">We are going to start by showing you {{numSingles}} eligible {{user.genderMatch}}.</div>
+            <div class="red-text" style="font-size: 22px;">We are going to start by showing you {{numSingles}} eligible
+                {{user.genderMatch}}.</div>
         </div>
         <div *ngIf="menuNum==5">
             <div>&nbsp;</div>
@@ -26,7 +28,8 @@
         </div>
         <div *ngIf="menuNum==6">
             <div>&nbsp;</div>
-            <div class="red-text" style="font-size: 22px;">Hand them out to the {{user.genderMatch2}} you are interested in.</div>
+            <div class="red-text" style="font-size: 22px;">Hand them out to the {{user.genderMatch2}} you are interested
+                in.</div>
         </div>
         <div *ngIf="menuNum==7">
             <div>&nbsp;</div>
@@ -34,7 +37,8 @@
         </div>
         <div *ngIf="menuNum==8">
             <div>&nbsp;</div>
-            <div class="red-text" style="font-size: 22px;">Those {{numRoses}} {{user.genderMatch}} will make up your dating pool, available to text, call or date. </div>
+            <div class="red-text" style="font-size: 22px;">Those {{numRoses}} {{user.genderMatch}} will make up your
+                dating pool, available to text, call or date. </div>
         </div>
         <div *ngIf="menuNum==9">
             <div>&nbsp;</div>
@@ -68,15 +72,16 @@
             <div class="red-text"><i class="fa fa-spinner fa-spin"></i> Searching for singles...</div>
             <div>&nbsp;</div>
             <div class="red-text" style="font-size: 12px;">Singles found</div>
-            <div class="red-text"  style="font-size: 48px;">{{singlesFound}}</div>
+            <div class="red-text" style="font-size: 48px;">{{singlesFound}}</div>
         </div>
         <div *ngIf="menuNum==21">
             <div>&nbsp;</div>
             <img src="assets/images/betraLogo.png" style="width: 100%; max-width: 100px;">
             <div>&nbsp;</div>
             <div class="red-text" style="font-size: 12px;">Singles found</div>
-            <div class="red-text"  style="font-size: 48px;">{{singlesFound}}</div>
-            <button (mousedown)="meetTheSingles()" [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large">Meet the {{user.genderMatch}}</button>
+            <div class="red-text" style="font-size: 48px;">{{singlesFound}}</div>
+            <button (mousedown)="meetTheSingles()" [routerLink]="['/rose-ceremony']"
+                class="btn btn-main-color btn-large">Meet the {{user.genderMatch}}</button>
         </div>
         <div *ngIf="menuNum==44">
             <div>&nbsp;</div>
@@ -93,21 +98,26 @@
             <div *ngIf="daysTillCeremony>0">
                 <div class="red-text">You have {{daysTillCeremony}} days left until your next Rose Ceremony.</div>
                 <div>&nbsp;</div>
-                <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>    
+                <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>
             </div>
-            <div *ngIf="daysTillCeremony <= 0">
-                <div class="red-text">Are you ready for your Rose Ceremony?</div>
+            <div *ngIf="daysTillCeremony <= 0" class="black-box">
+                <p class="red-text">Each week you will have a Rose Ceremony, which forces you to remove at least 3
+                    people from your dating pool. The idea is to narrow down the field and end up with your best match. So give roses to your top picks
+                    and anyone left without a rose will automatically be removed from your dating pool.</p>
+                <p class="red-text">Are you ready for your Rose Ceremony?</p>
                 <div>&nbsp;</div>
-                <button [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large spacer">Enter Rose Ceremony</button>
+                <button [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large spacer">Enter Rose
+                    Ceremony</button>
                 <div>&nbsp;</div>
-                <span [routerLink]="['']" class="text-link">Home</span>    
+                <span [routerLink]="['']" class="text-link">Home</span>
             </div>
         </div>
-        
+
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
- 
+
     </div>
 </div>
-<i [routerLink]="['']" (mousedown)="stopMusic()" class="fa fa-arrow-left red-text" style="position: fixed; top: 10px; left: 10px; font-size: 24px; cursor: pointer;"></i>
-<i [routerLink]="['/rose-ceremony']" (mousedown)="stopMusic()" class="fa fa-arrow-right red-text" style="position: fixed; top: 10px; right: 10px; font-size: 24px; cursor: pointer;"></i>
-
+<i [routerLink]="['']" (mousedown)="stopMusic()" class="fa fa-arrow-left red-text"
+    style="position: fixed; top: 10px; left: 10px; font-size: 24px; cursor: pointer;"></i>
+<i [routerLink]="['/rose-ceremony']" (mousedown)="stopMusic()" class="fa fa-arrow-right red-text"
+    style="position: fixed; top: 10px; right: 10px; font-size: 24px; cursor: pointer;"></i>

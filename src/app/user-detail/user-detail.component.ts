@@ -143,27 +143,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   browseSingles(action: string) {
     this.searchStarted = false;
     this.matchUser = null;
-    if (this.id != 4 && (this.user.exceededPoolSizeFlg || this.user.showHeartFormFlg)) {
-      console.log('exxeced!');
-      //      this.logUser('Y');
-      return;
-    }
-    this.searchStarted = true;
-    var params = {
-      userId: localStorage['user_id'],
-      email: localStorage['email'],
-      code: localStorage['code'],
-      gender: this.user.gender,
-      matchPreference: this.user.matchPreference,
-      lat: Math.round(this.user.latitude),
-      lng: Math.round(this.user.longitude),
-      matchAgeYear: this.user.matchAgeYear,
-      matchAgeRange: this.user.matchAgeRange,
-      localsOnly: (this.showExpandedSearchPopupFlg) ? 'Y' : '',
-      action: action
-    };
-    console.log('params', params);
-    this.executeApi('findMatches.php', params, true);
+
+    this.getDataFromServer('findMatches', 'findMatches.php', {});
   }
 
   loadThisUser() {

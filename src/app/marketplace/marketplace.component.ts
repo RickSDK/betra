@@ -39,7 +39,7 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
   public selectedType: any = null;
   public myOrders: any = [];
   public myOffers: any = [];
-  public completedRecords:any = [];
+  public completedRecords: any = [];
   public selectedOrder: any = null;
   public disableUploadButton: boolean = false;
   public showDepositFormFlg: boolean = false;
@@ -47,6 +47,7 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
   public yourWalletAmountText: string = '';
   public showWithdrawFormFlg: boolean = false;
   public coinLeaders: any = [];
+  public lowestPrice: number = 9999;
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -128,6 +129,7 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
 
   }
   acceptOrder(order: any) {
+    console.log(order);
     this.errorMessage = '';
     var cashValue = order.amount * order.price / 100;
     if (order.type == 'Offer' && this.yourWalletAmount < cashValue) {
@@ -316,7 +318,13 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.user_id + '_' + element.row_id + '.jpg';
       });
       this.offers.forEach((element: any) => {
+        if (parseFloat(element.price) < this.lowestPrice && element.type=='Offer' && !element.isMine)
+          this.lowestPrice = element.price
         element.totalCost = (element.amount * element.price / 100).toFixed(2);
+      });
+
+      this.offers.sort((a: any, b: any) => {
+        return a.price - b.price;
       });
       this.calculateSellableCoins(this.myCoins);
 

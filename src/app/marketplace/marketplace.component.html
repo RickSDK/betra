@@ -19,6 +19,7 @@
                                     <b>{{lastSalePrice}}¢</b>
                                 </div>
                                 <div style="font-size: 8px;">(cents/coin)</div>
+                                <div style="font-size: 8px;">Best Offer Price: <b>{{lowestPrice}}¢</b></div>
                             </div>
                         </td>
                         <td valign="top" width="33%">
@@ -104,7 +105,7 @@
                                         <button [disabled]="loadingFlg" (mousedown)="cancelOrder(offer)"
                                             *ngIf="offer.isMine" class="btn btn-main-color btn-small">Cancel</button>
                                         <button [disabled]="loadingFlg" (mousedown)="acceptOrder(offer)"
-                                            *ngIf="!offer.isMine && offer.type=='Offer'"
+                                            *ngIf="!offer.isMine && offer.type=='Offer' && offer.price == lowestPrice"
                                             class="btn btn-warning btn-small">Buy</button>
                                             
                                         <button [disabled]="loadingFlg" (mousedown)="acceptOrder(offer)"
@@ -118,6 +119,8 @@
                         </td>
                     </tr>
                 </table>
+                <div class="gray-text">Note: current best offer is {{lowestPrice}}¢ so that offer has a Buy button on it.</div>
+                <hr>
                 <div class="gray-text">Want to buy or sell your coins? Click on any of the bids above if you find an offer you like. Or, alternatively create an offer of your own. It can get accepted by any user.</div>
                 <button (mousedown)="iWantToBuy()" class="btn btn-main-color spacer"><i class="fa fa-arrow-down"></i> Create Bid
                     <div style="font-size: 10px;">(To Buy Coins)</div></button>

@@ -18,7 +18,9 @@ export class Photographer {
     public portfolioItems: any = [];
     public firstName: string = '';
     public hasOrderPlaced: boolean = false;
+    public ordersDelivered: number = 0;
 
+    
     constructor(obj: any) {
         if (obj) {
             this.row_id = obj.row_id || 0;
@@ -27,6 +29,7 @@ export class Photographer {
             this.yourWalletAmount = parseFloat(obj.yourWalletAmount) || 0;
             this.yourWalletAmountText = obj.yourWalletAmount || 0;
             this.myCoins = obj.myCoins || 0;
+            this.ordersDelivered = obj.ordersDelivered || 0;
             this.offers = obj.offers || [];
             this.buyerFlg = (obj.buyerFlg == 'Y');
             this.sellerFlg = (obj.sellerFlg == 'Y');

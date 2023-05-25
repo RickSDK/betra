@@ -1,0 +1,36 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Checklist'" [headerObj]="headerObj" [userStatus]="userStatus">
+
+    <div class="matches-card" style="text-align: center; padding: 0;">
+        <app-top-header2 [topTitle]="'Check List'"></app-top-header2>
+        <div style="padding: 10px;">
+            <div class="tan-box">
+                The best way to get the most out of Betra is to use the app. Complete these tasks and you will be
+                rewarded
+                with coins as well as have fun with the Betra features!
+            </div>
+            <div *ngIf="level>0">Current Level: <span class="text-highlight">{{level}}</span></div>
+            <div *ngIf="level>0" class="gray-text">What's needed to reach level {{level + 1}}</div>
+            <table *ngIf="page" class="betra-table" align="center">
+                <tr>
+                    <th>Item</th>
+                    <th>Goal</th>
+                    <th>Current</th>
+                </tr>
+                <tr *ngFor="let item of levelItems">
+                    <td>{{item.name}}</td>
+                    <td>{{item.goal}}</td>
+                    <td><i *ngIf="item.amount >= item.goal" class="fa fa-check" style="color: green;"></i>
+                        {{item.amount}}</td>
+
+                </tr>
+            </table>
+            <div *ngIf="page" class="gray-text"><img src="assets/images/pics/coin.png" height="30">Bonus coins received
+                for leveling up: <span class="text-highlight">{{page.level * 5}}</span></div>
+            <div>&nbsp;</div>
+            <div *ngIf="successMessage" style="color: green; background-color: #cfc; padding: 10px; border-radius: 10px; margin: 10px;">Success!</div>
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            <button [disabled]="levelItems.length==0" (mousedown)="levelUp()" class="btn btn-main-color btn-large">Level
+                Up!</button>
+        </div>
+    </div>
+</app-page-shell>

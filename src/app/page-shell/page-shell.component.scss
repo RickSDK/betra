@@ -14,6 +14,48 @@
     box-shadow: 1px 0px 1px #ccc;
 }
 
+.check-list {
+    position: fixed;
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+    width: 44px;
+    height: 44px;
+    background-color: black;
+    color: greenyellow;
+    bottom: 0px;
+    right: 0;
+    z-index: 500;
+    text-align: center;
+    font-size: 24px;
+    padding: 5px;
+}
+
+.check-list:hover {
+    background-color: #444;
+    color: white;
+}
+
+.game-room {
+    position: fixed;
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+    width: 44px;
+    height: 44px;
+    background-color: black;
+    color: pink;
+    bottom: 0px;
+    left: 0;
+    z-index: 500;
+    text-align: center;
+    font-size: 24px;
+    padding: 5px;
+}
+
+.game-room:hover {
+    background-color: #444;
+    color: white;
+}
+
 .image {
     box-shadow: 2px 2px 3px black;
     cursor: pointer;

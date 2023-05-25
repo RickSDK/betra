@@ -2,17 +2,20 @@
     [pageTitle]="pageTitle" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
 
-    <div style="max-width: 600px;">
-        <app-dating-pool *ngIf="!showFilter && !commentsOnlyFlg" [user]="user" [largeFlg]="false"></app-dating-pool>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+    <div *ngIf="!user && !loadingFlg">No User!</div>
 
-        <app-profile-pic *ngIf="matchUser && commentsOnlyFlg" [user_id]="matchUser.user_id"
-            [profilePic]="matchUser.profilePic" [size]="30"></app-profile-pic>
+    <div *ngIf="user && !loadingFlg" style="max-width: 600px;">
+        <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
 
-        <div *ngIf="uid>0 && !matchUser && !loadingFlg" class="match-card">
+        <div *ngIf="uid>0 && !matchUser" class="match-card">
             No user found!
         </div>
-        <div *ngIf="matchUser && !loadingFlg && searchStarted && id == 2 && profileViews>0" class="match-card">
-
+        <div *ngIf="id == 2" class="match-card">
+            <div *ngIf="profileViews>0">Swipes remaining: <span class="text-highlight">{{profileViews}}</span></div>
+            <div *ngIf="profileViews<=0">Sorry no swipes remaining. Try back tomorrow</div>
+        </div>
+        <div *ngIf="matchUser && searchStarted && id == 2 && profileViews>0" class="match-card">
             <div style="text-align: center; padding: 5px;">
                 <button style="float: left;" [routerLink]="['']"
                     class="btn btn-main-color btn-small">Home</button>&nbsp;
@@ -48,12 +51,11 @@
         </app-advanced-filters>
         <div *ngIf="matchesCount>0 && playerList && playerList.length>0">Matches Found: {{matchesCount}}</div>
 
-        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="id == 4 && matchUser" class="matches-card">
             This person is interested in you and wants to be added to your dating pool. Press Thumbs up or thumbs down.
         </div>
-        <div *ngIf="id == 4 && !matchUser && !loadingFlg" class="matches-card">
+        <div *ngIf="id == 4 && !matchUser" class="matches-card">
             <p>No admirers at the moment.</p>
             <div style="text-align: left;" class="small-gray-text">
                 <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
@@ -71,8 +73,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="searchStarted && profileViews == 0 && user && !loadingFlg && !uid && !matchUser && id != 4"
-            class="matches-card">
+        <div *ngIf="searchStarted && profileViews == 0 && user && !uid && !matchUser && id != 4" class="matches-card">
             <div style="font-size: 64px;">🥲</div>
             <div>Swipes used up!</div>
             <div style="text-align: left;">
@@ -101,13 +102,12 @@
                     other benfits.</p>
             </div>
         </div>
-        <div *ngIf="user && !loadingFlg && !uid">
+        <div *ngIf="!uid">
             <div class="matches-card" *ngIf="noLocationInfoFoundFlg" [routerLink]="['/location']"
                 style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
-
             <div *ngIf="searchStarted">
                 <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
                     <div>
@@ -153,8 +153,7 @@
 
             <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 
-                <app-user-private-pics *ngIf="!commentsOnlyFlg && matchUser.matchObj.numPics > 0" [myUser]="user"
-                    [matchUser]="matchUser">
+                <app-user-private-pics *ngIf="matchUser.matchObj.numPics > 0" [myUser]="user" [matchUser]="matchUser">
                 </app-user-private-pics>
 
             </div>

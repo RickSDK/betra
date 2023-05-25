@@ -1,0 +1,20 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Game Room'" [headerObj]="headerObj" [userStatus]="userStatus">
+
+    <div class="matches-card" style="text-align: left; padding: 0;">
+        <app-top-header2 [topTitle]="'Game Room'"></app-top-header2>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <hr>
+        <table align="center">
+            <tr>
+                <td>
+                    <img src="assets/images/games/wordle.jpeg" class="game-button">
+                </td>
+                <td>
+                    <img src="assets/images/games/hangman.png" class="game-button">
+                </td>
+            </tr>
+        </table>
+        <div style="padding: 10px; text-align: center;">Coming Soon!</div>
+
+    </div>
+</app-page-shell>

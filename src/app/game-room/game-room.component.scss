@@ -1,0 +1,13 @@
+.game-button {
+    width: 200px;
+    height: 180px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px black;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.game-button:hover {
+    border: 1px solid white;
+    box-shadow: 4px 4px 8px black;
+}

@@ -146,8 +146,10 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
   placeOrder() {
     var instructions = $('#instructions').val();
-    if (this.selectedPerson && this.selectedType)
+    if (this.selectedPerson && this.selectedType) {
       this.getDataFromServer('placeOrder', 'market.php', { uid: this.selectedPerson.user_id, type: this.selectedType.type, cost: this.selectedType.cost, instructions: instructions });
+      this.selectedPerson = null;
+    }
   }
 
   viewSeller(person: any) {
@@ -354,6 +356,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   }
 
   deleteCancelledOrder(order: any) {
+    console.log(order);
     this.getDataFromServer('deleteCancelledOrder', 'market.php', { orderId: order.row_id });
   }
 
@@ -369,9 +372,10 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   uploadImage() {
     var params = {
       orderId: this.selectedOrder.row_id,
+      comments: $('#comments').val(),
       image: $('#Image1').attr('src')
     };
-    console.log('params', params);
+    //console.log('params', params);
     this.getDataFromServer('uploadMarketPicture', 'market.php', params);
   }
 

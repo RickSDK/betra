@@ -1,7 +1,6 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle"
     [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <!--<div *ngIf="user && user.showHeartFormFlg" class="tan-box">
         <h1>Notice</h1>
         <div>It's time for you to hand out a rose. Visit your dating pool.</div>
@@ -17,15 +16,15 @@
 
     <div class="red-text">What would you like to do?</div>
     <div style="display: inline-block; max-width: 600px;">
-        <div class="button-box" [routerLink]="['/matches']">
+        <div class="button-box" [routerLink]="['/user-detail']">
             <img [src]="browseScr" height="200" width="200" class="button-pic">
             <div class="gray-screen2">&nbsp;</div>
-            <div class="button-text">Dating Pool</div>
+            <div class="button-text">Meet Singles</div>
         </div>
-        <div class="button-box" [routerLink]="['/rose-ceremony']">
+        <div class="button-box" [routerLink]="['/matches']">
             <img [src]="'assets/images/buttons/datePool.jpg'" height="200" width="200" class="button-pic">
             <div class="gray-screen2">&nbsp;</div>
-            <div class="button-text" style="font-size: 20px;">Rose Ceremony</div>
+            <div class="button-text" >Dating Pool</div>
         </div>
         <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
             <img [src]="button.src" height="200" width="200" class="button-pic">
@@ -36,6 +35,7 @@
                 class="text-link">Owner</span> <span class="text-highlight">{{user.adminLevel}}</span></div>
 
     </div>
+    <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
     <img (mousedown)="annimateCoin()" *ngIf="coinX" src="assets/images/pics/coinSpin.gif" [style.left]="coinX"
         [ngClass]="coinVisible?'coin-spin':'coin-spin off'">

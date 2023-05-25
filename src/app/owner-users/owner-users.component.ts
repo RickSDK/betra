@@ -57,18 +57,20 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
 
   emailUpdates() {
     this.loadingFlg = true;
-    var count=0;
-    this.allTeam.forEach((element: { user_id: any; firstName: any; }) => {
-      count++;
-      setTimeout(() => {
-        console.log('emailing ', element.user_id, element.firstName);
-        this.getDataFromServer('emailUpdates', 'report.php', { uid: element.user_id });
-        
-      }, count*1000);
-   });
+    var count = 0;
+    if (0) {
+      this.allTeam.forEach((element: { user_id: any; firstName: any; }) => {
+        count++;
+        setTimeout(() => {
+          console.log('emailing ', element.user_id, element.firstName);
+          //this.getDataFromServer('emailUpdates', 'report.php', { uid: element.user_id });
 
-   //this.getDataFromServer('emailUpdates', 'report.php', { uid: 1 });
-   console.log('count: ', count);
+        }, count * 1000);
+      });
+    }
+
+    this.getDataFromServer('emailUpdatesRet', 'report.php', { uid: 1 });
+    console.log('count: ', count);
   }
 
   override postSuccessApi(file: string, responseJson: any) {

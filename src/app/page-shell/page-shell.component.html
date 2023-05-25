@@ -47,11 +47,9 @@
                 <span *ngIf="headerObj && userId" [routerLink]="['/coins']" class="top-button">
                     <img id="coinImg" src="assets/images/pics/coinSmall.png" height="30">
                     <span class="red-circle" *ngIf="headerObj.points>0"
-                        style="background-color: green; margin-left: -15px;">{{headerObj.points}}</span>
+                        style="background-color: green; margin-left: -15px; font-size: 9px;">{{headerObj.points}}</span>
                     <div class="top-button-label">Coins</div>
                 </span>
-
-
             </td>
 
             <td align="right" valign="middle" *ngIf="userId==0 || !userId">
@@ -100,6 +98,13 @@
         </tr>
     </table>
 </div>
+<div class="game-room" [routerLink]="['/game-room']">
+    <i class="fa fa-rocket"></i>
+</div>
+<div class="check-list" [routerLink]="['/check-list']">
+    <i class="fa fa-check"></i>
+</div>
+
 <div class="outer-frame">
     <div class="inner-frame" [style.padding-bottom]="stickyBottomFlg?'40px':'0px'">
         <div *ngIf="userId>0 && userStatus != 'Active' && pageTitle != 'Profile'" class="tan-box">

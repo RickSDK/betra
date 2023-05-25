@@ -129,7 +129,7 @@
             <div *ngIf="successFlg" class="important-notice">You have been emailed a link to reset your password. Please
                 follow the instructions on that email.</div>
         </div>
-        <div *ngIf="!user.lat" class="border-box">
+        <div *ngIf="!user.locationSet" class="border-box">
             <p class="red-text">Note: Something is not set up properly with your location</p>
             <p>Click the "Location" button, then "Find Location" and then press "Update" to fix.</p>
             <p class="gray-text">If this doesn't fix your issue, you will need to log in with a different device or

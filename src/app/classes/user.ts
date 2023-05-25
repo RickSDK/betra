@@ -229,12 +229,16 @@ export class User {
     public version: string = '';
     public platform: string = '';
     public miles: number = 0;
+    public locationSet: boolean = false;
+    public wallet: string = '';
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.miles = obj.miles || 0;
+            this.locationSet = obj.locationSet == 'Y';
             this.roseCeremonyDt = obj.roseCeremonyDt || '';
+            this.wallet = obj.wallet || '';
             this.created = obj.created || '';
             this.version = obj.version || '';
             this.platform = obj.platform || '';
@@ -753,7 +757,7 @@ export class User {
 
             this.distance = this.miles;
             this.distanceText = Math.round(this.distance) + ' miles';
-            
+
             var ageRange = myUser.matchAge / 5;
             this.isGoodAge = (Math.abs(this.age - myUser.matchAge) <= ageRange);
             if (Math.abs(this.age - myUser.matchAge) <= 8)

@@ -9,8 +9,9 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div class="border-box" style="font-size: 10px; text-align: left; margin: 10px;">
-            <p>This table shows how long users are using the app before they stop using it. When looking at just "Active non-owners" we can see
-            how long they used the app from created date to last login date.</p>
+            <p>This table shows how long users are using the app before they stop using it. When looking at just "Active
+                non-owners" we can see
+                how long they used the app from created date to last login date.</p>
             <li><b>1-day:</b> this number of users only logged on a single day</li>
             <li><b>3-day:</b> this number of users only logged over a 3 day period</li>
             <li><b>7-day:</b> at least 1 login a week after creating account</li>
@@ -48,6 +49,51 @@
                 <td>{{row.days3}}</td>
                 <td>{{row.days7}}</td>
                 <td>{{row.days14}} ({{row.days14Percent}}%)</td>
+            </tr>
+        </table>
+        <hr>
+        <div class="border-box" style="font-size: 10px; text-align: left; margin: 10px;">
+            <div>If we look at account creations over the past 12 weeks, <b>{{statsObj.days1Percent}}%</b> of them only
+                logged
+                in for 1 day and then never returned. We want to get this number down. Additionally
+                <b>{{statsObj.days14Percent}}%</b> of our users continued to use the app for at least 14 days.
+                That number we want to get up.
+                Things we are going to do to try to improve these numbers:
+                <li>Improve the app</li>
+                <li>Make sure people understand the Rose Ceremony</li>
+                <li>Make sure new users are receiving texts from people</li>
+                <li>New Game Room</li>
+                <li>New Checklist feature</li>
+            </div>
+        </div>
+        <div>Overall Numbers</div>
+        <table class="betra-table" style="font-size: 12px;" *ngIf="statsPage && statsObj">
+            <tr>
+                <th>Date</th>
+                <th>Men</th>
+                <th>Women</th>
+                <th>1-day</th>
+                <th>3-days</th>
+                <th>7-days</th>
+                <th>14-days</th>
+            </tr>
+            <tr>
+                <td>Now</td>
+                <td>{{statsObj.menPercent}}%</td>
+                <td>{{statsObj.womenPercent}}%</td>
+                <td style="font-size: 24px; font-weight: 700;">{{statsObj.days1Percent}}%</td>
+                <td>{{statsObj.days3Percent}}%</td>
+                <td>{{statsObj.days7Percent}}%</td>
+                <td style="font-size: 24px; font-weight: 700;">{{statsObj.days14Percent}}%</td>
+            </tr>
+            <tr>
+                <td>May 2023</td>
+                <td>77%</td>
+                <td>23%</td>
+                <td>56%</td>
+                <td>21%</td>
+                <td>9%</td>
+                <td>14%</td>
             </tr>
         </table>
     </div>

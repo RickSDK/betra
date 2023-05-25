@@ -24,7 +24,7 @@
             </div>
             <p class="red-text" style="font-size: 16px;">Your next rose ceremony happens in <span
                     style="color: white; font-size: 18px;">{{daysTillCeremony}}</span>
-                days.</p>
+                day<span *ngIf="daysTillCeremony!=1">s</span>.</p>
             <p class="red-text"><span style="color: white;">How it works:</span> You currently have {{numSingles}}
                 people in your dating pool and {{rosesRemaining}} roses
                 to hand out. This means you will be handing out roses to {{rosesRemaining}}
@@ -162,7 +162,7 @@
                 style="background-color: black; padding: 20px; margin: 20px; border-radius: 20px; display: inline-block; max-width: 420px;">
                 <div *ngIf="rosesRemaining>0" class="red-text">Keep handing out roses. You have {{rosesRemaining}}
                     remaining.</div>
-                <div style="font-size: 12px; color: pink">Keep in mind you are only choosing your starting pool of
+                <div style="font-size: 12px; color: pink">Keep in mind you are choosing your dating pool of
                     people you might be interested in. There's no obligation to meet or even chat with anyone unless you
                     decide to.</div>
                 <div>&nbsp;</div>

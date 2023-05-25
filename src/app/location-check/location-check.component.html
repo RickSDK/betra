@@ -7,7 +7,8 @@
         <div class="tan-box" style="font-size: 12px; text-align: center;">
             <p>Note: Your GPS location is never shared with anyone, but is needed to find local matches. </p>
         </div>
-        <div *ngIf="noGoodOptionsFlg">Sorry, we are unable to find your location. Try logging in with a different browser or change your location settings on your device.</div>
+        <div *ngIf="!user.locationSet">Sorry, we are unable to find your location. Try logging in with a different browser or change your location settings on your device.</div>
+        <div>Your current city: <span class="text-highlight">{{user.city}}</span></div>
         <div class="btn-group">
             <button (mousedown)="menuNum = i" *ngFor="let button of topButtons; let i = index;"
                     [ngClass]="ngClassMenuButton(i, menuNum)"><i class="fa fa-check" *ngIf="locationPage && locationPage.locationNum == i+1"></i> {{button}}</button>

@@ -40,7 +40,7 @@
                     <td style="padding-left: 20px;" valign="middle"> 
                         <div class="red-text">Dating Pool: <span class="text-highlight">{{datingPool.length}}</span></div>
                     </td>
-                    <td align="center" *ngIf="0">
+                    <td align="center">
                         <input type="checkbox" id="switch2" class="checkbox" [checked]="showDeleteButtonsFlg" />
                         <label (mousedown)="toggleRemoveUsers()" for="switch2" class="toggle"></label>
                         <div style="font-size: 10px; margin-top: -5px;">Remove Someone</div>
@@ -81,3 +81,4 @@
         </div>
     </div>
 </div>
+<app-betra-popup></app-betra-popup>

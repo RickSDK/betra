@@ -129,7 +129,7 @@
                     <tr>
                         <td>At least 4 pictures requested from photography club</td>
                         <td><b class="text-highlight">{{ownersPage.picsRequested}}</b><i
-                                *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.reviewCount >= 4" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 4 blog comments</td>
@@ -158,12 +158,12 @@
                         <th>Progress</th>
                     </tr>
                     <tr>
-                        <td>At least 250 messages sent</td>
+                        <td>At least 300 messages sent</td>
                         <td><b class="text-highlight">{{ownersPage.messageCount}}</b><i
-                                *ngIf="ownersPage.messageCount > 249" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.messageCount > 299" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
-                        <td>At least 10 user reviews</td>
+                        <td>At least 6 user reviews</td>
                         <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
                                 *ngIf="ownersPage.reviewCount > 9" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
