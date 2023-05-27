@@ -235,7 +235,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   deletePicType(row: any) {
     var myPicTypes: any = [];
     this.myPicTypes.forEach((element: any) => {
-      if (element.type != row.type)
+      if (element.type != row.type || element.type == 'Selfie')
         myPicTypes.push(element);
     });
     this.myPicTypes = myPicTypes;

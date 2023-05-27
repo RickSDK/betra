@@ -33,6 +33,8 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   public level2Owners: any = [];
   public level1Owners: any = [];
 
+  public page: any = {};
+
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
@@ -63,19 +65,19 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
         count++;
         setTimeout(() => {
           console.log('emailing ', element.user_id, element.firstName);
-          //this.getDataFromServer('emailUpdates', 'report.php', { uid: element.user_id });
+          this.getDataFromServer('emailUpdates2', 'report.php', { uid: element.user_id });
 
         }, count * 1000);
       });
-    }
-
-    this.getDataFromServer('emailUpdatesRet', 'report.php', { uid: 1 });
+    } else
+      this.getDataFromServer('emailUpdates2', 'report.php', { uid: 1 });
     console.log('count: ', count);
   }
 
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'getOwnerUsers') {
+      this.page = responseJson;
       this.usList = [];
       this.internationalList = [];
       this.managmentTeam = [];

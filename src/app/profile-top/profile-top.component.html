@@ -312,6 +312,11 @@
                             </button>
                             <div style="font-size: 8px;">Reset to regular member.</div>
                         </div>
+                        <div *ngIf="myUser.user_id==1" style="text-align: center;">
+                            <button [routerLink]="['/owner-msg']" [queryParams]="{uid: user.user_id}" class="btn btn-primary">Msg
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </td>

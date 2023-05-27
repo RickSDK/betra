@@ -8,8 +8,16 @@
         <hr>
         <button *ngIf="user.user_id==1" (mousedown)="emailUpdates()" class="btn btn-primary spacer" [disabled]="loadingFlg"><i class="fa fa-envelope"></i>
             Email Updates</button>
-
         <hr>
+        <div>Recent Promotions</div>
+        <div *ngIf="page">
+            <div *ngFor="let player of page.levelUpList" class="player-box">
+                <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="90">
+                </app-profile-pic>
+                <div>{{player.firstName}}</div>
+                <div>New Level: <span class="text-highlight">{{player.adminLevel}}</span></div>
+            </div>
+        </div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <app-owners-table-cell [ownersList]="level5Owners" [user]="user" [tableName]="'Level 5 Owners'" (messageEvent)="ownersTableEvent($event)"></app-owners-table-cell>

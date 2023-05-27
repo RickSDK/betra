@@ -75,10 +75,12 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { OwnerRetentionComponent } from './owner-retention/owner-retention.component';
 import { GameRoomComponent } from './game-room/game-room.component';
 import { CheckListComponent } from './check-list/check-list.component';
+import { OwnerMsgComponent } from './owner-msg/owner-msg.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'owner-msg', component: OwnerMsgComponent },
   { path: 'game-room', component: GameRoomComponent },
   { path: 'check-list', component: CheckListComponent },
   { path: 'retention', component: OwnerRetentionComponent },

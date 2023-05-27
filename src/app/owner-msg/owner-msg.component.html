@@ -1,0 +1,15 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Stats'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <table class="betra-table">
+            <tr *ngFor="let message of page.messages">
+                <td>
+                    <span *ngIf="message.uid == uid">{{message.user_id}}</span>
+                    <span *ngIf="message.uid != uid"><i class="fa fa-arrow-right"></i></span>
+                </td>
+                <td>{{message.message}}</td>
+            </tr>
+        </table>
+    </div>
+</app-page-shell>

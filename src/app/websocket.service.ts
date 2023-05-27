@@ -6,7 +6,8 @@ import { map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
-const CHAT_URL = "ws://localhost:4200";
+//const CHAT_URL = "ws://www.betradating.com/betraPhp/websocket.php";
+const CHAT_URL = "wss://echo.websocket.org/";
 
 export interface Message {
   source: string;
@@ -16,18 +17,16 @@ export interface Message {
 @Injectable()
 export class WebsocketService {
   private subject!: AnonymousSubject<MessageEvent>;
-  public messages: Subject<Message> | undefined;
+  public messages: Subject<Message>;
 
-  public T: any = null;
-  //public myWebSocket: WebSocketSubject<> = webSocket('ws://localhost:8000');
-  public myWebSocket = new WebSocketSubject('ws://localhost:8080');
+  public myWebSocket = new WebSocketSubject(CHAT_URL);
 
 
   constructor() {
     this.messages = <Subject<Message>>this.connect(CHAT_URL).pipe(
       map(
         (response: MessageEvent): Message => {
-          console.log(response.data);
+          console.log('contructor', response.data);
           let data = JSON.parse(response.data)
           return data;
         }
@@ -66,7 +65,8 @@ export class WebsocketService {
 
 
   public sendMessage(msg: any) {
-    //this.socket$.next(msg);
+    console.log('sending new message:', msg);
+    this.messages.next(msg);
   }
 
 }

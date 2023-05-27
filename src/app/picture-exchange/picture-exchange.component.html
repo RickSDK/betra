@@ -46,13 +46,17 @@
                         <div>{{user.firstName}}'s Photography Profile</div>
                         <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="60">
                         </app-profile-pic>
-                        <div>About me</div>
+                        <div class="gray-text"><b>About me</b>: Add a short sentence or 2 about what types of pictures
+                            you like to take.</div>
                         <app-text-area-input [id]="'details'" [value]="details"></app-text-area-input>
                         <div *ngIf="updateMadeFg">Update successful!</div>
                         <button *ngIf="!updateMadeFg" [disabled]="loadingFlg" (mousedown)="updateAboutMe()"
                             class="btn btn-warning spacer">Update About Me
                         </button>
                         <hr>
+                        <div class="gray-text"><b>Pic types</b>: These are the exact types of pictures you are willing
+                            to take and cost for each one. Assume $1 per coin, although actual value might end up
+                            being more or less depending on the market.</div>
                         <table border="1" *ngIf="myPicTypes.length>0">
                             <tr>
                                 <th>Type</th>
@@ -62,8 +66,8 @@
                             <tr *ngFor="let myPicType of myPicTypes">
                                 <td>{{myPicType.type}}</td>
                                 <td align="center">{{myPicType.cost}}</td>
-                                <td><button class="btn btn-danger" (mousedown)="deletePicType(myPicType)"><i
-                                            class="fa fa-trash"></i></button></td>
+                                <td><button *ngIf="myPicType.type != 'Selfie'" class="btn btn-danger"
+                                        (mousedown)="deletePicType(myPicType)"><i class="fa fa-trash"></i></button></td>
                             </tr>
                         </table>
                         <table>
@@ -96,7 +100,8 @@
                         <hr>
                         <div>
                             <div>My Portfolio Images</div>
-                            <div class="gray-text">These can been seen by everyone</div>
+                            <div class="gray-text">Do you have some examples of the types of pictures you are willing to
+                                share? Feel free to upload a couple of examples here. Just keep in mind these can been seen by everyone</div>
                             <div *ngFor="let item of myPhotographer.portfolioItems" style="display: inline-block;">
                                 <img (mousedown)="viewImage(item.src)" class="thumbnail-img" [src]="item.src">
                                 <button class="btn btn-danger" *ngIf="deletePortfolioImageFlg"
@@ -116,7 +121,7 @@
                         </button>
                         <hr>
                         <button [disabled]="loadingFlg" (mousedown)="editSellerFlg=false"
-                            class="btn btn-primary spacer">Cancel
+                            class="btn btn-primary spacer">Close
                         </button>
                         <button [disabled]="loadingFlg" (mousedown)="exitClub()" class="btn btn-danger spacer">Quit
                             Photography
@@ -259,6 +264,7 @@
                             <div *ngIf="order.comments"><b>{{order.firstName}}:</b> {{order.comments}}</div>
                         </td>
                         <td style="white-space: nowrap;">
+                            <div *ngIf="order.status=='New' && order.completedOffers>0">Previous offers by this user: <span class="text-highlight">{{order.completedOffers}}</span></div>
                             <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
                                 (mousedown)="acceptPlacedOrder(order)" class="btn btn-success spacer">Accept</button>
                             <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
@@ -391,7 +397,17 @@
                         <app-profile-pic [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic"
                             [size]="100">
                         </app-profile-pic>
-                        <div style="font-size: 10px;">Orders {{selectedPerson.firstName}} has delivered: <span class="text-highlight">{{selectedPerson.ordersDelivered}}</span></div>
+                        <div style="font-size: 10px;"><b>Order history</b></div>
+                        <div style="font-size: 10px;">Delivered: <span
+                                class="text-highlight">{{selectedPerson.ordersDelivered}}</span></div>
+                        <div style="font-size: 10px;">Pending: <span
+                                class="text-highlight">{{selectedPerson.ordersPending}}</span></div>
+                        <div *ngIf="selectedPerson.daysSince == 0" style="font-size: 10px; color: green;">Active Today!
+                        </div>
+                        <div *ngIf="selectedPerson.daysSince == 1" style="font-size: 10px; color: green;">Active
+                            Yesterday</div>
+                        <div *ngIf="selectedPerson.daysSince == 2" style="font-size: 10px; color: green;">Active 2 days
+                            ago</div>
                     </td>
                     <td>
                         <div class="gray-text">{{selectedPerson.details}}</div>

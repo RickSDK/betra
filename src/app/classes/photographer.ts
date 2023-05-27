@@ -19,13 +19,16 @@ export class Photographer {
     public firstName: string = '';
     public hasOrderPlaced: boolean = false;
     public ordersDelivered: number = 0;
+    public ordersPending: number = 0;
+    public daysSince: number = 0;
 
-    
     constructor(obj: any) {
         if (obj) {
             this.row_id = obj.row_id || 0;
             this.user_id = obj.user_id || 0;
             this.profilePic = obj.profilePic || 0;
+            this.daysSince = obj.daysSince || 0;
+            this.ordersPending = obj.ordersPending || 0;
             this.yourWalletAmount = parseFloat(obj.yourWalletAmount) || 0;
             this.yourWalletAmountText = obj.yourWalletAmount || 0;
             this.myCoins = obj.myCoins || 0;
@@ -47,7 +50,7 @@ export class Photographer {
             if (this.portfolio) {
                 var items = this.portfolio.split('+');
                 items.forEach(element => {
-                    this.portfolioItems.push({id: element, src: 'https://www.betradating.com/betraPhp/portfolioPics/pic' + this.user_id + '_' + element + '.jpg'});
+                    this.portfolioItems.push({ id: element, src: 'https://www.betradating.com/betraPhp/portfolioPics/pic' + this.user_id + '_' + element + '.jpg' });
                 });
 
             }
