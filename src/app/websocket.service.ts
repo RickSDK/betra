@@ -6,7 +6,8 @@ import { map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
-//const CHAT_URL = "ws://www.betradating.com/betraPhp/websocket.php";
+//const CHAT_URL = "http://localhost/betraPhp/websocket.php";
+//const CHAT_URL = "wss://localhost/betraPhp/websocket.php";
 const CHAT_URL = "wss://echo.websocket.org/";
 
 export interface Message {
