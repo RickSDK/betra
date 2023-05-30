@@ -6,9 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
-//const CHAT_URL = "http://localhost/betraPhp/websocket.php";
-//const CHAT_URL = "wss://localhost/betraPhp/websocket.php";
-const CHAT_URL = "wss://echo.websocket.org/";
+const CHAT_URL = "wss://localhost/betraPhp/websocket.php";
 
 export interface Message {
   source: string;
@@ -24,7 +22,7 @@ export class WebsocketService {
 
 
   constructor() {
-    this.messages = <Subject<Message>>this.connect(CHAT_URL).pipe(
+    this.messages = <Subject<Message>>this.connect().pipe(
       map(
         (response: MessageEvent): Message => {
           console.log('contructor', response.data);
@@ -35,16 +33,16 @@ export class WebsocketService {
     );
   }
 
-  public connect(url: string): AnonymousSubject<MessageEvent> {
+  public connect(): AnonymousSubject<MessageEvent> {
     if (!this.subject) {
-      this.subject = this.create(url);
-      console.log("Successfully connected: " + url);
+      this.subject = this.create();
+      console.log("Successfully connected: " + CHAT_URL);
     }
     return this.subject;
   }
 
-  private create(url: string | URL): AnonymousSubject<MessageEvent> {
-    let ws = new WebSocket(url);
+  private create(): AnonymousSubject<MessageEvent> {
+    let ws = new WebSocket(CHAT_URL);
     let observable = new Observable((obs: Observer<MessageEvent>) => {
       ws.onmessage = obs.next.bind(obs);
       ws.onerror = obs.error.bind(obs);
