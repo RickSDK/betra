@@ -35,7 +35,8 @@
                 <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
                     <div class="top-button-label">Blogs</div>
                 </span>
-                <span *ngIf="0" [routerLink]="['/photography']" class="top-button hide-xs"><i class="fa fa-picture-o"></i>
+                <span *ngIf="0" [routerLink]="['/photography']" class="top-button hide-xs"><i
+                        class="fa fa-picture-o"></i>
                     <div class="top-button-label">Photography</div>
                 </span>
                 <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button hide-sm"><img
@@ -62,9 +63,9 @@
                 <div [routerLink]="['/intro']"
                     style="cursor: pointer; display: inline-block; border: 1px solid pink; border-radius: 5px; text-align: center; padding: 0 5px 0 5px; margin-right: 10px;">
                     <div class="red-text" style="font-size: 8px;">Days</div>
-                    <div  class="menu-circle">
+                    <div class="menu-circle">
                         <div class="red-text">{{headerObj.daysTillRoseCeremony}}</div>
-                        <span class="icon-label main-color-bg">Rose Ceremony</span>    
+                        <span class="icon-label main-color-bg">Rose Ceremony</span>
                     </div>
                 </div>
                 <!--<span class="menu-circle hide-xs" [routerLink]="['/user-detail']">
@@ -73,8 +74,7 @@
                 </span>-->
                 <span class="menu-circle" [routerLink]="['/messages']">
                     <i class="fa fa-comments icon-button main-color"></i>
-                    <span *ngIf="headerObj.messageCount>0"
-                        class="red-circle">{{headerObj.messageCount}}</span>
+                    <span *ngIf="headerObj.messageCount>0" class="red-circle">{{headerObj.messageCount}}</span>
                     <span class="icon-label main-color-bg">Messages</span>
                 </span>
                 <span class="menu-circle hide-xxs" [routerLink]="['/matches']">
@@ -100,6 +100,8 @@
 </div>
 <div class="game-room" [routerLink]="['/game-room']">
     <i class="fa fa-rocket"></i>
+    <span class="red-circle" *ngIf="headerObj.gameRoomCount>0"
+        style="bottom: 0; right: 0; left: auto; position: absolute;">{{headerObj.gameRoomCount}}</span>
 </div>
 <div class="check-list" [routerLink]="['/check-list']">
     <i class="fa fa-check"></i>

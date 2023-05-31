@@ -13,6 +13,9 @@
         </div>
         <button class="btn btn-main-color btn-small" [routerLink]="'/rose-ceremony'" style="margin: 10px;">Rose Ceremony</button>
 
+        <div class="tan-box" *ngIf="user.datingPool.length <= 4">
+            You are down to just {{user.datingPool.length}} people in your dating pool. Click Rose Ceremony button above if you would like to fill it back up.
+        </div>
         <div *ngIf="(user.showHeartFormFlg && daysTillRoseCeremony <= 4) || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
             <img src="assets/images/rose1.png" height="120" alt="Rose" title="Rose">
             <div style="font-size: 20px;">Give someone a rose!</div>
@@ -256,7 +259,7 @@
 <div *ngIf="showDroppedPopup" class="over-limit-popup-outer">
     <div class="over-limit-popup" *ngIf="infoObj">
         <div>Sorry, but you have been dropped from someone's dating pool.</div>
-        <app-profile-pic [user_id]="infoObj.droppedBy" [profilePic]="infoObj.profilePic" [size]="120">
+        <app-profile-pic [user_id]="droppedBy" [profilePic]="profilePic" [size]="120">
         </app-profile-pic>
         <div>{{firstName}}</div>
         <div style="font-size: 12px;">That means you can no longer communicate with this person.

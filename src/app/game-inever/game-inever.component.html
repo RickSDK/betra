@@ -1,0 +1,102 @@
+<app-page-shell [userId]="userId" [pageTitle]="'Game Room'" [headerObj]="headerObj" [userStatus]="userStatus">
+
+    <div class="matches-card" style="text-align: center; padding: 0;">
+
+        <table align="center" *ngIf="players && players.length>=6">
+            <tr>
+                <td>
+
+                </td>
+                <td width="80" align="center" style="position: relative;">
+                     <app-game-chair [player]="players[0]" [width]="80" [turn]="turn" [chair]="'assets/images/games/chair1.png'"></app-game-chair>
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td style="position: relative;" width="100">
+                    <app-game-chair [player]="players[1]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair2.png'"></app-game-chair>
+                </td>
+                <td width="20">&nbsp;</td>
+                <td style="position: relative;">
+                    <app-game-chair [player]="players[2]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair4.png'"></app-game-chair>
+                </td>
+            </tr>
+            <tr>
+                <td style="position: relative;">
+                    <app-game-chair [player]="players[3]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair2.png'"></app-game-chair>
+                </td>
+                <td width="20">&nbsp;</td>
+                <td style="position: relative;">
+                    <app-game-chair [player]="players[4]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair4.png'"></app-game-chair>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td width="80" align="center" style="position: relative;">
+                    <app-game-chair [player]="players[5]" [width]="80" [turn]="turn" [chair]="'assets/images/games/chair3.png'"></app-game-chair>
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+        </table>
+        <div *ngIf="gameError" style="background-color: yellow;">{{gameError}}</div>
+
+        <div class="border-box">
+             <div *ngIf="page.gameStatus == 'Waiting' || page.gameStatus == 'Ended'">
+                <div *ngIf="page.gameStatus == 'Ended'">Sorry, game has ended because there's not enough players</div>
+                <div *ngIf="numPlayers < minPlayers">Waiting for players to join.</div>
+                <div *ngIf="numPlayers < minPlayers" class="gray-text">We need at least {{minPlayers}} players to have a game.</div>
+                <div *ngIf="numPlayers >= minPlayers" class="gray-text">Press start to begin.</div>
+                <button *ngIf="numPlayers >= minPlayers" (mousedown)="startGame()" class="btn btn-main-color btn-large">Start Game!</button>
+            </div>
+            <div *ngIf="page.gameStatus == 'Playing'">
+                <div *ngIf="page.phase == 'Asking'">
+                    <div *ngIf="turn != user.user_id">{{currentPlayerName}} is asking a question. Please wait</div>
+                    <div *ngIf="turn == user.user_id">
+                        <div class="red-text">Your turn to ask a question!</div>
+                        <div class="gray-text">What is something you have never done before?</div>
+                        <app-text-with-enter [id]="'question'" [value]="'Never have I ever '"[maxLength]="150"
+                        (messageEvent)="textValueSubmitted($event)"></app-text-with-enter>
+                    </div>    
+                </div>
+                <div *ngIf="page.phase == 'Answering'">
+                    <div class="gray-text">{{currentPlayerName}}'s Question:</div>
+                    <div class="red-text">"{{page.question}}"</div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #444; text-align: right; height: 60px;">
+            <button (mousedown)="exitGame()" id="exitGameButton" class="btn btn-primary spacer" style="float: left; margin: 10px;">Exit Game</button>
+            &nbsp;
+            <button (mousedown)="registerAnswer(1)" *ngIf="page.phase == 'Answering'" class="btn btn-danger spacer" [disabled]="page.myChoice>0">
+                <i style="font-size: 28px" class="fa fa-ban"></i>
+                <div style="font-size: 8px">I have Never</div>
+            </button>
+            <button  (mousedown)="registerAnswer(2)" *ngIf="page.phase == 'Answering'" class="btn btn-success spacer" [disabled]="page.myChoice>0">
+                <i style="font-size: 28px" class="fa fa-hand-paper-o"></i>
+                <div style="font-size: 8px">I've done it!</div>
+            </button>
+        </div>
+        <div class="border-box">
+            <div>Spectators</div>
+        </div>
+        <div *ngIf="turn != user.user_id || page.phase != 'Asking'">
+            <app-text-with-enter [id]="'chat'" [placeHolder]="'Chat'"[maxLength]="150"
+            (messageEvent)="chatMessageSubmitted($event)"></app-text-with-enter>
+        </div>
+        <div style="background-color: black; color: white; font-size: 12px; text-align: left; padding: 10px;">
+        <div *ngFor="let message of page.messages">
+            <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic"
+            [size]="25">
+        </app-profile-pic> <span
+            [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:
+        {{message.message}}
+        </div>
+        </div>
+    </div>
+</app-page-shell>

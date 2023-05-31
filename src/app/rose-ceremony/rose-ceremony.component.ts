@@ -71,7 +71,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
   }
 
   startNewGame() {
-    this.menuNum = 1;
+    this.menuNum = 2;
     this.getDataFromServer('findSingles', 'roseCeremony.php', {});
   }
 
@@ -222,17 +222,36 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       this.menuNum = 3;
       this.syncUserWithLocalStorage(responseJson);
     }
-    if (responseJson.action == 'findSingles' || responseJson.action == 'loadMyDatingPool') {
+    if (responseJson.action == 'loadMyDatingPool') {
       this.daysTillCeremony = responseJson.daysTillCeremony;
-      if(this.daysTillCeremony > 0) {
+
+      if (this.daysTillCeremony > 0) {
         this.numSingles = responseJson.playerList.length;
-        this.menuNum = -1;
+        this.menuNum = (this.numSingles <= 4) ? 102 : -1;
         return;
       }
+
+    }
+    if (responseJson.action == 'findSingles' || responseJson.action == 'loadMyDatingPool') {
+      this.numSingles = this.user.numSingles;
+
+      this.menuNum = 1;
+      this.daysTillCeremony = responseJson.daysTillCeremony;
+
       var fullList: any = [];
+      var includedHash:any = {};
+      if (this.responseJson.datingPool) {
+        this.responseJson.datingPool.forEach((element: any) => {
+          element.hasRose = true;
+          includedHash[element.user_id] = true;
+          fullList.push(new User(element, this.user));
+        });
+      }
+
       if (this.responseJson.playerList) {
         this.responseJson.playerList.forEach((element: any) => {
-          fullList.push(new User(element, this.user));
+          if(!includedHash[element.user_id])
+            fullList.push(new User(element, this.user));
         });
 
         fullList.sort((a: any, b: any) => {

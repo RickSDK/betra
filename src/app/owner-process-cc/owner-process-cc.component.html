@@ -1,0 +1,117 @@
+<app-page-shell (messageEvent)="loginClicked ($event)" [pageTitle]="'Owner Stats'" [userId]="userId"
+    [imgSrcFile]="imgSrcFile" [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
+    <div class="matches-card" *ngIf="user && user.ownerFlg">
+        <app-top-header [topTitle]="'Process CC'"></app-top-header>
+        <hr>
+        <app-owners-menu [pageTitle]="'Ret'" [page]="1"></app-owners-menu>
+
+        <hr>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div>credit cards on file</div>
+        <table class="betra-table" *ngIf="page" style="font-size: 10px;">
+            <tr>
+                <th>UID</th>
+                <th>Name</th>
+                <th>card</th>
+                <th>cvc</th>
+                <th>exp</th>
+                <th>Plan</th>
+                <th>Exp</th>
+                <th>payment</th>
+                <th>status</th>
+                <th>term</th>
+                <th>zip</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let ccItem of page.ccList">
+                <td>
+                    <app-profile-pic [user_id]="ccItem.user_id" [profilePic]="ccItem.profilePic"
+                        [size]="30">
+                    </app-profile-pic>
+                </td>
+                <td>{{ccItem.customerName}}
+                    <div><b>{{ccItem.firstName}}</b></div>
+                </td>
+                <td>{{ccItem.card_number}}</td>
+                <td>{{ccItem.cvc}}</td>
+                <td>{{ccItem.exp_number}}</td>
+                <td>{{ccItem.name}}</td>
+                <td>{{ccItem.expiration}}</td>
+                <td>{{ccItem.payment}}</td>
+                <td>{{ccItem.status}}</td>
+                <td>{{ccItem.term}}</td>
+                <td>{{ccItem.zip_code}}</td>
+                <td>
+                    <button (mousedown)="changeCardStatus(ccItem, 'Good')" *ngIf="ccItem.status == 'New'" class="btn btn-success">Card Good</button>
+                    <button (mousedown)="changeCardStatus(ccItem, 'Bad')" *ngIf="ccItem.status == 'New'" class="btn btn-danger">Card Bad</button>
+                </td>
+            </tr>
+        </table>
+
+
+        <div>Deposits</div>
+        <table class="betra-table" *ngIf="page" style="font-size: 10px;">
+            <tr>
+                <th>UID</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>ccId</th>
+                <th>status</th>
+                <th>Created</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let ccItem of page.ccDeposits">
+                <td>
+                    <app-profile-pic [user_id]="ccItem.user_id" [profilePic]="ccItem.profilePic"
+                        [size]="30">
+                    </app-profile-pic>
+                </td>
+                <td>
+                    <div><b>{{ccItem.firstName}}</b></div>
+                </td>
+                <td>{{ccItem.amount}}</td>
+                <td>{{ccItem.ccId}}</td>
+                <td>{{ccItem.status}}</td>
+                <td>{{ccItem.created}}</td>
+                <td>
+                    <button (mousedown)="changeDepositStatus(ccItem, 'Completed')" *ngIf="ccItem.status == 'New'" class="btn btn-success">Completed</button>
+                </td>
+
+            </tr>
+        </table>
+
+
+
+        <div>Withdraws</div>
+        <table class="betra-table" *ngIf="page" style="font-size: 10px;">
+            <tr>
+                <th>UID</th>
+                <th>Name</th>
+                <th>amount</th>
+                <th>email</th>
+                <th>status</th>
+                <th>Type</th>
+                <th>action</th>
+            </tr>
+            <tr *ngFor="let ccItem of page.ccWithdraws">
+                <td>
+                    <app-profile-pic [user_id]="ccItem.user_id" [profilePic]="ccItem.profilePic"
+                        [size]="30">
+                    </app-profile-pic>
+                </td>
+                <td>{{ccItem.customerName}}
+                    <div><b>{{ccItem.firstName}}</b></div>
+                </td>
+                <td>{{ccItem.amount}}</td>
+                <td>{{ccItem.email}}</td>
+                <td>{{ccItem.status}}</td>
+                <td>{{ccItem.type}}</td>
+                <td>
+                    <button (mousedown)="changeWithdrawStatus(ccItem, 'Completed')" *ngIf="ccItem.status == 'New'" class="btn btn-success">Completed</button>
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+</app-page-shell>

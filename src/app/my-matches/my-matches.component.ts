@@ -29,6 +29,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public matchUser: any = null;
   public selectedPerson: any = null;
   public origSelectedPerson: number = 0;
+  public droppedBy: number = 0;
+  public profilePic: number = 0;
+  
   public showDroppedPopup: boolean = false;
   public topTitle: string = '';
   public firstName: string = '';
@@ -212,7 +215,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == 'clearDroppedColumn') {
       this.infoObj.droppedBy = responseJson.droppedBy;
+      this.droppedBy = responseJson.droppedBy;
       this.firstName = responseJson.firstName;
+      this.profilePic = responseJson.profilePic;
       this.infoObj.profilePic = responseJson.profilePic;
       this.showDroppedPopup = true;
     }

@@ -33,6 +33,7 @@ export class TextWithEnterComponent implements OnInit {
     var value = $('#'+this.id).val();
     this.messageEvent.emit(value);
     this.value = '';
+    $('#'+this.id).val("");
 
   }
 }

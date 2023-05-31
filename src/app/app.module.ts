@@ -141,6 +141,9 @@ import { GameRoomComponent } from './game-room/game-room.component';
 import { CheckListComponent } from './check-list/check-list.component';
 import { OwnerMsgComponent } from './owner-msg/owner-msg.component';
 import { WebsocketService } from './websocket.service';
+import { GameIneverComponent } from './game-inever/game-inever.component';
+import { GameChairComponent } from './game-chair/game-chair.component';
+import { OwnerProcessCcComponent } from './owner-process-cc/owner-process-cc.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -281,6 +284,9 @@ import { WebsocketService } from './websocket.service';
     GameRoomComponent,
     CheckListComponent,
     OwnerMsgComponent,
+    GameIneverComponent,
+    GameChairComponent,
+    OwnerProcessCcComponent,
   ],
   imports: [
     BrowserModule,

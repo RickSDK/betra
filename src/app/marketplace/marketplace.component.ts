@@ -48,6 +48,8 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
   public showWithdrawFormFlg: boolean = false;
   public coinLeaders: any = [];
   public lowestPrice: number = 9999;
+  public selectedPayment: number = 0;
+  public withdrawCompleteFlg: boolean = false;
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -68,6 +70,16 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
         myCoins -= 10;
       }
     }
+  }
+
+  submitWithdraw() {
+    this.errorMessage = '';
+    var paypalEmail = $('#paypalEmail').val();
+    if (paypalEmail == '') {
+      this.errorMessage = 'Enter your email or handle to process';
+      return;
+    }
+    this.getDataFromServer('makeWithdraw', 'market.php', { details: paypalEmail, type: this.selectedPayment, amount: this.yourWalletAmount });
   }
 
   picTypeChanged() {
@@ -291,6 +303,10 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
 
+    if (responseJson.action == 'makeWithdraw') {
+      this.showWithdrawFormFlg = false;
+      this.withdrawCompleteFlg = true;
+    }
     if (responseJson.action != 'logUser') {
       this.result = responseJson.result;
       this.lastSalePrice = parseInt(responseJson.lastSalePrice);
@@ -318,7 +334,7 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.user_id + '_' + element.row_id + '.jpg';
       });
       this.offers.forEach((element: any) => {
-        if (parseFloat(element.price) < this.lowestPrice && element.type=='Offer' && !element.isMine)
+        if (parseFloat(element.price) < this.lowestPrice && element.type == 'Offer' && !element.isMine)
           this.lowestPrice = element.price
         element.totalCost = (element.amount * element.price / 100).toFixed(2);
       });

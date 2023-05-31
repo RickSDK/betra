@@ -16,27 +16,41 @@
         </div>
     </div>
 </div>
-<div *ngIf="daysTillCeremony > 0">
+<div *ngIf="!loadingFlg && daysTillCeremony > 0 && menuNum == 102">
     <div style="width: 100%; text-align: center;">
         <div class="inner-block" style="text-align: left; background-color: black; padding: 20px; border-radius: 20px;">
             <div style="text-align: center;">
                 <img src="assets/images/rose1.png" height="80">
             </div>
-            <p class="red-text" style="font-size: 16px;">Your next rose ceremony happens in <span
-                    style="color: white; font-size: 18px;">{{daysTillCeremony}}</span>
-                day<span *ngIf="daysTillCeremony!=1">s</span>.</p>
-            <p class="red-text"><span style="color: white;">How it works:</span> You currently have {{numSingles}}
-                people in your dating pool and {{rosesRemaining}} roses
-                to hand out. This means you will be handing out roses to {{rosesRemaining}}
-                {{user.genderMatch}} and the others will be let go.</p>
-            <p class="red-text"> <span style="color: white;">Next Week:</span> You will then have another week to better
-                get to know the
-                {{user.genderMatch2}} remaining, at which time there will be another Rose Ceremony and you will further
-                reduce the size of your dating pool.</p>
-            <p class="red-text" style="color: white;">Enjoy the game!</p>
-            <div>&nbsp;</div>
-            <div style="text-align: center;">
-                <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>
+            <div *ngIf="numSingles<=4">
+                <p *ngIf="numSingles==1" class="red-text">You are down to just 1 person in your dating pool and your next rose ceremony is in {{daysTillCeremony}} days.</p>
+                <p *ngIf="numSingles!=1" class="red-text">You are down to just {{numSingles}} people in your dating pool and your next rose ceremony is in {{daysTillCeremony}} days.</p>
+                <p class="red-text">Would you like to add a new batch of singles to your dating pool or keep going with your current pool?</p>
+                <div style="text-align: center;">
+                    <button [routerLink]="['']" class="btn btn-main-color spacer">Keep Going</button>
+                </div>
+                <div>&nbsp;</div>
+                <button (mousedown)="startNewGame()" class="btn btn-main-color btn-large spacer">Find New Singles</button>
+            </div>
+            <div *ngIf="numSingles>4">
+                <p class="red-text" style="font-size: 16px;">Your next rose ceremony happens in <span
+                        style="color: white; font-size: 18px;">{{daysTillCeremony}}</span>
+                    day<span *ngIf="daysTillCeremony!=1">s</span>.</p>
+                <p class="red-text"><span style="color: white;">How it works:</span> You currently have {{numSingles}}
+                    people in your dating pool and {{rosesRemaining}} roses
+                    to hand out. This means you will be handing out roses to {{rosesRemaining}}
+                    {{user.genderMatch}} and the others will be let go.</p>
+                <p class="red-text"> <span style="color: white;">Next Week:</span> You will then have another week to
+                    better
+                    get to know the
+                    {{user.genderMatch2}} remaining, at which time there will be another Rose Ceremony and you will
+                    further
+                    reduce the size of your dating pool.</p>
+                <p class="red-text" style="color: white;">Enjoy the game!</p>
+                <div>&nbsp;</div>
+                <div style="text-align: center;">
+                    <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>
+                </div>
             </div>
         </div>
     </div>
@@ -68,9 +82,11 @@
             class="btn btn-main-color btn-large">Begin Rose Ceremony</button>
 
         <div style="background-color: black; padding: 20px; border-radius: 20px;" *ngIf="0">
-            <div class="red-text">Your dating pool has dwindled down. You have the option of ditching all your current picks and starting over with a new batch of singles.</div>
+            <div class="red-text">Your dating pool has dwindled down. You have the option of ditching all your current
+                picks and starting over with a new batch of singles.</div>
             <div>&nbsp;</div>
-            <div class="red-text">Click "Begin Rose Ceremony" to continue with your current dating pool, or "Start Over" to begin a new game.</div>
+            <div class="red-text">Click "Begin Rose Ceremony" to continue with your current dating pool, or "Start Over"
+                to begin a new game.</div>
             <div>&nbsp;</div>
             <button *ngIf="showBeginCeremonyButtonFlg" [disabled]="!previewModeFlg2" (mousedown)="startNewGame()"
                 class="btn btn-main-color btn-large">Start Over!</button>
@@ -171,7 +187,7 @@
                     [ngClass]="rosesRemaining>0?'btn btn-main-color':'btn btn-main-color btn-large'">End Rose
                     Ceremony</button>
                 <div>&nbsp;</div>
-                <span [routerLink]="'/profile'" class="text-link">Exit</span>
+                <span [routerLink]="''" class="text-link">Exit</span>
             </div>
         </div>
     </div>

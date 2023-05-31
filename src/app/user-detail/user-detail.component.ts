@@ -144,7 +144,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     this.searchStarted = false;
     this.matchUser = null;
 
-    this.getDataFromServer('findMatches', 'findMatches.php', {});
+    this.getDataFromServer(action, 'findMatches.php', {});
   }
 
   loadThisUser() {
@@ -312,7 +312,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   displayThisProfile() {
     console.log('displayThisProfile', this.matchUser.city, this.matchUser);
     if (this.matchUser) {
-      this.getDataFromServer('logUserView', 'chat.php', { uid: this.matchUser.user_id });
+      //user browsing user
+      this.getDataFromServer('logUserView', 'appApiCode2.php', { uid: this.matchUser.user_id });
     }
 
     if (this.matchSnapshotModal)

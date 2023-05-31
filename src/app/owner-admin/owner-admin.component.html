@@ -57,6 +57,7 @@
             <span [routerLink]="['/media']" class="text-link">Media</span>&nbsp;
             <span [routerLink]="['/reviews']" class="text-link">User Reviews</span>&nbsp;
             <span *ngIf="userId==1" [routerLink]="['/fraud']" class="text-link">Fraud</span>&nbsp;
+            <span *ngIf="userId==1" [routerLink]="['/process-cc']" class="text-link">CC</span>&nbsp;
         </div>
 
         <div *ngIf="menuNum==0 && !loadingFlg" style="display: inline-block; max-width: 380px;">

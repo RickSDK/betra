@@ -11,6 +11,8 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 })
 export class GameRoomComponent extends BaseComponent implements OnInit {
   public myWebSocket: any;
+  public showRulesFlg: boolean = false;
+  public page:any = {};
 
   constructor(databaseService: DatabaseService, private wsService: WebsocketService) {
     super(databaseService);
@@ -19,7 +21,7 @@ export class GameRoomComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private message:any = {
+  private message: any = {
     source: 'betra user',
     content: 'test message'
   }
@@ -27,10 +29,19 @@ export class GameRoomComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
 
-    this.wsService.sendMessage(this.message);
+    //this.wsService.sendMessage(this.message);
+    this.getDataFromServer('checkUsers', 'iNever.php', { room: 1 });
 
     //this.myWebSocket = webSocket('ws://www.betradating.com/betraPhp/websockets.php');
 
+  }
+
+  override postSuccessApi(file: string, responseJson: any) {
+    super.postSuccessApi(file, responseJson);
+    if (responseJson.action == "checkUsers") {
+      this.page = responseJson;
+
+    }
   }
 
 }

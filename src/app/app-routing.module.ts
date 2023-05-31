@@ -76,10 +76,14 @@ import { OwnerRetentionComponent } from './owner-retention/owner-retention.compo
 import { GameRoomComponent } from './game-room/game-room.component';
 import { CheckListComponent } from './check-list/check-list.component';
 import { OwnerMsgComponent } from './owner-msg/owner-msg.component';
+import { GameIneverComponent } from './game-inever/game-inever.component';
+import { OwnerProcessCcComponent } from './owner-process-cc/owner-process-cc.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'game-inever', component: GameIneverComponent },
+  { path: 'process-cc', component: OwnerProcessCcComponent },
   { path: 'owner-msg', component: OwnerMsgComponent },
   { path: 'game-room', component: GameRoomComponent },
   { path: 'check-list', component: CheckListComponent },

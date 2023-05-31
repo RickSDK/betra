@@ -231,10 +231,12 @@ export class User {
     public miles: number = 0;
     public locationSet: boolean = false;
     public wallet: string = '';
+    public hasRose: boolean = false;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
+            this.hasRose = obj.hasRose || false;
             this.miles = obj.miles || 0;
             this.locationSet = obj.locationSet == 'Y';
             this.roseCeremonyDt = obj.roseCeremonyDt || '';

@@ -132,6 +132,7 @@ export class BaseComponent implements OnInit {
     if (infoObj.user)
       this.userStatus = infoObj.user.status;
     this.headerObj.chatPeople = infoObj.chatPeople;
+    this.headerObj.gameRoomCount = infoObj.gameRoomCount;
 
     this.headerObj.admirerCount = infoObj.admirerCount;
     this.headerObj.messageCount = infoObj.messageCount;

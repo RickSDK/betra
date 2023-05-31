@@ -138,6 +138,7 @@ export class UpgradeMemberComponent extends BaseComponent implements OnInit {
       if (responseJson.creditObj && responseJson.creditObj.card_number && responseJson.creditObj.card_number.length > 12)
         this.cardOnFile = '**** **** **** ' + responseJson.creditObj.card_number.substr(-4, 4);
       this.creditObj = responseJson.creditObj;
+      console.log('xxx', this.creditObj);
     }
   }
 

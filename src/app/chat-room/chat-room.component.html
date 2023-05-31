@@ -3,7 +3,10 @@
 
     <div *ngIf="user && chatRoom" id="chat-room" class="matches-card" style="text-align: left; padding: 0;">
         <app-top-header2 [topTitle]="'Chat Room'"></app-top-header2>
-        <div class="happy-hour">
+        <div style="text-align: center;">
+            <button [routerLink]="['/game-room']" class="btn btn-main-color btn-large spacer">Game Room!</button>
+        </div>
+        <div class="happy-hour" *ngIf="0">
             <div>Happy Hour: 5pm PST
                 <span style="float: right; color: aquamarine;">{{happyHourNotice}}</span>
             </div>

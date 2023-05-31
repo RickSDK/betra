@@ -102,43 +102,41 @@
                     other benfits.</p>
             </div>
         </div>
-        <div *ngIf="!uid">
+        <div *ngIf="uid <= 0">
             <div class="matches-card" *ngIf="noLocationInfoFoundFlg" [routerLink]="['/location']"
                 style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
                 <p>Click here to fix.</p>
             </div>
-            <div *ngIf="searchStarted">
-                <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
-                    <div>
-                        <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
-                        <p>Sorry, no more profiles found.</p>
-                        <p *ngIf="0 && !showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
-                            joining
-                            constantly. Check back soon.</p>
-                        <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
-                            <p class="gray-text">You have already said "Yes" or "No" to everyone in the database.
-                                This
-                                is a
-                                new
-                                app and people are just starting to sign up. Check back soon. If you would like to
-                                reset
-                                your
-                                "No" matches and revisit the people you declined, visit the "<span
-                                    [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
-                        </div>
-                        <div *ngIf="advancedSearchFlg && profileViews>0">
-                            <p>Try expanding your search or simply
-                                press
-                                the "Browse" button to bring back possible matches.</p>
-                            <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI
-                                that
-                                continueously expands your search options until matches are returned.
-                                If you are getting no results after pressing that button, it means you have already
-                                viewed
-                                every
-                                person in the database meeting your gender requirements.</p>
-                        </div>
+            <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
+                <div>
+                    <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
+                    <p>Sorry, no more profiles found.</p>
+                    <p *ngIf="0 && !showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
+                        joining
+                        constantly. Check back soon.</p>
+                    <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
+                        <p class="gray-text">You have already said "Yes" or "No" to everyone in the database.
+                            This
+                            is a
+                            new
+                            app and people are just starting to sign up. Check back soon. If you would like to
+                            reset
+                            your
+                            "No" matches and revisit the people you declined, visit the "<span
+                                [routerLink]="['/settings']" class="text-link">Settings</span>" tab.</p>
+                    </div>
+                    <div *ngIf="advancedSearchFlg && profileViews>0">
+                        <p>Try expanding your search or simply
+                            press
+                            the "Browse" button to bring back possible matches.</p>
+                        <p class="gray-text" style="text-align: left;">Note: The "Browse" button has some AI
+                            that
+                            continueously expands your search options until matches are returned.
+                            If you are getting no results after pressing that button, it means you have already
+                            viewed
+                            every
+                            person in the database meeting your gender requirements.</p>
                     </div>
                 </div>
             </div>

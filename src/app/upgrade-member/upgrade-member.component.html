@@ -29,6 +29,7 @@
             <hr>
             <div *ngIf="user.memberFlg && creditObj">
                 <div *ngIf="user.memberFlg" class="red-text">Your Current Plan</div>
+                <div class="tan-box" *ngIf="creditObj.status == 'Bad'">Your credit card is bad. Please update with a valid credit card</div>
                 <div *ngIf="!creditObj.exp_number">
                     <div>Plan: <span class="text-highlight">Lifetime Member</span></div>
                     <div>Benefits Expire: <span class="text-highlight">{{benefitExpDate}}</span></div>
