@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
+import { WebsocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -17,8 +18,13 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   public textValue: string = '';
   public isConnected: boolean = true;
   public usersOnline: any = [];
+  public socket: WebsocketService;
 
-  constructor(databaseService: DatabaseService) { super(databaseService); }
+  constructor(webSocketService: WebsocketService, databaseService: DatabaseService) { 
+    super(databaseService); 
+    this.socket = webSocketService;
+    this.socket.connect();
+  }
 
   override ngOnInit(): void {
     super.ngOnInit();
