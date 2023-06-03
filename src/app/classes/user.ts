@@ -232,10 +232,12 @@ export class User {
     public locationSet: boolean = false;
     public wallet: string = '';
     public hasRose: boolean = false;
+    public photographerId: number = 0;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
+            this.photographerId = obj.photographerId || 0;
             this.hasRose = obj.hasRose || false;
             this.miles = obj.miles || 0;
             this.locationSet = obj.locationSet == 'Y';

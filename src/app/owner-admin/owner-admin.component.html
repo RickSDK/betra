@@ -77,7 +77,7 @@
 
         <div *ngIf="menuNum==1">
             <div *ngIf="showRecordFlg">
-                <div>User's Name: <span class="text-highlight">{{responseJson.firstName}}</span></div>
+                <div>User's Name: <span class="text-highlight">{{page.firstName}}</span></div>
                 <img [src]="src" height="320">
                 <div class="gray-text">Look at the profile picture above and make sure it includes the person's face.
                     Then approve or reject the picture using the buttons below.</div>
@@ -109,12 +109,12 @@
             </div>
         </div>
 
-        <div *ngIf="menuNum==2 && responseJson">
-            <p *ngIf="!responseJson.user" class="big-flashy">
+        <div *ngIf="menuNum==2 && page">
+            <p *ngIf="!page.user" class="big-flashy">
                 No Users Flagged at this time
             </p>
 
-            <table *ngIf="responseJson.user">
+            <table *ngIf="page.user">
                 <tr>
                     <th>Flagged User</th>
                     <th>Action</th>
@@ -122,10 +122,10 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <app-profile-pic [user_id]="responseJson.user.user_id"
-                            [profilePic]="responseJson.user.profilePic" [size]="80">
+                        <app-profile-pic [user_id]="page.user.user_id"
+                            [profilePic]="page.user.profilePic" [size]="80">
                         </app-profile-pic>
-                        <div>{{responseJson.user.firstName}}</div>
+                        <div>{{page.user.firstName}}</div>
                     </td>
                     <td>
                         <button (mousedown)="flaggedUserButtonPressed('markAsOk')" class="btn btn-success spacer">
@@ -136,8 +136,8 @@
                             class="btn btn-danger spacer">Suspend</button>
                     </td>
                     <td align="center">
-                        <app-profile-pic [user_id]="responseJson.user.profileFlaggedBy"
-                            [profilePic]="responseJson.user.profileFlaggedByProfilePic" [size]="50">
+                        <app-profile-pic [user_id]="page.user.profileFlaggedBy"
+                            [profilePic]="page.user.profileFlaggedByProfilePic" [size]="50">
                         </app-profile-pic>
                     </td>
                 </tr>
@@ -145,10 +145,10 @@
         </div>
 
         <div *ngIf="menuNum==3 || menuNum==4">
-            <p *ngIf="!responseJson.reviewObj || !responseJson.reviewObj.row_id" class="big-flashy">
+            <p *ngIf="!page.reviewObj || !page.reviewObj.row_id" class="big-flashy">
                 No new reviews at this time
             </p>
-            <div *ngIf="responseJson.reviewObj && responseJson.reviewObj.row_id">
+            <div *ngIf="page.reviewObj && page.reviewObj.row_id">
                 <p *ngIf="menuNum==3" class="gray-text">This review has been flagged! Check to see the contents. If it
                     has
                     any
@@ -165,27 +165,27 @@
                         <th align="center">Rating</th>
                         <th align="center" style="text-align: center;">Message</th>
                         <th align="center">Reviewed By</th>
-                        <th align="center" *ngIf="responseJson.reviewObj.flaggedBy>0">Flagged By</th>
+                        <th align="center" *ngIf="page.reviewObj.flaggedBy>0">Flagged By</th>
                     </tr>
                     <tr>
                         <td>
-                            <app-profile-pic [user_id]="responseJson.reviewObj.user_id"
-                                [profilePic]="responseJson.reviewObj.profilePic2" [size]="80">
+                            <app-profile-pic [user_id]="page.reviewObj.user_id"
+                                [profilePic]="page.reviewObj.profilePic2" [size]="80">
                             </app-profile-pic>
                         </td>
                         <td align="center">
-                            <a *ngIf="responseJson.reviewObj.rating==1" class="fa fa-thumbs-up"></a>
-                            <a *ngIf="responseJson.reviewObj.rating!=1" class="fa fa-thumbs-down"></a>
+                            <a *ngIf="page.reviewObj.rating==1" class="fa fa-thumbs-up"></a>
+                            <a *ngIf="page.reviewObj.rating!=1" class="fa fa-thumbs-down"></a>
                         </td>
-                        <td class="gray-text" align="center">{{responseJson.reviewObj.message}}</td>
+                        <td class="gray-text" align="center">{{page.reviewObj.message}}</td>
                         <td>
 
-                            <app-profile-pic [user_id]="responseJson.reviewObj.uid"
-                                [profilePic]="responseJson.reviewObj.profilePic" [size]="80"></app-profile-pic>
+                            <app-profile-pic [user_id]="page.reviewObj.uid"
+                                [profilePic]="page.reviewObj.profilePic" [size]="80"></app-profile-pic>
                         </td>
-                        <td align="center" *ngIf="responseJson.reviewObj.flaggedBy>0">
-                            <app-profile-pic [user_id]="responseJson.reviewObj.flaggedBy"
-                                [profilePic]="responseJson.reviewObj.flaggedByProfilePic" [size]="40"></app-profile-pic>
+                        <td align="center" *ngIf="page.reviewObj.flaggedBy>0">
+                            <app-profile-pic [user_id]="page.reviewObj.flaggedBy"
+                                [profilePic]="page.reviewObj.flaggedByProfilePic" [size]="40"></app-profile-pic>
                         </td>
                     </tr>
                 </table>
@@ -199,10 +199,10 @@
         </div>
 
         <div *ngIf="menuNum==5">
-            <div *ngIf="!responseJson.journal || !responseJson.journal.row_id" class="big-flashy">
+            <div *ngIf="!page.journal || !page.journal.row_id" class="big-flashy">
                 No flagged journals at this time.
             </div>
-            <div *ngIf="responseJson.journal && responseJson.journal.row_id">
+            <div *ngIf="page.journal && page.journal.row_id">
                 <table style="font-size: 12px; text-align: center;" border="1">
                     <tr>
                         <th align="center">Author</th>
@@ -211,18 +211,18 @@
                     </tr>
                     <tr>
                         <td align="center">
-                            <app-profile-pic [user_id]="responseJson.journal.user_id"
-                                [profilePic]="responseJson.journal.profilePic" [size]="60">
+                            <app-profile-pic [user_id]="page.journal.user_id"
+                                [profilePic]="page.journal.profilePic" [size]="60">
                             </app-profile-pic>
                         </td>
                         <td align="center">
-                            <p>{{responseJson.journal.message}}</p>
-                            <p>{{responseJson.journal.history}}</p>
-                            <p>{{responseJson.journal.lookingFor}}</p>
+                            <p>{{page.journal.message}}</p>
+                            <p>{{page.journal.history}}</p>
+                            <p>{{page.journal.lookingFor}}</p>
                         </td>
                         <td align="center">
-                            <app-profile-pic [user_id]="responseJson.journal.postFlaggedBy"
-                                [profilePic]="responseJson.journal.profilePic2" [size]="60">
+                            <app-profile-pic [user_id]="page.journal.postFlaggedBy"
+                                [profilePic]="page.journal.profilePic2" [size]="60">
                             </app-profile-pic>
                         </td>
                     </tr>
@@ -263,15 +263,15 @@
         <div *ngIf="menuNum>6 && displayUser">
             <div>Name: <span class="text-highlight">{{displayUser.firstName}}</span></div>
             <img [src]="src" height="300">
-            <div *ngIf="responseJson.action == 'getFacebookUser'">
+            <div *ngIf="page.action == 'getFacebookUser'">
                 Facebook Link: <a [href]="displayUser.facebookUrl" target="new"><span
                         class="text-link">{{displayUser.facebookUrl}}</span></a>
             </div>
-            <div *ngIf="responseJson.action == 'getInstagramUser'">
+            <div *ngIf="page.action == 'getInstagramUser'">
                 Instagram Link: <a [href]="displayUser.instragramUrl" target="new"><span
                         class="text-link">{{displayUser.instragramUrl}}</span></a>
             </div>
-            <div *ngIf="responseJson.action == 'getLinkedInUser'">
+            <div *ngIf="page.action == 'getLinkedInUser'">
                 linkedIn Link: <a [href]="displayUser.linkedInUrl" target="new"><span
                         class="text-link">{{displayUser.linkedInUrl}}</span></a>
             </div>

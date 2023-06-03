@@ -109,7 +109,10 @@
                 <p>Click here to fix.</p>
             </div>
             <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
-                <div>
+                <div *ngIf="daysTillRoseCeremony==0">
+                    You must complete your Rose Ceremony before searching for more singles.
+                </div>
+                <div *ngIf="daysTillRoseCeremony>0">
                     <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
                     <p>Sorry, no more profiles found.</p>
                     <p *ngIf="0 && !showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are

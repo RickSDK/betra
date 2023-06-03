@@ -57,7 +57,6 @@ export class BaseComponent implements OnInit {
 
   ngOnInit(): void {
 
-    window.scrollTo(0, 0);
     if (!localStorage['code']) {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
       this.outOfSyncFlg = true;
@@ -68,6 +67,9 @@ export class BaseComponent implements OnInit {
       this.checkLocationStuff();
       this.logUser();
     }
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 250);
 
   }
   checkLocationStuff() {

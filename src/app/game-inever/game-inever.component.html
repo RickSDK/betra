@@ -1,35 +1,50 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Game Room'" [headerObj]="headerObj" [userStatus]="userStatus">
 
     <div class="matches-card" style="text-align: center; padding: 0;">
-
+        <div *ngIf="currentGameStatus!='Waiting'" style="position: absolute; left: 10px; top: 30px;">
+            <div style="color: gray; font-size: 8px;">Timer</div>
+            <div><span class="text-highlight">{{timerSeconds}}</span></div>
+        </div>
+        <div *ngIf="currentGameStatus=='Waiting'" style="background-color: #500; color: white;">Waiting for players
+        </div>
+        <div *ngIf="currentGameStatus=='Playing'" style="background-color: #444; color: white;">
+            <div>Game in progress</div>
+            <div style="font-size: 10px;">Game ends when one player says 'Yes' 5 times</div>
+        </div>
+        <div *ngIf="currentGameStatus=='Completed'" style="background-color: #444; color: white;">Game Over!</div>
         <table align="center" *ngIf="players && players.length>=6">
             <tr>
                 <td>
 
                 </td>
                 <td width="80" align="center" style="position: relative;">
-                     <app-game-chair [player]="players[0]" [width]="80" [turn]="turn" [chair]="'assets/images/games/chair1.png'"></app-game-chair>
+                    <app-game-chair [player]="players[0]" [width]="80" [turn]="turn"
+                        [chair]="'assets/images/games/chair1.png'"></app-game-chair>
                 </td>
                 <td>
-                    
+
                 </td>
             </tr>
             <tr>
                 <td style="position: relative;" width="100">
-                    <app-game-chair [player]="players[1]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair2.png'"></app-game-chair>
+                    <app-game-chair [player]="players[1]" [width]="100" [turn]="turn"
+                        [chair]="'assets/images/games/chair2.png'"></app-game-chair>
                 </td>
                 <td width="20">&nbsp;</td>
                 <td style="position: relative;">
-                    <app-game-chair [player]="players[2]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair4.png'"></app-game-chair>
+                    <app-game-chair [player]="players[2]" [width]="100" [turn]="turn"
+                        [chair]="'assets/images/games/chair4.png'"></app-game-chair>
                 </td>
             </tr>
             <tr>
                 <td style="position: relative;">
-                    <app-game-chair [player]="players[3]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair2.png'"></app-game-chair>
+                    <app-game-chair [player]="players[3]" [width]="100" [turn]="turn"
+                        [chair]="'assets/images/games/chair2.png'"></app-game-chair>
                 </td>
                 <td width="20">&nbsp;</td>
                 <td style="position: relative;">
-                    <app-game-chair [player]="players[4]" [width]="100" [turn]="turn" [chair]="'assets/images/games/chair4.png'"></app-game-chair>
+                    <app-game-chair [player]="players[4]" [width]="100" [turn]="turn"
+                        [chair]="'assets/images/games/chair4.png'"></app-game-chair>
                 </td>
             </tr>
             <tr>
@@ -37,32 +52,56 @@
 
                 </td>
                 <td width="80" align="center" style="position: relative;">
-                    <app-game-chair [player]="players[5]" [width]="80" [turn]="turn" [chair]="'assets/images/games/chair3.png'"></app-game-chair>
+                    <app-game-chair [player]="players[5]" [width]="80" [turn]="turn"
+                        [chair]="'assets/images/games/chair3.png'"></app-game-chair>
                 </td>
                 <td>
-                    
+
                 </td>
             </tr>
         </table>
+        <div *ngIf="currentGameStatus == 'Playing'">
+            <img (mousedown)="emitEmoji(i)" [src]="emoji" *ngFor="let emoji of emojis; let i = index" width="30"
+                class="emoji">
+        </div>
         <div *ngIf="gameError" style="background-color: yellow;">{{gameError}}</div>
+        <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
 
+        <div class="border-box" *ngIf="page.prev_question && currentGameStatus == 'Playing'">
+            <div class="gray-text" style="font-size: 10px;">Previous Question:</div>
+            <div style="font-size: 12px; font-weight: 700;">"{{page.prev_question}}"</div>
+            <img *ngFor="let player of realPlayers" [src]="player.src" height="30" class="user-circle"
+                [style.border]="player.prev_choice==2?'3px solid green':'3px solid red'">
+        </div>
         <div class="border-box">
-             <div *ngIf="page.gameStatus == 'Waiting' || page.gameStatus == 'Ended'">
-                <div *ngIf="page.gameStatus == 'Ended'">Sorry, game has ended because there's not enough players</div>
-                <div *ngIf="numPlayers < minPlayers">Waiting for players to join.</div>
-                <div *ngIf="numPlayers < minPlayers" class="gray-text">We need at least {{minPlayers}} players to have a game.</div>
-                <div *ngIf="numPlayers >= minPlayers" class="gray-text">Press start to begin.</div>
-                <button *ngIf="numPlayers >= minPlayers" (mousedown)="startGame()" class="btn btn-main-color btn-large">Start Game!</button>
+            <div *ngIf="page.gameStatus == 'Completed'">
+                <div>Game has ended. And the winner is:</div>
+                <app-profile-pic *ngIf="winner.profilePic>0" [user_id]="winner.user_id" [profilePic]="winner.profilePic" [size]="100">
+                </app-profile-pic>
+                <div class="gray-text" *ngIf="numPlayers >= MIN_PLAYER">New game can start once the timer runs out</div>
+                <div class="gray-text" *ngIf="numPlayers < MIN_PLAYER">{{MIN_PLAYER}} players needed to start a new game.</div>
+                <button [disabled]="timerSeconds>0" *ngIf="numPlayers >= MIN_PLAYER" (mousedown)="startGame()"
+                    class="btn btn-main-color btn-large">Start New Game!</button>
+            </div>
+            <div *ngIf="page.gameStatus == 'Waiting'">
+                <div *ngIf="page.gameStatus == 'Waiting' && gameStartedFlg && numPlayers < MIN_PLAYER" class="red-text">
+                    Sorry, game has ended because there's not enough players</div>
+                <div *ngIf="numPlayers < MIN_PLAYER">Waiting for players to join.</div>
+                <div *ngIf="numPlayers < MIN_PLAYER" class="gray-text">We need at least {{MIN_PLAYER}} players to have a
+                    game.</div>
+                <div *ngIf="numPlayers >= MIN_PLAYER" class="gray-text">Press start to begin.</div>
+                <button *ngIf="numPlayers >= MIN_PLAYER" (mousedown)="startGame()"
+                    class="btn btn-main-color btn-large">Start Game!</button>
             </div>
             <div *ngIf="page.gameStatus == 'Playing'">
                 <div *ngIf="page.phase == 'Asking'">
-                    <div *ngIf="turn != user.user_id">{{currentPlayerName}} is asking a question. Please wait</div>
-                    <div *ngIf="turn == user.user_id">
-                        <div class="red-text">Your turn to ask a question!</div>
-                        <div class="gray-text">What is something you have never done before?</div>
-                        <app-text-with-enter [id]="'question'" [value]="'Never have I ever '"[maxLength]="150"
-                        (messageEvent)="textValueSubmitted($event)"></app-text-with-enter>
-                    </div>    
+                    <div *ngIf="!myTurnToAskFlg">{{currentPlayerName}} is asking a question. Please wait</div>
+                    <div *ngIf="myTurnToAskFlg">
+                        <div class="red-text"><i class="fa fa-comment"></i> Your turn to ask a question!</div>
+                        <div class="gray-text">What is something you have <b><u>NEVER</u></b> done before?</div>
+                        <app-text-with-enter [id]="'question'" [value]="'Never have I ever '" [maxLength]="150"
+                            (messageEvent)="textValueSubmitted($event)"></app-text-with-enter>
+                    </div>
                 </div>
                 <div *ngIf="page.phase == 'Answering'">
                     <div class="gray-text">{{currentPlayerName}}'s Question:</div>
@@ -71,32 +110,39 @@
             </div>
         </div>
         <div style="background-color: #444; text-align: right; height: 60px;">
-            <button (mousedown)="exitGame()" id="exitGameButton" class="btn btn-primary spacer" style="float: left; margin: 10px;">Exit Game</button>
+            <button (mousedown)="exitGame()" id="exitGameButton" class="btn btn-primary spacer"
+                style="float: left; margin: 10px;">Exit Game</button>
+            <button *ngIf="timerSeconds==0 && page.gameStatus == 'Playing'" (mousedown)="skipPlayer()"
+                class="btn btn-danger spacer" style="float: right; margin: 10px;">Skip</button>
             &nbsp;
-            <button (mousedown)="registerAnswer(1)" *ngIf="page.phase == 'Answering'" class="btn btn-danger spacer" [disabled]="page.myChoice>0">
+            <button (mousedown)="registerAnswer(1)" *ngIf="page.phase == 'Answering'" class="btn btn-danger spacer"
+                [disabled]="page.myChoice>0">
                 <i style="font-size: 28px" class="fa fa-ban"></i>
                 <div style="font-size: 8px">I have Never</div>
             </button>
-            <button  (mousedown)="registerAnswer(2)" *ngIf="page.phase == 'Answering'" class="btn btn-success spacer" [disabled]="page.myChoice>0">
+            <button (mousedown)="registerAnswer(2)" *ngIf="page.phase == 'Answering'" class="btn btn-success spacer"
+                [disabled]="page.myChoice>0">
                 <i style="font-size: 28px" class="fa fa-hand-paper-o"></i>
                 <div style="font-size: 8px">I've done it!</div>
             </button>
         </div>
-        <div class="border-box">
+        <div class="border-box" *ngIf="spectators.length>0">
             <div>Spectators</div>
+            <app-profile-pic *ngFor="let player of spectators" [user_id]="player.user_id"
+                [profilePic]="player.profilePic" [size]="25">
+            </app-profile-pic>
         </div>
-        <div *ngIf="turn != user.user_id || page.phase != 'Asking'">
-            <app-text-with-enter [id]="'chat'" [placeHolder]="'Chat'"[maxLength]="150"
-            (messageEvent)="chatMessageSubmitted($event)"></app-text-with-enter>
+        <div *ngIf="!myTurnToAskFlg || page.phase != 'Asking'">
+            <app-text-with-enter [id]="'chat'" [placeHolder]="'Chat'" [maxLength]="150"
+                (messageEvent)="chatMessageSubmitted($event)"></app-text-with-enter>
         </div>
         <div style="background-color: black; color: white; font-size: 12px; text-align: left; padding: 10px;">
-        <div *ngFor="let message of page.messages">
-            <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic"
-            [size]="25">
-        </app-profile-pic> <span
-            [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:
-        {{message.message}}
-        </div>
+            <div *ngFor="let message of page.messages">
+                <app-profile-pic [user_id]="message.user_id" [profilePic]="message.profilePic" [size]="25">
+                </app-profile-pic> <span
+                    [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:
+                {{message.message}}
+            </div>
         </div>
     </div>
 </app-page-shell>

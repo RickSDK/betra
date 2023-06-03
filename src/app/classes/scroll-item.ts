@@ -12,6 +12,10 @@ export class ScrollItem {
     public src2: string = '';
     public url: string = '';
     public url2: string = '';
+    public uid1: number = 0;
+    public uid2: number = 0;
+    public profilePic1: number = 0;
+    public profilePic2: number = 0;
     public date: string = '';
     public id: string = '';
     public cardType: number = 0;
@@ -21,6 +25,10 @@ export class ScrollItem {
             this.id = 'item' + num;
             this.cardType = obj.cardType || 0;
             this.row_id = obj.row_id || 0;
+            this.uid1 = obj.uid1 || 0;
+            this.uid2 = obj.uid2 || 0;
+            this.profilePic1 = obj.profilePic1 || 0;
+            this.profilePic2 = obj.profilePic2 || 0;
             this.type = obj.type || '';
             this.icon = obj.icon || '';
             this.name = obj.name || '';

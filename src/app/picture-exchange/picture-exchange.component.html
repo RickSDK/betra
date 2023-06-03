@@ -11,284 +11,335 @@
 
             <div *ngIf="activity==0">
                 <div class="red-text">Welcome to the Betra Photography Club!</div>
-                <img src="assets/images/pics/photography1.jpeg" width="100" align="right">
+
+                <table>
+                    <tr>
+                        <td>
+                            <img src="assets/images/pics/photography2.jpg" width="100">
+                        </td>
+                        <td style="padding: 20px; text-align: center; font-size: 22px; font-weight: 700;">
+                            <p>Trade pics</p>
+                            <p>Have fun</p>
+                            <p>Win Prizes</p>
+                        </td>
+                        <td>
+                            <img src="assets/images/pics/photography1.jpeg" width="100">
+                        </td>
+                    </tr>
+                </table>
+
                 <p class="gray-text" style="text-align: left;">Want to trade pictures with other Betra members for fun?
                     There's no cost to join and no cost to trade pictures. The more pictures you exchange
                     the more coins you collect and coins can be redeemed for real cash!</p>
-                <p class="gray-text" style="text-align: left;">Want to receive pictures? Simply click one of the
-                    photographers below to request a picture.
-                </p>
-                <p class="gray-text" style="text-align: left;">Want to send pictures? You decide what pictures you want
-                    to
-                    specialize in
-                    and how many coins it will cost someone to receive one of your pictures.
-                    If someone is interested, they will send you a request. You simply send them a picture to get your
-                    coins.
-                    Its easy and fun. You can then exchange your coins for real cash at the
-                    <span [routerLink]="['/market']" class="text-link">marketplace</span>.
-                </p>
-                <img src="assets/images/pics/photography2.jpg" width="100" align="left" style="margin: 3px;">
-                <p class="gray-text" style="text-align: left;">
-                    Feel free to exchange as many pictures as you like, until you run out of coins, which you get for
-                    free every day just for logging in.
-                    You can purchase
-                    addtional coins at the <span [routerLink]="['/market']" class="text-link">marketplace</span>.
-                </p>
-                <p class="gray-text" style="text-align: left;">Keep in mind these are private pictures and only the
-                    person
-                    taking the picture and receiving the picture will be able to see it.
-                </p>
-                <hr>
-                <div *ngIf="sellerFlg=='Y'">
-                    <div *ngIf="editSellerFlg" class="tan-box">
-                        <i class="fa fa-times" (mousedown)="editSellerFlg=false"
-                            style="font-size: 18px; float: right; cursor: pointer;"></i>
-                        <div>{{user.firstName}}'s Photography Profile</div>
-                        <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="60">
-                        </app-profile-pic>
-                        <div class="gray-text"><b>About me</b>: Add a short sentence or 2 about what types of pictures
-                            you like to take.</div>
-                        <app-text-area-input [id]="'details'" [value]="details"></app-text-area-input>
-                        <div *ngIf="updateMadeFg">Update successful!</div>
-                        <button *ngIf="!updateMadeFg" [disabled]="loadingFlg" (mousedown)="updateAboutMe()"
-                            class="btn btn-warning spacer">Update About Me
-                        </button>
-                        <hr>
-                        <div class="gray-text"><b>Pic types</b>: These are the exact types of pictures you are willing
-                            to take and cost for each one. Assume $1 per coin, although actual value might end up
-                            being more or less depending on the market.</div>
-                        <table border="1" *ngIf="myPicTypes.length>0">
+                <p><span (mousedown)="moreDetailsFlg=!moreDetailsFlg" class="text-link">More details</span></p>
+                <div *ngIf="moreDetailsFlg">
+                    <p class="gray-text" style="text-align: left;">Want to receive pictures? Simply click one of the
+                        photographers below to request a picture.
+                    </p>
+                    <p class="gray-text" style="text-align: left;">Want to send pictures? You decide what pictures you
+                        want
+                        to
+                        specialize in
+                        and how many coins it will cost someone to receive one of your pictures.
+                        If someone is interested, they will send you a request. You simply send them a picture to get
+                        your
+                        coins.
+                        Its easy and fun. You can then exchange your coins for real cash at the
+                        <span [routerLink]="['/market']" class="text-link">marketplace</span>.
+                    </p>
+                    <p class="gray-text" style="text-align: left;">
+                        Feel free to exchange as many pictures as you like, until you run out of coins, which you get
+                        for
+                        free every day just for logging in.
+                        You can purchase
+                        addtional coins at the <span [routerLink]="['/market']" class="text-link">marketplace</span>.
+                    </p>
+                    <p class="gray-text" style="text-align: left;">Keep in mind these are private pictures and only the
+                        person
+                        taking the picture and receiving the picture will be able to see it.
+                    </p>
+                </div>
+                <div *ngIf="!selectedPerson">
+
+                    <hr>
+                    <div *ngIf="sellerFlg=='Y'">
+                        <div *ngIf="editSellerFlg" class="tan-box">
+                            <i class="fa fa-times" (mousedown)="editSellerFlg=false"
+                                style="font-size: 18px; float: right; cursor: pointer;"></i>
+                            <div>{{user.firstName}}'s Photography Profile</div>
+                            <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="60">
+                            </app-profile-pic>
+                            <div class="gray-text"><b>About me</b>: Add a short sentence or 2 about what types of
+                                pictures
+                                you like to take.</div>
+                            <app-text-area-input [id]="'details'" [value]="details"></app-text-area-input>
+                            <div *ngIf="updateMadeFg">Update successful!</div>
+                            <button *ngIf="!updateMadeFg" [disabled]="loadingFlg" (mousedown)="updateAboutMe()"
+                                class="btn btn-warning spacer"><i class="fa fa-save"></i> Save
+                            </button>
+                            <hr>
+                            <div class="gray-text"><b>Pic types</b>: These are the exact types of pictures you are
+                                willing
+                                to take and cost for each one. Assume $1 per coin, although actual value might end up
+                                being more or less depending on the market.</div>
+                            <table border="1" *ngIf="myPicTypes.length>0">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Cost</th>
+                                    <th>Delete</th>
+                                </tr>
+                                <tr *ngFor="let myPicType of myPicTypes">
+                                    <td>{{myPicType.type}}</td>
+                                    <td align="center">{{myPicType.cost}}</td>
+                                    <td><button *ngIf="myPicType.type != 'Selfie'" class="btn btn-danger"
+                                            (mousedown)="deletePicType(myPicType)"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="small-label">Type</div>
+                                        <select id="picType" (change)="picTypeChanged()">
+                                            <option *ngFor="let picType of picTypes">{{picType}}</option>
+                                        </select>
+                                        <input type="text" id="picTypeOther" *ngIf="picTypeOtherFlg" maxlength="20"
+                                            style="width: 100px;">
+                                    </td>
+                                    <td>
+                                        <div class="small-label">Cost (coins)</div>
+                                        <select id="picCost" (change)="selectCoinsChanged()">
+                                            <option *ngFor="let picCost of picCosts">{{picCost}}</option>
+                                        </select>
+
+                                    </td>
+                                    <td valign="bottom">
+                                        <button (mousedown)="addPicTypeToList()" class="btn btn-primary">Add</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+                            <div>&nbsp;</div>
+                            <button [disabled]="loadingFlg" (mousedown)="becomeSeller()"
+                                class="btn btn-success btn-large">Update Types</button>
+                            <div>&nbsp;</div>
+                            <hr>
+                            <div>
+                                <div>My Portfolio Images</div>
+                                <div class="gray-text">Do you have some examples of the types of pictures you are
+                                    willing to
+                                    share? Feel free to upload a couple of examples here. Just keep in mind these can
+                                    been
+                                    seen by everyone</div>
+                                <div *ngFor="let item of myPhotographer.portfolioItems" style="display: inline-block;">
+                                    <img (mousedown)="viewImage(item.src)" class="thumbnail-img" [src]="item.src">
+                                    <button class="btn btn-danger" *ngIf="deletePortfolioImageFlg"
+                                        (mousedown)="deleteThisImage(item)"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </div>
+
+                            <app-upload-image *ngIf="addPortfolioImageFlg" [fileId]="'file1'" [loadingFlg]="loadingFlg"
+                                [id]="'Image1'" (messageEvent)="uploadPortfilioPicButtonClicked()"></app-upload-image>
+
+                            <button *ngIf="!addPortfolioImageFlg" [disabled]="loadingFlg"
+                                (mousedown)="addPortfolioImageFlg=true" class="btn btn-warning spacer">Add Portfolio
+                                Image
+                            </button>
+                            <button *ngIf="myPhotographer.portfolioItems.length>0" [disabled]="loadingFlg"
+                                (mousedown)="deletePortfolioImageFlg=!deletePortfolioImageFlg"
+                                class="btn btn-danger spacer">Delete Portfolio Image
+                            </button>
+                            <hr>
+                            <button [disabled]="loadingFlg" (mousedown)="editSellerFlg=false"
+                                class="btn btn-primary spacer">Close
+                            </button>
+                            <button [disabled]="loadingFlg" (mousedown)="exitClub()" class="btn btn-danger spacer">Quit
+                                Photography
+                                Club</button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="newOrdersDeliveredFlg"
+                        style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
+                        You have a new order deliverd. Please confirm receipt.
+                    </div>
+                    <div *ngIf="myOrders.length>0">
+                        <table class="betra-table" style="font-size: 12px;">
                             <tr>
+                                <td colspan="6" style="background-color: #444; color: white; text-align: center">
+                                    <div>Pics I have requested</div>
+                                    <div class="btn-group">
+                                        <button (mousedown)="filterOrderItems(0)"
+                                            [ngClass]="ngClassMenuButton(0, menuNum)">New</button>
+                                        <button (mousedown)="filterOrderItems(1)"
+                                            [ngClass]="ngClassMenuButton(1, menuNum)">Completed</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="background-color: #fff; color: black; text-align: center">These
+                                    are
+                                    the
+                                    pictures you have requested (orders). Once delivered, they will show up here.</td>
+                            </tr>
+                            <tr *ngIf="displayOrders.length>0">
+                                <th>User</th>
                                 <th>Type</th>
                                 <th>Cost</th>
-                                <th>Delete</th>
+                                <th>Status</th>
+                                <th>Instructions</th>
+                                <th>Action</th>
                             </tr>
-                            <tr *ngFor="let myPicType of myPicTypes">
-                                <td>{{myPicType.type}}</td>
-                                <td align="center">{{myPicType.cost}}</td>
-                                <td><button *ngIf="myPicType.type != 'Selfie'" class="btn btn-danger"
-                                        (mousedown)="deletePicType(myPicType)"><i class="fa fa-trash"></i></button></td>
+                            <tr *ngFor="let order of displayOrders">
+                                <td>
+                                    <app-profile-pic [user_id]="order.uid" [profilePic]="order.profilePic" [size]="30">
+                                    </app-profile-pic>
+                                </td>
+                                <td *ngIf="!order.confirmFlg">{{order.type}}</td>
+                                <td *ngIf="!order.confirmFlg" style="color: green;">{{order.cost}} coins</td>
+                                <td *ngIf="!order.confirmFlg"><span class="text-highlight">{{order.status}}</span></td>
+                                <td *ngIf="!order.confirmFlg">
+                                    <div *ngIf="order.instructions"><b>{{user.firstName}}:</b> {{order.instructions}}
+                                    </div>
+                                    <div *ngIf="order.seller_comments"><b>{{order.firstName}}:</b>
+                                        {{order.seller_comments}}
+                                    </div>
+                                    <div *ngIf="order.comments"><b>{{user.firstName}}:</b> {{order.comments}}</div>
+                                </td>
+                                <td *ngIf="order.confirmFlg" colspan="4">
+                                    <div class="gray-text">What did you think of the picture?</div>
+                                    <app-text-with-enter [placeHolder]="'Comments'" [maxLength]="400"
+                                        (messageEvent)="textValueSubmitted(order, $event)"></app-text-with-enter>
+                                </td>
+                                <td>
+                                    <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src"
+                                        (mousedown)="viewImage(order.src)" [src]="order.src" class="thumbnail-img">
+                                    <button *ngIf="order.status=='Delivered' && !order.confirmFlg"
+                                        [disabled]="loadingFlg" (mousedown)="confirmPlacedOrder(order)"
+                                        class="btn btn-main-color btn-small">Confirm</button>
+                                    <button *ngIf="order.status=='New' || order.status=='Accepted'"
+                                        [disabled]="loadingFlg" (mousedown)="cancelPlacedOrder(order)"
+                                        class="btn btn-danger">Cancel</button>
+                                    <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
+                                        (mousedown)="deleteCancelledOrder(order)"
+                                        class="btn btn-main-color">Delete</button>
+                                </td>
+
+
+                            </tr>
+                            <tr *ngIf="myOrders.length==0">
+                                <td colspan="6" align="center">
+                                    <div class="red-text" style="font-size: 18px;">You are a buyer</div>
+                                    <div>No orders placed yet. Click one of the blue "View" buttons below to place an
+                                        order.
+                                    </div>
+                                </td>
                             </tr>
                         </table>
-                        <table>
+                    </div>
+
+                    <div *ngIf="newOfferReceivedFlg"
+                        style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
+                        You have a new offer. Press the 'Accept' or 'Decline' button below.
+                    </div>
+                    <div *ngIf="ordersReadyForDelivery"
+                        style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
+                        You have an offer that needs to be delivered. Press the 'Deliver' button below when you are
+                        ready to
+                        send the picture
+                    </div>
+                    <div *ngIf="sellerFlg=='Y'">
+                        <table class="betra-table" style="font-size: 12px;">
                             <tr>
-                                <td>
-                                    <div class="small-label">Type</div>
-                                    <select id="picType" (change)="picTypeChanged()">
-                                        <option *ngFor="let picType of picTypes">{{picType}}</option>
-                                    </select>
-                                    <input type="text" id="picTypeOther" *ngIf="picTypeOtherFlg" maxlength="20"
-                                        style="width: 100px;">
-                                </td>
-                                <td>
-                                    <div class="small-label">Cost (coins)</div>
-                                    <select id="picCost" (change)="selectCoinsChanged()">
-                                        <option *ngFor="let picCost of picCosts">{{picCost}}</option>
-                                    </select>
+                                <td colspan="6" style="background-color: #444; color: white; text-align: center">
 
-                                </td>
-                                <td valign="bottom">
-                                    <button (mousedown)="addPicTypeToList()" class="btn btn-primary">Add</button>
+                                    <div>My Jobs to Do</div>
+                                    <div class="btn-group">
+                                        <button (mousedown)="filterOfferItems(0)"
+                                            [ngClass]="ngClassMenuButton(0, offerMenuNum)">New</button>
+                                        <button (mousedown)="filterOfferItems(1)"
+                                            [ngClass]="ngClassMenuButton(1, offerMenuNum)">Completed</button>
+                                    </div>
+
+                                    <button (mousedown)="editSellerProfile()" class="btn btn-main-color btn-small"
+                                        style="float: right;">Edit Your
+                                        Profile</button>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="6" style="background-color: #fff; color: black; text-align: center">
+                                    <div *ngIf="displayOffers.length==0">No offers in yet. If someone requests a picture
+                                        from
+                                        you, it will show up here.</div>
+                                    <div *ngIf="displayOffers.length>0">These are the
+                                        requests (offers) other people have made. In order for you to fullfill the deal,
+                                        you
+                                        will
+                                        need to
+                                        send them a picture.</div>
+
+                                </td>
+                            </tr>
+                            <tr *ngIf="displayOffers.length>0">
+                                <th>User</th>
+                                <th>Type</th>
+                                <th>Cost</th>
+                                <th>Status</th>
+                                <th>Instructions</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr *ngFor="let order of displayOffers">
+                                <td>
+                                    <app-profile-pic [user_id]="order.user_id" [profilePic]="order.profilePic"
+                                        [size]="30">
+                                    </app-profile-pic>
+                                </td>
+                                <td>{{order.type}}</td>
+                                <td style="color: green;">{{order.cost}} coins</td>
+                                <td><span class="text-highlight">{{order.status}}</span></td>
+                                <td>
+                                    <div *ngIf="order.instructions"><b>{{order.firstName}}:</b> {{order.instructions}}
+                                    </div>
+                                    <div *ngIf="order.seller_comments"><b>{{user.firstName}}:</b>
+                                        {{order.seller_comments}}
+                                    </div>
+                                    <div *ngIf="order.comments"><b>{{order.firstName}}:</b> {{order.comments}}</div>
+                                </td>
+                                <td style="white-space: nowrap;">
+                                    <div *ngIf="order.status=='New' && order.type=='Special'">This is a **special request**.<br> Review the instructions and the coins offered before accepting.</div>
+                                    <div *ngIf="order.status=='New' && order.completedOffers>0">Previous offers by this
+                                        user:
+                                        <span class="text-highlight">{{order.completedOffers}}</span>
+                                    </div>
+                                    <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
+                                        (mousedown)="acceptPlacedOrder(order)"
+                                        class="btn btn-success spacer">Accept</button>
+                                    <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
+                                        (mousedown)="declinePlacedOrder(order)"
+                                        class="btn btn-danger spacer">Decline</button>
+                                    <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
+                                        (mousedown)="deleteCancelledOrder(order)"
+                                        class="btn btn-main-color ">Delete</button>
+                                    <button *ngIf="order.status=='Accepted' && !selectedOrder" [disabled]="loadingFlg"
+                                        (mousedown)="deliverOrder(order)" class="btn btn-main-color">Deliver</button>
+                                    <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src"
+                                        (mousedown)="viewImage(order.src)" [src]="order.src" height="40"
+                                        style="cursor: pointer;" class="thumbnail-img">
+                                </td>
+                            </tr>
+                            <tr *ngIf="myOffers.length==0">
+                                <td colspan="6" align="center">No offers placed yet.</td>
+                            </tr>
                         </table>
-                        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-                        <div>&nbsp;</div>
-                        <button [disabled]="loadingFlg" (mousedown)="becomeSeller()"
-                            class="btn btn-success btn-large">Update Types</button>
-                        <div>&nbsp;</div>
-                        <hr>
-                        <div>
-                            <div>My Portfolio Images</div>
-                            <div class="gray-text">Do you have some examples of the types of pictures you are willing to
-                                share? Feel free to upload a couple of examples here. Just keep in mind these can been seen by everyone</div>
-                            <div *ngFor="let item of myPhotographer.portfolioItems" style="display: inline-block;">
-                                <img (mousedown)="viewImage(item.src)" class="thumbnail-img" [src]="item.src">
-                                <button class="btn btn-danger" *ngIf="deletePortfolioImageFlg"
-                                    (mousedown)="deleteThisImage(item)"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </div>
-
-                        <app-upload-image *ngIf="addPortfolioImageFlg" [fileId]="'file1'" [loadingFlg]="loadingFlg"
-                            [id]="'Image1'" (messageEvent)="uploadPortfilioPicButtonClicked()"></app-upload-image>
-
-                        <button *ngIf="!addPortfolioImageFlg" [disabled]="loadingFlg"
-                            (mousedown)="addPortfolioImageFlg=true" class="btn btn-warning spacer">Add Portfolio Image
-                        </button>
-                        <button *ngIf="myPhotographer.portfolioItems.length>0" [disabled]="loadingFlg"
-                            (mousedown)="deletePortfolioImageFlg=!deletePortfolioImageFlg"
-                            class="btn btn-danger spacer">Delete Portfolio Image
-                        </button>
-                        <hr>
-                        <button [disabled]="loadingFlg" (mousedown)="editSellerFlg=false"
-                            class="btn btn-primary spacer">Close
-                        </button>
-                        <button [disabled]="loadingFlg" (mousedown)="exitClub()" class="btn btn-danger spacer">Quit
-                            Photography
-                            Club</button>
                     </div>
                 </div>
-            </div>
-
-            <div *ngIf="newOrdersDeliveredFlg"
-                style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
-                You have a new order deliverd. Please confirm receipt.
-            </div>
-            <div *ngIf="myOrders.length>0">
-                <table class="betra-table" style="font-size: 12px;">
-                    <tr>
-                        <td colspan="6" style="background-color: #444; color: white; text-align: center">
-                            <div>Pics I have requested</div>
-                            <div class="btn-group">
-                                <button (mousedown)="filterOrderItems(0)"
-                                    [ngClass]="ngClassMenuButton(0, menuNum)">New</button>
-                                <button (mousedown)="filterOrderItems(1)"
-                                    [ngClass]="ngClassMenuButton(1, menuNum)">Completed</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" style="background-color: #fff; color: black; text-align: center">These are the
-                            pictures you have requested (orders). Once delivered, they will show up here.</td>
-                    </tr>
-                    <tr *ngIf="displayOrders.length>0">
-                        <th>User</th>
-                        <th>Type</th>
-                        <th>Cost</th>
-                        <th>Status</th>
-                        <th>Instructions</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr *ngFor="let order of displayOrders">
-                        <td>
-                            <app-profile-pic [user_id]="order.uid" [profilePic]="order.profilePic" [size]="30">
-                            </app-profile-pic>
-                        </td>
-                        <td *ngIf="!order.confirmFlg">{{order.type}}</td>
-                        <td *ngIf="!order.confirmFlg" style="color: green;">{{order.cost}} coins</td>
-                        <td *ngIf="!order.confirmFlg"><span class="text-highlight">{{order.status}}</span></td>
-                        <td *ngIf="!order.confirmFlg">
-                            <div *ngIf="order.instructions"><b>{{user.firstName}}:</b> {{order.instructions}}</div>
-                            <div *ngIf="order.seller_comments"><b>{{order.firstName}}:</b> {{order.seller_comments}}
-                            </div>
-                            <div *ngIf="order.comments"><b>{{user.firstName}}:</b> {{order.comments}}</div>
-                        </td>
-                        <td *ngIf="order.confirmFlg" colspan="4">
-                            <div class="gray-text">What did you think of the picture?</div>
-                            <app-text-with-enter [placeHolder]="'Comments'" [maxLength]="150"
-                                (messageEvent)="textValueSubmitted(order, $event)"></app-text-with-enter>
-                        </td>
-                        <td>
-                            <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src"
-                                (mousedown)="viewImage(order.src)" [src]="order.src" class="thumbnail-img">
-                            <button *ngIf="order.status=='Delivered' && !order.confirmFlg" [disabled]="loadingFlg"
-                                (mousedown)="confirmPlacedOrder(order)"
-                                class="btn btn-main-color btn-small">Confirm</button>
-                            <button *ngIf="order.status=='New' || order.status=='Accepted'" [disabled]="loadingFlg"
-                                (mousedown)="cancelPlacedOrder(order)" class="btn btn-main-color">Cancel</button>
-                            <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
-                                (mousedown)="deleteCancelledOrder(order)" class="btn btn-main-color">Delete</button>
-                        </td>
-
-
-                    </tr>
-                    <tr *ngIf="myOrders.length==0">
-                        <td colspan="6" align="center">
-                            <div class="red-text" style="font-size: 18px;">You are a buyer</div>
-                            <div>No orders placed yet. Click one of the blue "View" buttons below to place an order.
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div *ngIf="newOfferReceivedFlg"
-                style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
-                You have a new offer. Press the 'Accept' or 'Decline' button below.
-            </div>
-            <div *ngIf="ordersReadyForDelivery"
-                style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
-                You have an offer that needs to be delivered. Press the 'Deliver' button below when you are ready to
-                send the picture
-            </div>
-            <div *ngIf="sellerFlg=='Y'">
-                <table class="betra-table" style="font-size: 12px;">
-                    <tr>
-                        <td colspan="6" style="background-color: #444; color: white; text-align: center">
-
-                            <div>My Jobs to Do</div>
-                            <div class="btn-group">
-                                <button (mousedown)="filterOfferItems(0)"
-                                    [ngClass]="ngClassMenuButton(0, offerMenuNum)">New</button>
-                                <button (mousedown)="filterOfferItems(1)"
-                                    [ngClass]="ngClassMenuButton(1, offerMenuNum)">Completed</button>
-                            </div>
-
-                            <button (mousedown)="editSellerProfile()" class="btn btn-main-color btn-small"
-                                style="float: right;">Edit Your
-                                Profile</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" style="background-color: #fff; color: black; text-align: center">
-                            <div *ngIf="displayOffers.length==0">No offers in yet. If someone requests a picture from
-                                you, it will show up here.</div>
-                            <div *ngIf="displayOffers.length>0">These are the
-                                requests (offers) other people have made. In order for you to fullfill the deal, you
-                                will
-                                need to
-                                send them a picture.</div>
-
-                        </td>
-                    </tr>
-                    <tr *ngIf="displayOffers.length>0">
-                        <th>User</th>
-                        <th>Type</th>
-                        <th>Cost</th>
-                        <th>Status</th>
-                        <th>Instructions</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr *ngFor="let order of displayOffers">
-                        <td>
-                            <app-profile-pic [user_id]="order.user_id" [profilePic]="order.profilePic" [size]="30">
-                            </app-profile-pic>
-                        </td>
-                        <td>{{order.type}}</td>
-                        <td style="color: green;">{{order.cost}} coins</td>
-                        <td><span class="text-highlight">{{order.status}}</span></td>
-                        <td>
-                            <div *ngIf="order.instructions"><b>{{order.firstName}}:</b> {{order.instructions}}</div>
-                            <div *ngIf="order.seller_comments"><b>{{user.firstName}}:</b> {{order.seller_comments}}
-                            </div>
-                            <div *ngIf="order.comments"><b>{{order.firstName}}:</b> {{order.comments}}</div>
-                        </td>
-                        <td style="white-space: nowrap;">
-                            <div *ngIf="order.status=='New' && order.completedOffers>0">Previous offers by this user: <span class="text-highlight">{{order.completedOffers}}</span></div>
-                            <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
-                                (mousedown)="acceptPlacedOrder(order)" class="btn btn-success spacer">Accept</button>
-                            <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
-                                (mousedown)="declinePlacedOrder(order)" class="btn btn-danger spacer">Decline</button>
-                            <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
-                                (mousedown)="deleteCancelledOrder(order)" class="btn btn-main-color ">Delete</button>
-                            <button *ngIf="order.status=='Accepted' && !selectedOrder" [disabled]="loadingFlg"
-                                (mousedown)="deliverOrder(order)" class="btn btn-main-color">Deliver</button>
-                            <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src"
-                                (mousedown)="viewImage(order.src)" [src]="order.src" height="40"
-                                style="cursor: pointer;" class="thumbnail-img">
-                        </td>
-                    </tr>
-                    <tr *ngIf="myOffers.length==0">
-                        <td colspan="6" align="center">No offers placed yet.</td>
-                    </tr>
-                </table>
             </div>
             <div *ngIf="selectedOrder">
                 <div class="border-box" style="max-width: 400px;">
 
                     <div><b>Picture Type:</b> {{selectedOrder.type}}</div>
                     <div class="gray-text">Leave some comments:</div>
-                    <input type="text" maxlength="150" id="comments" placeholder="Comments on picture">
+                    <input type="text" maxlength="400" id="comments" placeholder="Comments on picture">
                     <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'"
                         (messageEvent)="uploadPicButtonClicked(1, 'updateBlogImage', 'Image1')"></app-upload-image>
 
@@ -385,15 +436,20 @@
             </div>
         </div>
 
-        <div *ngIf="selectedPerson" class="tan-box">
-            <i (mousedown)="selectedPerson=null" class="fa fa-times"
-                style="font-size: 18px; cursor: pointer; float: right;"></i>
+
+
+        <div *ngIf="selectedPerson" style="border-radius: 10px; border: 1px solid gray; margin: 10px; overflow: hidden; background-color: #eee;">
+            <div style="background-color: #444; color: white;">
+                {{selectedPerson.firstName}}
+                <i (mousedown)="selectedPerson=null" class="fa fa-times"
+                style="font-size: 18px; cursor: pointer; float: right; margin: 3px;"></i>
+            </div>
+            <div class="gray-text"><b>{{selectedPerson.firstName}}</b> is offering to send you a picture. Simply click one of the 'Request' buttons to place your order.</div>
+
             <table>
                 <tr>
                     <td width="120">
-                        <div class="gray-text"><b>{{selectedPerson.firstName}}</b> is offering to sell pictures. If you
-                            are interested in purchasing one, click one of the 'Buy' buttons.</div>
-
+ 
                         <app-profile-pic [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic"
                             [size]="100">
                         </app-profile-pic>
@@ -410,7 +466,7 @@
                             ago</div>
                     </td>
                     <td>
-                        <div class="gray-text">{{selectedPerson.details}}</div>
+                        <div style="font-size: 10px; padding: 10px;">{{selectedPerson.details}}</div>
                         <table class="betra-table" *ngIf="!selectedType" style="background-color: white;">
                             <tr>
                                 <th>Type</th>
@@ -421,9 +477,10 @@
                                 <td>{{type.type}}</td>
                                 <td style="font-size: 10px;" align="center">{{type.cost}} coins</td>
                                 <td><button *ngIf="!selectedPerson.hasOrderPlaced" (mousedown)="buyPicture(type)"
-                                        class="btn btn-warning btn-small">Buy</button></td>
+                                        class="btn btn-warning btn-small">Request</button></td>
                             </tr>
                         </table>
+                        <button (mousedown)="specialRequestFlg=!specialRequestFlg" class="btn btn-main-color btn-small">Special Request</button>
                         <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
                         <div *ngIf="selectedPerson.hasOrderPlaced"
                             style="background-color: yellow; font-size: 12px; padding: 10px;">You have an order placed
@@ -433,45 +490,65 @@
                         <div *ngIf="selectedType">
                             <div>Type: <span class="text-highlight">{{selectedType.type}}</span></div>
                             <div>Cost: <span class="text-highlight">{{selectedType.cost}} coins</span></div>
-                            <input type="text" maxlength="100" id="instructions" placeholder="Instructions">
+                            <input type="text" maxlength="400" id="instructions" placeholder="Instructions">
                             <button (mousedown)="placeOrder()" [disabled]="loadingFlg"
                                 class="btn btn-main-color btn-large" style="margin: 10px;">Place Order</button>
                             <button (mousedown)="selectedType=null" class="btn btn-warning spacer">Cancel</button>
                         </div>
+                        
                     </td>
                 </tr>
             </table>
+            <div *ngIf="specialRequestFlg">
+                <div>Special Request</div>
+                <div class="gray-text">Feel free to make any request you like. Your request can be accepted or declined. The person also has the option to block you from any further requests.</div>
+                <app-text-input [id]="'specialRequest'" [placeHolder]="'Instructions'" [maxLength]="400"></app-text-input>
+                Coins:
+                <select name="specialCoins" id="specialCoins">
+                    <option *ngFor="let value of coinValues">{{value}}</option>
+                </select>
+                <button (mousedown)="submitSpecialRequest()" class="btn btn-main-color btn-large" style="margin: 10px;">Submit Special Request</button>
+                <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            </div>
             <div *ngIf="selectedPerson.portfolioItems && selectedPerson.portfolioItems.length>0">
                 <div style="font-size: 10px;"><b>Portfolio</b></div>
                 <img (mousedown)="viewImage(item.src)" class="thumbnail-img"
                     *ngFor="let item of selectedPerson.portfolioItems" [src]="item.src" height="40" width="40">
             </div>
-            <div class="gray-text">(More photographers below)</div>
         </div>
 
-        <table *ngIf="activity==0" width="100%">
-            <tr>
-                <td align="center" valign="top">
-                    <div class="super-title"><b>Photographers (F)</b></div>
-                    <div style="font-size: 10px;">These users have been active recently</div>
-                    <div *ngFor="let seller of sellersF" style="display: inline-block; padding: 3px;">
-                        <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
-                        </app-profile-pic>
-                        <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
-                    </div>
-                </td>
-                <td align="center" valign="top">
-                    <div class="super-title"><b>Photographers (M)</b></div>
-                    <div style="font-size: 10px;">These users have been active recently</div>
-                    <div *ngFor="let seller of sellersM" style="display: inline-block; padding: 3px;">
-                        <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
-                        </app-profile-pic>
-                        <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
+        <div *ngIf="selectedPerson">
+            <span (mousedown)="selectedPerson=null" class="text-link">More photographers</span>
+        </div>
+        <div *ngIf="!selectedPerson">
+            <div class="tan-box">
+                The photographers below are available to send you a picture today!
+            </div>
+            <table *ngIf="activity==0" width="100%">
+                <tr>
+                    <td align="center" valign="top">
+                        <div class="super-title"><b>Photographers (F)</b></div>
+                        <div style="font-size: 10px;">These users have been active recently</div>
+                        <div *ngFor="let seller of sellersF" style="display: inline-block; padding: 3px;">
+                            <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
+                            </app-profile-pic>
+                            <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
+                            <div style="font-size: 8px;"><i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire" style="color: red; font-size: 12px;"></i>Orders: <span class="text-highlight">{{seller.ordersDelivered}}</span></div>
+                        </div>
+                    </td>
+                    <td align="center" valign="top">
+                        <div class="super-title"><b>Photographers (M)</b></div>
+                        <div style="font-size: 10px;">These users have been active recently</div>
+                        <div *ngFor="let seller of sellersM" style="display: inline-block; padding: 3px;">
+                            <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
+                            </app-profile-pic>
+                            <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
+                            <div style="font-size: 8px;"><i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire" style="color: red;"></i>Orders: <span class="text-highlight">{{seller.ordersDelivered}}</span></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </app-page-shell>
 

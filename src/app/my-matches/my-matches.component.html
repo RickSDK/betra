@@ -3,20 +3,30 @@
 
     <div class="matches-card"
         style="font-size: 14px; color: #444; position: relative; min-height: 510px; padding: 0 0 50px 0;" *ngIf="user">
-        <app-top-header2 [topTitle]="topTitle" [daysTillRoseCeremony]="user.daysTillRoseCeremony" [rosesToHandOut]="user.rosesToHandOut"></app-top-header2>
+        <app-top-header2 [topTitle]="topTitle" [daysTillRoseCeremony]="user.daysTillRoseCeremony"
+            [rosesToHandOut]="user.rosesToHandOut"></app-top-header2>
         <div class="btn-group" role="group" aria-label="Menu" style="box-shadow: 2px 2px 3px black; margin-top: 5px;">
             <button *ngFor="let button of menuButtons; let i=index;" (mousedown)="changeMenu(i)" type="button"
                 [ngClass]="ngClassButton(i)"><span class="variable-text">{{button}}</span></button>
-            <button (mousedown)="changeMenu(3)" *ngIf="user && user.datingPool.length >= 3" class="btn btn-light">
-                <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
-            </button>
+
         </div>
-        <button class="btn btn-main-color btn-small" [routerLink]="'/rose-ceremony'" style="margin: 10px;">Rose Ceremony</button>
+        <button (mousedown)="changeMenu(4)" *ngIf="user && user.datingPool.length >= 3" class="btn btn-light">
+            <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
+        </button>
+        <button class="btn btn-main-color btn-small" [routerLink]="'/rose-ceremony'" style="margin: 10px;">Rose
+            Ceremony</button>
 
         <div class="tan-box" *ngIf="user.datingPool.length <= 4">
-            You are down to just {{user.datingPool.length}} people in your dating pool. Click Rose Ceremony button above if you would like to fill it back up.
+            You are down to just {{user.datingPool.length}} people in your dating pool. Click Rose Ceremony button above
+            if you would like to fill it back up.
         </div>
-        <div *ngIf="(user.showHeartFormFlg && daysTillRoseCeremony <= 4) || menuNum==3" class="light-box" style="padding: 20px; text-align: center;">
+        <div class="tan-box" *ngIf="daysTillRoseCeremony == 0 && user.datingPool.length > 4">
+            You need to complete your Rose Ceremony!
+        </div>
+        
+
+        <div *ngIf="menuNum==4" class="light-box"
+            style="padding: 20px; text-align: center;">
             <img src="assets/images/rose1.png" height="120" alt="Rose" title="Rose">
             <div style="font-size: 20px;">Give someone a rose!</div>
             <p class="tiny-text">Pick one person to indicate they are your favorite. Everyone
@@ -39,12 +49,13 @@
                     your part.</div>
             </div>
             <p *ngIf="disableFormFlg">Select someone above to give your rose to.</p>
-            <p *ngIf="!disableFormFlg && selectedPerson && selectedPerson.name" class="red-text">Give your rose to {{selectedPerson.name}}?</p>
+            <p *ngIf="!disableFormFlg && selectedPerson && selectedPerson.name" class="red-text">Give your rose to
+                {{selectedPerson.name}}?</p>
             <div *ngIf="newlyAssignedRoseFlg" class="important-notice">
                 <div style="font-size: 16px;"><i class="fa fa-check"></i><b>Success!</b></div>
                 <div>Your rose has been given to <b>{{currentRoseHolder}}</b>. You are free to change this as often as
                     you like.
-                    Just keep in mind you only have one rose to hand out, so it needs to go to your favorite.</div>
+                    Just keep in mind, in between rose ceremonies, you only have one rose to hand out, so it needs to go to your favorite.</div>
             </div>
             <button *ngIf="!newlyAssignedRoseFlg" (mousedown)="assignHeart()" class="btn btn-main-color"
                 style="padding: 10px;" [disabled]="disableFormFlg">Give Rose!</button>
@@ -52,12 +63,30 @@
 
         <div>&nbsp;</div>
 
+        <div *ngIf="menuNum==1 && !loadingFlg">
+            Waiting to hear back from these users:
+        </div>
+        <div *ngIf="menuNum==2 && !loadingFlg">
+            <p><i class="fa fa-heart" style="color: red;"></i> These people are very interested in you.</p>
+        </div>
+        <div *ngIf="menuNum==3 && !loadingFlg">
+            <div>These users have dropped you:</div>
+            <div>&nbsp;</div>
+            <app-profile-pic *ngFor="let person of playerList" [user_id]="person.user_id"
+                [profilePic]="person.profilePic" [size]="80">
+            </app-profile-pic>
+            <div>&nbsp;</div>
+            <p class="gray-text">Sorry, but these users have decided to move on. Don't worry, plenty of more fish in the sea!</p>
+        </div>
+
         <div *ngIf="menuNum==0">
             <div *ngIf="user.datingPool.length==0 && playerList.length>0" class="tan-box">
                 <div>Waiting to hear back from the following people:</div>
-                <app-profile-pic *ngFor="let person of playerList" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
+                <app-profile-pic *ngFor="let person of playerList" [user_id]="person.user_id"
+                    [profilePic]="person.profilePic" [size]="30">
                 </app-profile-pic>
-                <div class="gray-text">As soon as one of them says yes to you, they will appear in your dating pool below.</div> 
+                <div class="gray-text">As soon as one of them says yes to you, they will appear in your dating pool
+                    below.</div>
             </div>
 
             <app-dating-pool [user]="user" [largeFlg]="true" (messageEvent)="loadPopupUser($event)"></app-dating-pool>
@@ -105,8 +134,6 @@
                     <div class="name-title">{{person.name}}</div>
                 </div>
                 <div *ngIf="playerList.length>0">
-                    <p><i class="fa fa-heart" style="color: red;"></i> These people are very interested in you, but are
-                        on your back burner.</p>
                     <p class="gray-text">The above profiles are people who are interested in you. Adding them to your
                         dating pool
                         will allow the two of you to start communicating.</p>
@@ -224,7 +251,8 @@
                         Once you have at least 5 people in your dating pool, you must assign a rose to your favorite.
                         Everyone in your dating pool will get to see who got your rose.
                     </p>
-                    <p>Does this seem scary? Yes, a little. But its also a way of being transparent with everyone in the dating
+                    <p>Does this seem scary? Yes, a little. But its also a way of being transparent with everyone in the
+                        dating
                         pool.</p>
                     <p>Not only does everyone in your dating pool get to see who you assigned your rose to, but you can
                         view the dating pools of everyone you are interested in to see who they gave roses to. It's fun

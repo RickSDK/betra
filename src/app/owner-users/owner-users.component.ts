@@ -65,12 +65,12 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
         count++;
         setTimeout(() => {
           console.log('emailing ', element.user_id, element.firstName);
-          this.getDataFromServer('emailUpdates2', 'report.php', { uid: element.user_id });
+          this.getDataFromServer('emailUpdates', 'report.php', { uid: element.user_id });
 
         }, count * 1000);
       });
     } else
-      this.getDataFromServer('emailUpdates2', 'report.php', { uid: 1 });
+      this.getDataFromServer('emailUpdates', 'report.php', { uid: 1 });
     console.log('count: ', count);
   }
 

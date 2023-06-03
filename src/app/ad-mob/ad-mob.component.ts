@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
 
 declare var getPlatform: any;
 
@@ -12,7 +12,7 @@ declare var getPlatform: any;
 export class AdMobComponent implements OnInit {
 
   constructor() { }
-  /*
+  
     async initialize() {
       const { status } = await AdMob.trackingAuthorizationStatus();
       console.log('admob status', status);
@@ -45,9 +45,9 @@ export class AdMobComponent implements OnInit {
       };
       await AdMob.showBanner(options);
     }
-  */
+  
     ngOnInit(): void {
-/*
+
       console.log('admob ngOnInit');
       this.initialize();
       
@@ -59,6 +59,6 @@ export class AdMobComponent implements OnInit {
         // Subscribe Change Banner Size
       });
   
-  */
+  
     }
 }

@@ -77,7 +77,7 @@
             Sorry, but only if they add you back, can you further communicate. Try to move on to someone new.
         </p>
     </div>
-    <div *ngIf="showTextInputFlg">
+    <div *ngIf="showTextInputFlg && matchUser.matchObj.match_level >= 2">
         <table width="100%">
             <tr>
                 <td>
@@ -90,9 +90,9 @@
             </tr>
         </table>
     </div>
-    <p *ngIf="matchUser && !showTextInputFlg && matchUser.matchObj.match_level < 2" class="gray-text">
-        Sorry, you are unable to send text messages to {{matchUser.firstName}} at this time. Click the pink down-arrow
-        button above to find out more info.
+    <p *ngIf="matchUser && matchUser.matchObj.match_level < 2" class="gray-text">
+        Sorry, you are unable to send text messages to {{matchUser.firstName}} at this time. Click the pink "More Details"
+        button above to find out why.
     </p>
     <div *ngIf="showIceBreakerFlg" style="padding: 10px;">
         <div style="font-size: 18px;"><b><i class="fa fa-cube"></i> Ice Breaker!</b></div>

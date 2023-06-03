@@ -1,0 +1,15 @@
+.emoji {
+    cursor: pointer;
+}
+
+.emoji:hover {
+    width: 40px;
+}
+
+.user-circle {
+    border-radius: 50%;
+    margin: 2px;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}

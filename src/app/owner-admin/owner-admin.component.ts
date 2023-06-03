@@ -34,6 +34,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   public potentialUsers: number = 0;
   public likedUsers: number = 0;
   public pageDetail: any = null;
+  public page: any = {};
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -100,7 +101,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      uid: this.responseJson.uid,
+      uid: this.page.uid,
       action: 'confirmPic'
     };
     //console.log('params', params);
@@ -111,7 +112,7 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
     var params = {
       userId: localStorage['user_id'],
       code: localStorage['code'],
-      uid: this.responseJson.uid,
+      uid: this.page.uid,
       reason: reason,
       action: 'rejectPic'
     };
@@ -123,17 +124,17 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   }
 
   flaggedUserButtonPressed(action: string) {
-    var params = { uid: this.responseJson.user.user_id, reason: 4 };
+    var params = { uid: this.page.user.user_id, reason: 4 };
     this.getDataFromServer(action, 'owners.php', params);
   }
 
   reviewReviewed(action: string) {
-    var params = { reviewId: this.responseJson.reviewObj.row_id };
+    var params = { reviewId: this.page.reviewObj.row_id };
     this.getDataFromServer(action, 'owners.php', params);
   }
 
   journalReviewed(action: string) {
-    var params = { journalId: this.responseJson.journal.row_id };
+    var params = { journalId: this.page.journal.row_id };
     this.getDataFromServer(action, 'owners.php', params);
   }
 
@@ -152,6 +153,11 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     //console.log('xxx', responseJson);
+    if (responseJson.action == 'logUser') {
+      console.log('no');
+      return;
+    }
+    this.page = responseJson;
     this.showRecordFlg = false;
     this.responseJson = responseJson;
     if (responseJson.action == 'approveRejectLink') {

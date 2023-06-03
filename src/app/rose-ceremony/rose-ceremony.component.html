@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="!loadingFlg && daysTillCeremony > 0 && menuNum == 102">
+<div *ngIf="!loadingFlg && !readyForRoseCeremony">
     <div style="width: 100%; text-align: center;">
         <div class="inner-block" style="text-align: left; background-color: black; padding: 20px; border-radius: 20px;">
             <div style="text-align: center;">
@@ -38,14 +38,9 @@
                     day<span *ngIf="daysTillCeremony!=1">s</span>.</p>
                 <p class="red-text"><span style="color: white;">How it works:</span> You currently have {{numSingles}}
                     people in your dating pool and {{rosesRemaining}} roses
-                    to hand out. This means you will be handing out roses to {{rosesRemaining}}
+                    to hand out. This means, at your next Rose Ceremony, you will be handing out roses to {{rosesRemaining}}
                     {{user.genderMatch}} and the others will be let go.</p>
-                <p class="red-text"> <span style="color: white;">Next Week:</span> You will then have another week to
-                    better
-                    get to know the
-                    {{user.genderMatch2}} remaining, at which time there will be another Rose Ceremony and you will
-                    further
-                    reduce the size of your dating pool.</p>
+
                 <p class="red-text" style="color: white;">Enjoy the game!</p>
                 <div>&nbsp;</div>
                 <div style="text-align: center;">

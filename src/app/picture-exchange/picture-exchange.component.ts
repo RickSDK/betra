@@ -4,6 +4,7 @@ import { DatabaseService } from '../services/database.service';
 import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
 import { PicturePopupComponent } from '../popups/picture-popup/picture-popup.component';
 import { Photographer } from '../classes/photographer';
+import { ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 
@@ -29,6 +30,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public activity = 0;
   public lastSalePrice = 10;
   public currentPrice = 10;
+  public mostOrders: number = 0;
   public myCoins = 0;
   public buyerFlg: string = '';
   public sellerFlg: string = '';
@@ -68,13 +70,43 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public offerMenuNum: number = 0;
   public deletePortfolioImageFlg: boolean = false;
   public newOrdersDeliveredFlg: boolean = false;
+  public uid: number = 0;
+  public moreDetailsFlg: boolean = false;
+  public specialRequestFlg: boolean = false;
+  public coinValues: any = ['select'];
 
-  constructor(databaseService: DatabaseService) { super(databaseService); }
+  constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.calculateCost(10);
     this.myCoins = this.user.points;
+    if (this.myCoins > 0)
+      this.coinValues.push('1');
+    if (this.myCoins > 5) {
+      this.coinValues.push('2');
+      this.coinValues.push('5');
+    }
+    if (this.myCoins > 10)
+      this.coinValues.push('10');
+    if (this.myCoins > 25)
+      this.coinValues.push('25');
+    if (this.myCoins > 50)
+      this.coinValues.push('50');
+    if (this.myCoins > 100)
+      this.coinValues.push('100');
+    if (this.myCoins > 200)
+      this.coinValues.push('200');
+    if (this.myCoins > 300)
+      this.coinValues.push('300');
+
+    this.coinValues.push(this.myCoins.toString());
+
+    console.log('xxx', this.coinValues);
+
+    this.route.queryParams.subscribe(params => {
+      this.uid = params['uid'] || 0;
+    });
 
     this.getDataFromServer('loadMarket', 'market.php', {});
 
@@ -142,6 +174,24 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('deleteThisImage', 'market.php', { orderId: item.id });
     this.selectedPerson = null;
     this.editSellerFlg = false;
+  }
+
+  submitSpecialRequest() {
+    this.errorMessage = '';
+    var instructions = $('#specialRequest').val();
+    var coins = $('#specialCoins').val();
+    console.log(instructions, coins);
+    if(instructions == '') {
+      this.errorMessage = 'Enter instructions for the request';
+      return;
+    }
+    if(coins == 'select') {
+      this.errorMessage = 'Select number of coins';
+      return;
+    }
+    this.getDataFromServer('placeOrder', 'market.php', { uid: this.selectedPerson.user_id, type: 'Special', cost: coins, instructions: instructions });
+    this.selectedPerson = null;
+
   }
 
   placeOrder() {
@@ -435,7 +485,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.myPhotographer = new Photographer(responseJson);
       var orderList: any = {}
 
-      console.log('myPhotographer', this.myPhotographer);
+      //console.log('myPhotographer', this.myPhotographer);
 
       this.myOrders.forEach((element: any) => {
         if (element.status == 'New' || element.status == 'Accepted')
@@ -445,7 +495,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
           this.newOrdersDeliveredFlg = true;
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.uid + '_' + element.row_id + '.jpg';
       });
-      console.log('orderList', orderList);
+      //console.log('orderList', orderList);
       this.myOrders.sort((a: any, b: any) => a.status.localeCompare(b.status));
       this.filterOrderItems(0);
 
@@ -470,14 +520,26 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.sellersF = [];
       responseJson.sellers.forEach((element: any) => {
         element.hasOrderPlaced = orderList[element.user_id];
+
+        if (parseInt(element.ordersDelivered) > this.mostOrders) {
+          this.mostOrders = element.ordersDelivered;
+        }
+
         if (element.gender == 'F')
           this.sellersF.push(new Photographer(element));
         else
           this.sellersM.push(new Photographer(element));
       });
 
-      if (this.sellersF.length > 0) {
-        this.viewSeller(this.sellersF[this.sellersF.length - 1]);
+      if (this.uid > 0) {
+        this.sellersF.forEach((element: { user_id: number; }) => {
+          if (element.user_id == this.uid)
+            this.viewSeller(element);
+        });
+        this.sellersM.forEach((element: { user_id: number; }) => {
+          if (element.user_id == this.uid)
+            this.viewSeller(element);
+        });
       }
 
       this.calculateSellableCoins(this.myCoins);
@@ -487,7 +549,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       else if (this.newOrdersDeliveredFlg && this.betraPopupComponent)
         this.betraPopupComponent.showPopup('You have a new picture delivered!', 'Check the "My Orders" section and click "Confirm" to complete the transaction.');
 
-      console.log('lastSalePrice', this.lastSalePrice, this.sellersM);
+      //console.log('lastSalePrice', this.lastSalePrice, this.sellersM);
     }
 
   }

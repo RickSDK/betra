@@ -16,9 +16,6 @@ export class GameRoomComponent extends BaseComponent implements OnInit {
 
   constructor(databaseService: DatabaseService, private wsService: WebsocketService) {
     super(databaseService);
-    this.wsService.messages.subscribe((msg: any) => {
-      console.log('Response: ', msg)
-    });
   }
 
   private message: any = {

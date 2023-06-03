@@ -60,13 +60,20 @@
                         style="float: right; cursor: pointer; margin: 3px; font-size: 18px;" class="fa fa-edit"></i>
 
                     <hr>
-                    <div title="id: {{user.user_id}}" style="font-size: 20px; font-weight: 600;">
+                    <div style="font-size: 20px; font-weight: 600;">
                         <span class="name-bar"><img src="assets/images/rose5.png" height="20"
                                 *ngIf="user.user_id == myUser.heartId" alt="Rose" title="Rose">
-                            <span><i [class]="user.icon" [title]="user.userTitle" style="font-size: 10px;"></i></span>
-                            {{user.firstName}},
+                            <i [class]="user.icon" [title]="user.userTitle"
+                                style="font-size: 10px; float: right; color: #ccc;"></i>
+                            <i *ngIf="user.picCertificateFlg" title="Verified User!" class="fa fa-check"
+                                style="color: rgb(86, 127, 209); vertical-align: super;"></i>
+                            <span title="id: {{user.user_id}}">{{user.firstName}}</span>,
                             {{user.age}}&nbsp;
                         </span>
+
+                    </div>
+                    <div *ngIf="user.status == 'Suspend'" class="tan-box">
+                        Note this user is currently suspended
                     </div>
                     <div *ngIf="user.status == 'Deleted'" class="tan-box">
                         <div><b>Status:</b> {{user.status}}</div>
@@ -216,6 +223,9 @@
                         <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-profile"><i
                                 class="fa fa-arrow-circle-down"></i> More Details</button>
 
+                        <button *ngIf="user.photographerId>0" [routerLink]="['/photography']" [queryParams]="{uid: user.user_id}" class="btn btn-main-color btn-profile"><i
+                                class="fa fa-picture-o"></i> Request Pic</button>
+
                         <button
                             *ngIf="user.potentialLoveInterestFlg && !showTextWarning && (!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 4)"
                             (mousedown)="showTextWarning=true;" class="btn btn-main-color btn-profile"><i
@@ -313,7 +323,8 @@
                             <div style="font-size: 8px;">Reset to regular member.</div>
                         </div>
                         <div *ngIf="myUser.user_id==1" style="text-align: center;">
-                            <button [routerLink]="['/owner-msg']" [queryParams]="{uid: user.user_id}" class="btn btn-primary">Msg
+                            <button [routerLink]="['/owner-msg']" [queryParams]="{uid: user.user_id}"
+                                class="btn btn-primary">Msg
                             </button>
                         </div>
 

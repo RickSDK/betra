@@ -54,6 +54,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public showYesNoButtonsFlg: boolean = false;
   public noLocationInfoFoundFlg: boolean = false;
   public newGifts: boolean = false;
+  public daysTillRoseCeremony: number = 0;
   //  public showOverflowPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
@@ -193,6 +194,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'getMyAdmirers2') {
       this.profileViews = responseJson.profileViews;
+      this.daysTillRoseCeremony = responseJson.daysTillRoseCeremony || 0;
       this.noLocationInfoFoundFlg = responseJson.noLocationInfoFoundFlg;
       if (this.profileViews < 0)
         this.profileViews = 0;
@@ -207,6 +209,10 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
         this.playerList.sort((a: any, b: any) => {
           return b.matchQualityIndex - a.matchQualityIndex;
         });
+
+        if (this.daysTillRoseCeremony == 0) {
+          this.playerList = [];
+        }
         //console.log('xxxthis.playerList (sorted)', this.playerList);
 
         //this.playerList.forEach((element: any) => {

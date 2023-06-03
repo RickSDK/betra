@@ -89,7 +89,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
       this.datingPool.push(dpItem)
     }
     if (this.datingPool.length != this.user.datingPool.length) {
-      console.log('DP: out of sync!');
+      console.log('DP: out of sync! going to dating pool tab should fix this.');
     }
     //console.log('+++dp', this.user.datingPool);
   }

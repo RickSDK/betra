@@ -12,15 +12,15 @@
         <div><b>Never Have I Ever</b></div>
         <button (mousedown)="showRulesFlg=!showRulesFlg" class="btn btn-main-color spacer"><i class="fa fa-book"></i>
             Rules</button>
-        <button [routerLink]="['/game-inever']" class="btn btn-main-color spacer"><i class="fa fa-play"></i>
-            Play</button>
+        <button [routerLink]="['/game-inever']" class="btn btn-main-color spacer" style="padding: 20px;"><i class="fa fa-play"></i>
+            Play Now!</button>
         <div *ngIf="showRulesFlg" class="tan-box" style="font-size: 12px; text-align: left;">
             <p><b>Never have I ever</b> - The rules are very simple:</p>
             <li>Must have at least 4 people in the room to start playing</li>
             <li>Players take turns saying something they have never done.</li>
             <li>Each player in the room must signify if they have or have not done that thing.</li>
             <li>Play continues to the next person</li>
-            <li>There are no points, no winners and no losers. Players can join or exit at any time.</li>
+            <li>First person to answer Yes 5 times wins!</li>
         </div>
         <div>
             <img [routerLink]="['/game-inever']" src="assets/images/games/iNever.jpeg" class="game-button">

@@ -35,6 +35,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
   public skip: string = '';
   public showBeginCeremonyButtonFlg: boolean = false;
   public startHandingRosesFlg = false;
+  public readyForRoseCeremony: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService) }
 
@@ -206,6 +207,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       this.menuNum = (this.daysTillCeremony > 0) ? 99 : 0;
 
       this.numSingles = responseJson.dpCount;
+      this.readyForRoseCeremony = this.daysTillCeremony == 0;
       this.roseCeremonyDt = responseJson.roseCeremonyDt;
       if (responseJson.roseCeremonyDt != "") {
         this.rosesRemaining = this.numSingles - 3;
@@ -224,7 +226,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'loadMyDatingPool') {
       this.daysTillCeremony = responseJson.daysTillCeremony;
-
+      this.readyForRoseCeremony = this.daysTillCeremony == 0 || responseJson.playerList.length <= 4;
       if (this.daysTillCeremony > 0) {
         this.numSingles = responseJson.playerList.length;
         this.menuNum = (this.numSingles <= 4) ? 102 : -1;
@@ -239,7 +241,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       this.daysTillCeremony = responseJson.daysTillCeremony;
 
       var fullList: any = [];
-      var includedHash:any = {};
+      var includedHash: any = {};
       if (this.responseJson.datingPool) {
         this.responseJson.datingPool.forEach((element: any) => {
           element.hasRose = true;
@@ -247,10 +249,11 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
           fullList.push(new User(element, this.user));
         });
       }
+      this.readyForRoseCeremony = this.daysTillCeremony == 0 || responseJson.playerList.length <= 4;
 
       if (this.responseJson.playerList) {
         this.responseJson.playerList.forEach((element: any) => {
-          if(!includedHash[element.user_id])
+          if (!includedHash[element.user_id])
             fullList.push(new User(element, this.user));
         });
 
