@@ -5,6 +5,8 @@ import { Blog } from '../classes/blog';
 import { Meta, Title } from '@angular/platform-browser';
 import { DatabaseService } from '../services/database.service';
 
+declare var getPlatform: any;
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -19,6 +21,7 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
   public blogList: any = [];
   public backgroundImg = 'assets/images/landing/roseHome.png';
   public referralId: number = 0
+  public type: string = '';
   //public bgImg = 'assets/images/landing/logoBlack.png';
 
   constructor(private meta: Meta, private title: Title, private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) {
@@ -33,6 +36,9 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
     // }, 1000);
     this.route.queryParams.subscribe(params => {
       this.login = params['login'] || 0;
+      this.type = params['type'] || '';
+      if (getPlatform() == 'IOS')
+        this.type = 'lite';
       this.referralId = params['referralId'] || 0;
       if (this.referralId > 0) {
         this.login = 2;
@@ -40,10 +46,12 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
       }
     })
 
+
     if (this.userId > 0)
       this.gotoMainMenu();
-    else
-      window.scrollTo(0, 0);
+    else if (this.type == 'lite') {
+      this.router.navigate(['landing-lite'], { queryParams: { 'login': this.login } });
+    }
 
   }
   toggleBackground() {

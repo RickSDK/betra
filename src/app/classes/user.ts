@@ -283,8 +283,8 @@ export class User {
             this.numSingles = (obj.gender == 'F') ? 20 : 40;
             this.rosesToHandOut = (obj.gender == 'F') ? 10 : 20;
 
-            //this.findLoveFlg = obj.findLoveFlg == 'Y';
-            this.findLoveFlg = true; // always true for this version
+            this.findLoveFlg = obj.findLoveFlg == 'Y';
+            //this.findLoveFlg = true; // always true for this version
             this.meetPeopleFlg = obj.meetPeopleFlg == 'Y';
             this.makeMoneyFlg = obj.makeMoneyFlg == 'Y';
             this.profilePic = obj.profilePic;
@@ -618,10 +618,13 @@ export class User {
         }
 
 
-        if (this.status == 'Started' && !this.matchAge) {
-            this.pendingStatusReason = 'Enter your match section';
-            this.pendingStatusPage = 8;
-            //this.status = 'Pending';
+        if (this.status == 'Started') {
+            this.pendingStatusReason = 'Complete your profile';
+            this.pendingStatusPage = 0;
+        }
+        if (this.status == 'Started' && !this.findLoveFlg) {
+            this.pendingStatusReason = 'Complete your profile';
+            this.pendingStatusPage = 0;
         }
 
         if (this.matchAge == 0) {
@@ -776,6 +779,8 @@ export class User {
 
         //----Basics
         var basicsFlg = !!(this.gender && this.matchPreference);
+        if (!this.findLoveFlg)
+            basicsFlg = !!(this.gender);
         //if (basicsFlg && this.findLoveFlg && !this.matchPreference)
         //  basicsFlg = false;
 
@@ -795,7 +800,7 @@ export class User {
             politicsFlg = false;
 
         var matchFlg = true;
-        if (this.status != 'Active' && this.status != 'Deleted') {
+        if (this.findLoveFlg && this.status != 'Active' && this.status != 'Deleted') {
             this.story = '';
             matchFlg = false;
         }
@@ -804,34 +809,36 @@ export class User {
 
         var additionalPicsFlg = true;
         var verifyFlg = true;
-        if (this.status == 'Active' && !basicsFlg) {
-            this.pendingStatusReason = 'Complete Basic info screen';
-            this.pendingStatusPage = 0;
+
+
+        if (!matchFlg) {
+            this.pendingStatusReason = 'Complete your ideal-match info screen';
+            this.pendingStatusPage = 7;
             this.status = 'Pending';
         }
-        if (this.status == 'Active' && !detailsFlg) {
-            this.pendingStatusReason = 'Complete Details info screen';
-            this.pendingStatusPage = 2;
-            this.status = 'Pending';
-        }
-        if (this.status == 'Active' && !quizFlg) {
-            this.pendingStatusReason = 'Complete Personality Test';
-            this.pendingStatusPage = 3;
-            this.status = 'Pending';
-        }
-        if (this.status == 'Active' && !politicsFlg) {
-            this.pendingStatusReason = 'Complete Politics Quiz ';
-            this.pendingStatusPage = 4;
-            this.status = 'Pending';
-        }
-        if (this.status == 'Active' && !profilePicFlg) {
+        if (!profilePicFlg) {
             this.pendingStatusReason = 'Upload a good photo of your face';
             this.pendingStatusPage = 5;
             this.status = 'Pending';
         }
-        if (this.status == 'Active' && !matchFlg) {
-            this.pendingStatusReason = 'Complete your ideal-match info screen';
-            this.pendingStatusPage = 7;
+        if (!politicsFlg) {
+            this.pendingStatusReason = 'Complete Politics Quiz ';
+            this.pendingStatusPage = 4;
+            this.status = 'Pending';
+        }
+        if (!quizFlg) {
+            this.pendingStatusReason = 'Complete Personality Test';
+            this.pendingStatusPage = 3;
+            this.status = 'Pending';
+        }
+        if (!detailsFlg) {
+            this.pendingStatusReason = 'Complete Details info screen';
+            this.pendingStatusPage = 2;
+            this.status = 'Pending';
+        }
+        if (!basicsFlg) {
+            this.pendingStatusReason = 'Complete Basic info screen';
+            this.pendingStatusPage = 0;
             this.status = 'Pending';
         }
 

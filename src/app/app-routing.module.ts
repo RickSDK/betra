@@ -78,9 +78,11 @@ import { CheckListComponent } from './check-list/check-list.component';
 import { OwnerMsgComponent } from './owner-msg/owner-msg.component';
 import { GameIneverComponent } from './game-inever/game-inever.component';
 import { OwnerProcessCcComponent } from './owner-process-cc/owner-process-cc.component';
+import { LandingPageLiteComponent } from './landing-page-lite/landing-page-lite.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
+  { path: 'landing-lite', component: LandingPageLiteComponent },
   { path: 'home', component: MainMenuComponent },
   { path: 'game-inever', component: GameIneverComponent },
   { path: 'process-cc', component: OwnerProcessCcComponent },

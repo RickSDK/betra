@@ -66,7 +66,7 @@ export class CheckListComponent extends BaseComponent implements OnInit {
         this.levelItems.push({ name: 'Messages sent to users', amount: responseJson.messageCount, goal: 100 });
         this.levelItems.push({ name: 'Gifts given to users', amount: responseJson.giftsGiven, goal: 6 });
         this.levelItems.push({ name: 'Pictures requested from Photo Club', amount: responseJson.picsRequested, goal: 8 });
-        this.levelItems.push({ name: 'Games Played at Game Room', amount: responseJson.gamesPlayed, goal: 4 });
+        this.levelItems.push({ name: 'Games Played at Game Room', amount: responseJson.gamesINever, goal: 4 });
       }
 
     }

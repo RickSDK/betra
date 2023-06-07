@@ -17,7 +17,7 @@
                         [style.color]="user.profileFlags[menuNum]?'#7f7':'yellow'"></i>
                     {{menuTitles[menuNum]}}
                     <div style="font-size: 12px; color: #eee;">{{menuDesc[menuNum]}}</div>
-                    <div *ngIf="menuNum<8" style="font-size: 10px;">{{menuNum+1}} of 9</div>
+                    <div *ngIf="menuNum<8" style="font-size: 10px;">{{menuNum+1}} of {{NUM_ITEMS}}</div>
                 </div>
                 <div *ngIf="!email">Error! No email: {{email}}</div>
                 <div *ngIf="!code" style="background-color: yellow;">App is out of sync. Try logging out and logging
@@ -25,7 +25,15 @@
                 <!-------------------------0------------------------->
                 <div class="menu-section" *ngIf="menuNum==0">
                     <div>
-                        <div class="container-fluid" style="padding: 0;">
+                        <div *ngIf="platform != 'IOS'">
+                            <div class="red-text">What features are you interested in?</div>
+                            <i (mousedown)="toggleFindLoveFlg()" [ngClass]="findLoveFlg?'fa fa-check-square-o input-box':'fa fa-square-o input-box'"></i> Finding love
+                            <i class="fa fa-check-square-o input-box"></i> Photo Club
+                            <i class="fa fa-check-square-o input-box"></i> Entertainment    
+                            <hr>
+                        </div>
+
+                         <div class="container-fluid" style="padding: 0;">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="tiny-text">First Name</div>
@@ -68,7 +76,7 @@
                                         gender
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-6" *ngIf="findLoveFlg && !liteModeFlg">
                                     <div *ngIf="user.findLoveFlg">
                                         <div class="tiny-text"><i class="fa fa-asterisk" style="color: red;"></i> Show Me (I want to date)</div>
                                         <table>
@@ -140,7 +148,7 @@
 
 
                 <!-----------------------------1-------------------------->
-                <div class="menu-section" *ngIf="menuNum==2">
+                <div class="menu-section" *ngIf="menuNum==2 && !liteModeFlg">
                     <div style="font-size: 22px;">Tell us about yourself</div>
                     <div *ngIf="!user.city" style="background-color: yellow;">Note: your location information is
                         not
@@ -399,7 +407,7 @@
                 </div>
 
                 <!-----------------------------2--personality quiz------------------------>
-                <div class="menu-section" *ngIf="menuNum==3 && user.findLoveFlg">
+                <div class="menu-section" *ngIf="menuNum==3 && findLoveFlg">
                     <div *ngIf="!user.findLoveFlg">Note, you did not select the "Find Love" option, so skip this
                         step
                     </div>
@@ -446,7 +454,7 @@
 
 
                 <!-----------------------------5-------------------------->
-                <div class="menu-section" *ngIf="menuNum==5">
+                <div class="menu-section" *ngIf="menuNum==5 || menuNum==2 && liteModeFlg">
 
                     <p>Upload a photo of yourself.</p>
                     <app-upload-image-crop [loadingFlg]="loadingFlg" [src]="user.imgSrc"
@@ -617,6 +625,13 @@
 
 
                 <!--------------------------9------------------>
+                <div class="menu-section" *ngIf="menuNum==3 && !findLoveFlg">
+                    <h1>Congratulations!</h1>
+                    <div> Your profile is now active. Enjoy the app.</div>
+                    <button [routerLink]="['']" class="btn red-button">Get
+                        Started!</button>
+
+                </div>
                 <div class="menu-section" *ngIf="menuNum==9">
                     <h1>Congratulations!</h1>
                     <div> Your profile is now active. Enjoy your journey.</div>

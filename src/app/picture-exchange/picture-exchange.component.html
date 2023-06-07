@@ -1,16 +1,16 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
-    [userStatus]="userStatus">
+[pageTitle]="'Photo Club'" [userStatus]="userStatus">
 
     <div class="matches-card" *ngIf="user" style="padding: 0;">
 
-        <app-top-header2 [topTitle]="'Photography Club'"></app-top-header2>
+        <app-top-header2 [topTitle]="'Photo Club'"></app-top-header2>
         <app-picture-popup></app-picture-popup>
         <div style="padding: 10px;">
             <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
             <div *ngIf="result" class="important-notice">{{result}}</div>
 
             <div *ngIf="activity==0">
-                <div class="red-text">Welcome to the Betra Photography Club!</div>
+                <div class="red-text">Welcome to the Betra Photo Club!</div>
 
                 <table>
                     <tr>

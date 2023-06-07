@@ -4,7 +4,7 @@
     <div class="matches-card" style="text-align: center; max-width: 800px;">
         <app-top-header [topTitle]="'Contact'"></app-top-header>
         <hr>
-        <p>Welcome to <span class="red-text">Betra</span>, the hottest new dating site, where safety and quality come first! Betra is Greek for "better," and we are not shy about making that claim.</p>
+        <p *ngIf="!liteModeFlg">Welcome to <span class="red-text">Betra</span>, the hottest new dating site, where safety and quality come first! Betra is Greek for "better," and we are not shy about making that claim.</p>
 
         <div *ngFor="let person of staff" class="contact-person">
             <div class="main-color-bg" style="font-size: 12px; font-weight: 700;">{{person.title}}</div>

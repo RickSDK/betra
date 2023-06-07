@@ -1,6 +1,6 @@
 <app-page-shell [userId]="userId" [pageTitle]="'Betra Blogs'" [headerObj]="headerObj" [userStatus]="userStatus"
     [stickyBottomFlg]="true">
-
+ 
     <div class="matches-card" style="text-align: center;">
         <app-top-header [topTitle]="'Blogs'"></app-top-header>
         <button *ngIf="user && user.ownerFlg" [routerLink]="['/blog-manage']" [queryParams]="{e: 'Y'}"

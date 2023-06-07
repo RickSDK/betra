@@ -21,8 +21,8 @@ declare let getPlatform: any;
 export class LoginPopupComponent extends BaseComponent implements OnInit {
   @Input('login') login: number = 0;
   @Input('referralId') referralId: number = 0;
-
-
+  @Input('liteModeFlg') override liteModeFlg: boolean = false;
+  
   @Output() messageEvent = new EventEmitter<string>();
 
   public static readonly PROVIDER_ID: string = 'APPLE';
@@ -337,6 +337,10 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       this.errorMessage = 'Fill out the form.';
       return;
     }
+
+    if(this.platform == 'IOS') {
+      this.liteModeFlg = true;
+    }
     var code = btoa(password);
     localStorage['code'] = code;
     localStorage['email'] = email;
@@ -346,7 +350,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       code: code,
       referralId: this.referralId,
       firstName: firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1),
-      findLoveFlg: 'Y',
+      findLoveFlg: this.liteModeFlg?'N':'Y',
       action: 'createAccount'
     };
 

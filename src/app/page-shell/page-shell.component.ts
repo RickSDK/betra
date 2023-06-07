@@ -88,12 +88,13 @@ export class PageShellComponent implements OnInit {
         }
         this.firstName = user.firstName;
         this.imgSrcFile = user.imgSrc;
-        if (user.status == 'Active')
+/*        if (user.status == 'Active')
           this.showPromotionalBoxesFlg = false;
         else {
+          this.userId = 0;
           if (this.pageTitle != 'Profile')
             this.showPageFlg = false;
-        }
+        }*/
 
       }
       this.showAboutInfoFlg = false;

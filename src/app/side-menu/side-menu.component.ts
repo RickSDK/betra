@@ -26,7 +26,7 @@ export class SideMenuComponent implements OnInit {
     { name: 'Browse', routerLink: '/browse-singles', icon: 'fa fa-search', id: 2 },
     { name: 'Dating Pool', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
     //    { name: 'Online Today', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
-    { name: 'Photography', routerLink: '/photography', icon: 'fa fa-picture-o', id: 15 },
+    { name: 'Photo Club', routerLink: '/photography', icon: 'fa fa-picture-o', id: 15 },
     { name: 'Top 10', routerLink: '/top-lists', icon: 'fa fa-list-ol', id: 6 },
 
   ];
@@ -64,7 +64,8 @@ export class SideMenuComponent implements OnInit {
 
     this.toggleInteractMenu = (this.messageCount + this.dateCount + this.journalCount > 0);
 
-    this.bottomItems.push({ name: 'Reputation', routerLink: '/reputation', icon: 'fa fa-certificate', id: 0 });
+    if (!this.headerObj.liteModeFlg)
+      this.bottomItems.push({ name: 'Reputation', routerLink: '/reputation', icon: 'fa fa-certificate', id: 0 });
 
     if (this.date2Count > 0) {
       this.middleItems.push({ name: 'Dates', routerLink: '/user-dates', icon: 'fa fa-calendar', id: 12 });
@@ -73,6 +74,20 @@ export class SideMenuComponent implements OnInit {
       this.bottomItems.push({ name: 'Owners', routerLink: '/owner-admin', icon: 'fa fa-briefcase', id: 13 });
       //this.bottomItems.push({ name: 'Approve Profile Pic', routerLink: '/user-detail', icon: 'fa fa-picture-o', id: 7 });
     }
+
+    if (this.headerObj.liteModeFlg) {
+      this.topItems = [
+        { name: 'Home', routerLink: '', icon: 'fa fa-home', id: 0 },
+        { name: 'Photo Club', routerLink: '/photography', icon: 'fa fa-picture-o', id: 15 },
+        { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
+        { name: 'Blogs', routerLink: '/blogs', icon: 'fa fa-file-text', id: 0 },
+        { name: 'Polls', routerLink: '/poll', icon: 'fa fa-question-circle', id: 0 },
+        { name: 'Marketplace', routerLink: '/market', icon: 'fa fa-line-chart', id: 0 },
+    
+      ];
+      this.middleItems = [];
+    }
+
   }
 
   browseSelected(flag: boolean) {

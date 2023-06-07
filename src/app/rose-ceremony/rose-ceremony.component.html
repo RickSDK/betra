@@ -1,6 +1,5 @@
 <img id="roseBg" src="assets/images/landing/roseHome.png"
     style="width: 100%; height: 100vh; object-fit: cover; position: fixed; z-index: -1;">
-
 <div *ngIf="menuNum==101">
     <div style="width: 100%; text-align: center;">
         <div class="inner-block"
@@ -22,7 +21,7 @@
             <div style="text-align: center;">
                 <img src="assets/images/rose1.png" height="80">
             </div>
-            <div *ngIf="numSingles<=4">
+            <div *ngIf="numSingles<=MIN_SINGLES">
                 <p *ngIf="numSingles==1" class="red-text">You are down to just 1 person in your dating pool and your next rose ceremony is in {{daysTillCeremony}} days.</p>
                 <p *ngIf="numSingles!=1" class="red-text">You are down to just {{numSingles}} people in your dating pool and your next rose ceremony is in {{daysTillCeremony}} days.</p>
                 <p class="red-text">Would you like to add a new batch of singles to your dating pool or keep going with your current pool?</p>
@@ -32,7 +31,7 @@
                 <div>&nbsp;</div>
                 <button (mousedown)="startNewGame()" class="btn btn-main-color btn-large spacer">Find New Singles</button>
             </div>
-            <div *ngIf="numSingles>4">
+            <div *ngIf="numSingles>MIN_SINGLES">
                 <p class="red-text" style="font-size: 16px;">Your next rose ceremony happens in <span
                         style="color: white; font-size: 18px;">{{daysTillCeremony}}</span>
                     day<span *ngIf="daysTillCeremony!=1">s</span>.</p>
@@ -116,7 +115,7 @@
     <div *ngIf="!startHandingRosesFlg" style="text-align: center;">
         <div class="inner-block">
             <div>&nbsp;</div>
-            <div *ngIf="users.length>0" style="width: 100%; max-width: 380px; display: inline-block;" class="red-text">
+            <div *ngIf="users.length>MIN_SINGLES" style="width: 100%; max-width: 380px; display: inline-block;" class="red-text">
                 You
                 have
                 {{rosesRemaining}} roses to hand out. This is simply to choose the people you might be interested in
@@ -126,23 +125,25 @@
                 Sorry, there is no one left in your dating pool. Click Start Over to try again with a new batch of
                 singles.</div>
             <div>&nbsp;</div>
-            <div *ngIf="users.length<4 && users.length > 0">
+            <div *ngIf="users.length<MIN_SINGLES && users.length > 0">
                 <div style="width: 100%; max-width: 380px; display: inline-block; background-color: black;"
                     class="red-text">Note: you are down to a
-                    very small dating pool. Did you want to continue handing out roses to this pool, or say goodbye to
-                    them
-                    and start with a new batch of singles?</div>
+                    very small dating pool. Did you want to continue with your current pool, or add a new batch of singles?</div>
                 <div>&nbsp;</div>
             </div>
             <img src="assets/images/rose1.png" style="width: 100%; max-width: 100px;">
 
-            <button *ngIf="users.length>0" [disabled]="users.length==0" (mousedown)="startHandingRosesFlg=true"
+            <button *ngIf="users.length>0 && (daysTillCeremony==0 || startNewGameFlg)" [disabled]="users.length==0" (mousedown)="startHandingRosesFlg=true"
                 class="btn btn-main-color btn-large">Hand out your
                 roses</button>
 
-            <div *ngIf="users.length<4">
+            <div *ngIf="users.length<MIN_SINGLES">
                 <div>&nbsp;</div>
-                <button (mousedown)="startNewGame()" class="btn btn-main-color btn-large">Start Over</button>
+                <button (mousedown)="startNewGame()" class="btn btn-main-color btn-large">Add new singles</button>
+                <div>&nbsp;</div>
+                <button *ngIf="daysTillCeremony>0" [routerLink]="''" class="btn btn-main-color btn-large">Wait for Rose Ceremony</button>
+                <div>&nbsp;</div>
+                <span [routerLink]="''" class="text-link">Exit</span>
             </div>
         </div>
     </div>

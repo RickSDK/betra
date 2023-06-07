@@ -1,4 +1,4 @@
-<div [ngClass]="slideOverFlg?'slide-in-menu':'side-menu'">
+<div *ngIf="headerObj" [ngClass]="slideOverFlg?'slide-in-menu':'side-menu'">
     <div class="group-heading hidden-xs">discover</div>
     <div *ngFor="let item of topItems">
         <div *ngIf="item.id>0 && item.id != 2" [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}"
@@ -25,7 +25,7 @@
             <span>{{item.name}}</span>
         </div>
     </div>
-    <div class="group-heading" (mousedown)="toggleInteractMenu=!toggleInteractMenu">Interact
+    <div *ngIf="!headerObj.liteModeFlg" class="group-heading" (mousedown)="toggleInteractMenu=!toggleInteractMenu">Interact
         <i [ngClass]="toggleInteractMenu?'fa fa-caret-down caret-icon':'fa fa-caret-right caret-icon'"></i>
     </div>
     <div *ngIf="toggleInteractMenu">

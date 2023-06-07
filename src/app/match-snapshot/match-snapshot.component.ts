@@ -64,13 +64,16 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
 
     if (this.showMoreFlg)
       this.collpaseBottom()
-    //console.log('xxxinitModal', this.matchUser);
 
     if (this.profileTopComponent) {
       this.profileTopComponent.ngOnInit();
     }
 
     this.calculateMatches(user, matchUser, matchObj);
+
+    if (this.matchUser.newReviewBy) {
+      console.log('xxxinitModal', this.matchUser.newReviewBy);
+    }
 
   }
 

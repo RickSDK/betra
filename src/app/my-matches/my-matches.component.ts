@@ -39,6 +39,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public currentRoseHolder: string = '';
   public newlyAssignedRoseFlg: boolean = false;
   public daysTillRoseCeremony: number = 7;
+  public datingPool:any = [];
+
   @ViewChild(DatingPoolComponent)
   private datingPoolComponent = {} as DatingPoolComponent;
 
@@ -127,7 +129,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     this.playerList = [];
 
     if (num == 0) {
-      this.getDataFromServer('loadMyDatingPool', 'roseCeremony.php', {});
+      this.getDataFromServer('refreshDatingPool', 'appApiCode.php', {});
     }
     if (num == 1) {
       var params = {
@@ -224,7 +226,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.syncUserWithLocalStorage(responseJson);
 
       this.user = new User(responseJson.user);
-      console.log('xxx1', this.user.datingPool);
+      //console.log('xxx1', this.user.datingPool);
       //   if (this.datingPoolComponent)
       //     this.datingPoolComponent.ngOnInit();
     }
@@ -236,26 +238,22 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.refreshUserObj(responseJson.user);
       this.newlyAssignedRoseFlg = true;
     }
-    if (responseJson.action == 'loadMyDatingPool') {
-      this.daysTillRoseCeremony = parseInt(responseJson.daysTillCeremony || 0);
+    if (responseJson.action == 'refreshDatingPool') {
+      //console.log('xxxrefreshDatingPool', responseJson);
+
+      this.daysTillRoseCeremony = parseInt(responseJson.daysTillRoseCeremony || 0);
+
+      if (this.daysTillRoseCeremony > 0 && this.daysTillRoseCeremony <= 4 && parseInt(responseJson.heartId) == 0)
+        this.menuNum = 4;
+
+
       if (this.daysTillRoseCeremony <= 0)
         this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
 
-      if (responseJson.playerList && this.user.datingPool && responseJson.playerList.length != this.user.datingPool.length) {
-        this.getDataFromServer('refreshDatingPool', 'appApiCode.php', {});
-      }
-
-      if (this.user.showHeartFormFlg && parseInt(responseJson.heartId)==0)
-        this.menuNum = 4;
-
-    }
-    if (responseJson.action == 'refreshDatingPool') {
-      console.log('xxxrefreshDatingPool', responseJson);
-
-      this.refreshUserObj(responseJson.user);
       this.updateMatches();
+      //this.refreshUserObj(responseJson.user);
 
-      this.logUser();
+      //this.logUser();
     }
     if (responseJson.action == 'getMyLikes' || responseJson.action == 'getWhoLikesMe' || responseJson.action == 'whoDroppedMe') {
       this.playerList = [];
@@ -270,6 +268,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     //    return 'https://www.betradating.com/betraPhp/profileImages/profile' + user_id + '_' + profilePic + '.jpg';
   }
   updateMatches() {
+    this.datingPool = [];
     this.user.datingPool.forEach((element: any) => {
       this.responseJson.matches.forEach((match: any) => {
         if (match.uid == element.user_id) {
@@ -292,6 +291,12 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
           }
           if (match.match_info_request == 'Y')
             alerts++;
+
+          if (match.affirmedBy > 0 && match.affirmedBy != this.user.user_id) {
+            alerts++;
+            element.roseAlert = true;
+          }
+
           if (match.newPics > 0)
             alerts++;
           if (match.uid == this.user.roseAssignedBy) {
@@ -301,7 +306,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
           element.alerts = alerts;
         }
       });
+      this.datingPool.push(element);
     });
+    //console.log('!!!', this.datingPool);
   }
 
 

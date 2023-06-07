@@ -13,6 +13,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
+
+    console.log('xxx', this.liteModeFlg);
   }
 
 }

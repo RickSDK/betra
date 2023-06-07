@@ -1,0 +1,102 @@
+.gray-texture {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 199;
+    height: 40px;
+    background-color: #222;
+}
+
+.profile-circle {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    right: 0;
+    z-index: 202;
+}
+
+.left-item {
+    position: fixed;
+    cursor: pointer;
+    width: 120px;
+    height: 60px;
+    top: 0;
+    left: 0;
+    z-index: 202;
+    transition: all 1s ease;
+}
+
+.coins-item {
+    position: fixed;
+    width: 100px;
+    height: 50px;
+    top: 0;
+    left: 101px;
+    z-index: 201;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.coins-label {
+    position: fixed;
+    top: 1px;
+    left: 145px;
+    color: white;
+    font-size: 8px;
+    z-index: 202;
+    transition: all 1s ease;
+    cursor: pointer;
+}
+
+.coins {
+    position: fixed;
+    top: 15px;
+    left: 155px;
+    min-width: 25px;
+    text-align: center;
+    border-radius: 50%;
+    color: black;
+    font-size: 10px;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+    background-color: gold;
+    border: 1px solid black;
+    z-index: 202;
+    transition: all 1s ease;
+    cursor: pointer;
+}
+
+.coins:hover {
+    box-shadow: 2px 2px 3px black;
+}
+
+.right-item {
+    position: fixed;
+    width: 120px;
+    height: 50px;
+    top: 0;
+    right: -42px;
+    z-index: 201;
+    transition: all 1s ease;
+}
+
+@media screen and (max-width: 600px) {
+    .left-item {
+        left: -50px;
+    }
+    .right-item {
+        right: 0;
+    }
+    .coins-item {
+        left: 11px;
+    }
+    .coins {
+        left: 66px;
+    }
+    .coins-label {
+        left: 75px;
+    }
+}

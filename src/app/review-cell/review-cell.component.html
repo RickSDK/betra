@@ -5,7 +5,7 @@
                 <img [routerLink]="['/user-detail']" [queryParams]="{uid: review.user_id}" [src]="review.src2" class="profile-big">
             </td>
             <td>
-
+                <span *ngIf="review.newReviewFlg" style="background-color: yellow; border: 2px solid red; padding: 6px; border-radius: 10px; margin: 5px;">New!</span>
                 <table width="100%" *ngIf="!reviewDeletedFlg">
                     <tr>
                         <td align="center" width="50">

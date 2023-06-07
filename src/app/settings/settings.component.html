@@ -13,21 +13,21 @@
         <button (mousedown)="changeMenuNum(1)" class="btn btn-main-color spacer btn-settings"><i
                 class="fa fa-trash"></i>
             Delete Account</button>
-        <button [routerLink]="['/location']" class="btn btn-main-color spacer btn-settings"><i class="fa fa-globe"></i>
+        <button *ngIf="!liteModeFlg" [routerLink]="['/location']" class="btn btn-main-color spacer btn-settings"><i class="fa fa-globe"></i>
             location</button>
-        <button (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer btn-settings"><i
+        <button *ngIf="!liteModeFlg" (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer btn-settings"><i
                 class="fa fa-refresh"></i>
             Redo Matches</button>
-        <button (mousedown)="changeBuddy()" class="btn btn-main-color spacer btn-settings"><i
+        <button *ngIf="!liteModeFlg" (mousedown)="changeBuddy()" class="btn btn-main-color spacer btn-settings"><i
                 class="fa fa-envelope-o"></i>
             Buddy Notification</button>
         <button (mousedown)="changeMenuNum(6)" class="btn btn-main-color spacer btn-settings"><i class="fa fa-star"></i>
             Change Password</button>
 
-        <button [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer btn-settings"><i
+        <button *ngIf="!liteModeFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer btn-settings"><i
                 class="fa fa-arrow-up"></i>
             Upgrade</button>
-        <button [routerLink]="'/referrals'" class="btn btn-main-color spacer btn-settings"><i class="fa fa-users"></i>
+        <button *ngIf="!liteModeFlg" [routerLink]="'/referrals'" class="btn btn-main-color spacer btn-settings"><i class="fa fa-users"></i>
             Referrals</button>
 
         <div *ngIf="announcement" class="light-box">

@@ -1,40 +1,26 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [pageTitle]="papgeTitle"
     [headerObj]="headerObj" [userStatus]="userStatus" [stickyBottomFlg]="true">
 
-    <!--<div *ngIf="user && user.showHeartFormFlg" class="tan-box">
-        <h1>Notice</h1>
-        <div>It's time for you to hand out a rose. Visit your dating pool.</div>
-        <hr>
-        <button [routerLink]="['/matches']" class="btn btn-main-color"><i class="fa fa-users"></i>
-            Dating Pool</button>
-    </div>-->
-    <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click
-        "settings" to log out and then try logging back in.</div>
-    <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" class="holiday-banner">
-    <img src="assets/images/rose1.png" height="30">
-    <img src="assets/images/betraLogo.png" height="30">
+    <div *ngIf="user && userStatus=='Active'">
+        <div *ngIf="outOfSyncFlg" [routerLink]="['/settings']" class="important-notice">Your login is out of sync! Click
+            "settings" to log out and then try logging back in.</div>
+        <img *ngIf="holidayScr" [src]="holidayScr" alt="Happ Valentines Day" class="holiday-banner">
+        <img *ngIf="!liteModeFlg" src="assets/images/rose1.png" height="30">
+        <img src="assets/images/betraLogo.png" height="30">
 
-    <div class="red-text">What would you like to do?</div>
-    <div style="display: inline-block; max-width: 600px;">
-        <div class="button-box" [routerLink]="['/user-detail']">
-            <img [src]="browseScr" height="200" width="200" class="button-pic">
-            <div class="gray-screen2">&nbsp;</div>
-            <div class="button-text">Meet Singles</div>
-        </div>
-        <div class="button-box" [routerLink]="['/matches']">
-            <img [src]="'assets/images/buttons/datePool.jpg'" height="200" width="200" class="button-pic">
-            <div class="gray-screen2">&nbsp;</div>
-            <div class="button-text" >Dating Pool</div>
-        </div>
-        <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
-            <img [src]="button.src" height="200" width="200" class="button-pic">
-            <div class="gray-screen2">&nbsp;</div>
-            <div class="button-text">{{button.name}}</div>
-        </div>
-        <div *ngIf="user && user.ownerFlg" style="font-size: 12px;">&nbsp;<span [routerLink]="['/owners']"
-                class="text-link">Owner</span> <span class="text-highlight">{{user.adminLevel}}</span></div>
+        <div class="red-text">What would you like to do?</div>
+        <div *ngIf="userStatus=='Active'" style="display: inline-block; max-width: 600px;">
+            <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
+                <img [src]="button.src" height="200" width="200" class="button-pic">
+                <div class="gray-screen2">&nbsp;</div>
+                <div class="button-text">{{button.name}}</div>
+            </div>
+            <div *ngIf="user && user.ownerFlg" style="font-size: 12px;">&nbsp;<span [routerLink]="['/owners']"
+                    class="text-link">Owner</span> <span class="text-highlight">{{user.adminLevel}}</span></div>
 
+        </div>
     </div>
+
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
     <img (mousedown)="annimateCoin()" *ngIf="coinX" src="assets/images/pics/coinSpin.gif" [style.left]="coinX"

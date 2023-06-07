@@ -36,6 +36,8 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
   public showBeginCeremonyButtonFlg: boolean = false;
   public startHandingRosesFlg = false;
   public readyForRoseCeremony: boolean = false;
+  public MIN_SINGLES: number = 6;
+  public startNewGameFlg = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService) }
 
@@ -72,6 +74,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
   }
 
   startNewGame() {
+    this.startNewGameFlg = true;
     this.menuNum = 2;
     this.getDataFromServer('findSingles', 'roseCeremony.php', {});
   }
@@ -226,11 +229,12 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
     }
     if (responseJson.action == 'loadMyDatingPool') {
       this.daysTillCeremony = responseJson.daysTillCeremony;
-      this.readyForRoseCeremony = this.daysTillCeremony == 0 || responseJson.playerList.length <= 4;
+      this.readyForRoseCeremony = this.daysTillCeremony == 0 || responseJson.playerList.length <= this.MIN_SINGLES;
       if (this.daysTillCeremony > 0) {
         this.numSingles = responseJson.playerList.length;
-        this.menuNum = (this.numSingles <= 4) ? 102 : -1;
-        return;
+        this.menuNum = (this.numSingles <= this.MIN_SINGLES) ? 102 : -1;
+        if (this.numSingles > this.MIN_SINGLES)
+          return;
       }
 
     }
@@ -242,14 +246,18 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
 
       var fullList: any = [];
       var includedHash: any = {};
+      var includedRoses = 0;
       if (this.responseJson.datingPool) {
         this.responseJson.datingPool.forEach((element: any) => {
           element.hasRose = true;
           includedHash[element.user_id] = true;
+          includedRoses++;
           fullList.push(new User(element, this.user));
         });
       }
-      this.readyForRoseCeremony = this.daysTillCeremony == 0 || responseJson.playerList.length <= 4;
+      this.readyForRoseCeremony = this.daysTillCeremony == 0 || responseJson.playerList.length <= this.MIN_SINGLES;
+      if (this.startNewGameFlg)
+        this.readyForRoseCeremony = true;
 
       if (this.responseJson.playerList) {
         this.responseJson.playerList.forEach((element: any) => {
@@ -273,6 +281,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
         //console.log('this.users', this.users);
 
         this.rosesRemaining = this.user.gender == 'F' ? 10 : 20;
+        this.rosesRemaining -= includedRoses;
 
         if (responseJson.action == 'loadMyDatingPool' || this.rosesRemaining >= this.users.length) {
           this.rosesRemaining = this.users.length - 3;

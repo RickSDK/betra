@@ -40,9 +40,10 @@ export class Review {
     public rejectedFlg: boolean = false;
     public rejectedBy: number = 0;
     public flaggedByProfilePic: number = 0;
+    public newReviewFlg: boolean = false;
 
 
-    constructor(obj: any, userId: number = 0) {
+    constructor(obj: any, userId: number = 0, newReviewBy: number = 0) {
         if (obj) {
             this.row_id = obj.row_id || 0;
             this.created = obj.created || '';
@@ -50,7 +51,7 @@ export class Review {
             this.firstName2 = obj.firstName2 || '';
             this.message = obj.message || '';
 
-
+            this.newReviewFlg = (newReviewBy>0 && newReviewBy == obj.uid);
             this.profilePic = obj.profilePic || 0;
             this.profilePic2 = obj.profilePic2 || 0;
             this.rating = obj.rating || 0;

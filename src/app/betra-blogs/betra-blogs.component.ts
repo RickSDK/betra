@@ -18,6 +18,7 @@ export class BetraBlogsComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
+
     this.blogList = [];
     this.route.queryParams.subscribe(params => {
       this.id = params['id'] || 0;

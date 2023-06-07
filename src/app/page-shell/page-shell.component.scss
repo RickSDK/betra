@@ -3,15 +3,50 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-color: #222;
     padding: 0px 10px;
     color: black;
     vertical-align: middle;
     height: 60px;
     white-space: nowrap;
     overflow: hidden;
-    z-index: 500;
-    box-shadow: 1px 0px 1px #ccc;
+    z-index: 200;
+}
+
+.main-menu-dots {
+    opacity: 0;
+    position: fixed;
+    top: 13px;
+    right: 10px;
+    font-size: 32px;
+    color: white;
+    background-color: transparent;
+    text-align: center;
+    width: 30px;
+    z-index: 205;
+    transition: all 1s ease;
+}
+
+.main-menu-dots:hover {
+    cursor: pointer;
+    text-shadow: 2px 2px black;
+}
+
+.profile-pic {
+    position: fixed;
+    top: 10px;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    z-index: 507;
+    transition:all 0.25s ease;
+}
+
+.profile-pic:hover {
+    filter: saturate(2);
+    -webkit-transform:scale(1.25)
 }
 
 .check-list {
@@ -90,6 +125,11 @@
 }
 
 .back-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 503;
+    color: white;
     font-size: 28px;
     cursor: pointer;
 }
@@ -102,24 +142,24 @@
     padding: 8px;
     font-size: 28px;
     font-weight: 800;
-    margin-right: 10px;
     cursor: pointer;
+    text-shadow: 2px 2px black, -1px -1px pink;
 }
 
 .icon-button:hover {
     color: #fff;
 }
 
-.profilePic {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
+.ceremony-countdown {
+    cursor: pointer; background-color: black; display: inline-block; border: 1px solid pink; 
+    border-radius: 5px; text-align: center; padding: 0 5px 0 5px; margin-right: 10px;
+    box-shadow: 2px 2px 3px black;
 }
 
-.profilePic:hover {
-    filter: grayscale(90%);
+.ceremony-countdown:hover {
+    color: pink;
+    border: 1px solid white;
+    background-color: #444;
 }
 
 .main-menu-item {
@@ -146,6 +186,7 @@
 
 .menu-circle {
     position: relative;
+    margin: 1px 3px 3px 3px;
 }
 
 .top-button {
@@ -187,9 +228,9 @@
 .icon-label {
     position: absolute;
     margin: 0;
-    top: 18px;
+    top: 15px;
     left: -10px;
-    z-index: 101;
+    z-index: 510;
 }
 
 .outer-frame {
@@ -250,6 +291,18 @@
     box-shadow: 2px 2px 5px black;
 }
 
+.top-icon-label {
+    display: block;
+    position: absolute;
+    width: 45px;
+    text-align: center;
+    top: -24px;
+    left: 0;
+    font-size: 8px;
+    color: #777;
+    z-index: 507;
+}
+
 .popup-show {
     opacity: 1;
     left: 10px;
@@ -278,6 +331,16 @@
     width: 200px;
 }
 
+.left-segment {
+    width: 190px;
+    transition: all 1s ease;
+}
+
+.right-segment {
+    width: 65px;
+    transition: all 1s ease;
+}
+
 @media screen and (min-width: 600px) {
     .hide-md-up {
         display: none;
@@ -293,11 +356,23 @@
 }
 
 @media screen and (max-width: 600px) {
-    .top-link {
-        font-size: 14px;
+    .top-icon-label {
+        width: 35px;
+    }
+    .menu-circle {
+        margin: 1px;
+    }
+    .left-segment {
+        width: 100px;
     }
     .icon-button {
-        font-size: 24px;
+        padding: 3px;
+    }
+    .right-segment {
+        width: 108px;
+    }
+    .top-link {
+        font-size: 14px;
     }
     .top-button-label {
         width: 50px;
@@ -308,23 +383,24 @@
     .side-menu {
         width: 44px;
     }
+    .main-menu-dots {
+        opacity: 1;
+        right: 65px;
+    }
 }
 
 @media screen and (max-width: 500px) {
-    .icon-button {
-        font-size: 18px;
-    }
     .hide-back {
         display: none;
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 420px) {
     .hide-xs {
         display: none;
     }
 }
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 400px) {
     .hide-xxs {
         display: none;
     }

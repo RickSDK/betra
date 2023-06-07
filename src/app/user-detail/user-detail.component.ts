@@ -6,6 +6,7 @@ import { MatchSnapshotComponent } from '../match-snapshot/match-snapshot.compone
 import { Router } from '@angular/router';
 import { UserCommunicationComponent } from '../user-communication/user-communication.component';
 import { DatabaseService } from '../services/database.service';
+import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
 
 declare var $: any;
 
@@ -15,6 +16,8 @@ declare var $: any;
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent extends BaseComponent implements OnInit {
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
 
   @ViewChild(MatchSnapshotComponent)
   private matchSnapshotModal = {} as MatchSnapshotComponent;
@@ -194,6 +197,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'getMyAdmirers2') {
       this.profileViews = responseJson.profileViews;
+      if (responseJson.action == 'getMyAdmirers' || responseJson.action == 'getMyAdmirers2') {
+        this.profileViews = 99;
+      }
       this.daysTillRoseCeremony = responseJson.daysTillRoseCeremony || 0;
       this.noLocationInfoFoundFlg = responseJson.noLocationInfoFoundFlg;
       if (this.profileViews < 0)
@@ -210,14 +216,13 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
           return b.matchQualityIndex - a.matchQualityIndex;
         });
 
-        if (this.daysTillRoseCeremony == 0) {
-          this.playerList = [];
-        }
         //console.log('xxxthis.playerList (sorted)', this.playerList);
 
         //this.playerList.forEach((element: any) => {
         //console.log(element.firstName, element.matchQualityIndex, element.lastLoginText, element.isGoodActivity, element.age, element.isGoodAge, element.distanceText, element.isGoodLocation);
         //});
+
+
         this.currentProfileIndex = 0;
         if (this.playerList.length > 0)
           this.showCurrentProfile();
@@ -267,13 +272,20 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
       this.messageCount = responseJson.messages;
 
       if (responseJson.user && responseJson.user.user_id > 0) {
-        console.log('city1', responseJson.user.city);
         this.matchUser = new User(responseJson.user, this.user);
-        console.log('city2', this.matchUser.city);
         this.pageTitle = this.matchUser.firstName;
         this.calculatingStatsFlg = true;
-        if (this.matchUser && this.matchUser.matchObj)
+        if (this.matchUser && this.matchUser.matchObj) {
           this.dateObj = this.matchUser.matchObj.dateObj;
+          if (this.matchUser.matchObj.affirmedBy > 0 && this.matchUser.matchObj.affirmedBy == this.matchUser.user_id) {
+            if (this.betraPopupComponent)
+              this.betraPopupComponent.showPopup('You survived a Rose Ceremony!', this.matchUser.firstName + ' just completed a Rose Ceremony and you were one of the lucky singles who received a rose.', 5);
+
+            this.getDataFromServer('clearAffirmationFlg', 'appApiCode2.php', {uid: this.matchUser.user_id});
+
+          }
+
+        }
 
         this.displayThisProfile();
         if (this.matchUser.newReviewBy > 0 && this.matchUser.user_id == this.user.user_id) {

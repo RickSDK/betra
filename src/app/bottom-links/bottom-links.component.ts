@@ -9,7 +9,8 @@ declare var getPlatform: any;
 })
 export class BottomLinksComponent implements OnInit {
   @Input('userId') userId: number = 0;
- 
+  @Input('liteModeFlg') liteModeFlg: boolean = false;
+  
   public platform = getPlatform();
 
   constructor() { }

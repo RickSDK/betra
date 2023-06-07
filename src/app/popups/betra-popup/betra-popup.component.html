@@ -4,6 +4,7 @@
         <div (mousedown)="hidePopup()" class="bg-clickable"></div>
         <div class="popup-inner">
             <p style="font-size: 18px;">{{title}}</p>
+            <img *ngIf="type==5" src="assets/images/rose1.png" height="120">
             <p *ngIf="type != 4" style="font-size: 12px;">{{message}}</p>
             <div *ngIf="type == 4">
                 <div *ngIf="data.emailVerifyFlg"><i class="fa fa-envelope"></i> <i class="fa fa-check"
@@ -20,7 +21,7 @@
                     GPS located</div>
                 <div>&nbsp;</div>
             </div>
-            <button *ngIf="type==0 || type==4" (mousedown)="hidePopup()"
+            <button *ngIf="type==0 || type==4 || type==5" (mousedown)="hidePopup()"
                 class="btn btn-main-color btn-large">Ok</button>
             <button *ngIf="type==2" [routerLink]="['/matches']" class="btn btn-main-color btn-large">Dating
                 Pool</button>

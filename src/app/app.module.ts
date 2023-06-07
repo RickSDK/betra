@@ -144,6 +144,9 @@ import { WebsocketService } from './websocket.service';
 import { GameIneverComponent } from './game-inever/game-inever.component';
 import { GameChairComponent } from './game-chair/game-chair.component';
 import { OwnerProcessCcComponent } from './owner-process-cc/owner-process-cc.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { DatingPoolItemComponent } from './dating-pool-item/dating-pool-item.component';
+import { LandingPageLiteComponent } from './landing-page-lite/landing-page-lite.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -287,6 +290,9 @@ import { OwnerProcessCcComponent } from './owner-process-cc/owner-process-cc.com
     GameIneverComponent,
     GameChairComponent,
     OwnerProcessCcComponent,
+    TopBarComponent,
+    DatingPoolItemComponent,
+    LandingPageLiteComponent,
   ],
   imports: [
     BrowserModule,

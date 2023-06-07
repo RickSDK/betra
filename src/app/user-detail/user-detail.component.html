@@ -4,9 +4,8 @@
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="!user && !loadingFlg">No User!</div>
-
     <div *ngIf="user && !loadingFlg" style="max-width: 600px;">
-        <app-dating-pool *ngIf="!showFilter" [user]="user" [largeFlg]="false"></app-dating-pool>
+        <app-dating-pool *ngIf="!showFilter && !liteModeFlg" [user]="user" [largeFlg]="false"></app-dating-pool>
 
         <div *ngIf="uid>0 && !matchUser" class="match-card">
             No user found!
@@ -171,8 +170,7 @@
                 <app-profile-pic [user_id]="matchUser.newReviewBy" [profilePic]="matchUser.newReviewProfilePic"
                     [size]="80">
                 </app-profile-pic>
-                <p style="font-size: 12px;">You have a new review. Click the "Reviews" button below to see what they
-                    said.
+                <p style="font-size: 12px;">You have a new review. Scroll down to see what was said.
                 </p>
                 <button class="btn btn-light">Ok</button>
             </div>
@@ -217,3 +215,4 @@
         </table>
     </div>
 </div>
+<app-betra-popup></app-betra-popup>

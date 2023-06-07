@@ -4,12 +4,56 @@
     <div class="matches-card" style="text-align: center;">
         <app-top-header [topTitle]="'About'"></app-top-header>
         <hr>
-        <p><span class="red-text">Betra</span> is a new, exclusive reality dating experience
+        <div *ngIf="liteModeFlg">
+            <p>Welcome to <span class="red-text">Betra Entertainment</span></p>
+
+            <p>
+                This app is about having fun and interacting with other users. There's a game room, chat room, blogs,
+                interactive polls and a photo club.
+                Feel free to explore them all.
+            </p>
+            <div style="text-align: left;">
+                <p>"Embrace Your Inner Photographer: Connect, Request, and Earn with a Coin-Based System"
+                </p>
+                <p>In today's digital age, photography has become accessible to everyone. Discover a platform where you
+                    can
+                    connect with fellow enthusiasts, request specific photos, and earn coins through participation and
+                    login
+                    rewards, all within a dynamic bid system.
+                </p>
+                <p>Join a vibrant community where individuals with a passion for photography come together. Engage in
+                    matches with like-minded individuals and share your creative vision. Through this platform, you have
+                    the
+                    power to request specific photos, tailored to your preferences, using the earned coins in your
+                    possession.
+                </p>
+                <p>Participate actively in the community and unlock exciting rewards. Login regularly to earn coins and
+                    enjoy the benefits of a participation rewards system. Your dedication and involvement will be
+                    recognized
+                    and rewarded, fueling your desire to explore photography further.
+                </p>
+                <p>The platform operates on a bid system, adding an element of excitement and fair competition. Utilize
+                    your
+                    earned coins strategically to place bids on captivating photo requests. Engage in friendly rivalries
+                    as
+                    you vie for the opportunity to fulfill those requests and showcase your photographic skills.
+                </p>
+                <p>Embrace the democratization of photography and immerse yourself in this vibrant ecosystem. With the
+                    ability to connect, request, and earn coins, you can expand your creative horizons and experience
+                    the
+                    joy of capturing extraordinary moments. Let your photographic journey unfold within this dynamic
+                    community, where creativity and collaboration thrive.
+                </p>
+            </div>
+
+        </div>
+
+        <p *ngIf="!liteModeFlg"><span class="red-text">Betra</span> is a new, exclusive reality dating experience
             for the next generation and guaranteed to be the
             <span class="red-text">MOST FUN</span>
             you've ever had dating.
         </p>
 
     </div>
-    <app-betra-features></app-betra-features>
+    <app-betra-features *ngIf="!liteModeFlg"></app-betra-features>
 </app-page-shell>

@@ -1,0 +1,29 @@
+<div class="pool-large menu-circle" style="position: relative;">
+    <i *ngIf="showDeleteButtons" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
+    <img [src]="person.src" class="large-img" [routerLink]="['/user-detail']"
+        [queryParams]="{uid: person.user_id, s: 'Y'}"
+        [style.border]="person.heartFlg?'7px solid #990000':'none'">
+    <span *ngIf="person.alerts>0" class="red-circle-large main-color-bg">{{person.alerts}}</span>
+    <i class="fa fa-calendar alert-icon"
+        *ngIf="person.match && (person.match.match_date_request == 'A' || person.match.you_date_request == 'Y')"></i>
+    <i [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id, c: 'Y'}"
+        class="fa fa-comments alert-icon" *ngIf="person.match && person.match.unreadMessages > 0"></i>
+    <i class="fa fa-phone alert-icon" *ngIf="person.match && person.match.match_info_request == 'Y'"></i>
+    <i class="fa fa-picture-o alert-icon" *ngIf="person.pictureAlert"></i>
+    <i class="fa fa-gift alert-icon" *ngIf="person.newGifts>0"></i>
+    
+    <div class="name-plate main-color-bg">
+        <div><img src="assets/images/rose5.png" height="20" *ngIf="person.heartFlg" alt="Rose" title="Rose">
+            <i *ngIf="person.heartFlg2" class="fa fa-heart"></i>
+            {{person.name}} <sup *ngIf="showIntimacyValuesFlg" class="intimacyValue">{{person.level}}</sup>
+        </div>
+        <div style="font-size: 8px; color: #444;"> {{person.lastLoginText}}
+        </div>
+
+    </div>
+    <div class="icon-label btn-main-color" [routerLink]="['/user-detail']"
+        [queryParams]="{uid: person.user_id, s: 'Y'}">
+        <div>{{person.name}}</div>
+        <div style="font-size: 8px;">Intimacy Level: {{person.level}}</div>
+    </div>
+</div>

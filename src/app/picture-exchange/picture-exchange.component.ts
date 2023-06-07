@@ -102,8 +102,6 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
     this.coinValues.push(this.myCoins.toString());
 
-    console.log('xxx', this.coinValues);
-
     this.route.queryParams.subscribe(params => {
       this.uid = params['uid'] || 0;
     });

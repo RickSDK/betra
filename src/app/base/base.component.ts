@@ -43,6 +43,7 @@ export class BaseComponent implements OnInit {
   public infoObj: any = null;
   public outOfSyncFlg: boolean = false;
   public geoError: string = '';
+  public liteModeFlg: boolean = false;
 
 
   public headerObj: any = {
@@ -57,6 +58,10 @@ export class BaseComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if (getPlatform() == 'IOS') {
+      this.liteModeFlg = true;
+    }
+
     if (!localStorage['code']) {
       this.errorMessage = 'Login out of sync! Please log out and log back in. Contact admin if problem persists.';
       this.outOfSyncFlg = true;
@@ -67,6 +72,7 @@ export class BaseComponent implements OnInit {
       this.checkLocationStuff();
       this.logUser();
     }
+
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 250);
@@ -86,9 +92,9 @@ export class BaseComponent implements OnInit {
       this.populateGeoInfo();
     }
 
-   //--- not sure what this one does
-   // if (!this.user.navLatFlg)
-   //   this.uploadCoordinates();
+    //--- not sure what this one does
+    // if (!this.user.navLatFlg)
+    //   this.uploadCoordinates();
 
     if (!localStorage['latitude']) {
       this.getLocationUsingNavigatorGeolocation();
@@ -207,6 +213,10 @@ export class BaseComponent implements OnInit {
         this.user = new User(userObj);
         console.log('xxx', this.user);
 
+        if (getPlatform() == 'IOS' || !this.user.findLoveFlg) {
+          this.liteModeFlg = true;
+        }
+
         this.imgSrcFile = this.user.imgSrc;
         this.userStatus = this.user.status;
         if (this.infoObj) {
@@ -221,6 +231,7 @@ export class BaseComponent implements OnInit {
         this.headerObj.dateCount = localStorage['dateCount'];
         this.headerObj.ownerAlerts = localStorage['ownerAlerts'];
         this.headerObj.ownerFlg = this.user.ownerFlg;
+        this.headerObj.liteModeFlg = this.liteModeFlg;
         this.popupNum = (this.user.status == 'Active') ? 0 : 3;
         //console.log('loadUserObjUser', this.user);
       } else {
@@ -245,11 +256,11 @@ export class BaseComponent implements OnInit {
           var ipr_postal = payload.location.postal;
           var ipr_region = '';
           var ipr_region_code = '';
-          var ipr_country =  payload.location.country.name;
+          var ipr_country = payload.location.country.name;
           var ipr_country_code = payload.location.country.code;
           if (payload.location.region) {
             ipr_region = payload.location.region.name;
-            ipr_region_code = payload.location.region.code.replace('US-','');
+            ipr_region_code = payload.location.region.code.replace('US-', '');
           }
           localStorage['ipr_city'] = ipr_city;
           localStorage['ipr_latitude'] = ipr_latitude;
@@ -269,11 +280,11 @@ export class BaseComponent implements OnInit {
 
   updateIpregistryLocation() {
     if (localStorage['ipr_city'] != "") {
-      var params = { 
-        ipr_city: localStorage['ipr_city'], 
-        ipr_latitude: localStorage['ipr_latitude'], 
-        ipr_longitude: localStorage['ipr_longitude'], 
-        ipr_postal: localStorage['ipr_postal'], 
+      var params = {
+        ipr_city: localStorage['ipr_city'],
+        ipr_latitude: localStorage['ipr_latitude'],
+        ipr_longitude: localStorage['ipr_longitude'],
+        ipr_postal: localStorage['ipr_postal'],
         ipr_region: localStorage['ipr_region'],
         state: localStorage['ipr_region_code'],
         countryName: localStorage['ipr_country'],

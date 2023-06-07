@@ -6,6 +6,7 @@ import { DatabaseService } from '../services/database.service';
 declare var $: any;
 declare var getDateObjFromJSDate: any;
 declare var getBrowser: any;
+declare var getPlatform: any;
 
 @Component({
   selector: 'app-profile',
@@ -19,11 +20,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public fileToUpload: any;
   public moreMatchOptionsFlg: boolean = false;
   public showRequiredFieldsFlg: boolean = false;
+  public NUM_ITEMS: number = 9;
   public requiredFieldColor: string = '#ffffc0';
   public inputFieldObj: any;
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Bio', 'Your Match', 'Done'];
   public menuDesc = [
-    'Ready to find love? Yes you are! Let\'s start with your basic infomation',
+    'Ready to get started? Yes you are! Let\'s start with your basic infomation',
     'We want to verify your email to know you are legit. Feel free to skip for now if you want. We trust you!',
     'Details, details details! Yes this is a lot of stuff to fill out, but it will be worth it. Betra tells you more about a potential match than any other dating site!',
     'How about a simple personality test? This is just to see how you stack up against potential matches.',
@@ -124,12 +126,19 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   ]
   public cityDisabledFlg = false;
   public browser: string = '';
+  public platform: string = '';
+  public findLoveFlg: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     super.ngOnInit();
+
+    console.log('this.user', this.user);
     this.changesMadeFlg = false;
+    this.findLoveFlg = (this.user.findLoveFlg);
+    this.platform = getPlatform();
+    this.checkForLiteMode();
     this.loadQuizAnswers();
     this.loadTestAnswers();
     this.checkIPAddress();
@@ -145,6 +154,30 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     //getIPInfo('test', 'test');
     //this.refreshUser();
+  }
+  checkForLiteMode() {
+    if(this.platform == 'IOS') {
+      this.findLoveFlg = false;
+    }
+    this.liteModeFlg = !this.findLoveFlg;
+    if (this.findLoveFlg) {
+      this.NUM_ITEMS = 9;
+      this.menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Bio', 'Your Match', 'Done'];
+      this.menuTitles2 = ['Basics', 'Email', 'Details', 'Personality', 'Politics', 'Image', 'Pics', 'Bio', 'Match'];
+      this.menuDesc[2] = 'Details, details details! Yes this is a lot of stuff to fill out, but it will be worth it. Betra tells you more about a potential match than any other dating site!';
+      this.menuDesc[3] = 'How about a simple personality test? This is just to see how you stack up against potential matches.';
+    } else {
+      this.NUM_ITEMS = 4;
+      this.menuTitles = ['Basics', 'Verify Email', 'Profile Image', 'Done'];
+      this.menuTitles2 = ['Basics', 'Email', 'Image'];
+      this.menuDesc[2] = 'Upload a nice profile picture';
+      this.menuDesc[3] = 'Profile Complete!';
+    }
+  }
+  toggleFindLoveFlg() {
+    this.findLoveFlg = !this.findLoveFlg;
+    this.changesMadeFlg = true;
+    this.checkForLiteMode();
   }
   checkIPAddress() {
     var params = {
@@ -238,7 +271,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     this.user.conScore = conScore;
     this.user.politicalQuizAnswers = answers.join(':');
-    console.log('xxx', this.user.conScore);
+    //    console.log('xxx', this.user.conScore);
   }
   showInfoScreen(num: number) {
     if (num == this.infoScreenNum)
@@ -263,17 +296,27 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
   }
   profileSectionAdvance() {
+    console.log('xxx', this.menuNum, this.findLoveFlg);
+    this.errorMessage = '';
+
+    if (this.menuNum == 2 && !this.findLoveFlg) {
+      this.errorMessage = 'Select Image, then press upload button';
+      return;
+    }
     if (this.changesMadeFlg == true)
       this.menuValueChanged();
     this.apiSuccessFlg = false;
+
     if (!this.user.profileFlags[this.menuNum]) {
       this.showRequiredFieldsFlg = true;
       this.requiredFieldColor = '#ffff00';
-      this.errorMessage = 'Fill out all required fields';
-      if (this.menuNum == 3)
-        this.errorMessage = 'Answer all of the questions.';
-      if (this.menuNum == 7)
-        this.errorMessage = 'What are you looking for? (Fill out box above)';
+      if (this.errorMessage == '') {
+        this.errorMessage = 'Fill out all required fields';
+        if (this.menuNum == 3)
+          this.errorMessage = 'Answer all of the questions.';
+        if (this.menuNum == 7)
+          this.errorMessage = 'What are you looking for? (Fill out box above)';
+      }
       return;
     }
     this.requiredFieldColor = '#ffffc0';
@@ -344,8 +387,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.profileFlags[this.menuNum] = true;
       console.log('pic uploaded!');
       this.menuNum++;
-      if (this.menuNum == 6 && !this.user.findLoveFlg)
-        this.menuNum = 8;
+      if (this.menuNum == 6 && !this.user.findLoveFlg) {
+        this.menuNum = 3;
+        this.logUser('Y');
+      }
     }
     if (responseJson.action == 'activate' || responseJson.action == 'updateProfile' || responseJson.action == 'sendEmailCode') {
       this.apiSuccessFlg = true;
@@ -407,6 +452,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.changesMadeFlg = true;
     this.errorMessage = '';
   }
+
   menuValueChanged() {
     this.changesMadeFlg = true;
     this.errorMessage = '';
@@ -424,6 +470,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       this.user.zipcode = $('#zipcode').val();
 
       var basicsFlg = (this.user.email && this.user.firstName && this.user.gender && this.user.matchPreference && this.user.phone);
+      if (!this.findLoveFlg)
+        basicsFlg = (this.user.email && this.user.firstName && this.user.gender);
+
       var obj = getDateObjFromJSDate(this.user.birthdate);
 
       if (obj.jsDate == 'Invalid Date') {
@@ -440,6 +489,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
           basicsFlg = false;
         }
       }
+      console.log('xxxhey', basicsFlg, this.findLoveFlg);
       this.user.profileFlags[this.menuNum] = basicsFlg;
     }
     if (this.menuNum == 2) {
@@ -525,7 +575,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       updateNum: this.menuNum + 1,
       gender: this.user.gender,
       matchPreference: this.user.matchPreference,
-      findLoveFlg: this.user.findLoveFlg ? 'Y' : 'N',
+      findLoveFlg: this.findLoveFlg ? 'Y' : 'N',
       meetPeopleFlg: this.user.meetPeopleFlg ? 'Y' : 'N',
       makeMoneyFlg: this.user.makeMoneyFlg ? 'Y' : 'N',
       city: this.user.city,

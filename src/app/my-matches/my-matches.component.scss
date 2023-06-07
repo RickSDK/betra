@@ -10,6 +10,18 @@
     box-shadow: 2px 2px 10px gray;
 }
 
+.rose-button {
+    display: inline-block; text-align: center; border: 1px solid gray; margin: 3px; border-radius: 5px;
+    background-color: white;
+    padding: 2px;
+    box-shadow: 1px 1px 2px gray;
+}
+
+.rose-button:hover {
+    border: 1px solid black;
+    box-shadow: 2px 2px 3px black;
+}
+
 .tiny-img {
     width: 60px;
     height: 60px;

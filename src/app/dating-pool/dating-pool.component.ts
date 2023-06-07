@@ -32,6 +32,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     if (!this.user)
       return;
+
     var showIntimacyLevelsFlg = localStorage['showIntimacyLevelsFlg'];
     this.showIntimacyLevelsFlg = showIntimacyLevelsFlg && showIntimacyLevelsFlg == 'Y';
     this.showIntimacyValuesFlg = this.showIntimacyLevelsFlg; // messes up toggle switch otherwise
@@ -91,7 +92,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     if (this.datingPool.length != this.user.datingPool.length) {
       console.log('DP: out of sync! going to dating pool tab should fix this.');
     }
-    //console.log('+++dp', this.user.datingPool);
+    //console.log('+++dp', this.datingPool);
   }
 
   ngOnChanges(changes: any) {

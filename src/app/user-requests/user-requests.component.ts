@@ -41,6 +41,9 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     if (this.newGifts)
       this.openPanel(6);
+
+    if (this.matchUser.newReviewBy > 0 && this.matchUser.user_id == this.myUser.user_id)
+      this.openPanel(4);
   }
 
   ngOnChanges(changes: any) {
@@ -153,7 +156,10 @@ export class UserRequestsComponent extends BaseComponent implements OnInit {
       //      this.showReviewsFlg = true;
       this.reviewList = [];
       responseJson.reviews.forEach((element: any) => {
-        this.reviewList.push(new Review(element, this.myUser.user_id))
+        this.reviewList.push(new Review(element, this.myUser.user_id, this.myUser.newReviewBy))
+      });
+      this.reviewList.sort((a: any, b: any) => {
+        return b.row_id - a.row_id;
       });
     }
     if (responseJson.action == 'submitReview') {

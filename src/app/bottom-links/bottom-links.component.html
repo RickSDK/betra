@@ -13,20 +13,21 @@
                                 <div [routerLink]="['']" class="white-link">Home</div>
                                 <div [routerLink]="['/contact']" class="white-link">Contact</div>
                                 <div [routerLink]="['/about']" class="white-link">About</div>
-                                <div [routerLink]="['/safety-features']" class="white-link">Safety <span
+                                <div *ngIf="!liteModeFlg" [routerLink]="['/safety-features']" class="white-link">Safety <span
                                         class="hide-xs">Features</span></div>
-                                <div [routerLink]="['/join-team']" class="white-link">Join <span
+                                <!--<div [routerLink]="['/join-team']" class="white-link">Join <span
                                         class="hide-xs">Team</span></div>
-                                <!--<div [routerLink]="['/press']" class="white-link">Press</div>-->
+                                <div [routerLink]="['/press']" class="white-link">Press</div>-->
                             </div>
                         </td>
                         <td valign="top" width="33%">
                             <div class="link-section">
                                 <div style="color: gray;">Resources</div>
                                 <div [routerLink]="['/blogs']" class="white-link">Blog</div>
-                                <div *ngIf="userId>0" [routerLink]="['/advice']" class="white-link">Advice </div>
                                 <div *ngIf="userId>0" [routerLink]="['/chat-room']" class="white-link">Chat Room </div>
-                                <div *ngIf="userId>0" [routerLink]="['/contest']" class="white-link">Contest </div>
+                                <div *ngIf="userId>0" [routerLink]="['/game-room']" class="white-link">Game Room </div>
+                                <div *ngIf="userId>0" [routerLink]="['/check-list']" class="white-link">Level Up </div>
+                                <div *ngIf="userId>0 && !liteModeFlg" [routerLink]="['/contest']" class="white-link">Contest </div>
                             </div>
                         </td>
                         <td valign="top" width="33%">
