@@ -1,5 +1,5 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
-[pageTitle]="'Photo Club'" [userStatus]="userStatus">
+    [pageTitle]="'Photo Club'" [userStatus]="userStatus">
 
     <div class="matches-card" *ngIf="user" style="padding: 0;">
 
@@ -223,6 +223,10 @@
                                     <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
                                         (mousedown)="deleteCancelledOrder(order)"
                                         class="btn btn-main-color">Delete</button>
+                                    <button *ngIf="order.status=='Declined' && order.user_id == user.user_id"
+                                        [disabled]="loadingFlg" (mousedown)="deleteCancelledOrder(order)"
+                                        class="btn btn-main-color ">Delete
+                                    </button>
                                 </td>
 
 
@@ -306,10 +310,15 @@
                                     <div *ngIf="order.comments"><b>{{order.firstName}}:</b> {{order.comments}}</div>
                                 </td>
                                 <td style="white-space: nowrap;">
-                                    <div *ngIf="order.status=='New' && order.type=='Special'">This is a **special request**.<br> Review the instructions and the coins offered before accepting.</div>
-                                    <div *ngIf="order.status=='New' && order.completedOffers>0">Previous offers by this
-                                        user:
-                                        <span class="text-highlight">{{order.completedOffers}}</span>
+                                    <div *ngIf="order.status=='New' && order.type=='Special'">This is a **special
+                                        request**.<br> Review the instructions and the coins offered before accepting.
+                                    </div>
+                                    <div *ngIf="(order.status=='New' || order.status=='Accepted') && order.completedOffers>0">
+                                        <div>Previous offers by this user: <span class="text-highlight">{{order.completedOffers}}</span></div>
+                                        <div *ngIf="order.completedOffers>0">
+                                            <div>Pictures you have already sent to this person:</div>
+                                            <img (mousedown)="viewImage(pic.src)" [src]="pic.src" *ngFor="let pic of order.pics" height="44" class="thumbnail-img">                                        
+                                        </div>
                                     </div>
                                     <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
                                         (mousedown)="acceptPlacedOrder(order)"
@@ -438,18 +447,20 @@
 
 
 
-        <div *ngIf="selectedPerson" style="border-radius: 10px; border: 1px solid gray; margin: 10px; overflow: hidden; background-color: #eee;">
+        <div *ngIf="selectedPerson"
+            style="border-radius: 10px; border: 1px solid gray; margin: 10px; overflow: hidden; background-color: #eee;">
             <div style="background-color: #444; color: white;">
                 {{selectedPerson.firstName}}
                 <i (mousedown)="selectedPerson=null" class="fa fa-times"
-                style="font-size: 18px; cursor: pointer; float: right; margin: 3px;"></i>
+                    style="font-size: 18px; cursor: pointer; float: right; margin: 3px;"></i>
             </div>
-            <div class="gray-text"><b>{{selectedPerson.firstName}}</b> is offering to send you a picture. Simply click one of the 'Request' buttons to place your order.</div>
+            <div class="gray-text"><b>{{selectedPerson.firstName}}</b> is offering to send you a picture. Simply click
+                one of the 'Request' buttons to place your order.</div>
 
             <table>
                 <tr>
                     <td width="120">
- 
+
                         <app-profile-pic [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic"
                             [size]="100">
                         </app-profile-pic>
@@ -480,7 +491,8 @@
                                         class="btn btn-warning btn-small">Request</button></td>
                             </tr>
                         </table>
-                        <button (mousedown)="specialRequestFlg=!specialRequestFlg" class="btn btn-main-color btn-small">Special Request</button>
+                        <button (mousedown)="specialRequestFlg=!specialRequestFlg"
+                            class="btn btn-main-color btn-small">Special Request</button>
                         <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
                         <div *ngIf="selectedPerson.hasOrderPlaced"
                             style="background-color: yellow; font-size: 12px; padding: 10px;">You have an order placed
@@ -495,25 +507,36 @@
                                 class="btn btn-main-color btn-large" style="margin: 10px;">Place Order</button>
                             <button (mousedown)="selectedType=null" class="btn btn-warning spacer">Cancel</button>
                         </div>
-                        
+
                     </td>
                 </tr>
             </table>
             <div *ngIf="specialRequestFlg">
                 <div>Special Request</div>
-                <div class="gray-text">Feel free to make any request you like. Your request can be accepted or declined. The person also has the option to block you from any further requests.</div>
-                <app-text-input [id]="'specialRequest'" [placeHolder]="'Instructions'" [maxLength]="400"></app-text-input>
+                <div class="gray-text">Feel free to make any request you like. Your request can be accepted or declined.
+                    The person also has the option to block you from any further requests.</div>
+                <app-text-input [id]="'specialRequest'" [placeHolder]="'Instructions'" [maxLength]="400">
+                </app-text-input>
                 Coins:
                 <select name="specialCoins" id="specialCoins">
                     <option *ngFor="let value of coinValues">{{value}}</option>
                 </select>
-                <button (mousedown)="submitSpecialRequest()" class="btn btn-main-color btn-large" style="margin: 10px;">Submit Special Request</button>
+                <button (mousedown)="submitSpecialRequest()" class="btn btn-main-color btn-large"
+                    style="margin: 10px;">Submit Special Request</button>
                 <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
             </div>
             <div *ngIf="selectedPerson.portfolioItems && selectedPerson.portfolioItems.length>0">
                 <div style="font-size: 10px;"><b>Portfolio</b></div>
                 <img (mousedown)="viewImage(item.src)" class="thumbnail-img"
                     *ngFor="let item of selectedPerson.portfolioItems" [src]="item.src" height="40" width="40">
+            </div>
+            <div *ngIf="selectedPerson.pics.length>0">
+                <hr>
+                <div>My pics</div>
+                <div *ngFor="let pic of selectedPerson.pics" style="display: inline-block; margin: 3px;">
+                    <img (mousedown)="viewImage(pic.src)" class="thumbnail-img" [src]="pic.src" height="100">
+                    <div style="font-size: 12px; background-color: #ccc; border-radius: 5px;">{{pic.type}}</div>
+                </div>
             </div>
         </div>
 
@@ -533,7 +556,13 @@
                             <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
                             </app-profile-pic>
                             <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
-                            <div style="font-size: 8px;"><i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire" style="color: red; font-size: 12px;"></i>Orders: <span class="text-highlight">{{seller.ordersDelivered}}</span></div>
+                            <div style="font-size: 8px;">
+                                <i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire"
+                                    style="color: red;"></i><i title="Orders" class="fa fa-picture-o"></i>&nbsp;<span
+                                    class="text-highlight">{{seller.ordersDelivered}}</span>
+                                <span *ngIf="seller.ordersPending>0" title="Pending">&nbsp;<i class="fa fa-spinner"></i>&nbsp;<span
+                                        class="text-highlight">{{seller.ordersPending}}</span></span>
+                            </div>
                         </div>
                     </td>
                     <td align="center" valign="top">
@@ -543,7 +572,13 @@
                             <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
                             </app-profile-pic>
                             <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
-                            <div style="font-size: 8px;"><i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire" style="color: red;"></i>Orders: <span class="text-highlight">{{seller.ordersDelivered}}</span></div>
+                            <div style="font-size: 8px;">
+                                <i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire"
+                                    style="color: red;"></i><i title="Orders" class="fa fa-picture-o"></i>&nbsp;<span
+                                    class="text-highlight">{{seller.ordersDelivered}}</span>
+                                <span *ngIf="seller.ordersPending>0" title="Pending">&nbsp;<i class="fa fa-spinner"></i>&nbsp;<span
+                                        class="text-highlight">{{seller.ordersPending}}</span></span>
+                            </div>
                         </div>
                     </td>
                 </tr>

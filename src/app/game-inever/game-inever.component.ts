@@ -35,7 +35,7 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   public gameStartedFlg: boolean = false;
   public timerSeconds: number = 60;
   public myTurnToAskFlg: boolean = false;
-  public winner:any = {user_id: 1, profilePic: 16};
+  public winner:any = {user_id: 53, profilePic: 1};
   public emojis = [
     'assets/images/emojis/ban.png',
     'assets/images/emojis/shocked.png',
@@ -108,8 +108,8 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
     var substr = message.substring(0, 17);
     this.gameError = '';
     if (substr != 'Never have I ever') {
-      this.gameError = 'Your question must start with Never have I ever';
-      return;
+//      this.gameError = 'Your question must start with Never have I ever';
+//      return;
     }
     if (message.length <= 20) {
       this.gameError = 'Please type a real question.';

@@ -211,7 +211,8 @@ export class BaseComponent implements OnInit {
       if (userLocalStorage) {
         var userObj = JSON.parse(localStorage['User']);
         this.user = new User(userObj);
-        console.log('xxx', this.user);
+        console.log('user', this.user);
+        console.log('infoObj', this.infoObj);
 
         if (getPlatform() == 'IOS' || !this.user.findLoveFlg) {
           this.liteModeFlg = true;
@@ -222,6 +223,7 @@ export class BaseComponent implements OnInit {
         if (this.infoObj) {
           this.headerObj.browseObj = this.infoObj.browseObj;
           this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;
+          this.headerObj.newGifts = this.infoObj.newGifts;
         }
         this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
         this.headerObj.notifications = localStorage['notifications'];
@@ -568,24 +570,6 @@ export class BaseComponent implements OnInit {
           this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;
         }
 
-        if (responseJson.infoObj && responseJson.infoObj.browseObj && responseJson.infoObj.browseObj.user_id > 0) {
-          console.log('xxx!!!xxx user snooping!', responseJson.infoObj.browseObj);
-          var gender = responseJson.infoObj.browseObj.gender;
-          var gender2 = responseJson.infoObj.browseObj.gender2;
-          var matchPreference = responseJson.infoObj.browseObj.matchPreference;
-          var matchPreference2 = responseJson.infoObj.browseObj.matchPreference2;
-          if (matchPreference == 'A')
-            matchPreference = gender2;
-          if (matchPreference2 == 'A')
-            matchPreference = gender;
-
-          if (matchPreference == gender2 && matchPreference2 == gender) {
-            this.headerObj.browseObj = responseJson.infoObj.browseObj;
-            if (this.pageShellComponent)
-              this.pageShellComponent.displayBrowsePopup();
-          }
-
-        }
         if (responseJson.infoObj && responseJson.infoObj.giftObj && responseJson.infoObj.giftObj.user_id > 0) {
           console.log('xxx!!!xxx user giftObj!', responseJson.infoObj.giftObj.firstName);
           this.headerObj.giftObj = responseJson.infoObj.giftObj;

@@ -76,7 +76,7 @@
         <div class="border-box">
             <div *ngIf="page.gameStatus == 'Completed'">
                 <div>Game has ended. And the winner is:</div>
-                <app-profile-pic *ngIf="winner.profilePic>0" [user_id]="winner.user_id" [profilePic]="winner.profilePic" [size]="100">
+                <app-profile-pic *ngIf="winner && winner.profilePic>0" [user_id]="winner.user_id" [profilePic]="winner.profilePic" [size]="100">
                 </app-profile-pic>
                 <div class="gray-text" *ngIf="numPlayers >= MIN_PLAYER">New game can start once the timer runs out</div>
                 <div class="gray-text" *ngIf="numPlayers < MIN_PLAYER">{{MIN_PLAYER}} players needed to start a new game.</div>

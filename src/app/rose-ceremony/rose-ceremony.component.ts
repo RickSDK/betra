@@ -255,6 +255,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
           fullList.push(new User(element, this.user));
         });
       }
+
       this.readyForRoseCeremony = this.daysTillCeremony == 0 || responseJson.playerList.length <= this.MIN_SINGLES;
       if (this.startNewGameFlg)
         this.readyForRoseCeremony = true;
@@ -268,6 +269,9 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
         fullList.sort((a: any, b: any) => {
           return b.matchQualityIndex - a.matchQualityIndex;
         });
+
+        if (responseJson.action == 'loadMyDatingPool')
+          this.numSingles = fullList.length;
 
         this.users = [];
         var count = 0;

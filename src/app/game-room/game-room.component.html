@@ -3,29 +3,47 @@
     <div class="matches-card" style="text-align: center; padding: 0;">
         <app-top-header2 [topTitle]="'Game Room'"></app-top-header2>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <hr>
-        <div class="border-box">
-            <div>Players in the game</div>
-            <app-profile-pic *ngFor="let player of page.players" [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="30">
-            </app-profile-pic>
+        <div class="border-box" style="display: inline-block; background-color: #eee; box-shadow: 2px 2px 3px gray;">
+            <div class="border-box" *ngIf="page && page.players && page.players.length>0">
+                <div>Players in the game</div>
+                <app-profile-pic *ngFor="let player of page.players" [user_id]="player.user_id"
+                    [profilePic]="player.profilePic" [size]="30">
+                </app-profile-pic>
+            </div>
+            <div><b>Never Have I Ever</b></div>
+            <button (mousedown)="showRulesFlg=!showRulesFlg" class="btn btn-main-color spacer"><i
+                    class="fa fa-book"></i>
+                Rules</button>
+            <button [routerLink]="['/game-inever']" class="btn btn-main-color spacer" style="padding: 20px;"><i
+                    class="fa fa-play"></i>
+                Play Now!</button>
+            <div *ngIf="showRulesFlg" class="tan-box" style="font-size: 12px; text-align: left;">
+                <p><b>Never have I ever</b> - The rules are very simple:</p>
+                <li>Must have at least 4 people in the room to start playing</li>
+                <li>Players take turns saying something they have never done.</li>
+                <li>Each player in the room must signify if they have or have not done that thing.</li>
+                <li>Play continues to the next person</li>
+                <li>First person to answer Yes 5 times wins!</li>
+            </div>
+            <div>
+                <img [routerLink]="['/game-inever']" src="assets/images/games/iNever.jpeg" class="game-button">
+            </div>
+            <hr>
+            <div>Top Players</div>
+            <table class="betra-table" align="center">
+                <tr>
+                    <th colspan="2">Player</th>
+                    <th>Games</th>
+                </tr>
+                <tr *ngFor="let leader of page.leaders">
+                    <td><app-profile-pic [user_id]="leader.user_id"
+                        [profilePic]="leader.profilePic" [size]="30">
+                    </app-profile-pic></td>
+                    <td>{{leader.firstName}}</td>
+                    <td>{{leader.numGames}}</td>
+                </tr>
+            </table>
         </div>
-        <div><b>Never Have I Ever</b></div>
-        <button (mousedown)="showRulesFlg=!showRulesFlg" class="btn btn-main-color spacer"><i class="fa fa-book"></i>
-            Rules</button>
-        <button [routerLink]="['/game-inever']" class="btn btn-main-color spacer" style="padding: 20px;"><i class="fa fa-play"></i>
-            Play Now!</button>
-        <div *ngIf="showRulesFlg" class="tan-box" style="font-size: 12px; text-align: left;">
-            <p><b>Never have I ever</b> - The rules are very simple:</p>
-            <li>Must have at least 4 people in the room to start playing</li>
-            <li>Players take turns saying something they have never done.</li>
-            <li>Each player in the room must signify if they have or have not done that thing.</li>
-            <li>Play continues to the next person</li>
-            <li>First person to answer Yes 5 times wins!</li>
-        </div>
-        <div>
-            <img [routerLink]="['/game-inever']" src="assets/images/games/iNever.jpeg" class="game-button">
-        </div>
-
         <table *ngIf="0" align="center">
             <tr>
                 <td>

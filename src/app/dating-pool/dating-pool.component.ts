@@ -11,6 +11,7 @@ import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component
 export class DatingPoolComponent extends BaseComponent implements OnInit {
   @Input('user') override user: any = null;
   @Input('largeFlg') largeFlg: boolean = false;
+  @Input('sortOption') sortOption: string = '';
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -89,6 +90,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
       }
       this.datingPool.push(dpItem)
     }
+    this.sortDatingPool();
     if (this.datingPool.length != this.user.datingPool.length) {
       console.log('DP: out of sync! going to dating pool tab should fix this.');
     }
@@ -130,6 +132,20 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
 
   userClicked(person: any) {
     this.messageEvent.emit(person.user_id.toString());
+  }
+
+  sortDatingPool() {
+    if (this.sortOption == 'Name')
+      this.datingPool.sort((a: any, b: any) => a.name.localeCompare(b.name))
+    if (this.sortOption == 'Intimacy Level')
+      this.datingPool.sort((a: any, b: any) => {
+        return b.level - a.level;
+      });
+
+    if (this.sortOption == 'Most Recent')
+      this.datingPool.sort((a: any, b: any) => {
+        return a.minAgo - b.minAgo;
+      });
   }
 
 }

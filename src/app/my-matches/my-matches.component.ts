@@ -39,7 +39,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public currentRoseHolder: string = '';
   public newlyAssignedRoseFlg: boolean = false;
   public daysTillRoseCeremony: number = 7;
-  public datingPool:any = [];
+  public datingPool: any = [];
+  public timeForRoseFlg: boolean = false;
+  public sortOption: string = '';
 
   @ViewChild(DatingPoolComponent)
   private datingPoolComponent = {} as DatingPoolComponent;
@@ -62,6 +64,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
+      //      if (this.user.daysTillRoseCeremony <= 4 && this.user.daysTillRoseCeremony > 0 && this.user.heartId==0)
+      //      menu = 4;
       this.changeMenu(menu);
     });
 
@@ -243,8 +247,12 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
       this.daysTillRoseCeremony = parseInt(responseJson.daysTillRoseCeremony || 0);
 
-      if (this.daysTillRoseCeremony > 0 && this.daysTillRoseCeremony <= 4 && parseInt(responseJson.heartId) == 0)
+      this.timeForRoseFlg = false;
+
+      if (this.daysTillRoseCeremony > 0 && this.daysTillRoseCeremony <= 4 && parseInt(responseJson.heartId) == 0) {
         this.menuNum = 4;
+        this.timeForRoseFlg = true;
+      }
 
 
       if (this.daysTillRoseCeremony <= 0)
@@ -267,12 +275,16 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
     return betraImageFromId(user_id, profilePic);
     //    return 'https://www.betradating.com/betraPhp/profileImages/profile' + user_id + '_' + profilePic + '.jpg';
   }
+  sortList() {
+    this.sortOption = $('#sortOption').val();
+  }
   updateMatches() {
     this.datingPool = [];
     this.user.datingPool.forEach((element: any) => {
       this.responseJson.matches.forEach((match: any) => {
         if (match.uid == element.user_id) {
           element.match = match;
+          element.minAgo = match.minAgo;
           element.lastLoginText = lastLoginText(match.lastLogin);
           element.lastLoginColor = lastLoginColor(match.lastLogin);
           //console.log('+++M!+++', match);
@@ -308,8 +320,10 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       });
       this.datingPool.push(element);
     });
-    //console.log('!!!', this.datingPool);
+    this.sortOption = 'Most Recent';
   }
+
+
 
 
 }

@@ -40,9 +40,9 @@
                                     <b>${{yourWalletAmountText}}</b>
                                 </div>
                                 <div>
-                                    <button (mousedown)="showDepositFormFlg=!showDepositFormFlg"
+                                    <button *ngIf="!bannedUsers[user.user_id]" (mousedown)="showDepositFormFlg=!showDepositFormFlg"
                                         class="btn btn-primary btn-small">Deposit</button>
-                                    <button [disabled]="yourWalletAmount==0"
+                                    <button *ngIf="!bannedUsers[user.user_id]" [disabled]="yourWalletAmount==0"
                                         (mousedown)="showWithdrawFormFlg=!showWithdrawFormFlg"
                                         class="btn btn-success btn-small">Withdraw</button>
                                 </div>
@@ -155,11 +155,11 @@
                 <div class="gray-text">Want to buy or sell your coins? Click on any of the bids above if you find an
                     offer you like. Or, alternatively create an offer of your own. It can get accepted by any user.
                 </div>
-                <button (mousedown)="iWantToBuy()" class="btn btn-main-color spacer"><i class="fa fa-arrow-down"></i>
+                <button *ngIf="!bannedUsers[user.user_id]" (mousedown)="iWantToBuy()" class="btn btn-main-color spacer"><i class="fa fa-arrow-down"></i>
                     Create Bid
                     <div style="font-size: 10px;">(To Buy Coins)</div>
                 </button>
-                <button (mousedown)="changeActivity(2)" class="btn btn-main-color spacer"><i class="fa fa-arrow-up"></i>
+                <button *ngIf="!bannedUsers[user.user_id]" (mousedown)="changeActivity(2)" class="btn btn-main-color spacer"><i class="fa fa-arrow-up"></i>
                     Create Offer
                     <div style="font-size: 10px;">(To Sell Coins)</div>
                 </button>

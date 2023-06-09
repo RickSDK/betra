@@ -4,13 +4,13 @@
 
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
     <div *ngIf="!user && !loadingFlg">No User!</div>
-    <div *ngIf="user && !loadingFlg" style="max-width: 600px;">
+    <div *ngIf="user" style="max-width: 600px;">
         <app-dating-pool *ngIf="!showFilter && !liteModeFlg" [user]="user" [largeFlg]="false"></app-dating-pool>
 
         <div *ngIf="uid>0 && !matchUser" class="match-card">
             No user found!
         </div>
-        <div *ngIf="id == 2" class="match-card">
+        <div *ngIf="id == 2 && !loadingFlg" class="match-card">
             <div *ngIf="profileViews>0">Swipes remaining: <span class="text-highlight">{{profileViews}}</span></div>
             <div *ngIf="profileViews<=0">Sorry no swipes remaining. Try back tomorrow</div>
         </div>

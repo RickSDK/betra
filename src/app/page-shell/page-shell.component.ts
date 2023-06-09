@@ -70,7 +70,7 @@ export class PageShellComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //console.log('xxxXXX', this.headerObj);
+    console.log('xxxXXX', this.headerObj);
     this.previousRoute = localStorage['previousRoute'];
     localStorage['previousRoute'] = this.router.url;
 
@@ -106,8 +106,6 @@ export class PageShellComponent implements OnInit {
       this.showAboutInfoFlg = true;
     }
 
-    if (this.headerObj && this.headerObj.browseObj && this.headerObj.browseObj.user_id)
-      this.displayBrowsePopup();
 
 //    if (this.userStatus == 'Active' && this.headerObj && this.headerObj.daysTillRoseCeremony == 0 && this.pageTitle == 'Dating Pool') {
 //      setTimeout(() => {
@@ -138,21 +136,6 @@ export class PageShellComponent implements OnInit {
     this.router.navigate([this.previousRoute]);
   }
 
-  displayBrowsePopup() {
-    this.displayBrowsePopupFlg = true;
-    this.displayBasicsFlg = false;
-    this.displayDetailsFlg = false;
-    this.popupInProgress = true;
-    setTimeout(() => {
-      this.displayBasicsFlg = true;
-    }, 8000);
-    setTimeout(() => {
-      this.displayDetailsFlg = true;
-    }, 16000);
-    setTimeout(() => {
-      this.popupInProgress = false;
-    }, 24000);
-  }
   displayGiftPopup() {
     this.displayGiftPopupFlg = true;
   }

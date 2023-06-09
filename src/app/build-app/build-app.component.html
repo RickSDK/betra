@@ -179,6 +179,8 @@
                 <hr>
                 <li>Make sure all assets are in place.</li>
                 <li>Click "App --> General", set version and build number</li>
+                <li>Check signing certificate</li>
+                <li>Replace <span class="text-highlight">source="$(readlink "$&#123;source&#125;")"</span> with <span class="text-highlight">source="$(readlink -f "$&#123;source&#125;")"</span></li>
                 <li>Press build button (Triangle) <span class="gray-text">(takes about 5 minutes)</span></li>
                 <li>Press stop, then home on the simulator, then app icon to launch</li>
                 <li>Top, click App --> Any IOS Device (arm64)</li>

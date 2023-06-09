@@ -178,6 +178,11 @@
     max-width: 600px;
 }
 
+.shrink {
+    font-size: 14px !important;
+    padding: 7px !important;
+}
+
 @media screen and (max-width: 700px) {
     .shrink {
         font-size: 12px !important;

@@ -60,7 +60,7 @@ export class OwnerUsersComponent extends BaseComponent implements OnInit {
   emailUpdates() {
     this.loadingFlg = true;
     var count = 0;
-    if (0) {
+    if (1) {
       this.allTeam.forEach((element: { user_id: any; firstName: any; }) => {
         count++;
         setTimeout(() => {

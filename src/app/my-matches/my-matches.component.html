@@ -13,6 +13,11 @@
         <button (mousedown)="changeMenu(4)" *ngIf="user && user.datingPool.length >= 3" class="btn btn-light">
             <img src="assets/images/rose5.png" height="30" alt="Rose" title="Rose">
         </button>
+        <select id="sortOption" style="margin: 5px; height: 30px;" (change)="sortList()">
+            <option>Most Recent</option>
+            <option>Name</option>
+            <option>Intimacy Level</option>
+        </select>
         <button class="btn btn-main-color btn-small" [routerLink]="'/rose-ceremony'" style="margin: 10px;">Rose
             Ceremony</button>
 
@@ -29,11 +34,12 @@
             style="padding: 20px; text-align: center;">
             <img src="assets/images/rose1.png" height="120" alt="Rose" title="Rose">
             <div style="font-size: 20px;">Give someone a rose!</div>
+            <p *ngIf="timeForRoseFlg" class="red-text"><i class="fa fa-exclamation-triangle"></i> Notice: Before viewing your dating pool, you must give 1 person a rose. Use the form below.</p>
             <p class="tiny-text">Pick one person to indicate they are your favorite. Everyone
                 in your dating pool will be able to see who you have chosen.
                 Feel free to change this pick at any time.
             </p>
-            <div>Click one person!</div>
+            <div *ngIf="disableFormFlg">Click one person!</div>
             <div class="rose-button" *ngFor="let player of user.datingPool">
                 <img (mousedown)="chooseForRose(player)" [src]="player.src" class="small-img"
                     style="height: 40px; width: 40px;"
@@ -49,7 +55,6 @@
                 <div class="gray-text">Keep in mind, everyone in your dating pool will be able to see this action on
                     your part.</div>
             </div>
-            <p *ngIf="disableFormFlg">Select someone above to give your rose to.</p>
             <p *ngIf="!disableFormFlg && selectedPerson && selectedPerson.name" class="red-text">Give your rose to
                 {{selectedPerson.name}}?</p>
             <div *ngIf="newlyAssignedRoseFlg" class="important-notice">
@@ -92,7 +97,7 @@
 
             <!--<app-dating-pool-item *ngFor="let person of datingPool" [person]="person"></app-dating-pool-item>-->
 
-            <app-dating-pool [user]="user" [largeFlg]="true" (messageEvent)="loadPopupUser($event)"></app-dating-pool>
+            <app-dating-pool [user]="user" [largeFlg]="true" (messageEvent)="loadPopupUser($event)" [sortOption]="sortOption"></app-dating-pool>
 
             <div *ngIf="!user.dating_pool">
                 <div [routerLink]="['/user-detail']" class="red-blob">
@@ -219,9 +224,7 @@
                     </div>
 
                     <div class="red-text">Question: How do I drop someone from my dating pool?</div>
-                    <div class="answer">Answer: Click on their profile, expand the header window. Click on the "expand"
-                        arrow in the black box which says that person "is in your dating pool". Click the "Remove"
-                        button.</div>
+                    <div class="answer">Answer: You have a Rose Ceremony every 7 days and that is the time to drop people you are not interested in.</div>
 
                     <div class="red-text">Question: How do I send someone a text message?</div>
                     <div class="answer">Answer: You must first be matched with someone in order to communicate with
@@ -240,7 +243,7 @@
                         pool!</div>
 
                     <div class="red-text">Question: How do I restore someone to my dating pool?</div>
-                    <div class="answer">Answer: Click the 'Back Burner' button at the top of this page. If that person
+                    <div class="answer">Answer: Click the 'Admirers' button at the top of this page. If that person
                         is still interested in you, their profile will show up. Click on it. Expand the top and then
                         click the 'Promote' button to put them back into your dating pool.</div>
 

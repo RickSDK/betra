@@ -33,7 +33,7 @@
 
 .profile-pic {
     position: fixed;
-    top: 10px;
+    top: 7px;
     right: 8px;
     width: 44px;
     height: 44px;
@@ -47,6 +47,18 @@
 .profile-pic:hover {
     filter: saturate(2);
     -webkit-transform:scale(1.25)
+}
+
+.profile-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 508;
+    text-shadow: 1px 1px black, -1px -1px pink;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .check-list {
@@ -142,8 +154,10 @@
     padding: 8px;
     font-size: 28px;
     font-weight: 800;
+    margin: 3px;
     cursor: pointer;
-    text-shadow: 2px 2px black, -1px -1px pink;
+    color: #aaa;
+    text-shadow: 2px 2px black, -1px -1px white;
 }
 
 .icon-button:hover {
@@ -299,7 +313,7 @@
     top: -24px;
     left: 0;
     font-size: 8px;
-    color: #777;
+    color: #ff035e; /* #777 */
     z-index: 507;
 }
 
