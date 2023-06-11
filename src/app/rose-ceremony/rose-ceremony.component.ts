@@ -233,6 +233,8 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       if (this.daysTillCeremony > 0) {
         this.numSingles = responseJson.playerList.length;
         this.menuNum = (this.numSingles <= this.MIN_SINGLES) ? 102 : -1;
+
+        console.log('hey!!', this.MIN_SINGLES, this.numSingles, this.menuNum)
         if (this.numSingles > this.MIN_SINGLES)
           return;
       }

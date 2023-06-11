@@ -224,6 +224,7 @@ export class BaseComponent implements OnInit {
           this.headerObj.browseObj = this.infoObj.browseObj;
           this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;
           this.headerObj.newGifts = this.infoObj.newGifts;
+          this.headerObj.newClasses = this.infoObj.newClasses;
         }
         this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
         this.headerObj.notifications = localStorage['notifications'];

@@ -99,6 +99,13 @@
                 <div class="red-text">You have {{daysTillCeremony}} days left until your next Rose Ceremony.</div>
                 <div>&nbsp;</div>
                 <button [routerLink]="['']" class="btn btn-main-color btn-large">Home</button>
+                
+                <div *ngIf="user.datingPool.length<=MIN_DATINGPOOL" class="red-text">
+                    <div>&nbsp;</div>
+                    <div>Note: You are down to just {{user.datingPool.length}} people in your dating pool and have the option to re-fill it.</div>
+                    <div>&nbsp;</div>
+                    <button [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large">Refill Dating Pool</button>
+                </div>
             </div>
             <div *ngIf="daysTillCeremony <= 0" class="black-box">
                 <p class="red-text">Each week you will have a Rose Ceremony, which forces you to remove at least 3

@@ -18,6 +18,7 @@ export class SideMenuComponent implements OnInit {
   public ownerAlerts: number = 0;
   public journalCount: number = 0;
   public photographyCount: number = 0;
+  public newClasses: number = 0;
   public infoObj: any = null
   public toggleInteractMenu: boolean = true;
 
@@ -27,6 +28,7 @@ export class SideMenuComponent implements OnInit {
     { name: 'Dating Pool', routerLink: '/matches', icon: 'fa fa-users', id: 3 },
     //    { name: 'Online Today', routerLink: '/user-detail', icon: 'fa fa-bolt', id: 5 },
     { name: 'Photo Club', routerLink: '/photography', icon: 'fa fa-picture-o', id: 15 },
+    { name: 'Photo Class', routerLink: '/photo-school', icon: 'fa fa-graduation-cap', id: 16 },
     { name: 'Top 10', routerLink: '/top-lists', icon: 'fa fa-list-ol', id: 6 },
 
   ];
@@ -54,6 +56,7 @@ export class SideMenuComponent implements OnInit {
       this.date2Count = this.infoObj.date2Count;
       this.ownerAlerts = this.infoObj.ownerAlerts;
       this.journalCount = this.infoObj.journalCount;
+      this.newClasses = this.infoObj.newClasses;
       this.photographyCount = parseInt(this.infoObj.newPicCount) + parseInt(this.infoObj.deliveredPicCount);
       picCertificateFlg = this.infoObj.picCertificateFlg;
     }
@@ -83,7 +86,7 @@ export class SideMenuComponent implements OnInit {
         { name: 'Blogs', routerLink: '/blogs', icon: 'fa fa-file-text', id: 0 },
         { name: 'Polls', routerLink: '/poll', icon: 'fa fa-question-circle', id: 0 },
         { name: 'Marketplace', routerLink: '/market', icon: 'fa fa-line-chart', id: 0 },
-    
+
       ];
       this.middleItems = [];
     }

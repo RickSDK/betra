@@ -79,11 +79,17 @@ import { OwnerMsgComponent } from './owner-msg/owner-msg.component';
 import { GameIneverComponent } from './game-inever/game-inever.component';
 import { OwnerProcessCcComponent } from './owner-process-cc/owner-process-cc.component';
 import { LandingPageLiteComponent } from './landing-page-lite/landing-page-lite.component';
+import { PhotoSchoolComponent } from './photo-school/photo-school.component';
+import { PhotoClassComponent } from './photo-class/photo-class.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'landing-lite', component: LandingPageLiteComponent },
+  { path: 'timeline', component: TimelineComponent },
   { path: 'home', component: MainMenuComponent },
+  { path: 'photo-school', component: PhotoSchoolComponent },
+  { path: 'photo-class', component: PhotoClassComponent },
   { path: 'game-inever', component: GameIneverComponent },
   { path: 'process-cc', component: OwnerProcessCcComponent },
   { path: 'owner-msg', component: OwnerMsgComponent },

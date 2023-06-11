@@ -17,6 +17,7 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
   public audio = new Audio('assets/music/song1.mp3');
   public displayUser: any = null;
   public daysTillCeremony: number = 0;
+  public MIN_DATINGPOOL: number = 6;
 
   constructor(private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
@@ -36,7 +37,7 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
     this.menuNum = -1;
     this.showWritingFlg = true;
 
-    if(this.user.status == 'Active') {
+    if (this.user.status == 'Active') {
       this.getDataFromServer('checkRoseCeremonyDt', 'roseCeremony.php', {});
     } else {
       this.menuNum = 44;
@@ -49,14 +50,15 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
 
   override postSuccessApi(file: string, responseJson: any) {
     if (responseJson.action == 'checkRoseCeremonyDt') {
-        if(responseJson.roseCeremonyDt && responseJson.roseCeremonyDt != null) {
-          this.daysTillCeremony = responseJson.daysTillCeremony;
-          this.menuNum = 60;
-        } else {
-          //start
-          this.daysTillCeremony = 0;
-          this.menuNum = 0;
-        }
+      console.log('hey!', this.user.datingPool.length);
+      if (responseJson.roseCeremonyDt && responseJson.roseCeremonyDt != null) {
+        this.daysTillCeremony = responseJson.daysTillCeremony;
+        this.menuNum = 60;
+      } else {
+        //start
+        this.daysTillCeremony = 0;
+        this.menuNum = 0;
+      }
     }
   }
 
@@ -127,7 +129,7 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
 
     setTimeout(() => {
       this.menuNum = 21;
-    }, 300 * (this.numSingles+5));
+    }, 300 * (this.numSingles + 5));
   }
 
   meetTheSingles() {

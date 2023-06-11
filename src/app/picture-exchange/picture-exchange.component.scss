@@ -18,6 +18,17 @@ th {
     background-color: #ccc;
 }
 
+.button-pic {
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px black;
+    cursor: pointer;
+}
+
+.button-pic:hover {
+    border: 1px solid white;
+    box-shadow: 3px 3px 5px black;
+}
+
 .super-title {
     background-color: #700;
     color: white;

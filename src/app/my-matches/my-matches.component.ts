@@ -243,7 +243,16 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.newlyAssignedRoseFlg = true;
     }
     if (responseJson.action == 'refreshDatingPool') {
-      //console.log('xxxrefreshDatingPool', responseJson);
+      //console.log('xxxrefreshDatingPool', responseJson.user.dating_pool);
+
+      if (responseJson.user.dating_pool != this.user.dating_pool) {
+        console.log('out of sync!!');
+        var dp = responseJson.user.dating_pool.split('+');
+        console.log('dp', dp);
+        var dp2 = this.user.dating_pool.split('+');
+        console.log('dp2', dp2);
+        this.refreshUserObj(responseJson.user);
+      }
 
       this.daysTillRoseCeremony = parseInt(responseJson.daysTillRoseCeremony || 0);
 
@@ -259,7 +268,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
 
       this.updateMatches();
-      //this.refreshUserObj(responseJson.user);
+      //
 
       //this.logUser();
     }

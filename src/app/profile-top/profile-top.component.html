@@ -9,6 +9,39 @@
         <button (mousedown)="showNewUserPopupFlg=false" class="btn btn-main-color">Got it!</button>
     </div>
 
+    <div *ngIf="0" style="position: relative; height: 400px;">
+        <div style="height: 100%; width: 100%; padding: 0;">
+            <img (mousedown)="toggleImage()" [src]="user.mainImageSrc"
+                style="max-width: 360px; width: 100%; height: 100%; object-fit: cover; box-shadow: 2px 2px 3px black; border-radius: 50%; cursor: pointer;">
+        </div>
+        <div
+            style="position: absolute; top:0; left: 0; background-color: #444; color: white; width: 100%; box-shadow: 0 2px 3px black; height: 45px; border-radius: 10px;">
+            <span class="name-bar" style="font-size: 20px; line-height: 22px; margin-top: 2px;"><img src="assets/images/rose5.png" height="20" *ngIf="user.user_id == myUser.heartId"
+                    alt="Rose" title="Rose">
+                <i [class]="user.icon" [title]="user.userTitle" style="font-size: 10px; float: right; color: #888;"></i>
+                <i *ngIf="user.picCertificateFlg" title="Verified User!" class="fa fa-check"
+                    style="color: rgb(86, 176, 209); vertical-align: super;"></i>
+                <span title="id: {{user.user_id}}">{{user.firstName}}</span>,
+                {{user.age}}&nbsp;
+            </span>
+            <div style="font-size: 10px; margin-top: -7px; color: #ccc;">{{user.location}} {{user.distanceText}} ({{user.lastLoginText}})
+            </div>
+        </div>
+        <img style="position: absolute; top:0; left: 0;" src="assets/images/profile/left-item.png" height="55">
+        <img style="position: absolute; top:0; right: 0;" src="assets/images/profile/right-item.png" height="55">
+        <div
+            style="position: absolute; bottom:0; left: 0; background-color: #444; color: white; width: 100%; box-shadow: -2px -2px -3px black; height: 40px; border-radius: 10px;">
+            &nbsp;</div>
+        <img style="position: absolute; bottom:0; left: 0;" src="assets/images/profile/left-bottom-item.png"
+            height="55">
+        <img style="position: absolute; bottom:0; right: 0;" src="assets/images/profile/right-bottom-item.png"
+            height="55">
+    </div>
+
+
+
+
+
     <table width="100%" border="0" *ngIf="user.matchObj">
         <tr>
             <td style="padding: 0; position: relative;" valign="top" width="50%">
@@ -223,7 +256,8 @@
                         <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-profile"><i
                                 class="fa fa-arrow-circle-down"></i> More Details</button>
 
-                        <button *ngIf="user.photographerId>0" [routerLink]="['/photography']" [queryParams]="{uid: user.user_id}" class="btn btn-main-color btn-profile"><i
+                        <button *ngIf="user.photographerId>0" [routerLink]="['/photography']"
+                            [queryParams]="{uid: user.user_id}" class="btn btn-main-color btn-profile"><i
                                 class="fa fa-picture-o"></i> Request Pic</button>
 
                         <button

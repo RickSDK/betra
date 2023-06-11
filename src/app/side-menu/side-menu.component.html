@@ -8,8 +8,8 @@
                 class="red-circle">{{headerObj.matchesAlerts}}</span>
             <span *ngIf="item.id==4 && headerObj && headerObj.admirerCount>0"
                 class="red-circle">{{headerObj.admirerCount}}</span>
-            <span *ngIf="item.id==15 && photographyCount>0"
-                class="red-circle">{{photographyCount}}</span>
+            <span *ngIf="item.id==15 && photographyCount>0" class="red-circle">{{photographyCount}}</span>
+            <span *ngIf="item.id==16 && newClasses>0" class="red-circle">{{newClasses}}</span>
 
             
         </div>
@@ -25,7 +25,8 @@
             <span>{{item.name}}</span>
         </div>
     </div>
-    <div *ngIf="!headerObj.liteModeFlg" class="group-heading" (mousedown)="toggleInteractMenu=!toggleInteractMenu">Interact
+    <div *ngIf="!headerObj.liteModeFlg" class="group-heading" (mousedown)="toggleInteractMenu=!toggleInteractMenu">
+        Interact
         <i [ngClass]="toggleInteractMenu?'fa fa-caret-down caret-icon':'fa fa-caret-right caret-icon'"></i>
     </div>
     <div *ngIf="toggleInteractMenu">

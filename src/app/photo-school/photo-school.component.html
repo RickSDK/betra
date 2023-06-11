@@ -1,0 +1,106 @@
+<app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
+    [pageTitle]="'Photo Class'" [userStatus]="userStatus">
+
+    <div class="matches-card" *ngIf="user" style="padding: 0;">
+
+        <app-top-header2 [topTitle]="'Photo Class'"></app-top-header2>
+        <div class="tan-box">
+            This is your chance to improve your photography skills in a fun and exciting way. Or help others with their
+            skills. Here's how it works:
+            <ul style="font-size: 12px; color: gray; text-align: left; margin-left: 30px; margin-bottom: 0;">
+                <li>Anyone can create a class.</li>
+                <li>Anyone can join a class.</li>
+                <li>The instructor picks the topic and gives advice.</li>
+                <li>Everyone in the class submits a photo.</li>
+                <li>The class votes on the best picture and instructor gives feedback.</li>
+            </ul>
+            <div>Note: Everything is done online in your own spare time. You don't actually meet up at any specific time. Once the class starts, you will have 1 week to take your photo and turn it in.</div>
+            <div>&nbsp;</div>
+            <button *ngIf="createClassNum==0" (mousedown)="createClassNum=1" class="btn btn-main-color btn-large">Create
+                Class</button>
+            <div *ngIf="createClassNum>0" class="border-box">
+                <div>Create a new class</div>
+                <div class="gray-text">This is your chance to create a photography class, help others become better
+                    photographers, or just have fun learning together. No expierience needed. The class will officially
+                    start 1 week after you create it, and then participants will have another week to submit their
+                    photos.</div>
+                <hr>
+                <div style="font-size: 10px;">Choose an overall type for your class</div>
+                Type: <select id="classType" (change)="createClassNum=2">
+                    <option disabled selected>select</option>
+                    <option>Nature</option>
+                    <option>Animals</option>
+                    <option>Fashion</option>
+                    <option>People</option>
+                    <option>Studio</option>
+                    <option>Still Life</option>
+                    <option>Portrait</option>
+                    <option>Sports</option>
+                    <option>Other</option>
+                </select>
+                <div *ngIf="createClassNum>=2">
+                    <div>&nbsp;</div>
+                    <div style="font-size: 10px;">What will it cost people to attend your class?</div>
+                    Cost (in coins): <select id="cost" (change)="createClassNum=3">
+                        <option disabled selected>select</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                </div>
+                <div *ngIf="createClassNum>=3">
+                    <div>&nbsp;</div>
+                    <div style="font-size: 10px;">Describe your class in one sentence.</div>
+                    <app-text-input [id]="'intro'"></app-text-input>
+                    <div style="font-size: 10px;">Details for the picture submitted. Give some specific instructions so
+                        we
+                        know the photos were taken specifically for this class (These will not be visible until the
+                        class
+                        begins).</div>
+                    <textarea [id]="'description'" style="width: 100%;"></textarea>
+                    <div style="font-size: 10px;">Special hints and strategies for making it a great photo.</div>
+                    <textarea [id]="'tips'" style="width: 100%;"></textarea>
+                    <div>&nbsp;</div>
+                    <button (mousedown)="createClassNum=0" class="btn btn-warning spacer">Cancel</button>
+                    <button [disabled]="loadingFlg" (mousedown)="createClass()"
+                        class="btn btn-main-color spacer">Create!</button>
+                </div>
+            </div>
+        </div>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <div *ngIf="page">
+            <div *ngIf="page.classes && page.classes.length>0">Current Classes</div>
+            <div *ngFor="let class of page.classes" class="class-box">
+                <div style="background-color: #444; color: white;">{{class.name}}</div>
+                <div style="padding: 10px;">
+                    <app-profile-pic [user_id]="class.user_id" [profilePic]="class.profilePic" [size]="90">
+                    </app-profile-pic>
+                    <div style="font-size: 12px; text-align: left;">
+                        <div><b>Instructor:</b> {{class.firstName}}</div>
+                        <div><b>Subject:</b> {{class.name}}</div>
+                        <div><b>Description:</b> {{class.intro}}</div>
+                    </div>
+                    <div class="gray-text"></div>
+                    <hr>
+                    <div *ngIf="class.students.length>0">
+                        <div>Enrolled</div>
+                        <app-profile-pic *ngFor="let student of class.students" [user_id]="student.user_id" [profilePic]="student.profilePic" [size]="30">
+                        </app-profile-pic>
+                        <div *ngIf="class.students.length<5" style="font-size: 8px; color: red;">Note: Class must have at least 5 people to start</div>
+                        <hr>
+                    </div>
+                    <div style="font-size: 10px;">Starts {{class.startDay}}</div>
+                    <div>Days until start: <span class="text-highlight">{{class.daysTillStart}}</span></div>
+                    <div>Cost: <span class="text-highlight">{{class.cost}}</span> coins</div>
+                    <button *ngIf="user.user_id==1 && 0" (mousedown)="deleteClass(class)" class="btn btn-danger">Delete</button>
+                    <button *ngIf="class.isEnrolled==0 && class.status == 'Open' && !class.isInstructor" (mousedown)="joinClass(class)" class="btn btn-success">Join</button>
+                    <button *ngIf="class.isEnrolled>0 && class.status == 'Open'" (mousedown)="dropClass(class)" class="btn btn-danger">Drop</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</app-page-shell>
+<app-picture-popup></app-picture-popup>

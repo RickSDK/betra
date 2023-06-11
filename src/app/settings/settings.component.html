@@ -13,7 +13,8 @@
         <button (mousedown)="changeMenuNum(1)" class="btn btn-main-color spacer btn-settings"><i
                 class="fa fa-trash"></i>
             Delete Account</button>
-        <button *ngIf="!liteModeFlg" [routerLink]="['/location']" class="btn btn-main-color spacer btn-settings"><i class="fa fa-globe"></i>
+        <button *ngIf="!liteModeFlg" [routerLink]="['/location']" class="btn btn-main-color spacer btn-settings"><i
+                class="fa fa-globe"></i>
             location</button>
         <button *ngIf="!liteModeFlg" (mousedown)="changeMenuNum(4)" class="btn btn-main-color spacer btn-settings"><i
                 class="fa fa-refresh"></i>
@@ -27,7 +28,8 @@
         <button *ngIf="!liteModeFlg" [routerLink]="'/upgrade-member'" class="btn btn-main-color spacer btn-settings"><i
                 class="fa fa-arrow-up"></i>
             Upgrade</button>
-        <button *ngIf="!liteModeFlg" [routerLink]="'/referrals'" class="btn btn-main-color spacer btn-settings"><i class="fa fa-users"></i>
+        <button *ngIf="!liteModeFlg" [routerLink]="'/referrals'" class="btn btn-main-color spacer btn-settings"><i
+                class="fa fa-users"></i>
             Referrals</button>
 
         <div *ngIf="announcement" class="light-box">
@@ -148,7 +150,7 @@
         </div>
         <div *ngIf="menuNum==2" class="border-box">
             <div>Location</div>
- 
+
 
         </div>
 
@@ -170,6 +172,8 @@
                 App Setup</button>
             <button (mousedown)="testFunction()" class="btn btn-primary spacer"><i class="fa fa-asterisk"></i>
                 Test Function</button>
+            <button [routerLink]="['/timeline']" class="btn btn-primary spacer"><i class="fa fa-line-chart"></i>
+                Timeline</button>
         </div>
 
 

@@ -1,0 +1,78 @@
+.person {
+    display: inline-block;
+    box-shadow: 2px 2px 3px black;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding-left: 5px;
+    border-radius: 5px;
+}
+
+.exile {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 512px;
+    width: 560px;
+    height: 100%;
+    background-color: purple;
+    color: white;
+}
+
+.decree-of-cyrus {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 896px;
+    height: 100%;
+    color: cyan;
+    padding: 10px;
+    border-left: 4px solid cyan;
+}
+
+.word-to-haggai {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    white-space: nowrap;
+    top: 0;
+    left: 1032px;
+    height: 100%;
+    color: yellow;
+    padding: 10px;
+    border-left: 4px solid yellow;
+}
+
+.second-temple {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 1072px;
+    height: 100%;
+    color: green;
+    padding: 10px;
+    border-left: 4px solid green;
+}
+
+.walls-rebuilt {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 1640px;
+    height: 100%;
+    color: red;
+    padding: 10px;
+    border-left: 4px solid red;
+}
+
+.timeline {
+    display: inline-block;
+    position: absolute;
+    top: 250px;
+    left: 0;
+    width: 2000px;
+}

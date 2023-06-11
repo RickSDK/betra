@@ -1,0 +1,9 @@
+<app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
+    [pageTitle]="'Photo Club'" [userStatus]="userStatus">
+
+    <div class="matches-card" *ngIf="user" style="padding: 0;">
+
+        <app-top-header2 [topTitle]="'Photo Club'"></app-top-header2>
+     </div>
+</app-page-shell>
+<app-picture-popup></app-picture-popup>

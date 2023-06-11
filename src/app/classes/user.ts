@@ -196,7 +196,7 @@ export class User {
     public facebookUrl: string = '';
     public facebookUrlFlg: boolean = false;
     public instragramUrl: string = '';
-    public instragramUrlFlg: boolean = false;
+    public instragramUrlflg: boolean = false;
     public linkedInUrl: string = '';
     public linkedInUrlFlg: boolean = false;
     public potentialLoveInterestFlg: boolean = true;
@@ -398,11 +398,10 @@ export class User {
             this.activityRep = obj.activityRep || 0;
             this.droppedByName = obj.droppedByName;
             this.droppedBy = obj.droppedBy || 0;
-
             this.facebookUrl = obj.facebookUrl || '';
             this.facebookUrlFlg = obj.facebookUrlFlg == 'Y';
             this.instragramUrl = obj.instragramUrl || '';
-            this.instragramUrlFlg = obj.instragramUrlFlg == 'Y';
+            this.instragramUrlflg = obj.instragramUrlflg == 'Y';
             this.linkedInUrl = obj.linkedInUrl || '';
             this.linkedInUrlFlg = obj.linkedInUrlFlg == 'Y';
 
@@ -410,11 +409,11 @@ export class User {
                 this.reputationScore++;
             if (this.picCertificateFlg)
                 this.reputationScore++;
-            if (this.navLat && this.navLat.length > 0)
+            if (this.lat && this.lat != 0)
                 this.reputationScore++;
             if (this.facebookUrlFlg)
                 this.reputationScore++;
-            if (this.instragramUrlFlg)
+            if (this.instragramUrlflg)
                 this.reputationScore++;
             if (this.linkedInUrlFlg)
                 this.reputationScore++;

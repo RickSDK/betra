@@ -125,7 +125,7 @@
                 Sorry, there is no one left in your dating pool. Click Start Over to try again with a new batch of
                 singles.</div>
             <div>&nbsp;</div>
-            <div *ngIf="users.length<MIN_SINGLES && users.length > 0">
+            <div *ngIf="users.length<=MIN_SINGLES && users.length > 0">
                 <div style="width: 100%; max-width: 380px; display: inline-block; background-color: black;"
                     class="red-text">Note: you are down to a
                     very small dating pool. Did you want to continue with your current pool, or add a new batch of singles?</div>
@@ -137,7 +137,7 @@
                 class="btn btn-main-color btn-large">Hand out your
                 roses</button>
 
-            <div *ngIf="users.length<MIN_SINGLES">
+            <div *ngIf="users.length<=MIN_SINGLES">
                 <div>&nbsp;</div>
                 <button (mousedown)="startNewGame()" class="btn btn-main-color btn-large">Add new singles</button>
                 <div>&nbsp;</div>

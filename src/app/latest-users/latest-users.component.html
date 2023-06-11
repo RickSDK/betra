@@ -7,7 +7,7 @@
         <app-owners-menu [pageTitle]="'Latest'" [page]="1"></app-owners-menu>
 
         <div class="tan-box" style="font-size: 12px; text-align: left;">
-            <p>Here are most recently logged in users (non-owners) and how their experince is going</p>
+            <p>Here are most recently logged in users (non-owners) and how their experience is going</p>
             <p>The rows highlighted in green are active AND in your target gender, so you should have a green
                 checkmark
                 in the last column indicating you have swiped them. If you haven't, please click on their picture on the
@@ -70,7 +70,7 @@
                     <i *ngIf="person.matchObj && person.matchObj.you_interested=='N'" class="fa fa-times"
                         style="font-size: 16px; color: red;"></i>
                 </td>
-                <td class="hide-sm"><i class="fa fa-check" *ngIf="person.roseCeremonyDt"></i></td>
+                <td class="hide-sm"><i class="fa fa-check" *ngIf="person.roseCeremonyDt"></i> {{person.daysTillRoseCeremony}}</td>
             </tr>
         </table>
     </div>

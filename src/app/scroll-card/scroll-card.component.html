@@ -15,8 +15,11 @@
                 </div>
                 <div><a [href]="item.url">{{item.name}}</a></div>
                 <div class="gray-text" [innerHtml]="item.description"></div>
-                <img *ngIf="item.src2" [src]="item.src2" height="30">
+                
                 <a [href]="item.url" class="text-link" style="float: right; font-size: 10px; color: gray;">Read More</a>
+            </td>
+            <td *ngIf="item.src2" width="30%">
+                <img  [src]="item.src2" class="item-pic">
             </td>
         </tr>
     </table>
@@ -36,13 +39,13 @@
 
                 </div>
                 <div><a [href]="item.url">{{item.name}}</a></div>
+                <div class="gray-text">{{item.date}}</div>
+ 
                 <div class="gray-text" [innerHtml]="item.description"></div>
                 <a [href]="item.url" class="text-link" style="float: right; font-size: 10px; color: gray;">Read More</a>
             </td>
-            <td width="70" align="center">
-                <div class="gray-text">{{item.date}}</div>
-                <img *ngIf="item.src2" [src]="item.src2" height="50"
-                    style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+            <td width="30%" align="center">
+               <img *ngIf="item.src2" [src]="item.src2"  class="item-pic">
             </td>
         </tr>
     </table>

@@ -1,0 +1,44 @@
+<div class="exile">
+    <div>Babylonian Exile</div>
+    <div>586BC - 516BC</div>
+</div>
+<div class="decree-of-cyrus">
+    <div>Decree of Cyrus</div>
+    <div>538BC</div>
+</div>
+<div class="word-to-haggai">
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>
+        -------Word to Haggai</div>
+    <div>521BC</div>
+    <div>
+        ---- Decree of Darius</div>
+</div>
+<div class="second-temple">
+    <div>Second Temple</div>
+    <div>516BC</div>
+</div>
+<div class="walls-rebuilt">
+    <div>Walls Rebuilt</div>
+    <div>445BC</div>
+</div>
+<table width="2000" style="background-color: white;" class="timeline">
+    <tr>
+        <td width="400px">650 BC</td>
+        <td width="400px" style="background-color: #ccf;">600 BC</td>
+        <td width="400px">550 BC</td>
+        <td width="400px" style="background-color: #ccf;">500 BC</td>
+        <td width="400px">450 BC</td>
+    </tr>
+</table>
+<div *ngFor="let person of people" [ngStyle]="ngStylePerson(person)" class="person">
+    <table width="100%">
+        <tr>
+            <td>{{person.name}} <span style="font-size: 10px; color: gray;">{{person.born}}BC -
+                    {{person.death}}BC</span></td>
+            <td *ngIf="person.reign" width="{{person.reign}}" style="border-bottom: 4px solid #5b4502;"></td>
+        </tr>
+    </table>
+</div>

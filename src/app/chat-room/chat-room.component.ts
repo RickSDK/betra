@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
 import { WebsocketService } from '../websocket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-room',
@@ -18,10 +19,11 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   public textValue: string = '';
   public isConnected: boolean = true;
   public usersOnline: any = [];
+  public numberChatRefreshes: number = 0;
   public socket: WebsocketService;
 
-  constructor(webSocketService: WebsocketService, databaseService: DatabaseService) { 
-    super(databaseService); 
+  constructor(private router: Router, webSocketService: WebsocketService, databaseService: DatabaseService) {
+    super(databaseService);
     this.socket = webSocketService;
     this.socket.connect();
   }
@@ -55,6 +57,7 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   }
 
   sumbitReply(message: string) {
+    this.numberChatRefreshes = 0;
     this.getDataFromServer('sendMessage', 'chat.php', { message: message, room: 1, lastMessage: this.lastMessage });
   }
 
@@ -90,6 +93,7 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action == "chatLogin") {
+      this.numberChatRefreshes++;
       this.chatRoom = responseJson;
       this.populateHappyHour(responseJson.currentTime);
       if (responseJson.messages && responseJson.messages.length > 0) {
@@ -133,9 +137,14 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
         return (parseInt(a.row_id) > parseInt(b.row_id)) ? 1 : (parseInt(a.row_id) < parseInt(b.row_id)) ? -1 : 0;
       });
 
+      if(this.numberChatRefreshes>20) {
+        this.getDataFromServer('exitChat', 'chat.php', {});
+        this.router.navigate(['']);
+        return;
+      }
       if (!responseJson.noRefresh) {
         setTimeout(() => {
-          console.log('refresh chat');
+          console.log('refresh chat', this.numberChatRefreshes);
           this.loginToChat();
         }, 8000);
       }

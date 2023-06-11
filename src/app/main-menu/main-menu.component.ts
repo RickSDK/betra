@@ -56,7 +56,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     { name: 'Contest', routerLink: "/contest", src: 'assets/images/buttons/v2/contest.png' },
     { name: 'View Activity', routerLink: "/activity", src: 'assets/images/buttons/v2/activity.jpeg' },
     { name: 'Photo Club', routerLink: "/photography", src: 'assets/images/buttons/v2/photography.jpeg' },
-    { name: 'Journal', routerLink: "/journal", src: 'assets/images/buttons/v2/journal.jpeg' },
+    { name: 'Photo Class', routerLink: "/photo-school", src: 'assets/images/buttons/v2/photoClass.jpeg' },
   ];
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
@@ -182,9 +182,12 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == "logUser" && this.user && this.user.status == 'Active') {
       if (responseJson.infoObj && !this.liteModeFlg) {
-        if (!responseJson.infoObj.roseCeremonyDt || responseJson.infoObj.daysTillRoseCeremony <= 0)
-          this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
-        else if (responseJson.infoObj.daysTillRoseCeremony <= 4 && this.user.heartId == 0 && this.betraPopupComponent) {
+        if (!responseJson.infoObj.roseCeremonyDt || responseJson.infoObj.daysTillRoseCeremony <= 0) {
+          var message = 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.';
+          if(this.user.datingPool.length==0)
+            message = 'You need to complete a Rose Ceremony in order to populate your dating pool.';
+          this.betraPopupComponent.showPopup('Rose Ceremony Time!', message, 99);
+        } else if (responseJson.infoObj.daysTillRoseCeremony <= 4 && this.user.heartId == 0 && this.betraPopupComponent) {
           this.betraPopupComponent.showPopup('Time to assign a rose!', 'At this point in the process, you are expected to hand out a rose to your favorite person. Everyone in your dating pool gets to see who you picked.', 2);
         }
       }

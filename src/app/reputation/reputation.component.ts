@@ -91,7 +91,7 @@ export class ReputationComponent extends BaseComponent implements OnInit {
 
       if (responseJson.facebookUrlFlg == 'Y')
         this.items[4].score = 1;
-      if (responseJson.instragramUrlFlg == 'Y')
+      if (responseJson.instragramUrlflg == 'Y')
         this.items[5].score = 1;
       if (responseJson.linkedInUrlFlg == 'Y')
         this.items[6].score = 1;

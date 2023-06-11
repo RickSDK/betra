@@ -184,7 +184,7 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
       var data = {
         emailVerifyFlg: responseJson.emailVerifyFlg && responseJson.emailVerifyFlg == 'Y',
         facebookUrlFlg: responseJson.facebookUrlFlg == 'Y',
-        instragramUrlFlg: responseJson.instragramUrlFlg == 'Y',
+        instragramUrlflg: responseJson.instragramUrlflg == 'Y',
         linkedInUrlFlg: responseJson.linkedInUrlFlg == 'Y',
         navLat: responseJson.navLat != "",
         picCertificateFlg: responseJson.picCertificateFlg == 'Y',

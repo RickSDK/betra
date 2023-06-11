@@ -106,7 +106,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.uid = params['uid'] || 0;
     });
 
-    this.getDataFromServer('loadMarket', 'market.php', {});
+    this.getDataFromServer('loadPhotography', 'photography.php', {});
 
   }
 
@@ -169,7 +169,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   }
 
   deleteThisImage(item: any) {
-    this.getDataFromServer('deleteThisImage', 'market.php', { orderId: item.id });
+    this.getDataFromServer('deleteThisImage', 'photography.php', { orderId: item.id });
     this.selectedPerson = null;
     this.editSellerFlg = false;
   }
@@ -187,7 +187,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.errorMessage = 'Select number of coins';
       return;
     }
-    this.getDataFromServer('placeOrder', 'market.php', { uid: this.selectedPerson.user_id, type: 'Special', cost: coins, instructions: instructions });
+    this.getDataFromServer('placeOrder', 'photography.php', { uid: this.selectedPerson.user_id, type: 'Special', cost: coins, instructions: instructions });
     this.selectedPerson = null;
 
   }
@@ -195,7 +195,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   placeOrder() {
     var instructions = $('#instructions').val();
     if (this.selectedPerson && this.selectedType) {
-      this.getDataFromServer('placeOrder', 'market.php', { uid: this.selectedPerson.user_id, type: this.selectedType.type, cost: this.selectedType.cost, instructions: instructions });
+      this.getDataFromServer('placeOrder', 'photography.php', { uid: this.selectedPerson.user_id, type: this.selectedType.type, cost: this.selectedType.cost, instructions: instructions });
       this.selectedPerson = null;
     }
   }
@@ -209,7 +209,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
   placeOffer() {
     var amount = $('#amountCoins').val();
-    this.getDataFromServer('placeOffer', 'market.php', { type: 'Offer', amount: amount, price: this.currentPrice });
+    this.getDataFromServer('placeOffer', 'photography.php', { type: 'Offer', amount: amount, price: this.currentPrice });
   }
 
   placeBid() {
@@ -218,7 +218,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       return;
     }
     var amount = $('#amountCoins').val();
-    this.getDataFromServer('placeBid', 'market.php', { type: 'Bid', amount: amount, price: this.currentPrice });
+    this.getDataFromServer('placeBid', 'photography.php', { type: 'Bid', amount: amount, price: this.currentPrice });
 
   }
   acceptOrder(order: any) {
@@ -234,13 +234,13 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.buyErrorMessage = 'You don\'t have enough coins to sell';
       return;
     }
-    this.getDataFromServer('completeOrder', 'market.php', { orderId: order.row_id });
+    this.getDataFromServer('completeOrder', 'photography.php', { orderId: order.row_id });
 
   }
 
   uploadPortfilioPicButtonClicked() {
     this.addPortfolioImageFlg = false;
-    this.getDataFromServer('uploadPortfolioImage', 'market.php', { image: $('#Image1').attr('src') });
+    this.getDataFromServer('uploadPortfolioImage', 'photography.php', { image: $('#Image1').attr('src') });
   }
   updateAboutMe() {
     this.errorMessage = '';
@@ -251,7 +251,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       return;
     }
     this.updateMadeFg = true;
-    this.getDataFromServer('updateAboutMe', 'market.php', { details: details });
+    this.getDataFromServer('updateAboutMe', 'photography.php', { details: details });
 
   }
 
@@ -269,15 +269,15 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       return;
     }
     var types = JSON.stringify(this.myPicTypes);
-    this.getDataFromServer('becomeSeller', 'market.php', { types: types, details: details });
+    this.getDataFromServer('becomeSeller', 'photography.php', { types: types, details: details });
   }
 
   exitClub() {
-    this.getDataFromServer('exitClub', 'market.php', {});
+    this.getDataFromServer('exitClub', 'photography.php', {});
   }
 
   becomeBuyer() {
-    this.getDataFromServer('becomeBuyer', 'market.php', {});
+    this.getDataFromServer('becomeBuyer', 'photography.php', {});
   }
 
   deletePicType(row: any) {
@@ -343,7 +343,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     }
     console.log(params);
 
-    this.getDataFromServer('depositCash', 'market.php', params);
+    this.getDataFromServer('depositCash', 'photography.php', params);
   }
 
   selectCoinsChanged() {
@@ -379,33 +379,37 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   }
 
   cancelOrder(order: any) {
-    this.getDataFromServer('cancelOrder', 'market.php', { orderId: order.row_id });
+    this.getDataFromServer('cancelOrder', 'photography.php', { orderId: order.row_id });
   }
 
   confirmPlacedOrder(order: any) {
     order.confirmFlg = true;
   }
 
+  rejectPlacedOrder(order: any) {
+
+  }
+
   textValueSubmitted(order: any, comments: string) {
     console.log(order.row_id)
-    this.getDataFromServer('confirmPlacedOrder', 'market.php', { orderId: order.row_id, details: comments });
+    this.getDataFromServer('confirmPlacedOrder', 'photography.php', { orderId: order.row_id, details: comments });
   }
 
   cancelPlacedOrder(order: any) {
-    this.getDataFromServer('cancelPlacedOrder', 'market.php', { orderId: order.row_id });
+    this.getDataFromServer('cancelPlacedOrder', 'photography.php', { orderId: order.row_id });
   }
 
   acceptPlacedOrder(order: any) {
-    this.getDataFromServer('acceptPlacedOrder', 'market.php', { orderId: order.row_id });
+    this.getDataFromServer('acceptPlacedOrder', 'photography.php', { orderId: order.row_id });
   }
 
   declinePlacedOrder(order: any) {
-    this.getDataFromServer('declinePlacedOrder', 'market.php', { orderId: order.row_id });
+    this.getDataFromServer('declinePlacedOrder', 'photography.php', { orderId: order.row_id });
   }
 
   deleteCancelledOrder(order: any) {
     console.log(order);
-    this.getDataFromServer('deleteCancelledOrder', 'market.php', { orderId: order.row_id });
+    this.getDataFromServer('deleteCancelledOrder', 'photography.php', { orderId: order.row_id });
   }
 
   deliverOrder(order: any) {
@@ -424,7 +428,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       image: $('#Image1').attr('src')
     };
     //console.log('params', params);
-    this.getDataFromServer('uploadMarketPicture', 'market.php', params);
+    this.getDataFromServer('uploadMarketPicture', 'photography.php', params);
   }
 
   iWantToBuy() {
@@ -506,11 +510,11 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
         element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.uid + '_' + element.row_id + '.jpg';
       });
-      this.offers.forEach((element: any) => {
+      //this.offers.forEach((element: any) => {
 
-        element.totalCost = (element.amount * element.price / 100).toFixed(2);
-      });
-      this.offers.sort((a: any, b: any) => a.status.localeCompare(b.status));
+        //element.totalCost = (element.amount * element.price / 100).toFixed(2);
+      //});
+      //this.offers.sort((a: any, b: any) => a.status.localeCompare(b.status));
       this.filterOfferItems(0);
 
       //------------------------------------------

@@ -27,10 +27,23 @@
                         </td>
                     </tr>
                 </table>
+                <table>
+                    <tr>
+                        <td>
+                            <p class="gray-text" style="text-align: left;">Want to trade pictures with other Betra
+                                members for fun?
+                                There's no cost to join and no cost to trade pictures. The more pictures you exchange
+                                the more coins you collect and coins can be redeemed for real cash!</p>
+                        </td>
+                        <td>
+                            <img [routerLink]="['/photo-school']" src='assets/images/buttons/v2/photoClass.jpeg'
+                                height="120" class="button-pic">
+                            <div>Photo classes!</div>
+                        </td>
+                    </tr>
+                </table>
 
-                <p class="gray-text" style="text-align: left;">Want to trade pictures with other Betra members for fun?
-                    There's no cost to join and no cost to trade pictures. The more pictures you exchange
-                    the more coins you collect and coins can be redeemed for real cash!</p>
+
                 <p><span (mousedown)="moreDetailsFlg=!moreDetailsFlg" class="text-link">More details</span></p>
                 <div *ngIf="moreDetailsFlg">
                     <p class="gray-text" style="text-align: left;">Want to receive pictures? Simply click one of the
@@ -214,19 +227,25 @@
                                 <td>
                                     <img *ngIf="(order.status=='Delivered' || order.status=='Confirmed') && order.src"
                                         (mousedown)="viewImage(order.src)" [src]="order.src" class="thumbnail-img">
-                                    <button *ngIf="order.status=='Delivered' && !order.confirmFlg"
-                                        [disabled]="loadingFlg" (mousedown)="confirmPlacedOrder(order)"
-                                        class="btn btn-main-color btn-small">Confirm</button>
-                                    <button *ngIf="order.status=='New' || order.status=='Accepted'"
-                                        [disabled]="loadingFlg" (mousedown)="cancelPlacedOrder(order)"
-                                        class="btn btn-danger">Cancel</button>
-                                    <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
-                                        (mousedown)="deleteCancelledOrder(order)"
-                                        class="btn btn-main-color">Delete</button>
-                                    <button *ngIf="order.status=='Declined' && order.user_id == user.user_id"
-                                        [disabled]="loadingFlg" (mousedown)="deleteCancelledOrder(order)"
-                                        class="btn btn-main-color ">Delete
-                                    </button>
+                                    <div>
+                                        <button *ngIf="order.status=='Delivered' && !order.confirmFlg"
+                                            [disabled]="loadingFlg" (mousedown)="confirmPlacedOrder(order)"
+                                            class="btn btn-success btn-small spacer">Confirm</button>
+                                        <button *ngIf="order.status=='Delivered' && !order.confirmFlg"
+                                            [disabled]="loadingFlg" (mousedown)="rejectPlacedOrder(order)"
+                                            class="btn btn-danger btn-small spacer">Reject</button>
+                                        <button *ngIf="order.status=='New' || order.status=='Accepted'"
+                                            [disabled]="loadingFlg" (mousedown)="cancelPlacedOrder(order)"
+                                            class="btn btn-danger">Cancel</button>
+                                        <button *ngIf="order.status=='Cancelled'" [disabled]="loadingFlg"
+                                            (mousedown)="deleteCancelledOrder(order)"
+                                            class="btn btn-main-color">Delete</button>
+                                        <button *ngIf="order.status=='Declined' && order.user_id == user.user_id"
+                                            [disabled]="loadingFlg" (mousedown)="deleteCancelledOrder(order)"
+                                            class="btn btn-main-color ">Delete
+                                        </button>
+                                    </div>
+
                                 </td>
 
 
@@ -313,11 +332,14 @@
                                     <div *ngIf="order.status=='New' && order.type=='Special'">This is a **special
                                         request**.<br> Review the instructions and the coins offered before accepting.
                                     </div>
-                                    <div *ngIf="(order.status=='New' || order.status=='Accepted') && order.completedOffers>0">
-                                        <div>Previous offers by this user: <span class="text-highlight">{{order.completedOffers}}</span></div>
+                                    <div
+                                        *ngIf="(order.status=='New' || order.status=='Accepted') && order.completedOffers>0">
+                                        <div>Previous offers by this user: <span
+                                                class="text-highlight">{{order.completedOffers}}</span></div>
                                         <div *ngIf="order.completedOffers>0">
                                             <div>Pictures you have already sent to this person:</div>
-                                            <img (mousedown)="viewImage(pic.src)" [src]="pic.src" *ngFor="let pic of order.pics" height="44" class="thumbnail-img">                                        
+                                            <img (mousedown)="viewImage(pic.src)" [src]="pic.src"
+                                                *ngFor="let pic of order.pics" height="44" class="thumbnail-img">
                                         </div>
                                     </div>
                                     <button *ngIf="order.status=='New'" [disabled]="loadingFlg"
@@ -491,7 +513,8 @@
                                         class="btn btn-warning btn-small">Request</button></td>
                             </tr>
                         </table>
-                        <button (mousedown)="specialRequestFlg=!specialRequestFlg"
+                        <button *ngIf="!selectedPerson.hasOrderPlaced"
+                            (mousedown)="specialRequestFlg=!specialRequestFlg"
                             class="btn btn-main-color btn-small">Special Request</button>
                         <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
                         <div *ngIf="selectedPerson.hasOrderPlaced"
@@ -555,12 +578,13 @@
                         <div *ngFor="let seller of sellersF" style="display: inline-block; padding: 3px;">
                             <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
                             </app-profile-pic>
-                            <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
+                            <button (mousedown)="viewSeller(seller)" class="btn btn-main-color btn-small">View</button>
                             <div style="font-size: 8px;">
                                 <i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire"
                                     style="color: red;"></i><i title="Orders" class="fa fa-picture-o"></i>&nbsp;<span
                                     class="text-highlight">{{seller.ordersDelivered}}</span>
-                                <span *ngIf="seller.ordersPending>0" title="Pending">&nbsp;<i class="fa fa-spinner"></i>&nbsp;<span
+                                <span *ngIf="seller.ordersPending>0" title="Pending">&nbsp;<i
+                                        class="fa fa-spinner"></i>&nbsp;<span
                                         class="text-highlight">{{seller.ordersPending}}</span></span>
                             </div>
                         </div>
@@ -571,12 +595,13 @@
                         <div *ngFor="let seller of sellersM" style="display: inline-block; padding: 3px;">
                             <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
                             </app-profile-pic>
-                            <button (mousedown)="viewSeller(seller)" class="btn btn-primary btn-small">View</button>
+                            <button (mousedown)="viewSeller(seller)" class="btn btn-main-color btn-small">View</button>
                             <div style="font-size: 8px;">
                                 <i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire"
                                     style="color: red;"></i><i title="Orders" class="fa fa-picture-o"></i>&nbsp;<span
                                     class="text-highlight">{{seller.ordersDelivered}}</span>
-                                <span *ngIf="seller.ordersPending>0" title="Pending">&nbsp;<i class="fa fa-spinner"></i>&nbsp;<span
+                                <span *ngIf="seller.ordersPending>0" title="Pending">&nbsp;<i
+                                        class="fa fa-spinner"></i>&nbsp;<span
                                         class="text-highlight">{{seller.ordersPending}}</span></span>
                             </div>
                         </div>

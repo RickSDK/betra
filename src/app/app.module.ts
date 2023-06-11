@@ -147,6 +147,9 @@ import { OwnerProcessCcComponent } from './owner-process-cc/owner-process-cc.com
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { DatingPoolItemComponent } from './dating-pool-item/dating-pool-item.component';
 import { LandingPageLiteComponent } from './landing-page-lite/landing-page-lite.component';
+import { PhotoSchoolComponent } from './photo-school/photo-school.component';
+import { PhotoClassComponent } from './photo-class/photo-class.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -293,6 +296,9 @@ import { LandingPageLiteComponent } from './landing-page-lite/landing-page-lite.
     TopBarComponent,
     DatingPoolItemComponent,
     LandingPageLiteComponent,
+    PhotoSchoolComponent,
+    PhotoClassComponent,
+    TimelineComponent,
   ],
   imports: [
     BrowserModule,
