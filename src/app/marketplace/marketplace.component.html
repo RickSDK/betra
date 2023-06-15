@@ -116,9 +116,9 @@
                                 </tr>
                                 <tr *ngFor="let offer of offers">
                                     <td>
-                                        <app-profile-pic [user_id]="offer.user_id" [profilePic]="offer.profilePic"
+                                        <app-profile-pic2 (mousedown)="showProfile(offer.user_id)" [user_id]="offer.user_id" [profilePic]="offer.profilePic"
                                             [size]="30">
-                                        </app-profile-pic>
+                                        </app-profile-pic2>
                                     </td>
                                     <td style="font-size: 10px;">
                                         <div *ngIf="offer.type=='Offer'">Selling Coins</div>
@@ -276,9 +276,9 @@
                             </tr>
                             <tr *ngFor="let offer of completedRecords">
                                 <td align="center">
-                                    <app-profile-pic [user_id]="offer.user_id" [profilePic]="offer.profilePic"
+                                    <app-profile-pic2 (mousedown)="showProfile(offer.user_id)" [user_id]="offer.user_id" [profilePic]="offer.profilePic"
                                         [size]="30">
-                                    </app-profile-pic>
+                                    </app-profile-pic2>
                                 </td>
                                 <td style="font-size: 10px;" align="center">
                                     <div *ngIf="offer.type=='Offer'">Selling Coins</div>
@@ -291,9 +291,9 @@
                                     <div style="font-size: 10px; color: gray;">({{offer.price}}¢/coin)</div>
                                 </td>
                                 <td align="center">
-                                    <app-profile-pic [user_id]="offer.accepted_by" [profilePic]="offer.profilePic2"
+                                    <app-profile-pic2 (mousedown)="showProfile(offer.accepted_by)" [user_id]="offer.accepted_by" [profilePic]="offer.profilePic2"
                                         [size]="30">
-                                    </app-profile-pic>
+                                    </app-profile-pic2>
                                 </td>
 
                             </tr>
@@ -317,8 +317,8 @@
             </tr>
             <tr *ngFor="let user of coinLeaders">
                 <td>
-                    <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="30">
-                    </app-profile-pic>
+                    <app-profile-pic2 (mousedown)="showProfile(user.user_id)" [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="30">
+                    </app-profile-pic2>
                 </td>
                 <td align="center">
                     {{user.points}}
@@ -329,3 +329,4 @@
 
     </div>
 </app-page-shell>
+<app-profile-user-popup></app-profile-user-popup>

@@ -20,16 +20,16 @@
                 <td align="center">
                     <div class="tiny-text" style="text-align: center;"><b>Men</b></div>
                     <div *ngFor="let person of topListsPage.topMen; let i =index" style="display: inline-block;">
-                        <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic"
-                        [size]="100"></app-profile-pic>
+                        <app-profile-pic2 (mousedown)="showProfile(person.user_id)" [user_id]="person.user_id" [profilePic]="person.profilePic"
+                        [size]="100"></app-profile-pic2>
                         <div style="font-size: 12px;"><span> {{person.firstName}} <sup>{{person.usersLiked}}</sup></span></div>
                     </div>
                 </td>
                 <td align="center">
                     <div class="tiny-text" style="text-align: center;"><b>Women</b></div>
                     <div *ngFor="let person of topListsPage.topWomen; let i =index" style="display: inline-block;">
-                        <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic"
-                        [size]="100"></app-profile-pic>
+                        <app-profile-pic2 (mousedown)="showProfile(person.user_id)" [user_id]="person.user_id" [profilePic]="person.profilePic"
+                        [size]="100"></app-profile-pic2>
                         <div style="font-size: 12px;"><span> {{person.firstName}} <sup>{{person.usersLiked}}</sup></span></div>
                     </div>
                 </td>
@@ -38,3 +38,4 @@
     
 
 </app-page-shell>
+<app-profile-user-popup></app-profile-user-popup>

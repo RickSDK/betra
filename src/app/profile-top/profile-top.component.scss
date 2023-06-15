@@ -12,6 +12,17 @@
     border-radius: 0 0 15px 0;
 }
 
+.profile-icon {
+    font-size: 22px;
+    color: black;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px gray;;
+}
+
+.profile-icon:hover {
+    color: white;
+}
+
 .new-user-popup {
     position: absolute;
     top: 20px;
@@ -41,6 +52,24 @@
     transition: all 1s ease;
 }
 
+.slide-in-menu {
+    position: absolute;
+    display: inline-block;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px black;
+    border: 1px solid black;
+    padding: 0;
+    z-index: 10;
+    min-width: 80px;
+    transition: all 1s ease;
+}
+
+.more-pics-menu {
+    background-color: white;
+    transition: all 1s ease;
+}
+
 .verified-cirtificate {
     cursor: pointer;
     font-size: 32px; 
@@ -60,8 +89,8 @@
     border-radius: 50%;
     padding: 0 3px 0 3px;
     width: 20px;
-    top: 15px; 
-    left: 14px; 
+    bottom: 15px; 
+    right: 35px; 
     z-index: 121;
     cursor: pointer;
 }
@@ -171,6 +200,7 @@
 }
 
 .three-dots-menu-option {
+    cursor: pointer;
     white-space: nowrap;
     padding: 3px;
     font-size: 14px;
@@ -197,13 +227,17 @@
     cursor: pointer;
     box-shadow: 5px 5px 10px gray;
     z-index: 120;
+    position: absolute; 
+    bottom: 62px; 
 }
 
 .yes-button {
+    right: 10px;
     background-color: greenyellow;
 }
 
 .no-button {
+    left: 10px;
     background-color: orange;
 }
 

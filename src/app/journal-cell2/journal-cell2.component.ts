@@ -3,6 +3,8 @@ import { BaseComponent } from '../base/base.component';
 import { Journal } from '../classes/journal';
 import { DatabaseService } from '../services/database.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-journal-cell2',
   templateUrl: './journal-cell2.component.html',
@@ -56,6 +58,13 @@ export class JournalCell2Component extends BaseComponent implements OnInit {
     item.iLikeFlg = false;
     this.getDataFromServer('dislikePost', 'journal2.php', { journalId: item?.row_id });
 
+  }
+
+  submitButtonPressed() {
+    var message = $('#journalEditText').val()
+    this.getDataFromServer('editMessage', 'journal2.php', { message: message, journalId: this.journal?.row_id });
+    this.adminAction = '';
+    console.log('hey!', this.journal?.row_id);
   }
 
   sumbitReply(message: string) {

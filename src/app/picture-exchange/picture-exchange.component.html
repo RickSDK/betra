@@ -80,8 +80,8 @@
                             <i class="fa fa-times" (mousedown)="editSellerFlg=false"
                                 style="font-size: 18px; float: right; cursor: pointer;"></i>
                             <div>{{user.firstName}}'s Photography Profile</div>
-                            <app-profile-pic [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="60">
-                            </app-profile-pic>
+                            <app-profile-pic2 (mousedown)="showProfile(user.user_id)" [user_id]="user.user_id" [profilePic]="user.profilePic" [size]="60">
+                            </app-profile-pic2>
                             <div class="gray-text"><b>About me</b>: Add a short sentence or 2 about what types of
                                 pictures
                                 you like to take.</div>
@@ -205,8 +205,8 @@
                             </tr>
                             <tr *ngFor="let order of displayOrders">
                                 <td>
-                                    <app-profile-pic [user_id]="order.uid" [profilePic]="order.profilePic" [size]="30">
-                                    </app-profile-pic>
+                                    <app-profile-pic2 (mousedown)="showProfile(order.uid)" [user_id]="order.uid" [profilePic]="order.profilePic" [size]="30">
+                                    </app-profile-pic2>
                                 </td>
                                 <td *ngIf="!order.confirmFlg">{{order.type}}</td>
                                 <td *ngIf="!order.confirmFlg" style="color: green;">{{order.cost}} coins</td>
@@ -220,7 +220,9 @@
                                     <div *ngIf="order.comments"><b>{{user.firstName}}:</b> {{order.comments}}</div>
                                 </td>
                                 <td *ngIf="order.confirmFlg" colspan="4">
-                                    <div class="gray-text">What did you think of the picture?</div>
+                                    <div *ngIf="!rejectionFlg" class="gray-text">What did you think of the picture?</div>
+                                    <div *ngIf="rejectionFlg" style="font-size: 12px; color: red;">Why are you rejecting this picture?</div>
+                                    
                                     <app-text-with-enter [placeHolder]="'Comments'" [maxLength]="400"
                                         (messageEvent)="textValueSubmitted(order, $event)"></app-text-with-enter>
                                 </td>
@@ -313,9 +315,9 @@
                             </tr>
                             <tr *ngFor="let order of displayOffers">
                                 <td>
-                                    <app-profile-pic [user_id]="order.user_id" [profilePic]="order.profilePic"
+                                    <app-profile-pic2 (mousedown)="showProfile(order.user_id)" [user_id]="order.user_id" [profilePic]="order.profilePic"
                                         [size]="30">
-                                    </app-profile-pic>
+                                    </app-profile-pic2>
                                 </td>
                                 <td>{{order.type}}</td>
                                 <td style="color: green;">{{order.cost}} coins</td>
@@ -483,9 +485,9 @@
                 <tr>
                     <td width="120">
 
-                        <app-profile-pic [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic"
+                        <app-profile-pic2 (mousedown)="showProfile(selectedPerson.user_id)" [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic"
                             [size]="100">
-                        </app-profile-pic>
+                        </app-profile-pic2>
                         <div style="font-size: 10px;"><b>Order history</b></div>
                         <div style="font-size: 10px;">Delivered: <span
                                 class="text-highlight">{{selectedPerson.ordersDelivered}}</span></div>
@@ -500,6 +502,10 @@
                     </td>
                     <td>
                         <div style="font-size: 10px; padding: 10px;">{{selectedPerson.details}}</div>
+                        <div *ngIf="selectedPerson.onSale" class="tan-box">
+                            <div>On Sale!</div>
+                            <div class="gray-text">All pics for this person are half off today!</div>
+                        </div>
                         <table class="betra-table" *ngIf="!selectedType" style="background-color: white;">
                             <tr>
                                 <th>Type</th>
@@ -508,12 +514,16 @@
                             </tr>
                             <tr *ngFor="let type of selectedPerson.types">
                                 <td>{{type.type}}</td>
-                                <td style="font-size: 10px;" align="center">{{type.cost}} coins</td>
-                                <td><button *ngIf="!selectedPerson.hasOrderPlaced" (mousedown)="buyPicture(type)"
+                                <td style="font-size: 10px;" align="center">
+                                    <span *ngIf="!selectedPerson.onSale">{{type.cost}}</span>
+                                    <span *ngIf="selectedPerson.onSale" style="font-size: 12px; color: green;"><s>{{type.cost}}</s> {{type.sale}}</span>
+                                      coins
+                                </td>
+                                <td><button *ngIf="!selectedPerson.hasOrderPlaced && user.user_id != selectedPerson.user_id" (mousedown)="buyPicture(type)"
                                         class="btn btn-warning btn-small">Request</button></td>
                             </tr>
                         </table>
-                        <button *ngIf="!selectedPerson.hasOrderPlaced"
+                        <button *ngIf="!selectedPerson.hasOrderPlaced && user.user_id != selectedPerson.user_id"
                             (mousedown)="specialRequestFlg=!specialRequestFlg"
                             class="btn btn-main-color btn-small">Special Request</button>
                         <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
@@ -524,7 +534,7 @@
                         <div>&nbsp;</div>
                         <div *ngIf="selectedType">
                             <div>Type: <span class="text-highlight">{{selectedType.type}}</span></div>
-                            <div>Cost: <span class="text-highlight">{{selectedType.cost}} coins</span></div>
+                            <div>Cost: <span class="text-highlight">{{this.costOfPicture}} coins</span></div>
                             <input type="text" maxlength="400" id="instructions" placeholder="Instructions">
                             <button (mousedown)="placeOrder()" [disabled]="loadingFlg"
                                 class="btn btn-main-color btn-large" style="margin: 10px;">Place Order</button>
@@ -567,7 +577,21 @@
             <span (mousedown)="selectedPerson=null" class="text-link">More photographers</span>
         </div>
         <div *ngIf="!selectedPerson">
-            <div class="tan-box">
+            <div *ngIf="sellerFlg == 'Y'" class="tan-box">
+                <div *ngIf="daysSince<=2">
+                    Your pics are currently on sale!
+                </div>
+                <div *ngIf="daysSince<7 && daysSince>2">
+                    {{7-daysSince}} days left until you can run another sale
+                </div>
+                <div *ngIf="daysSince>=7">
+                    <div>Click here to run a 2-day special</div>
+                    <button (mousedown)="runSale()" class="btn btn-main-color btn-large">Run Special!</button>
+                    <div class="gray-text">By clicking this button you will be running a 2-day sale that will feature you at the top of the list.
+                        Your pictures will run at half-price for the duration of the sale. You can click this button once per week.</div>    
+                </div>
+            </div>
+            <div *ngIf="sellerFlg != 'Y'" class="tan-box">
                 The photographers below are available to send you a picture today!
             </div>
             <table *ngIf="activity==0" width="100%">
@@ -576,8 +600,8 @@
                         <div class="super-title"><b>Photographers (F)</b></div>
                         <div style="font-size: 10px;">These users have been active recently</div>
                         <div *ngFor="let seller of sellersF" style="display: inline-block; padding: 3px;">
-                            <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
-                            </app-profile-pic>
+                            <app-profile-pic2 (mousedown)="showProfile(seller.user_id)" [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
+                            </app-profile-pic2>
                             <button (mousedown)="viewSeller(seller)" class="btn btn-main-color btn-small">View</button>
                             <div style="font-size: 8px;">
                                 <i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire"
@@ -591,10 +615,26 @@
                     </td>
                     <td align="center" valign="top">
                         <div class="super-title"><b>Photographers (M)</b></div>
+                        <div *ngIf="1" class="sale-box">
+                            <div style="font-size: 10px;">Cuurently on Sale!</div>
+                            <div *ngFor="let seller of sellersMonSale" style="display: inline-block; padding: 3px;">
+                                <app-profile-pic2 (mousedown)="showProfile(seller.user_id)" [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
+                                </app-profile-pic2>
+                                <button (mousedown)="viewSeller(seller)" class="btn btn-main-color btn-small">View</button>
+                                <div style="font-size: 8px;">
+                                    <i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire"
+                                        style="color: red;"></i><i title="Orders" class="fa fa-picture-o"></i>&nbsp;<span
+                                        class="text-highlight">{{seller.ordersDelivered}}</span>
+                                    <span *ngIf="seller.ordersPending>0" title="Pending">&nbsp;<i
+                                            class="fa fa-spinner"></i>&nbsp;<span
+                                            class="text-highlight">{{seller.ordersPending}}</span></span>
+                                </div>
+                            </div>
+                        </div>
                         <div style="font-size: 10px;">These users have been active recently</div>
                         <div *ngFor="let seller of sellersM" style="display: inline-block; padding: 3px;">
-                            <app-profile-pic [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
-                            </app-profile-pic>
+                            <app-profile-pic2 (mousedown)="showProfile(seller.user_id)" [user_id]="seller.user_id" [profilePic]="seller.profilePic" [size]="30">
+                            </app-profile-pic2>
                             <button (mousedown)="viewSeller(seller)" class="btn btn-main-color btn-small">View</button>
                             <div style="font-size: 8px;">
                                 <i *ngIf="seller.ordersDelivered == mostOrders" class="fa fa-fire"
@@ -626,3 +666,4 @@
 </div>
 <app-picture-popup></app-picture-popup>
 <app-betra-popup></app-betra-popup>
+<app-profile-user-popup></app-profile-user-popup>

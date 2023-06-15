@@ -9,11 +9,17 @@
                     [queryParams]="{uid: journalItem.user_id}" [src]="journalItem.src" class="profile-circle">
             </td>
             <td valign="top" style="padding: 10px; position: relative;">
-                <div class="journal-text">
+                <div *ngIf="adminAction != 'edit'" class="journal-text">
                     <div *ngIf="journalItem.journal_id==0"><b>{{journalItem.firstName}}</b> <span
                             *ngIf="journalItem.newFlg" class="newFlg">New</span></div>
                     <div style="color: pink; font-size: 10px;">{{journalItem.localDt}}</div>
-                    <div class="gray-text">{{journalItem.messageText}}</div>
+                    <div [innerHTML]="journalItem.message" style="font-size: 12px; color: gray;"></div>
+                    <!--<div class="gray-text">{{journalItem.message}}</div>-->
+                </div>
+                <div *ngIf="adminAction == 'edit'" style="padding-bottom: 50px;">
+                    <app-text-area-input [id]="'journalEditText'" [value]="journalItem.messageText" [maxLength]="2000"></app-text-area-input>
+                    <button (mousedown)="submitButtonPressed()" class="btn btn-primary">Update</button> - 
+                    <a (mousedown)="adminAction=''" class="text-link">Cancel</a>
                 </div>
                 <div
                     style="color: gray; font-size: 12px; padding-left: 20px; position: absolute; left: 0; bottom: 5px;">

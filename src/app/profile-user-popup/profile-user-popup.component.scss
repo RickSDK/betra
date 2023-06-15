@@ -1,0 +1,343 @@
+
+.outer-div {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 30px;
+    z-index: 600;
+}
+
+.gray-screen2 {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: .7;
+}
+
+.user-popup {
+    opacity: 1;
+    display: inline-block;
+    width: 100%;
+    max-width: 440px;
+    height: 440px;
+    position: relative;
+    background-color: white;
+    box-shadow: 3px 3px 10px black;
+    overflow: hidden;
+    border-radius: 20px;
+    transition: all 1s ease;
+}
+
+.user-popup-init {
+    opacity: 0;
+    display: inline-block;
+    width: 100%;
+    max-width: 160px;
+    height: 160px;
+    position: relative;
+    background-color: white;
+    box-shadow: 3px 3px 10px black;
+    overflow: hidden;
+    border-radius: 20px;
+    transition: all 1s ease;
+}
+
+.user-profile-image {
+    width: 100%;
+    height: 100%;
+    max-height: 350px;
+    cursor: pointer;
+    object-fit: cover;
+    -webkit-filter: grayscale(70%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(70%);
+    object-position: 50% 20%;
+    transition: all 1s ease;
+    border-radius: 0 0 15px 0;
+}
+
+.profile-icon {
+    font-size: 22px;
+    color: black;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px gray;;
+}
+
+.profile-icon:hover {
+    color: white;
+}
+
+.new-user-popup {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    max-width: 400px;
+    z-index: 500;
+    background-color: #fdd;
+    padding: 20px;
+    box-shadow: 5px 5px 10px gray;
+    border-radius: 5px;
+}
+
+.btn-profile {
+    font-size: 12px;
+    min-width: 140px;
+    height: 30px;
+    margin: 5px;
+}
+
+.profile-basics {
+    opacity: 1;
+    transition: all 1s ease;
+}
+
+.profile-basics-off {
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.img1 {
+    max-width: 320px; width: 100%; height: 100%; object-fit: cover; 
+    margin-top: 20px; margin-bottom: 20px;
+    box-shadow: 5px 5px 15px black; border-radius: 25%; cursor: pointer;
+    transition: all 1s ease;
+}
+
+.img2 {
+    width: 100%; height: 100%; object-fit: cover; 
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.slide-in-menu {
+    position: absolute;
+    display: inline-block;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px black;
+    border: 1px solid black;
+    padding: 0;
+    z-index: 10;
+    min-width: 80px;
+    transition: all 1s ease;
+}
+
+.more-pics-menu {
+    position: absolute;
+    left: 0;
+    background-color: white;
+    border: 1px solid gray;
+    width: 100%;
+    max-width: 440px;
+    transition: all 1s ease;
+}
+
+.verified-cirtificate {
+    cursor: pointer;
+    font-size: 32px; 
+    color: #900; 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    z-index: 120;
+}
+
+.reputation-score {
+    background-color: #900;
+    text-align: center;
+    color: white;
+    font-size: 14px; 
+    position: absolute;
+    border-radius: 50%;
+    padding: 0 3px 0 3px;
+    width: 20px;
+    bottom: 15px; 
+    right: 35px; 
+    z-index: 121;
+    cursor: pointer;
+}
+
+.reputation-score:hover {
+    background-color: red;
+}
+
+.icon-chevron {
+    cursor: pointer;
+    font-size: 32px; 
+    color: white; 
+    position: absolute; 
+    top: 100px; 
+    z-index: 120;
+}
+
+.plus-icon {
+    color: black;
+    position: absolute; 
+    right: 3px; 
+    top: 3px; 
+    font-size: 16px; 
+    z-index: 120;
+    cursor: pointer;
+}
+
+.plus-icon:hover {
+    color: white;
+}
+
+.icon-chevron:hover {
+    color: #900;
+}
+
+.user-profile-image:hover {
+    filter: none;
+}
+
+.profile-image-large {
+    width: 100%;
+    max-height: 1000px;
+    object-fit: cover;
+    transition: all 1s ease;
+    cursor: pointer;
+}
+
+.tiny-pic {
+    width: 100%;
+    max-width: 26px;
+    height: 40px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 4px #999;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.tiny-pic-blur {
+    width: 100%;
+    max-width: 26px;
+    height: 40px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 4px #999;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.tiny-pic:hover {
+    box-shadow: 2px 2px 5px black;
+}
+.icon-label {
+    white-space: nowrap;
+}
+.three-dots {
+    float: right; 
+    border-radius: 50%;
+    width: 30px;
+    font-size: 18px;
+    text-align: center;
+    color: gray; 
+    margin-right: 0;
+    cursor: pointer;
+}
+
+.three-dots:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.three-dots-menu {
+    display: inline-block;
+    position: absolute;
+    z-index: 120;
+    top: 35px;
+    right: 0;
+    color: gray;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px gray;
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.three-dots-menu-option {
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 3px;
+    font-size: 14px;
+}
+
+.block-popup {
+    display: inline-block; 
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    background-color: #900; 
+    color: white; 
+    padding: 20px; 
+    border-radius: 5px; 
+    box-shadow: 5px 5px 10px gray;
+    max-width: 400px;
+}
+.circle-button {
+    font-size: 36px;
+    border-radius: 50%;
+    padding: 15px;
+    width: 70px;
+    margin-top: -50px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px gray;
+    z-index: 120;
+    position: absolute; 
+    bottom: 62px; 
+}
+
+.yes-button {
+    right: 10px;
+    background-color: greenyellow;
+}
+
+.no-button {
+    left: 10px;
+    background-color: orange;
+}
+
+.yes-button:hover {
+    background-color: #00ff00;
+}
+
+.no-button:hover {
+    background-color: #ffcc00;
+}
+
+.small-title {
+    font-size: 10px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.name-bar {
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.dabauchery-icon {
+    height: 20px;
+    -webkit-filter: grayscale(.5);
+    filter: grayscale(.5);
+}
+
+.dabauchery-icon:hover {
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+

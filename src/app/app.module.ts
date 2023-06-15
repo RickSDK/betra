@@ -150,6 +150,9 @@ import { LandingPageLiteComponent } from './landing-page-lite/landing-page-lite.
 import { PhotoSchoolComponent } from './photo-school/photo-school.component';
 import { PhotoClassComponent } from './photo-class/photo-class.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { ProfileBasicsComponent } from './profile-basics/profile-basics.component';
+import { ProfileUserPopupComponent } from './profile-user-popup/profile-user-popup.component';
+import { ProfilePic2Component } from './profile-pic2/profile-pic2.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -299,6 +302,9 @@ import { TimelineComponent } from './timeline/timeline.component';
     PhotoSchoolComponent,
     PhotoClassComponent,
     TimelineComponent,
+    ProfileBasicsComponent,
+    ProfileUserPopupComponent,
+    ProfilePic2Component,
   ],
   imports: [
     BrowserModule,

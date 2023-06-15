@@ -19,7 +19,7 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
   public logo = 'assets/images/betraLogo.png';
   public adsbygoogle: any;
   public blogList: any = [];
-  public backgroundImg = 'assets/images/landing/roseHome.png';
+  public backgroundImg = 'assets/images/landing/roseHome.webp';
   public referralId: number = 0
   public type: string = '';
   //public bgImg = 'assets/images/landing/logoBlack.png';
@@ -55,7 +55,7 @@ export class LandingPageComponent extends BaseComponent implements OnInit {
 
   }
   toggleBackground() {
-    this.backgroundImg = (this.backgroundImg == 'assets/images/landing/background1.png') ? 'assets/images/landing/roseHome.png' : 'assets/images/landing/background1.png';
+    this.backgroundImg = (this.backgroundImg == 'assets/images/landing/background1.png') ? 'assets/images/landing/roseHome.webp' : 'assets/images/landing/background1.png';
   }
   gotoMainMenu() {
     this.router.navigate(['home']);

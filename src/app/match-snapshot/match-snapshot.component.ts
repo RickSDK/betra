@@ -44,13 +44,14 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
   public showSnoopFlg: boolean = false;
   public distance: string = '';
   public questions: any = [];
+  public loadedId: number = 0;
 
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
-    if (this.user && this.matchUser)
-      this.initModal(this.matchUser, this.user, null);
+    //if (this.user && this.matchUser)
+    //  this.initModal(this.matchUser, this.user, null);
   }
 
   ngOnChanges(changes: any) {
@@ -70,10 +71,6 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     }
 
     this.calculateMatches(user, matchUser, matchObj);
-
-    if (this.matchUser.newReviewBy) {
-      console.log('xxxinitModal', this.matchUser.newReviewBy);
-    }
 
   }
 

@@ -1,0 +1,16 @@
+.dabauchery-icon {
+    height: 20px;
+    -webkit-filter: grayscale(.5);
+    filter: grayscale(.5);
+}
+
+.dabauchery-icon:hover {
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
+.small-title {
+    font-size: 10px;
+    text-align: center;
+    font-weight: 700;
+}

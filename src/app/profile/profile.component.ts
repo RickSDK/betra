@@ -20,6 +20,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public fileToUpload: any;
   public moreMatchOptionsFlg: boolean = false;
   public showRequiredFieldsFlg: boolean = false;
+  public imageSelected: boolean = false;
   public NUM_ITEMS: number = 9;
   public requiredFieldColor: string = '#ffffc0';
   public inputFieldObj: any;
@@ -156,7 +157,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     //this.refreshUser();
   }
   checkForLiteMode() {
-    if(this.platform == 'IOS') {
+    if (this.platform == 'IOS') {
       this.findLoveFlg = false;
     }
     this.liteModeFlg = !this.findLoveFlg;
@@ -623,10 +624,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   continueUploadButtonPressed() {
-    if (this.user.profilePic > 0)
+    if (this.user.profilePic > 0 || this.imageSelected)
       this.profileSectionAdvance();
-    else
+    else {
+      this.imageSelected = true;
       this.errorMessage = 'Select an image and then press "Upload" to continue.';
+    }
   }
 
   uploadPicButtonClicked(num: number) {
@@ -651,12 +654,14 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       image: $('#myImg').attr('src')
     };
     //console.log('updateImageButtonClicked', params);
+    this.imageSelected = true;
     this.executeApi('appApiCode.php', params, true);
   }
 
   updateImageButton2Clicked() {
     this.loadingFlg = true;
     this.showSubmitButtonFlg = false;
+    this.imageSelected = true;
 
     var image = $('#myImg').attr('src');
     if (!image) {

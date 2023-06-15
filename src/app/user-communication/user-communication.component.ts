@@ -77,7 +77,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
 
   override ngOnInit(): void {
     //super.ngOnInit();
-    this.populateModal(this.matchUser, this.myUser);
+    //this.populateModal(this.matchUser, this.myUser);
   }
 
   emojiSrcForId(id: string) {
@@ -89,6 +89,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   }
 
   populateModal(matchUser: any, myUser: any) {
+    console.log('xxxpopulateModalxxx');
     this.matchUser = matchUser;
     this.myUser = myUser;
     this.messageSentFlg = false;
@@ -138,7 +139,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
     this.executeApi('betraMessages.php', params, true);
   }
   override postSuccessApi(file: string, responseJson: any) {
-    //console.log('got messages', responseJson);
+    console.log('got messages', responseJson);
     if (responseJson.action == "readMessages" || responseJson.action == "sendMessage" || responseJson.action == "deleteMessage") {
       var showDetailsFlg = false;
       this.messages = [];

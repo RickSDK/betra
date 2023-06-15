@@ -101,7 +101,7 @@
                     other benfits.</p>
             </div>
         </div>
-        <div *ngIf="uid <= 0">
+        <div *ngIf="uid <= 0 && !loadingFlg">
             <div class="matches-card" *ngIf="noLocationInfoFoundFlg" [routerLink]="['/location']"
                 style="cursor: pointer;">
                 <p class="red-text">Note: Something is not set up properly with your location</p>
@@ -161,6 +161,7 @@
                 [dateObj]="dateObj">
             </app-user-requests>
 
+            <span *ngIf="messagesLoadingFlg"><i class="fa fa-spinner fa-spin"></i> Loading messages...</span>
             <app-user-communication *ngIf="!loadingFlg" (messageEvent)="messagesEvent($event)" [myUser]="user"
                 [matchUser]="matchUser">
             </app-user-communication>

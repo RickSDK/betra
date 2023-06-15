@@ -35,12 +35,13 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
   public showImageFlg: boolean = false;
   public appVersion: string = getVersion();
   public addEntryFlg: boolean = false;
+  public showEditPopupFlg: boolean = false;
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
   override ngOnInit(): void {
     this.level++;
- //   console.log('+++', this.journal);
+    //   console.log('+++', this.journal);
   }
 
   ngClassPic(num: number) {
@@ -58,6 +59,10 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     this.adminAction = action;
     if (action == 'flag' || action == 'delete')
       this.showConfirmationFlg = true;
+
+    if (action == 'edit') {
+      this.showEditPopupFlg = true;
+    }
   }
 
   optionConfirmPressed() {
@@ -140,7 +145,7 @@ export class JournalCellComponent extends BaseComponent implements OnInit {
     if (message.length > 0) {
       this.replyToFlg = false;
       this.getDataFromServer('postJournalComment', 'journal.php', {
-        journalId: this.journal.row_id, message: message, updateFlg: (this.addEntryFlg)?'Y':''
+        journalId: this.journal.row_id, message: message, updateFlg: (this.addEntryFlg) ? 'Y' : ''
       });
     }
   }

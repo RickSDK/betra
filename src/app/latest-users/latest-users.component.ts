@@ -23,13 +23,15 @@ export class LatestUsersComponent extends BaseComponent implements OnInit {
     if (responseJson.action == 'getLatestUsers') {
       this.users = [];
       responseJson.playerList.forEach((element: any) => {
-        this.users.push(new User(element, this.user));
+        var dbStatus = element.status;
+        var user = new User(element, this.user);
+        user.status = dbStatus;
+        this.users.push(user);
       });
       this.users.forEach((element: any) => {
         if (element.potentialLoveInterestFlg && element.status == 'Active' && !element.matchObj.you_interested)
           this.actionCount++;
       });
-      console.log('xxx', this.users);
 
     }
   }

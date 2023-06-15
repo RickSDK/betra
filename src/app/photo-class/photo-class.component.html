@@ -3,7 +3,51 @@
 
     <div class="matches-card" *ngIf="user" style="padding: 0;">
 
-        <app-top-header2 [topTitle]="'Photo Club'"></app-top-header2>
-     </div>
+        <app-top-header2 [topTitle]="'Photo Class'"></app-top-header2>
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+        <button class="btn btn-main-color" [routerLink]="['/photo-school']"><i class="fa fa-arrow-left"></i> All
+            Classes</button>
+
+        <div class="tan-box" *ngIf="betraClass">
+            <table>
+                <tr>
+                    <td>
+                        <app-profile-pic2 (mousedown)="showProfile(betraClass.user_id)" [user_id]="betraClass.user_id"
+                            [profilePic]="betraClass.profilePic" [size]="100">
+                        </app-profile-pic2>
+                    </td>
+                    <td>
+                        <div><b>Instructor:</b> {{betraClass.firstName}}</div>
+                        <div class="gray-text">{{betraClass.instructor}}</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="font-size: 12px; text-align: left;">
+                <div><b>Subject:</b> {{betraClass.name}}</div>
+                <div><b>Genre:</b> {{betraClass.genre}}</div>
+                <div><b>Description:</b> {{betraClass.intro}}</div>
+                <div><b>Assignment:</b> {{betraClass.description}}</div>
+                <div><b>Tips:</b> {{betraClass.tips}}</div>
+            </div>
+            <div class="gray-text"></div>
+            <hr>
+            <div *ngIf="betraClass.students.length>0">
+                <div>Enrolled</div>
+                <app-profile-pic2 (mousedown)="showProfile(student.user_id)" *ngFor="let student of betraClass.students"
+                    [user_id]="student.user_id" [profilePic]="student.profilePic" [size]="30">
+                </app-profile-pic2>
+                <div *ngIf="betraClass.students.length<5" style="font-size: 8px; color: red;">Note: Class must have
+                    at least 5 people to start</div>
+                <hr>
+            </div>
+            <div style="font-size: 10px;">Starts {{betraClass.startDay}}</div>
+            <div>Days until start: <span class="text-highlight">{{betraClass.daysTillStart}}</span></div>
+            <div>Cost: <span class="text-highlight">{{betraClass.cost}}</span> coins</div>
+        </div>
+
+
+    </div>
 </app-page-shell>
 <app-picture-popup></app-picture-popup>
+<app-profile-user-popup></app-profile-user-popup>

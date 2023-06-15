@@ -57,12 +57,12 @@
     min-width: 25px;
     text-align: center;
     border-radius: 50%;
-    color: white;
+    color: black;
     font-size: 10px;
     height: 25px;
     line-height: 25px;
     vertical-align: middle;
-    background-color: purple;
+    background-color: magenta;
     border: 1px solid black;
     z-index: 202;
     transition: all 1s ease;
@@ -88,7 +88,7 @@
         left: -50px;
     }
     .right-item {
-        right: 0;
+        right: -15px;
     }
     .coins-item {
         left: 11px;

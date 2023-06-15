@@ -16,6 +16,8 @@ declare var $: any;
 export class PhotoSchoolComponent extends BaseComponent implements OnInit {
   public createClassNum: number = 0;
   public page: any = {};
+  public selectedClass: any = null;
+  public classType: string = '';
 
   constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
@@ -30,23 +32,28 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     var intro = $('#intro').val();
     var description = $('#description').val();
     var tips = $('#tips').val();
+    var classGenre = $('#classGenre').val();
+    var instructor = $('#instructor').val();
+    
     var params = {
       name: classType,
       cost: cost,
       intro: intro,
       description: description,
+      genre: classGenre,
+      instructor: instructor,
       tips: tips
     }
     console.log(params);
-    if(intro == "") {
+    if (intro == "") {
       this.errorMessage = 'Describe your class';
       return;
     }
-    if(description == "") {
+    if (description == "") {
       this.errorMessage = 'Add details for your class';
       return;
     }
-    if(tips == "") {
+    if (tips == "") {
       this.errorMessage = 'Include some tips for your class';
       return;
     }
@@ -55,21 +62,48 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     this.createClassNum = 0;
   }
 
+  selectCategory() {
+    this.classType = $('#classType').val();
+    this.createClassNum = 2;
+  }
+
+  editClass() {
+    var intro = $('#introEdit').val();
+    var description = $('#descriptionEdit').val();
+    var instructor = $('#instructorEdit').val();
+    var tips = $('#tipsEdit').val();
+    var params = {
+      classId: this.selectedClass.row_id,
+      intro: intro,
+      description: description,
+      instructor: instructor,
+      tips: tips
+    }
+    console.log(params);
+    this.getDataFromServer('editClass', 'betraClasses.php', params);
+    this.selectedClass = null;
+  }
+
+  editThisClass(betraClass: any) {
+    this.selectedClass = betraClass;
+    console.log(betraClass);
+  }
+
   deleteClass(betraClass: any) {
-    this.getDataFromServer('deleteClass', 'betraClasses.php', {classId: betraClass.row_id});
+    this.getDataFromServer('deleteClass', 'betraClasses.php', { classId: betraClass.row_id });
   }
 
   joinClass(betraClass: any) {
-    if(betraClass.cost > parseInt(this.user.points)) {
+    if (betraClass.cost > parseInt(this.user.points)) {
       this.errorMessage = 'Too Expensive!';
       return;
 
     }
-    this.getDataFromServer('joinClass', 'betraClasses.php', {classId: betraClass.row_id});
+    this.getDataFromServer('joinClass', 'betraClasses.php', { classId: betraClass.row_id });
   }
 
   dropClass(betraClass: any) {
-    this.getDataFromServer('dropClass', 'betraClasses.php', {classId: betraClass.row_id});
+    this.getDataFromServer('dropClass', 'betraClasses.php', { classId: betraClass.row_id });
   }
 
   override postSuccessApi(file: string, responseJson: any) {
@@ -79,7 +113,7 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
       this.page = responseJson;
       this.page.classes.forEach((element: any) => {
         var dt = this.getDateObjFromJSDate(element.startDt);
-         element.startDay = dt.localDate;
+        element.startDay = dt.localDate;
       });
     }
   }

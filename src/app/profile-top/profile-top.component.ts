@@ -33,6 +33,15 @@ export class ProfileTopComponent implements OnInit {
   public profileBasicsClassFlg: boolean = false;
   public showPopupQuote: boolean = true;
   public displayPopupQuote: boolean = true;
+  public showDropdownMenu: boolean = false;
+  public displayDropdownMenu: boolean = false;
+  public showTextMenu: boolean = false;
+  public displayTextMenu: boolean = false;
+  public showInfoMenu: boolean = false;
+  public displayInfoMenu: boolean = false;
+  public showPicsMenu: boolean = false;
+  public displayPicsMenu: boolean = false;
+  public textNotice: string = 'With Betra, users must be in each other\'s dating pools to communicate';
 
   constructor() { }
 
@@ -47,6 +56,8 @@ export class ProfileTopComponent implements OnInit {
       this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
       this.user.mainImageSrc = this.user.imgSrc;
 
+      this.setTextNotice();
+
       if (this.showNewUserPopupFlg)
         this.showNewUserPopupFlg = (this.myUser.statsObj && this.myUser.statsObj.score == 0);
       this.hasKidsTitle = 'Has 1 kid';
@@ -57,12 +68,116 @@ export class ProfileTopComponent implements OnInit {
       if (!this.myUser.memberFlg)
         this.pictureIndexMax = 1;
       this.wantsKidsTitle = (this.user.wantsKids == 'Yes') ? 'Wants kids' : 'Doesn\'t want kids';
-
     }
+  }
+
+  setTextNotice() {
+    if (this.user.matchObj) {
+      if (this.user.matchObj.match_level >= 2)
+        this.textNotice = 'Scroll down to text';
+      if (this.user.matchObj.showButtonsFlg)
+        this.textNotice = 'With Betra, you can only communicate with people in your dating pool. Click thumbs up if you would like to let ' + this.user.firstName + ' know you are interested.';
+      if (this.user.matchObj.match_level == 1 && !this.user.matchObj.match_interested)
+        this.textNotice = this.user.firstName + ' has been notified that you are interested but hasn\'t responded, which means you are not able to text at this time.';
+      if (this.user.matchObj.match_level == 1 && this.user.matchObj.match_interested == 'Y')
+        this.textNotice = this.user.firstName + ' is interested in you, but you said no. To chat, click the 3 dots above and add this person to your dating pool.';
+      if (this.user.matchObj.match_level == 1 && this.user.matchObj.match_interested == 'N')
+        this.textNotice = this.user.firstName + ' is not interested in you. Sorry, but there are lots of more fish in the sea. Move on to someone else.';
+    }
+    if (this.user.user_id == this.myUser.user_id)
+      this.textNotice = '';
   }
 
   ngOnChanges(changes: any) {
     this.ngOnInit();
+  }
+
+  toggleDropdownMenu() {
+    if (this.displayDropdownMenu && this.showDropdownMenu) {
+      this.showDropdownMenu = false;
+      setTimeout(() => {
+        if (!this.showDropdownMenu)
+          this.displayDropdownMenu = false;
+      }, 1000);
+    } else {
+      this.displayDropdownMenu = true;
+      setTimeout(() => {
+        this.showDropdownMenu = true;
+      }, 10);
+    }
+  }
+  ngStyleDropDown() {
+    if (this.showDropdownMenu)
+      return { top: '46px', right: '5px', opacity: 1 };
+    else
+      return { top: '-46px', right: '5px', opacity: 0 };
+  }
+
+  toggleTextMenu() {
+    if (this.displayTextMenu && this.showTextMenu) {
+      this.showTextMenu = false;
+      setTimeout(() => {
+        if (!this.showTextMenu)
+          this.displayTextMenu = false;
+      }, 1000);
+    } else {
+      this.displayTextMenu = true;
+      setTimeout(() => {
+        this.showTextMenu = true;
+      }, 10);
+    }
+  }
+  ngStyleTextMenu() {
+    if (this.showTextMenu)
+      return { bottom: '40px', right: '100px', opacity: 1, width: '200px' };
+    else
+      return { bottom: '-40px', right: '100px', opacity: 0, width: '200px' };
+  }
+
+  toggleInfoMenu() {
+    if (this.displayInfoMenu && this.showInfoMenu) {
+      this.showInfoMenu = false;
+      setTimeout(() => {
+        if (!this.showInfoMenu)
+          this.displayInfoMenu = false;
+      }, 1000);
+    } else {
+      this.displayInfoMenu = true;
+      setTimeout(() => {
+        this.showInfoMenu = true;
+      }, 10);
+    }
+  }
+  ngStyleInfoMenu() {
+    if (this.showInfoMenu)
+      return { bottom: '40px', left: '130px', opacity: 1 };
+    else
+      return { bottom: '-200px', left: '130px', opacity: 0 };
+  }
+
+  togglePicsMenu() {
+    if (this.displayPicsMenu && this.showPicsMenu) {
+      this.showPicsMenu = false;
+      setTimeout(() => {
+        if (!this.showPicsMenu)
+          this.displayPicsMenu = false;
+      }, 1000);
+    } else {
+      this.displayPicsMenu = true;
+      setTimeout(() => {
+        this.showPicsMenu = true;
+      }, 10);
+    }
+  }
+  ngStylePicsMenu() {
+    if (this.showPicsMenu)
+      return { height: '50px', opacity: 1 };
+    else
+      return { height: 0, opacity: 0 };
+  }
+
+  requestPic() {
+    window.scrollTo(0, 0);
   }
 
   showMyReputation() {

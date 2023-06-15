@@ -151,6 +151,12 @@
                                 *ngIf="ownersPage.gamesINever > 2" style="color: green;" class="fa fa-check"></i>
                         </td>
                     </tr>
+                    <tr>
+                        <td>At least 1 Photo class completed</td>
+                        <td><b class="text-highlight">{{ownersPage.classesCompleted}}</b><i
+                                *ngIf="ownersPage.classesCompleted > 0" style="color: green;" class="fa fa-check"></i>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -211,6 +217,12 @@
                         <td>At least 3 games of I Never</td>
                         <td><b class="text-highlight">{{ownersPage.gamesINever}}</b><i
                                 *ngIf="ownersPage.gamesINever > 2" style="color: green;" class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>At least 2 Photo classes completed</td>
+                        <td><b class="text-highlight">{{ownersPage.classesCompleted}}</b><i
+                                *ngIf="ownersPage.classesCompleted > 1" style="color: green;" class="fa fa-check"></i>
                         </td>
                     </tr>
                 </table>

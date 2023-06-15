@@ -38,8 +38,11 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public offers: any = [];
   public bids: any = [];
   public buyers: any = [];
+  public costOfPicture: number = 0;
   public sellersM: any = [];
   public sellersF: any = [];
+  public sellersMonSale: any = [];
+  public sellersFonSale: any = [];
   public result: string = '';
   public yourWalletAmount: number = 0;
   public showNewTypeFlg: boolean = false;
@@ -68,12 +71,14 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public displayOrders: any = [];
   public displayOffers: any = [];
   public offerMenuNum: number = 0;
+  public daysSince: number = 0;
   public deletePortfolioImageFlg: boolean = false;
   public newOrdersDeliveredFlg: boolean = false;
   public uid: number = 0;
   public moreDetailsFlg: boolean = false;
   public specialRequestFlg: boolean = false;
   public coinValues: any = ['select'];
+  public rejectionFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
@@ -154,14 +159,22 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.errorMessage = 'Duplicate pic type. Delete old one first.';
   }
 
+  runSale() {
+    this.daysSince = 0;
+    this.getDataFromServer('runSale', 'photography.php', {});
+  }
+
   viewBuyer(person: any) {
     this.selectedPerson = person;
   }
 
   buyPicture(type: any) {
     this.errorMessage = '';
+    this.costOfPicture = type.cost;
+    if (this.selectedPerson.onSale)
+      this.costOfPicture = type.sale;
 
-    if (this.myCoins < parseInt(type.cost)) {
+    if (this.myCoins < this.costOfPicture) {
       this.errorMessage = 'Not enough coins!';
       return;
     }
@@ -179,11 +192,11 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     var instructions = $('#specialRequest').val();
     var coins = $('#specialCoins').val();
     console.log(instructions, coins);
-    if(instructions == '') {
+    if (instructions == '') {
       this.errorMessage = 'Enter instructions for the request';
       return;
     }
-    if(coins == 'select') {
+    if (coins == 'select') {
       this.errorMessage = 'Select number of coins';
       return;
     }
@@ -195,7 +208,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   placeOrder() {
     var instructions = $('#instructions').val();
     if (this.selectedPerson && this.selectedType) {
-      this.getDataFromServer('placeOrder', 'photography.php', { uid: this.selectedPerson.user_id, type: this.selectedType.type, cost: this.selectedType.cost, instructions: instructions });
+      this.getDataFromServer('placeOrder', 'photography.php', { uid: this.selectedPerson.user_id, type: this.selectedType.type, cost: this.costOfPicture, instructions: instructions });
       this.selectedPerson = null;
     }
   }
@@ -204,6 +217,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
     this.selectedPerson = person;
     this.selectedPerson.types = JSON.parse(person.items);
+    this.selectedPerson.types.forEach((element: any) => {
+      element.sale = Math.round(element.cost / 2);
+    });
     this.selectedType = null;
   }
 
@@ -360,9 +376,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     this.menuNum = num;
     this.displayOrders = [];
     this.myOrders.forEach((element: any) => {
-      if (element.status == 'Confirmed' && num == 1)
+      if ((element.status == 'Confirmed' || element.status == 'Rejected') && num == 1)
         this.displayOrders.push(element);
-      if (element.status != 'Confirmed' && num == 0)
+      if (element.status != 'Confirmed' && element.status != 'Rejected' && num == 0)
         this.displayOrders.push(element);
     });
   }
@@ -371,9 +387,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     this.offerMenuNum = num;
     this.displayOffers = [];
     this.myOffers.forEach((element: any) => {
-      if ((element.status == 'Confirmed' || element.status == 'Declined' || element.status == 'Delivered') && num == 1)
+      if ((element.status == 'Confirmed' || element.status == 'Declined' || element.status == 'Delivered' || element.status == 'Rejected') && num == 1)
         this.displayOffers.push(element);
-      if (element.status != 'Confirmed' && element.status != 'Declined' && element.status != 'Delivered' && num == 0)
+      if (element.status != 'Confirmed' && element.status != 'Declined' && element.status != 'Delivered' && element.status != 'Rejected' && num == 0)
         this.displayOffers.push(element);
     });
   }
@@ -387,12 +403,13 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   }
 
   rejectPlacedOrder(order: any) {
-
+    this.rejectionFlg = true;
+    order.confirmFlg = true;
   }
 
   textValueSubmitted(order: any, comments: string) {
     console.log(order.row_id)
-    this.getDataFromServer('confirmPlacedOrder', 'photography.php', { orderId: order.row_id, details: comments });
+    this.getDataFromServer('confirmPlacedOrder', 'photography.php', { orderId: order.row_id, details: comments, rejectionFlg: (this.rejectionFlg) ? 'Y' : '' });
   }
 
   cancelPlacedOrder(order: any) {
@@ -456,6 +473,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
 
     if (responseJson.action != 'logUser') {
+      this.rejectionFlg = false;
       this.newOrdersDeliveredFlg = false;
       this.ordersReadyForDelivery = false;
       this.newOfferReceivedFlg = false;
@@ -480,6 +498,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       this.offers = responseJson.offers;
       this.buyerFlg = responseJson.buyerFlg;
       this.sellerFlg = responseJson.sellerFlg;
+      this.daysSince = responseJson.daysSince;
       this.buyers = responseJson.buyers;
       this.myOrders = responseJson.myOrders;
       this.myOffers = responseJson.myOffers;
@@ -512,7 +531,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       });
       //this.offers.forEach((element: any) => {
 
-        //element.totalCost = (element.amount * element.price / 100).toFixed(2);
+      //element.totalCost = (element.amount * element.price / 100).toFixed(2);
       //});
       //this.offers.sort((a: any, b: any) => a.status.localeCompare(b.status));
       this.filterOfferItems(0);
@@ -520,6 +539,11 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       //------------------------------------------
       this.sellersM = [];
       this.sellersF = [];
+      this.sellersFonSale = [];
+      this.sellersMonSale = [];
+      var minDays = 2;
+      if (responseJson.sellers.length > 20)
+        minDays = 1;
       responseJson.sellers.forEach((element: any) => {
         element.hasOrderPlaced = orderList[element.user_id];
 
@@ -527,10 +551,16 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
           this.mostOrders = element.ordersDelivered;
         }
 
-        if (element.gender == 'F')
+        if (element.gender == 'F' && element.daysSince <= minDays && !element.onSale)
           this.sellersF.push(new Photographer(element));
-        else
+        if (element.gender == 'M' && element.daysSince <= minDays && !element.onSale)
           this.sellersM.push(new Photographer(element));
+        if (element.gender == 'F' && element.daysSince <= minDays && element.onSale)
+          this.sellersFonSale.push(new Photographer(element));
+        if (element.gender == 'M' && element.daysSince <= minDays && element.onSale)
+          this.sellersMonSale.push(new Photographer(element));
+
+
       });
 
       if (this.uid > 0) {

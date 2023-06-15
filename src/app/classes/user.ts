@@ -233,11 +233,14 @@ export class User {
     public wallet: string = '';
     public hasRose: boolean = false;
     public photographerId: number = 0;
+    public textNotice: string = '';
+    public level: number = 0;
 
     constructor(obj: any, myUser: any = null) {
         if (obj) {
             this.user_id = obj.user_id || 0;
             this.photographerId = obj.photographerId || 0;
+            this.level = obj.level || 0;
             this.hasRose = obj.hasRose || false;
             this.miles = obj.miles || 0;
             this.locationSet = obj.locationSet == 'Y';
@@ -727,7 +730,19 @@ export class User {
 
         //match details
         if (myUser && myUser.user_id > 0) {
+            this.textNotice = '';
 
+            if (this.matchObj && myUser.user_id != this.user_id) {
+                if (this.matchObj.showButtonsFlg)
+                    this.textNotice = 'With Betra, you can only communicate with people in your dating pool. Click thumbs up if you would like to let ' + this.firstName + ' know you are interested.';
+                if (this.matchObj.match_level == 1 && !this.matchObj.match_interested)
+                    this.textNotice = this.firstName + ' has been notified that you are interested but hasn\'t responded, which means you are not able to text at this time.';
+                if (this.matchObj.match_level == 1 && this.matchObj.match_interested == 'Y')
+                    this.textNotice = this.firstName + ' is interested in you, but you said no. To chat, click the 3 dots above and add this person to your dating pool.';
+                if (this.matchObj.match_level == 1 && this.matchObj.match_interested == 'N')
+                    this.textNotice = this.firstName + ' is not interested in you. Sorry, but there are lots of more fish in the sea. Move on to someone else.';
+                //   console.log('hey', this.matchObj);
+            }
             this.potentialLoveInterestFlg = this.user_id != myUser.user_id;
             if (myUser.matchPreference == 'F' && this.gender == 'M')
                 this.potentialLoveInterestFlg = false;
@@ -740,6 +755,12 @@ export class User {
                 this.potentialLoveInterestFlg = false;
 
 
+            this.distance = this.miles;
+            if (this.ownerFlg && !myUser.ownerFlg) {
+                this.location = myUser.location;
+                this.distance = 7 + this.firstName.length;
+            }
+
             /*if (this.g1 && myUser.g1) {
                 var lat1 = parseInt(this.g1) / 9000;
                 var lng1 = parseInt(this.g2) / -9000;
@@ -751,17 +772,13 @@ export class User {
 
                 this.distance = distanceInKmBetweenEarthCoordinates(lat1, lng1, lat2, lng2);
 
-                if (this.ownerFlg && !myUser.ownerFlg) {
-                    this.location = myUser.location;
-                    this.distance = 7 + this.firstName.length;
-                }
+
                 this.isGoodLocation = (this.distance < 200);
                 if (this.distance < 60)
                     this.matchQualityIndex += 2;
                 this.distanceText = Math.round(this.distance) + ' miles';
             }*/
 
-            this.distance = this.miles;
             this.distanceText = Math.round(this.distance) + ' miles';
 
             var ageRange = myUser.matchAge / 5;

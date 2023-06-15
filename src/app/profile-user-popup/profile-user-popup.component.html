@@ -1,0 +1,128 @@
+<div *ngIf="showPopupFlg && userLoadedFlg" class="gray-screen2"></div>
+<div *ngIf="showPopupFlg" class="outer-div">
+    <div [ngClass]="userLoadedFlg?'user-popup':'user-popup-init'">
+        <div *ngIf="!user" style="position: absolute; top: 60px; left: 60px; font-size: 30px;"><i class="fa fa-spinner fa-spin"></i></div>
+        <div *ngIf="user" style="height: 100%; width: 100%; padding: 0;">
+            <img (mousedown)="toggleImageFlg=!toggleImageFlg" [src]="user.mainImageSrc"
+                [ngClass]="(toggleImageFlg)?'img1':'img2'">
+        </div>
+        <div *ngIf="user" 
+            style="position: absolute; top:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: 0 2px 3px black; height: 45px; border-radius: 10px;">
+            <span class="name-bar" style="font-size: 20px; line-height: 22px; margin-top: 2px;"><img
+                    src="assets/images/rose5.png" height="20" *ngIf="user.user_id == myUser.heartId" alt="Rose"
+                    title="Rose">
+                <i [class]="user.icon" [title]="user.userTitle" style="font-size: 10px; float: right; color: #888;"></i>
+                <i *ngIf="user.picCertificateFlg" title="Verified User!" class="fa fa-check"
+                    style="color: rgb(86, 176, 209); vertical-align: super;"></i>
+                <span title="id: {{user.user_id}}">{{user.firstName}}</span>,
+                {{user.age}}&nbsp;
+            </span>
+            <div style="font-size: 8px; margin-top: -1px; color: #aaa;">{{user.distanceText}}</div>
+        </div>
+        
+        <div *ngIf="user" 
+            style="position: absolute; top:40px; left: 110px; z-index: 20; display: inline-block; background-color: rgb(8, 83, 196); color: white; font-size: 10px; padding: 0 5px 0 5px; border-radius: 5px;">
+            {{user.lastLoginText}}</div>
+        <div *ngIf="user" 
+            style="position: absolute; top:40px; right: 110px; z-index: 20; display: inline-block; background-color: rgb(222, 183, 9); color: black; font-size: 10px; padding: 0 5px 0 5px; border-radius: 5px;">
+            {{user.location}}</div>
+        <img style="position: absolute; top:0; left: 0; z-index: 20;" src="assets/images/profile/left-item.png"
+            height="55">
+        <img style="position: absolute; top:0; right: 0; z-index: 20;" src="assets/images/profile/right-item.png"
+            height="55">
+        <span style="position: absolute; top: 5px; left: 15px; font-size: 8px; color: pink; z-index: 20;">Rose
+            Ceremony</span>
+        <span *ngIf="user" 
+            style="position: absolute; top: 18px; left: 32px; font-size: 12px; z-index: 20; color: white; background-color: #900; padding: 0 5px 0 5px; border-top: 1px solid black;"><b>{{user.daysTillRoseCeremony}}</b></span>
+        <span style="position: absolute; top: 36px; left: 31px; font-size: 8px; color: pink; z-index: 20;">Days</span>
+        <div *ngIf="user" style="position: absolute; top: 50px; left: 0; z-index: 19; width: 44px; border-radius: 5px; padding-top: 3px;" class="main-color-bg">
+            <div style="font-size: 8px;">Coins</div>
+            <div style="font-size: 12px;">{{user.points}}</div>
+        </div>
+        <div *ngIf="user" style="position: absolute; top: 50px; right: 0; z-index: 19; width: 44px; border-radius: 5px; padding-top: 3px;" class="main-color-bg">
+            <div style="font-size: 8px;">Level</div>
+            <div style="font-size: 12px;">{{user.level}}</div>
+        </div>
+
+        <i (mousedown)="closePopup()" class="fa fa-times profile-icon"
+            style="position: absolute; top: 15px; right: 25px; z-index: 20;"></i>
+        <div *ngIf="user" 
+            style="position: absolute; bottom:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: -2px -2px -3px black; height: 40px; border-radius: 10px; padding: 5px;">
+            &nbsp;
+            <button (mousedown)="toggleInfoMenu()" class="btn btn-main-color btn-small spacer">Info</button>
+            <button [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
+                class="btn btn-main-color btn-small spacer">Goto Profile</button>
+            <button *ngIf="user.textNotice"
+                (mousedown)="toggleTextMenu()" class="btn btn-main-color btn-small spacer">Text</button>
+        </div>
+        <img style="position: absolute; bottom:0; left: 0; z-index: 20;"
+            src="assets/images/profile/left-bottom-item.png" height="55">
+        <img style="position: absolute; bottom:0; right: 0; z-index: 20;"
+            src="assets/images/profile/right-bottom-item.png" height="55">
+
+        <div *ngIf="user" style="position: absolute; z-index: 20; bottom: 12px; left: 0; width: 96px; font-size: 8px; color: white;">
+            <span (mousedown)="togglePicsMenu()" *ngIf="user.numPics>0" style="display: inline-block; margin: 6px;">
+                <div>{{user.numPics+1}} pics</div>
+                <i class="fa fa-picture-o profile-icon"></i>
+            </span>
+            <span *ngIf="user.photographerId>0 && user.daysAgo <= 2" style="display: inline-block; margin: 6px;">
+                <div>Selfie</div>
+                <i [routerLink]="['/photography']" [queryParams]="{uid: user.user_id}"
+                    class="fa fa-camera profile-icon"></i>
+            </span>
+        </div>
+        <span *ngIf="user" 
+            style="font-size: 8px; color: white; position: absolute; bottom: 39px; right: 25px; z-index: 20;">Reputation</span>
+        <i *ngIf="user && user.picCertificateFlg" (mousedown)="showMyReputation()" class="fa fa-certificate profile-icon"
+            style="position: absolute; bottom: 10px; right: 33px; font-size: 30px; color: #900; z-index: 20;"></i>
+        <span *ngIf="user && user.reputationScore>0" (mousedown)="showMyReputation()" class="reputation-score"
+            title="Reputation Score">{{user.reputationScore}}</span>
+
+        <div *ngIf="displayDropdownMenu" class="slide-in-menu" [ngStyle]="ngStyleDropDown()">
+            <div>&nbsp;</div>
+            <div (mousedown)="toggleDropdownMenu()" class="three-dots-menu-option">Close</div>
+        </div>
+        <div *ngIf="displayTextMenu" (mousedown)="toggleTextMenu()" [ngStyle]="ngStyleTextMenu()" class="slide-in-menu"
+            style="font-size: 10px; padding: 8px;">
+            {{user.textNotice}}
+        </div>
+
+        <div *ngIf="displayInfoMenu" (mousedown)="toggleInfoMenu()" [ngStyle]="ngStyleInfoMenu()" class="slide-in-menu"
+            style="bottom: 60px; left: 60px;">
+            <app-profile-basics [user]="user" [myUser]="myUser"></app-profile-basics>
+        </div>
+        <div *ngIf="user && displayPicsMenu" [ngStyle]="ngStylePicsMenu()" class="more-pics-menu">
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                        <span *ngIf="user.picCertificateFlg" style="text-align: left; font-size: 12px;"
+                            class="red-text">
+                            &nbsp;<i class="fa fa-certificate"></i> Picture Verified</span>
+                        <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(0)" [src]="user.imgSrc" class="tiny-pic">
+                        <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(1)" [src]="user.pic1"
+                            [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                        <img *ngIf="user.pic2" (mousedown)="viewImageThumbnail(2)" [src]="user.pic2"
+                            [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                        <img *ngIf="user.pic3" (mousedown)="viewImageThumbnail(3)" [src]="user.pic3"
+                            [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                        <img *ngIf="user.pic4" (mousedown)="viewImageThumbnail(4)" [src]="user.pic4"
+                            [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                        <a *ngIf="user.user_id == myUser.user_id" [routerLink]="['/edit-pics']" class="text-link">edit
+                            pics</a>&nbsp;
+                        <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg"
+                            [routerLink]="['/verify-pics']" class="text-link">verify pic</a>&nbsp;
+
+                        <a *ngIf="user.user_id != myUser.user_id && !myUser.memberFlg && user.numPics > 0"
+                            [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see
+                            more pics</a>
+                    </td>
+                    <td align="right">
+                        <i *ngIf="showPicsMenu" (mousedown)="togglePicsMenu()" class="fa fa-times"
+                            style="font-size: 20px; margin: 5px;"></i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>

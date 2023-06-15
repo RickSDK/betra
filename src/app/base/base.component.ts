@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../classes/user';
 import { PageShellComponent } from '../page-shell/page-shell.component';
 import { DatabaseService } from '../services/database.service';
+import { ProfileUserPopupComponent } from '../profile-user-popup/profile-user-popup.component';
 
 declare var $: any;
 declare var betraImageFromId: any;
@@ -20,6 +21,9 @@ export class BaseComponent implements OnInit {
 
   @ViewChild(PageShellComponent, { static: true })
   pageShellComponent!: PageShellComponent;
+
+  @ViewChild(ProfileUserPopupComponent)
+  public profileUserPopupComponent = {} as ProfileUserPopupComponent;
 
   public userId: number = 0;
   public apiMessage: string = '';
@@ -44,6 +48,7 @@ export class BaseComponent implements OnInit {
   public outOfSyncFlg: boolean = false;
   public geoError: string = '';
   public liteModeFlg: boolean = false;
+  public showProfileFlg: boolean = false;
 
 
   public headerObj: any = {
@@ -78,6 +83,15 @@ export class BaseComponent implements OnInit {
     }, 250);
 
   }
+
+  showProfile(user_id: number) {
+    if (user_id > 0 && this.profileUserPopupComponent) {
+      this.showProfileFlg = true;
+      this.profileUserPopupComponent.start();
+      this.getDataFromServer('getThisUser', 'appApiCode2.php', { uid: user_id });
+    }
+  }
+
   checkLocationStuff() {
 
     if (this.user.firstName && !this.user.iprFlg) {
@@ -546,6 +560,11 @@ export class BaseComponent implements OnInit {
 
           //console.log('responseJson', this.responseJson);
           if (this.responseJson && this.responseJson.status == 'Success') {
+            if(this.showProfileFlg) {
+              this.showProfileFlg = false;
+              this.profileUserPopupComponent.show(this.responseJson.user, this.user);
+              return;
+            }
             this.postSuccessApi(file, this.responseJson);
           } else {
             console.log('Error no success!!', this.responseJson);

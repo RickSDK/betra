@@ -1,4 +1,4 @@
-<div class="item-card" *ngIf="item">
+<div class="item-card" *ngIf="item" [ngStyle]="ngStyleCard(item)">
     <table *ngIf="item.cardType == 0" width="100%" [id]="item.id">
         <tr>
             <td style="width: 30%; max-width: 190px; min-width: 100px; padding: 0;">
@@ -64,7 +64,7 @@
                 <img *ngIf="item.type == 'Rose Given Out!'" src="assets/images/rose1.png" height="100">
                 <div class="main-color"><i *ngIf="item.type != 'Rose Given Out!'" [class]="item.icon"></i><span *ngIf="item.type == 'Rose Given Out!'">🌹</span> {{item.type}}</div>
                 <div><a [href]="item.url">{{item.name}}</a></div>
-                <div style="font-size: 12px; color: pink;">{{item.date}}</div>
+                <div style="font-size: 10px; color: gray;">{{item.date}}</div>
                 <div class="gray-text" [innerHtml]="item.description"></div>
             </td>
             <td style="width: 30%; max-width: 190px; min-width: 100px; padding: 0;">

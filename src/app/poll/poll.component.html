@@ -30,9 +30,9 @@
                                 *ngIf="poll.iVoted">(votes: {{question.votes}})
                             </span></div>
                         <div *ngIf="selectedPoll && selectedPoll.poll_id == poll.poll_id">
-                            <app-profile-pic *ngFor="let person of question.responses" [user_id]="person.user_id"
+                            <app-profile-pic2 (mousedown)="showProfile(person.user_id)" *ngFor="let person of question.responses" [user_id]="person.user_id"
                                 [profilePic]="person.profilePic" [size]="30">
-                            </app-profile-pic>
+                            </app-profile-pic2>
                         </div>
                     </td>
                 </tr>
@@ -40,9 +40,9 @@
             <table width="100%">
                 <tr>
                     <td align="center">
-                        <app-profile-pic *ngIf="poll.user_id>1" [user_id]="poll.user_id" [profilePic]="poll.profilePic"
+                        <app-profile-pic2 (mousedown)="showProfile(poll.user_id)" *ngIf="poll.user_id>1" [user_id]="poll.user_id" [profilePic]="poll.profilePic"
                             [size]="30">
-                        </app-profile-pic>
+                        </app-profile-pic2>
                         <div *ngIf="poll.user_id>1" style="font-size: 10px; color: gray;">Created by</div>
                     </td>
                     <td align="center" style="font-size: 12px;">
@@ -71,3 +71,4 @@
 
     </div>
 </app-page-shell>
+<app-profile-user-popup></app-profile-user-popup>

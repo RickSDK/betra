@@ -15,6 +15,16 @@
     display: block;
     float: right;
 }
+
+.refresh-icon {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.refresh-icon:hover {
+    color: pink;
+}
+
 .gray-blob {
     cursor: pointer;
     padding: 10px;

@@ -58,6 +58,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public noLocationInfoFoundFlg: boolean = false;
   public newGifts: boolean = false;
   public daysTillRoseCeremony: number = 0;
+  public messagesLoadingFlg: boolean = false;
   //  public showOverflowPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
@@ -281,7 +282,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
             if (this.betraPopupComponent)
               this.betraPopupComponent.showPopup('You survived a Rose Ceremony!', this.matchUser.firstName + ' just completed a Rose Ceremony and you were one of the lucky singles who received a rose.', 5);
 
-            this.getDataFromServer('clearAffirmationFlg', 'appApiCode2.php', {uid: this.matchUser.user_id});
+            this.getDataFromServer('clearAffirmationFlg', 'appApiCode2.php', { uid: this.matchUser.user_id });
 
           }
 
@@ -303,14 +304,15 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
   }
 
-  populateViewChildren() {
+  /*populateViewChildren() {
+    console.log('xxxpopulateViewChildren', this.messagesModal, this.matchSnapshotModal);
     if (this.messagesModal && this.messagesModal.populateModal)
       this.messagesModal.populateModal(this.matchUser, this.user);
 
     if (this.matchSnapshotModal) {
       this.matchSnapshotModal.initModal(this.matchUser, this.user, this.matchObj);
     }
-  }
+  }*/
 
   showCurrentProfile() {
     console.log('++++showCurrentProfile', this.playerList.length, this.currentProfileIndex);
@@ -335,15 +337,27 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
     }
 
     if (this.matchSnapshotModal)
-      this.populateViewChildren();
+      this.matchSnapshotModal.initModal(this.matchUser, this.user, this.matchObj);
     else {
       console.log('no modal!!! try again in one second')
       setTimeout(() => {
-        this.populateViewChildren();
+        this.matchSnapshotModal.initModal(this.matchUser, this.user, this.matchObj);
       }, 1000);
     }
 
+    this.messagesLoadingFlg = true;
+    if (this.messagesModal) {
+      this.messagesModal.populateModal(this.matchUser, this.user);
+      this.messagesLoadingFlg = false;
 
+    }
+    else {
+      console.log('no messagesModal!!! try again in one second')
+      setTimeout(() => {
+        this.messagesModal.populateModal(this.matchUser, this.user);
+        this.messagesLoadingFlg = false;
+      }, 1000);
+    }
   }
 
   likeButtonClicked(likedFlg: boolean) {

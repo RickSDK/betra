@@ -47,8 +47,8 @@
             </tr>
             <tr *ngFor="let person of users" [ngStyle]="ngStyleRow(person)">
                 <td>
-                    <app-profile-pic [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="20">
-                    </app-profile-pic>
+                    <app-profile-pic2 (mousedown)="showProfile(person.user_id)" [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="20">
+                    </app-profile-pic2>
                 </td>
                 <td [title]="person.user_id">{{person.firstName}}
                     <div style="font-size: 6px; color: gray;">{{person.email}}</div>
@@ -75,3 +75,4 @@
         </table>
     </div>
 </app-page-shell>
+<app-profile-user-popup></app-profile-user-popup>

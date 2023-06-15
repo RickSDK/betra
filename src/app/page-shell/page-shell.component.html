@@ -1,13 +1,16 @@
 <app-top-bar [headerObj]="headerObj" [userId]="userId"></app-top-bar>
 <i *ngIf="platform!='Android'" (mousedown)="goBack()" class="fa fa-arrow-left back-button hide-sm"></i>
-<i *ngIf="platform=='Android'" (mousedown)="goBackAndroid()"
-                    class="fa fa-arrow-left back-button hide-sm"></i>
+<i *ngIf="platform=='Android'" (mousedown)="goBackAndroid()" class="fa fa-arrow-left back-button hide-sm"></i>
 
+<i [routerLink]="['']" class="fa fa-home home-button"></i>
 <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-ellipsis-v main-menu-dots"></i>
 <img *ngIf="userId>0" [src]="imgSrcFile" class="profile-pic" alt="Profile Picture"
     (mousedown)="showUserMenuFlg = !showUserMenuFlg">
 <img [routerLink]="['']" *ngIf="!userId" [src]="imgSrcFile" class="profile-pic" alt="Profile Picture">
-<i [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" *ngIf="headerObj && headerObj.newGifts>0" class="fa fa-gift profile-icon main-color"></i>
+<i [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" *ngIf="headerObj && headerObj.newGifts>0"
+    class="fa fa-gift profile-icon main-color"></i>
+<i [routerLink]="['/user-detail']" [queryParams]="{uid: userId}" *ngIf="headerObj && headerObj.newReviewBy>0"
+    class="fa fa-comment profile-icon main-color"></i>
 
 <div class="top-bar" *ngIf="userId==0" style="text-align: center; padding-top: 10px;">
     <span class="menu-circle" [routerLink]="['/blogs']">
@@ -53,14 +56,14 @@
                     <i class="fa fa-picture-o icon-button main-color"></i>
                     <span class="top-icon-label">Club</span>
                     <span class="icon-label main-color-bg">Photo Club</span>
-                </span>&nbsp;
+                </span>
             </td>
-            <td align="center">
+            <td align="center" title="Rose Ceremony">
                 <div [routerLink]="['/intro']" class="ceremony-countdown">
                     <div class="red-text" style="font-size: 8px; margin-top: 2px;">🌹</div>
                     <div class="menu-circle">
                         <div class="red-text" style="line-height: 14px;">{{headerObj.daysTillRoseCeremony}}</div>
-                        <span class="icon-label main-color-bg">Rose Ceremony</span>
+                        <span *ngIf="0" class="icon-label main-color-bg">Rose Ceremony</span>
                     </div>
                     <div class="red-text" style="font-size: 8px;">Days</div>
                 </div>
@@ -228,12 +231,12 @@
         </tr>
     </table>
 </div>-->
-<div class="game-room" [routerLink]="['/game-room']">
+<div class="bottom-tab" [routerLink]="['/game-room']" style="left: 0; color: pink;">
     <i class="fa fa-rocket"></i>
     <span class="red-circle" *ngIf="headerObj.gameRoomCount>0"
         style="bottom: 0; right: 0; left: auto; position: absolute;">{{headerObj.gameRoomCount}}</span>
 </div>
-<div class="check-list" [routerLink]="['/check-list']">
+<div class="bottom-tab" [routerLink]="['/check-list']" style="right: 0;">
     <i class="fa fa-check"></i>
 </div>
 
@@ -300,8 +303,10 @@
     <div [routerLink]="['/profile']" class="main-menu-item"><i class="fa fa-pencil"></i> Edit Profile</div>
     <div [routerLink]="['/profile']" [queryParams]="{num: 5}" class="main-menu-item"><i class="fa fa-picture-o"></i>
         Change Picture</div>
-    <div *ngIf="!headerObj.liteModeFlg" [routerLink]="['/location']" class="main-menu-item"><i class="fa fa-globe"></i> Change Location</div>
-    <div *ngIf="!headerObj.liteModeFlg" [routerLink]="['/reputation']" class="main-menu-item"><i class="fa fa-certificate"></i> Reputation</div>
+    <div *ngIf="!headerObj.liteModeFlg" [routerLink]="['/location']" class="main-menu-item"><i class="fa fa-globe"></i>
+        Change Location</div>
+    <div *ngIf="!headerObj.liteModeFlg" [routerLink]="['/reputation']" class="main-menu-item"><i
+            class="fa fa-certificate"></i> Reputation</div>
     <div class="main-menu-item"><i class="fa fa-times"></i> Close Menu</div>
     <div (mousedown)="logout()" class="main-menu-item"><i class="fa fa-sign-out"></i> Log Out</div>
 </div>

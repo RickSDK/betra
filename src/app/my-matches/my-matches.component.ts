@@ -42,6 +42,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public datingPool: any = [];
   public timeForRoseFlg: boolean = false;
   public sortOption: string = '';
+  public heartId: number = 0;
 
   @ViewChild(DatingPoolComponent)
   private datingPoolComponent = {} as DatingPoolComponent;
@@ -243,7 +244,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       this.newlyAssignedRoseFlg = true;
     }
     if (responseJson.action == 'refreshDatingPool') {
-      //console.log('xxxrefreshDatingPool', responseJson.user.dating_pool);
+      console.log('xxxrefreshDatingPool', responseJson);
 
       if (responseJson.user.dating_pool != this.user.dating_pool) {
         console.log('out of sync!!');
@@ -253,7 +254,7 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         console.log('dp2', dp2);
         this.refreshUserObj(responseJson.user);
       }
-
+      this.heartId = responseJson.heartId;
       this.daysTillRoseCeremony = parseInt(responseJson.daysTillRoseCeremony || 0);
 
       this.timeForRoseFlg = false;

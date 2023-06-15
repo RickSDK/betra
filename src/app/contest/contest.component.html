@@ -59,15 +59,15 @@
             <tr>
                 <td width="50%" align="center" valign="top">
                     <div><b>Potential Bachelors</b></div>
-                    <app-profile-pic *ngFor="let person of bachelors" [user_id]="person.user_id"
+                    <app-profile-pic2 (mousedown)="showProfile(person.user_id)" *ngFor="let person of bachelors" [user_id]="person.user_id"
                         [profilePic]="person.profilePic" [size]="30">
-                    </app-profile-pic>
+                    </app-profile-pic2>
                 </td>
                 <td align="center" valign="top">
                     <div><b>Potential Bachelorettes</b></div>
-                    <app-profile-pic *ngFor="let person of bachelorettes" [user_id]="person.user_id"
+                    <app-profile-pic2 (mousedown)="showProfile(person.user_id)" *ngFor="let person of bachelorettes" [user_id]="person.user_id"
                         [profilePic]="person.profilePic" [size]="30">
-                    </app-profile-pic>
+                    </app-profile-pic2>
                 </td>
             </tr>
         </table>
@@ -82,3 +82,4 @@
 
     </div>
 </app-page-shell>
+<app-profile-user-popup></app-profile-user-popup>

@@ -1,11 +1,15 @@
-<div class="match-card" *ngIf="displayThisComponentFlg && matchUser && matchUser.matchObj" style="position: relative; padding-bottom: 45px;">
+<div class="match-card" *ngIf="displayThisComponentFlg && matchUser && matchUser.matchObj"
+    style="position: relative; padding-bottom: 45px;">
     <div class="gray-title" style="position: relative;" [style.color]="unreadMessagesFlg?'yellow':'white'"><i
             class="fa fa-comment"></i> <span *ngIf="unreadMessagesFlg">New</span> Messages <span
             style="font-size: 8px; font-weight: 200;">{{firstName}}</span>
         <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg"
-            class="fa fa-info-circle more-options"></i>
+            class="fa fa-info-circle more-options"></i>&nbsp;
+        <i *ngIf="messages.length>0" (mousedown)="loadMessages()"
+            class="fa fa-refresh refresh-icon"></i>
     </div>
-    <div *ngIf="showDetailsFlg" style="font-size: 10px; color: gray;">Intimacy Level: {{matchUser.matchObj.match_level}}</div> 
+    <div *ngIf="showDetailsFlg" style="font-size: 10px; color: gray;">Intimacy Level: {{matchUser.matchObj.match_level}}
+    </div>
     <div *ngIf="messages.length==6" (mousedown)="loadMessages(true)" class="text-link"
         style="text-align: left; padding: 5px;">Previous Messages</div>
     <div class="text-window">
@@ -36,7 +40,8 @@
                             class="emoji-button">
                     </span>
                 </div>
-                <div *ngIf="showDetailsFlg" class="top-text" [style.text-align]="message.user_id == myUser.user_id?'right':'left'">{{message.name}}
+                <div *ngIf="showDetailsFlg" class="top-text"
+                    [style.text-align]="message.user_id == myUser.user_id?'right':'left'">{{message.name}}
                 </div>
 
                 <div (mousedown)="selectMessage(message.id)" [ngClass]="ngClassMessageBlob(message.user_id)"
@@ -45,7 +50,8 @@
                         style="position: absolute; top: -15px; right: 10px;" title="Added by {{message.emojiName}}">
                     {{message.message}}
                 </div>
-                <div *ngIf="showDetailsFlg" class="bottom-text" [style.text-align]="message.user_id == myUser.user_id?'right':'left'">{{message.local}}
+                <div *ngIf="showDetailsFlg" class="bottom-text"
+                    [style.text-align]="message.user_id == myUser.user_id?'right':'left'">{{message.local}}
                     <span *ngIf="message.user_id == myUser.user_id && !message.readDt" style="color: #700;">Not
                         Read</span>
                     <span *ngIf="message.user_id == myUser.user_id && message.readDt">Read</span>
@@ -91,7 +97,8 @@
         </table>
     </div>
     <p *ngIf="matchUser && matchUser.matchObj.match_level < 2" class="gray-text">
-        Sorry, you are unable to send text messages to {{matchUser.firstName}} at this time. Click the pink "More Details"
+        Sorry, you are unable to send text messages to {{matchUser.firstName}} at this time. Click the pink "More
+        Details"
         button above to find out why.
     </p>
     <div *ngIf="showIceBreakerFlg" style="padding: 10px;">

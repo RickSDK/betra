@@ -22,11 +22,13 @@ export class Photographer {
     public ordersPending: number = 0;
     public daysSince: number = 0;
     public pics: any = [];
+    public onSale: boolean = false;
 
     constructor(obj: any) {
         if (obj) {
             this.row_id = obj.row_id || 0;
             this.user_id = obj.user_id || 0;
+            this.onSale = obj.onSale || false;
             this.profilePic = obj.profilePic || 0;
             this.daysSince = obj.daysSince || 0;
             this.ordersPending = obj.ordersPending || 0;
@@ -51,14 +53,14 @@ export class Photographer {
 
             this.myOffers.forEach((offer: any) => {
                 offer.pics.forEach((element: any) => {
-                    element.src='https://www.betradating.com/betraPhp/marketPics/pic' + element.user_id + '_' + element.row_id + '.jpg'
+                    element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.user_id + '_' + element.row_id + '.jpg'
                 });
             });
 
-            
+
 
             this.pics.forEach((element: any) => {
-                element.src='https://www.betradating.com/betraPhp/marketPics/pic' + element.user_id + '_' + element.row_id + '.jpg'
+                element.src = 'https://www.betradating.com/betraPhp/marketPics/pic' + element.user_id + '_' + element.row_id + '.jpg'
             });
             if (this.portfolio) {
                 var items = this.portfolio.split('+');

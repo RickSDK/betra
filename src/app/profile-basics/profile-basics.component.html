@@ -1,0 +1,101 @@
+<div *ngIf="user && myUser" style="text-align: left;">
+
+    <div class="small-box">
+        <div class="small-title main-color">Relationship</div>
+
+        <div>
+            <span class="profile-icon menu-circle">
+                <i [class]="user.genderIcon"></i>
+                <span class="icon-label main-color-bg">{{user.lookingForTitle}}</span>
+            </span>
+            <span class="profile-text">
+                {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp;
+                <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i *ngIf="user.matchPreference != 'M'"
+                    class="fa fa-female"></i>
+            </span>
+
+        </div>
+
+        <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
+            [showCheckFlg]="user.desiredRelationship == myUser.matchRelationship && myUser.user_id != user.user_id"
+            [img]="'assets/images/profile/lookingFor.png'"></app-green-check>
+        <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
+            [showCheckFlg]="myUser.marriageView == user.marriageView && myUser.user_id != user.user_id"
+            [img]="'assets/images/profile/marriage.png'"></app-green-check>
+        <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText"
+            [icon]="'fa fa-exchange'">
+        </app-green-check>
+
+        <div>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                        <span class="menu-circle">
+                            <img [src]="'assets/images/profile/kids.png'" height="15">
+                            {{user.numKids}}
+                            <span class="icon-label main-color-bg">{{hasKidsTitle}}</span>
+                        </span>
+                        <div style="font-size: 6px;">Has kids?</div>
+                    </td>
+                    <td align="center">
+                        <span class="menu-circle">
+                            <img [src]="'assets/images/profile/kids2.png'" height="15" style="margin-right: 4px;">
+                            <span *ngIf="user.wantsKids != 'Does Not Matter'"
+                                style="font-size: 10px;">{{user.wantsKids}}</span>
+
+                            <span *ngIf="user.wantsKids == 'Does Not Matter'"><i class="fa fa-question"></i></span>
+                            <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
+                                class="hide-xs"><i class="fa fa-check main-color"></i></sup>
+                            <span class="icon-label main-color-bg">{{wantsKidsTitle}}</span>
+                            <div style="font-size: 6px;">Wants kids?</div>
+
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                        <span class="menu-circle" *ngIf="user.drinksIcon">
+                            <img [src]="user.drinksIcon" class="dabauchery-icon">
+                            <span class="icon-label main-color-bg">{{user.drinksTitle}}</span>
+                        </span>
+                        <div style="font-size: 6px;">{{user.drinksTitle}}</div>
+                    </td>
+                    <td align="center">
+                        <span class="menu-circle" *ngIf="user.smokesIcon">
+                            <img [src]="user.smokesIcon" class="dabauchery-icon">
+                            <span class="icon-label main-color-bg">{{user.smokesTitle}}</span>
+                        </span>
+                        <div style="font-size: 6px;">{{user.smokesTitle}}</div>
+                    </td>
+                    <td align="center">
+                        <span class="menu-circle" *ngIf="user.potIcon">
+                            <img [src]="user.potIcon" class="dabauchery-icon">
+                            <span class="icon-label main-color-bg">{{user.potTitle}}</span>
+                        </span>
+                        <div style="font-size: 6px;">{{user.potTitle}}</div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+    <div class="small-box">
+        <div class="small-title main-color">Background</div>
+        <app-green-check [label]="'Education'" [text1]="user.educationLevel"
+            [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
+            [icon]="'fa fa-graduation-cap'"></app-green-check>
+        <app-green-check *ngIf="1 || !myUser.memberFlg" [label]="'Income'" [text1]="user.incomeRange"
+            [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id" [icon]="'fa fa-money'">
+        </app-green-check>
+        <app-green-check *ngIf="0 && myUser.memberFlg" [label]="'Income'" [text1]="user.income"
+            [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id" [icon]="'fa fa-money'">
+        </app-green-check>
+        <app-green-check [label]="'Religion'" [text1]="user.religion"
+            [showCheckFlg]="user.religion == myUser.matchReligion && myUser.user_id != user.user_id" [icon]="''"
+            [img]="'assets/images/profile/religion.png'">
+        </app-green-check>
+    </div>
+</div>

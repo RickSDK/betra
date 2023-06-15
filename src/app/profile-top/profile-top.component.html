@@ -9,377 +9,176 @@
         <button (mousedown)="showNewUserPopupFlg=false" class="btn btn-main-color">Got it!</button>
     </div>
 
-    <div *ngIf="0" style="position: relative; height: 400px;">
+    <div style="position: relative; height: 440px; overflow: hidden;">
         <div style="height: 100%; width: 100%; padding: 0;">
             <img (mousedown)="toggleImage()" [src]="user.mainImageSrc"
-                style="max-width: 360px; width: 100%; height: 100%; object-fit: cover; box-shadow: 2px 2px 3px black; border-radius: 50%; cursor: pointer;">
+                style="max-width: 320px; width: 100%; height: 100%; object-fit: cover; box-shadow: 5px 5px 15px black; border-radius: 25%; cursor: pointer;">
         </div>
         <div
-            style="position: absolute; top:0; left: 0; background-color: #444; color: white; width: 100%; box-shadow: 0 2px 3px black; height: 45px; border-radius: 10px;">
-            <span class="name-bar" style="font-size: 20px; line-height: 22px; margin-top: 2px;"><img src="assets/images/rose5.png" height="20" *ngIf="user.user_id == myUser.heartId"
-                    alt="Rose" title="Rose">
+            style="position: absolute; top:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: 0 2px 3px black; height: 45px; border-radius: 10px;">
+            <span class="name-bar" style="font-size: 20px; line-height: 22px; margin-top: 2px;"><img
+                    src="assets/images/rose5.png" height="20" *ngIf="user.user_id == myUser.heartId" alt="Rose"
+                    title="Rose">
                 <i [class]="user.icon" [title]="user.userTitle" style="font-size: 10px; float: right; color: #888;"></i>
                 <i *ngIf="user.picCertificateFlg" title="Verified User!" class="fa fa-check"
                     style="color: rgb(86, 176, 209); vertical-align: super;"></i>
                 <span title="id: {{user.user_id}}">{{user.firstName}}</span>,
                 {{user.age}}&nbsp;
             </span>
-            <div style="font-size: 10px; margin-top: -7px; color: #ccc;">{{user.location}} {{user.distanceText}} ({{user.lastLoginText}})
-            </div>
+            <div style="font-size: 8px; margin-top: -8px; color: #aaa;">{{user.distanceText}}</div>
         </div>
-        <img style="position: absolute; top:0; left: 0;" src="assets/images/profile/left-item.png" height="55">
-        <img style="position: absolute; top:0; right: 0;" src="assets/images/profile/right-item.png" height="55">
+        <div style="position: absolute; top:40px; left: 110px; z-index: 20; display: inline-block; background-color: rgb(8, 83, 196); color: white; font-size: 10px; padding: 0 5px 0 5px; border-radius: 5px;">{{user.lastLoginText}}</div>
+        <div style="position: absolute; top:40px; right: 110px; z-index: 20; display: inline-block; background-color: rgb(222, 183, 9); color: black; font-size: 10px; padding: 0 5px 0 5px; border-radius: 5px;">{{user.location}}</div>
+        <img style="position: absolute; top:0; left: 0; z-index: 20;" src="assets/images/profile/left-item.png"
+            height="55">
+        <img style="position: absolute; top:0; right: 0; z-index: 20;" src="assets/images/profile/right-item.png"
+            height="55">
+        <span style="position: absolute; top: 5px; left: 15px; font-size: 8px; color: pink; z-index: 20;">Rose Ceremony</span>
+        <span
+            style="position: absolute; top: 18px; left: 32px; font-size: 12px; z-index: 20; color: white; background-color: #900; padding: 0 5px 0 5px; border-top: 1px solid black;"><b>{{user.daysTillRoseCeremony}}</b></span>
+        <span style="position: absolute; top: 36px; left: 31px; font-size: 8px; color: pink; z-index: 20;">Days</span>
+
+        <i *ngIf="user.user_id == myUser.user_id" [routerLink]="['/profile']" class="fa fa-pencil profile-icon"
+            style="position: absolute; top: 15px; right: 25px; z-index: 20;"></i>
+        <i *ngIf="user.user_id != myUser.user_id" (mousedown)="toggleDropdownMenu()" class="fa fa-ellipsis-v profile-icon"
+            style="position: absolute; top: 15px; right: 25px; z-index: 20;"></i>
         <div
-            style="position: absolute; bottom:0; left: 0; background-color: #444; color: white; width: 100%; box-shadow: -2px -2px -3px black; height: 40px; border-radius: 10px;">
-            &nbsp;</div>
-        <img style="position: absolute; bottom:0; left: 0;" src="assets/images/profile/left-bottom-item.png"
-            height="55">
-        <img style="position: absolute; bottom:0; right: 0;" src="assets/images/profile/right-bottom-item.png"
-            height="55">
+            style="position: absolute; bottom:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: -2px -2px -3px black; height: 40px; border-radius: 10px; padding: 5px;">
+            &nbsp;
+            <button (mousedown)="toggleInfoMenu()" class="btn btn-main-color btn-small spacer">Info</button>
+            <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-small spacer">Details</button>
+            <button *ngIf="textNotice" (mousedown)="toggleTextMenu()"
+                class="btn btn-main-color btn-small spacer">Text</button>
+            <button *ngIf="myUser.user_id==1" (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg"
+                class="btn btn-main-color btn-small spacer">Admin</button>
+        </div>
+        <img style="position: absolute; bottom:0; left: 0; z-index: 20;"
+            src="assets/images/profile/left-bottom-item.png" height="55">
+        <img style="position: absolute; bottom:0; right: 0; z-index: 20;"
+            src="assets/images/profile/right-bottom-item.png" height="55">
+
+        <div style="position: absolute; z-index: 20; bottom: 12px; left: 0; width: 96px; font-size: 8px; color: white;">
+            <span (mousedown)="togglePicsMenu()" *ngIf="user.numPics>0" style="display: inline-block; margin: 6px;">
+                <div>{{user.numPics+1}} pics</div>
+                <i class="fa fa-picture-o profile-icon"></i>
+            </span>
+            <span *ngIf="user.photographerId>0 && user.daysAgo <= 2" style="display: inline-block; margin: 6px;">
+                <div>Selfie</div>
+                <i [routerLink]="['/photography']" [queryParams]="{uid: user.user_id}"
+                    class="fa fa-camera profile-icon"></i>
+            </span>
+        </div>
+        <span
+            style="font-size: 8px; color: white; position: absolute; bottom: 39px; right: 25px; z-index: 20;">Reputation</span>
+        <i *ngIf="user.picCertificateFlg" (mousedown)="showMyReputation()" class="fa fa-certificate profile-icon"
+            style="position: absolute; bottom: 10px; right: 33px; font-size: 30px; color: #900; z-index: 20;"></i>
+        <span *ngIf="user.reputationScore>0" (mousedown)="showMyReputation()" class="reputation-score"
+            title="Reputation Score">{{user.reputationScore}}</span>
+
+        <div *ngIf="displayDropdownMenu" class="slide-in-menu" [ngStyle]="ngStyleDropDown()">
+            <div>&nbsp;</div>
+            <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
+                (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
+                Add to Dating Pool</div>
+            <div *ngIf="0 && user.matchObj.you_interested != 'X'" (mousedown)="menuOptionClicked(1)"
+                class="three-dots-menu-option">
+                Block</div>
+            <div *ngIf="!snapshotFlg" (mousedown)="menuOptionClicked(2)" class="three-dots-menu-option">
+                Flag</div>
+            <div *ngIf="user.matchObj.you_interested == 'X'" (mousedown)="sendClickEventUp('yesToMatch')"
+                class="three-dots-menu-option">
+                Un-Block</div>
+            <div (mousedown)="toggleDropdownMenu()" class="three-dots-menu-option">Close</div>
+        </div>
+        <div *ngIf="displayTextMenu" (mousedown)="toggleTextMenu()" [ngStyle]="ngStyleTextMenu()" class="slide-in-menu"
+            style="font-size: 10px; padding: 8px;">
+            {{textNotice}}
+        </div>
+
+        <div *ngIf="displayInfoMenu" (mousedown)="toggleInfoMenu()" [ngStyle]="ngStyleInfoMenu()" class="slide-in-menu"
+            style="bottom: 60px; left: 60px;">
+            <app-profile-basics [user]="user" [myUser]="myUser"></app-profile-basics>
+        </div>
+
+
+        <i *ngIf="user.matchObj && user.matchObj.showButtonsFlg" (mousedown)="likeButtonClicked(false)"
+            class="fa fa-thumbs-o-down circle-button no-button"></i>&nbsp;
+        <i *ngIf="user.matchObj && user.matchObj.showButtonsFlg" (mousedown)="likeButtonClicked(true)"
+            class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
+
+    </div>
+    <div *ngIf="displayPicsMenu" [ngStyle]="ngStylePicsMenu()" class="more-pics-menu">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <span *ngIf="user.picCertificateFlg" style="text-align: left; font-size: 12px;" class="red-text">
+                        &nbsp;<i class="fa fa-certificate"></i> Picture Verified</span>
+                    <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(0)" [src]="user.imgSrc" class="tiny-pic">
+                    <img *ngIf="user.pic1" (mousedown)="viewImageThumbnail(1)" [src]="user.pic1"
+                        [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                    <img *ngIf="user.pic2" (mousedown)="viewImageThumbnail(2)" [src]="user.pic2"
+                        [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                    <img *ngIf="user.pic3" (mousedown)="viewImageThumbnail(3)" [src]="user.pic3"
+                        [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                    <img *ngIf="user.pic4" (mousedown)="viewImageThumbnail(4)" [src]="user.pic4"
+                        [ngClass]="unblurPicsFlg?'tiny-pic':'tiny-pic-blur'">
+                    <a *ngIf="user.user_id == myUser.user_id" [routerLink]="['/edit-pics']" class="text-link">edit
+                        pics</a>&nbsp;
+                    <a *ngIf="user.user_id == myUser.user_id && !user.picCertificateFlg" [routerLink]="['/verify-pics']"
+                        class="text-link">verify pic</a>&nbsp;
+
+                    <a *ngIf="user.user_id != myUser.user_id && !myUser.memberFlg && user.numPics > 0"
+                        [routerLink]="'/upgrade-member'" class="text-link">Upgrade to see
+                        more pics</a>
+                </td>
+                <td align="right">
+                    <i *ngIf="showPicsMenu" (mousedown)="togglePicsMenu()" class="fa fa-times"
+                        style="font-size: 20px; margin: 5px;"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="showAdminButtonsFlg" class="border-box" style="text-align: center; background-color: white;">
+        <div><i class="fa fa-lock"></i> admin tools</div>
+        <hr>
+        <div *ngIf="user.picFlagged>0" style="text-align: center; display: inline-block;">
+            <button (mousedown)="sendClickEventUp('picIsGood')" class="btn btn-primary spacer">Pic is
+                OK</button>
+            <div style="font-size: 8px;">Flagged picture is fine.</div>
+        </div>
+        <div *ngIf="!user.picFlagged" style="text-align: center; display: inline-block;">
+            <button (mousedown)="sendClickEventUp('picIsBad')" class="btn btn-primary spacer">
+                Pic is Bad</button>
+            <div style="font-size: 8px;">Flag as no face.</div>
+        </div>
+        <div *ngIf="user.picFlagged>0" style="text-align: center; display: inline-block;">
+            <button (mousedown)="sendClickEventUp('clearPic')" class="btn btn-primary spacer">Clear
+                Pic</button>
+            <div style="font-size: 8px;">Reset main image.</div>
+        </div>
+        <div style="text-align: center; display: inline-block;">
+            <button (mousedown)="sendClickEventUp('refreshDatePools')" class="btn btn-primary spacer">Refresh
+                DPs</button>
+            <div style="font-size: 8px;">Reset DP & matches DP.</div>
+        </div>
+        <div style="text-align: center; display: inline-block;">
+            <button (mousedown)="sendClickEventUp('refreshDatePool')" class="btn btn-primary spacer">Refresh
+                DP</button>
+            <div style="font-size: 8px;">Reset DP & matches DP.</div>
+        </div>
+        <div *ngIf="user.ownerFlg" style="text-align: center; display: inline-block;">
+            <button (mousedown)="sendClickEventUp('demoteUser')" class="btn btn-primary spacer">Demote
+            </button>
+            <div style="font-size: 8px;">Reset to regular member.</div>
+        </div>
+        <div *ngIf="myUser.user_id==1" style="text-align: center;">
+            <button [routerLink]="['/owner-msg']" [queryParams]="{uid: user.user_id}" class="btn btn-primary spacer">Msg
+            </button>
+        </div>
+
     </div>
 
 
-
-
-
-    <table width="100%" border="0" *ngIf="user.matchObj">
-        <tr>
-            <td style="padding: 0; position: relative;" valign="top" width="50%">
-                <i *ngIf="!largeImageFlg" (mousedown)="toggleImage()" class="fa fa-plus-circle plus-icon"></i>
-                <i *ngIf="largeImageFlg" (mousedown)="toggleImage()" class="fa fa-minus-circle plus-icon"></i>
-                <i *ngIf="user.picCertificateFlg" class="fa fa-certificate verified-cirtificate"></i>
-                <span *ngIf="user.reputationScore>0" (mousedown)="showMyReputation()" class="reputation-score"
-                    title="Reputation Score">{{user.reputationScore}}</span>
-                <i *ngIf="pictureIndex>1" (mousedown)="changePicture(-1)" class="fa fa-chevron-left icon-chevron"
-                    style="left: 10px;"></i>
-                <i *ngIf="pictureIndexMax>1 && pictureIndex<pictureIndexMax" (mousedown)="changePicture(1)"
-                    class="fa fa-chevron-right icon-chevron" style="right: 10px;"></i>
-                <img (mousedown)="toggleImage()" [src]="user.mainImageSrc" [ngClass]="ngClassImage()">
-            </td>
-            <td *ngIf="!largeImageFlg" valign="top"
-                style="text-align: center; min-width: 180px; max-width: 200px; padding-top: 7px; position: relative;">
-                <i *ngIf="snapshotFlg" (mousedown)="closePopup()" class="fa fa-times"
-                    style="float: right; cursor: pointer; margin: 5px;"></i>
-                <div *ngIf="showOptionsFlg" (mousedown)="showOptionsFlg=false;"
-                    style="background-color: gray; width: 100%; height: 100%; position: absolute; opacity: 0.2; z-index: 50;">
-                    &nbsp;</div>
-
-                <div
-                    style="display: inline-block; width: 100%; min-width: 180px; max-width: 200px; text-align: left; position: relative; padding: 5px;">
-
-                    <span *ngIf="myUser.user_id != user.user_id" (mousedown)="showOptionsFlg=!showOptionsFlg"
-                        class="three-dots" title="Menu Options"><i class="fa fa-ellipsis-v"></i></span>
-                    <span *ngIf="showOptionsFlg && user.matchObj" class="three-dots-menu">
-                        <div *ngIf="0 && user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y'"
-                            (mousedown)="sendClickEventUp('remove')" class="three-dots-menu-option">Remove from
-                            Dating Pool</div>
-                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested == 'Y' && myUser.heartId != user.user_id"
-                            (mousedown)="sendClickEventUp('assignRose')" class="three-dots-menu-option">Assign Rose
-                        </div>
-                        <div *ngIf="user.matchObj.match_interested == 'Y' && user.matchObj.you_interested != 'Y'"
-                            (mousedown)="sendClickEventUp('yesToMatch')" class="three-dots-menu-option">
-                            Add to Dating Pool</div>
-                        <div *ngIf="0 && user.matchObj.you_interested != 'X'" (mousedown)="menuOptionClicked(1)"
-                            class="three-dots-menu-option">
-                            Block</div>
-                        <div *ngIf="!snapshotFlg" (mousedown)="menuOptionClicked(2)" class="three-dots-menu-option">
-                            Flag</div>
-                        <div *ngIf="user.matchObj.you_interested == 'X'" (mousedown)="sendClickEventUp('yesToMatch')"
-                            class="three-dots-menu-option">
-                            Un-Block</div>
-                        <div (mousedown)="showOptionsFlg=false" class="three-dots-menu-option">Cancel</div>
-                    </span>
-                    <i *ngIf="myUser.user_id == user.user_id" [routerLink]="['/profile']" title="Edit Profile"
-                        style="float: right; cursor: pointer; margin: 3px; font-size: 18px;" class="fa fa-edit"></i>
-
-                    <hr>
-                    <div style="font-size: 20px; font-weight: 600;">
-                        <span class="name-bar"><img src="assets/images/rose5.png" height="20"
-                                *ngIf="user.user_id == myUser.heartId" alt="Rose" title="Rose">
-                            <i [class]="user.icon" [title]="user.userTitle"
-                                style="font-size: 10px; float: right; color: #ccc;"></i>
-                            <i *ngIf="user.picCertificateFlg" title="Verified User!" class="fa fa-check"
-                                style="color: rgb(86, 127, 209); vertical-align: super;"></i>
-                            <span title="id: {{user.user_id}}">{{user.firstName}}</span>,
-                            {{user.age}}&nbsp;
-                        </span>
-
-                    </div>
-                    <div *ngIf="user.status == 'Suspend'" class="tan-box">
-                        Note this user is currently suspended
-                    </div>
-                    <div *ngIf="user.status == 'Deleted'" class="tan-box">
-                        <div><b>Status:</b> {{user.status}}</div>
-                        <div><b>Reason:</b> {{user.alias_name}}</div>
-                        <div><b>Details:</b> {{user.story}}</div>
-                    </div>
-
-                    <div style="font-size: 12px;">{{user.location}}</div>
-                    <div style="font-size: 8px; color: gray;">
-                        <i class="fa fa-globe main-color"></i> {{user.distanceText}} ({{user.lastLoginText}})
-                    </div>
-                    <div *ngIf="showProfileBasicsFlg"
-                        [ngClass]="profileBasicsClassFlg?'profile-basics':'profile-basics-off'">
-
-                        <button (mousedown)="hideProfileBasics()" class="btn" style="float: right;"><i
-                                class="fa fa-times"></i></button>
-
-                        <div class="small-box">
-                            <div class="small-title main-color">Relationship</div>
-
-                            <div class="">
-                                <span class="profile-icon menu-circle">
-                                    <i [class]="user.genderIcon"></i>
-                                    <span class="icon-label main-color-bg">{{user.lookingForTitle}}</span>
-                                </span>
-                                <span class="profile-text">
-                                    {{user.maritalStatus}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp;
-                                    <i *ngIf="user.matchPreference != 'F'" class="fa fa-male"></i> <i
-                                        *ngIf="user.matchPreference != 'M'" class="fa fa-female"></i>
-                                </span>
-
-                            </div>
-
-                            <app-green-check [label]="'Interested in'" [text1]="user.desiredRelationship"
-                                [showCheckFlg]="user.desiredRelationship == myUser.matchRelationship && myUser.user_id != user.user_id"
-                                [img]="'assets/images/profile/lookingFor.png'"></app-green-check>
-                            <app-green-check [label]="'View of Marriage'" [text1]="user.marriageView"
-                                [showCheckFlg]="myUser.marriageView == user.marriageView && myUser.user_id != user.user_id"
-                                [img]="'assets/images/profile/marriage.png'"></app-green-check>
-                            <app-green-check [label]="'Longest Relationship'" [text1]="user.longestRelationshipText"
-                                [icon]="'fa fa-exchange'">
-                            </app-green-check>
-
-                            <div>
-                                <table width="100%">
-                                    <tr>
-                                        <td align="center">
-                                            <span class="menu-circle">
-                                                <img [src]="'assets/images/profile/kids.png'" height="15">
-                                                {{user.numKids}}
-                                                <span class="icon-label main-color-bg">{{hasKidsTitle}}</span>
-                                            </span>
-                                            <div style="font-size: 6px;">Has kids?</div>
-                                        </td>
-                                        <td align="center">
-                                            <span class="menu-circle">
-                                                <img [src]="'assets/images/profile/kids2.png'" height="15"
-                                                    style="margin-right: 4px;">
-                                                <span *ngIf="user.wantsKids != 'Does Not Matter'"
-                                                    style="font-size: 10px;">{{user.wantsKids}}</span>
-
-                                                <span *ngIf="user.wantsKids == 'Does Not Matter'"><i
-                                                        class="fa fa-question"></i></span>
-                                                <sup *ngIf="myUser.wantsKids==user.wantsKids && myUser.user_id != user.user_id"
-                                                    class="hide-xs"><i class="fa fa-check main-color"></i></sup>
-                                                <span class="icon-label main-color-bg">{{wantsKidsTitle}}</span>
-                                                <div style="font-size: 6px;">Wants kids?</div>
-
-                                            </span>
-                                        </td>
-                                        <td align="right">
-                                            <table>
-                                                <tr>
-                                                    <td align="center">
-                                                        <span class="menu-circle" *ngIf="user.drinksIcon">
-                                                            <img [src]="user.drinksIcon" class="dabauchery-icon">
-                                                            <span
-                                                                class="icon-label main-color-bg">{{user.drinksTitle}}</span>
-                                                        </span>
-                                                        <div style="font-size: 6px;">{{user.drinksTitle}}</div>
-                                                    </td>
-                                                    <td align="center">
-                                                        <span class="menu-circle" *ngIf="user.smokesIcon">
-                                                            <img [src]="user.smokesIcon" class="dabauchery-icon">
-                                                            <span
-                                                                class="icon-label main-color-bg">{{user.smokesTitle}}</span>
-                                                        </span>
-                                                        <div style="font-size: 6px;">{{user.smokesTitle}}</div>
-                                                    </td>
-                                                    <td align="center">
-                                                        <span class="menu-circle" *ngIf="user.potIcon">
-                                                            <img [src]="user.potIcon" class="dabauchery-icon">
-                                                            <span
-                                                                class="icon-label main-color-bg">{{user.potTitle}}</span>
-                                                        </span>
-                                                        <div style="font-size: 6px;">{{user.potTitle}}</div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="small-box">
-                            <div class="small-title main-color">Background</div>
-                            <app-green-check [label]="'Education'" [text1]="user.educationLevel"
-                                [showCheckFlg]="myUser.matchEducation == user.educationLevel && myUser.user_id != user.user_id"
-                                [icon]="'fa fa-graduation-cap'"></app-green-check>
-                            <app-green-check *ngIf="1 || !myUser.memberFlg" [label]="'Income'"
-                                [text1]="user.incomeRange"
-                                [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
-                                [icon]="'fa fa-money'">
-                            </app-green-check>
-                            <app-green-check *ngIf="0 && myUser.memberFlg" [label]="'Income'" [text1]="user.income"
-                                [showCheckFlg]="user.income == myUser.matchIncome && myUser.user_id != user.user_id"
-                                [icon]="'fa fa-money'">
-                            </app-green-check>
-                            <app-green-check [label]="'Religion'" [text1]="user.religion"
-                                [showCheckFlg]="user.religion == myUser.matchReligion && myUser.user_id != user.user_id"
-                                [icon]="''" [img]="'assets/images/profile/religion.png'">
-                            </app-green-check>
-                        </div>
-                        <div style="text-align: center">
-                            <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-profile"><i
-                                    class="fa fa-arrow-circle-down"></i> More Details</button>
-                        </div>
-                    </div>
-
-
-
-
-                    <div *ngIf="user.matchObj.match_level == 1 && user.matchObj.match_interested == 'Y'"
-                        class="important-notice" style="text-align: center;">
-                        <i class="fa fa-heart"></i> {{user.firstName}}<br>is interested in you!
-                    </div>
-                    <div *ngIf="!showProfileBasicsFlg" style="text-align: center; margin-top: 40px;">
-
-                        <div style="font-size: 10px;">🌹 Rose Ceremony in <span
-                                class="text-highlight">{{user.daysTillRoseCeremony}}</span> day<span
-                                *ngIf="user.daysTillRoseCeremony != 1">s</span></div>
-
-                        <button (mousedown)="showProfileBasics()" class="btn btn-main-color btn-profile"><i
-                                class="fa fa-user"></i> Profile Basics</button>
-
-                        <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-profile"><i
-                                class="fa fa-arrow-circle-down"></i> More Details</button>
-
-                        <button *ngIf="user.photographerId>0" [routerLink]="['/photography']"
-                            [queryParams]="{uid: user.user_id}" class="btn btn-main-color btn-profile"><i
-                                class="fa fa-picture-o"></i> Request Pic</button>
-
-                        <button
-                            *ngIf="user.potentialLoveInterestFlg && !showTextWarning && (!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 4)"
-                            (mousedown)="showTextWarning=true;" class="btn btn-main-color btn-profile"><i
-                                class="fa fa-comment"></i> Text
-                            {{user.firstName}}</button>
-
-                        <div *ngIf="user.matchObj && showTextWarning" (mousedown)="showTextWarning=false;"
-                            class="important-notice">
-                            <div *ngIf="!user.matchObj || !user.matchObj.match_level || user.matchObj.match_level < 2">
-                                <p *ngIf="user.matchObj.match_interested == 'B'">
-                                    Sorry, but you have been placed on {{user.firstName}}'s back burner.
-                                </p>
-                                <div *ngIf="user.matchObj.showButtonsFlg">With Betra you BOTH must show interest in each
-                                    other
-                                    before texting. Click the green
-                                    "Thumbs-up" button to get started. {{user.matchObj.you_interested}}
-                                </div>
-                                <div
-                                    *ngIf="user.matchObj.you_interested == 'Y' && user.matchObj.match_interested == 'N'">
-                                    Unfortunately, this person is not
-                                    interested in you. Keep browsing!</div>
-                                <div *ngIf="user.matchObj.you_interested == 'Y'">
-                                    This person is aware that you are interested. If <span
-                                        *ngIf="user.gender=='F'">s</span>he says 'Yes' to you, you will be
-                                    able
-                                    to communicate. Keep your fingers crossed!</div>
-                                <div *ngIf="user.matchObj.you_interested == 'N'">You have indicated that you are not
-                                    interested in {{user.firstName}}.
-                                    Change your mind? <a (mousedown)="likeButtonClicked(true)" class="text-link">click
-                                        here</a>.
-                                </div>
-                            </div>
-                            <div *ngIf="user.matchObj.match_level == 2">
-                                With Betra, the first contact must be from a dropdown Ice Breaker. If you get a response
-                                back, you can begin to freely text! See Ice Breaker below.
-                            </div>
-                            <div *ngIf="user.matchObj.match_level == 3">
-                                Almost there! You must get a response back from each other's Ice Breaker questions to
-                                begin
-                                texting. See below.
-                            </div>
-                        </div>
-                        <i (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg" class="fa fa-lock"
-                            *ngIf="myUser.user_id==1" style="cursor: pointer; float: left;"></i>
-
-                        <!--<button
-                            *ngIf="snapshotFlg && user.matchObj && user.matchObj.match_level >= 2 && user.matchObj.unreadMessages > 0"
-                            [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
-                            class="btn btn-main-color btn-small"><i class="fa fa-comment"></i> New
-                            Messages
-                        </button>
-                        <button *ngIf="snapshotFlg && user.matchObj && user.matchObj.unreadMessages == 0"
-                            [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
-                            class="btn btn-main-color btn-small"><i class="fa fa-comment"></i> Send Message
-                        </button>
-
-
-                        <i (mousedown)="showMoreClicked()" style="float: right; font-size: 32px; margin-top: -3px;"
-                            [ngClass]="'fa fa-arrow-circle-down clickable'"
-                            [title]="(expandBottomFlg)?'Collapse Profile':'Expand Profile'"></i>
-                        <div *ngIf="myUser.datingPool.length == 0" style="font-size: 10px;">[Click down arrow for more
-                            info]</div>-->
-                    </div>
-                    <div *ngIf="showAdminButtonsFlg" class="border-box" style="text-align: center;">
-                        <div><i class="fa fa-lock"></i> admin tools</div>
-                        <hr>
-                        <div *ngIf="user.picFlagged>0" style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('picIsGood')" class="btn btn-primary">Pic is
-                                OK</button>
-                            <div style="font-size: 8px;">Flagged picture is fine.</div>
-                        </div>
-                        <div *ngIf="!user.picFlagged" style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('picIsBad')" class="btn btn-primary">
-                                Pic is Bad</button>
-                            <div style="font-size: 8px;">Flag as no face.</div>
-                        </div>
-                        <div *ngIf="user.picFlagged>0" style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('clearPic')" class="btn btn-primary">Clear
-                                Pic</button>
-                            <div style="font-size: 8px;">Reset main image.</div>
-                        </div>
-                        <div style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('refreshDatePools')" class="btn btn-primary">Refresh
-                                DPs</button>
-                            <div style="font-size: 8px;">Reset DP & matches DP.</div>
-                        </div>
-                        <div style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('refreshDatePool')" class="btn btn-primary">Refresh
-                                DP</button>
-                            <div style="font-size: 8px;">Reset DP & matches DP.</div>
-                        </div>
-                        <div *ngIf="user.ownerFlg" style="text-align: center; display: inline-block;">
-                            <button (mousedown)="sendClickEventUp('demoteUser')" class="btn btn-primary">Demote
-                            </button>
-                            <div style="font-size: 8px;">Reset to regular member.</div>
-                        </div>
-                        <div *ngIf="myUser.user_id==1" style="text-align: center;">
-                            <button [routerLink]="['/owner-msg']" [queryParams]="{uid: user.user_id}"
-                                class="btn btn-primary">Msg
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div *ngIf="user.numPics>0" style="text-align: left; font-size: 12px;">
-
-        <div *ngIf="user.numPics>0"
-            style="position: absolute; opacity: 0.5; bottom: 0; background-color: black; color: white;">
-            &nbsp;<i class="fa fa-picture-o"></i>
-            {{user.numPics+1}} pics total&nbsp;</div>
-    </div>
-
-    <div *ngIf="user.matchObj && user.matchObj.showButtonsFlg"
-        style="position: absolute; top: 350px; left: 80px; z-index: 100;">
-        <i (mousedown)="likeButtonClicked(false)" class="fa fa-thumbs-o-down circle-button no-button"></i>&nbsp;
-        <i (mousedown)="likeButtonClicked(true)" class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
-    </div>
 
     <div *ngIf="user.matchObj && user.matchObj.matchMadeFlg" [routerLink]="['/matches']" class="main-color-bg"
         style="cursor: pointer;">

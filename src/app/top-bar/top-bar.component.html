@@ -1,8 +1,8 @@
 <!--<img src="assets/images/topBar/gray-texture.jpg" class="gray-texture">-->
 <div class="gray-texture">&nbsp;</div>
 <img src="assets/images/topBar/circle.png" class="profile-circle">
-<img [routerLink]="['']" src="assets/images/topBar/left-item.png" class="left-item">
+<img [routerLink]="['']" src="assets/images/topBar/red-left.png" class="left-item">
 <span *ngIf="userId>0" class="coins-label">Coins</span>
 <span *ngIf="headerObj && userId>0" [routerLink]="['/coins']" class="coins">{{headerObj.points}}</span> 
-<img *ngIf="userId>0" [routerLink]="['/coins']" src="assets/images/topBar/coins-item.png" class="coins-item">
-<img src="assets/images/topBar/right-item.png" class="right-item">
+<img *ngIf="userId>0" [routerLink]="['/coins']" src="assets/images/topBar/purple.png" class="coins-item">
+<img src="assets/images/topBar/red-right.png" class="right-item">
