@@ -23,7 +23,9 @@
                         <td valign="top" width="33%">
                             <div class="link-section">
                                 <div style="color: gray;">Resources</div>
-                                <div [routerLink]="['/blogs']" class="white-link">Blog</div>
+                                <div [routerLink]="['/photography']" class="white-link">Photo Club</div>
+                                <div [routerLink]="['/photo-school']" class="white-link">Photo Classes</div>
+                                <div [routerLink]="['/blogs']" class="white-link">Blogs</div>
                                 <div *ngIf="userId>0" [routerLink]="['/chat-room']" class="white-link">Chat Room </div>
                                 <div *ngIf="userId>0" [routerLink]="['/game-room']" class="white-link">Game Room </div>
                                 <div *ngIf="userId>0" [routerLink]="['/check-list']" class="white-link">Level Up </div>

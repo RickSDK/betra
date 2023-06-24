@@ -77,14 +77,14 @@ export class ProfileTopComponent implements OnInit {
         this.textNotice = 'Scroll down to text';
       if (this.user.matchObj.showButtonsFlg)
         this.textNotice = 'With Betra, you can only communicate with people in your dating pool. Click thumbs up if you would like to let ' + this.user.firstName + ' know you are interested.';
-      if (this.user.matchObj.match_level == 1 && !this.user.matchObj.match_interested)
+      if (this.user.matchObj.match_level <= 1 && !this.user.matchObj.match_interested)
         this.textNotice = this.user.firstName + ' has been notified that you are interested but hasn\'t responded, which means you are not able to text at this time.';
       if (this.user.matchObj.match_level == 1 && this.user.matchObj.match_interested == 'Y')
         this.textNotice = this.user.firstName + ' is interested in you, but you said no. To chat, click the 3 dots above and add this person to your dating pool.';
       if (this.user.matchObj.match_level == 1 && this.user.matchObj.match_interested == 'N')
         this.textNotice = this.user.firstName + ' is not interested in you. Sorry, but there are lots of more fish in the sea. Move on to someone else.';
     }
-    if (this.user.user_id == this.myUser.user_id)
+    if (this.user.user_id == this.myUser.user_id || !this.user.findLoveFlg)
       this.textNotice = '';
   }
 

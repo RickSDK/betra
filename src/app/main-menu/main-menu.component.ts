@@ -101,8 +101,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     if (dt.mo == 7 && dt.dayOfMonth == 4)
       this.holidayScr = 'assets/images/holidays/july4.jpeg';
 
-    // this.logUser();
-    // this.loadUserObj();
     this.userStatus = this.user.status;
     this.popupNum = 1;
 

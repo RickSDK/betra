@@ -5,6 +5,7 @@ import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component
 import { PicturePopupComponent } from '../popups/picture-popup/picture-popup.component';
 import { Photographer } from '../classes/photographer';
 import { ActivatedRoute } from '@angular/router';
+import { BetraPopup2Component } from '../betra-popup2/betra-popup2.component';
 
 declare var $: any;
 
@@ -19,6 +20,9 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
 
   @ViewChild(PicturePopupComponent, { static: true })
   picturePopupComponent!: PicturePopupComponent;
+
+  @ViewChild(BetraPopup2Component, { static: true })
+  betraPopup2Component!: BetraPopup2Component;
 
   public numbers = [10, 20, 40, 50, 100, 200, 500, 1000];
   public costAmounts = [1, 5, 7, 9, 10, 11, 12, 15, 20, 40, 50, 60, 80, 100];
@@ -48,7 +52,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
   public showNewTypeFlg: boolean = false;
   public picTypes: any = ['Nature', 'Animals', 'Still Life', 'Fashion', 'Outdoors', 'Swim Suit', 'Lingerie', 'NSFW', 'Other'];
   public picCosts: any = [1, 2, 3, 4, 5, 10, 20, 40, 100, 200, 500, 1000];
-  public myPicTypes: any = [{ type: 'selfie', cost: 1 }];
+  public myPicTypes: any = [{ type: 'Selfie', cost: 1 }];
   public picTypeOtherFlg: boolean = false;
   public showImagePopup: boolean = false;
   public selectedPerson: any = null;
@@ -202,6 +206,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     }
     this.getDataFromServer('placeOrder', 'photography.php', { uid: this.selectedPerson.user_id, type: 'Special', cost: coins, instructions: instructions });
     this.selectedPerson = null;
+    this.betraPopup2Component.hidePopup();
 
   }
 
@@ -210,6 +215,7 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
     if (this.selectedPerson && this.selectedType) {
       this.getDataFromServer('placeOrder', 'photography.php', { uid: this.selectedPerson.user_id, type: this.selectedType.type, cost: this.costOfPicture, instructions: instructions });
       this.selectedPerson = null;
+      this.betraPopup2Component.hidePopup();
     }
   }
 
@@ -221,6 +227,12 @@ export class PictureExchangeComponent extends BaseComponent implements OnInit {
       element.sale = Math.round(element.cost / 2);
     });
     this.selectedType = null;
+    this.menuNum = 0;
+    if (this.selectedPerson.portfolioItems.length > 0)
+      this.menuNum = 1;
+    if (this.selectedPerson.pics.length > 0)
+      this.menuNum = 2;
+    this.betraPopup2Component.showPopup(this.selectedPerson.firstName);
   }
 
   placeOffer() {

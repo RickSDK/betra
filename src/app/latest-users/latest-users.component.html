@@ -73,6 +73,20 @@
                 <td class="hide-sm"><i class="fa fa-check" *ngIf="person.roseCeremonyDt"></i> {{person.daysTillRoseCeremony}}</td>
             </tr>
         </table>
+        <div *ngIf="user.user_id==1" style="font-size: 8px; color: gray;">
+            <div>
+                <div class="red-text">Not active</div>
+                <span *ngFor="let email of notActiveUsers">{{email}}, </span>
+            </div>
+            <div>
+                <div class="red-text">No Rose Ceremony</div>
+                <span *ngFor="let email of activeUsersNoRoseCeremony">{{email}}, </span>
+            </div>
+            <div>
+                <div class="red-text">Completed Ceremony</div>
+                <span *ngFor="let email of activeUsersCompletedCeremony">{{email}}, </span>
+            </div>
+        </div>
     </div>
 </app-page-shell>
 <app-profile-user-popup></app-profile-user-popup>

@@ -510,10 +510,23 @@
                         <app-text-input [placeHolder]="'What are you looking for?'" [id]="'story'" [value]="user.story"
                             [highlightFlg]="user.story==''" [maxLength]="128" (messageEvent)="menuValueChanged()">
                         </app-text-input>
+                        <table>
+                            <tr>
+                                <td width="50%">
+                                    <div class="tiny-text">Ideal match age</div>
+                                    <input name="matchAge" id="matchAge" type="number" [value]="user.matchAge"
+                                        (input)="menuValueChanged()">
+                                </td>
+                                <td width="50%" valign="middle">
+                                    <button (mousedown)="moreMatchOptionsFlg=!moreMatchOptionsFlg"
+                                    class="btn btn-main-color btn-small">More Options</button>        
+                                </td>
+                            </tr>
+                        </table>
 
-                        <button (mousedown)="moreMatchOptionsFlg=!moreMatchOptionsFlg"
-                            class="btn btn-main-color btn-small">More Options</button>
 
+
+ 
                         <div *ngIf="moreMatchOptionsFlg">
                             <hr>
                             <div style="font-size: 22px;">What is your ideal match?</div>
@@ -530,9 +543,6 @@
                             <div class="row">
                                 <div class="col-md" style="text-align: left;">
 
-                                    <div class="tiny-text">Ideal match age</div>
-                                    <input name="matchAge" id="matchAge" type="number" [value]="user.matchAge"
-                                        (input)="menuValueChanged()">
                                     <div class="tiny-text">Body Type</div>
                                     <select name="matchBody" id="matchBody" (change)="menuValueChanged()"
                                         [style.background-color]="user.matchBody?'#eee':requiredFieldColor">

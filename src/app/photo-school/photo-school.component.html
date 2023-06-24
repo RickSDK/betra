@@ -1,7 +1,7 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
     [pageTitle]="'Photo Class'" [userStatus]="userStatus">
 
-    <div class="matches-card" *ngIf="user" style="padding: 0;">
+    <div class="matches-card2" *ngIf="user" style="padding: 0;">
 
         <app-top-header2 [topTitle]="'Photo Class'"></app-top-header2>
         <div class="tan-box">
@@ -33,7 +33,7 @@
                     <option>Nature</option>
                     <option>Objects</option>
                 </select>
-                 <div *ngIf="createClassNum>=2">
+                <div *ngIf="createClassNum>=2">
                     <div>&nbsp;</div>
                     Genre:
                     <select *ngIf="classType == 'People'" id="classGenre" (change)="createClassNum=3">
@@ -76,12 +76,12 @@
                     <div>&nbsp;</div>
                     <div style="font-size: 10px;">Brief introduction of yourself.</div>
                     <textarea [id]="'instructor'" style="width: 100%;"></textarea>
- 
+
                     <div style="font-size: 10px;">Describe your class in one sentence.</div>
                     <app-text-input [id]="'intro'"></app-text-input>
-                    <div style="font-size: 10px;">What is the assignment for this class? Give some specific instructions 
-                        for students to follow so they know what type of photo to turn in. 
-                         (These will not be visible until the class begins).</div>
+                    <div style="font-size: 10px;">What is the assignment for this class? Give some specific instructions
+                        for students to follow so they know what type of photo to turn in.
+                        (These will not be visible until the class begins).</div>
                     <textarea [id]="'description'" style="width: 100%;"></textarea>
                     <div style="font-size: 10px;">Special hints and strategies for making it a great photo.</div>
                     <textarea [id]="'tips'" style="width: 100%;"></textarea>
@@ -96,7 +96,6 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="page">
-            <div *ngIf="page.classes && page.classes.length>0">Current Classes</div>
             <div *ngFor="let class of page.classes" class="class-box">
                 <div style="background-color: #444; color: white;">{{class.name}}</div>
                 <div style="padding: 10px;">
@@ -120,19 +119,43 @@
                             at least 5 people to start</div>
                         <hr>
                     </div>
-                    <div style="font-size: 10px;">Starts {{class.startDay}}</div>
-                    <div>Days until start: <span class="text-highlight">{{class.daysTillStart}}</span></div>
-                    <div>Cost: <span class="text-highlight">{{class.cost}}</span> coins</div>
-                    <button [routerLink]="['/photo-class']" [queryParams]="{id: class.row_id}" *ngIf="user.user_id==1 || class.isInstructor"
-                    class="btn btn-primary spacer">View</button>
+                    <div *ngIf="class.status == 'Open'">
+                        <div style="font-size: 10px;">Starts {{class.startDay}}</div>
+                        <div>Days until start: <span class="text-highlight">{{class.daysTillStart}}</span></div>
+                        <div>Cost: <span class="text-highlight">{{class.cost}}</span> coins</div>
+                    </div>
+                    <div *ngIf="class.status == 'Started'">
+                        <div class="red-text">In progress!</div>
+                        <div>Remaining days: <span class="text-highlight">{{class.daysTillEnd}}</span></div>
+ 
+                        
+                    </div>
+                    <div *ngIf="class.workTodo>0"
+                        style="background-color: yellow; font-size: 12px; color: #900; padding: 5px; border-radius: 5px;">
+                        You have work to do!
+                    </div>
+                    <div *ngIf="class.status == 'Completed'">
+                        This class is completed
+                    </div>
+                    <button [routerLink]="['/photo-class']" [queryParams]="{id: class.row_id}"
+                        *ngIf="user.user_id==1 || class.isInstructor || (class.isEnrolled>0 && class.status != 'Open')"
+                        class="btn btn-main-color btn-large spacer">View</button>
                     <button (mousedown)="editThisClass(class)" *ngIf="user.user_id==1 || class.isInstructor"
                         class="btn btn-primary spacer">Edit</button>
-                    <button *ngIf="user.user_id==1" (mousedown)="deleteClass(class)"
-                        class="btn btn-danger spacer">Delete</button>
-                    <button *ngIf="class.isEnrolled==0 && class.status == 'Open' && !class.isInstructor"
-                        (mousedown)="joinClass(class)" class="btn btn-success spacer">Join</button>
-                    <button *ngIf="class.isEnrolled>0 && class.status == 'Open'" (mousedown)="dropClass(class)"
-                        class="btn btn-danger spacer">Drop</button>
+
+                    <div *ngIf="class.status == 'Open'">
+                        <button (mousedown)="startThisClass(class)"
+                            *ngIf="class.students.length>=5 && user.user_id==1 && class.daysTillStart<=0"
+                            class="btn btn-success spacer">Start!</button>
+                        <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="deleteClass(class)"
+                            class="btn btn-danger spacer">Delete</button>
+                        <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="extendClass(class)"
+                            class="btn btn-warning spacer">Extend</button>
+                        <button *ngIf="class.isEnrolled==0 && class.status == 'Open' && !class.isInstructor"
+                            (mousedown)="joinClass(class)" class="btn btn-success spacer">Join</button>
+                        <button *ngIf="class.isEnrolled>0 && class.status == 'Open'" (mousedown)="dropClass(class)"
+                            class="btn btn-danger spacer">Drop</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,3 +184,4 @@
 </div>
 <app-picture-popup></app-picture-popup>
 <app-profile-user-popup></app-profile-user-popup>
+<app-betra-popup></app-betra-popup>

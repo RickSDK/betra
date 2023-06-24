@@ -18,6 +18,7 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
   public displayUser: any = null;
   public daysTillCeremony: number = 0;
   public MIN_DATINGPOOL: number = 6;
+  public soundOnFlg: boolean = true;
 
   constructor(private router: Router, databaseService: DatabaseService) { super(databaseService); }
 
@@ -42,6 +43,14 @@ export class IntroScreenComponent extends BaseComponent implements OnInit {
     } else {
       this.menuNum = 44;
     }
+  }
+
+  toggleSound() {
+    this.soundOnFlg = !this.soundOnFlg;
+    if (this.soundOnFlg)
+      this.audio.play();
+    else
+      this.audio.pause();
   }
 
   stopMusic() {

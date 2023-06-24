@@ -5,3 +5,15 @@
     font-size: 12px;
     padding: 3px;
 }
+
+.chat-bubble {
+    top: 5px;
+    left: 5px;
+    background-color: white;
+    display: inline-block;
+    border-radius: 10px;
+    color: black;
+    margin: 5px;
+    padding: 5px 10px 5px 40px;
+    box-shadow: 2px 2px 3px gray;
+}

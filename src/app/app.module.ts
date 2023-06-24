@@ -153,6 +153,8 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { ProfileBasicsComponent } from './profile-basics/profile-basics.component';
 import { ProfileUserPopupComponent } from './profile-user-popup/profile-user-popup.component';
 import { ProfilePic2Component } from './profile-pic2/profile-pic2.component';
+import { BetraPopup2Component } from './betra-popup2/betra-popup2.component';
+import { UserWallComponent } from './user-wall/user-wall.component';
 
 //import { AdsenseModule } from 'ng2-adsense';
 
@@ -305,6 +307,8 @@ import { ProfilePic2Component } from './profile-pic2/profile-pic2.component';
     ProfileBasicsComponent,
     ProfileUserPopupComponent,
     ProfilePic2Component,
+    BetraPopup2Component,
+    UserWallComponent,
   ],
   imports: [
     BrowserModule,

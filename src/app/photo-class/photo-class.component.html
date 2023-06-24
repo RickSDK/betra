@@ -1,11 +1,11 @@
 <app-page-shell [userId]="userId" [popupNum]="popupNum" [imgSrcFile]="imgSrcFile" [headerObj]="headerObj"
     [pageTitle]="'Photo Club'" [userStatus]="userStatus">
 
-    <div class="matches-card" *ngIf="user" style="padding: 0;">
+    <div *ngIf="user" style="padding: 0;">
 
         <app-top-header2 [topTitle]="'Photo Class'"></app-top-header2>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-        <button class="btn btn-main-color" [routerLink]="['/photo-school']"><i class="fa fa-arrow-left"></i> All
+        <button class="btn btn-main-color spacer" [routerLink]="['/photo-school']"><i class="fa fa-arrow-left"></i> All
             Classes</button>
 
         <div class="tan-box" *ngIf="betraClass">
@@ -25,29 +25,108 @@
 
             <div style="font-size: 12px; text-align: left;">
                 <div><b>Subject:</b> {{betraClass.name}}</div>
-                <div><b>Genre:</b> {{betraClass.genre}}</div>
-                <div><b>Description:</b> {{betraClass.intro}}</div>
-                <div><b>Assignment:</b> {{betraClass.description}}</div>
-                <div><b>Tips:</b> {{betraClass.tips}}</div>
+                <div *ngIf="betraClass.genre"><b>Genre:</b> {{betraClass.genre}}</div>
+                <div><b>Description:</b>&nbsp;<span [innerHtml]="betraClass.intro"></span></div>
+                <hr>
+                <div><b>Assignment:</b>&nbsp;<span [innerHtml]="betraClass.description"></span></div>
+                <hr>
+                <div><b>Tips:</b>&nbsp;<span [innerHtml]="betraClass.tips"></span></div>
             </div>
             <div class="gray-text"></div>
             <hr>
             <div *ngIf="betraClass.students.length>0">
-                <div>Enrolled</div>
-                <app-profile-pic2 (mousedown)="showProfile(student.user_id)" *ngFor="let student of betraClass.students"
-                    [user_id]="student.user_id" [profilePic]="student.profilePic" [size]="30">
-                </app-profile-pic2>
+                <div>Students</div>
+                <div *ngFor="let student of betraClass.students" class="student-class">
+                    <app-profile-pic2 (mousedown)="showProfile(student.user_id)" [user_id]="student.user_id"
+                        [profilePic]="student.profilePic" [size]="100">
+                    </app-profile-pic2>
+                    <div style="font-size: 10px;">{{student.firstName}}</div>
+                    <a *ngIf="betraClass.isInstructor" style="font-size: 10px;" href="mailto:{{student.email}}">
+                        {{student.email}}</a>
+                    <div *ngIf="student.isMe">
+                        <div *ngIf="student.status == 'Filming'">
+                            <button (mousedown)="uploadPhotoFlg=true" class="btn btn-main-color">Upload Photo</button>
+                            <div *ngIf="uploadPhotoFlg">
+                                <app-upload-image [fileId]="'file1'" [loadingFlg]="loadingFlg" [id]="'Image1'"
+                                    (messageEvent)="uploadPortfilioPicButtonClicked()"></app-upload-image>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div *ngIf="student.status == 'Filming'" class="red-text" style="font-size: 10px;">
+                            Waiting to submit
+                        </div>
+                        <div *ngIf="student.status != 'Filming'">
+                            <img (mousedown)="viewImage(student.src)" class="thumbnail-img" [src]="student.src"
+                                height="100">
+                        </div>
+                    </div>
+                    <div class="border-box" *ngIf="student.message">
+                        <div style="font-size: 8px; color: gray;">Instructor Feedback</div>
+                        <span (mousedown)="showInstructorFeedbackFlg = !showInstructorFeedbackFlg"
+                            class="text-link">View</span>
+                        <div *ngIf="showInstructorFeedbackFlg" [innerHtml]="student.message"
+                            style="text-align: left; font-size: 10px;"></div>
+                    </div>
+                    <div *ngIf="betraClass.isInstructor && student.status != 'Filming'">
+                        <button (mousedown)="leaveFeedbackClicked(student)" class="btn btn-success spacer">Leave
+                            Feedback</button>
+                    </div>
+                </div>
                 <div *ngIf="betraClass.students.length<5" style="font-size: 8px; color: red;">Note: Class must have
                     at least 5 people to start</div>
                 <hr>
             </div>
-            <div style="font-size: 10px;">Starts {{betraClass.startDay}}</div>
-            <div>Days until start: <span class="text-highlight">{{betraClass.daysTillStart}}</span></div>
-            <div>Cost: <span class="text-highlight">{{betraClass.cost}}</span> coins</div>
+            <div *ngIf="betraClass.status == 'Open'">
+                <div style="font-size: 10px;">Starts {{betraClass.startDay}}</div>
+                <div>Days until start: <span class="text-highlight">{{betraClass.daysTillStart}}</span></div>
+                <div>Cost: <span class="text-highlight">{{betraClass.cost}}</span> coins</div>
+            </div>
+            <div *ngIf="betraClass.status == 'Started'" style="text-align: left; font-size: 12px;">
+                <div>Assignments Due: {{betraClass.submitDt}}</div>
+                <div>Days until due: <span class="text-highlight">{{betraClass.daysTillEnd}}</span></div>
+
+                <p><b>Students:</b> Read the instructions and submit a single photo that you have taken. Please do
+                    not submit photos found on the internet, but turn in your own work.
+                    The winning student will be awarded <b class="red-text">{{prize}}</b> coins and get a photography
+                    badge on your profile. Good luck to everyone!</p>
+                <p>Contact <b>{{betraClass.firstName}}</b> for any questions:
+                    <a style="font-size: 16px;" href="mailto:{{betraClass.email}}"><i class="fa fa-envelope"></i>
+                        {{betraClass.email}}</a>
+                </p>
+                <p>Be sure to check back often because once all photos have been turned in, you will have a chance to
+                    vote for your favorite.</p>
+            </div>
+            <div *ngIf="betraClass.status == 'Voting'">
+
+            </div>
+            <div *ngIf="betraClass.status == 'Completed'">
+
+            </div>
+            <hr>
+            <app-text-with-emoji *ngIf="user" (messageEvent)="sumbitChat($event)" [user_id]="user.user_id"
+                [profilePic]="user.profilePic" [maxLength]="400"></app-text-with-emoji>
+            <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
+            <div *ngFor="let message of betraClass.messages" style="text-align: left; position: relative;">
+                <div class="message-bubble">{{message.message}}</div>
+                <img src="https://www.betradating.com/betraPhp/profileImages/profile1_16.jpg" height="30"
+                    class="img-circle">
+            </div>
+            <div *ngIf="user.user_id==1" class="border-box" style="font-size: 10px; color: gray;">
+                <div class="red-text">Class Emails</div>
+                <span *ngFor="let email of emailList">{{email}}; </span>
+            </div>
         </div>
-
-
     </div>
 </app-page-shell>
 <app-picture-popup></app-picture-popup>
 <app-profile-user-popup></app-profile-user-popup>
+<app-betra-popup></app-betra-popup>
+<app-betra-popup2>
+    <div>Leave feedback on this person's photo.</div>
+    <textarea *ngIf="selectedStudent" id="feedback"
+        style="width: 100%; height: 100px;">{{selectedStudent.message}}</textarea>
+    <div>
+        <button (mousedown)="sumbitFeedback()" class="btn btn-main-color">Submit</button>
+    </div>
+</app-betra-popup2>

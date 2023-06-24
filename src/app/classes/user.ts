@@ -508,6 +508,11 @@ export class User {
             this.userTitle = 'Gold Member';
         }
 
+        if (!this.findLoveFlg) {
+            this.icon = 'fa fa-camera';
+            this.userTitle = 'Photo Club';
+        }
+
         if (this.ownerFlg) {
             this.icon = 'fa fa-user-secret';
             this.userTitle = 'Admin';
@@ -729,17 +734,16 @@ export class User {
             this.bodyDesc = this.bodyHeight + ' ' + this.genderName;
 
         //match details
+        this.textNotice = '';
         if (myUser && myUser.user_id > 0) {
-            this.textNotice = '';
-
-            if (this.matchObj && myUser.user_id != this.user_id) {
+            if (this.findLoveFlg && this.matchObj && myUser.user_id != this.user_id) {
                 if (this.matchObj.showButtonsFlg)
                     this.textNotice = 'With Betra, you can only communicate with people in your dating pool. Click thumbs up if you would like to let ' + this.firstName + ' know you are interested.';
-                if (this.matchObj.match_level == 1 && !this.matchObj.match_interested)
+                if (this.matchObj.match_level <= 1 && !this.matchObj.match_interested)
                     this.textNotice = this.firstName + ' has been notified that you are interested but hasn\'t responded, which means you are not able to text at this time.';
-                if (this.matchObj.match_level == 1 && this.matchObj.match_interested == 'Y')
-                    this.textNotice = this.firstName + ' is interested in you, but you said no. To chat, click the 3 dots above and add this person to your dating pool.';
-                if (this.matchObj.match_level == 1 && this.matchObj.match_interested == 'N')
+                if (this.matchObj.match_level <= 1 && this.matchObj.match_interested == 'Y')
+                    this.textNotice = this.firstName + ' is interested in you, but you said no. To chat, you need to add this user to your dating pool, under the "Admirers" tab.';
+                if (this.matchObj.match_level <= 1 && this.matchObj.match_interested == 'N')
                     this.textNotice = this.firstName + ' is not interested in you. Sorry, but there are lots of more fish in the sea. Move on to someone else.';
                 //   console.log('hey', this.matchObj);
             }

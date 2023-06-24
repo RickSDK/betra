@@ -56,7 +56,7 @@ export class SideMenuComponent implements OnInit {
       this.date2Count = this.infoObj.date2Count;
       this.ownerAlerts = this.infoObj.ownerAlerts;
       this.journalCount = this.infoObj.journalCount;
-      this.newClasses = this.infoObj.newClasses;
+      this.newClasses = parseInt(this.infoObj.newClasses) + parseInt(this.infoObj.classWorkItems);
       this.photographyCount = parseInt(this.infoObj.newPicCount) + parseInt(this.infoObj.deliveredPicCount);
       picCertificateFlg = this.infoObj.picCertificateFlg;
     }

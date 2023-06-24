@@ -20,6 +20,9 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   @ViewChild(BetraPopupComponent, { static: true })
   betraPopupComponent!: BetraPopupComponent;
 
+  @ViewChild(DatingPoolComponent, { static: true })
+  datingPoolComponent!: DatingPoolComponent;
+
   public menuButtons: any = ['Dating Pool', 'Waiting', 'Admirers', 'Dropped'];
   public playerList: any = [];
   public showMoreFlg = false;
@@ -44,8 +47,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   public sortOption: string = '';
   public heartId: number = 0;
 
-  @ViewChild(DatingPoolComponent)
-  private datingPoolComponent = {} as DatingPoolComponent;
+  //  @ViewChild(DatingPoolComponent)
+  //private datingPoolComponent = {} as DatingPoolComponent;
 
   constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
@@ -197,8 +200,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
   }
 
   addPersonToDP(person: any) {
-    if (this.user.datingPool.length > 15) {
-      this.betraPopupComponent.showPopup('Dating Pool Full!', 'Sorry, your dating pool is maxed out. You can only add new people if you are under 16 people in your pool. Wait until your next Rose Ceremony.');
+    if (this.user.datingPool.length > 22) {
+      this.betraPopupComponent.showPopup('Dating Pool Full!', 'Sorry, your dating pool is maxed out. You can only add new people if you are under 20 people in your pool. Wait until your next Rose Ceremony.');
       return;
     }
     var playerList: any = [];
@@ -269,6 +272,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
         this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
 
       this.updateMatches();
+      if (this.datingPoolComponent)
+        this.datingPoolComponent.refreshDatingPool(this.user.datingPool);
       //
 
       //this.logUser();

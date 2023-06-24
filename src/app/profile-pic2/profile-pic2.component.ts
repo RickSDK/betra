@@ -12,12 +12,14 @@ export class ProfilePic2Component implements OnInit {
   @Input('profilePic') profilePic: number = 0;
   @Input('size') size: number = 60;
   public src: string = '';
+  public circleSize:number = 30;
 
   constructor() { }
 
 
   ngOnInit(): void {
     this.src = betraImageFromId(this.user_id, this.profilePic);
+    this.circleSize = this.size+8;
   }
 
   ngOnChanges(changes: any) {

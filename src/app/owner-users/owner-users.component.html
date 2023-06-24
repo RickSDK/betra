@@ -12,8 +12,8 @@
         <div>Recent Promotions</div>
         <div *ngIf="page">
             <div *ngFor="let player of page.levelUpList" class="player-box">
-                <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="90">
-                </app-profile-pic>
+                <app-profile-pic2 (mousedown)="showProfile(player.user_id)" [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="90">
+                </app-profile-pic2>
                 <div>{{player.firstName}}</div>
                 <div>New Level: <span class="text-highlight">{{player.adminLevel}}</span></div>
             </div>
@@ -101,3 +101,4 @@
 
     </div>
 </app-page-shell>
+<app-profile-user-popup></app-profile-user-popup>

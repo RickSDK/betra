@@ -8,7 +8,7 @@
         </app-profile-top>
     </div>
     
-    <div style="margin-top: 20px;">
+    <div>
         <div [ngClass]="expandBottomFlg?'bottom-expanded':'bottom-collpased'">
             <div *ngIf="showMoreFlg">
                 <div style="display: inline-block; width: 100%; max-width: 540px; padding: 10px;" class="match-user-card">
@@ -265,7 +265,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 </div>

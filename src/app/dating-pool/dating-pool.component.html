@@ -1,5 +1,6 @@
 <div *ngIf="user && user.datingPool && user.datingPool.length>0">
     <div *ngIf="largeFlg">
+        <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngFor="let person of datingPool" class="pool-large menu-circle" style="position: relative;">
             <i *ngIf="exceededPoolSizeFlg || toggleDeleteButtonsFlg" class="fa fa-times minus-button" (mousedown)="dropPersonFromDP(person)"></i>
             <img [src]="person.src" class="large-img" [routerLink]="['/user-detail']"

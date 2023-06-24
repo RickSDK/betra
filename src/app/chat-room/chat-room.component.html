@@ -27,16 +27,18 @@
                         <span *ngIf="0 && !showMoreFlg" class="text-link">Show More</span>
                     </div>
                     <div
-                        style="background-color: black; color: white; padding: 5px; margin: 5px; border-radius: 5px; min-height: 200px;">
-                        <div *ngFor="let message of messages" (mousedown)="messageClicked(message)">
-                            <div *ngIf="!message.olderFlg || showMoreFlg">
-                                <div *ngIf="message.type" class="gray-text">**{{message.message}}**</div>
+                        style="background-color: pink; color: white; padding: 5px; margin: 5px; border-radius: 5px; min-height: 200px;">
+                        <div *ngFor="let message of messages" (mousedown)="messageClicked(message)" style="display: block;">
+                            <div *ngIf="!message.olderFlg || showMoreFlg" style="position: relative; ">
+                                <div *ngIf="message.type" style="color: #777;">**{{message.message}}**</div>
                                 <div *ngIf="!message.type">
-                                    <app-profile-pic2 (mousedown)="showProfile(message.user_id)" [user_id]="message.user_id" [profilePic]="message.profilePic"
+                                    <div class="chat-bubble" [style.background-color]="message.user_id == user.user_id?'#bcf':'white'">{{message.message}} <span *ngIf="message.user_id != user.user_id" style="font-size: 8px; color: gray;">({{message.firstName}})</span></div>
+                                    <app-profile-pic2 style="position: absolute; left: 0; top: 2px;" (mousedown)="showProfile(message.user_id)" [user_id]="message.user_id" [profilePic]="message.profilePic"
                                         [size]="25">
-                                    </app-profile-pic2> <span
-                                        [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:
-                                    {{message.message}}
+                                    </app-profile-pic2> 
+                                    <!--<span
+                                        [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:-->
+                                    
                                 </div>
                             </div>
 

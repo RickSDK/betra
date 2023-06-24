@@ -1,0 +1,22 @@
+<div *ngIf="user">
+    <div *ngIf="!writeMessageFlg">
+        <button (mousedown)="writeMessageFlg=true" class="btn btn-main-color btn-small">Post Message on Wall</button>
+    </div>
+    <app-text-with-emoji *ngIf="user && writeMessageFlg" (messageEvent)="sumbitChat($event)" [user_id]="myUser.user_id"
+    [profilePic]="myUser.profilePic" [maxLength]="100"></app-text-with-emoji>
+    <div *ngIf="!writeMessageFlg" style="font-size: 8px;">{{user.firstName}}'s Wall</div>
+    <div *ngFor="let message of messages" style="text-align: left; position: relative;">
+        <app-profile-pic2 style="position: absolute; top: 0; left: 0;" (mousedown)="showProfile(message.uid)" [user_id]="message.uid" [profilePic]="message.profilePic"
+                        [size]="30"></app-profile-pic2>
+        <div class="chat-bubble">
+            <span>{{message.message}}</span>
+        </div>&nbsp;
+        <span *ngIf="myUser.user_id == message.user_id && !message.readFlg" class="new-bubble">New</span>
+        <sup *ngIf="myUser.user_id != message.user_id && !message.readFlg" style="font-size: 8px; color: #aaa;">Not Read</sup>
+        <i (mousedown)="deleteMessage(message)" *ngIf="myUser.user_id == message.user_id" class="fa fa-times delete-item"></i>
+    </div>
+</div>
+<div *ngIf="!user" style="font-size: 10px;">
+    <i class="fa fa-spinner fa-spin"></i> loading...
+</div>
+<app-profile-user-popup></app-profile-user-popup>

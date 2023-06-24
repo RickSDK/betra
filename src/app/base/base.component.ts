@@ -110,7 +110,7 @@ export class BaseComponent implements OnInit {
     // if (!this.user.navLatFlg)
     //   this.uploadCoordinates();
 
-    if (!localStorage['latitude']) {
+    if (!localStorage['latitude'] && !localStorage['locWeTried']) {
       this.getLocationUsingNavigatorGeolocation();
     }
 
@@ -183,6 +183,7 @@ export class BaseComponent implements OnInit {
       { name: 'New Pic Request', amount: 0, desc: 'New picture request for you!' },
       { name: 'Picture Delivered', amount: 0, desc: 'Someone has delivered a picture for you!' },
       { name: 'New Gift', amount: 0, desc: 'Someone has sent you a gift!' },
+      { name: 'Class Work Due', amount: 0, desc: 'You have some class work to complete' },
     ];
 
     notificationsTypes[0].amount = infoObj.admirerCount;
@@ -197,6 +198,7 @@ export class BaseComponent implements OnInit {
     notificationsTypes[10].amount = infoObj.newPicCount;
     notificationsTypes[11].amount = infoObj.deliveredPicCount;
     notificationsTypes[12].amount = infoObj.newGifts;
+    notificationsTypes[13].amount = infoObj.classWorkItems;
 
     var notifications = 0;
     notificationsTypes.forEach(element => {
@@ -225,8 +227,8 @@ export class BaseComponent implements OnInit {
       if (userLocalStorage) {
         var userObj = JSON.parse(localStorage['User']);
         this.user = new User(userObj);
-        console.log('user', this.user);
-        console.log('infoObj', this.infoObj);
+        //console.log('user', this.user);
+        //console.log('infoObj', this.infoObj);
 
         if (getPlatform() == 'IOS' || !this.user.findLoveFlg) {
           this.liteModeFlg = true;
@@ -239,6 +241,7 @@ export class BaseComponent implements OnInit {
           this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;
           this.headerObj.newGifts = this.infoObj.newGifts;
           this.headerObj.newClasses = this.infoObj.newClasses;
+          this.headerObj.classWorkItems = this.infoObj.classWorkItems;
         }
         this.headerObj.profileCompleteFlg = !!(this.user && this.user.status == 'Active');
         this.headerObj.notifications = localStorage['notifications'];
@@ -560,7 +563,7 @@ export class BaseComponent implements OnInit {
 
           //console.log('responseJson', this.responseJson);
           if (this.responseJson && this.responseJson.status == 'Success') {
-            if(this.showProfileFlg) {
+            if (this.showProfileFlg) {
               this.showProfileFlg = false;
               this.profileUserPopupComponent.show(this.responseJson.user, this.user);
               return;
@@ -585,7 +588,12 @@ export class BaseComponent implements OnInit {
       console.log('+++postSuccessApi+++', responseJson.action, responseJson);
       this.successFlg = true;
       if (responseJson.action == 'logUser') {
-
+        this.headerObj.picFlagged = responseJson.picFlagged;
+        if (responseJson.picFlagged > 0) {
+          this.userStatus = 'Pending';
+          this.user.pendingStatusReason = 'Upload a good photo of your face';
+          this.user.pendingStatusPage = 5;
+        }
         if (responseJson.infoObj) {
           this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;
         }
@@ -637,6 +645,7 @@ export class BaseComponent implements OnInit {
 
   getLocationUsingNavigatorGeolocation() {
     console.log('finding location', navigator.geolocation);
+    localStorage['locWeTried'] = 'Y';
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,

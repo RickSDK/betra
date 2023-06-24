@@ -10,6 +10,16 @@
         <div *ngIf="uid>0 && !matchUser" class="match-card">
             No user found!
         </div>
+        <div *ngIf="id == 2" class="match-card">
+            <div>
+                <i class="fa fa-spinner fa-spin" *ngIf="loadingFlg"></i> Searching for: <span
+                class="text-highlight">{{user.genderMatch}}</span> around age <span
+                class="text-highlight">{{user.matchAge}}</span> &nbsp;<span [routerLink]="['/profile']" [queryParams]="{num: 8}" class="text-link">edit</span>
+            </div>
+            <div *ngIf="distanceRange> 7" class="red-text">
+                <i class="fa fa-exclamation-triangle"></i> No close matches found.
+            </div>
+        </div>
         <div *ngIf="id == 2 && !loadingFlg" class="match-card">
             <div *ngIf="profileViews>0">Swipes remaining: <span class="text-highlight">{{profileViews}}</span></div>
             <div *ngIf="profileViews<=0">Sorry no swipes remaining. Try back tomorrow</div>
@@ -109,16 +119,23 @@
             </div>
             <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
                 <div *ngIf="daysTillRoseCeremony==0">
-                    You must complete your Rose Ceremony before searching for more singles.
+                    <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
+                    <div>You must complete your Rose Ceremony before searching for more singles.</div>
+                    <div>&nbsp;</div>
+                    <button [routerLink]="['/intro']" class="btn btn-main-color">Rose Ceremony</button>
                 </div>
                 <div *ngIf="daysTillRoseCeremony>0">
                     <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
-                    <p>Sorry, no more profiles found.</p>
+                    <p>Sorry, no matches found.</p>
                     <p *ngIf="0 && !showExpandedSearchPopupFlg" class="gray-text">This is a new app and people are
                         joining
                         constantly. Check back soon.</p>
                     <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
-                        <p class="gray-text">You have already said "Yes" or "No" to everyone in the database.
+                        <div *ngIf="playerList.length>0">
+                            <p>Would you like to expand your search?</p>
+                            <button (mousedown)="showCurrentProfile()" class="btn btn-success spacer">Expand Search</button>
+                        </div>
+                        <p *ngIf="playerList.length==0" class="gray-text">You have already said "Yes" or "No" to everyone in the database.
                             This
                             is a
                             new
@@ -140,6 +157,8 @@
                             every
                             person in the database meeting your gender requirements.</p>
                     </div>
+                    <button [routerLink]="['']" class="btn btn-main-color spacer">Home</button>
+                    <button [routerLink]="['/matches']" class="btn btn-main-color spacer">Dating Pool</button>
                 </div>
             </div>
         </div>
@@ -150,6 +169,7 @@
                 [id]="id" [matchUser]="matchUser" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"
                 [singleProfileFlg]="uid>0">
             </app-match-snapshot>
+            <app-user-wall></app-user-wall>
 
             <div *ngIf="matchUser && matchUser.matchObj && uid>0">
 

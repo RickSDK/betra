@@ -97,9 +97,8 @@
         </table>
     </div>
     <p *ngIf="matchUser && matchUser.matchObj.match_level < 2" class="gray-text">
-        Sorry, you are unable to send text messages to {{matchUser.firstName}} at this time. Click the pink "More
-        Details"
-        button above to find out why.
+        Sorry, you are unable to send text messages to {{matchUser.firstName}} at this time.
+        {{matchUser.textNotice}}
     </p>
     <div *ngIf="showIceBreakerFlg" style="padding: 10px;">
         <div style="font-size: 18px;"><b><i class="fa fa-cube"></i> Ice Breaker!</b></div>

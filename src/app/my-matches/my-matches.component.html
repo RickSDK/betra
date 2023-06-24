@@ -64,11 +64,9 @@
                     {{selectedPerson.name}}?</p>
                 <div *ngIf="newlyAssignedRoseFlg" class="important-notice">
                     <div style="font-size: 16px;"><i class="fa fa-check"></i><b>Success!</b></div>
-                    <div>Your rose has been given to <b>{{currentRoseHolder}}</b>. You are free to change this as often
-                        as
-                        you like.
-                        Just keep in mind, in between rose ceremonies, you only have one rose to hand out, so it needs
-                        to go to your favorite.</div>
+                    <div>Your rose has been given to <b>{{currentRoseHolder}}</b>. Following your next Rose Ceremony, you will be able to hand out another rose to anyone you like.</div>
+                        <button [routerLink]="['']" class="btn btn-main-color spacer">Home</button>
+                        <button [routerLink]="['/matches']" class="btn btn-main-color spacer">Dating Pool</button>
                 </div>
                 <button *ngIf="!newlyAssignedRoseFlg" (mousedown)="assignHeart()" class="btn btn-main-color"
                     style="padding: 10px;" [disabled]="disableFormFlg">Give Rose!</button>
@@ -87,9 +85,9 @@
         <div *ngIf="menuNum==3 && !loadingFlg">
             <div>These users have dropped you:</div>
             <div>&nbsp;</div>
-            <app-profile-pic *ngFor="let person of playerList" [user_id]="person.user_id"
+            <app-profile-pic2 *ngFor="let person of playerList" (mousedown)="showProfile(person.user_id)" [user_id]="person.user_id"
                 [profilePic]="person.profilePic" [size]="80">
-            </app-profile-pic>
+            </app-profile-pic2>
             <div>&nbsp;</div>
             <p class="gray-text">Sorry, but these users have decided to move on. Don't worry, plenty of more fish in the
                 sea!</p>
@@ -98,9 +96,9 @@
         <div *ngIf="menuNum==0">
             <div *ngIf="user.datingPool.length==0 && playerList.length>0" class="tan-box">
                 <div>Waiting to hear back from the following people:</div>
-                <app-profile-pic *ngFor="let person of playerList" [user_id]="person.user_id"
+                <app-profile-pic2 *ngFor="let person of playerList" (mousedown)="showProfile(person.user_id)" [user_id]="person.user_id"
                     [profilePic]="person.profilePic" [size]="30">
-                </app-profile-pic>
+                </app-profile-pic2>
                 <div class="gray-text">As soon as one of them says yes to you, they will appear in your dating pool
                     below.</div>
             </div>
@@ -125,7 +123,7 @@
 
         </div>
         <div *ngIf="menuNum==1 && !loadingFlg">
-            <div [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" *ngFor="let person of playerList"
+            <div (mousedown)="showProfile(person.user_id)" *ngFor="let person of playerList"
                 class="person-box">
                 <img [src]="person.src" class="tiny-img">
                 <div class="gray-text" style="font-size: 10px;">{{person.name}}</div>
@@ -148,7 +146,7 @@
             <div>
                 <div *ngFor="let person of playerList" class="person-box" style="position: relative;">
                     <i class="fa fa-plus add-button" (mousedown)="addPersonToDP(person)"></i>
-                    <img [routerLink]="['/user-detail']" [queryParams]="{uid: person.user_id}" [src]="person.src"
+                    <img (mousedown)="showProfile(person.user_id)" [src]="person.src"
                         class="small-img">
                     <div class="name-title">{{person.name}}</div>
                 </div>
@@ -316,3 +314,4 @@
 </div>
 
 <app-betra-popup></app-betra-popup>
+<app-profile-user-popup></app-profile-user-popup>

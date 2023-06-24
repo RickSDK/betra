@@ -80,9 +80,33 @@ th {
 }
 
 .sale-box {
-    border: 1px solid purple; 
+    font-size: 8px;
     background-color: pink;
+    border-radius: 10px;
+    padding: 2px;
+    margin: 2px;
+}
+
+.photo-seller {
+    display: inline-block; 
+    padding: 3px;
+    background-color: white;
     border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
+    margin: 3px;
+}
+
+.menu-clickable-item {
+    display: inline-block;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    padding: 0 5px 0 5px;
+    background-color: #eee;
+}
+
+.clickable-highlighted {
+    background-color: #fcc;
+}
+
+.menu-clickable-item:hover {
+    background-color: #fee;
 }

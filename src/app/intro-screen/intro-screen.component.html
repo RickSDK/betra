@@ -126,5 +126,8 @@
 </div>
 <i [routerLink]="['']" (mousedown)="stopMusic()" class="fa fa-arrow-left red-text"
     style="position: fixed; top: 10px; left: 10px; font-size: 24px; cursor: pointer;"></i>
-<i [routerLink]="['/rose-ceremony']" (mousedown)="stopMusic()" class="fa fa-arrow-right red-text"
-    style="position: fixed; top: 10px; right: 10px; font-size: 24px; cursor: pointer;"></i>
+<span [routerLink]="['/rose-ceremony']" (mousedown)="stopMusic()" class="red-text" style="position: fixed; top: 10px; right: 10px; font-size: 24px; cursor: pointer;">
+    Skip <i  class="fa fa-arrow-right"></i>
+</span>
+
+<i (mousedown)="toggleSound()" [ngClass]="(soundOnFlg)?'fa fa-volume-up':'fa fa-volume-off'" style="position: fixed; top: 14px; right: 120px; font-size: 24px; cursor: pointer; color: white;"></i>

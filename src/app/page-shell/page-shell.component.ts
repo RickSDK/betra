@@ -70,7 +70,7 @@ export class PageShellComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('xxxXXX', this.headerObj);
+    //console.log('xxxXXX', this.headerObj);
     this.previousRoute = localStorage['previousRoute'];
     localStorage['previousRoute'] = this.router.url;
 

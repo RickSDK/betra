@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { DatabaseService } from '../services/database.service';
 import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
@@ -14,6 +14,9 @@ declare var $: any;
   styleUrls: ['./photo-school.component.scss']
 })
 export class PhotoSchoolComponent extends BaseComponent implements OnInit {
+  @ViewChild(BetraPopupComponent, { static: true })
+  betraPopupComponent!: BetraPopupComponent;
+
   public createClassNum: number = 0;
   public page: any = {};
   public selectedClass: any = null;
@@ -34,7 +37,7 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     var tips = $('#tips').val();
     var classGenre = $('#classGenre').val();
     var instructor = $('#instructor').val();
-    
+
     var params = {
       name: classType,
       cost: cost,
@@ -93,6 +96,10 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     this.getDataFromServer('deleteClass', 'betraClasses.php', { classId: betraClass.row_id });
   }
 
+  startThisClass(betraClass: any) {
+    this.getDataFromServer('startClass', 'betraClasses.php', { classId: betraClass.row_id });
+  }
+
   joinClass(betraClass: any) {
     if (betraClass.cost > parseInt(this.user.points)) {
       this.errorMessage = 'Too Expensive!';
@@ -100,6 +107,10 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
 
     }
     this.getDataFromServer('joinClass', 'betraClasses.php', { classId: betraClass.row_id });
+  }
+
+    extendClass(betraClass: any) {
+    this.getDataFromServer('extendClass', 'betraClasses.php', { classId: betraClass.row_id });
   }
 
   dropClass(betraClass: any) {
@@ -110,11 +121,17 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     super.postSuccessApi(file, responseJson);
 
     if (responseJson.action != 'logUser') {
+      var workTodo = false;
       this.page = responseJson;
       this.page.classes.forEach((element: any) => {
         var dt = this.getDateObjFromJSDate(element.startDt);
         element.startDay = dt.localDate;
+        if (element.workTodo > 0)
+          workTodo = true;
       });
+
+      if (workTodo && this.betraPopupComponent)
+        this.betraPopupComponent.showPopup('An Assignment is due!', 'Check your classes and see what work is due.');
     }
   }
 

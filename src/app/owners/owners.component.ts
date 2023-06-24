@@ -73,10 +73,10 @@ export class OwnersComponent extends BaseComponent implements OnInit {
         this.goalReachedFlg = (responseJson.blogComments >= 2 && responseJson.messageCount >= 40 && responseJson.reviewCount >= 3 && responseJson.bugsCount >= 2 && responseJson.voteCount >= 2 && responseJson.consecutiveDays > 3);
 
       if (level == 3)
-        this.goalReachedFlg = (responseJson.gamesINever > 0 && responseJson.peopleMessaged >= 18 && responseJson.messageCount >= 100 && responseJson.giftsGiven >= 5 && responseJson.picsRequested >= 4 && responseJson.blogComments >= 4 && responseJson.consecutiveDays > 7);
+        this.goalReachedFlg = (responseJson.classesTaken>1 && responseJson.gamesINever > 0 && responseJson.peopleMessaged >= 18 && responseJson.messageCount >= 100 && responseJson.giftsGiven >= 5 && responseJson.picsRequested >= 4 && responseJson.blogComments >= 4 && responseJson.consecutiveDays > 7);
 
       if (level == 4)
-        this.goalReachedFlg = (responseJson.gamesINever > 2 && responseJson.messageCount > 299 && responseJson.reviewCount > 5 && responseJson.picVerifiedCount > 4 && responseJson.referralCount >= 2 && responseJson.giftsGiven > 4 && responseJson.picsRequested > 11 && responseJson.picsTaken > 1 && responseJson.consecutiveDays > 13);
+        this.goalReachedFlg = (responseJson.classesTaken>3 && responseJson.gamesINever > 2 && responseJson.messageCount > 299 && responseJson.reviewCount > 5 && responseJson.picVerifiedCount > 4 && responseJson.referralCount >= 2 && responseJson.giftsGiven > 4 && responseJson.picsRequested > 11 && responseJson.picsTaken > 1 && responseJson.consecutiveDays > 13);
 
       if (responseJson.refreshFlg == 'Y') {
         this.refreshUserObj(responseJson.user);

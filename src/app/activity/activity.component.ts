@@ -65,6 +65,8 @@ export class ActivityComponent extends BaseComponent implements OnInit {
           this.scrollItems.push(this.responseJson.clubItems.shift());
         if (this.responseJson.levelUpItems.length > 0)
           this.scrollItems.push(this.responseJson.levelUpItems.shift());
+        if (this.responseJson.classItems.length > 0)
+          this.scrollItems.push(this.responseJson.classItems.shift());
 
       });
       this.scrollItems.sort((a: any, b: any) => {

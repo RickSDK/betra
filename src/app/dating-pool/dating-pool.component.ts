@@ -27,6 +27,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   public showIntimacyValuesFlg: boolean = false;
   public showDeleteButtonsFlg: boolean = false;
   public toggleDeleteButtonsFlg: boolean = false;
+  public selectedPerson: any = {};
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
@@ -52,7 +53,7 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
     if (this.largeFlg)
       this.displayPicsSize = this.user.datingPool.length;
 
-    this.refreshDatingPool();
+    this.refreshDatingPool(this.user.datingPool);
 
   }
 
@@ -64,13 +65,13 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
         this.datingPool.push(this.user.datingPool[i])
       }
     } else
-      this.refreshDatingPool();
+      this.refreshDatingPool(this.user.datingPool);
   }
 
-  refreshDatingPool() {
+  refreshDatingPool(dP:any) {
     this.datingPool = [];
     for (var i = 0; i < this.displayPicsSize; i++) {
-      var dpItem = this.user.datingPool[i];
+      var dpItem = dP[i];
       if (dpItem.match) {
         dpItem.newGifts = dpItem.match.newGifts
         if (dpItem.match.newMatchFlg == 'Y')
@@ -112,22 +113,25 @@ export class DatingPoolComponent extends BaseComponent implements OnInit {
   }
 
   dropPersonFromDP(person: any) {
-    if (this.betraPopupComponent)
-      this.betraPopupComponent.showPopup('Not able to drop user at this time', 'You will have a chance to drop any unwanted users during your next rose ceremony.');
-    /*
-    var datingPool: any = [];
-    this.datingPool.forEach((element: any) => {
-      if (element.user_id != person.user_id)
-        datingPool.push(element);
-    });
-    this.datingPool = datingPool;
-    this.exceededPoolSizeFlg = this.datingPool.length > this.user.datingPoolLimit;
+    this.selectedPerson = person;
+    this.getDataFromServer('removeThisUser2', 'appApiCode2.php', { matchId: person.user_id });
+  }
 
-    var params = {
-      matchId: person.user_id,
-    };
-    this.getDataFromServer('removeThisUser', 'appApiCode2.php', params);
-*/
+  override postSuccessApi(file: string, responseJson: any) {
+    console.log('xxx', responseJson);
+    if (responseJson.action == 'removeThisUser2') {
+      if (this.betraPopupComponent)
+        this.betraPopupComponent.showPopup('Not able to drop user at this time', 'You will have a chance to drop any unwanted users during your next rose ceremony.');
+
+    }
+    if (responseJson.action == 'removeThisUser') {
+      var datingPool: any = [];
+      this.datingPool.forEach((element: any) => {
+        if (element.user_id != this.selectedPerson.user_id)
+          datingPool.push(element);
+      });
+      this.datingPool = datingPool;
+    }
   }
 
   userClicked(person: any) {

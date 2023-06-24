@@ -50,7 +50,7 @@ export class MarketplaceComponent extends BaseComponent implements OnInit {
   public lowestPrice: number = 9999;
   public selectedPayment: number = 0;
   public withdrawCompleteFlg: boolean = false;
-  public bannedUsers: any = { 53: true, 918: true }
+  public bannedUsers: any = { 53: true, 528: true, 918: true, 954: true, 963: true, 978: true }
 
   constructor(databaseService: DatabaseService) { super(databaseService); }
 

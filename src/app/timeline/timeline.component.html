@@ -36,9 +36,14 @@
 <div *ngFor="let person of people" [ngStyle]="ngStylePerson(person)" class="person">
     <table width="100%">
         <tr>
-            <td>{{person.name}} <span style="font-size: 10px; color: gray;">{{person.born}}BC -
-                    {{person.death}}BC</span></td>
-            <td *ngIf="person.reign" width="{{person.reign}}" style="border-bottom: 4px solid #5b4502;"></td>
+            <td>
+                {{person.name}} <span style="font-size: 10px; color: gray;">{{person.born}}BC -
+                    {{person.death}}BC</span> 
+                    
+                </td>
+            <td align="center" *ngIf="person.reign" width="{{person.reign}}" style="border-bottom: 4px solid #5b4502;">
+                <span *ngIf="person.startReign" style="font-size: 7px; color: purple;">{{person.startReign}}BC - {{person.death}}BC</span>
+            </td>
         </tr>
     </table>
 </div>

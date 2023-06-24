@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UserCommunicationComponent } from '../user-communication/user-communication.component';
 import { DatabaseService } from '../services/database.service';
 import { BetraPopupComponent } from '../popups/betra-popup/betra-popup.component';
+import { UserWallComponent } from '../user-wall/user-wall.component';
 
 declare var $: any;
 
@@ -23,6 +24,8 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   private matchSnapshotModal = {} as MatchSnapshotComponent;
   @ViewChild(UserCommunicationComponent)
   private messagesModal = {} as UserCommunicationComponent;
+  @ViewChild(UserWallComponent)
+  private userWallComponent = {} as UserWallComponent;
 
   //@ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = null;
   //  @ViewChild(MatchSnapshotComponent) matchSnapshotModal: MatchSnapshotComponent = new (MatchSnapshotComponent(this.databaseService));
@@ -59,6 +62,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public newGifts: boolean = false;
   public daysTillRoseCeremony: number = 0;
   public messagesLoadingFlg: boolean = false;
+  public distanceRange:number = 0;
   //  public showOverflowPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
@@ -198,6 +202,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
     if (responseJson.action == 'findMatches' || responseJson.action == 'getMyAdmirers' || responseJson.action == 'getMyAdmirers2') {
       this.profileViews = responseJson.profileViews;
+      this.distanceRange = responseJson.distanceRange;
       if (responseJson.action == 'getMyAdmirers' || responseJson.action == 'getMyAdmirers2') {
         this.profileViews = 99;
       }
@@ -217,15 +222,19 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
           return b.matchQualityIndex - a.matchQualityIndex;
         });
 
+        if (this.daysTillRoseCeremony == 0 && this.id == 2) {
+          // must do ceremony first!
+          this.playerList = [];
+        }
         //console.log('xxxthis.playerList (sorted)', this.playerList);
 
-        //this.playerList.forEach((element: any) => {
-        //console.log(element.firstName, element.matchQualityIndex, element.lastLoginText, element.isGoodActivity, element.age, element.isGoodAge, element.distanceText, element.isGoodLocation);
-        //});
+        this.playerList.forEach((element: any) => {
+          console.log(element.firstName, element.age, element.distanceText, element.lastLoginText, element.matchQualityIndex, element.isGoodAge, element.isGoodLocation, element.isGoodActivity);
+        });
 
 
         this.currentProfileIndex = 0;
-        if (this.playerList.length > 0)
+        if (this.playerList.length > 0 && responseJson.count1>0)
           this.showCurrentProfile();
       }
     }
@@ -315,7 +324,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }*/
 
   showCurrentProfile() {
-    console.log('++++showCurrentProfile', this.playerList.length, this.currentProfileIndex);
+    //console.log('++++showCurrentProfile', this.playerList.length, this.currentProfileIndex);
     if (this.profileViews <= 0 && this.id == 2)
       this.playerList = [];
     if (this.playerList.length > this.currentProfileIndex) {
@@ -330,9 +339,16 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   }
 
   displayThisProfile() {
-    console.log('displayThisProfile', this.matchUser.city, this.matchUser);
+    //console.log('displayThisProfile', this.matchUser.city, this.matchUser);
     if (this.matchUser) {
       //user browsing user
+      if (this.userWallComponent)
+        this.userWallComponent.loadMessages(this.user, this.matchUser);
+      else {
+        setTimeout(() => {
+          this.userWallComponent.loadMessages(this.user, this.matchUser);
+        }, 700);
+      }
       this.getDataFromServer('logUserView', 'appApiCode2.php', { uid: this.matchUser.user_id });
     }
 

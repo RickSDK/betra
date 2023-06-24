@@ -33,10 +33,10 @@
             height="55">
         <img style="position: absolute; top:0; right: 0; z-index: 20;" src="assets/images/profile/right-item.png"
             height="55">
-        <span style="position: absolute; top: 5px; left: 15px; font-size: 8px; color: pink; z-index: 20;">Rose Ceremony</span>
-        <span
+        <span *ngIf="user.findLoveFlg" style="position: absolute; top: 5px; left: 15px; font-size: 8px; color: pink; z-index: 20;">Rose Ceremony</span>
+        <span *ngIf="user.findLoveFlg"
             style="position: absolute; top: 18px; left: 32px; font-size: 12px; z-index: 20; color: white; background-color: #900; padding: 0 5px 0 5px; border-top: 1px solid black;"><b>{{user.daysTillRoseCeremony}}</b></span>
-        <span style="position: absolute; top: 36px; left: 31px; font-size: 8px; color: pink; z-index: 20;">Days</span>
+        <span *ngIf="user.findLoveFlg" style="position: absolute; top: 36px; left: 31px; font-size: 8px; color: pink; z-index: 20;">Days</span>
 
         <i *ngIf="user.user_id == myUser.user_id" [routerLink]="['/profile']" class="fa fa-pencil profile-icon"
             style="position: absolute; top: 15px; right: 25px; z-index: 20;"></i>
@@ -45,8 +45,8 @@
         <div
             style="position: absolute; bottom:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: -2px -2px -3px black; height: 40px; border-radius: 10px; padding: 5px;">
             &nbsp;
-            <button (mousedown)="toggleInfoMenu()" class="btn btn-main-color btn-small spacer">Info</button>
-            <button (mousedown)="showMoreClicked()" class="btn btn-main-color btn-small spacer">Details</button>
+            <button *ngIf="user.findLoveFlg" (mousedown)="toggleInfoMenu()" class="btn btn-main-color btn-small spacer">Info</button>
+            <button *ngIf="user.findLoveFlg" (mousedown)="showMoreClicked()" class="btn btn-main-color btn-small spacer">Details</button>
             <button *ngIf="textNotice" (mousedown)="toggleTextMenu()"
                 class="btn btn-main-color btn-small spacer">Text</button>
             <button *ngIf="myUser.user_id==1" (mousedown)="showAdminButtonsFlg=!showAdminButtonsFlg"
@@ -68,11 +68,11 @@
                     class="fa fa-camera profile-icon"></i>
             </span>
         </div>
-        <span
+        <span *ngIf="user.findLoveFlg"
             style="font-size: 8px; color: white; position: absolute; bottom: 39px; right: 25px; z-index: 20;">Reputation</span>
         <i *ngIf="user.picCertificateFlg" (mousedown)="showMyReputation()" class="fa fa-certificate profile-icon"
             style="position: absolute; bottom: 10px; right: 33px; font-size: 30px; color: #900; z-index: 20;"></i>
-        <span *ngIf="user.reputationScore>0" (mousedown)="showMyReputation()" class="reputation-score"
+        <span *ngIf="user.reputationScore>0 && user.findLoveFlg" (mousedown)="showMyReputation()" class="reputation-score"
             title="Reputation Score">{{user.reputationScore}}</span>
 
         <div *ngIf="displayDropdownMenu" class="slide-in-menu" [ngStyle]="ngStyleDropDown()">
@@ -101,9 +101,9 @@
         </div>
 
 
-        <i *ngIf="user.matchObj && user.matchObj.showButtonsFlg" (mousedown)="likeButtonClicked(false)"
+        <i *ngIf="user.matchObj && user.matchObj.showButtonsFlg && user.findLoveFlg" (mousedown)="likeButtonClicked(false)"
             class="fa fa-thumbs-o-down circle-button no-button"></i>&nbsp;
-        <i *ngIf="user.matchObj && user.matchObj.showButtonsFlg" (mousedown)="likeButtonClicked(true)"
+        <i *ngIf="user.matchObj && user.matchObj.showButtonsFlg && user.findLoveFlg" (mousedown)="likeButtonClicked(true)"
             class="fa fa-thumbs-o-up circle-button yes-button glow-button"></i>
 
     </div>
