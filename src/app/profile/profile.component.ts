@@ -297,7 +297,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.errorMessage = '';
   }
   profileSectionAdvance() {
-    console.log('xxx', this.menuNum, this.findLoveFlg);
+    //console.log('xxx', this.menuNum, this.findLoveFlg);
     this.errorMessage = '';
 
     if (this.menuNum == 2 && !this.findLoveFlg) {
@@ -532,10 +532,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     if (this.menuNum == 8) {
       this.user.story = $('#story').val();
+      this.user.matchAge = $('#matchAge').val();
       this.user.profileFlags[this.menuNum] = (this.user.story);
 
       if (this.moreMatchOptionsFlg) {
-        this.user.matchAge = $('#matchAge').val();
         this.user.matchBody = $('#matchBody').val();
         this.user.matchHeight = $('#matchHeight').val();
         this.user.matchMarriage = $('#matchMarriage').val();

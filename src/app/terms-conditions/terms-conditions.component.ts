@@ -8,7 +8,7 @@ import { DatabaseService } from '../services/database.service';
   styleUrls: ['./terms-conditions.component.scss']
 })
 export class TermsConditionsComponent extends BaseComponent implements OnInit {
-  public businessAddress = '--address here--';
+  public businessAddress = '2712 92nd PL SE, Everett WA 98208';
   //<a href="mailto:info@betradating.com">info@betradating.com </a>
   public legalEmail = 'info@betradating.com';
   public supportEmail = 'info@betradating.com';

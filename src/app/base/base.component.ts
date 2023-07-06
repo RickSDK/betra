@@ -236,6 +236,9 @@ export class BaseComponent implements OnInit {
 
         this.imgSrcFile = this.user.imgSrc;
         this.userStatus = this.user.status;
+        if(this.user.datingPool)
+         this.headerObj.dpCount = this.user.datingPool.length;
+
         if (this.infoObj) {
           this.headerObj.browseObj = this.infoObj.browseObj;
           this.headerObj.daysTillRoseCeremony = this.infoObj.daysTillRoseCeremony || 0;

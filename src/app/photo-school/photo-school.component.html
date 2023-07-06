@@ -5,20 +5,34 @@
 
         <app-top-header2 [topTitle]="'Photo Class'"></app-top-header2>
         <div class="tan-box">
-            This is your chance to improve your photography skills in a fun and exciting way. Or help others with their
-            skills. Here's how it works:
-            <ul style="font-size: 12px; color: gray; text-align: left; margin-left: 30px; margin-bottom: 0;">
-                <li>Anyone can create a class.</li>
-                <li>Anyone can join a class.</li>
-                <li>The instructor picks the topic and gives advice.</li>
-                <li>Everyone in the class submits a photo.</li>
-                <li>The class votes on the best picture and instructor gives feedback.</li>
-            </ul>
-            <div>Note: Everything is done online in your own spare time. You don't actually meet up at any specific
-                time. Once the class starts, you will have 1 week to take your photo and turn it in.</div>
-            <div>&nbsp;</div>
-            <button *ngIf="createClassNum==0" (mousedown)="createClassNum=1" class="btn btn-main-color btn-large">Create
+            <div>This is your chance to improve your photography skills in a fun and exciting way. </div>
+            <div><span (mousedown)="showMoreInfoFlg=!showMoreInfoFlg" class="text-link">More Info</span></div>
+            <div *ngIf="showMoreInfoFlg">
+
+                <div>Here's how it works:</div>
+                <ul style="font-size: 12px; color: gray; text-align: left; margin-left: 30px; margin-bottom: 0;">
+                    <li>Anyone can create a class.</li>
+                    <li>Anyone can join a class.</li>
+                    <li>The instructor picks the topic and gives advice.</li>
+                    <li>Everyone in the class submits a photo.</li>
+                    <li>The class votes on the best picture and instructor gives feedback.</li>
+                    <li>Costs 5 coins to create a class.</li>
+                </ul>
+                <div>Note: Everything is done online in your own spare time. You don't actually meet up at any specific
+                    time. Once the class starts, you will have 1 week to take your photo and turn it in.</div>
+                <div>&nbsp;</div>
+                <div *ngIf="notEnoughCoinsFlg" class="important-notice">
+                    <div>Not enough coins!</div>
+                    <div style="font-size: 10px; color: gray;">You need 5 coins to start a class, which you can get for
+                        <b>free!</b></div>
+                    <button [routerLink]="['/coins']" class="btn btn-main-color btn-small spacer">Coins</button>
+
+                </div>
+                <button *ngIf="createClassNum==0" (mousedown)="createClassPressed()"
+                class="btn btn-main-color btn-large">Create
                 Class</button>
+            </div>
+
             <div *ngIf="createClassNum>0" class="border-box">
                 <div>Create a new class</div>
                 <div class="gray-text">This is your chance to create a photography class, help others become better
@@ -42,6 +56,7 @@
                         <option>Studio</option>
                         <option>Portrait</option>
                         <option>Sports</option>
+                        <option>Boudoir</option>
                         <option>Other</option>
                     </select>
                     <select *ngIf="classType == 'Nature'" id="classGenre" (change)="createClassNum=3">
@@ -96,21 +111,32 @@
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div *ngIf="page">
-            <div *ngFor="let class of page.classes" class="class-box">
+            <div class="shadow-text">Upcoming Classes</div>
+            <div class="gray-text">Feel free to join any of these classes</div>
+            <div *ngFor="let class of openClasses" class="class-box">
                 <div style="background-color: #444; color: white;">{{class.name}}</div>
                 <div style="padding: 10px;">
-                    <app-profile-pic2 (mousedown)="showProfile(class.user_id)" [user_id]="class.user_id"
-                        [profilePic]="class.profilePic" [size]="90">
-                    </app-profile-pic2>
-                    <div style="font-size: 12px; text-align: left;">
-                        <div><b>Instructor:</b> {{class.firstName}}</div>
-                        <div><b>Subject:</b> {{class.name}}</div>
-                        <div><b>Description:</b> {{class.intro}}</div>
-                    </div>
-                    <div class="gray-text"></div>
-                    <hr>
+                    <table>
+                        <tr>
+                            <td>
+                                <app-profile-pic2 (mousedown)="showProfile(class.user_id)" [user_id]="class.user_id"
+                                [profilePic]="class.profilePic" [size]="50">
+                            </app-profile-pic2>
+                                        
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; text-align: left;">
+                                    <div><b>Instructor:</b> {{class.firstName}}</div>
+                                    <div><b>Subject:</b> {{class.name}}</div>
+                                    <div><b>Starts:</b> {{class.startDay}}</div>
+                                    <div><b>Cost:</b> {{class.cost}} coins</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
                     <div *ngIf="class.students.length>0">
-                        <div>Enrolled</div>
+                        <div style="font-size: 8px;">-Enrolled-</div>
                         <app-profile-pic2 (mousedown)="showProfile(student.user_id)"
                             *ngFor="let student of class.students" [user_id]="student.user_id"
                             [profilePic]="student.profilePic" [size]="30">
@@ -119,16 +145,13 @@
                             at least 5 people to start</div>
                         <hr>
                     </div>
-                    <div *ngIf="class.status == 'Open'">
-                        <div style="font-size: 10px;">Starts {{class.startDay}}</div>
-                        <div>Days until start: <span class="text-highlight">{{class.daysTillStart}}</span></div>
-                        <div>Cost: <span class="text-highlight">{{class.cost}}</span> coins</div>
-                    </div>
                     <div *ngIf="class.status == 'Started'">
                         <div class="red-text">In progress!</div>
                         <div>Remaining days: <span class="text-highlight">{{class.daysTillEnd}}</span></div>
- 
-                        
+                    </div>
+                    <div *ngIf="class.status == 'Voting'">
+                        <div class="red-text">Now Voting!</div>
+                        <div>Remaining days: <span class="text-highlight">{{class.daysTillVotingEnds}}</span></div>
                     </div>
                     <div *ngIf="class.workTodo>0"
                         style="background-color: yellow; font-size: 12px; color: #900; padding: 5px; border-radius: 5px;">
@@ -138,7 +161,7 @@
                         This class is completed
                     </div>
                     <button [routerLink]="['/photo-class']" [queryParams]="{id: class.row_id}"
-                        *ngIf="user.user_id==1 || class.isInstructor || (class.isEnrolled>0 && class.status != 'Open')"
+                        *ngIf="user.user_id==1 || class.isInstructor || class.isEnrolled>0 || class.status == 'Open'"
                         class="btn btn-main-color btn-large spacer">View</button>
                     <button (mousedown)="editThisClass(class)" *ngIf="user.user_id==1 || class.isInstructor"
                         class="btn btn-primary spacer">Edit</button>
@@ -156,6 +179,134 @@
                         <button *ngIf="class.isEnrolled>0 && class.status == 'Open'" (mousedown)="dropClass(class)"
                             class="btn btn-danger spacer">Drop</button>
                     </div>
+                    <div *ngIf="class.status == 'Started'">
+                        <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="startVoting(class)"
+                            class="btn btn-warning spacer">Start Voting</button>
+                    </div>
+                    <div class="tan-box" *ngIf="class.tooExpensiveFlg">
+                        <div>Too expensive!</div>
+                        <div style="font-size: 10px; color: gray;">You need more coins which you can get for
+                            <b>free!</b></div>
+                        <button [routerLink]="['/coins']" class="btn btn-main-color btn-small spacer">Coins</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="shadow-text">In progress Classes</div>
+            <div *ngFor="let class of inProgressClasses" class="class-box">
+                <div style="background-color: #444; color: white;">{{class.name}}</div>
+                <div style="padding: 10px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <app-profile-pic2 (mousedown)="showProfile(class.user_id)" [user_id]="class.user_id"
+                                [profilePic]="class.profilePic" [size]="50">
+                            </app-profile-pic2>
+                                        
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; text-align: left;">
+                                    <div><b>Instructor:</b> {{class.firstName}}</div>
+                                    <div><b>Subject:</b> {{class.name}}</div>
+                                    <div><b>Starts:</b> {{class.startDay}}</div>
+                                    <div><b>Cost:</b> {{class.cost}} coins</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div *ngIf="class.students.length>0">
+                        <div style="font-size: 8px;">-Enrolled-</div>
+                        <app-profile-pic2 (mousedown)="showProfile(student.user_id)"
+                            *ngFor="let student of class.students" [user_id]="student.user_id"
+                            [profilePic]="student.profilePic" [size]="30">
+                        </app-profile-pic2>
+                        <div *ngIf="class.students.length<5" style="font-size: 8px; color: red;">Note: Class must have
+                            at least 5 people to start</div>
+                        <hr>
+                    </div>
+                    <div *ngIf="class.status == 'Open'">
+                        <div style="font-size: 10px;">Starts {{class.startDay}}</div>
+                        <div>Days until start: <span class="text-highlight">{{class.daysTillStart}}</span></div>
+                        <div>Cost: <span class="text-highlight">{{class.cost}}</span> coins</div>
+                    </div>
+                    <div *ngIf="class.status == 'Started'">
+                        <div class="red-text">In progress!</div>
+                        <div>Remaining days: <span class="text-highlight">{{class.daysTillEnd}}</span></div>
+                    </div>
+                    <div *ngIf="class.status == 'Voting'">
+                        <div class="red-text">Now Voting!</div>
+                        <div>Remaining days: <span class="text-highlight">{{class.daysTillVotingEnds}}</span></div>
+                    </div>
+                    <div *ngIf="class.workTodo>0"
+                        style="background-color: yellow; font-size: 12px; color: #900; padding: 5px; border-radius: 5px;">
+                        You have work to do!
+                    </div>
+                    <div *ngIf="class.status == 'Completed'">
+                        This class is completed
+                    </div>
+                    <button [routerLink]="['/photo-class']" [queryParams]="{id: class.row_id}"
+                        *ngIf="user.user_id==1 || class.isInstructor || class.isEnrolled>0 || class.status == 'Open'"
+                        class="btn btn-main-color btn-large spacer">View</button>
+                    <button (mousedown)="editThisClass(class)" *ngIf="user.user_id==1 || class.isInstructor"
+                        class="btn btn-primary spacer">Edit</button>
+
+                    <div *ngIf="class.status == 'Open'">
+                        <button (mousedown)="startThisClass(class)"
+                            *ngIf="class.students.length>=5 && user.user_id==1 && class.daysTillStart<=0"
+                            class="btn btn-success spacer">Start!</button>
+                        <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="deleteClass(class)"
+                            class="btn btn-danger spacer">Delete</button>
+                        <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="extendClass(class)"
+                            class="btn btn-warning spacer">Extend</button>
+                        <button *ngIf="class.isEnrolled==0 && class.status == 'Open' && !class.isInstructor"
+                            (mousedown)="joinClass(class)" class="btn btn-success spacer">Join</button>
+                        <button *ngIf="class.isEnrolled>0 && class.status == 'Open'" (mousedown)="dropClass(class)"
+                            class="btn btn-danger spacer">Drop</button>
+                    </div>
+                    <div *ngIf="class.status == 'Started'">
+                        <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="startVoting(class)"
+                            class="btn btn-warning spacer">Start Voting</button>
+                    </div>
+                    <div class="tan-box" *ngIf="class.tooExpensiveFlg">
+                        <div>Too expensive!</div>
+                        <div style="font-size: 10px; color: gray;">You need more coins which you can get for
+                            <b>free!</b></div>
+                        <button [routerLink]="['/coins']" class="btn btn-main-color btn-small spacer">Coins</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="shadow-text">Completed Classes</div>
+            <div *ngFor="let class of completedClasses" class="class-box">
+                <div style="background-color: #444; color: white;">{{class.name}}</div>
+                <div style="padding: 10px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <app-profile-pic2 (mousedown)="showProfile(class.user_id)" [user_id]="class.user_id"
+                                [profilePic]="class.profilePic" [size]="50">
+                            </app-profile-pic2>
+                                        
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; text-align: left;">
+                                    <div><b>Instructor:</b> {{class.firstName}}</div>
+                                    <div><b>Subject:</b> {{class.name}}</div>
+                                    <div><b>Starts:</b> {{class.startDay}}</div>
+                                    <div><b>Cost:</b> {{class.cost}} coins</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div *ngIf="class.students.length>0">
+                        <app-profile-pic2 (mousedown)="showProfile(student.user_id)"
+                            *ngFor="let student of class.students" [user_id]="student.user_id"
+                            [profilePic]="student.profilePic" [size]="30">
+                        </app-profile-pic2>
+                    </div>
+                    <button [routerLink]="['/photo-class']" [queryParams]="{id: class.row_id}"
+                        *ngIf="user.user_id==1 || class.isInstructor || class.isEnrolled>0 || class.status == 'Open'"
+                        class="btn btn-main-color btn-large spacer">View</button>
                 </div>
             </div>
         </div>

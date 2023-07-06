@@ -6,6 +6,7 @@
 
         <app-owners-menu [pageTitle]="'Owners'" [page]="1"></app-owners-menu>
         <hr>
+        <div>Send on Wednesdays</div>
         <button *ngIf="user.user_id==1" (mousedown)="emailUpdates()" class="btn btn-primary spacer" [disabled]="loadingFlg"><i class="fa fa-envelope"></i>
             Email Updates</button>
         <hr>

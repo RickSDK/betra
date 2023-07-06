@@ -35,7 +35,11 @@
             <div class="gray-text"></div>
             <hr>
             <div *ngIf="betraClass.students.length>0">
-                <div>Students</div>
+                <div *ngIf="betraClass.status!='Voting'">Students</div>
+                <div *ngIf="betraClass.status=='Voting'">
+                    <div>Please vote for your favorite picture</div>
+                    <div class="gray-text">You only get 1 vote and cannot vote for your own work.</div>
+                </div>
                 <div *ngFor="let student of betraClass.students" class="student-class">
                     <app-profile-pic2 (mousedown)="showProfile(student.user_id)" [user_id]="student.user_id"
                         [profilePic]="student.profilePic" [size]="100">
@@ -52,14 +56,32 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div *ngIf="student.status == 'Filming'" class="red-text" style="font-size: 10px;">
-                            Waiting to submit
-                        </div>
-                        <div *ngIf="student.status != 'Filming'">
-                            <img (mousedown)="viewImage(student.src)" class="thumbnail-img" [src]="student.src"
-                                height="100">
-                        </div>
+                    <div *ngIf="student.status == 'Filming'" class="red-text" style="font-size: 10px;">
+                        Waiting to submit
+                    </div>
+                    <div *ngIf="student.status == 'Uploaded' || student.status == 'Voting' || student.status == 'Done' || student.status == 'Completed'">
+                        <img (mousedown)="viewImage(student.src)" class="thumbnail-img" [src]="student.src"
+                            height="100"><br>
+                    </div>
+                    <div *ngIf="student.status == 'Uploaded'">
+                        <button (mousedown)="resetPicture(student)" *ngIf="user.user_id==1" class="btn btn-main-color btn-small spacer">Reset</button>
+                    </div>
+                    <div *ngIf="betraClass.myStatus == 'Voting'">
+                        <button (mousedown)="voteForThisStudent(student)" *ngIf="!loadingFlg && student.user_id != user.user_id" class="btn btn-main-color spacer">Vote for this!</button>
+                    </div>
+                    <div *ngIf="student.status == 'Voting'" class="red-text">
+                        Voting
+                    </div>
+                    <div *ngIf="student.status == 'Done'" class="red-text">
+                        <div>Done</div>
+                        <button (mousedown)="winnerForThisStudent(student)" *ngIf="!loadingFlg && user.user_id==1" class="btn btn-main-color spacer">Winner!</button>
+                    </div>
+                    <div *ngIf="student.winnerFlg == 'Y'" class="yellow-box">
+                        <i class="fa fa-trophy"></i> Winner!
+                    </div>
+                    
+                    <div *ngIf="betraClass.status=='Voting' && student.votes>0" style="font-size: 12px;">
+                        Votes: <span class="text-highlight">{{student.votes}}</span>
                     </div>
                     <div class="border-box" *ngIf="student.message">
                         <div style="font-size: 8px; color: gray;">Instructor Feedback</div>
@@ -104,12 +126,12 @@
 
             </div>
             <hr>
-            <app-text-with-emoji *ngIf="user" (messageEvent)="sumbitChat($event)" [user_id]="user.user_id"
+            <app-text-with-emoji *ngIf="user && betraClass.isEnrolled>0" (messageEvent)="sumbitChat($event)" [user_id]="user.user_id"
                 [profilePic]="user.profilePic" [maxLength]="400"></app-text-with-emoji>
             <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
             <div *ngFor="let message of betraClass.messages" style="text-align: left; position: relative;">
                 <div class="message-bubble">{{message.message}}</div>
-                <img src="https://www.betradating.com/betraPhp/profileImages/profile1_16.jpg" height="30"
+                <img src="https://www.betradating.com/betraPhp/profileImages/profile{{message.user_id}}_{{message.profilePic}}.jpg" height="30"
                     class="img-circle">
             </div>
             <div *ngIf="user.user_id==1" class="border-box" style="font-size: 10px; color: gray;">

@@ -12,7 +12,7 @@
         <div *ngIf="userStatus=='Active'" style="display: inline-block; max-width: 600px;">
             <div *ngFor="let button of buttons" class="button-box" [routerLink]="button.routerLink">
                 <img [src]="button.src" height="200" width="200" class="button-pic">
-                <div class="gray-screen2">&nbsp;</div>
+                <div class="gray-screen3">&nbsp;</div>
                 <div class="button-text">{{button.name}}</div>
             </div>
             <div *ngIf="user && user.ownerFlg" style="font-size: 12px;">&nbsp;<span [routerLink]="['/owners']"

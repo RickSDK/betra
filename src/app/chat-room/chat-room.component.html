@@ -15,12 +15,17 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8">
-                    <div *ngIf="chatRoom" class="border-box" style="text-align: center;">
-                        <div class="gray-text">People in the chat room</div>
-                        <app-profile-pic2 (mousedown)="showProfile(person.user_id)" [title]="person.firstName" *ngFor="let person of chatRoom.users"
-                            [user_id]="person.user_id" [profilePic]="person.profilePic" [size]="30">
-                        </app-profile-pic2>
+                <div>
+                    <div *ngIf="chatRoom" style="text-align: center;">
+                        <div class="gray-text">People online now</div>
+                        <div *ngFor="let person of chatRoom.usersOnline" style="display: inline-block;">
+                            <div *ngIf="userHash[person.user_id]" style="font-size: 8px; background-color: pink; border: 1px solid purple; border-radius: 4px; padding: 0 5px 0 5px;">Chat room!</div>
+                            <app-profile-pic2 (mousedown)="showProfile(person.user_id)" [title]="person.firstName"
+                                 [user_id]="person.user_id"
+                                [profilePic]="person.profilePic" [size]="30">
+                            </app-profile-pic2>
+                            <div style="font-size: 8px;">{{person.firstName}}</div>
+                        </div>
                     </div>
                     <div *ngIf="lotsOfMessagesFlg" (mousedown)="showMoreFlg = !showMoreFlg" style="font-size: 12px;">
                         <span *ngIf="0 && showMoreFlg" class="text-link">Show Less</span>
@@ -28,20 +33,21 @@
                     </div>
                     <div
                         style="background-color: pink; color: white; padding: 5px; margin: 5px; border-radius: 5px; min-height: 200px;">
-                        <div *ngFor="let message of messages" (mousedown)="messageClicked(message)" style="display: block;">
+                        <div *ngFor="let message of messages" (mousedown)="messageClicked(message)"
+                            style="display: block;">
                             <div *ngIf="!message.olderFlg || showMoreFlg" style="position: relative; ">
                                 <div *ngIf="message.type" style="color: #777;">**{{message.message}}**</div>
                                 <div *ngIf="!message.type">
-                                    <div class="chat-bubble" [style.background-color]="message.user_id == user.user_id?'#bcf':'white'">{{message.message}} <span *ngIf="message.user_id != user.user_id" style="font-size: 8px; color: gray;">({{message.firstName}})</span></div>
-                                    <app-profile-pic2 style="position: absolute; left: 0; top: 2px;" (mousedown)="showProfile(message.user_id)" [user_id]="message.user_id" [profilePic]="message.profilePic"
-                                        [size]="25">
-                                    </app-profile-pic2> 
-                                    <!--<span
-                                        [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:-->
-                                    
+                                    <div class="chat-bubble"
+                                        [style.background-color]="message.user_id == user.user_id?'#bcf':'white'">
+                                        {{message.message}} <span *ngIf="message.user_id != user.user_id"
+                                            style="font-size: 8px; color: gray;">({{message.firstName}})</span></div>
+                                    <app-profile-pic2 style="position: absolute; left: 0; top: 2px;"
+                                        (mousedown)="showProfile(message.user_id)" [user_id]="message.user_id"
+                                        [profilePic]="message.profilePic" [size]="25">
+                                    </app-profile-pic2>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <app-spinner *ngIf="errorMessage" [loadingFlg]="loadingFlg" [errorMessage]="errorMessage">
@@ -52,28 +58,29 @@
                         right now. Try
                         back during happy hour!</div>
                 </div>
-                <div class="col-md-4" style="text-align: center;">
-                    <div class="border-box">
-                        <div class="gray-text">Betra activity logs</div>
-                        <app-profile-pic2 (mousedown)="showProfile(person.user_id)" *ngFor="let person of chatRoom.usersOnline" [user_id]="person.user_id"
-                            [profilePic]="person.profilePic" [size]="30">
-                        </app-profile-pic2>
-                    </div>
-                    <div
-                        style="display: inline-block; text-align: left; background-color: black; color: white; padding: 5px; margin: 5px; border-radius: 5px; width: 100%; max-width: 300px; min-height: 260px; font-size: 10px;">
-                        <div *ngFor="let message of chatRoom.activity">
-                            <div *ngIf="!message.olderFlg || showMoreFlg">
-                                <div *ngIf="message.type" class="gray-text">**{{message.message}}**</div>
-                                <div *ngIf="!message.type">
-                                    <app-profile-pic2 (mousedown)="showProfile(message.user_id)" [user_id]="message.user_id" [profilePic]="message.profilePic"
-                                        [size]="25">
-                                    </app-profile-pic2> <span
-                                        [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:
-                                    {{message.message}}
-                                    <app-profile-pic2 (mousedown)="showProfile(message.uid)" *ngIf="message.uid>0" [user_id]="message.uid"
-                                        [profilePic]="message.profilePic2" [size]="25">
-                                    </app-profile-pic2>
-                                </div>
+            </div>
+            <div *ngIf="0" style="text-align: center;">
+                <div class="border-box">
+                    <div class="gray-text">Betra activity logs</div>
+                    <app-profile-pic2 (mousedown)="showProfile(person.user_id)"
+                        *ngFor="let person of chatRoom.usersOnline" [user_id]="person.user_id"
+                        [profilePic]="person.profilePic" [size]="30">
+                    </app-profile-pic2>
+                </div>
+                <div
+                    style="display: inline-block; text-align: left; background-color: black; color: white; padding: 5px; margin: 5px; border-radius: 5px; width: 100%; max-width: 300px; min-height: 260px; font-size: 10px;">
+                    <div *ngFor="let message of chatRoom.activity">
+                        <div *ngIf="!message.olderFlg || showMoreFlg">
+                            <div *ngIf="message.type" class="gray-text">**{{message.message}}**</div>
+                            <div *ngIf="!message.type">
+                                <app-profile-pic2 (mousedown)="showProfile(message.user_id)" [user_id]="message.user_id"
+                                    [profilePic]="message.profilePic" [size]="25">
+                                </app-profile-pic2> <span
+                                    [style.color]="message.gender=='M'?'cyan':'pink'">&nbsp;{{message.firstName}}</span>:
+                                {{message.message}}
+                                <app-profile-pic2 (mousedown)="showProfile(message.uid)" *ngIf="message.uid>0"
+                                    [user_id]="message.uid" [profilePic]="message.profilePic2" [size]="25">
+                                </app-profile-pic2>
                             </div>
                         </div>
                     </div>

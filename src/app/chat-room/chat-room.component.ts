@@ -21,6 +21,7 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
   public usersOnline: any = [];
   public numberChatRefreshes: number = 0;
   public socket: WebsocketService;
+  public userHash:any = {};
 
   constructor(private router: Router, webSocketService: WebsocketService, databaseService: DatabaseService) {
     super(databaseService);
@@ -128,6 +129,11 @@ export class ChatRoomComponent extends BaseComponent implements OnInit {
           this.messages.push(element);
         messageHash[element.message] = true;
       });
+
+      responseJson.users.forEach((element: any) => {
+        this.userHash[element.user_id]=true;
+      });
+      
 
       this.messages.sort((a: any, b: any) => {
         return (parseInt(a.row_id) > parseInt(b.row_id)) ? 1 : (parseInt(a.row_id) < parseInt(b.row_id)) ? -1 : 0;

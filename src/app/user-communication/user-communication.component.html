@@ -5,8 +5,7 @@
             style="font-size: 8px; font-weight: 200;">{{firstName}}</span>
         <i *ngIf="messages.length>0" (mousedown)="showDetailsFlg=!showDetailsFlg"
             class="fa fa-info-circle more-options"></i>&nbsp;
-        <i *ngIf="messages.length>0" (mousedown)="loadMessages()"
-            class="fa fa-refresh refresh-icon"></i>
+        <i *ngIf="messages.length>0" (mousedown)="loadMessages()" class="fa fa-refresh refresh-icon"></i>
     </div>
     <div *ngIf="showDetailsFlg" style="font-size: 10px; color: gray;">Intimacy Level: {{matchUser.matchObj.match_level}}
     </div>
@@ -101,7 +100,14 @@
         {{matchUser.textNotice}}
     </p>
     <div *ngIf="showIceBreakerFlg" style="padding: 10px;">
-        <div style="font-size: 18px;"><b><i class="fa fa-cube"></i> Ice Breaker!</b></div>
+        <div style="font-size: 18px;" (mousedown)="showIceBreakerInfoFlg=!showIceBreakerInfoFlg"><b><i class="fa fa-cube"></i> Ice Breaker!</b> &nbsp; <span
+                class="text-link">What's this?</span></div>
+        <div *ngIf="showIceBreakerInfoFlg" class="tan-box">
+            <div><b>Why do we have ice breakers?</b></div>
+            <div class="gray-text">Yes this is annoying but it's a safety feature. Some users get inundated with dozens
+                of text messages and it can get overwhelming. This is a way to get things started slowly and make sure
+                both people are comfortable before free-texting begins.</div>
+        </div>
         <div class="gray-text">Break the ice with a question! Here is your chance to start the conversation.</div>
         <table align="center">
             <tr>

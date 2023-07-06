@@ -39,7 +39,7 @@ export class LatestUsersComponent extends BaseComponent implements OnInit {
           else
             this.activeUsersNoRoseCeremony.push(user.email);
 
-        } else {
+        } else if(user.status != 'Deleted') {
           this.notActiveUsers.push(user.email);
         }
 

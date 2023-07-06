@@ -24,6 +24,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
   public showDetailsNumber: number = 0;
   public messageToDelete: number = 0;
   public displayThisComponentFlg: boolean = false;
+  public showIceBreakerInfoFlg: boolean = false;
   //public myUser: any = null;
   //public matchUser: any = null;
 

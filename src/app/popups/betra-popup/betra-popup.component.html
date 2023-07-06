@@ -25,11 +25,19 @@
                 class="btn btn-main-color btn-large">Ok</button>
             <button *ngIf="type==2" [routerLink]="['/matches']" class="btn btn-main-color btn-large">Dating
                 Pool</button>
+            <div *ngIf="type==98">
+                <button [routerLink]="['/rose-ceremony']" class="btn btn-main-color btn-large">Rose
+                    Ceremony</button>
+                <div>&nbsp;</div>
+                <span class="text-link" [routerLink]="['/rose-ceremony']" [queryParams]="{skip: 'Y'}">Skip
+                    Ceremony</span>
+            </div>
             <div *ngIf="type==99">
                 <button [routerLink]="['/intro']" class="btn btn-main-color btn-large">Rose
                     Ceremony</button>
                 <div>&nbsp;</div>
-                <span class="text-link" [routerLink]="['/rose-ceremony']" [queryParams]="{skip: 'Y'}">Skip Ceremony</span>
+                <span class="text-link" [routerLink]="['/rose-ceremony']" [queryParams]="{skip: 'Y'}">Skip
+                    Ceremony</span>
             </div>
             <div *ngIf="type==3">
                 <button (mousedown)="hidePopup()" class="btn btn-warning spacer">Cancel</button>

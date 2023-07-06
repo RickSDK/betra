@@ -57,11 +57,24 @@ export class PhotoClassComponent extends BaseComponent implements OnInit {
   leaveFeedbackClicked(student: any) {
     this.selectedStudent = student;
     this.betraPopup2Component.showPopup('Feedback for ' + student.firstName);
-    //  console.log(student);
+    console.log(student);
   }
 
   sumbitChat(message: string) {
     this.getDataFromServer('chatMessage', 'betraClasses.php', { classId: this.classId, message: message });
+  }
+
+  resetPicture(student:any) {
+    this.getDataFromServer('resetPicture', 'betraClasses.php', { classId: this.classId, row_id: student.row_id });
+  }
+
+  winnerForThisStudent(student:any) {
+    this.getDataFromServer('winnerForThisStudent', 'betraClasses.php', { classId: this.classId, row_id: student.row_id });
+  }
+
+  voteForThisStudent(student:any) {
+    console.log(student);
+    this.getDataFromServer('voteForThisStudent', 'betraClasses.php', { classId: this.classId, row_id: student.row_id });
   }
 
   sumbitFeedback() {
@@ -69,6 +82,7 @@ export class PhotoClassComponent extends BaseComponent implements OnInit {
     console.log('sumbitFeedback', feedback, this.selectedStudent);
     this.getDataFromServer('feedbackMessage', 'betraClasses.php', { classId: this.classId, message: feedback, uid: this.selectedStudent.user_id });
     this.betraPopup2Component.hidePopup();
+    this.selectedStudent = null;
   }
 
   override postSuccessApi(file: string, responseJson: any) {

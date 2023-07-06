@@ -618,10 +618,9 @@ export class User {
             }
         }
 
-        if (!this.story) {
+        if (!this.story && this.findLoveFlg) {
             this.pendingStatusReason = 'Enter your match section';
             this.pendingStatusPage = 8;
-            //this.status = 'Pending';
         }
 
 
@@ -830,37 +829,39 @@ export class User {
         var additionalPicsFlg = true;
         var verifyFlg = true;
 
+        if (this.findLoveFlg) {
+            if (!matchFlg) {
+                this.pendingStatusReason = 'Complete your ideal-match info screen';
+                this.pendingStatusPage = 7;
+                this.status = 'Pending';
+            }
+            if (!profilePicFlg) {
+                this.pendingStatusReason = 'Upload a good photo of your face';
+                this.pendingStatusPage = 5;
+                this.status = 'Pending';
+            }
+            if (!politicsFlg) {
+                this.pendingStatusReason = 'Complete Politics Quiz ';
+                this.pendingStatusPage = 4;
+                this.status = 'Pending';
+            }
+            if (!quizFlg) {
+                this.pendingStatusReason = 'Complete Personality Test';
+                this.pendingStatusPage = 3;
+                this.status = 'Pending';
+            }
+            if (!detailsFlg) {
+                this.pendingStatusReason = 'Complete Details info screen';
+                this.pendingStatusPage = 2;
+                this.status = 'Pending';
+            }
+            if (!basicsFlg) {
+                this.pendingStatusReason = 'Complete Basic info screen';
+                this.pendingStatusPage = 0;
+                this.status = 'Pending';
+            }
+        }
 
-        if (!matchFlg) {
-            this.pendingStatusReason = 'Complete your ideal-match info screen';
-            this.pendingStatusPage = 7;
-            this.status = 'Pending';
-        }
-        if (!profilePicFlg) {
-            this.pendingStatusReason = 'Upload a good photo of your face';
-            this.pendingStatusPage = 5;
-            this.status = 'Pending';
-        }
-        if (!politicsFlg) {
-            this.pendingStatusReason = 'Complete Politics Quiz ';
-            this.pendingStatusPage = 4;
-            this.status = 'Pending';
-        }
-        if (!quizFlg) {
-            this.pendingStatusReason = 'Complete Personality Test';
-            this.pendingStatusPage = 3;
-            this.status = 'Pending';
-        }
-        if (!detailsFlg) {
-            this.pendingStatusReason = 'Complete Details info screen';
-            this.pendingStatusPage = 2;
-            this.status = 'Pending';
-        }
-        if (!basicsFlg) {
-            this.pendingStatusReason = 'Complete Basic info screen';
-            this.pendingStatusPage = 0;
-            this.status = 'Pending';
-        }
 
         this.profileFlags = [basicsFlg, true, detailsFlg, quizFlg, politicsFlg, profilePicFlg, additionalPicsFlg, true, matchFlg, true];
     }

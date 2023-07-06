@@ -17,7 +17,7 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   public MIN_PLAYER: number = 4;
 
   public players: any = [];
-  public realPlayers:any = [];
+  public realPlayers: any = [];
   public spectators: any = [];
   public defaultPlayer = { user_id: 0, name: 'empty', src: 'assets/images/games/iNever.jpeg' };
   public audio = new Audio('assets/music/song1.mp3');
@@ -35,7 +35,7 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   public gameStartedFlg: boolean = false;
   public timerSeconds: number = 60;
   public myTurnToAskFlg: boolean = false;
-  public winner:any = {user_id: 53, profilePic: 1};
+  public winner: any = { user_id: 53, profilePic: 1 };
   public emojis = [
     'assets/images/emojis/ban.png',
     'assets/images/emojis/shocked.png',
@@ -50,6 +50,74 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
     'assets/images/emojis/emoji4.png',
     'assets/images/emojis/scared.png',
   ];
+  public questions: any = [
+    'Never have I ever faked sick from work.',
+    'Never have I ever gone skinny dipping.',
+    'Never have I ever cheated on a partner.',
+    'Never have I ever cheated on a test.',
+    'Never have I ever marched in a protest.',
+    'Never have I ever overdrafted my bank account.',
+    'Never have I ever eaten someone else\'s lunch from the office fridge.',
+    'Never have I ever played strip poker.',
+    'Never have I ever smoked a joint.',
+    'Never have I ever peed in a pool.',
+    'Never have I ever tried hard drugs.',
+    'Never have I ever fallen asleep in public.',
+    'Never have I ever fallen asleep at work.',
+    'Never have I ever lied on my resume.',
+    'Never have I ever drunk-dialed my ex.',
+    'Never have I ever dropped acid.',
+    'Never have I ever had a one-night stand.',
+    'Never have I ever read a partner\'s text messages.',
+    'Never have I ever read a partner\'s emails.',
+    'Never have I ever been hospitalized over night',
+    'Never have I ever played a musical instrument.',
+    'Never have I ever gone snowboarding.',
+    'Never have I ever gone skiing.',
+    'Never have I ever traveled to a foreign country.',
+    'Never have I ever learned a foreign language.',
+    'Never have I ever bought a stranger a drink.',
+    'Never have I ever lied about my income.',
+    'Never have I ever had sex on camera.',
+    'Never have I ever been nude in public.',
+    'Never have I ever dated or hooked up with someone 10 years older.',
+    'Never have I ever dated or hooked up with someone 10 years younger.',
+    'Never have I ever been a maid of honor or best man at a wedding.',
+    'Never have I ever won more than $100 gambling.',
+    'Never have I ever lost more than $100 gambling.',
+    'Never have I ever gone vegan.',
+    'Never have I ever used a fake ID.',
+    'Never have I ever lied about my age.',
+    'Never have I ever chipped a tooth.',
+    'Never have I ever fasted from food for a day.',
+    'Never have I ever been awake for 24 straight hours.',
+    'Never have I ever had sex in a car.',
+    'Never have I ever had a friend with benefits.',
+    'Never have I ever sent nudes.',
+    'Never have I ever gotten a bedroom-related injury.',
+    'Never have I ever tried moonshine.',
+    'Never have I ever been to a funeral.',
+    'Never have I ever gotten stitches.',
+    'Never have I ever paid for adult content.',
+    'Never have I ever been scuba diving.',
+    'Never have I ever hooked up with someone of the same sex.',
+    'Never have I ever gone commando.',
+    'Never have I ever shaved all my public hair.',
+    'Never have I ever taken nude pictures of another person.',
+    'Never have I ever had someone take nude pictures of me.',
+    'Never have I ever tried "69".',
+    'Never have I ever had sex in front of others.',
+    'Never have I ever gotten a piecing in my privates.',
+    'Never have I ever played strip poker.',
+    'Never have I ever skinny dipped with at least 3 people.',
+    'Never have I ever made a sex video.',
+    'Never have I ever been to a strip club.',
+    'Never have I ever paid for an erotic massage.',
+    'Never have I ever gotten naked on a web cam.',
+    'Never have I ever given oral sex.',
+    'Never have I ever received oral sex.',
+  ];
+  public randomQuestionStr: string = '';
 
   constructor(private router: Router, databaseService: DatabaseService, private wsService: WebsocketService) {
     super(databaseService);
@@ -77,6 +145,12 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   emitEmoji(num: number) {
     console.log(num);
     this.getDataFromServer('emitEmoji', 'iNever.php', { num: num });
+  }
+
+  randomQuestion() {
+    var num = Math.floor(Math.random() * this.questions.length);
+    this.randomQuestionStr = this.questions[num];
+    console.log(num, this.randomQuestionStr);
   }
 
   startTimer() {
@@ -108,8 +182,8 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
     var substr = message.substring(0, 17);
     this.gameError = '';
     if (substr != 'Never have I ever') {
-//      this.gameError = 'Your question must start with Never have I ever';
-//      return;
+      //      this.gameError = 'Your question must start with Never have I ever';
+      //      return;
     }
     if (message.length <= 20) {
       this.gameError = 'Please type a real question.';
@@ -154,6 +228,7 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action != "logUser") {
+      this.randomQuestionStr = 'Never have I ever ';
       this.winner.user_id = responseJson.winner;
       this.winner.profilePic = responseJson.winnerProfilePic;
       this.MIN_PLAYER = responseJson.MIN_PLAYER;

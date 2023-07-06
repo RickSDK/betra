@@ -1,10 +1,10 @@
 <div *ngIf="showPopupFlg && userLoadedFlg" class="gray-screen2"></div>
 <div *ngIf="showPopupFlg" class="outer-div">
-    <div [ngClass]="userLoadedFlg?'user-popup':'user-popup-init'">
+    <div [ngClass]="userLoadedFlg?'user-popup':'user-popup-init'" [style.height]="toggleImageFlg && userLoadedFlg?'640px':'440px'">
         <div *ngIf="!user" style="position: absolute; top: 60px; left: 60px; font-size: 30px;"><i class="fa fa-spinner fa-spin"></i></div>
         <div *ngIf="user" style="height: 100%; width: 100%; padding: 0;">
             <img (mousedown)="toggleImageFlg=!toggleImageFlg" [src]="user.mainImageSrc"
-                [ngClass]="(toggleImageFlg)?'img1':'img2'">
+                [ngClass]="(toggleImageFlg)?'img2':'img2'">
         </div>
         <div *ngIf="user" 
             style="position: absolute; top:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: 0 2px 3px black; height: 45px; border-radius: 10px;">

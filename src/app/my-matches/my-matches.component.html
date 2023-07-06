@@ -66,14 +66,14 @@
                     <div style="font-size: 16px;"><i class="fa fa-check"></i><b>Success!</b></div>
                     <div>Your rose has been given to <b>{{currentRoseHolder}}</b>. Following your next Rose Ceremony, you will be able to hand out another rose to anyone you like.</div>
                         <button [routerLink]="['']" class="btn btn-main-color spacer">Home</button>
-                        <button [routerLink]="['/matches']" class="btn btn-main-color spacer">Dating Pool</button>
+                        <button (mousedown)="changeMenu(0)" class="btn btn-main-color spacer">Dating Pool</button>
                 </div>
                 <button *ngIf="!newlyAssignedRoseFlg" (mousedown)="assignHeart()" class="btn btn-main-color"
                     style="padding: 10px;" [disabled]="disableFormFlg">Give Rose!</button>
             </div>
 
         </div>
-
+ 
         <div>&nbsp;</div>
 
         <div *ngIf="menuNum==1 && !loadingFlg">

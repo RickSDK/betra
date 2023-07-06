@@ -11,16 +11,6 @@
     z-index: 600;
 }
 
-.gray-screen2 {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    opacity: .7;
-}
-
 .user-popup {
     opacity: 1;
     display: inline-block;
@@ -66,7 +56,7 @@
     font-size: 22px;
     color: black;
     cursor: pointer;
-    box-shadow: 1px 1px 2px gray;;
+    box-shadow: 1px 1px 2px gray;
 }
 
 .profile-icon:hover {
@@ -138,7 +128,7 @@
     transition: all 1s ease;
 }
 
-.verified-cirtificate {
+/*.verified-cirtificate {
     cursor: pointer;
     font-size: 32px; 
     color: #900; 
@@ -146,7 +136,7 @@
     top: 10px; 
     left: 10px; 
     z-index: 120;
-}
+}*/
 
 .reputation-score {
     background-color: #900;
@@ -235,92 +225,6 @@
 }
 .icon-label {
     white-space: nowrap;
-}
-.three-dots {
-    float: right; 
-    border-radius: 50%;
-    width: 30px;
-    font-size: 18px;
-    text-align: center;
-    color: gray; 
-    margin-right: 0;
-    cursor: pointer;
-}
-
-.three-dots:hover {
-    background-color: #ccc;
-    color: black;
-}
-
-.three-dots-menu {
-    display: inline-block;
-    position: absolute;
-    z-index: 120;
-    top: 35px;
-    right: 0;
-    color: gray;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 5px gray;
-    min-width: 100px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.three-dots-menu-option {
-    cursor: pointer;
-    white-space: nowrap;
-    padding: 3px;
-    font-size: 14px;
-}
-
-.block-popup {
-    display: inline-block; 
-    position: absolute; 
-    top: 20px; 
-    left: 20px; 
-    background-color: #900; 
-    color: white; 
-    padding: 20px; 
-    border-radius: 5px; 
-    box-shadow: 5px 5px 10px gray;
-    max-width: 400px;
-}
-.circle-button {
-    font-size: 36px;
-    border-radius: 50%;
-    padding: 15px;
-    width: 70px;
-    margin-top: -50px;
-    cursor: pointer;
-    box-shadow: 5px 5px 10px gray;
-    z-index: 120;
-    position: absolute; 
-    bottom: 62px; 
-}
-
-.yes-button {
-    right: 10px;
-    background-color: greenyellow;
-}
-
-.no-button {
-    left: 10px;
-    background-color: orange;
-}
-
-.yes-button:hover {
-    background-color: #00ff00;
-}
-
-.no-button:hover {
-    background-color: #ffcc00;
-}
-
-.small-title {
-    font-size: 10px;
-    text-align: center;
-    font-weight: 700;
 }
 
 .name-bar {

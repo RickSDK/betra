@@ -68,8 +68,6 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       var menu = parseInt(params['menu']) || 0;
-      //      if (this.user.daysTillRoseCeremony <= 4 && this.user.daysTillRoseCeremony > 0 && this.user.heartId==0)
-      //      menu = 4;
       this.changeMenu(menu);
     });
 
@@ -268,8 +266,8 @@ export class MyMatchesComponent extends BaseComponent implements OnInit {
       }
 
 
-      if (this.daysTillRoseCeremony <= 0)
-        this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
+ //     if (this.daysTillRoseCeremony <= 0)
+  //      this.betraPopupComponent.showPopup('Rose Ceremony Time!', 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.', 99);
 
       this.updateMatches();
       if (this.datingPoolComponent)

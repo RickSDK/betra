@@ -4,6 +4,7 @@
     </div>
     <div class="inside-box" *ngIf="user" style="text-align: center;">
         <div style="font-size: 24px;">Welcome {{user.firstName}}!</div>
+        <div>Status: {{user.status}}</div>
         <hr>
         <p>You need to finish setting up your profile.</p>
         <p><span class="text-highlight">{{user.pendingStatusReason}}</span></p>

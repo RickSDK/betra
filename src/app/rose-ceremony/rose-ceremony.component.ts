@@ -213,7 +213,7 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
       this.readyForRoseCeremony = this.daysTillCeremony == 0;
       this.roseCeremonyDt = responseJson.roseCeremonyDt;
       if (responseJson.roseCeremonyDt != "") {
-        this.rosesRemaining = this.numSingles - 3;
+        this.rosesRemaining = (this.numSingles>12)?this.numSingles - 3: this.numSingles-1;
         if (this.rosesRemaining > 17)
           this.rosesRemaining = 17;
       } else {
@@ -283,14 +283,15 @@ export class RoseCeremonyComponent extends BaseComponent implements OnInit {
           }
         });
 
-        //console.log('fullList', fullList);
-        //console.log('this.users', this.users);
+        console.log('fullList', fullList);
+        console.log('this.users', this.users);
+
 
         this.rosesRemaining = this.user.gender == 'F' ? 10 : 20;
         this.rosesRemaining -= includedRoses;
 
         if (responseJson.action == 'loadMyDatingPool' || this.rosesRemaining >= this.users.length) {
-          this.rosesRemaining = this.users.length - 3;
+          this.rosesRemaining = (this.users.length>12)?this.users.length - 3: this.users.length-1;
           if (this.rosesRemaining > 17)
             this.rosesRemaining = 17;
 

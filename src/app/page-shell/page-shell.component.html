@@ -59,13 +59,12 @@
                 </span>
             </td>
             <td align="center" title="Rose Ceremony">
-                <div [routerLink]="['/intro']" class="ceremony-countdown">
+                <div [routerLink]="['/matches']" class="ceremony-countdown">
                     <div class="red-text" style="font-size: 8px; margin-top: 2px;">🌹</div>
                     <div class="menu-circle">
-                        <div class="red-text" style="line-height: 14px;">{{headerObj.daysTillRoseCeremony}}</div>
-                        <span *ngIf="0" class="icon-label main-color-bg">Rose Ceremony</span>
+                        <div class="red-text" style="line-height: 14px;">{{headerObj.dpCount}}</div>
                     </div>
-                    <div class="red-text" style="font-size: 8px;">Days</div>
+                    <div class="red-text" style="font-size: 8px;">Pool</div>
                 </div>
             </td>
             <td style="padding-top: 8px;" align="center">
@@ -132,105 +131,6 @@
     </table>
 </div>
 
-<!--<div class="top-bar" *ngIf="0">
-    <table width="100%" border="0" style="margin-top: 5px;">
-        <tr>
-            <td *ngIf="userId>0" class="hide-md-up">
-                <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-bars hamburger-menu main-color"></i>
-            </td>
-            <td *ngIf="pageTitle != 'Home'">
-                <i *ngIf="platform=='Web'" (mousedown)="goBack()"
-                    class="fa fa-arrow-left back-button main-color"></i>&nbsp;
-                <i *ngIf="platform=='Android'" (mousedown)="goBackAndroid()"
-                    class="fa fa-arrow-left back-button main-color"></i>&nbsp;
-                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" class="hide-sm" height="50"
-                    style="cursor: pointer;">
-
-            </td>
-            <td *ngIf="pageTitle == 'Home'" style="position: relative;">
-                <img [routerLink]="['']" [src]="'assets/images/betraLogo.png'" height="50" style="cursor: pointer;">
-
-                <div style="font-size: 9px; position: absolute; left: 20px; top: 40px; color: gray;">
-                    v{{appVersion}}
-                </div>
-            </td>
-            <td align="center" width="100%">
-                <span *ngIf="pageTitle != 'Home'" [routerLink]="['']" class="top-button"><i class="fa fa-home"></i>
-                    <div class="top-button-label">Home</div>
-                </span>
-                <span *ngIf="!userId" [routerLink]="['/about']" class="top-button hide-xxs"><i
-                        class="fa fa-info-circle"></i>
-                    <div class="top-button-label">About</div>
-                </span>
-                <span *ngIf="!userId" [routerLink]="['/safety-features']" class="top-button"><i
-                        class="fa fa-exclamation-circle"></i>
-                    <div class="top-button-label">Safety Features</div>
-                </span>
-                <span [routerLink]="['/blogs']" class="top-button hide-xs"><i class="fa fa-book"></i>
-                    <div class="top-button-label">Blogs</div>
-                </span>
-                <span *ngIf="0" [routerLink]="['/photography']" class="top-button hide-xs"><i
-                        class="fa fa-picture-o"></i>
-                    <div class="top-button-label">Photography</div>
-                </span>
-                <span *ngIf="userId" [routerLink]="['/chat-room']" class="top-button hide-sm"><img
-                        src="assets/images/pics/chat_room.png" height="40">
-                    <i *ngIf="0" class="fa fa-comment"></i> <span *ngIf="headerObj && headerObj.chatPeople>0"
-                        class="red-circle" style="background-color: green;">{{headerObj.chatPeople}}</span>
-                    <div class="top-button-label">Chat Room</div>
-                </span>
-                <span *ngIf="headerObj && userId" [routerLink]="['/coins']" class="top-button">
-                    <img id="coinImg" src="assets/images/pics/coinSmall.png" height="30">
-                    <span class="red-circle" *ngIf="headerObj.points>0"
-                        style="background-color: green; margin-left: -15px; font-size: 9px;">{{headerObj.points}}</span>
-                    <div class="top-button-label">Coins</div>
-                </span>
-            </td>
-
-            <td align="right" valign="middle" *ngIf="userId==0 || !userId">
-                <span *ngIf="!userId" [routerLink]="['']" [queryParams]="{login: 1}" class="top-link">Login</span>
-            </td>
-            <td *ngIf="(userId==0 || userStatus != 'Active') && pageTitle != 'Home'" width="44">
-                <i [routerLink]="['/']" class="fa fa-home icon-button" title="Home"></i>
-            </td>
-            <td *ngIf="headerObj && userId>0 && userStatus == 'Active'">
-                <div [routerLink]="['/intro']" class="ceremony-countdown">
-                    <div class="red-text" style="font-size: 8px;">Days</div>
-                    <div class="menu-circle">
-                        <div class="red-text">{{headerObj.daysTillRoseCeremony}}</div>
-                        <span class="icon-label main-color-bg">Rose Ceremony</span>
-                    </div>
-                </div>
-                <span class="menu-circle hide-xs" [routerLink]="['/user-detail']">
-                    <i class="fa fa-search icon-button main-color"></i>
-                    <span class="icon-label main-color-bg">Browse</span>
-                </span>
-                <span class="menu-circle" [routerLink]="['/messages']">
-                    <i class="fa fa-comments icon-button main-color"></i>
-                    <span *ngIf="headerObj.messageCount>0" class="red-circle">{{headerObj.messageCount}}</span>
-                    <span class="icon-label main-color-bg">Messages</span>
-                </span>
-                <span class="menu-circle hide-xxs" [routerLink]="['/matches']">
-                    <i class="fa fa-users icon-button main-color"></i>
-                    <span class="icon-label main-color-bg">My Dating Pool</span>
-                </span>
-                <span class="menu-circle" [routerLink]="['/notifications']">
-                    <i class="fa fa-bell icon-button main-color"></i><span *ngIf="headerObj.notifications>0"
-                        class="red-circle">{{headerObj.notifications}}</span>
-                    <span class="icon-label main-color-bg">Notifications</span>
-                </span>
-            </td>
-            <td *ngIf="headerObj && userId>0">
-                <span id="myProfile" class="menu-circle" (mousedown)="showUserMenuFlg = !showUserMenuFlg">
-                    <i class="fa fa-user icon-button main-color"></i>
-                    <span *ngIf="headerObj.newReviewBy>0" class="red-circle"><i class="fa fa-comment"></i></span>
-                    <span class="icon-label main-color-bg">My Profile</span>
-                </span>
-
-            </td>
-        </tr>
-    </table>
-</div>-->
 <div class="bottom-tab" [routerLink]="['/game-room']" style="left: 0; color: pink;">
     <i class="fa fa-rocket"></i>
     <span class="red-circle" *ngIf="headerObj.gameRoomCount>0"
@@ -274,6 +174,11 @@
                         <a href="https://www.superpowersgame.com"><img src="assets/images/ads/ad.png" width="100%"
                                 class="image"></a>
                         <div style="font-size: 12px; font-weight: 700;">War with friends!</div>
+
+                        <a href="https://tubitv.com/movies/100006146?_branch_match_id=850748594158367514&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9YrKU3K1Csp03fMdkmOCgw1M3ZMAgBH2ONiIAAAAA%3D%3D" target="new"><img src="assets/images/ads/ambition.jpg" width="100%"
+                                class="image"></a>
+                        <div style="font-size: 12px; font-weight: 700;">Ambition, on tubi</div>
+
                         <!--<app-ad-mob></app-ad-mob>-->
                         <!--<div>Google ads</div>
                         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2626924352662007"

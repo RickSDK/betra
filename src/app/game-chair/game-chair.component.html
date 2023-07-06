@@ -1,5 +1,4 @@
-<img [src]="chair" [width]="width">
-<div *ngIf="player.user_id > 0">
+<div *ngIf="player.user_id > 0" [ngStyle]="ngStyleChair()">
     <span class="i-never-score">{{player.score1}}</span>
     <span class="i-have-score">{{player.score2}}</span>
     <i class="fa fa-ban i-never-flag" *ngIf="player.choice==1"></i>

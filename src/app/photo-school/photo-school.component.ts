@@ -21,6 +21,11 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
   public page: any = {};
   public selectedClass: any = null;
   public classType: string = '';
+  public notEnoughCoinsFlg: boolean = false;
+  public openClasses: any = [];
+  public inProgressClasses: any = [];
+  public completedClasses: any = [];
+  public showMoreInfoFlg: boolean = false;
 
   constructor(private route: ActivatedRoute, databaseService: DatabaseService) { super(databaseService); }
 
@@ -103,13 +108,27 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
   joinClass(betraClass: any) {
     if (betraClass.cost > parseInt(this.user.points)) {
       this.errorMessage = 'Too Expensive!';
+      betraClass.tooExpensiveFlg = true;
       return;
 
     }
     this.getDataFromServer('joinClass', 'betraClasses.php', { classId: betraClass.row_id });
   }
 
-    extendClass(betraClass: any) {
+  createClassPressed() {
+    if (this.user.points < 5) {
+      this.notEnoughCoinsFlg = true;
+    } else {
+      this.createClassNum = 1;
+    }
+  }
+
+  startVoting(betraClass: any) {
+    this.getDataFromServer('startVoting', 'betraClasses.php', { classId: betraClass.row_id });
+
+  }
+
+  extendClass(betraClass: any) {
     this.getDataFromServer('extendClass', 'betraClasses.php', { classId: betraClass.row_id });
   }
 
@@ -123,11 +142,23 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     if (responseJson.action != 'logUser') {
       var workTodo = false;
       this.page = responseJson;
+      this.openClasses = [];
+      this.inProgressClasses = [];
+      this.completedClasses = [];
+
       this.page.classes.forEach((element: any) => {
         var dt = this.getDateObjFromJSDate(element.startDt);
         element.startDay = dt.localDate;
+        if (element.daysTillEnd < 0)
+          element.daysTillEnd = 0;
         if (element.workTodo > 0)
           workTodo = true;
+        if (element.status == 'Open')
+          this.openClasses.push(element);
+        if (element.status == 'Completed')
+          this.completedClasses.push(element);
+        if ((element.status == 'Started' || element.status == 'Voting') && (this.user.user_id == 1 || element.isEnrolled > 0 || element.isInstructor))
+          this.inProgressClasses.push(element);
       });
 
       if (workTodo && this.betraPopupComponent)

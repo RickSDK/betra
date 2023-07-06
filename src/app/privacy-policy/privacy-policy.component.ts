@@ -8,7 +8,8 @@ import { DatabaseService } from '../services/database.service';
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent extends BaseComponent implements OnInit {
-
+  public address = '2712 92nd PL SE, Everett WA 98208';
+  
   constructor(databaseService: DatabaseService) { super(databaseService); }
 
 }

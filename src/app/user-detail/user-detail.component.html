@@ -64,7 +64,7 @@
         <div *ngIf="id == 4 && matchUser" class="matches-card">
             This person is interested in you and wants to be added to your dating pool. Press Thumbs up or thumbs down.
         </div>
-        <div *ngIf="id == 4 && !matchUser" class="matches-card">
+        <div *ngIf="id == 4 && !matchUser && !loadingFlg" class="matches-card">
             <p>No admirers at the moment.</p>
             <div style="text-align: left;" class="small-gray-text">
                 <p>Don't worry. Here are some things you can do to improve your chances of success.</p>
@@ -76,7 +76,7 @@
                     <li><i class="fa fa-thumbs-up"></i> Start liking lots of people. That's the fastest way
                         for
                         others to find you.</li>
-                    <li><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
+                    <li *ngIf="!user.memberFlg"><i class="fa fa-arrow-up"></i> <span [routerLink]="['/upgrade-member']"
                             class="text-link">Upgrade</span> in order to
                         maximize your exposure.</li>
                 </div>
@@ -133,7 +133,7 @@
                     <div *ngIf="id == 2 && !advancedSearchFlg && profileViews>0">
                         <div *ngIf="playerList.length>0">
                             <p>Would you like to expand your search?</p>
-                            <button (mousedown)="showCurrentProfile()" class="btn btn-success spacer">Expand Search</button>
+                            <button (mousedown)="showCurrentProfile()" class="btn btn-success spacer">Show ALL {{user.genderMatch}}</button>
                         </div>
                         <p *ngIf="playerList.length==0" class="gray-text">You have already said "Yes" or "No" to everyone in the database.
                             This
