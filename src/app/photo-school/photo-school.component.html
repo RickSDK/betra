@@ -24,13 +24,14 @@
                 <div *ngIf="notEnoughCoinsFlg" class="important-notice">
                     <div>Not enough coins!</div>
                     <div style="font-size: 10px; color: gray;">You need 5 coins to start a class, which you can get for
-                        <b>free!</b></div>
+                        <b>free!</b>
+                    </div>
                     <button [routerLink]="['/coins']" class="btn btn-main-color btn-small spacer">Coins</button>
 
                 </div>
                 <button *ngIf="createClassNum==0" (mousedown)="createClassPressed()"
-                class="btn btn-main-color btn-large">Create
-                Class</button>
+                    class="btn btn-main-color btn-large">Create
+                    Class</button>
             </div>
 
             <div *ngIf="createClassNum>0" class="border-box">
@@ -97,6 +98,21 @@
                     <div style="font-size: 10px;">What is the assignment for this class? Give some specific instructions
                         for students to follow so they know what type of photo to turn in.
                         (These will not be visible until the class begins).</div>
+                    <hr>
+                    <div style="font-size: 10px;">Please list 2 items (besides the subject) that should be included in the photo. For an outdoor
+                        shoot you might choose "trees" and "water". For in indoor shoot, maybe choose "hat" and "glass
+                        of wine". The idea is to give people something to focus on and inspire them.</div>
+                    <table>
+                        <tr>
+                            <td>Item 1</td>
+                            <td><input type="text" name="item1" id="item1" maxlength="20"></td>
+                        </tr>
+                        <tr>
+                            <td>Item 2</td>
+                            <td><input type="text" name="item2" id="item2" maxlength="20"></td>
+                        </tr>
+                    </table>
+                    <hr>
                     <textarea [id]="'description'" style="width: 100%;"></textarea>
                     <div style="font-size: 10px;">Special hints and strategies for making it a great photo.</div>
                     <textarea [id]="'tips'" style="width: 100%;"></textarea>
@@ -120,9 +136,9 @@
                         <tr>
                             <td>
                                 <app-profile-pic2 (mousedown)="showProfile(class.user_id)" [user_id]="class.user_id"
-                                [profilePic]="class.profilePic" [size]="50">
-                            </app-profile-pic2>
-                                        
+                                    [profilePic]="class.profilePic" [size]="50">
+                                </app-profile-pic2>
+
                             </td>
                             <td>
                                 <div style="font-size: 12px; text-align: left;">
@@ -170,7 +186,7 @@
                         <button (mousedown)="startThisClass(class)"
                             *ngIf="class.students.length>=5 && user.user_id==1 && class.daysTillStart<=0"
                             class="btn btn-success spacer">Start!</button>
-                        <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="deleteClass(class)"
+                        <button *ngIf="class.daysTillStart <= 2 && user.user_id==1" (mousedown)="deleteClass(class)"
                             class="btn btn-danger spacer">Delete</button>
                         <button *ngIf="class.daysTillStart <= 0 && user.user_id==1" (mousedown)="extendClass(class)"
                             class="btn btn-warning spacer">Extend</button>
@@ -186,7 +202,8 @@
                     <div class="tan-box" *ngIf="class.tooExpensiveFlg">
                         <div>Too expensive!</div>
                         <div style="font-size: 10px; color: gray;">You need more coins which you can get for
-                            <b>free!</b></div>
+                            <b>free!</b>
+                        </div>
                         <button [routerLink]="['/coins']" class="btn btn-main-color btn-small spacer">Coins</button>
                     </div>
                 </div>
@@ -200,9 +217,9 @@
                         <tr>
                             <td>
                                 <app-profile-pic2 (mousedown)="showProfile(class.user_id)" [user_id]="class.user_id"
-                                [profilePic]="class.profilePic" [size]="50">
-                            </app-profile-pic2>
-                                        
+                                    [profilePic]="class.profilePic" [size]="50">
+                                </app-profile-pic2>
+
                             </td>
                             <td>
                                 <div style="font-size: 12px; text-align: left;">
@@ -270,7 +287,8 @@
                     <div class="tan-box" *ngIf="class.tooExpensiveFlg">
                         <div>Too expensive!</div>
                         <div style="font-size: 10px; color: gray;">You need more coins which you can get for
-                            <b>free!</b></div>
+                            <b>free!</b>
+                        </div>
                         <button [routerLink]="['/coins']" class="btn btn-main-color btn-small spacer">Coins</button>
                     </div>
                 </div>
@@ -284,9 +302,9 @@
                         <tr>
                             <td>
                                 <app-profile-pic2 (mousedown)="showProfile(class.user_id)" [user_id]="class.user_id"
-                                [profilePic]="class.profilePic" [size]="50">
-                            </app-profile-pic2>
-                                        
+                                    [profilePic]="class.profilePic" [size]="50">
+                                </app-profile-pic2>
+
                             </td>
                             <td>
                                 <div style="font-size: 12px; text-align: left;">

@@ -118,7 +118,7 @@
                 <p>Click here to fix.</p>
             </div>
             <div class="matches-card" *ngIf="profileViews>0 && !matchUser && id != 4">
-                <div *ngIf="daysTillRoseCeremony==0">
+                <div *ngIf="daysTillRoseCeremony<=0">
                     <div><i class="fa fa-ban red-text" style="font-size: 60px; padding: 10px;"></i></div>
                     <div>You must complete your Rose Ceremony before searching for more singles.</div>
                     <div>&nbsp;</div>

@@ -56,7 +56,7 @@
             <hr>
             <div class="red-text"><i class="fa fa-gift"></i> Gift Store</div>
             <div (mousedown)="selectGift(gift)" class="gift-cell"
-                [style.background-color]="gift.canAfford?'#ffffc0':'#ccc'"
+                [style.background-color]="gift.canAfford?'#ffcccc':'#ccc'"
                 [style.border]="selectedGift && selectedGift.row_id == gift.row_id?'4px solid red':'1px solid gray'"
                 *ngFor="let gift of gifts">
                 <img src="assets/images/gifts/gift{{gift.row_id}}.png" width="70">

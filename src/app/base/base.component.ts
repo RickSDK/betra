@@ -35,6 +35,7 @@ export class BaseComponent implements OnInit {
   public displayYear = new Date().getFullYear();
   public popupNum: number = 1;
   public user: any;
+  public betraPlatform:string = getPlatform();
   public imgSrc: string = 'assets/images/profile/man.jpg';
   public imgSrcFile: string = 'assets/images/profile/man.jpg';
   public apiSuccessFlg: boolean = false;

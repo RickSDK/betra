@@ -41,6 +41,9 @@ export class ProfileTopComponent implements OnInit {
   public displayInfoMenu: boolean = false;
   public showPicsMenu: boolean = false;
   public displayPicsMenu: boolean = false;
+  public showDPMenu: boolean = false;
+  public displayDPMenu: boolean = false;
+
   public textNotice: string = 'With Betra, users must be in each other\'s dating pools to communicate';
 
   constructor() { }
@@ -132,6 +135,27 @@ export class ProfileTopComponent implements OnInit {
       return { bottom: '40px', right: '100px', opacity: 1, width: '200px' };
     else
       return { bottom: '-40px', right: '100px', opacity: 0, width: '200px' };
+  }
+
+  toggleDPMenu() {
+    if (this.displayDPMenu && this.showDPMenu) {
+      this.showDPMenu = false;
+      setTimeout(() => {
+        if (!this.showDPMenu)
+          this.displayDPMenu = false;
+      }, 1000);
+    } else {
+      this.displayDPMenu = true;
+      setTimeout(() => {
+        this.showDPMenu = true;
+      }, 10);
+    }
+  }
+  ngStyleDPMenu() {
+    if (this.showDPMenu)
+      return { height: 'auto', 'min-height': '40px', opacity: 1 };
+    else
+      return { height: 0, 'min-height': 0, opacity: 0 };
   }
 
   toggleInfoMenu() {

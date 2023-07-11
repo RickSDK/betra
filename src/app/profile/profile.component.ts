@@ -22,7 +22,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   public showRequiredFieldsFlg: boolean = false;
   public imageSelected: boolean = false;
   public NUM_ITEMS: number = 9;
-  public requiredFieldColor: string = '#ffffc0';
+  public requiredFieldColor: string = '#ffcccc';
   public inputFieldObj: any;
   public menuTitles = ['Basics', 'Verify Email', 'Details', 'Personality Test', 'Political Assessment', 'Profile Image', 'Pictures', 'Bio', 'Your Match', 'Done'];
   public menuDesc = [
@@ -320,7 +320,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       }
       return;
     }
-    this.requiredFieldColor = '#ffffc0';
+    this.requiredFieldColor = '#ffcccc';
     this.showRequiredFieldsFlg = false;
     if (this.changesMadeFlg)
       this.profileSubmitPress();

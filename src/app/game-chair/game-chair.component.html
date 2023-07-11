@@ -5,5 +5,6 @@
     <i class="fa fa-hand-paper-o i-have-flag" *ngIf="player.choice==2"></i>
     <img *ngIf="player.emoji>0" [src]="emojis[player.emoji]" width="40" class="emoji">
     <img [src]="player.src" width="60" height="80" class="chair-sitter">
-    <div  class="player-name" [style.border]="player.user_id == turn?'4px solid yellow':'none'">{{player.firstName}}</div>    
+    <div class="player-name" [style.border]="player.user_id == turn?'4px solid yellow':'none'">{{player.firstName}}</div>
+    <div *ngIf="player.lastMessageByUser" class="player-chat"><i class="fa fa-quote-left"></i> {{player.lastMessageByUser}} <i class="fa fa-quote-right"></i></div>  
 </div>

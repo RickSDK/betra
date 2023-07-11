@@ -24,6 +24,7 @@ export class ProfileUserPopupComponent implements OnInit {
   public unblurPicsFlg: boolean = false;
   public userLoadedFlg: boolean = false;
   public toggleImageFlg: boolean = false;
+  public matchLevel: number = 0;
   public textNotice: string = 'With Betra, users must be in each other\'s dating pools to communicate';
 
   ngOnInit(): void {
@@ -48,7 +49,9 @@ export class ProfileUserPopupComponent implements OnInit {
     this.user = new User(user, myUser);
     this.unblurPicsFlg = (this.myUser.memberFlg || this.myUser.user_id == this.user.user_id);
     this.userLoadedFlg = true;
-    console.log('got user!', user);
+    if(user.matchObj)
+      this.matchLevel = user.matchObj.match_level;
+    console.log('got user!', this.matchLevel, user);
   }
   closePopup() {
     this.userLoadedFlg = false;

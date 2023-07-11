@@ -87,7 +87,8 @@ export class MatchSnapshotComponent extends BaseComponent implements OnInit {
     if (!this.matchUser.matchObj)
       return;
 
-    this.showInterestedButtonsFlg = matchUser.potentialLoveInterestFlg;
+
+    this.showInterestedButtonsFlg = matchUser.potentialLoveInterestFlg && this.matchUser.status == 'Active';
 
     if (this.matchUser.matchObj.match_interested == 'Y')
       this.showInterestedButtonsFlg = true; // handle out of sync

@@ -4,7 +4,7 @@
     <div class="matches-card" *ngIf="user" style="padding: 0;">
 
         <app-top-header2 [topTitle]="'Marketplace'"></app-top-header2>
-        <div style="padding: 10px;">
+        <div style="padding: 10px;" *ngIf="betraPlatform != 'IOS'">
             <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
             <div *ngIf="result" class="important-notice">{{result}}</div>
             <div *ngIf="activity < 3" class="main-headline"><i class="fa fa-line-chart"></i> Buy and Sell Coins</div>

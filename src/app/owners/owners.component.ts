@@ -56,6 +56,7 @@ export class OwnersComponent extends BaseComponent implements OnInit {
     this.showCongratulationsFlg = true;
     this.getDataFromServer('promoteOwner', 'owners.php', {});
     this.goalReachedFlg = false;
+    this.yourLevel.level = 99;
   }
 
   override postSuccessApi(file: string, responseJson: any) {

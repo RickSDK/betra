@@ -1,8 +1,7 @@
 <app-top-bar [headerObj]="headerObj" [userId]="userId"></app-top-bar>
 <i *ngIf="platform!='Android'" (mousedown)="goBack()" class="fa fa-arrow-left back-button hide-sm"></i>
 <i *ngIf="platform=='Android'" (mousedown)="goBackAndroid()" class="fa fa-arrow-left back-button hide-sm"></i>
-
-<i [routerLink]="['']" class="fa fa-home home-button"></i>
+<img [routerLink]="['']" src="assets/images/topBar/icons/iconHome.png" class="home-button top-icon-scale" height="44">
 <i (mousedown)="showMainMenuFlg = !showMainMenuFlg" class="fa fa-ellipsis-v main-menu-dots"></i>
 <img *ngIf="userId>0" [src]="imgSrcFile" class="profile-pic" alt="Profile Picture"
     (mousedown)="showUserMenuFlg = !showUserMenuFlg">
@@ -14,7 +13,8 @@
 
 <div class="top-bar" *ngIf="userId==0" style="text-align: center; padding-top: 10px;">
     <span class="menu-circle" [routerLink]="['/blogs']">
-        <i class="fa fa-book icon-button main-color"></i>
+        <img src="assets/images/topBar/icons/iconBlog.png" class="top-icon-scale" height="44">
+        <!--<i class="fa fa-book icon-button main-color"></i>-->
         <span class="top-icon-label">Blogs</span>
         <span class="icon-label main-color-bg">Blogs</span>
     </span>
@@ -28,11 +28,6 @@
         <span class="top-icon-label">Safety</span>
         <span class="icon-label main-color-bg">Safety Features</span>
     </span>
-    <span class="menu-circle" [routerLink]="['/photography']">
-        <i class="fa fa-picture-o icon-button main-color"></i>
-        <span class="top-icon-label">Photo Club</span>
-        <span class="icon-label main-color-bg">Photo Club</span>
-    </span>
     <span style="width: 40px; display: inline-block;">&nbsp;</span>
 </div>
 <div class="top-bar" *ngIf="userId>0 && headerObj && !headerObj.liteModeFlg && userStatus == 'Active'">
@@ -41,19 +36,22 @@
             <td class="left-segment">&nbsp;</td>
             <td align="center" style="padding-top: 8px;">
                 <span class="menu-circle hide-xs" [routerLink]="['/blogs']">
-                    <i class="fa fa-book icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconBlog.png" class="top-icon-scale">
+                    <!--<i class="fa fa-book icon-button main-color"></i>-->
                     <span class="top-icon-label">Blogs</span>
                     <span class="icon-label main-color-bg">Blogs</span>
                 </span>
                 <span class="menu-circle" [routerLink]="['/chat-room']">
-                    <i class="fa fa-comment icon-button"></i>
+                    <img src="assets/images/topBar/icons/iconChat.png" class="top-icon-scale">
+                    <!--<i class="fa fa-comment icon-button"></i>-->
                     <span class="top-icon-label">Chat</span>
                     <span *ngIf="headerObj && headerObj.chatPeople>0" class="red-circle"
                         style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <span class="icon-label main-color-bg">Chat Room</span>
                 </span>
                 <span class="menu-circle hide-xxs" [routerLink]="['/photography']">
-                    <i class="fa fa-picture-o icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconPhoto.png" class="top-icon-scale">
+                    <!--<i class="fa fa-picture-o icon-button main-color"></i>-->
                     <span class="top-icon-label">Club</span>
                     <span class="icon-label main-color-bg">Photo Club</span>
                 </span>
@@ -69,18 +67,21 @@
             </td>
             <td style="padding-top: 8px;" align="center">
                 <span class="menu-circle hide-xxs" [routerLink]="['/messages']">
-                    <i class="fa fa-comments icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconMessages.png" class="top-icon-scale">
+                    <!--<i class="fa fa-comments icon-button main-color"></i>-->
                     <span class="top-icon-label">Messages</span>
                     <span *ngIf="headerObj.messageCount>0" class="red-circle">{{headerObj.messageCount}}</span>
                     <span class="icon-label main-color-bg">Messages</span>
                 </span>
                 <span class="menu-circle hide-xs" [routerLink]="['/matches']">
-                    <i class="fa fa-users icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconDP.png" class="top-icon-scale">
+                    <!--<i class="fa fa-users icon-button main-color"></i>-->
                     <span class="top-icon-label">Pool</span>
                     <span class="icon-label main-color-bg">My Dating Pool</span>
                 </span>
                 <span class="menu-circle" [routerLink]="['/notifications']">
-                    <i class="fa fa-bell icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconAlerts.png" class="top-icon-scale">
+                    <!--<i class="fa fa-bell icon-button main-color"></i>-->
                     <span class="top-icon-label">Alerts</span>
                     <span *ngIf="headerObj.notifications>0" class="red-circle">{{headerObj.notifications}}</span>
                     <span class="icon-label main-color-bg">Notifications</span>
@@ -97,30 +98,30 @@
             <td class="left-segment">&nbsp;</td>
             <td align="center" style="padding-top: 8px;">
                 <span class="menu-circle hide-xs" [routerLink]="['/blogs']">
-                    <i class="fa fa-book icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconBlog.png" class="top-icon-scale">
                     <span class="top-icon-label">Blogs</span>
                     <span class="icon-label main-color-bg">Blogs</span>
                 </span>
                 <span class="menu-circle hide-xxs" [routerLink]="['/chat-room']">
-                    <i class="fa fa-comment icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconChat.png" class="top-icon-scale">
                     <span class="top-icon-label">Chat</span>
                     <span *ngIf="headerObj && headerObj.chatPeople>0" class="red-circle"
                         style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <span class="icon-label main-color-bg">Chat Room</span>
                 </span>
                 <span class="menu-circle" [routerLink]="['/photography']">
-                    <i class="fa fa-picture-o icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconPhoto.png" class="top-icon-scale">
                     <span class="top-icon-label">Club</span>
                     <span class="icon-label main-color-bg">Photo Club</span>
                 </span>
                 <span class="menu-circle hide-xxs" [routerLink]="['/messages']">
-                    <i class="fa fa-comments icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconMessages.png" class="top-icon-scale">
                     <span class="top-icon-label">Messages</span>
                     <span *ngIf="headerObj.messageCount>0" class="red-circle">{{headerObj.messageCount}}</span>
                     <span class="icon-label main-color-bg">Messages</span>
                 </span>
                 <span class="menu-circle" [routerLink]="['/notifications']">
-                    <i class="fa fa-bell icon-button main-color"></i>
+                    <img src="assets/images/topBar/icons/iconAlerts.png" class="top-icon-scale">
                     <span class="top-icon-label">Alerts</span>
                     <span *ngIf="headerObj.notifications>0" class="red-circle">{{headerObj.notifications}}</span>
                     <span class="icon-label main-color-bg">Notifications</span>
@@ -132,12 +133,12 @@
 </div>
 
 <div class="bottom-tab" [routerLink]="['/game-room']" style="left: 0; color: pink;">
-    <i class="fa fa-rocket"></i>
+    <img src="assets/images/topBar/icons/iconGame.png" class="top-icon-scale" height="35">
     <span class="red-circle" *ngIf="headerObj.gameRoomCount>0"
         style="bottom: 0; right: 0; left: auto; position: absolute;">{{headerObj.gameRoomCount}}</span>
 </div>
 <div class="bottom-tab" [routerLink]="['/check-list']" style="right: 0;">
-    <i class="fa fa-check"></i>
+    <img src="assets/images/topBar/icons/iconCheck.png" class="top-icon-scale" height="35">
 </div>
 
 <div class="outer-frame">

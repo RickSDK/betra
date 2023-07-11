@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class GameIneverComponent extends BaseComponent implements OnInit {
 
-  public MIN_PLAYER: number = 4;
+  public MIN_PLAYER: number = 2;
 
   public players: any = [];
   public realPlayers: any = [];
@@ -228,12 +228,18 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   override postSuccessApi(file: string, responseJson: any) {
     super.postSuccessApi(file, responseJson);
     if (responseJson.action != "logUser") {
-      this.randomQuestionStr = 'Never have I ever ';
       this.winner.user_id = responseJson.winner;
       this.winner.profilePic = responseJson.winnerProfilePic;
+      this.winner.winnerName = responseJson.winnerName;
       this.MIN_PLAYER = responseJson.MIN_PLAYER;
       this.page = responseJson;
       this.turn = responseJson.turn;
+
+      var lastMessageByUser: any = {};
+      this.responseJson.messages.forEach((element: any) => {
+        if (!lastMessageByUser[element.user_id])
+          lastMessageByUser[element.user_id] = element.message;
+      });
 
       this.timerSeconds = 60 - responseJson.secondsSince;
       if (this.timerSeconds < 0)
@@ -243,12 +249,17 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
         this.turn = 0;
 
       this.myTurnToAskFlg = (this.turn == this.user.user_id);
+      if (this.myTurnToAskFlg && this.randomQuestionStr == '')
+        this.randomQuestionStr = 'Never have I ever ';
+      else
+        this.randomQuestionStr = '';
       this.players = [];
       this.realPlayers = [];
       this.numPlayers = 0;
 
       responseJson.players.forEach((element: any) => {
         element.src = betraImageFromId(element.user_id, element.profilePic);
+        element.lastMessageByUser = lastMessageByUser[element.user_id];
         if (this.turn == element.user_id)
           this.currentPlayerName = element.firstName;
 

@@ -1,12 +1,14 @@
 <div *ngIf="showPopupFlg && userLoadedFlg" class="gray-screen2"></div>
 <div *ngIf="showPopupFlg" class="outer-div">
-    <div [ngClass]="userLoadedFlg?'user-popup':'user-popup-init'" [style.height]="toggleImageFlg && userLoadedFlg?'640px':'440px'">
-        <div *ngIf="!user" style="position: absolute; top: 60px; left: 60px; font-size: 30px;"><i class="fa fa-spinner fa-spin"></i></div>
+    <div [ngClass]="userLoadedFlg?'user-popup':'user-popup-init'"
+        [style.height]="toggleImageFlg && userLoadedFlg?'640px':'440px'">
+        <div *ngIf="!user" style="position: absolute; top: 60px; left: 60px; font-size: 30px;"><i
+                class="fa fa-spinner fa-spin"></i></div>
         <div *ngIf="user" style="height: 100%; width: 100%; padding: 0;">
             <img (mousedown)="toggleImageFlg=!toggleImageFlg" [src]="user.mainImageSrc"
                 [ngClass]="(toggleImageFlg)?'img2':'img2'">
         </div>
-        <div *ngIf="user" 
+        <div *ngIf="user"
             style="position: absolute; top:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: 0 2px 3px black; height: 45px; border-radius: 10px;">
             <span class="name-bar" style="font-size: 20px; line-height: 22px; margin-top: 2px;"><img
                     src="assets/images/rose5.png" height="20" *ngIf="user.user_id == myUser.heartId" alt="Rose"
@@ -19,47 +21,62 @@
             </span>
             <div style="font-size: 8px; margin-top: -1px; color: #aaa;">{{user.distanceText}}</div>
         </div>
-        
-        <div *ngIf="user" 
+
+        <div *ngIf="user"
             style="position: absolute; top:40px; left: 110px; z-index: 20; display: inline-block; background-color: rgb(8, 83, 196); color: white; font-size: 10px; padding: 0 5px 0 5px; border-radius: 5px;">
             {{user.lastLoginText}}</div>
-        <div *ngIf="user" 
+        <div *ngIf="user"
             style="position: absolute; top:40px; right: 110px; z-index: 20; display: inline-block; background-color: rgb(222, 183, 9); color: black; font-size: 10px; padding: 0 5px 0 5px; border-radius: 5px;">
             {{user.location}}</div>
         <img style="position: absolute; top:0; left: 0; z-index: 20;" src="assets/images/profile/left-item.png"
             height="55">
         <img style="position: absolute; top:0; right: 0; z-index: 20;" src="assets/images/profile/right-item.png"
             height="55">
-        <span *ngIf="user && user.findLoveFlg" style="position: absolute; top: 5px; left: 15px; font-size: 8px; color: pink; z-index: 20;">Rose Ceremony</span>
-        <span *ngIf="user && user.findLoveFlg" 
+        <span *ngIf="user && user.findLoveFlg"
+            style="position: absolute; top: 5px; left: 15px; font-size: 8px; color: pink; z-index: 20;">Rose
+            Ceremony</span>
+        <span *ngIf="user && user.findLoveFlg"
             style="position: absolute; top: 18px; left: 32px; font-size: 12px; z-index: 20; color: white; background-color: #900; padding: 0 5px 0 5px; border-top: 1px solid black;"><b>{{user.daysTillRoseCeremony}}</b></span>
-        <span *ngIf="user && user.findLoveFlg" style="position: absolute; top: 36px; left: 31px; font-size: 8px; color: pink; z-index: 20;">Days</span>
-        <div *ngIf="user" style="position: absolute; top: 50px; left: 0; z-index: 19; width: 44px; border-radius: 5px; padding-top: 3px;" class="main-color-bg">
+        <span *ngIf="user && user.findLoveFlg"
+            style="position: absolute; top: 36px; left: 31px; font-size: 8px; color: pink; z-index: 20;">Days</span>
+        <div *ngIf="user"
+            style="position: absolute; top: 50px; left: 0; z-index: 19; width: 44px; border-radius: 5px; padding-top: 3px;"
+            class="main-color-bg">
             <div style="font-size: 8px;">Coins</div>
             <div style="font-size: 12px;">{{user.points}}</div>
         </div>
-        <div *ngIf="user && user.level>0" style="position: absolute; top: 50px; right: 0; z-index: 19; width: 44px; border-radius: 5px; padding-top: 3px;" class="main-color-bg">
+        <div *ngIf="user && user.level>0"
+            style="position: absolute; top: 50px; right: 0; z-index: 19; width: 44px; border-radius: 5px; padding-top: 3px;"
+            class="main-color-bg">
             <div style="font-size: 8px;">Level</div>
             <div style="font-size: 12px;">{{user.level}}</div>
         </div>
 
-        <i (mousedown)="closePopup()" class="fa fa-times profile-icon"
-            style="position: absolute; top: 15px; right: 25px; z-index: 20;"></i>
-        <div *ngIf="user" 
+        <img (mousedown)="closePopup()" src="assets/images/topBar/icons/iconX.png" class="top-icon-scale"
+            style="position: absolute; top: 10px; right: 25px; z-index: 20;">
+
+        <div *ngIf="user"
             style="position: absolute; bottom:0; left: 0; z-index: 20; background-color: #444; color: white; width: 100%; box-shadow: -2px -2px -3px black; height: 40px; border-radius: 10px; padding: 5px;">
-            &nbsp;
-            <button *ngIf="user && user.findLoveFlg" (mousedown)="toggleInfoMenu()" class="btn btn-main-color btn-small spacer">Info</button>
-            <button [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
-                class="btn btn-main-color btn-small spacer">Goto Profile</button>
-            <button *ngIf="user.textNotice"
-                (mousedown)="toggleTextMenu()" class="btn btn-main-color btn-small spacer">Text</button>
+
+            <img *ngIf="user && user.findLoveFlg" (mousedown)="toggleInfoMenu()"
+                src="assets/images/topBar/icons/iconInfo.png" class="top-icon-scale">
+
+            <img [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
+                src="assets/images/topBar/icons/iconMore.png" class="top-icon-scale">
+
+            <img *ngIf="textNotice && matchLevel<2" (mousedown)="toggleTextMenu()"
+                src="assets/images/topBar/icons/iconMessages.png" class="top-icon-scale">
+            <img *ngIf="matchLevel>=2" [routerLink]="['/user-detail']" [queryParams]="{uid: user.user_id}"
+                src="assets/images/topBar/icons/iconMessages.png" class="top-icon-scale">
+
         </div>
         <img style="position: absolute; bottom:0; left: 0; z-index: 20;"
             src="assets/images/profile/left-bottom-item.png" height="55">
         <img style="position: absolute; bottom:0; right: 0; z-index: 20;"
             src="assets/images/profile/right-bottom-item.png" height="55">
 
-        <div *ngIf="user" style="position: absolute; z-index: 20; bottom: 12px; left: 0; width: 96px; font-size: 8px; color: white;">
+        <div *ngIf="user"
+            style="position: absolute; z-index: 20; bottom: 12px; left: 0; width: 96px; font-size: 8px; color: white;">
             <span (mousedown)="togglePicsMenu()" *ngIf="user.numPics>0" style="display: inline-block; margin: 6px;">
                 <div>{{user.numPics+1}} pics</div>
                 <i class="fa fa-picture-o profile-icon"></i>
@@ -70,12 +87,13 @@
                     class="fa fa-camera profile-icon"></i>
             </span>
         </div>
-        <span *ngIf="user && user.findLoveFlg"  
+        <span *ngIf="user && user.findLoveFlg"
             style="font-size: 8px; color: white; position: absolute; bottom: 39px; right: 25px; z-index: 20;">Reputation</span>
-        <i *ngIf="user && user.picCertificateFlg && user.findLoveFlg" (mousedown)="showMyReputation()" class="fa fa-certificate profile-icon"
+        <i *ngIf="user && user.picCertificateFlg && user.findLoveFlg" (mousedown)="showMyReputation()"
+            class="fa fa-certificate profile-icon"
             style="position: absolute; bottom: 10px; right: 33px; font-size: 30px; color: #900; z-index: 20;"></i>
-        <span *ngIf="user && user.reputationScore>0 && user.findLoveFlg" (mousedown)="showMyReputation()" class="reputation-score"
-            title="Reputation Score">{{user.reputationScore}}</span>
+        <span *ngIf="user && user.reputationScore>0 && user.findLoveFlg" (mousedown)="showMyReputation()"
+            class="reputation-score" title="Reputation Score">{{user.reputationScore}}</span>
 
         <div *ngIf="displayDropdownMenu" class="slide-in-menu" [ngStyle]="ngStyleDropDown()">
             <div>&nbsp;</div>

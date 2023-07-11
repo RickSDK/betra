@@ -13,19 +13,15 @@
 
 .home-button {
    position: fixed;
-    top: 10px;
-    left: 65px;
+    top: 2px;
+    left: 55px;
     font-size: 28px;
     color: white;
     background-color: transparent;
     text-align: center;
     z-index: 205;
     transition: all 1s ease;
-}
-
-.home-button:hover {
     cursor: pointer;
-    text-shadow: 2px 2px black;
 }
 
 .main-menu-dots {
@@ -81,15 +77,15 @@
     position: fixed;
     cursor: pointer;
     border-radius: 10px 10px 0 0;
-    width: 44px;
-    height: 44px;
+    width: 50px;
+    height: 48px;
     background-color: black;
     color: greenyellow;
     bottom: 0px;
     z-index: 500;
     text-align: center;
     font-size: 24px;
-    padding: 5px;
+    padding: 2px;
 }
 
 .bottom-tab:hover {
@@ -246,8 +242,19 @@
     box-shadow: 2px 2px 5px black;
 }
 
+.top-icon-scale {
+    cursor: pointer;
+    height: 38px;
+    transition:all 0.25s ease;
+}
+
+.top-icon-scale:hover {
+    filter: saturate(2);
+    -webkit-transform:scale(1.25)
+}
+
 .top-icon-label {
-    display: block;
+    display: none;
     position: absolute;
     width: 45px;
     text-align: center;
@@ -324,7 +331,7 @@
         padding: 3px;
     }
     .right-segment {
-        width: 108px;
+        width: 92px;
     }
     .top-link {
         font-size: 14px;
@@ -343,11 +350,15 @@
         right: 60px;
     }
     .home-button {
-        left: 15px;
+        left: 7px;
     }
 }
 
 @media screen and (max-width: 500px) {
+    .top-icon-scale {
+        height: 33px;
+        width: 35px;
+    }
     .hide-back {
         display: none;
     }

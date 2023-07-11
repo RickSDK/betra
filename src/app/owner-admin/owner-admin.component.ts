@@ -191,7 +191,8 @@ export class OwnerAdminComponent extends BaseComponent implements OnInit {
       this.likedUsers = 0;
       responseJson.recentUsers.forEach((element: any) => {
         var usr = new User(element, this.user);
-        if (usr.potentialLoveInterestFlg) {
+        //console.log('xxx', usr.firstName, usr.findLoveFlg, usr.potentialLoveInterestFlg);
+        if (usr.potentialLoveInterestFlg && usr.findLoveFlg) {
 
           this.potentialUsers++;
           if (usr.matchObj && usr.matchObj.you_interested && usr.matchObj.you_interested != '')

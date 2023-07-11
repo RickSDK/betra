@@ -89,8 +89,8 @@
     border-radius: 50%;
     padding: 0 3px 0 3px;
     width: 20px;
-    bottom: 15px; 
-    right: 35px; 
+    bottom: 18px; 
+    right: 39px; 
     z-index: 121;
     cursor: pointer;
 }
@@ -260,6 +260,9 @@
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
+    font-size: 20px; 
+    line-height: 22px; 
+    margin-top: 2px;
 }
 
 .dabauchery-icon {
@@ -271,6 +274,18 @@
 .dabauchery-icon:hover {
     -webkit-filter: grayscale(0);
     filter: none;
+}
+
+.top-icon-scale {
+    cursor: pointer;
+    height: 33px;
+    transition:all 0.25s ease;
+    margin-left: 6px;
+}
+
+.top-icon-scale:hover {
+    filter: saturate(2);
+    -webkit-transform:scale(1.25)
 }
 
 .glow-button {
@@ -318,3 +333,12 @@ $green2: #18b200;
         box-shadow: 0 0 3px $light-green;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .name-bar {
+        font-size: 16px;
+    }
+    .bar-img {
+        display: none;
+    }
+ }

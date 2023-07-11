@@ -25,6 +25,18 @@
     transition: all 1s ease;
 }
 
+.top-icon-scale {
+    cursor: pointer;
+    height: 33px;
+    transition:all 0.25s ease;
+    margin-left: 6px;
+}
+
+.top-icon-scale:hover {
+    filter: saturate(2);
+    -webkit-transform:scale(1.25)
+}
+
 .user-popup-init {
     opacity: 0;
     display: inline-block;

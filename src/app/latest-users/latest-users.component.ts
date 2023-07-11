@@ -52,6 +52,9 @@ export class LatestUsersComponent extends BaseComponent implements OnInit {
   }
 
   ngStyleRow(person: User) {
+    if (person.status == 'Active' && !person.findLoveFlg) {
+      return { 'background-color': '#ccc' };
+    }
     if (person.status == 'Deleted')
       return { 'background-color': 'red' };
     else if (person.status == 'Active' && person.potentialLoveInterestFlg)

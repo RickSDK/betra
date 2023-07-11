@@ -12,15 +12,16 @@
             <div style="font-size: 10px;">Game ends when one player says 'Yes' 5 times</div>
         </div>
         <div *ngIf="currentGameStatus=='Completed'" style="background-color: purple; color: white;">Game Over!</div>
-        <img src="assets/images/games/table1b.png" style="width: 100%;">
+        <div *ngIf="!myTurnToAskFlg">
+            <img src="assets/images/games/table1b.png" style="width: 100%;">
 
-        <app-game-chair *ngFor="let player of players; let i = index" [player]="player" [width]="80" [turn]="turn"
-            [position]="i"></app-game-chair>
+            <app-game-chair *ngFor="let player of players; let i = index" [player]="player" [width]="80" [turn]="turn"
+                [position]="i"></app-game-chair>
 
-
-        <div *ngIf="currentGameStatus == 'Playing'">
-            <img (mousedown)="emitEmoji(i)" [src]="emoji" *ngFor="let emoji of emojis; let i = index" width="30"
-                class="emoji">
+            <div *ngIf="currentGameStatus == 'Playing'">
+                <img (mousedown)="emitEmoji(i)" [src]="emoji" *ngFor="let emoji of emojis; let i = index" width="30"
+                    class="emoji">
+            </div>
         </div>
         <div *ngIf="gameError" style="background-color: yellow;">{{gameError}}</div>
         <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
@@ -37,6 +38,7 @@
                 <app-profile-pic *ngIf="winner && winner.profilePic>0" [user_id]="winner.user_id"
                     [profilePic]="winner.profilePic" [size]="100">
                 </app-profile-pic>
+                <div *ngIf="winner && winner.winnerName">{{winner.winnerName}}</div>
                 <div class="gray-text" *ngIf="numPlayers >= MIN_PLAYER">New game can start once the timer runs out</div>
                 <div class="gray-text" *ngIf="numPlayers < MIN_PLAYER">{{MIN_PLAYER}} players needed to start a new
                     game.</div>

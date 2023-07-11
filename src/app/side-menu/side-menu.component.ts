@@ -85,7 +85,6 @@ export class SideMenuComponent implements OnInit {
         { name: 'Messages', routerLink: '/messages', icon: 'fa fa-comments', id: 11 },
         { name: 'Blogs', routerLink: '/blogs', icon: 'fa fa-file-text', id: 0 },
         { name: 'Polls', routerLink: '/poll', icon: 'fa fa-question-circle', id: 0 },
-        { name: 'Marketplace', routerLink: '/market', icon: 'fa fa-line-chart', id: 0 },
 
       ];
       this.middleItems = [];

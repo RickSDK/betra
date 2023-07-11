@@ -42,6 +42,8 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     var tips = $('#tips').val();
     var classGenre = $('#classGenre').val();
     var instructor = $('#instructor').val();
+    var item1 = $('#item1').val();
+    var item2 = $('#item2').val();
 
     var params = {
       name: classType,
@@ -50,6 +52,8 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
       description: description,
       genre: classGenre,
       instructor: instructor,
+      item1: item1,
+      item2: item2,
       tips: tips
     }
     console.log(params);
@@ -63,6 +67,14 @@ export class PhotoSchoolComponent extends BaseComponent implements OnInit {
     }
     if (tips == "") {
       this.errorMessage = 'Include some tips for your class';
+      return;
+    }
+    if (item1 == "") {
+      this.errorMessage = 'Include item1';
+      return;
+    }
+    if (item2 == "") {
+      this.errorMessage = 'Include item2';
       return;
     }
 

@@ -140,6 +140,7 @@
             </div>
             <div *ngIf="menuNum==8">
                 <li>edit jsLib.js, change platform to 1, update version</li>
+                <li>Update android/app/build.gradle, incriment versionCode by 1, write new version <span class="text-highlight">{{appVersion}}</span> in versionName.</li>
                 <li>ng serve -o <span class="gray-text">(make sure it looks right)</span></li>
                 <li>ng build --prod</li>
                 <li>npx cap sync</li>
@@ -147,7 +148,6 @@
                 <li>Press green triangle <span class="gray-text">(takes about 15 minutes)</span></li>
                 <li>Select "Build" tab at the bottom to see progress</li>
                 <li>Verify app looks good</li>
-                <li>Update android/app/build.gradle, incriment versionCode by 1, write new version <span class="text-highlight">{{appVersion}}</span> in versionName.</li>
                 <li>Press red Square to stop</li>
                 <li>Build --> Clean Project</li>
                 <li>Click "Build --> Generate Signed Bundle", select "Android App Bundle", click "Next", betraKey99z
@@ -180,7 +180,7 @@
                 <li>Make sure all assets are in place.</li>
                 <li>Click "App --> General", set version and build number</li>
                 <li>Check signing certificate</li>
-                <li>Replace <span class="text-highlight">source="$(readlink "$&#123;source&#125;")"</span> with <span class="text-highlight">source="$(readlink -f "$&#123;source&#125;")"</span></li>
+                <li>Pods-App_framework, Replace <span class="text-highlight">source="$(readlink "$&#123;source&#125;")"</span> with <span class="text-highlight">source="$(readlink -f "$&#123;source&#125;")"</span></li>
                 <li>Press build button (Triangle) <span class="gray-text">(takes about 5 minutes)</span></li>
                 <li>Press stop, then home on the simulator, then app icon to launch</li>
                 <li>Top, click App --> Any IOS Device (arm64)</li>

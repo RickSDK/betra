@@ -22,7 +22,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   @Input('login') login: number = 0;
   @Input('referralId') referralId: number = 0;
   @Input('liteModeFlg') override liteModeFlg: boolean = false;
-  
+
   @Output() messageEvent = new EventEmitter<string>();
 
   public static readonly PROVIDER_ID: string = 'APPLE';
@@ -41,6 +41,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   public policyCheckboxChecked: boolean = false;
   public googleFoundFlg: boolean = false;
   public platform: string = getPlatform();
+  public loginAttempt: number = 0;
 
 
   constructor(private router: Router, private ngZone: NgZone,
@@ -279,6 +280,22 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     };
     this.executeApi('login.php', params, true);
   }
+
+  override postErrorApi(file: string, error: string, data: string = '') {
+    this.loadingFlg = false;
+    if (error == '')
+      error = 'No success message returned';
+    this.errorMessage = error;
+    console.log('postErrorApi', error, data);
+    if (this.loginAttempt++ < 4 && data == 'fetch error') {
+      this.errorMessage = '';
+      this.loadingFlg = true;
+      setTimeout(() => {
+        this.loginPressed();
+      }, 1000);
+    }
+  }
+
   forgotPasswordPressed() {
     this.resetFlags(this.login);
     var email: string = $('#email').val();
@@ -338,7 +355,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    if(this.platform == 'IOS') {
+    if (this.platform == 'IOS') {
       this.liteModeFlg = true;
     }
     var code = btoa(password);
@@ -350,7 +367,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       code: code,
       referralId: this.referralId,
       firstName: firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1),
-      findLoveFlg: this.liteModeFlg?'N':'Y',
+      findLoveFlg: this.liteModeFlg ? 'N' : 'Y',
       action: 'createAccount'
     };
 

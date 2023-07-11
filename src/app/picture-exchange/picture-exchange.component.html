@@ -10,11 +10,6 @@
 
             <div *ngIf="activity==0">
                 <div class="matches-card">
-
-                    
-
-                    
-
                     <table>
                         <tr>
                             <td align="center">
@@ -40,7 +35,7 @@
                         <p class="gray-text" style="text-align: left;">Want to receive pictures? Simply click one of the
                             photographers below to request a picture.
                         </p>
-                        <p class="gray-text" style="text-align: left;">Want to send pictures? You decide what pictures
+                        <p class="gray-text" style="text-align: left;"  *ngIf="betraPlatform != 'IOS'">Want to send pictures? You decide what pictures
                             you
                             want
                             to
@@ -53,7 +48,7 @@
                             Its easy and fun. You can then exchange your coins for real cash at the
                             <span [routerLink]="['/market']" class="text-link">marketplace</span>.
                         </p>
-                        <p class="gray-text" style="text-align: left;">
+                        <p class="gray-text" style="text-align: left;" *ngIf="betraPlatform != 'IOS'">
                             Feel free to exchange as many pictures as you like, until you run out of coins, which you
                             get
                             for
@@ -88,7 +83,7 @@
                                 class="btn btn-warning spacer"><i class="fa fa-save"></i> Save
                             </button>
                             <hr>
-                            <div class="gray-text"><b>Pic types</b>: These are the exact types of pictures you are
+                            <div class="gray-text"  *ngIf="betraPlatform != 'IOS'"><b>Pic types</b>: These are the exact types of pictures you are
                                 willing
                                 to take and cost for each one. Assume $1 per coin, although actual value might end up
                                 being more or less depending on the market.</div>
@@ -172,7 +167,7 @@
 
                     <div *ngIf="newOrdersDeliveredFlg"
                         style="background-color: yellow; padding: 20px; border: 1px solid gray; border-radius: 10px;">
-                        You have a new order deliverd. Please confirm receipt.
+                        You have a new order delivered. Please confirm receipt.
                     </div>
                     <div *ngIf="myOrders.length>0">
                         <table class="betra-table" style="font-size: 12px;">
@@ -401,7 +396,7 @@
             <div *ngIf="activity==3">
                 <div class="gray-text">
                     <p class="red-text" style="font-size: 22px;">I want to be a phtographer</p>
-                    <p style="text-align: left;">Simply sign up here and indicate which types of pictures you are
+                    <p style="text-align: left;"  *ngIf="betraPlatform != 'IOS'">Simply sign up here and indicate which types of pictures you are
                         willing to take, and the price
                         for
                         each one. Other users can then start sending you requests for pictures, which gives you coins.
@@ -470,119 +465,6 @@
                     [disabled]="totalCost<=0">Join Now!</button>
             </div>
         </div>
-
-
-
-        <!--<div *ngIf="selectedPerson"
-            style="border-radius: 10px; border: 1px solid gray; margin: 10px; overflow: hidden; background-color: #eee;">
-            <div style="background-color: #444; color: white;">
-                {{selectedPerson.firstName}}
-                <i (mousedown)="selectedPerson=null" class="fa fa-times"
-                    style="font-size: 18px; cursor: pointer; float: right; margin: 3px;"></i>
-            </div>
-            <div class="gray-text"><b>{{selectedPerson.firstName}}</b> is offering to send you a picture. Simply click
-                one of the 'Request' buttons to place your order.</div>
-
-            <table>
-                <tr>
-                    <td width="120">
-
-                        <app-profile-pic2 (mousedown)="showProfile(selectedPerson.user_id)"
-                            [user_id]="selectedPerson.user_id" [profilePic]="selectedPerson.profilePic" [size]="100">
-                        </app-profile-pic2>
-                        <div style="font-size: 10px;"><b>Order history</b></div>
-                        <div style="font-size: 10px;">Delivered: <span
-                                class="text-highlight">{{selectedPerson.ordersDelivered}}</span></div>
-                        <div style="font-size: 10px;">Pending: <span
-                                class="text-highlight">{{selectedPerson.ordersPending}}</span></div>
-                        <div *ngIf="selectedPerson.daysSince == 0" style="font-size: 10px; color: green;">Active Today!
-                        </div>
-                        <div *ngIf="selectedPerson.daysSince == 1" style="font-size: 10px; color: green;">Active
-                            Yesterday</div>
-                        <div *ngIf="selectedPerson.daysSince == 2" style="font-size: 10px; color: green;">Active 2 days
-                            ago</div>
-                    </td>
-                    <td>
-                        <div style="font-size: 10px; padding: 10px;">{{selectedPerson.details}}</div>
-                        <div *ngIf="selectedPerson.onSale" class="tan-box">
-                            <div>On Sale!</div>
-                            <div class="gray-text">All pics for this person are half off today!</div>
-                        </div>
-                        <table class="betra-table" *ngIf="!selectedType" style="background-color: white;">
-                            <tr>
-                                <th>Type</th>
-                                <th>Cost</th>
-                                <th>Buy</th>
-                            </tr>
-                            <tr *ngFor="let type of selectedPerson.types">
-                                <td>{{type.type}}</td>
-                                <td style="font-size: 10px;" align="center">
-                                    <span *ngIf="!selectedPerson.onSale">{{type.cost}}</span>
-                                    <span *ngIf="selectedPerson.onSale"
-                                        style="font-size: 12px; color: green;"><s>{{type.cost}}</s> {{type.sale}}</span>
-                                    coins
-                                </td>
-                                <td><button
-                                        *ngIf="!selectedPerson.hasOrderPlaced && user.user_id != selectedPerson.user_id"
-                                        (mousedown)="buyPicture(type)"
-                                        class="btn btn-warning btn-small">Request</button></td>
-                            </tr>
-                        </table>
-                        <button *ngIf="!selectedPerson.hasOrderPlaced && user.user_id != selectedPerson.user_id"
-                            (mousedown)="specialRequestFlg=!specialRequestFlg"
-                            class="btn btn-main-color btn-small">Special Request</button>
-                        <div *ngIf="errorMessage" style="background-color: yellow;">{{errorMessage}}</div>
-                        <div *ngIf="selectedPerson.hasOrderPlaced"
-                            style="background-color: yellow; font-size: 12px; padding: 10px;">You have an order placed
-                            with this photographer, and cannot order any more until delivered.</div>
-                        <div><span [routerLink]="['/market']" class="text-link">Get more coins</span></div>
-                        <div>&nbsp;</div>
-                        <div *ngIf="selectedType">
-                            <div>Type: <span class="text-highlight">{{selectedType.type}}</span></div>
-                            <div>Cost: <span class="text-highlight">{{this.costOfPicture}} coins</span></div>
-                            <input type="text" maxlength="400" id="instructions" placeholder="Instructions">
-                            <button (mousedown)="placeOrder()" [disabled]="loadingFlg"
-                                class="btn btn-main-color btn-large" style="margin: 10px;">Place Order</button>
-                            <button (mousedown)="selectedType=null" class="btn btn-warning spacer">Cancel</button>
-                        </div>
-
-                    </td>
-                </tr>
-            </table>
-            <div *ngIf="specialRequestFlg">
-                <div>Special Request</div>
-                <div class="gray-text">Feel free to make any request you like. Your request can be accepted or declined.
-                    The person also has the option to block you from any further requests.</div>
-                <app-text-input [id]="'specialRequest'" [placeHolder]="'Instructions'" [maxLength]="400">
-                </app-text-input>
-                Coins:
-                <select name="specialCoins" id="specialCoins">
-                    <option *ngFor="let value of coinValues">{{value}}</option>
-                </select>
-                <button (mousedown)="submitSpecialRequest()" class="btn btn-main-color btn-large"
-                    style="margin: 10px;">Submit Special Request</button>
-                <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
-            </div>
-            <div *ngIf="selectedPerson.portfolioItems && selectedPerson.portfolioItems.length>0">
-                <div style="font-size: 10px;"><b>Portfolio</b></div>
-                <img (mousedown)="viewImage(item.src)" class="thumbnail-img"
-                    *ngFor="let item of selectedPerson.portfolioItems" [src]="item.src" height="40" width="40">
-            </div>
-            <div *ngIf="selectedPerson.pics.length>0">
-                <hr>
-                <div>My pics</div>
-                <div *ngFor="let pic of selectedPerson.pics" style="display: inline-block; margin: 3px;">
-                    <img (mousedown)="viewImage(pic.src)" class="thumbnail-img" [src]="pic.src" height="100">
-                    <div style="font-size: 12px; background-color: #ccc; border-radius: 5px;">{{pic.type}}</div>
-                </div>
-            </div>
-        </div>
-
-        <div *ngIf="selectedPerson">
-            <span (mousedown)="selectedPerson=null" class="text-link">More photographers</span>
-        </div>-->
-
-
 
         <div>
             <div *ngIf="sellerFlg == 'Y'" class="tan-box">
@@ -730,7 +612,7 @@
                     <div *ngIf="selectedPerson.hasOrderPlaced"
                         style="background-color: yellow; font-size: 12px; padding: 10px;">You have an order placed
                         with this photographer, and cannot order any more until delivered.</div>
-                    <div><span [routerLink]="['/market']" class="text-link">Get more coins</span></div>
+                    <div  *ngIf="betraPlatform != 'IOS'"><span [routerLink]="['/market']" class="text-link">Get more coins</span></div>
                     <div>&nbsp;</div>
                     <div *ngIf="selectedType">
                         <div>Type: <span class="text-highlight">{{selectedType.type}}</span></div>

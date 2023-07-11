@@ -187,7 +187,10 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
           return;
         }
         if (!responseJson.infoObj.roseCeremonyDt || responseJson.infoObj.daysTillRoseCeremony <= 0) {
-          var message = 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.';
+          if(this.user.datingPool.length>20) {
+            var message = 'It has been 7 days since your last rose ceremony, so time for a new ceremony. You will hand out roses to your favorite people, and eliminate a few that you are not interested in.';
+            this.betraPopupComponent.showPopup('Rose Ceremony Time!', message, 99);
+          }
           if(this.user.datingPool.length==0) {
             message = 'You need to complete a Rose Ceremony in order to populate your dating pool.';
             this.betraPopupComponent.showPopup('Rose Ceremony Time!', message, 99);
