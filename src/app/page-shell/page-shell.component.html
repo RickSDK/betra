@@ -34,14 +34,14 @@
     <table width="100%" border="0" style="margin-top: 1px; color: white;" valign="middle">
         <tr>
             <td class="left-segment">&nbsp;</td>
-            <td align="center" style="padding-top: 8px;">
+            <td align="right" style="padding-top: 8px;">
                 <span class="menu-circle hide-xs" [routerLink]="['/blogs']">
                     <img src="assets/images/topBar/icons/iconBlog.png" class="top-icon-scale">
                     <!--<i class="fa fa-book icon-button main-color"></i>-->
                     <span class="top-icon-label">Blogs</span>
                     <span class="icon-label main-color-bg">Blogs</span>
                 </span>
-                <span class="menu-circle" [routerLink]="['/chat-room']">
+                <span class="menu-circle hide-xs" [routerLink]="['/chat-room']">
                     <img src="assets/images/topBar/icons/iconChat.png" class="top-icon-scale">
                     <!--<i class="fa fa-comment icon-button"></i>-->
                     <span class="top-icon-label">Chat</span>
@@ -49,7 +49,7 @@
                         style="background-color: green;">{{headerObj.chatPeople}}</span>
                     <span class="icon-label main-color-bg">Chat Room</span>
                 </span>
-                <span class="menu-circle hide-xxs" [routerLink]="['/photography']">
+                <span class="menu-circle" [routerLink]="['/photography']">
                     <img src="assets/images/topBar/icons/iconPhoto.png" class="top-icon-scale">
                     <!--<i class="fa fa-picture-o icon-button main-color"></i>-->
                     <span class="top-icon-label">Club</span>
@@ -57,7 +57,7 @@
                 </span>
             </td>
             <td align="center" title="Rose Ceremony">
-                <div [routerLink]="['/matches']" class="ceremony-countdown">
+                <div [routerLink]="['/matches']" class="ceremony-countdown hide-xxs">
                     <div class="red-text" style="font-size: 8px; margin-top: 2px;">🌹</div>
                     <div class="menu-circle">
                         <div class="red-text" style="line-height: 14px;">{{headerObj.dpCount}}</div>
@@ -65,15 +65,15 @@
                     <div class="red-text" style="font-size: 8px;">Pool</div>
                 </div>
             </td>
-            <td style="padding-top: 8px;" align="center">
-                <span class="menu-circle hide-xxs" [routerLink]="['/messages']">
+            <td style="padding-top: 8px;" align="left">
+                <span class="menu-circle" [routerLink]="['/messages']">
                     <img src="assets/images/topBar/icons/iconMessages.png" class="top-icon-scale">
                     <!--<i class="fa fa-comments icon-button main-color"></i>-->
                     <span class="top-icon-label">Messages</span>
                     <span *ngIf="headerObj.messageCount>0" class="red-circle">{{headerObj.messageCount}}</span>
                     <span class="icon-label main-color-bg">Messages</span>
                 </span>
-                <span class="menu-circle hide-xs" [routerLink]="['/matches']">
+                <span class="menu-circle" [routerLink]="['/matches']">
                     <img src="assets/images/topBar/icons/iconDP.png" class="top-icon-scale">
                     <!--<i class="fa fa-users icon-button main-color"></i>-->
                     <span class="top-icon-label">Pool</span>

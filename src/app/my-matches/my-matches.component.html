@@ -18,8 +18,12 @@
             <option>Name</option>
             <option>Intimacy Level</option>
         </select>
-        <button class="btn btn-main-color btn-small" [routerLink]="'/rose-ceremony'" style="margin: 10px;">Rose
-            Ceremony</button>
+        <div class="tan-box" *ngIf="daysTillRoseCeremony<=0">
+            <div>Time for your next Rose Ceremony!</div>
+            <button class="btn btn-main-color btn-large" [routerLink]="'/rose-ceremony'" style="margin: 10px;">Rose
+                Ceremony</button>
+            <div class="gray-text">This will allow you to drop people you are not interested in, plus let the others know you are still thinking of them.</div>
+        </div>
 
         <div class="tan-box" *ngIf="user.datingPool.length <= 4">
             You are down to just {{user.datingPool.length}} people in your dating pool. Click Rose Ceremony button above
@@ -83,13 +87,14 @@
             <p><i class="fa fa-heart" style="color: red;"></i> These people are very interested in you.</p>
         </div>
         <div *ngIf="menuNum==3 && !loadingFlg">
-            <div>These users have dropped you:</div>
+            <div *ngIf="playerList.length>0">These users have dropped you:</div>
             <div>&nbsp;</div>
             <app-profile-pic2 *ngFor="let person of playerList" (mousedown)="showProfile(person.user_id)" [user_id]="person.user_id"
                 [profilePic]="person.profilePic" [size]="80">
             </app-profile-pic2>
             <div>&nbsp;</div>
-            <p class="gray-text">Sorry, but these users have decided to move on. Don't worry, plenty of more fish in the
+            <div *ngIf="playerList.length==0">No users have dropped you.</div>
+            <p class="gray-text" *ngIf="playerList.length>0">Sorry, but these users have decided to move on. Don't worry, plenty of more fish in the
                 sea!</p>
         </div>
 

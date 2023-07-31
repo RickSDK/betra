@@ -44,7 +44,7 @@ export class ProfileTopComponent implements OnInit {
   public showDPMenu: boolean = false;
   public displayDPMenu: boolean = false;
 
-  public textNotice: string = 'With Betra, users must be in each other\'s dating pools to communicate';
+  public textNotice: string = 'With Betra2, users must be in each other\'s dating pools to communicate';
 
   constructor() { }
 
@@ -75,6 +75,7 @@ export class ProfileTopComponent implements OnInit {
   }
 
   setTextNotice() {
+    this.textNotice = this.user.textNotice;
     if (this.user.matchObj) {
       if (this.user.matchObj.match_level >= 2)
         this.textNotice = 'Scroll down to text';

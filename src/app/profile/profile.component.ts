@@ -633,13 +633,18 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   uploadPicButtonClicked(num: number) {
+    var image = $('#' + this.bonusImages[num]).attr('src')
+    if(image.length > 900000) {
+      this.errorMessage = 'Sorry, image too big. try again';
+      return;
+    }
     this.loadingFlg = true;
     var params = {
       userId: this.user.user_id,
       code: localStorage['code'],
       action: 'updateBonusImage',
       picNum: num + 1,
-      image: $('#' + this.bonusImages[num]).attr('src')
+      image: image
     };
     //console.log('uploadPicButtonClicked', params);
     this.executeApi('appApiCode.php', params, true);
@@ -659,6 +664,11 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   updateImageButton2Clicked() {
+    var image = $('#myImg').attr('src');
+    if(image.length > 900000) {
+      this.errorMessage = 'Sorry, image too big. try again';
+      return;
+    }
     this.loadingFlg = true;
     this.showSubmitButtonFlg = false;
     this.imageSelected = true;
@@ -671,7 +681,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         userId: this.user.user_id,
         code: localStorage['code'],
         action: 'updateMainImage',
-        image: $('#myImg').attr('src')
+        image: image
       };
       //console.log('updateImageButtonClicked', params);
       this.executeApi('appApiCode.php', params, true);

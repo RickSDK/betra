@@ -62,11 +62,18 @@ export class CheckListComponent extends BaseComponent implements OnInit {
         this.levelItems.push({ name: 'Pictures requested from Photo Club', amount: responseJson.picsRequested, goal: 4 });
       }
       if (this.page.level == 3) {
-        this.levelItems.push({ name: 'Consecutive days on app', amount: responseJson.consecutiveDays, goal: 9 });
+        this.levelItems.push({ name: 'Consecutive days on app', amount: responseJson.consecutiveDays, goal: 8 });
         this.levelItems.push({ name: 'Messages sent to users', amount: responseJson.messageCount, goal: 100 });
         this.levelItems.push({ name: 'Gifts given to users', amount: responseJson.giftsGiven, goal: 6 });
-        this.levelItems.push({ name: 'Pictures requested from Photo Club', amount: responseJson.picsRequested, goal: 8 });
+        this.levelItems.push({ name: 'Pictures requested from Photo Club', amount: responseJson.picsRequested, goal: 12 });
         this.levelItems.push({ name: 'Games Played at Game Room', amount: responseJson.gamesINever, goal: 4 });
+      }
+      if (this.page.level == 4) {
+        this.levelItems.push({ name: 'Consecutive days on app', amount: responseJson.consecutiveDays, goal: 10 });
+        this.levelItems.push({ name: 'Messages sent to users', amount: responseJson.messageCount, goal: 200 });
+        this.levelItems.push({ name: 'Gifts given to users', amount: responseJson.giftsGiven, goal: 12 });
+        this.levelItems.push({ name: 'Pictures requested from Photo Club', amount: responseJson.picsRequested, goal: 25 });
+        this.levelItems.push({ name: 'Games Played at Game Room', amount: responseJson.gamesINever, goal: 8 });
       }
 
     }

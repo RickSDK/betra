@@ -26,8 +26,30 @@
             revenue generated.
         </div>
         <div>
-            Notice: All owners who make it to level 5 AND attend at least one zoom call will receive <span style="color: green; font-weight: 700; font-size: 18px;">$50</span> bonus pay via paypal!
+            Notice: All owners who level up AND attend at least one zoom call will receive <span style="color: green; font-weight: 700; font-size: 18px;">Cash</span> bonus pay via paypal!
         </div>
+        <table>
+            <tr>
+                <th>Level</th>
+                <th>Payout</th>
+            </tr>
+            <tr>
+                <th>4</th>
+                <th>$10</th>
+            </tr>
+            <tr>
+                <th>5</th>
+                <th>$50</th>
+            </tr>
+            <tr>
+                <th>6</th>
+                <th>$60</th>
+            </tr>
+            <tr>
+                <th>7</th>
+                <th>$80</th>
+            </tr>
+        </table>
 
         <div *ngIf="showCongratulationsFlg" style="color: green; font-size: 22px; font-weight: 700;">Congratulations!
             Promotion Achieved</div>
@@ -183,9 +205,9 @@
                                 *ngIf="ownersPage.reviewCount > 5" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
-                        <td>At least 5 profile pics approved</td>
+                        <td>At least 3 profile pics approved</td>
                         <td><b class="text-highlight">{{ownersPage.picVerifiedCount}}</b> <i
-                                *ngIf="ownersPage.picVerifiedCount > 4" style="color: green;" class="fa fa-check"></i></td>
+                                *ngIf="ownersPage.picVerifiedCount > 2" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
                         <td>At least 2 people referred to app</td>
@@ -208,7 +230,7 @@
                                 *ngIf="ownersPage.picsTaken > 1" style="color: green;" class="fa fa-check"></i></td>
                     </tr>
                     <tr>
-                        <td>At least 14 Consecutive days on app</td>
+                        <td>At least 12 Consecutive days on app</td>
                         <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
                                 *ngIf="ownersPage.consecutiveDays > 13" style="color: green;" class="fa fa-check"></i>
                         </td>
@@ -230,6 +252,70 @@
 
         </div>
 
+        <div *ngIf="yourLevel.level==5 && !loadingFlg">
+            <div class="border-box">
+                <div class="red-text">How to get Promoted?</div>
+                <div>To get promoted to level <b class="text-highlight">6</b>, complete the following:</div>
+
+
+                <table border="1">
+                    <tr>
+                        <th>Item</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td>At least 500 messages sent</td>
+                        <td><b class="text-highlight">{{ownersPage.messageCount}}</b><i
+                                *ngIf="ownersPage.messageCount > 299" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 8 user reviews</td>
+                        <td><b class="text-highlight">{{ownersPage.reviewCount}}</b><i
+                                *ngIf="ownersPage.reviewCount >= 8" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 5 people referred to app</td>
+                        <td><b class="text-highlight">{{ownersPage.referralCount}}</b> <i
+                                *ngIf="ownersPage.referralCount > 4" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 10 gifts given</td>
+                        <td><b class="text-highlight">{{ownersPage.giftsGiven}}</b> <i
+                                *ngIf="ownersPage.giftsGiven > 9" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 24 photography club pics requested</td>
+                        <td><b class="text-highlight">{{ownersPage.picsRequested}}</b> <i
+                                *ngIf="ownersPage.picsRequested > 23" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 12 photography club pics taken</td>
+                        <td><b class="text-highlight">{{ownersPage.picsTaken}}</b> <i
+                                *ngIf="ownersPage.picsTaken > 11" style="color: green;" class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>At least 12 Consecutive days on app</td>
+                        <td><b class="text-highlight">{{ownersPage.consecutiveDays}}</b><i
+                                *ngIf="ownersPage.consecutiveDays > 11" style="color: green;" class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>At least 5 games of I Never</td>
+                        <td><b class="text-highlight">{{ownersPage.gamesINever}}</b><i
+                                *ngIf="ownersPage.gamesINever > 4" style="color: green;" class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>At least 8 Photo classes taken</td>
+                        <td><b class="text-highlight">{{ownersPage.classesTaken}}</b><i
+                                *ngIf="ownersPage.classesTaken > 7" style="color: green;" class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
 
         <div *ngIf="goalReachedFlg">
             <div style="color: green;"><i class="fa fa-check"></i> Goal Reached!</div>
@@ -237,6 +323,14 @@
                 Promotion</button>
         </div>
 
+        <div class="border-box" style="text-align: left; font-size: 10px;">
+            <div>How to get more referrals.</div>
+            <li>Go to Settings, Referrals to get your referral link.</li>
+            <li>Post a link on your social media page asking people to try out the app.</li>
+            <li>If you have any singles friends, ask them to try it out.</li>
+            <li>If you have any tech savy friends who would like to be owners/testers, send them the referral link to sign up.</li>
+            <li>Create free craigslist posts.</li>
+        </div>
         <hr>
 
 

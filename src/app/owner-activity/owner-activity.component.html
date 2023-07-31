@@ -6,10 +6,10 @@
         <hr>
 
         <app-owners-menu [pageTitle]="'Activity'" [page]="1"></app-owners-menu>
-
+        <hr>
         <button *ngIf="userId==1" (mousedown)="emailReports()" class="btn btn-primary spacer" [disabled]="loadingFlg"><i class="fa fa-envelope"></i>
             Email Reports</button>
-
+            <div *ngIf="userId==1">Send Saturdays</div>
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
 
         <div class="tan-box">This shows all owners Level 2 and higher, indicating total swipes and recent swipes (the past 48 hours). Green means active in the past 2 days.</div>

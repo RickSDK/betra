@@ -60,7 +60,7 @@
             <div *ngIf="selectedItemNum==4" class="tan-box">
                 <div>Click here to verify your Location:</div>
                 <div *ngIf="searchLocFlg" id="gpsMessage" name="gpsMessage" class="important-notice"></div>
-                <button *ngIf="!searchLocFlg" (mousedown)="verifyLocation()" class="btn btn-main-color">Verify
+                <button [routerLink]="['/location']" class="btn btn-main-color">Verify
                     Location</button>
                 <div *ngIf="searchLocFlg">
                     <div>Latitude: <span id="latitude" class="text-highlight"></span></div>

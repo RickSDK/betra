@@ -733,18 +733,22 @@ export class User {
             this.bodyDesc = this.bodyHeight + ' ' + this.genderName;
 
         //match details
-        this.textNotice = '';
         if (myUser && myUser.user_id > 0) {
             if (this.findLoveFlg && this.matchObj && myUser.user_id != this.user_id) {
                 if (this.matchObj.showButtonsFlg)
-                    this.textNotice = 'With Betra, you can only communicate with people in your dating pool. Click thumbs up if you would like to let ' + this.firstName + ' know you are interested.';
+                    this.textNotice = 'With Betra1, you can only communicate with people in your dating pool. Click thumbs up if you would like to let ' + this.firstName + ' know you are interested.';
                 if (this.matchObj.match_level <= 1 && !this.matchObj.match_interested)
                     this.textNotice = this.firstName + ' has been notified that you are interested but hasn\'t responded, which means you are not able to text at this time.';
                 if (this.matchObj.match_level <= 1 && this.matchObj.match_interested == 'Y')
                     this.textNotice = this.firstName + ' is interested in you, but you said no. To chat, you need to add this user to your dating pool, under the "Admirers" tab.';
                 if (this.matchObj.match_level <= 1 && this.matchObj.match_interested == 'N')
                     this.textNotice = this.firstName + ' is not interested in you. Sorry, but there are lots of more fish in the sea. Move on to someone else.';
-                //   console.log('hey', this.matchObj);
+
+                if (this.matchPreference == 'F' && myUser.gender == 'M')
+                    this.textNotice = 'Sorry but '+this.firstName+' is only looking for women';
+                if (this.matchPreference == 'M' && myUser.gender == 'F')
+                    this.textNotice = 'Sorry but '+this.firstName+' is only looking for men';
+
             }
             this.potentialLoveInterestFlg = this.user_id != myUser.user_id;
             if (myUser.matchPreference == 'F' && this.gender == 'M')

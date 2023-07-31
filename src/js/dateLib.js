@@ -36,6 +36,18 @@ function getDateObjFromJSDate(dateStr = '') {
     else
         distanceAway = (daysAgo * -1).toString() + ' days from now';
 
+    var timeTillEvent = distanceAway;
+    if (timeTillEvent == 'Today') {
+        var hoursAway = parseInt(timeDiff * -1 / 1000 / 60 / 60);
+        var minutesAway = parseInt(timeDiff * -1 / 1000 / 60);
+        timeTillEvent = minutesAway + ' minutes';
+        if (minutesAway > 90) {
+            timeTillEvent = hoursAway + ' hours';
+            if (hoursAway == 1)
+                timeTillEvent = hoursAway + ' hour';
+
+        }
+    }
     var nowLocal = now.toLocaleDateString();
     var time = dt.toLocaleTimeString();
     var segments = time.split(' ');
@@ -48,7 +60,7 @@ function getDateObjFromJSDate(dateStr = '') {
     //    getTimezoneOffset -= 480; // mountain time (no good)
     var mountainTZ = 360;
     var tzDiff = getTimezoneOffset - mountainTZ;
-    var localDt = new Date(dt.getTime() - tzDiff * 1000*60);
+    var localDt = new Date(dt.getTime() - tzDiff * 1000 * 60);
 
 
     if (dt.toLocaleDateString() == nowLocal)
@@ -78,6 +90,9 @@ function getDateObjFromJSDate(dateStr = '') {
         html5Date: dateComponentFromDateStamp(dt),
         html5Time: dateComponentFromDateStamp(dt, true),
         secondsAgo: parseInt(timeDiff / 1000),
+        timeTillEvent: timeTillEvent,
+        minutesFromNow: parseInt(timeDiff * -1 / 1000 / 60),
+        hoursFromNow: parseInt(timeDiff * -1 / 1000 / 3600),
         daysAgo: daysAgo,
         day: dt.getDay(),
         dayOfMonth: dt.getDate(),

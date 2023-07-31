@@ -183,6 +183,7 @@ export class UserCommunicationComponent extends BaseComponent implements OnInit 
       if (lastMessageFromOtherPerson)
         this.showTextInputFlg = true;
 
+     //   console.log('xxxhey!', this.matchUser.matchObj.match_level, this.messages.length);
       /*
       if (this.matchUser.matchObj.match_level == 2 && this.messages.length > 0) {
         this.getDataFromServer('fixMatchLevel', 'betraMessages.php', { uid: this.matchUser.user_id })

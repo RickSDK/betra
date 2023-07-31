@@ -245,6 +245,7 @@
 .top-icon-scale {
     cursor: pointer;
     height: 38px;
+    margin: 2px;
     transition:all 0.25s ease;
 }
 
@@ -320,9 +321,6 @@
 @media screen and (max-width: 600px) {
     .top-icon-label {
         width: 35px;
-    }
-    .menu-circle {
-        margin: 1px;
     }
     .left-segment {
         width: 100px;

@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class GameIneverComponent extends BaseComponent implements OnInit {
 
-  public MIN_PLAYER: number = 2;
+  public MIN_PLAYER: number = 4;
 
   public players: any = [];
   public realPlayers: any = [];
@@ -35,6 +35,7 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   public gameStartedFlg: boolean = false;
   public timerSeconds: number = 60;
   public myTurnToAskFlg: boolean = false;
+  public myTurnToAskFlg2: boolean = false;
   public winner: any = { user_id: 53, profilePic: 1 };
   public emojis = [
     'assets/images/emojis/ban.png',
@@ -222,6 +223,7 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
   }
 
   startGame() {
+    console.log('here!! startGame');
     this.getDataFromServer('startGame', 'iNever.php', {});
   }
 
@@ -249,10 +251,16 @@ export class GameIneverComponent extends BaseComponent implements OnInit {
         this.turn = 0;
 
       this.myTurnToAskFlg = (this.turn == this.user.user_id);
+      if (this.myTurnToAskFlg && !this.myTurnToAskFlg2) {
+        this.myTurnToAskFlg2 = true;
+        this.randomQuestionStr = 'Never have I ever ';
+      }
+      if (!this.myTurnToAskFlg)
+        this.myTurnToAskFlg2 = false;
       if (this.myTurnToAskFlg && this.randomQuestionStr == '')
         this.randomQuestionStr = 'Never have I ever ';
-      else
-        this.randomQuestionStr = '';
+      //      else
+      //      this.randomQuestionStr = '';
       this.players = [];
       this.realPlayers = [];
       this.numPlayers = 0;

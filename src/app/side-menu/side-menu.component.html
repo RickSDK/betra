@@ -25,21 +25,42 @@
             <span>{{item.name}}</span>
         </div>
     </div>
-    <div *ngIf="!headerObj.liteModeFlg" class="group-heading" (mousedown)="toggleInteractMenu=!toggleInteractMenu">
+    <div *ngIf="!headerObj.liteModeFlg" class="group-heading">
         Interact
-        <i [ngClass]="toggleInteractMenu?'fa fa-caret-down caret-icon':'fa fa-caret-right caret-icon'"></i>
     </div>
-    <div *ngIf="toggleInteractMenu">
-        <div *ngFor="let item of middleItems">
-            <div [routerLink]="[item.routerLink]" [ngClass]="ngClassMenuItem(item.name)"><i [class]="item.icon"></i>
-                &nbsp;
-                <span>{{item.name}}</span>
-                <span *ngIf="item.id==11 && messageCount>0" class="red-circle">{{messageCount}}</span>
-                <span *ngIf="item.id==12 && dateCount>0" class="red-circle">{{dateCount}}</span>
-                <span *ngIf="item.id==14 && journalCount>0" class="red-circle">{{journalCount}}</span>
-            </div>
-        </div>
-    </div>
+    <table width="100%" style="font-size: 8px; color: #aaa;">
+        <tr>
+            <td [routerLink]="['/messages']" align="center" width="33%" style="position: relative;">
+                <div><i class="fa fa-comments side-icon"></i></div>
+                <div>Messages</div>
+                <span *ngIf="messageCount>0" class="red-circle">{{messageCount}}</span>
+            </td>
+            <td [routerLink]="['/blogs']" align="center" width="33%" style="position: relative;">
+                <div><i class="fa fa-file-text side-icon"></i></div>
+                <div>Blogs</div>
+            </td>
+            <td [routerLink]="['/poll']" align="center" style="position: relative;">
+                <div><i class="fa fa-question-circle side-icon"></i></div>
+                <div>Polls</div>
+            </td>
+        </tr>
+        <tr>
+            <td [routerLink]="['/market']" align="center" width="33%" style="position: relative;">
+                <div><i class="fa fa-line-chart side-icon"></i></div>
+                <div>Marketplace</div>
+            </td>
+            <td [routerLink]="['/journal']" align="center" width="33%" style="position: relative;">
+                <div><i class="fa fa-book side-icon"></i></div>
+                <div>Journal</div>
+                <span *ngIf="journalCount>0" class="red-circle">{{journalCount}}</span>
+            </td>
+            <td [routerLink]="['/user-dates']" align="center" style="position: relative;">
+                <div><i class="fa fa-calendar side-icon"></i></div>
+                <div>Dates</div>
+                <span *ngIf="dateCount>0" class="red-circle">{{dateCount}}</span>
+            </td>
+        </tr>
+    </table>
     <div class="group-heading"></div>
     <div *ngFor="let item of bottomItems">
         <div [routerLink]="[item.routerLink]" [queryParams]="{id: item.id}" [ngClass]="ngClassMenuItem(item.name)"><i

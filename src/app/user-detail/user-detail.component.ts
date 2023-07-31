@@ -63,6 +63,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   public daysTillRoseCeremony: number = 0;
   public messagesLoadingFlg: boolean = false;
   public distanceRange: number = 0;
+  public noGoodMatchesFoundFlg:boolean = false;
   //  public showOverflowPopup: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, databaseService: DatabaseService) { super(databaseService); }
@@ -226,8 +227,9 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
           // must do ceremony first!
           this.playerList = [];
         }
-        if (responseJson.count1 == 0 && this.id == 2)
-          this.playerList = [];
+        if (responseJson.count1 == 0 && this.id == 2) {
+          //this.playerList = [];
+        }
         //console.log('xxxthis.playerList (sorted)', this.playerList);
 
         this.playerList.forEach((element: any) => {
@@ -236,8 +238,12 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
 
 
         this.currentProfileIndex = 0;
-        if (this.playerList.length > 0)
-          this.showCurrentProfile();
+        if (this.playerList.length > 0) {
+          if (responseJson.count1 == 0 && this.id == 2) 
+            this.noGoodMatchesFoundFlg = true;
+          else
+            this.showCurrentProfile();
+        }
       }
     }
     if (responseJson.action == 'findMatchesAdvanced') {

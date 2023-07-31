@@ -14,7 +14,10 @@
  
         <app-spinner [loadingFlg]="loadingFlg" [errorMessage]="errorMessage"></app-spinner>
         <div *ngIf="!loadingFlg">
-            <div class="tan-box" *ngIf="showUnreadMessageFlg">Note you have unread messages from someone who is no longer in your dating pool. Click "Unread Messages" above to see all unread messages</div>
+            <div class="tan-box" *ngIf="showUnreadMessageFlg">
+                <div><i class="fa fa-exclamation-triangle" style="font-size: 48px;"></i></div>
+                Note: you have unread messages from someone who is no longer in your dating pool. Click "Unread Messages" above to see all unread messages
+            </div>
             <div *ngIf="menuNum == 0" class="gray-text">Most recent message from each person</div>
             <div *ngIf="menuNum == 1 && playerList.length==0" class="special-box">
                 No unread messages.
@@ -23,7 +26,7 @@
                 <p>You don't have messages yet. Step one is to get people in your dating pool. Then start up conversations.</p>
                 <button [routerLink]="['/user-detail']" class="btn btn-main-color btn-large">Browse Singles</button>
             </div>
-            <table>
+            <table *ngIf="!showUnreadMessageFlg">
                 <tr *ngFor="let player of playerList" [routerLink]="['/user-detail']" [queryParams]="{uid: player.user_id}" >
                     <td>
                         <app-profile-pic [user_id]="player.user_id" [profilePic]="player.profilePic" [size]="40">
